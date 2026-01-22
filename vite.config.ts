@@ -12,12 +12,5 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@assets': path.resolve(__dirname, './src/assets'),
-      '@shared': path.resolve(__dirname, './src/shared'),
-      '@features': path.resolve(__dirname, './src/features'),
-    },
-  },
+  resolve: { alias: { '@': path.resolve(__dirname, './src') } },
 });

@@ -21,6 +21,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@/shared/components/ui/sidebar';
+import { useDirection } from '@radix-ui/react-direction';
 
 const data = {
   user: {
@@ -135,8 +136,11 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const dir = useDirection();
+  const isLtr = dir === 'ltr';
+
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar side={isLtr ? 'left' : 'right'} collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarBrand />
       </SidebarHeader>
@@ -164,7 +168,7 @@ function SidebarBrand() {
             <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
               <GalleryVerticalEnd className="size-4" />
             </div>
-            <div className="grid flex-1 text-left text-sm leading-tight">
+            <div className="grid flex-1 text-sm leading-tight">
               <span className="truncate font-medium">IntelliPharm</span>
               <span className="text-sidebar-foreground/70 truncate text-xs">
                 Admin

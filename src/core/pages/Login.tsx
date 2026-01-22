@@ -1,6 +1,7 @@
+import LoginForm from '@/shared/components/LoginForm';
+import ModeToggle from '@/shared/components/ModeToggle';
+import LocaleToggle from '@/shared/components/LocaleToggle';
 import Logo from '@/shared/components/Logo';
-import { LoginForm } from '@/shared/components/LoginForm';
-import { ModeToggle } from '@/shared/components/ModeToggle';
 
 export default function LoginPage() {
   return (
@@ -12,8 +13,9 @@ export default function LoginPage() {
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs space-y-8">
             <LoginForm />
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center gap-4">
               <ModeToggle />
+              <LocaleToggle />
             </div>
           </div>
         </div>

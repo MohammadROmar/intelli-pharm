@@ -1,0 +1,30 @@
+{
+  "locale": {
+    "toggle": "Toggle language",
+    "ar": "Arabic",
+    "en": "English"
+  },
+
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+
+  "sidebar": {
+    "toggle": "Toggle sidebar"
+  },
+
+  "navigation": {
+    "dashboard": "Dashboard"
+  },
+
+  "loginPage": {
+    "title": "Login to your account",
+    "subtitle": "Enter your email below to login to your account",
+    "email": "Email",
+    "password": "Password",
+    "login": "Login"
+  }
+}

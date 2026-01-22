@@ -1,6 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { ModeToggle } from '../components/ModeToggle';
+import SidebarProvider from '../context/Sidebar';
+import ModeToggle from '../components/ModeToggle';
+import LocaleToggle from '../components/LocaleToggle';
 import { AppSidebar } from '@/shared/components/AppSidebar';
 import {
   Breadcrumb,
@@ -10,13 +13,9 @@ import {
   BreadcrumbPage,
 } from '@/shared/components/ui/breadcrumb';
 import { Separator } from '@/shared/components/ui/separator';
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from '@/shared/components/ui/sidebar';
+import { SidebarInset, SidebarTrigger } from '@/shared/components/ui/sidebar';
 
-export default function Page() {
+export default function DashboardLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -32,7 +31,10 @@ export default function Page() {
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
-            <ModeToggle />
+            <div className="flex items-center gap-2">
+              <ModeToggle />
+              <LocaleToggle />
+            </div>
           </div>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4">
@@ -45,6 +47,7 @@ export default function Page() {
 
 function BreadCrumbsItems() {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   const segments = pathname.split('/').filter(Boolean);
 
@@ -56,7 +59,7 @@ function BreadCrumbsItems() {
         return (
           <BreadcrumbItem key={href} className="hidden md:block">
             {i === segments.length - 1 ? (
-              <BreadcrumbPage>{segment}</BreadcrumbPage>
+              <BreadcrumbPage>{t(`navigation.${segment}`)}</BreadcrumbPage>
             ) : (
               <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
             )}
