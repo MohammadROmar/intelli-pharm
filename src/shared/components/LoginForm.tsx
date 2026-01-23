@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
 import { cn } from '../lib/utils';
 import { Button } from '@/shared/components/ui/button';
@@ -29,28 +30,7 @@ export default function LoginForm({
           <CardDescription>{t('loginPage.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="email">{t('loginPage.email')}</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="password">
-                  {t('loginPage.password')}
-                </FieldLabel>
-                <Input id="password" type="password" required />
-              </Field>
-              <Field>
-                <Button type="submit">{t('loginPage.login')}</Button>
-              </Field>
-            </FieldGroup>
-          </form>
+          <Form t={t} />
         </CardContent>
         <CardFooter>
           <div className="flex w-full items-center justify-center gap-4">
@@ -60,5 +40,38 @@ export default function LoginForm({
         </CardFooter>
       </Card>
     </div>
+  );
+}
+
+function Form({ t }: { t: TFunction<'translation', undefined> }) {
+  return (
+    <form>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="email">{t('loginPage.email')}</FieldLabel>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            placeholder="m@example.com"
+            required
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="password">{t('loginPage.password')}</FieldLabel>
+          <Input
+            id="password"
+            name="password"
+            autoComplete="current-password"
+            type="password"
+            required
+          />
+        </Field>
+        <Field>
+          <Button type="submit">{t('loginPage.login')}</Button>
+        </Field>
+      </FieldGroup>
+    </form>
   );
 }

@@ -4,8 +4,8 @@ export default function LoginSkeleton() {
   return (
     <main className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <div className="flex items-center justify-center">
-          <Skeleton className="h-6 w-24" />
+        <div className="mb-8 flex items-center justify-center">
+          <Skeleton className="h-8 w-32" />
         </div>
         <div className="bg-card space-y-6 rounded-xl border p-6">
           <div className="space-y-2">

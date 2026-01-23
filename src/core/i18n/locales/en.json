@@ -32,5 +32,11 @@
     "title": "Page Not Found",
     "subtitle": "Oops! The page you're trying to access doesn't exist.",
     "action": "Go Back Home"
+  },
+
+  "errorPage": {
+    "title": "Something went wrong",
+    "subtitle": "We encountered an unexpected error while processing your request. Please try again later.",
+    "action": "Return to Homepage"
   }
 }

@@ -8,9 +8,11 @@ export default function LoginPage() {
       <BackgroundPattern />
 
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <div className="flex items-center gap-2 self-center font-medium rtl:flex-row-reverse">
-          <Logo withColors className="size-4" />
-          <h1 id="login-title">IntelliPharm</h1>
+        <div className="mb-8 flex items-center justify-center gap-2">
+          <div className="bg-primary flex size-8 items-center justify-center rounded-lg">
+            <Logo className="size-5 text-white" />
+          </div>
+          <h1 className="text-xl font-bold">IntelliPharm</h1>
         </div>
         <LoginForm />
       </div>

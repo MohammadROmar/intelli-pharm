@@ -1,4 +1,4 @@
-import { lazy, Suspense, type ElementType, type ReactNode } from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ProtectedRoute from '@/features/dashboard/components/ProtectedRoute';
@@ -8,35 +8,22 @@ const DashboardRoute = lazy(
   () => import('@/features/dashboard/components/DashboardRoute'),
 );
 
-import HomePage from '@/core/pages/Home';
 const LoginPage = lazy(() => import('@/core/pages/Login'));
 const NotFoundPage = lazy(() => import('@/core/pages/NotFound'));
+const ErrorPage = lazy(() => import('@/core/pages/Error'));
 
 import DashboardSkeleton from '@/features/dashboard/components/DashboardSkeleton';
 import LoginSkeleton from '@/shared/components/LoginSkeleton';
-
-function WithSuspense({
-  loader,
-  Component,
-}: {
-  loader?: ReactNode;
-  Component: ElementType;
-}) {
-  return (
-    <Suspense fallback={loader}>
-      <Component />
-    </Suspense>
-  );
-}
+import WithSuspense from '@/shared/components/WithSuspense';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
+    errorElement: <WithSuspense Component={ErrorPage} />,
     children: [
-      { index: true, element: <HomePage /> },
       {
-        path: '/login',
+        index: true,
         element: (
           <WithSuspense Component={LoginPage} loader={<LoginSkeleton />} />
         ),
@@ -53,7 +40,8 @@ const router = createBrowserRouter([
         />
       </ProtectedRoute>
     ),
-    children: [{ index: true, element: <HomePage /> }],
+    errorElement: <WithSuspense Component={ErrorPage} />,
+    children: [{ index: true, element: <></> }],
   },
   { path: '*', element: <WithSuspense Component={NotFoundPage} /> },
 ]);
