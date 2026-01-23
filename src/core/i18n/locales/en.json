@@ -26,5 +26,11 @@
     "email": "Email",
     "password": "Password",
     "login": "Login"
+  },
+
+  "notFoundPage": {
+    "title": "Page Not Found",
+    "subtitle": "Oops! The page you're trying to access doesn't exist.",
+    "action": "Go Back Home"
   }
 }

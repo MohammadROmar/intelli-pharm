@@ -1,31 +1,18 @@
 import LoginForm from '@/shared/components/LoginForm';
-import ModeToggle from '@/shared/components/ModeToggle';
-import LocaleToggle from '@/shared/components/LocaleToggle';
+import BackgroundPattern from '@/shared/components/BackgroundPattern';
 import Logo from '@/shared/components/Logo';
 
 export default function LoginPage() {
   return (
-    <main className="grid min-h-svh lg:grid-cols-2">
-      <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
-          <Logo />
+    <main className="relative flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+      <BackgroundPattern />
+
+      <div className="flex w-full max-w-sm flex-col gap-6">
+        <div className="flex items-center gap-2 self-center font-medium rtl:flex-row-reverse">
+          <Logo withColors className="size-4" />
+          <h1 id="login-title">IntelliPharm</h1>
         </div>
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs space-y-8">
-            <LoginForm />
-            <div className="flex items-center justify-center gap-4">
-              <ModeToggle />
-              <LocaleToggle />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-muted relative hidden lg:block">
-        {/* <img
-          src="/placeholder.svg"
-          alt="Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        /> */}
+        <LoginForm />
       </div>
     </main>
   );

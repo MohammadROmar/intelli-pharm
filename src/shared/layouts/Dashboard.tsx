@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import SidebarProvider from '../context/Sidebar';
 import ModeToggle from '../components/ModeToggle';
 import LocaleToggle from '../components/LocaleToggle';
 import { AppSidebar } from '@/shared/components/AppSidebar';
@@ -17,10 +16,10 @@ import { SidebarInset, SidebarTrigger } from '@/shared/components/ui/sidebar';
 
 export default function DashboardLayout() {
   return (
-    <SidebarProvider>
+    <>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 border-b">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b md:bg-none">
           <div className="flex w-full items-center justify-between gap-4 px-3">
             <div className="flex items-center gap-2">
               <SidebarTrigger />
@@ -41,7 +40,7 @@ export default function DashboardLayout() {
           <Outlet />
         </main>
       </SidebarInset>
-    </SidebarProvider>
+    </>
   );
 }
 
