@@ -22,9 +22,9 @@
 
   "loginPage": {
     "title": "Login to your account",
-    "subtitle": "Enter your email below to login to your account",
     "email": "Email",
     "password": "Password",
+    "subtitle": "Enter your email below to login to your account",
     "login": "Login"
   },
 
@@ -38,5 +38,17 @@
     "title": "Something went wrong",
     "subtitle": "We encountered an unexpected error while processing your request. Please try again later.",
     "action": "Return to Homepage"
+  },
+
+  "form": {
+    "fields": {
+      "email": "email",
+      "password": "password"
+    },
+    "errors": {
+      "required": "This field is required.",
+      "minLength": "Must be at least {{min}} characters.",
+      "invalidField": "Please inter a valid {{field}}."
+    }
   }
 }

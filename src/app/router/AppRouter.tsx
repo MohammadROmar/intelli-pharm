@@ -1,15 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import RootLayout from '../layouts/Root';
+import PublicOnlyRoute from './PublicOnlyRoute';
+import DashboardRoute from './DashboardRoute';
 import { LoginPageLazy } from '@/pages/login';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
-import DashboardRoute from './DashboardRoute';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <RootLayout />,
+    element: <PublicOnlyRoute />,
     errorElement: <LazyErrorPage />,
     children: [
       {

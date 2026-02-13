@@ -11,7 +11,6 @@ export {
   BreadcrumbSeparator,
 } from './Breadcrumb';
 export { Button } from './Button';
-export { default as SidebarProvider } from '../../app/providers/SidebarProvider';
 export {
   Card,
   CardAction,

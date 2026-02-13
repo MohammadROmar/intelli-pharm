@@ -13,3 +13,4 @@ export {
   sidebarData,
 } from './sidebar';
 export type { SidebarContextProps } from './sidebar';
+export { useAppDispatch, useAppSelector } from './store/typedStore';

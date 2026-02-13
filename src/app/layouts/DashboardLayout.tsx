@@ -13,8 +13,8 @@ import {
   Separator,
   SidebarInset,
   SidebarTrigger,
-  SidebarProvider,
 } from '@/shared/ui';
+import SidebarProvider from '../providers/SidebarProvider';
 
 export default function DashboardLayout() {
   return (
