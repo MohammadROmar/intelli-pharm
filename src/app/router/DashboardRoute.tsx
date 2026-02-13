@@ -1,0 +1,17 @@
+import { lazy } from 'react';
+import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
+import { ProtectedRoute } from '@/features/auth';
+import { WithSuspense } from '@/shared/ui';
+
+const DashboardLayout = lazy(() => import('../layouts/DashboardLayout'));
+
+export default function DashboardRoute() {
+  return (
+    <ProtectedRoute>
+      <WithSuspense
+        Component={DashboardLayout}
+        loader={<DashboardSkeleton />}
+      />
+    </ProtectedRoute>
+  );
+}
