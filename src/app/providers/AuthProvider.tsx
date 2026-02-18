@@ -1,13 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-import { refreshClient } from '@/shared/api';
-import { setCredentials, logout, setLoading } from '@/entities/session';
-import { useAppDispatch, useAppSelector } from '@/shared/config';
 import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
+import {
+  setCredentials,
+  logout,
+  setLoading,
+  hasAuthHint,
+} from '@/entities/session';
+import { refreshClient } from '@/shared/api';
+import { useAppDispatch, useAppSelector } from '@/shared/config';
+import { LoginSkeleton } from '@/pages/login';
 
 export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.session.isLoading);
+
+  const [showDashboardSkeleton] = useState(() => hasAuthHint());
 
   useEffect(() => {
     const initAuth = async () => {
@@ -31,7 +39,9 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   }, [dispatch]);
 
   if (isLoading) {
-    return <DashboardSkeleton />;
+    return (
+      <>{showDashboardSkeleton ? <DashboardSkeleton /> : <LoginSkeleton />}</>
+    );
   }
 
   return <>{children}</>;

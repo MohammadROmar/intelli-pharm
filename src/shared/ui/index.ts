@@ -90,7 +90,12 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-} from './Sidebar';
+} from './Sidebar/Sidebar';
+export {
+  SidebarContext,
+  type SidebarContextProps,
+} from './Sidebar/SidebarContext';
+export { useSidebar } from './Sidebar/useSidebar';
 export { Skeleton } from './Skeleton';
 export {
   Tooltip,

@@ -1,3 +1,5 @@
+import { createContext } from 'react';
+
 export type Theme = 'dark' | 'light' | 'system';
 
 export type ThemeProviderState = {
@@ -10,3 +12,11 @@ export type ThemeProviderProps = {
   defaultTheme?: Theme;
   storageKey?: string;
 };
+
+const initialState: ThemeProviderState = {
+  theme: 'system',
+  setTheme: () => null,
+};
+
+export const ThemeProviderContext =
+  createContext<ThemeProviderState>(initialState);

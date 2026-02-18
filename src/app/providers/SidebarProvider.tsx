@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useIsMobile, cn } from '@/shared/lib';
-import { TooltipProvider } from '@/shared/ui';
+import {
+  TooltipProvider,
+  SidebarContext,
+  type SidebarContextProps,
+} from '@/shared/ui';
 import {
   SIDEBAR_COOKIE_MAX_AGE,
   SIDEBAR_COOKIE_NAME,
   SIDEBAR_KEYBOARD_SHORTCUT,
   SIDEBAR_WIDTH,
   SIDEBAR_WIDTH_ICON,
-  SidebarContext,
-  type SidebarContextProps,
 } from '@/shared/config';
 
 export default function SidebarProvider({

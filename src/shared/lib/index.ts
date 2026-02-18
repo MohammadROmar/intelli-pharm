@@ -1,3 +1,4 @@
 export { buttonVariants } from './buttonVariants';
 export { cn } from './utils';
-export { useIsMobile, useDocumentDirection } from './hooks';
+export { useDocumentDirection } from './hooks/useDocumentDirection';
+export { useIsMobile } from './hooks/useMobile';

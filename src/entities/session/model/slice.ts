@@ -1,5 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
+import { clearAuthHint, setAuthHint } from '../lib/authHint';
+
 interface User {
   name: string;
   email: string;
@@ -32,12 +34,16 @@ export const sessionSlice = createSlice({
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.isLoading = false;
+
+      setAuthHint();
     },
     logout: (state) => {
       state.accessToken = null;
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
+
+      clearAuthHint();
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

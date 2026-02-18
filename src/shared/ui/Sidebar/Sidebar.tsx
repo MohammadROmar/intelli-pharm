@@ -1,24 +1,24 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import { useTranslation } from 'react-i18next';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { MenuIcon, PanelLeftIcon, PanelRightIcon } from 'lucide-react';
 
-import { cn } from '../lib';
-import { Button } from './Button';
-import { Input } from './Input';
-import { Separator } from './Separator';
+import { useSidebar } from './useSidebar';
+import { cn } from '../../lib';
+import { Button } from '../Button';
+import { Input } from '../Input';
+import { Separator } from '../Separator';
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '@/shared/ui/Sheet';
-import { Skeleton } from '@/shared/ui/Skeleton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/Tooltip';
-import useSidebar from '../config/sidebar/useSidebar';
-import { SIDEBAR_WIDTH_MOBILE } from '@/shared/config/sidebar/constants';
-import { useTranslation } from 'react-i18next';
+} from '../Sheet';
+import { Skeleton } from '../Skeleton';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip';
+import { SIDEBAR_WIDTH_MOBILE } from '../../config';
 
 function Sidebar({
   side = 'left',
@@ -125,10 +125,11 @@ function Sidebar({
 function SidebarTrigger({
   className,
   onClick,
+  srLabel,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & { srLabel?: string }) {
   const { toggleSidebar, isMobile } = useSidebar();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const isLtr = i18n.dir() === 'ltr';
 
   return (
@@ -145,7 +146,7 @@ function SidebarTrigger({
       {...props}
     >
       {isMobile ? <MenuIcon /> : isLtr ? <PanelLeftIcon /> : <PanelRightIcon />}
-      <span className="sr-only">{t('sidebar.toggle')}</span>
+      <span className="sr-only">{srLabel || 'Toggle Sidebar'}</span>
     </Button>
   );
 }

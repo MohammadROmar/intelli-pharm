@@ -1,6 +1,10 @@
-export { useTheme, ThemeProviderContext } from './theme';
-export type { ThemeProviderProps, ThemeProviderState, Theme } from './theme';
-
+export {
+  ThemeProviderContext,
+  type ThemeProviderProps,
+  type ThemeProviderState,
+  type Theme,
+} from './theme/ThemeContext';
+export { useTheme } from './theme/useTheme';
 export {
   SIDEBAR_COOKIE_MAX_AGE,
   SIDEBAR_COOKIE_NAME,
@@ -8,9 +12,6 @@ export {
   SIDEBAR_WIDTH,
   SIDEBAR_WIDTH_ICON,
   SIDEBAR_WIDTH_MOBILE,
-  SidebarContext,
-  useSidebar,
   sidebarData,
-} from './sidebar';
-export type { SidebarContextProps } from './sidebar';
+} from './sidebar/constants';
 export { useAppDispatch, useAppSelector } from './store/typedStore';

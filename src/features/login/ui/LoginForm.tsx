@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
+import { useLogin } from '../model/useLogin';
 import {
   Button,
   Field,
@@ -9,7 +10,6 @@ import {
   FieldLabel,
   Input,
 } from '@/shared/ui';
-import { useLogin } from '../model/useLogin';
 
 type FormFields = { email: string; password: string };
 

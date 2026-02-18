@@ -17,6 +17,8 @@ import {
 import SidebarProvider from '../providers/SidebarProvider';
 
 export default function DashboardLayout() {
+  const { t } = useTranslation();
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -24,7 +26,7 @@ export default function DashboardLayout() {
         <header className="flex h-16 shrink-0 items-center gap-2 border-b md:bg-none">
           <div className="flex w-full items-center justify-between gap-4 px-3">
             <div className="flex items-center gap-2">
-              <SidebarTrigger />
+              <SidebarTrigger srLabel={t('sidebar.toggle')} />
               <Separator orientation="vertical" className="mr-2 h-4" />
               <Breadcrumb>
                 <BreadcrumbList>

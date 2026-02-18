@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
-import { useAppDispatch } from '@/shared/config';
 import { setCredentials } from '@/entities/session';
 import { apiClient } from '@/shared/api';
+import { useAppDispatch } from '@/shared/config';
 
 interface LoginParams {
   email: string;

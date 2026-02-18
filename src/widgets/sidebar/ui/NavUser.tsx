@@ -7,8 +7,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-import { useSidebar } from '@/shared/config';
 import {
+  useSidebar,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,

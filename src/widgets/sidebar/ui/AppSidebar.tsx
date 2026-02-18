@@ -3,7 +3,7 @@ import { useDirection } from '@radix-ui/react-direction';
 
 import { NavMain } from './NavMain';
 import { NavUser } from './NavUser';
-import { sidebarData } from '../../../shared/config/sidebar/sidebarData';
+import { sidebarData } from '@/shared/config';
 import {
   Sidebar,
   SidebarContent,
