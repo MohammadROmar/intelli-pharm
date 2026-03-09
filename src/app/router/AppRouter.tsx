@@ -6,6 +6,7 @@ import { LoginPageLazy } from '@/pages/login';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
 import { CategoryListPageLazy } from '@/pages/category-list';
+import { CategoryCreatePageLazy } from '@/pages/category-create';
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,10 @@ const router = createBrowserRouter([
       { index: true, element: <></> },
       {
         path: 'categories',
-        children: [{ index: true, element: <CategoryListPageLazy /> }],
+        children: [
+          { index: true, element: <CategoryListPageLazy /> },
+          { path: 'new', element: <CategoryCreatePageLazy /> },
+        ],
       },
     ],
   },

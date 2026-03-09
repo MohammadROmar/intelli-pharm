@@ -90,6 +90,7 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  SidebarLink,
 } from './Sidebar/Sidebar';
 export {
   SidebarContext,
@@ -97,7 +98,7 @@ export {
 } from './Sidebar/SidebarContext';
 export { useSidebar } from './Sidebar/useSidebar';
 export { Skeleton } from './skeleton/Skeleton';
-// export {} from './skeleton/FormSkeleton';
+export { FormSkeleton } from './skeleton/FormSkeleton';
 export { TableSkeleton } from './skeleton/TableSkeleton';
 export { CardsSkeleton } from './skeleton/CardsSkeleton';
 export {
@@ -117,17 +118,41 @@ export {
   TableHeader,
   TableRow,
 } from './table';
-export {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from './select';
 export { DynamicPagination } from './pagination/DynamicPagination';
 export { PageTitle } from './PageTitle';
+export {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from './command';
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from './popover';
+export {
+  GenericSingleSelect,
+  type GenericSingleSelectProps,
+} from './GenericSelect';
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from './dialog';

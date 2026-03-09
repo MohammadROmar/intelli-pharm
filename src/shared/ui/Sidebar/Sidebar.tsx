@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import { Link, type LinkProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { MenuIcon, PanelLeftIcon, PanelRightIcon } from 'lucide-react';
@@ -570,6 +571,19 @@ function SidebarMenuSubButton({
   );
 }
 
+function SidebarLink({
+  children,
+  ...props
+}: React.PropsWithChildren & LinkProps) {
+  const { setOpenMobile } = useSidebar();
+
+  return (
+    <Link {...props} onClick={() => setOpenMobile(false)}>
+      {children}
+    </Link>
+  );
+}
+
 export {
   Sidebar,
   SidebarContent,
@@ -593,4 +607,5 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  SidebarLink,
 };

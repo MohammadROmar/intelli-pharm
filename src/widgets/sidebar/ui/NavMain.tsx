@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
@@ -14,6 +13,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+  SidebarLink,
 } from '@/shared/ui';
 
 export function NavMain({
@@ -56,9 +56,9 @@ export function NavMain({
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.key}>
                       <SidebarMenuSubButton asChild>
-                        <Link to={subItem.url}>
+                        <SidebarLink to={subItem.url}>
                           <span>{t(subItem.key)}</span>
-                        </Link>
+                        </SidebarLink>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

@@ -32,7 +32,10 @@
     },
     "create": {
       "title": "Add New Category",
-      "subtitle": "Create a new medicine category"
+      "subtitle": "Organize your inventory by adding a new category.",
+      "formTitle": "Category Details",
+      "formSubtitle": "Fill in the information bellow to register the new category.",
+      "create": "Create Category"
     },
     "update": {
       "title": "Edit Category",
@@ -55,13 +58,27 @@
   "form": {
     "fields": {
       "email": "email",
-      "password": "password"
+      "password": "password",
+      "categoryName": "Category Name",
+      "categoryParent": "Parent Category"
     },
     "errors": {
       "required": "This field is required.",
       "minLength": "Must be at least {{min}} characters.",
       "invalidField": "Please inter a valid {{field}}."
+    },
+    "actions": {
+      "create": "Create",
+      "edit": "Edit",
+      "reset": "Reset"
     }
+  },
+
+  "asyncSelect": {
+    "placeholder": "Select an option",
+    "noResultsFound": "No results found",
+    "noMoreResults": "No more results",
+    "search": "Search..."
   },
 
   "pagination": {
