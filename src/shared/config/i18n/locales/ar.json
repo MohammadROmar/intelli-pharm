@@ -21,6 +21,7 @@
   },
 
   "categoriesPage": {
+    "category": "فئة",
     "list": {
       "title": "فئات الأدوية",
       "all": "جميع الفئات",
@@ -77,7 +78,7 @@
   "asyncSelect": {
     "placeholder": "اختر خيارًا",
     "noResultsFound": "لم يتم العثور على نتائج",
-    "noMoreResults": "لا توجد المزيد من النتائج",
+    "noMoreResults": "لا يوجد المزيد من النتائج",
     "search": "بحث..."
   },
 
@@ -112,6 +113,15 @@
     "employees": {
       "list": "جميع الموظفين",
       "new": "إضافة موظف"
+    }
+  },
+
+  "dialog": {
+    "delete": {
+      "title": "حذف {{item}}",
+      "description": "هل أنت متأكد من رغبتك في حذف هذا العنصر؟ لا يمكن التراجع عن هذا الإجراء.",
+      "confirm": "تأكيد الحذف",
+      "cancel": "إلغاء"
     }
   }
 }

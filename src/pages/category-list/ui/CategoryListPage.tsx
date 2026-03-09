@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
-import { CategoryRow } from '@/entities/category';
+import { DeleteCategoryModal } from '@/features/category-delete';
+import { CategoryRow, type CategoryListItem } from '@/entities/category';
 import { dummyCategories } from '@/entities/category/model/dummyCategories'; // TO BE REMOVED
 import {
   TableBody,
@@ -17,12 +20,31 @@ export default function CategoryListPage() {
     keyPrefix: 'categoriesPage.list',
   });
 
-  const [searchParams] = useSearchParams();
-  const page = searchParams.get('page');
-
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <CategoriesTable t={t} />
+    </>
+  );
+}
+
+function CategoriesTable({
+  t,
+}: {
+  t: TFunction<'translation', 'categoriesPage.list'>;
+}) {
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page');
+
+  const [categoryToDelete, setCategoryToDelete] =
+    useState<CategoryListItem | null>(null);
+
+  return (
+    <>
+      <DeleteCategoryModal
+        category={categoryToDelete}
+        onClose={() => setCategoryToDelete(null)}
+      />
 
       <TableCard
         basePath="/dashboard/categories"
@@ -41,7 +63,13 @@ export default function CategoryListPage() {
         </TableHeader>
         <TableBody>
           {dummyCategories.map((category) => (
-            <CategoryRow key={category.id} category={category} />
+            <CategoryRow
+              key={category.id}
+              category={category}
+              onDelete={(category) => {
+                setCategoryToDelete(category);
+              }}
+            />
           ))}
         </TableBody>
       </TableCard>

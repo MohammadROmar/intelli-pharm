@@ -5,9 +5,12 @@ import type { CategoryListItem } from '../model/categoryTypes';
 import { Button, TableCell, TableRow } from '@/shared/ui';
 import { buttonVariants } from '@/shared/lib';
 
-type CategoryRowProps = { category: CategoryListItem };
+type CategoryRowProps = {
+  category: CategoryListItem;
+  onDelete: (category: CategoryListItem) => void;
+};
 
-export function CategoryRow({ category }: CategoryRowProps) {
+export function CategoryRow({ category, onDelete }: CategoryRowProps) {
   return (
     <TableRow>
       <TableCell className="font-medium">{category.id}</TableCell>
@@ -27,7 +30,7 @@ export function CategoryRow({ category }: CategoryRowProps) {
         >
           <Pencil className="size-4" />
         </Link>
-        <Button size="sm" variant="ghost">
+        <Button size="sm" variant="ghost" onClick={() => onDelete(category)}>
           <Trash2 className="text-destructive size-4" />
         </Button>
       </TableCell>

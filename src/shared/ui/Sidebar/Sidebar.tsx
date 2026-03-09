@@ -575,10 +575,15 @@ function SidebarLink({
   children,
   ...props
 }: React.PropsWithChildren & LinkProps) {
-  const { setOpenMobile } = useSidebar();
+  const { openMobile, setOpenMobile } = useSidebar();
 
   return (
-    <Link {...props} onClick={() => setOpenMobile(false)}>
+    <Link
+      {...props}
+      onClick={() => {
+        if (openMobile) setOpenMobile(false);
+      }}
+    >
       {children}
     </Link>
   );

@@ -21,6 +21,7 @@
   },
 
   "categoriesPage": {
+    "category": "Category",
     "list": {
       "title": "Medicine Categories",
       "subtitle": "Manage and organize your medicine categories",
@@ -112,6 +113,15 @@
     "employees": {
       "list": "All Employees",
       "new": "Add Employee"
+    }
+  },
+
+  "dialog": {
+    "delete": {
+      "title": "Delete {{item}}",
+      "description": "Are you sure you want to delete this item? This cannot be undone.",
+      "confirm": "Confirm Delete",
+      "cancel": "Cancel"
     }
   }
 }
