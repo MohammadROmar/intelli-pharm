@@ -40,9 +40,9 @@ export default function DashboardLayout() {
             </div>
           </div>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4">
+        <div className="flex flex-1 flex-col gap-4 p-4">
           <Outlet />
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
@@ -62,9 +62,11 @@ function BreadCrumbsItems() {
         return (
           <BreadcrumbItem key={href} className="hidden md:block">
             {i === segments.length - 1 ? (
-              <BreadcrumbPage>{t(`navigation.${segment}`)}</BreadcrumbPage>
+              <BreadcrumbPage>{t(`sidebar.labels.${segment}`)}</BreadcrumbPage>
             ) : (
-              <BreadcrumbLink href={href}>{segment}</BreadcrumbLink>
+              <BreadcrumbLink href={href}>
+                {t(`sidebar.labels.${segment}`)}
+              </BreadcrumbLink>
             )}
           </BreadcrumbItem>
         );

@@ -1,5 +1,5 @@
 import { SIDEBAR_WIDTH } from '@/shared/config';
-import { Skeleton } from '@/shared/ui';
+import { Skeleton, CardsSkeleton } from '@/shared/ui';
 
 export default function DashboardSkeleton() {
   return (
@@ -15,7 +15,7 @@ export default function DashboardSkeleton() {
       <div className="relative grid grid-rows-[auto_1fr]">
         <HeaderSkeleton />
         <main className="size-full">
-          <MainSkeleton />
+          <CardsSkeleton />
         </main>
       </div>
     </div>
@@ -45,19 +45,5 @@ function HeaderSkeleton() {
         <Skeleton className="size-9 border" />
       </div>
     </header>
-  );
-}
-
-function MainSkeleton() {
-  return (
-    <div className="grid size-full grid-cols-1 gap-4 p-4 md:grid-cols-2">
-      {[...Array(4)].map((_, i) => (
-        <Skeleton
-          key={i}
-          className="size-full"
-          style={{ animationDelay: `${i * 150}ms` }}
-        />
-      ))}
-    </div>
   );
 }

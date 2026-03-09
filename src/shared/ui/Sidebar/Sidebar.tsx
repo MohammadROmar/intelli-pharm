@@ -16,7 +16,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '../Sheet';
-import { Skeleton } from '../Skeleton';
+import { Skeleton } from '../skeleton/Skeleton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip';
 import { SIDEBAR_WIDTH_MOBILE } from '../../config';
 

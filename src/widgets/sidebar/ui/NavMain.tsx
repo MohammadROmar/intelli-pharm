@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
 import {
@@ -19,42 +20,44 @@ export function NavMain({
   items,
 }: {
   items: {
-    title: string;
+    key: string;
     url: string;
     icon?: LucideIcon;
     isActive?: boolean;
     items?: {
-      title: string;
+      key: string;
       url: string;
     }[];
   }[];
 }) {
+  const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
-            key={item.title}
+            key={item.key}
             asChild
             defaultOpen={item.isActive}
             className="group/collapsible"
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title}>
+                <SidebarMenuButton tooltip={t(item.key)}>
                   {item.icon && <item.icon />}
-                  <span>{item.title}</span>
+                  <span>{t(item.key)}</span>
                   <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ltr:ml-auto rtl:mr-auto" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
+                    <SidebarMenuSubItem key={subItem.key}>
                       <SidebarMenuSubButton asChild>
                         <Link to={subItem.url}>
-                          <span>{subItem.title}</span>
+                          <span>{t(subItem.key)}</span>
                         </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>

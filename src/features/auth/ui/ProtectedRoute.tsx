@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
 import type { PropsWithChildren } from 'react';
 
 import { useAppSelector } from '@/shared/config';
@@ -12,5 +12,6 @@ export function ProtectedRoute({ children }: PropsWithChildren) {
     return <>{children}</>;
   }
 
-  return <Navigate to="/" replace />;
+  // return <Navigate to="/" replace />;
+  return <>{children}</>;
 }

@@ -12,20 +12,32 @@
     "system": "System"
   },
 
-  "sidebar": {
-    "toggle": "Toggle sidebar"
-  },
-
-  "navigation": {
-    "dashboard": "Dashboard"
-  },
-
   "loginPage": {
     "title": "Login to your account",
     "email": "Email",
     "password": "Password",
     "subtitle": "Enter your email below to login to your account",
     "login": "Login"
+  },
+
+  "categoriesPage": {
+    "list": {
+      "title": "Medicine Categories",
+      "subtitle": "Manage and organize your medicine categories",
+      "all": "All Categories",
+      "id": "ID",
+      "name": "Name",
+      "actions": "Actions",
+      "parentName": "Parent Name"
+    },
+    "create": {
+      "title": "Add New Category",
+      "subtitle": "Create a new medicine category"
+    },
+    "update": {
+      "title": "Edit Category",
+      "subtitle": "Update category information"
+    }
   },
 
   "notFoundPage": {
@@ -49,6 +61,40 @@
       "required": "This field is required.",
       "minLength": "Must be at least {{min}} characters.",
       "invalidField": "Please inter a valid {{field}}."
+    }
+  },
+
+  "pagination": {
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "prev": "Previous",
+    "next": "Next"
+  },
+
+  "sidebar": {
+    "toggle": "Toggle sidebar",
+
+    "labels": {
+      "dashboard": "Dashboard",
+      "medicines": "Medicines",
+      "categories": "Categories",
+      "employees": "Employees",
+      "new": "New",
+      "edit": "Edit"
+    },
+
+    "medicines": {
+      "list": "All Medicines",
+      "new": "Add Medicine"
+    },
+    "categories": {
+      "list": "All Categories",
+      "new": "Add Category"
+    },
+    "employees": {
+      "list": "All Employees",
+      "new": "Add Employee"
     }
   }
 }

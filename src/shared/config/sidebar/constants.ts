@@ -1,11 +1,10 @@
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
+  Tags,
+  Users,
   Command,
+  PillBottle,
+  AudioWaveform,
   GalleryVerticalEnd,
-  Settings2,
-  SquareTerminal,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -17,8 +16,8 @@ export const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 export const sidebarData = {
   user: {
-    name: 'shadcn',
-    email: 'm@example.com',
+    name: 'Admin',
+    email: 'admin@intellipharm.com',
     avatar: '/avatars/shadcn.jpg',
   },
   teams: [
@@ -40,87 +39,50 @@ export const sidebarData = {
   ],
   navMain: [
     {
-      title: 'Playground',
-      url: '#',
-      icon: SquareTerminal,
+      key: 'labels.medicines',
+      url: '/dashboard/medicines',
+      icon: PillBottle,
       isActive: true,
       items: [
         {
-          title: 'History',
-          url: '/dashboard/history',
+          key: 'medicines.list',
+          url: '/dashboard/medicines',
         },
         {
-          title: 'Starred',
-          url: '#',
-        },
-        {
-          title: 'Settings',
-          url: '#',
+          key: 'medicines.new',
+          url: '/dashboard/medicines/new',
         },
       ],
     },
     {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
+      key: 'labels.categories',
+      url: '/dashboard/categories',
+      icon: Tags,
+      isActive: false,
       items: [
         {
-          title: 'Genesis',
-          url: '#',
+          key: 'categories.list',
+          url: '/dashboard/categories',
         },
         {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
+          key: 'categories.new',
+          url: '/dashboard/categories/new',
         },
       ],
     },
     {
-      title: 'Documentation',
-      url: '#',
-      icon: BookOpen,
+      key: 'labels.employees',
+      url: '/dashboard/employees',
+      icon: Users,
+      isActive: false,
       items: [
         {
-          title: 'Introduction',
-          url: '#',
+          key: 'employees.list',
+          url: '/dashboard/employees',
         },
         {
-          title: 'Get Started',
-          url: '#',
-        },
-        {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
+          key: 'employees.new',
+          url: '/dashboard/employees/new',
         },
       ],
     },

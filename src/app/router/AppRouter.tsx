@@ -5,6 +5,7 @@ import DashboardRoute from './DashboardRoute';
 import { LoginPageLazy } from '@/pages/login';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
+import { CategoryListPageLazy } from '@/pages/category-list';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,13 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: <DashboardRoute />,
     errorElement: <LazyErrorPage />,
-    children: [{ index: true, element: <></> }],
+    children: [
+      { index: true, element: <></> },
+      {
+        path: 'categories',
+        children: [{ index: true, element: <CategoryListPageLazy /> }],
+      },
+    ],
   },
   { path: '*', element: <LazyNotFoundPage /> },
 ]);
