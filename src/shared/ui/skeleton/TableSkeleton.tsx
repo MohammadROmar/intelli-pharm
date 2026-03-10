@@ -1,16 +1,13 @@
+import { Card, CardContent, CardFooter, CardHeader } from '../Card';
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  Skeleton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/shared/ui';
+} from '../table';
+import { Skeleton } from './Skeleton';
 
 export function TableSkeleton() {
   return (

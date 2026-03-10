@@ -6,22 +6,20 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { MenuIcon, PanelLeftIcon, PanelRightIcon } from 'lucide-react';
 
 import { useSidebar } from './useSidebar';
-import { cn } from '@/shared/lib';
+import { cn } from '../../lib';
+import { SIDEBAR_WIDTH_MOBILE } from '../../config';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  Skeleton,
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  Separator,
-  Input,
-  Button,
-} from '@/shared/ui';
-import { SIDEBAR_WIDTH_MOBILE } from '@/shared/config';
+} from '../Sheet';
+import { Button } from '../Button';
+import { Input } from '../Input';
+import { Separator } from '../Separator';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip';
+import { Skeleton } from '../skeleton';
 
 function Sidebar({
   side = 'left',

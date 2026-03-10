@@ -97,10 +97,12 @@ export {
   type SidebarContextProps,
 } from './Sidebar/SidebarContext';
 export { useSidebar } from './Sidebar/useSidebar';
-export { Skeleton } from './skeleton/Skeleton';
-export { FormSkeleton } from './skeleton/FormSkeleton';
-export { TableSkeleton } from './skeleton/TableSkeleton';
-export { CardsSkeleton } from './skeleton/CardsSkeleton';
+export {
+  Skeleton,
+  CardsSkeleton,
+  FormSkeleton,
+  TableSkeleton,
+} from './skeleton';
 export {
   Tooltip,
   TooltipContent,

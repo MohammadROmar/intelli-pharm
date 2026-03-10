@@ -31,7 +31,7 @@ export function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
         <Field data-invalid={!!errors.email}>
-          <FieldLabel htmlFor="email">{t('loginPage.email')}</FieldLabel>
+          <FieldLabel htmlFor="email">{t('form.fields.email')}</FieldLabel>
           <Input
             id="email"
             type="email"
@@ -53,7 +53,9 @@ export function LoginForm() {
           )}
         </Field>
         <Field data-invalid={!!errors.password}>
-          <FieldLabel htmlFor="password">{t('loginPage.password')}</FieldLabel>
+          <FieldLabel htmlFor="password">
+            {t('form.fields.password')}
+          </FieldLabel>
           <Input
             id="password"
             {...register('password', {
@@ -69,7 +71,6 @@ export function LoginForm() {
             <FieldError>
               {t('form.errors.invalidField', {
                 field: t('form.fields.password'),
-                trailing: 'ة',
               })}
             </FieldError>
           )}

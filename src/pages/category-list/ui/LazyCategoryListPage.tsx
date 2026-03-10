@@ -4,7 +4,7 @@ import { WithSuspense, TableSkeleton } from '@/shared/ui';
 
 const CategoryListPage = lazy(() => import('./CategoryListPage'));
 
-export function CategoryListPageLazy() {
+export function LazyCategoryListPage() {
   return (
     <WithSuspense Component={CategoryListPage} loader={<TableSkeleton />} />
   );

@@ -5,6 +5,6 @@ import { WithSuspense } from '@/shared/ui';
 
 const LoginPage = lazy(() => import('./LoginPage'));
 
-export function LoginPageLazy() {
+export function LazyLoginPage() {
   return <WithSuspense Component={LoginPage} loader={<LoginSkeleton />} />;
 }

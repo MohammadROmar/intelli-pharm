@@ -1,5 +1,5 @@
 import { Skeleton } from './Skeleton';
-import { Card, CardContent, CardFooter, CardHeader } from '@/shared/ui';
+import { Card, CardContent, CardFooter, CardHeader } from '../Card';
 
 export function FormSkeleton({ fields }: { fields: number }) {
   return (

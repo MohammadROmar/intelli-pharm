@@ -6,21 +6,20 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 
-import { useDebounce, cn } from '@/shared/lib';
+import { useDebounce, cn } from '../lib';
+import { Button } from './Button';
+import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import {
-  Button,
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/shared/ui';
+} from './command';
 
 export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   options: T[];
@@ -28,7 +27,6 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   labelKey: keyof T;
   value?: T[keyof T] | null;
   defaultValue?: Partial<T>;
-  placeholder?: string;
   onValueChange: (value: T[keyof T] | null) => void;
   onSearchChange?: (searchTerm: string) => void;
   onLoadMore?: () => void;
@@ -37,9 +35,7 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   isFetchingNextPage?: boolean;
   isLoading?: boolean;
   className?: string;
-  searchBarPlaceholder?: string;
-  noResultsText?: string;
-  noMoreResultsText?: string;
+  hasMoreLabel?: boolean;
 }
 
 export function GenericSingleSelect<T extends Record<string, unknown>>({
@@ -48,7 +44,6 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   labelKey,
   value,
   defaultValue,
-  placeholder = 'Select an option',
   onValueChange,
   onSearchChange,
   onLoadMore,
@@ -57,15 +52,15 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   isLoading,
   className,
   displayClassName,
-  noMoreResultsText,
-  noResultsText,
-  searchBarPlaceholder,
+  hasMoreLabel = true,
 }: GenericSingleSelectProps<T>) {
   const [localSearch, setLocalSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const debouncedSearch = useDebounce(localSearch, 300);
   const isFetchingNextPageRef = useRef<boolean | undefined>(isFetchingNextPage);
+
+  const { t } = useTranslation('translation', { keyPrefix: 'asyncSelect' });
 
   useEffect(() => {
     isFetchingNextPageRef.current = isFetchingNextPage;
@@ -163,7 +158,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           ) : defaultValue ? (
             <span className="truncate">{String(defaultValue[labelKey])}</span>
           ) : (
-            <span className="text-muted-foreground">{placeholder}</span>
+            <span className="text-muted-foreground">{t('placeholder')}</span>
           )}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -171,7 +166,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
       <PopoverContent className="w-full p-0">
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder={searchBarPlaceholder ?? 'Search...'}
+            placeholder={t('search')}
             value={localSearch}
             onValueChange={setLocalSearch}
             className="pl-8"
@@ -184,7 +179,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
             )}
           >
             {filteredOptions.length === 0 ? (
-              <CommandEmpty>{noResultsText ?? 'No results found'}</CommandEmpty>
+              <CommandEmpty>{t('noResultsFound')}</CommandEmpty>
             ) : (
               <CommandGroup>
                 {filteredOptions.map((option) => {
@@ -223,9 +218,9 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
               <div className="text-muted-foreground p-2 text-center text-xs">
                 Scroll to load more
               </div>
-            ) : filteredOptions.length > 0 ? (
+            ) : filteredOptions.length > 0 && hasMoreLabel ? (
               <div className="text-muted-foreground p-2 text-center text-xs">
-                {noMoreResultsText ?? 'No more results'}
+                {t('noMoreResults')}
               </div>
             ) : null}
           </CommandList>

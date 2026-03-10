@@ -1,2 +1,2 @@
-export { LoginPageLazy } from './ui/LazyLoginPage';
+export { LazyLoginPage } from './ui/LazyLoginPage';
 export { default as LoginSkeleton } from './ui/LoginPageSkeleton';

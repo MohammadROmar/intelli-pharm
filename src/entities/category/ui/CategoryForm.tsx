@@ -67,10 +67,6 @@ export function CategoryForm({
                 valueKey="id"
                 value={field.value}
                 onValueChange={field.onChange}
-                noMoreResultsText={t('asyncSelect.noMoreResults')}
-                noResultsText={t('asyncSelect.noResultsFound')}
-                searchBarPlaceholder={t('asyncSelect.search')}
-                placeholder={t('asyncSelect.placeholder')}
               />
             )}
           />

@@ -2,12 +2,12 @@ import { lazy } from 'react';
 
 import { WithSuspense, FormSkeleton } from '@/shared/ui';
 
-const CategoryCreatePage = lazy(() => import('./CategoryCreatePage'));
+const EmployeeCreatePage = lazy(() => import('./EmployeeCreatePage'));
 
-export function LazyCategoryCreatePage() {
+export function LazyEmployeeCreatePage() {
   return (
     <WithSuspense
-      Component={CategoryCreatePage}
+      Component={EmployeeCreatePage}
       loader={<FormSkeleton fields={2} />}
     />
   );

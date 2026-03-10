@@ -1,6 +1,6 @@
 import { Popover as PopoverPrimitive } from 'radix-ui';
 
-import { cn } from '@/shared/lib';
+import { cn } from '../lib';
 
 function Popover({
   ...props
