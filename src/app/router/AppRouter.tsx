@@ -30,6 +30,7 @@ const router = createBrowserRouter([
         path: 'categories',
         children: [
           { index: true, element: <CategoryListPageLazy /> },
+          { path: ':id', element: <></> },
           { path: 'new', element: <CategoryCreatePageLazy /> },
         ],
       },

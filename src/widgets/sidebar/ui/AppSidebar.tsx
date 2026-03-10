@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useDirection } from '@radix-ui/react-direction';
 
 import { NavMain } from './NavMain';
@@ -13,7 +14,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
   Logo,
-  SidebarLink,
 } from '@/shared/ui';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -45,7 +45,7 @@ function SidebarBrand() {
           asChild
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
         >
-          <SidebarLink to="/dashboard">
+          <Link to="/dashboard">
             <div className="bg-sidebar-primary flex aspect-square size-8 items-center justify-center rounded-lg">
               <Logo className="size-4 text-white" />
             </div>
@@ -55,7 +55,7 @@ function SidebarBrand() {
                 Admin
               </span>
             </div>
-          </SidebarLink>
+          </Link>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

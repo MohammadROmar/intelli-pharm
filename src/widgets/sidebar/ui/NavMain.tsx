@@ -3,7 +3,6 @@ import { ChevronRight, type LucideIcon } from 'lucide-react';
 
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -16,25 +15,23 @@ import {
   SidebarLink,
 } from '@/shared/ui';
 
-export function NavMain({
-  items,
-}: {
-  items: {
+type SidebarItem = {
+  key: string;
+  url: string;
+  icon?: LucideIcon;
+  isActive?: boolean;
+  items?: {
     key: string;
     url: string;
-    icon?: LucideIcon;
-    isActive?: boolean;
-    items?: {
-      key: string;
-      url: string;
-    }[];
   }[];
-}) {
+};
+type RenderItemProps = { icon: SidebarItem['icon']; label: string };
+
+export function NavMain({ items }: { items: SidebarItem[] }) {
   const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -45,10 +42,17 @@ export function NavMain({
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={t(item.key)}>
-                  {item.icon && <item.icon />}
-                  <span>{t(item.key)}</span>
-                  <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ltr:ml-auto rtl:mr-auto" />
+                <SidebarMenuButton tooltip={t(item.key)} asChild={!item.items}>
+                  {item.items ? (
+                    <>
+                      <SidebarRenderItem icon={item.icon} label={t(item.key)} />
+                      <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ltr:ml-auto rtl:mr-auto" />
+                    </>
+                  ) : (
+                    <SidebarLink to={item.url}>
+                      <SidebarRenderItem icon={item.icon} label={t(item.key)} />
+                    </SidebarLink>
+                  )}
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
@@ -69,5 +73,14 @@ export function NavMain({
         ))}
       </SidebarMenu>
     </SidebarGroup>
+  );
+}
+
+function SidebarRenderItem({ icon: Icon, label }: RenderItemProps) {
+  return (
+    <>
+      {Icon && <Icon />}
+      <span>{label}</span>
+    </>
   );
 }

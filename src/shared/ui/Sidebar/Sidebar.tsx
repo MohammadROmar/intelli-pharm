@@ -1,25 +1,27 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { Link, type LinkProps } from 'react-router-dom';
+import { Link, useLocation, type LinkProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { MenuIcon, PanelLeftIcon, PanelRightIcon } from 'lucide-react';
 
 import { useSidebar } from './useSidebar';
-import { cn } from '../../lib';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { Separator } from '../Separator';
+import { cn } from '@/shared/lib';
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  Skeleton,
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from '../Sheet';
-import { Skeleton } from '../skeleton/Skeleton';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip';
-import { SIDEBAR_WIDTH_MOBILE } from '../../config';
+  Separator,
+  Input,
+  Button,
+} from '@/shared/ui';
+import { SIDEBAR_WIDTH_MOBILE } from '@/shared/config';
 
 function Sidebar({
   side = 'left',
@@ -164,7 +166,7 @@ function SidebarRail({ className, ...props }: React.ComponentProps<'button'>) {
       onClick={toggleSidebar}
       title="Toggle Sidebar"
       className={cn(
-        'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 sm:flex',
+        'hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-0.5 sm:flex',
         'in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize',
         '[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize',
         'hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full',
@@ -480,9 +482,7 @@ function SidebarMenuSkeleton({
   showIcon?: boolean;
 }) {
   // Random width between 50 to 90%.
-  const [width] = React.useState(
-    () => `${Math.floor(Math.random() * 40) + 50}%`,
-  );
+  const [width] = useState(() => `${Math.floor(Math.random() * 40) + 50}%`);
 
   return (
     <div
@@ -571,15 +571,33 @@ function SidebarMenuSubButton({
   );
 }
 
+type SidebarLinkProps = {
+  exact?: boolean;
+} & LinkProps &
+  React.PropsWithChildren;
+
 function SidebarLink({
   children,
-  ...props
-}: React.PropsWithChildren & LinkProps) {
+  to,
+  exact = true,
+  className,
+}: SidebarLinkProps) {
   const { openMobile, setOpenMobile } = useSidebar();
+  const { pathname } = useLocation();
+
+  const isActive = exact
+    ? pathname === to
+    : pathname === to || pathname.startsWith(to + '/');
 
   return (
     <Link
-      {...props}
+      to={to}
+      data-active={isActive}
+      className={cn(
+        isActive &&
+          'bg-sidebar-accent text-sidebar-accent-foreground font-medium',
+        className,
+      )}
       onClick={() => {
         if (openMobile) setOpenMobile(false);
       }}

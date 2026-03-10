@@ -5,6 +5,7 @@ import {
   PillBottle,
   AudioWaveform,
   GalleryVerticalEnd,
+  LayoutDashboard,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -39,10 +40,15 @@ export const sidebarData = {
   ],
   navMain: [
     {
+      key: 'labels.dashboard',
+      url: '/dashboard',
+      icon: LayoutDashboard,
+    },
+    {
       key: 'labels.medicines',
       url: '/dashboard/medicines',
       icon: PillBottle,
-      isActive: true,
+      isActive: false,
       items: [
         {
           key: 'medicines.list',
