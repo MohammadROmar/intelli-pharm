@@ -8,6 +8,7 @@ import { LazyNotFoundPage } from '@/pages/not-found';
 import { LazyCategoryListPage } from '@/pages/category-list';
 import { LazyCategoryCreatePage } from '@/pages/category-create';
 import { LazyEmployeeCreatePage } from '@/pages/emploee-create';
+import { LazyEmployeeListPage } from '@/pages/employee-list';
 
 const router = createBrowserRouter([
   {
@@ -36,7 +37,10 @@ const router = createBrowserRouter([
       },
       {
         path: 'employees',
-        children: [{ path: 'new', element: <LazyEmployeeCreatePage /> }],
+        children: [
+          { index: true, element: <LazyEmployeeListPage /> },
+          { path: 'new', element: <LazyEmployeeCreatePage /> },
+        ],
       },
     ],
   },

@@ -12,8 +12,8 @@ import {
   TableHeader,
   TableRow,
   PageTitle,
+  TableCard,
 } from '@/shared/ui';
-import { TableCard } from '@/widgets/table-card';
 
 export default function CategoryListPage() {
   const { t } = useTranslation('translation', {

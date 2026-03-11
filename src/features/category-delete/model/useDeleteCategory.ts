@@ -1,6 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteCategory } from '../api/deleteCategory';
+
+import { deleteCategory } from '@/entities/category';
 
 export function useDeleteCategory() {
-  return useMutation({ mutationFn: deleteCategory });
+  return useMutation({
+    mutationFn: deleteCategory,
+  });
 }

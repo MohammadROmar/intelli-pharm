@@ -1,14 +1,8 @@
 import type { PropsWithChildren } from 'react';
 
-import {
-  Table,
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-  DynamicPagination,
-} from '@/shared/ui';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
+import { Table } from './table';
+import { DynamicPagination } from './pagination/DynamicPagination';
 
 type TableCardProps = {
   title: string;

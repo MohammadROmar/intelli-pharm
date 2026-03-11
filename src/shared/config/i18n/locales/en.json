@@ -43,14 +43,20 @@
   },
 
   "employeesPage": {
+    "employee": "Employee",
     "roles": {
       "distributor": "Distributor",
-      "representative": "Representative"
+      "rep": "Representative"
     },
     "list": {
       "title": "Employees",
       "subtitle": "Manage access roles and permissions for your warehouse staff.",
-      "all": "All Employees"
+      "all": "All Employees",
+      "id": "ID",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "actions": "Actions"
     },
     "create": {
       "title": "Create Employee",

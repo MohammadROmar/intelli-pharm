@@ -46,7 +46,7 @@ export function NavMain({ items }: { items: SidebarItem[] }) {
                   {item.items ? (
                     <>
                       <SidebarRenderItem icon={item.icon} label={t(item.key)} />
-                      <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ltr:ml-auto rtl:mr-auto" />
+                      <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 ltr:ml-auto rtl:mr-auto rtl:rotate-180" />
                     </>
                   ) : (
                     <SidebarLink to={item.url}>

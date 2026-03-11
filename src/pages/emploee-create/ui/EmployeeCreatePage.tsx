@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-import { EmployeeForm } from '@/entities/employee';
 import {
   Card,
   CardContent,
@@ -9,6 +8,7 @@ import {
   CardTitle,
   PageTitle,
 } from '@/shared/ui';
+import { CreateEmployeeForm } from '@/features/employee-create';
 
 export default function EmployeeCreatePage() {
   const { t } = useTranslation('translation', {
@@ -25,11 +25,7 @@ export default function EmployeeCreatePage() {
           <CardDescription>{t('formSubtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <EmployeeForm
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-          />
+          <CreateEmployeeForm />
         </CardContent>
       </Card>
     </>

@@ -158,3 +158,5 @@ export {
   DialogTitle,
   DialogTrigger,
 } from './dialog';
+export { TableActions } from './TableActions';
+export { TableCard } from './TableCard';
