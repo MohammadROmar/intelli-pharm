@@ -46,6 +46,7 @@ export function DeleteModal({
           <Button
             variant="destructive"
             onClick={onConfirm}
+            isLoading={isPending}
             disabled={isPending}
           >
             {t('confirm')}

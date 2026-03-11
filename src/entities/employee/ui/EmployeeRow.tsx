@@ -24,7 +24,11 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
         item={employee}
         onDelete={onDelete}
         path="/dashboard/employees"
-      />
+      >
+        <TableActions.Detail />
+        <TableActions.Edit />
+        <TableActions.Delete />
+      </TableActions>
     </TableRow>
   );
 }

@@ -1,18 +1,24 @@
 import { Slot } from '@radix-ui/react-slot';
-import { type VariantProps } from 'class-variance-authority';
+import type { VariantProps } from 'class-variance-authority';
+import type { ComponentProps } from 'react';
 
 import { cn, buttonVariants } from '../lib';
+import { Spinner } from './spinner';
+
+type ButtonProps = ComponentProps<'button'> & {
+  asChild?: boolean;
+  isLoading?: boolean;
+} & VariantProps<typeof buttonVariants>;
 
 export function Button({
   className,
   variant = 'default',
   size = 'default',
   asChild = false,
+  isLoading,
+  children,
   ...props
-}: React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : 'button';
 
   return (
@@ -22,6 +28,9 @@ export function Button({
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {isLoading && <Spinner />}
+      {children}
+    </Comp>
   );
 }

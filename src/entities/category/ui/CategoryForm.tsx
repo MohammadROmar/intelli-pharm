@@ -54,8 +54,8 @@ export function CategoryForm({
           {errors.name && <FieldError>{t('form.errors.required')}</FieldError>}
         </Field>
         <Field data-invalid={!!errors.parentId}>
-          <FieldLabel htmlFor="parent">
-            {t('form.fields.categoryParent')}
+          <FieldLabel asChild>
+            <p>{t('form.fields.categoryParent')}</p>
           </FieldLabel>
           <Controller
             name="parentId"
@@ -63,8 +63,8 @@ export function CategoryForm({
             render={({ field }) => (
               <GenericSingleSelect
                 options={dummyCategories}
-                labelKey="name"
                 valueKey="id"
+                labelKey="name"
                 value={field.value}
                 onValueChange={field.onChange}
               />
@@ -73,10 +73,15 @@ export function CategoryForm({
         </Field>
         <Field>
           <div className="flex w-full flex-col-reverse gap-2 lg:flex-row lg:items-end lg:justify-end">
-            <Button type="button" variant="secondary" onClick={() => reset()}>
+            <Button
+              type="button"
+              variant="secondary"
+              disabled={isLoading}
+              onClick={() => reset()}
+            >
               {t('form.actions.reset')}
             </Button>
-            <Button type="submit">
+            <Button type="submit" isLoading={isLoading} disabled={isLoading}>
               {t(`form.actions.${defaultValues ? 'edit' : 'create'}`)}
             </Button>
           </div>

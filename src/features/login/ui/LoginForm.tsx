@@ -76,7 +76,7 @@ export function LoginForm() {
           )}
         </Field>
         <Field>
-          <Button disabled={isPending} type="submit">
+          <Button disabled={isPending} isLoading={isPending} type="submit">
             {t('loginPage.login')}
           </Button>
         </Field>

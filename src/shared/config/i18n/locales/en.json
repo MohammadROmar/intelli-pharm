@@ -18,6 +18,21 @@
     "login": "Login"
   },
 
+  "ordersPage": {
+    "order": "Order",
+    "list": {
+      "title": "Orders",
+      "subtitle": "View and manage pharmacy orders received by the warehouse.",
+      "all": "All Orders",
+      "id": "ID",
+      "pharmacyName": "Pharmacy Name",
+      "itemsCount": "Number of Items",
+      "createdAt": "Creation Date",
+      "warehouse": "Warehouse",
+      "actions": "Actions"
+    }
+  },
+
   "categoriesPage": {
     "category": "Category",
     "list": {
@@ -124,6 +139,7 @@
 
     "labels": {
       "dashboard": "Dashboard",
+      "orders": "Orders",
       "medicines": "Medicines",
       "categories": "Categories",
       "employees": "Employees",

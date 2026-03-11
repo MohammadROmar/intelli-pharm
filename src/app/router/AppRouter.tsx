@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import PublicOnlyRoute from './PublicOnlyRoute';
 import DashboardRoute from './DashboardRoute';
+import { LazyOrdersListPage } from '@/pages/orders-list';
 import { LazyLoginPage } from '@/pages/login';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     errorElement: <LazyErrorPage />,
     children: [
       { index: true, element: <></> },
+      { path: 'orders', element: <LazyOrdersListPage /> },
       {
         path: 'categories',
         children: [

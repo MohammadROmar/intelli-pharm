@@ -18,7 +18,11 @@ export function CategoryRow({ category, onDelete }: CategoryRowProps) {
         itemId={category.id}
         onDelete={onDelete}
         path="/dashboard/categories"
-      />
+      >
+        <TableActions.Detail />
+        <TableActions.Edit />
+        <TableActions.Delete />
+      </TableActions>
     </TableRow>
   );
 }

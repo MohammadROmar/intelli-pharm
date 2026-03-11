@@ -6,6 +6,7 @@ import {
   AudioWaveform,
   GalleryVerticalEnd,
   LayoutDashboard,
+  Package,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -43,6 +44,11 @@ export const sidebarData = {
       key: 'labels.dashboard',
       url: '/dashboard',
       icon: LayoutDashboard,
+    },
+    {
+      key: 'labels.orders',
+      url: '/dashboard/orders',
+      icon: Package,
     },
     {
       key: 'labels.medicines',

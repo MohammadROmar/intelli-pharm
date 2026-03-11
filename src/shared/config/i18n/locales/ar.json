@@ -18,6 +18,21 @@
     "login": "تسجيل الدخول"
   },
 
+  "ordersPage": {
+    "order": "الطلب",
+    "list": {
+      "title": "الطلبات",
+      "subtitle": "عرض وإدارة طلبات الصيدليات الواردة إلى المستودع.",
+      "all": "جميع الطلبات",
+      "id": "المعرف",
+      "pharmacyName": "اسم الصيدلية",
+      "itemsCount": "عدد العناصر",
+      "createdAt": "تاريخ الانشاء",
+      "warehouse": "المستودع",
+      "actions": "الخيارات"
+    }
+  },
+
   "categoriesPage": {
     "category": "فئة",
     "list": {
@@ -124,6 +139,7 @@
 
     "labels": {
       "dashboard": "لوحة التحكم",
+      "orders": "الطلبات",
       "medicines": "الأدوية",
       "categories": "الفئات",
       "employees": "الموظفين",

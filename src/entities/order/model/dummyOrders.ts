@@ -1,0 +1,88 @@
+import type { Order } from './orderTypes';
+
+export const dummyOrders: Order[] = [
+  {
+    id: 1001,
+    items: 5,
+    warehouseId: 201,
+    pharmacyId: 301,
+    pharmacyName: 'Wellness Pharmacy',
+  },
+  {
+    id: 1002,
+    items: 3,
+    warehouseId: 202,
+    pharmacyId: 302,
+    pharmacyName: 'City Drugs',
+  },
+  {
+    id: 1003,
+    items: 8,
+    warehouseId: 201,
+    pharmacyId: 303,
+    pharmacyName: 'HealthFirst Pharmacy',
+  },
+  {
+    id: 1004,
+    items: 2,
+    warehouseId: 203,
+    pharmacyId: 304,
+    pharmacyName: 'Main Street Pharmacy',
+  },
+  {
+    id: 1005,
+    items: 6,
+    warehouseId: 202,
+    pharmacyId: 305,
+    pharmacyName: 'CarePlus Drugs',
+  },
+  {
+    id: 1006,
+    items: 4,
+    warehouseId: 201,
+    pharmacyId: 306,
+    pharmacyName: 'Community Pharmacy',
+  },
+  {
+    id: 1007,
+    items: 7,
+    warehouseId: 203,
+    pharmacyId: 307,
+    pharmacyName: 'MediSave Pharmacy',
+  },
+  {
+    id: 1008,
+    items: 3,
+    warehouseId: 202,
+    pharmacyId: 308,
+    pharmacyName: 'PillBox Pharmacy',
+  },
+  {
+    id: 1009,
+    items: 5,
+    warehouseId: 201,
+    pharmacyId: 309,
+    pharmacyName: 'Guardian Health',
+  },
+  {
+    id: 1010,
+    items: 4,
+    warehouseId: 203,
+    pharmacyId: 310,
+    pharmacyName: 'Prime Pharmacy',
+  },
+  {
+    id: 1011,
+    items: 9,
+    warehouseId: 202,
+    pharmacyId: 311,
+    pharmacyName: 'Sunrise Drugs',
+  },
+  {
+    id: 1012,
+    items: 2,
+    warehouseId: 201,
+    pharmacyId: 312,
+    pharmacyName: 'Apollo Pharmacy',
+  },
+];
