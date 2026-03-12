@@ -5,10 +5,10 @@ import type { Category, CategoryListItem } from '../model/categoryTypes';
 import {
   Input,
   Field,
-  Button,
   FieldError,
   FieldGroup,
   FieldLabel,
+  FormActions,
   GenericSingleSelect,
 } from '@/shared/ui';
 import { dummyCategories } from '../model/dummyCategories';
@@ -71,21 +71,7 @@ export function CategoryForm({
             )}
           />
         </Field>
-        <Field>
-          <div className="flex w-full flex-col-reverse gap-2 lg:flex-row lg:items-end lg:justify-end">
-            <Button
-              type="button"
-              variant="secondary"
-              disabled={isLoading}
-              onClick={() => reset()}
-            >
-              {t('form.actions.reset')}
-            </Button>
-            <Button type="submit" isLoading={isLoading} disabled={isLoading}>
-              {t(`form.actions.${defaultValues ? 'edit' : 'create'}`)}
-            </Button>
-          </div>
-        </Field>
+        <FormActions isLoading={isLoading} onReset={reset} />
       </FieldGroup>
     </form>
   );

@@ -33,6 +33,23 @@
     }
   },
 
+  "laboratoriesPage": {
+    "laboratory": "مختبر",
+    "list": {
+      "title": "المختبرات",
+      "subtitle": "إدارة ومراقبة المختبرات.",
+      "all": "جميع المختبرات",
+      "id": "المعرف",
+      "name": "الاسم",
+      "actions": "الإجراءات"
+    },
+    "create": {
+      "title": "إضافة مختبر جديد",
+      "subtitle": "أدخل اسم المختبر لإضافته إلى النظام.",
+      "addLab": "إضافة مختبر"
+    }
+  },
+
   "categoriesPage": {
     "category": "فئة",
     "list": {
@@ -140,6 +157,7 @@
     "labels": {
       "dashboard": "لوحة التحكم",
       "orders": "الطلبات",
+      "laboratories": "المختبرات",
       "medicines": "الأدوية",
       "categories": "الفئات",
       "employees": "الموظفين",

@@ -2,10 +2,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import PublicOnlyRoute from './PublicOnlyRoute';
 import DashboardRoute from './DashboardRoute';
-import { LazyOrdersListPage } from '@/pages/orders-list';
-import { LazyLoginPage } from '@/pages/login';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
+import { LazyLoginPage } from '@/pages/login';
+import { LazyOrdersListPage } from '@/pages/orders-list';
+import { LazyLaboratoriesPage } from '@/pages/laboratory';
 import { LazyCategoryListPage } from '@/pages/category-list';
 import { LazyCategoryCreatePage } from '@/pages/category-create';
 import { LazyEmployeeCreatePage } from '@/pages/emploee-create';
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <></> },
       { path: 'orders', element: <LazyOrdersListPage /> },
+      { path: 'laboratories', element: <LazyLaboratoriesPage /> },
       {
         path: 'categories',
         children: [

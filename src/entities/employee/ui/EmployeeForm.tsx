@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import type { Employee, EmployeeFormData } from '../model/employeeTypes';
 import {
-  Button,
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
   Input,
   GenericSingleSelect,
+  FormActions,
 } from '@/shared/ui';
 import { getRoles } from '../lib/getRoles';
 
@@ -119,21 +119,7 @@ export function EmployeeForm({
           />
           {errors.role && <FieldError>{t('form.errors.required')}</FieldError>}
         </Field>
-        <Field>
-          <div className="flex w-full flex-col-reverse gap-2 lg:flex-row lg:items-end lg:justify-end">
-            <Button
-              type="button"
-              variant="secondary"
-              disabled={isLoading}
-              onClick={() => reset()}
-            >
-              {t('form.actions.reset')}
-            </Button>
-            <Button type="submit" isLoading={isLoading} disabled={isLoading}>
-              {t(`form.actions.${defaultValues ? 'edit' : 'create'}`)}
-            </Button>
-          </div>
-        </Field>
+        <FormActions isLoading={isLoading} onReset={reset} />
       </FieldGroup>
     </form>
   );

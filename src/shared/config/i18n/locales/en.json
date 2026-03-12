@@ -33,6 +33,23 @@
     }
   },
 
+  "laboratoriesPage": {
+    "laboratory": "Laboratory",
+    "list": {
+      "title": "Laboratories",
+      "subtitle": "Manage and monitor laboratories.",
+      "all": "All Laboratories",
+      "id": "ID",
+      "name": "Name",
+      "actions": "Actions"
+    },
+    "create": {
+      "title": "Add New Laboratory",
+      "subtitle": "Enter the name of the laboratory to add it to the system.",
+      "addLab": "Add Laboratory"
+    }
+  },
+
   "categoriesPage": {
     "category": "Category",
     "list": {
@@ -140,6 +157,7 @@
     "labels": {
       "dashboard": "Dashboard",
       "orders": "Orders",
+      "laboratories": "Laboratories",
       "medicines": "Medicines",
       "categories": "Categories",
       "employees": "Employees",

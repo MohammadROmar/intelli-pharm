@@ -7,6 +7,7 @@ import {
   GalleryVerticalEnd,
   LayoutDashboard,
   Package,
+  Pipette,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -49,6 +50,11 @@ export const sidebarData = {
       key: 'labels.orders',
       url: '/dashboard/orders',
       icon: Package,
+    },
+    {
+      key: 'labels.laboratories',
+      url: '/dashboard/laboratories',
+      icon: Pipette,
     },
     {
       key: 'labels.medicines',
