@@ -94,6 +94,9 @@
   },
   "categoriesPage": {
     "category": "فئة",
+    "categoryInfo": "معلومات الفئة",
+    "categoryInfoDescription": "الاسم وفئة اصلية اختيارية.",
+    "categoryNamePlaceholder": "مثال. مضادات حيوية",
     "list": {
       "title": "فئات الأدوية",
       "all": "جميع الفئات",
@@ -118,6 +121,9 @@
 
   "employeesPage": {
     "employee": "موظف",
+    "detailsTitle": "المعلومات الشخصية",
+    "detailsSubtitle": "الاسم، البريد الالكتروني، كلمة المرور والدور.",
+    "namePlaceholder": "مثال. أحمد محمد",
     "roles": {
       "distributor": "موزع",
       "rep": "مندوب"

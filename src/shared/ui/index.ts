@@ -91,12 +91,12 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarLink,
-} from './sidebar/Sidebar';
+} from './Sidebar/Sidebar';
 export {
   SidebarContext,
   type SidebarContextProps,
-} from './sidebar/SidebarContext';
-export { useSidebar } from './sidebar/useSidebar';
+} from './Sidebar/SidebarContext';
+export { useSidebar } from './Sidebar/useSidebar';
 export {
   Skeleton,
   CardsSkeleton,

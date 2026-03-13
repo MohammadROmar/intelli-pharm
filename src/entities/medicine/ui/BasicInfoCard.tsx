@@ -1,5 +1,5 @@
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
-import { Pill } from 'lucide-react';
+import { DollarSign, Pill, StickyNote, Tag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { FormValues } from '../model/medicineTypes';
@@ -65,6 +65,7 @@ export function BasicInfoCard() {
             placeholder={t('medicineNamePlaceholder')}
             aria-invalid={!!errors.name}
             autoComplete="off"
+            icon={Pill}
             {...register('name', {
               validate: { required: required() },
             })}
@@ -83,6 +84,7 @@ export function BasicInfoCard() {
                   <p>{t('category')}</p>
                 </FieldLabel>
                 <GenericSingleSelect
+                  icon={Tag}
                   invalid={fieldState.invalid}
                   options={CATEGORIS}
                   valueKey="id"
@@ -97,26 +99,20 @@ export function BasicInfoCard() {
 
           <Field data-invalid={!!errors.price}>
             <FieldLabel htmlFor="price">{t('price')}</FieldLabel>
-            <div className="relative">
-              <span className="text-muted-foreground pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm">
-                $
-              </span>
-              <Input
-                id="price"
-                type="number"
-                min="0"
-                step="0.01"
-                placeholder="0.00"
-                aria-invalid={!!errors.price}
-                className="pl-7"
-                {...register('price', {
-                  validate: {
-                    required: required(),
-                    positiveNumber: positiveNumber(),
-                  },
-                })}
-              />
-            </div>
+            <Input
+              id="price"
+              type="number"
+              icon={DollarSign}
+              min="0"
+              placeholder="0.00"
+              aria-invalid={!!errors.price}
+              {...register('price', {
+                validate: {
+                  required: required(),
+                  positiveNumber: positiveNumber(),
+                },
+              })}
+            />
             <FieldError errors={te(errors.price, 'price')} />
           </Field>
         </div>
@@ -124,6 +120,7 @@ export function BasicInfoCard() {
         <Field>
           <FieldLabel htmlFor="note">{t('note')}</FieldLabel>
           <Textarea
+            icon={StickyNote}
             id="note"
             placeholder={t('notePlaceholder')}
             rows={3}

@@ -1,51 +1,66 @@
 import { useMemo } from 'react';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Lock, Mail, Shield, User } from 'lucide-react';
 
+import { getRoles } from '../lib/getRoles';
 import type { Employee, EmployeeFormData } from '../model/employeeTypes';
 import {
   Field,
   FieldError,
-  FieldGroup,
   FieldLabel,
   Input,
   GenericSingleSelect,
   FormActions,
+  FormSectionHeader,
 } from '@/shared/ui';
-import { getRoles } from '../lib/getRoles';
 
 type EmployeeFormProps = {
   onSubmit: SubmitHandler<EmployeeFormData>;
   defaultValues?: Partial<Employee>;
   isLoading?: boolean;
+  onReset: () => void;
 };
 
 export function EmployeeForm({
   onSubmit,
-  defaultValues,
   isLoading,
+  onReset,
+  defaultValues,
 }: EmployeeFormProps) {
   const {
-    reset,
     register,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<EmployeeFormData>({ defaultValues });
+  } = useForm<EmployeeFormData>({
+    defaultValues,
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+  });
 
   const { t } = useTranslation();
 
   const roles = useMemo(() => getRoles(t), [t]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FieldGroup>
+    <>
+      <FormSectionHeader
+        icon={User}
+        title={t('employeesPage.detailsTitle')}
+        description={t('employeesPage.detailsSubtitle')}
+      />
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         <Field data-invalid={!!errors.name}>
           <FieldLabel htmlFor="name">{t('form.fields.name')}</FieldLabel>
           <Input
             id="name"
             type="text"
             autoComplete="off"
+            icon={User}
+            placeholder={t('employeesPage.namePlaceholder')}
+            aria-invalid={!!errors.name}
             {...register('name', {
               required: true,
               disabled: isLoading,
@@ -60,6 +75,8 @@ export function EmployeeForm({
             id="email"
             type="email"
             autoComplete="email"
+            icon={Mail}
+            aria-invalid={!!errors.email}
             placeholder="example@intellipharm.com"
             {...register('email', {
               required: true,
@@ -67,7 +84,7 @@ export function EmployeeForm({
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
           />
-          {errors.name && (
+          {errors.email && (
             <FieldError>
               {t('form.errors.invalidField', {
                 field: t('form.fields.email'),
@@ -83,6 +100,8 @@ export function EmployeeForm({
             id="password"
             type="password"
             autoComplete="new-password"
+            icon={Lock}
+            aria-invalid={!!errors.password}
             placeholder="********"
             {...register('password', {
               required: true,
@@ -90,7 +109,7 @@ export function EmployeeForm({
               pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
             })}
           />
-          {errors.name && (
+          {errors.password && (
             <FieldError>
               {t('form.errors.invalidField', {
                 field: t('form.fields.password'),
@@ -108,9 +127,11 @@ export function EmployeeForm({
             rules={{ required: true }}
             render={({ field }) => (
               <GenericSingleSelect
+                invalid={!!errors.role}
                 options={roles}
                 valueKey="value"
                 labelKey="label"
+                icon={Shield}
                 value={field.value}
                 onValueChange={field.onChange}
                 hasMoreLabel={false}
@@ -119,8 +140,8 @@ export function EmployeeForm({
           />
           {errors.role && <FieldError>{t('form.errors.required')}</FieldError>}
         </Field>
-        <FormActions isLoading={isLoading} onReset={reset} />
-      </FieldGroup>
-    </form>
+        <FormActions isLoading={isLoading} onReset={onReset} />
+      </form>
+    </>
   );
 }

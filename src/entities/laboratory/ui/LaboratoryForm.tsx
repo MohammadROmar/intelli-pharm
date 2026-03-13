@@ -1,5 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Pipette } from 'lucide-react';
 
 import type { Laboratory } from '../model/laboratoryTypes';
 import {
@@ -15,15 +16,16 @@ type LaboratoryFormProps = {
   onSubmit: SubmitHandler<Laboratory>;
   defaultValues?: Partial<Laboratory>;
   isLoading?: boolean;
+  onReset: () => void;
 };
 
 export function LaboratoryForm({
   onSubmit,
   defaultValues,
   isLoading,
+  onReset,
 }: LaboratoryFormProps) {
   const {
-    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -40,6 +42,7 @@ export function LaboratoryForm({
             id="name"
             type="text"
             autoComplete="off"
+            icon={Pipette}
             {...register('name', {
               required: true,
               disabled: isLoading,
@@ -50,7 +53,7 @@ export function LaboratoryForm({
         </Field>
         <FormActions
           isLoading={isLoading}
-          onReset={reset}
+          onReset={onReset}
           classNames={{
             container: 'lg:justify-center lg:flex-col-reverse lg:items-center',
             reset: 'w-full',

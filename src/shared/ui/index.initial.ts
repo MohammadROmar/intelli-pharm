@@ -1,7 +1,7 @@
 export {
   SidebarContext,
   type SidebarContextProps,
-} from './sidebar/SidebarContext';
+} from './Sidebar/SidebarContext';
 export { TooltipProvider } from './Tooltip';
 export {
   CardsSkeleton,

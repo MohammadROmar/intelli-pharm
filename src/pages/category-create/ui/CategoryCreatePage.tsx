@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { CategoryForm } from '@/entities/category';
 import {
   Card,
@@ -7,7 +10,6 @@ import {
   CardTitle,
   PageTitle,
 } from '@/shared/ui';
-import { useTranslation } from 'react-i18next';
 
 export default function CategoryCreatePage() {
   const { t } = useTranslation('translation', {
@@ -24,13 +26,23 @@ export default function CategoryCreatePage() {
           <CardDescription>{t('formSubtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <CategoryForm
-            onSubmit={(data) => {
-              console.log(data);
-            }}
-          />
+          <Form />
         </CardContent>
       </Card>
     </>
+  );
+}
+
+function Form() {
+  const [formKey, setFormKey] = useState(0);
+
+  return (
+    <CategoryForm
+      key={formKey}
+      onSubmit={(data) => {
+        console.log(data);
+      }}
+      onReset={() => setFormKey((prev) => prev + 1)}
+    />
   );
 }

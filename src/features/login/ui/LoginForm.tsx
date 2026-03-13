@@ -10,6 +10,7 @@ import {
   FieldLabel,
   Input,
 } from '@/shared/ui';
+import { Lock, Mail } from 'lucide-react';
 
 type FormFields = { email: string; password: string };
 
@@ -35,6 +36,7 @@ export function LoginForm() {
           <Input
             id="email"
             type="email"
+            icon={Mail}
             {...register('email', {
               required: true,
               disabled: isPending,
@@ -58,6 +60,7 @@ export function LoginForm() {
           </FieldLabel>
           <Input
             id="password"
+            icon={Lock}
             {...register('password', {
               required: true,
               disabled: isPending,

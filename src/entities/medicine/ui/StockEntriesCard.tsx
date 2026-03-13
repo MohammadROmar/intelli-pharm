@@ -4,7 +4,7 @@ import {
   useFormContext,
   useFormState,
 } from 'react-hook-form';
-import { Plus, Trash2, Warehouse } from 'lucide-react';
+import { Package, Plus, Trash2, Warehouse } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { FormValues } from '../model/medicineTypes';
@@ -132,6 +132,7 @@ export function StockEntriesCard() {
                         <p>{t('warehouse')}</p>
                       </FieldLabel>
                       <GenericSingleSelect
+                        icon={Warehouse}
                         invalid={warehouseState.invalid}
                         options={WAREHOUSES}
                         valueKey="id"
@@ -157,6 +158,7 @@ export function StockEntriesCard() {
                     placeholder="100"
                     aria-invalid={quantityState.invalid}
                     className="text-sm"
+                    icon={Package}
                     {...register(`stocks.${index}.quantity`, {
                       validate: {
                         required: required(),

@@ -5,7 +5,7 @@
  * Modified to fit the project's FSD (Feature-Sliced Design) structure
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ElementType } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 
@@ -37,6 +37,7 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   className?: string;
   hasMoreLabel?: boolean;
   invalid?: boolean;
+  icon?: ElementType;
 }
 
 export function GenericSingleSelect<T extends Record<string, unknown>>({
@@ -55,6 +56,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   displayClassName,
   invalid,
   hasMoreLabel = true,
+  icon: Icon,
 }: GenericSingleSelectProps<T>) {
   const [localSearch, setLocalSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -154,11 +156,13 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           role="combobox"
           aria-expanded={isOpen}
           className={cn(
-            'w-full justify-between',
+            'relative w-full justify-between',
             invalid && 'border-destructive!',
+            Icon && 'ltr:pl-9! rtl:pr-9!',
             className,
           )}
         >
+          {Icon && <Icon className="input-icon" />}
           {selectedOption ? (
             <span className="truncate">{String(selectedOption[labelKey])}</span>
           ) : defaultValue ? (

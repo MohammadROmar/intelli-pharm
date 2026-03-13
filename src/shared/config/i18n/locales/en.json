@@ -95,6 +95,9 @@
 
   "categoriesPage": {
     "category": "Category",
+    "categoryInfo": "Category Information",
+    "categoryInfoDescription": "Name and optional parent category",
+    "categoryNamePlaceholder": "e.g. Antibiotics",
     "list": {
       "title": "Medicine Categories",
       "subtitle": "Manage and organize your medicine categories",
@@ -119,6 +122,9 @@
 
   "employeesPage": {
     "employee": "Employee",
+    "detailsTitle": "Personal Information",
+    "namePlaceholder": "e.g. John Smith",
+    "detailsSubtitle": "Name, email, password and role.",
     "roles": {
       "distributor": "Distributor",
       "rep": "Representative"

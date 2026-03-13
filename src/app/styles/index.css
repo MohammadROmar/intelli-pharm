@@ -139,3 +139,7 @@
     @apply bg-background text-foreground font-cairo selection:bg-primary overflow-x-hidden selection:text-white;
   }
 }
+
+@utility input-icon {
+  @apply text-muted-foreground pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 ltr:left-3 rtl:right-3;
+}

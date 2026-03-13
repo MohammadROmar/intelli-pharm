@@ -9,26 +9,22 @@ import { BasicInfoCard } from './BasicInfoCard';
 import { StockEntriesCard } from './StockEntriesCard';
 import { ImagesCard } from './ImagesCard';
 
-type MedicineFormProps = { defaultValues?: Partial<FormValues> };
+type MedicineFormProps = {
+  defaultValues?: Partial<FormValues>;
+  onReset: () => void;
+};
 
-export function MedicineForm({ defaultValues }: MedicineFormProps) {
+export function MedicineForm({ defaultValues, onReset }: MedicineFormProps) {
   const methods = useForm<FormValues>({
     defaultValues: defaultValues ?? {
       stocks: [{ warehouse_id: '', expiry_date: '', quantity: '' }],
     },
   });
 
-  const { images, handleImageRemove, handleImagesAdd, clearImages } =
-    useMedicineImages();
+  const { images, handleImageRemove, handleImagesAdd } = useMedicineImages();
 
   async function onSubmit(values: FormValues) {
     await createMedicine(values, images);
-  }
-
-  function handleReset() {
-    methods.reset();
-    images.forEach((img) => URL.revokeObjectURL(img.preview));
-    clearImages();
   }
 
   return (
@@ -41,7 +37,7 @@ export function MedicineForm({ defaultValues }: MedicineFormProps) {
           onAdd={handleImagesAdd}
           onRemove={handleImageRemove}
         />
-        <FormActions onReset={handleReset} />
+        <FormActions onReset={onReset} />
       </form>
     </FormProvider>
   );
