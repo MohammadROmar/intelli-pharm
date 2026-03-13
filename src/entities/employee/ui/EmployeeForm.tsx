@@ -102,7 +102,7 @@ export function EmployeeForm({
             autoComplete="new-password"
             icon={Lock}
             aria-invalid={!!errors.password}
-            placeholder="********"
+            placeholder="••••••••"
             {...register('password', {
               required: true,
               disabled: isLoading,

@@ -43,7 +43,7 @@ export function LoginForm() {
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
             autoComplete="email"
-            placeholder="m@example.com"
+            placeholder="example@intellipharm.com"
           />
 
           {errors.email && (
@@ -61,6 +61,7 @@ export function LoginForm() {
           <Input
             id="password"
             icon={Lock}
+            placeholder="••••••••"
             {...register('password', {
               required: true,
               disabled: isPending,

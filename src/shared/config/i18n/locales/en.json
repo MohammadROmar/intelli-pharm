@@ -35,6 +35,7 @@
 
   "laboratoriesPage": {
     "laboratory": "Laboratory",
+    "labNamePlaceholder": "e.g. Al Fares",
     "list": {
       "title": "Laboratories",
       "subtitle": "Manage and monitor laboratories.",

@@ -35,6 +35,7 @@
 
   "laboratoriesPage": {
     "laboratory": "مختبر",
+    "labNamePlaceholder": "مثال. الفارس",
     "list": {
       "title": "المختبرات",
       "subtitle": "إدارة ومراقبة المختبرات.",

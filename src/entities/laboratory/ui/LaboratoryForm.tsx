@@ -31,25 +31,26 @@ export function LaboratoryForm({
     formState: { errors },
   } = useForm<Laboratory>({ defaultValues });
 
-  const { t } = useTranslation('translation', { keyPrefix: 'form' });
+  const { t } = useTranslation();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup className="flex h-full flex-col justify-between">
         <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{t('fields.name')}</FieldLabel>
+          <FieldLabel htmlFor="name">{t('form.fields.name')}</FieldLabel>
           <Input
             id="name"
             type="text"
             autoComplete="off"
             icon={Pipette}
+            placeholder={t('laboratoriesPage.labNamePlaceholder')}
             {...register('name', {
               required: true,
               disabled: isLoading,
               validate: (value) => value && value.trim() !== '',
             })}
           />
-          {errors.name && <FieldError>{t('errors.required')}</FieldError>}
+          {errors.name && <FieldError>{t('form.errors.required')}</FieldError>}
         </Field>
         <FormActions
           isLoading={isLoading}
