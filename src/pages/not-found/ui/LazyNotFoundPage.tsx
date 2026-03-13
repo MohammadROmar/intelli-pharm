@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import { WithSuspense } from '@/shared/ui';
+import { WithSuspense } from '@/shared/ui/index.initial';
 
 const NotFoundPage = lazy(() => import('./NotFoundPage'));
 

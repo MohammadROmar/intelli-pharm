@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import { WithSuspense, TableSkeleton } from '@/shared/ui';
+import { WithSuspense, TableSkeleton } from '@/shared/ui/index.initial';
 
 const EmployeeListPage = lazy(() => import('./EmployeeListPage'));
 

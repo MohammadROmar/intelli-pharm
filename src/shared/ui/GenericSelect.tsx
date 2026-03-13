@@ -36,6 +36,7 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   isLoading?: boolean;
   className?: string;
   hasMoreLabel?: boolean;
+  invalid?: boolean;
 }
 
 export function GenericSingleSelect<T extends Record<string, unknown>>({
@@ -52,6 +53,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   isLoading,
   className,
   displayClassName,
+  invalid,
   hasMoreLabel = true,
 }: GenericSingleSelectProps<T>) {
   const [localSearch, setLocalSearch] = useState('');
@@ -151,7 +153,11 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           variant="outline"
           role="combobox"
           aria-expanded={isOpen}
-          className={cn('w-full justify-between', className)}
+          className={cn(
+            'w-full justify-between',
+            invalid && 'border-destructive!',
+            className,
+          )}
         >
           {selectedOption ? (
             <span className="truncate">{String(selectedOption[labelKey])}</span>

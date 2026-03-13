@@ -5,7 +5,7 @@ import {
   TooltipProvider,
   SidebarContext,
   type SidebarContextProps,
-} from '@/shared/ui';
+} from '@/shared/ui/index.initial';
 import {
   SIDEBAR_COOKIE_MAX_AGE,
   SIDEBAR_COOKIE_NAME,

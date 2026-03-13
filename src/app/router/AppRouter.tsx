@@ -9,8 +9,9 @@ import { LazyOrdersListPage } from '@/pages/orders-list';
 import { LazyLaboratoriesPage } from '@/pages/laboratory';
 import { LazyCategoryListPage } from '@/pages/category-list';
 import { LazyCategoryCreatePage } from '@/pages/category-create';
-import { LazyEmployeeCreatePage } from '@/pages/emploee-create';
+import { LazyEmployeeCreatePage } from '@/pages/employee-create';
 import { LazyEmployeeListPage } from '@/pages/employee-list';
+import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       { index: true, element: <></> },
       { path: 'orders', element: <LazyOrdersListPage /> },
       { path: 'laboratories', element: <LazyLaboratoriesPage /> },
+      {
+        path: 'medicines',
+        children: [{ path: 'new', element: <LazyMedicineCreatePage /> }],
+      },
       {
         path: 'categories',
         children: [

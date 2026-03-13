@@ -1,5 +1,5 @@
 import { SIDEBAR_WIDTH } from '@/shared/config';
-import { Skeleton, CardsSkeleton } from '@/shared/ui';
+import { Skeleton, CardsSkeleton } from '@/shared/ui/index.initial';
 
 export default function DashboardSkeleton() {
   return (

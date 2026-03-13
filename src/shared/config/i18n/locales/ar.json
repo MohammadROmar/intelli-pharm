@@ -50,6 +50,48 @@
     }
   },
 
+  "medicinesPage": {
+    "medicine": "دواء",
+    "create": {
+      "title": "إضافة دواء جديد",
+      "subtitle": "تسجيل دواء جديد مع تفاصيل المخزون والصورة."
+    },
+    "form": {
+      "basicInfoTitle": "المعلومات الأساسية",
+      "basicInfoSubtitle": "التفاصيل الأساسية للدواء.",
+      "medicineDetailsTitle": "تفاصيل الدواء",
+      "medicineDetailsSubtitle": "الاسم، الفئة، السعر والملاحظات.",
+      "medicineName": "اسم الدواء",
+      "category": "الفئة",
+      "price": "السعر",
+      "note": "ملاحظة (اختياري)",
+      "flags": "علامات",
+      "active": "نشط",
+      "activeDescription": "الدواء متاح للبيع والطلب.",
+      "imported": "مستورد",
+      "importedDescription": "هذا الدواء يتم توريده من مورد خارجي.",
+      "alternative": "بديل",
+      "alternativeDescription": "هذا بديل عام أو مكافئ.",
+      "stockEntriesTitle": "إدخالات المخزون",
+      "stockEntriesSubtitle": "أضف مخزونًا لكل مستودع مع الكمية وتاريخ انتهاء الصلاحية.",
+      "addStock": "إضافة مخزون",
+      "warehouseStock": "مخزون المستودع",
+      "warehouseStockSubtitle": "كل صف يمثل مخزونًا في مستودع معين.",
+      "stock": "المخزون",
+      "warehouse": "المستودع",
+      "medicineNamePlaceholder": "على سبيل المثال Paracetamol 500mg",
+      "notePlaceholder": "ملاحظات اضافية حول هذا الدواء...",
+      "quantity": "الكمية",
+      "expiryDate": "تاريخ انتهاء الصلاحية",
+      "medicineImagesTitle": "صور الدواء",
+      "medicineImagesSubtitle": "قم بتحميل صور المنتج. اسحب وأفلت أو انقر للتصفح.",
+      "productPhotosTitle": "صور المنتج",
+      "productPhotosSubtitle": "تم تحديد {{imagesCount}} صورة (صور)",
+      "required": "{{field}} مطلوب",
+      "fRequired": "{{field}} مطلوبة",
+      "validNum": "{{field}} يجب أن يكون رقماً صحيحاً"
+    }
+  },
   "categoriesPage": {
     "category": "فئة",
     "list": {
@@ -134,6 +176,12 @@
       "edit": "تعديل",
       "reset": "إعادة التعيين"
     }
+  },
+
+  "dragNDrop": {
+    "dnd": "اسحب وأفلت الصور أو",
+    "browse": "تصفح",
+    "dropHere": "قم بوضع الصور هنا"
   },
 
   "asyncSelect": {

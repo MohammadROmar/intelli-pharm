@@ -1,0 +1,169 @@
+import { Controller, useFormContext, useFormState } from 'react-hook-form';
+import { Pill } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+import type { FormValues } from '../model/medicineTypes';
+import { required, fRequired, positiveNumber } from '../utils/utils';
+import { useFieldError } from '../model/useFieldError';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+  FormSectionHeader,
+  GenericSingleSelect,
+  Input,
+  Separator,
+  SwitchRow,
+  Textarea,
+} from '@/shared/ui';
+
+const CATEGORIS = [
+  { id: '1', name: 'Electronics' },
+  { id: '2', name: 'Smartphones' },
+  { id: '3', name: 'Laptops' },
+  { id: '4', name: 'Clothing' },
+];
+
+export function BasicInfoCard() {
+  const { register, control } = useFormContext<FormValues>();
+  const { errors } = useFormState<FormValues>({
+    name: ['name', 'category_id', 'price'],
+  });
+
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'medicinesPage.form',
+  });
+
+  const { te } = useFieldError('medicinesPage.form');
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('basicInfoTitle')}</CardTitle>
+        <CardDescription>{t('basicInfoSubtitle')}</CardDescription>
+      </CardHeader>
+
+      <CardContent className="space-y-5">
+        <FormSectionHeader
+          icon={Pill}
+          title={t('medicineDetailsTitle')}
+          description={t('medicineDetailsSubtitle')}
+        />
+
+        <Field data-invalid={!!errors.name}>
+          <FieldLabel htmlFor="name">{t('medicineName')}</FieldLabel>
+          <Input
+            id="name"
+            placeholder={t('medicineNamePlaceholder')}
+            aria-invalid={!!errors.name}
+            autoComplete="off"
+            {...register('name', {
+              validate: { required: required() },
+            })}
+          />
+          <FieldError errors={te(errors.name, 'medicineName')} />
+        </Field>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Controller
+            name="category_id"
+            control={control}
+            rules={{ validate: fRequired() }}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel asChild>
+                  <p>{t('category')}</p>
+                </FieldLabel>
+                <GenericSingleSelect
+                  invalid={fieldState.invalid}
+                  options={CATEGORIS}
+                  valueKey="id"
+                  labelKey="name"
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+                <FieldError errors={te(fieldState.error, 'category')} />
+              </Field>
+            )}
+          />
+
+          <Field data-invalid={!!errors.price}>
+            <FieldLabel htmlFor="price">{t('price')}</FieldLabel>
+            <div className="relative">
+              <span className="text-muted-foreground pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm">
+                $
+              </span>
+              <Input
+                id="price"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="0.00"
+                aria-invalid={!!errors.price}
+                className="pl-7"
+                {...register('price', {
+                  validate: {
+                    required: required(),
+                    positiveNumber: positiveNumber(),
+                  },
+                })}
+              />
+            </div>
+            <FieldError errors={te(errors.price, 'price')} />
+          </Field>
+        </div>
+
+        <Field>
+          <FieldLabel htmlFor="note">{t('note')}</FieldLabel>
+          <Textarea
+            id="note"
+            placeholder={t('notePlaceholder')}
+            rows={3}
+            className="resize-none"
+            {...register('note')}
+          />
+        </Field>
+
+        <Separator className="my-2" />
+
+        <FieldSet>
+          <FieldLegend className="text-muted-foreground mb-3 text-[11px] font-medium tracking-wider uppercase">
+            {t('flags')}
+          </FieldLegend>
+          <FieldGroup className="space-y-3">
+            {(
+              [
+                ['is_active', 'active', 'activeDescription'],
+                ['is_imported', 'imported', 'importedDescription'],
+                ['is_alternative', 'alternative', 'alternativeDescription'],
+              ] as const
+            ).map(([name, labelKey, descKey]) => (
+              <Controller
+                key={name}
+                name={name}
+                control={control}
+                render={({ field }) => (
+                  <SwitchRow
+                    id={name}
+                    label={t(labelKey)}
+                    description={t(descKey)}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                )}
+              />
+            ))}
+          </FieldGroup>
+        </FieldSet>
+      </CardContent>
+    </Card>
+  );
+}

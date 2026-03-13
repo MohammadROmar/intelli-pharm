@@ -2,7 +2,7 @@ import { lazy } from 'react';
 
 import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
 import { ProtectedRoute } from '@/features/auth';
-import { WithSuspense } from '@/shared/ui';
+import { WithSuspense } from '@/shared/ui/index.initial';
 
 const DashboardLayout = lazy(() => import('../layouts/DashboardLayout'));
 

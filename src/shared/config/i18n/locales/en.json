@@ -50,6 +50,49 @@
     }
   },
 
+  "medicinesPage": {
+    "medicine": "Medicine",
+    "create": {
+      "title": "Add New Medicine",
+      "subtitle": "Register a new medicine with stock and image details."
+    },
+    "form": {
+      "basicInfoTitle": "Basic Information",
+      "basicInfoSubtitle": "Core details for the medicine.",
+      "medicineDetailsTitle": "Medicine Details",
+      "medicineDetailsSubtitle": "Name, category, price and notes.",
+      "medicineName": "Medicine Name",
+      "category": "Category",
+      "price": "Price",
+      "note": "Note (optional)",
+      "flags": "FLAGS",
+      "active": "Active",
+      "activeDescription": "Medicine is available for sale and ordering.",
+      "imported": "Imported",
+      "importedDescription": "This medicine is sourced from an overseas supplier.",
+      "alternative": "Alternative",
+      "alternativeDescription": "This is a generic or alternative substitute.",
+      "stockEntriesTitle": "Stock Entries",
+      "stockEntriesSubtitle": "Add stock per warehouse with quantity and expiry date.",
+      "addStock": "Add Stock",
+      "warehouseStock": "Warehouse Stock",
+      "warehouseStockSubtitle": "Each row represents stock in a specific warehouse.",
+      "stock": "Stock",
+      "warehouse": "Warehouse",
+      "quantity": "Quantity",
+      "medicineNamePlaceholder": "e.g. Paracetamol 500mg",
+      "notePlaceholder": "Additional notes about this medicine…",
+      "expiryDate": "Expiry Date",
+      "medicineImagesTitle": "Medicine Images",
+      "medicineImagesSubtitle": "Upload product images. Drag & drop or click to browse.",
+      "productPhotosTitle": "Product Photos",
+      "productPhotosSubtitle": "{{imagesCount}} image (images) selected",
+      "required": "{{field}} is required",
+      "fRequired": "{{field}} is required",
+      "validNum": "{{field}} must be a valid number"
+    }
+  },
+
   "categoriesPage": {
     "category": "Category",
     "list": {
@@ -134,6 +177,12 @@
       "edit": "Edit",
       "reset": "Reset"
     }
+  },
+
+  "dragNDrop": {
+    "dnd": "Drag & drop images or",
+    "browse": "Browse",
+    "dropHere": "Drop images here..."
   },
 
   "asyncSelect": {

@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import { WithSuspense, FormSkeleton } from '@/shared/ui';
+import { WithSuspense, FormSkeleton } from '@/shared/ui/index.initial';
 
 const CategoryCreatePage = lazy(() => import('./CategoryCreatePage'));
 

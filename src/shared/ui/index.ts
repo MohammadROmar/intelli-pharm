@@ -91,12 +91,12 @@ export {
   SidebarSeparator,
   SidebarTrigger,
   SidebarLink,
-} from './Sidebar/Sidebar';
+} from './sidebar/Sidebar';
 export {
   SidebarContext,
   type SidebarContextProps,
-} from './Sidebar/SidebarContext';
-export { useSidebar } from './Sidebar/useSidebar';
+} from './sidebar/SidebarContext';
+export { useSidebar } from './sidebar/useSidebar';
 export {
   Skeleton,
   CardsSkeleton,
@@ -161,3 +161,8 @@ export {
 export { TableActions } from './TableActions';
 export { TableCard } from './TableCard';
 export { FormActions } from './FormActions';
+export { Badge } from './badge';
+export { Textarea } from './textarea';
+export { Switch, SwitchRow } from './switch';
+export { FormSectionHeader } from './FormSectionHeader';
+export { ImageDropzone } from './ImageDropzone';
