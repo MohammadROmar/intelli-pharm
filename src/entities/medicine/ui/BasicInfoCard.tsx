@@ -1,4 +1,9 @@
-import { Controller, useFormContext, useFormState } from 'react-hook-form';
+import {
+  Controller,
+  useFormContext,
+  useFormState,
+  useWatch,
+} from 'react-hook-form';
 import { DollarSign, Pill, StickyNote, Tag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -25,18 +30,27 @@ import {
   Textarea,
 } from '@/shared/ui';
 
-const CATEGORIS = [
+const CATEGORIES = [
   { id: '1', name: 'Electronics' },
   { id: '2', name: 'Smartphones' },
   { id: '3', name: 'Laptops' },
   { id: '4', name: 'Clothing' },
 ];
 
+const MEDICINES = [
+  { id: '1', name: 'Paracetamol 500mg' },
+  { id: '2', name: 'Ibuprofen 400mg' },
+  { id: '3', name: 'Amoxicillin 250mg' },
+];
+
 export function BasicInfoCard() {
   const { register, control } = useFormContext<FormValues>();
+
   const { errors } = useFormState<FormValues>({
-    name: ['name', 'category_id', 'price'],
+    name: ['name', 'category_id', 'price', 'is_alternative_to_id'],
   });
+
+  const isAlternative = useWatch({ control, name: 'is_alternative' });
 
   const { t } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.form',
@@ -86,7 +100,7 @@ export function BasicInfoCard() {
                 <GenericSingleSelect
                   icon={Tag}
                   invalid={fieldState.invalid}
-                  options={CATEGORIS}
+                  options={CATEGORIES}
                   valueKey="id"
                   labelKey="name"
                   value={field.value}
@@ -158,6 +172,38 @@ export function BasicInfoCard() {
                 )}
               />
             ))}
+
+            {isAlternative && (
+              <Controller
+                name="is_alternative_to_id"
+                control={control}
+                rules={{ validate: required() }}
+                render={({ field, fieldState }) => (
+                  <Field
+                    data-invalid={fieldState.invalid}
+                    className="border-border bg-muted/30 rounded-lg border px-4 py-3"
+                  >
+                    <FieldLabel asChild>
+                      <p className="text-sm font-medium">
+                        {t('alternativeToMedicine')}
+                      </p>
+                    </FieldLabel>
+                    <GenericSingleSelect
+                      icon={Pill}
+                      invalid={fieldState.invalid}
+                      options={MEDICINES}
+                      valueKey="id"
+                      labelKey="name"
+                      value={field.value ?? ''}
+                      onValueChange={field.onChange}
+                    />
+                    <FieldError
+                      errors={te(fieldState.error, 'alternativeToMedicine')}
+                    />
+                  </Field>
+                )}
+              />
+            )}
           </FieldGroup>
         </FieldSet>
       </CardContent>

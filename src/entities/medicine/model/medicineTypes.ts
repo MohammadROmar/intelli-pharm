@@ -13,6 +13,7 @@ export type FormValues = {
   is_active: boolean;
   is_alternative: boolean;
   stocks: StockEntry[];
+  is_alternative_to_id: string | null;
 };
 
 export type ImageFile = {

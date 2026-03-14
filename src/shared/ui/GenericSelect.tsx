@@ -170,7 +170,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           ) : (
             <span className="text-muted-foreground">{t('placeholder')}</span>
           )}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
@@ -205,7 +205,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
                     >
                       <Check
                         className={cn(
-                          'mr-2 h-4 w-4',
+                          'mr-2 size-4',
                           isSelected ? 'opacity-100' : 'opacity-0',
                         )}
                       />
@@ -221,7 +221,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
             {/* Infinite scroll indicators */}
             {isLoading ? (
               <div className="text-muted-foreground flex items-center justify-center gap-2 p-2 text-center text-xs">
-                <Loader2 className="text-primary h-4 w-4 animate-spin" />
+                <Loader2 className="text-primary size-4 animate-spin" />
                 Loading more...
               </div>
             ) : hasNextPage ? (

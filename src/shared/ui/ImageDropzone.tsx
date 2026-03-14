@@ -57,7 +57,7 @@ export function ImageDropzone({ images, onAdd, onRemove }: ImageDropzoneProps) {
             }`}
           >
             <ImagePlus
-              className={`h-6 w-6 transition-colors ${
+              className={`size-6 transition-colors ${
                 isDragActive ? 'text-primary' : 'text-muted-foreground'
               }`}
             />
@@ -96,12 +96,12 @@ export function ImageDropzone({ images, onAdd, onRemove }: ImageDropzoneProps) {
               <button
                 type="button"
                 onClick={() => onRemove(img.id)}
-                className="bg-destructive absolute top-1.5 right-1.5 flex h-6 w-6 items-center justify-center rounded-full text-white opacity-0 shadow-md transition-all duration-150 group-hover:opacity-100 hover:scale-110"
+                className="bg-destructive absolute top-1.5 right-1.5 flex size-6 items-center justify-center rounded-full text-white opacity-0 shadow-md transition-all duration-150 group-hover:opacity-100 hover:scale-110"
               >
-                <X className="h-3.5 w-3.5" />
+                <X className="size-3.5" />
               </button>
               <div className="absolute bottom-1.5 left-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-                <GripVertical className="h-4 w-4 text-white/80" />
+                <GripVertical className="size-4 text-white/80" />
               </div>
               <Badge className="absolute right-1.5 bottom-1.5 h-5 rounded-sm bg-black/60 px-1.5 text-[10px] text-white opacity-0 transition-opacity group-hover:opacity-100">
                 {i + 1}

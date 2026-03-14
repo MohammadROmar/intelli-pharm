@@ -1,4 +1,4 @@
-export const required = () => (v: string) =>
+export const required = () => (v: string | null) =>
   ((v ? String(v) : '') ?? '').trim().length > 0 || 'required';
 
 export const fRequired = () => (v: string) => {

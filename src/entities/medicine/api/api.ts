@@ -1,3 +1,4 @@
+import { apiClient } from '@/shared/api';
 import type { FormValues, ImageFile } from '../model/medicineTypes';
 
 export async function createMedicine(values: FormValues, images: ImageFile[]) {
@@ -19,4 +20,9 @@ export async function createMedicine(values: FormValues, images: ImageFile[]) {
   images.forEach((img) => fd.append('images[]', img.file));
 
   console.log(Object.fromEntries(fd));
+}
+
+export async function getMedicineById(id: number) {
+  const { data } = await apiClient.get(`/erp/v1/medicines${id}`);
+  return data;
 }

@@ -5,7 +5,7 @@ import type { TFunction } from 'i18next';
 
 import { DeleteCategoryModal } from '@/features/category-delete';
 import { CategoryRow, type CategoryListItem } from '@/entities/category';
-import { dummyCategories } from '@/entities/category/model/dummyCategories'; // TO BE REMOVED
+import { dummyCategories } from '@/entities/category/model/dummyCategories';
 import {
   TableBody,
   TableHead,

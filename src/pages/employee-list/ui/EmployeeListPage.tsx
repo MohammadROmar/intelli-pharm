@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { EmployeeRow, type Employee } from '@/entities/employee';
 import { DeleteEmployeeModal } from '@/features/employee-delete';
-import { dummyEmployees } from '@/entities/employee/model/dummyEmployees'; // TO BE DELETED
+import { dummyEmployees } from '@/entities/employee/model/dummyEmployees';
 import {
   PageTitle,
   TableBody,

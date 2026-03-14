@@ -6,8 +6,6 @@ import { TableCell } from './table';
 import { buttonVariants } from '../lib';
 import { Button } from './Button';
 
-// ---- Context ----
-
 type TableActionsContextValue<T> = {
   itemId: string | number;
   path: string;
@@ -28,8 +26,6 @@ function useTableActions<T>() {
     );
   return ctx;
 }
-
-// ---- Root ----
 
 type TableActionsProps<T> = {
   itemId: string | number;
@@ -58,8 +54,6 @@ function TableActionsRoot<T>({
     </TableActionsContext.Provider>
   );
 }
-
-// ---- Sub-components ----
 
 function Detail() {
   const { path, itemId } = useTableActions();
@@ -93,8 +87,6 @@ function Delete<T>() {
     </Button>
   );
 }
-
-// ---- Export ----
 
 export const TableActions = Object.assign(TableActionsRoot, {
   Detail,

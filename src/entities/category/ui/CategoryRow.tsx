@@ -11,7 +11,7 @@ export function CategoryRow({ category, onDelete }: CategoryRowProps) {
     <TableRow>
       <TableCell className="font-medium">{category.id}</TableCell>
       <TableCell>{category.name}</TableCell>
-      <TableCell>{category.parentName ?? '-'}</TableCell>
+      <TableCell>{category.parentName ?? '—'}</TableCell>
 
       <TableActions
         item={category}

@@ -10,3 +10,5 @@ export {
   Skeleton,
 } from './skeleton';
 export { WithSuspense } from './WithSuspense';
+export { Card, CardContent, CardHeader } from './Card';
+export { Separator } from './Separator';

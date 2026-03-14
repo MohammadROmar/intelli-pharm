@@ -12,6 +12,7 @@ import { LazyCategoryCreatePage } from '@/pages/category-create';
 import { LazyEmployeeCreatePage } from '@/pages/employee-create';
 import { LazyEmployeeListPage } from '@/pages/employee-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
+import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,10 @@ const router = createBrowserRouter([
       { path: 'laboratories', element: <LazyLaboratoriesPage /> },
       {
         path: 'medicines',
-        children: [{ path: 'new', element: <LazyMedicineCreatePage /> }],
+        children: [
+          { path: 'new', element: <LazyMedicineCreatePage /> },
+          { path: ':id', element: <LazyMedicineDetailsPage /> },
+        ],
       },
       {
         path: 'categories',
