@@ -1,5 +1,5 @@
-export function formatDate(iso: string): string {
-  return new Intl.DateTimeFormat(undefined, {
+export function formatDate(iso: string, language?: string): string {
+  return new Intl.DateTimeFormat(language, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

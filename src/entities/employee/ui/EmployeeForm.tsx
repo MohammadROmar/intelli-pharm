@@ -106,15 +106,11 @@ export function EmployeeForm({
             {...register('password', {
               required: true,
               disabled: isLoading,
-              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+              minLength: 8,
             })}
           />
           {errors.password && (
-            <FieldError>
-              {t('form.errors.invalidField', {
-                field: t('form.fields.password'),
-              })}
-            </FieldError>
+            <FieldError>{t('form.errors.minLength', { min: 8 })}</FieldError>
           )}
         </Field>
         <Field data-invalid={!!errors.role}>

@@ -36,6 +36,7 @@ export default function EmployeeListPage() {
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
 
       <TableCard
+        itemsPerPage={10}
         title={t('all')}
         basePath="/dashboard/employees"
         currentPage={+(page ?? 1)}

@@ -1,31 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
+import type { LoginResponse } from '@/features/login';
 import {
   setCredentials,
   logout,
   setLoading,
-  hasAuthHint,
+  hasRefreshToken,
 } from '@/entities/session';
-import { refreshClient } from '@/shared/api';
+import { apiClient } from '@/shared/api';
 import { useAppDispatch, useAppSelector } from '@/shared/config';
 import { LoginSkeleton } from '@/pages/login';
 
 export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.session.isLoading);
+  const { isLoading, refreshToken } = useAppSelector((state) => state.session);
 
-  const [showDashboardSkeleton] = useState(() => hasAuthHint());
+  const [showDashboardSkeleton] = useState(() => hasRefreshToken());
+  const refreshTokenRef = useRef(refreshToken);
 
   useEffect(() => {
     const initAuth = async () => {
       try {
-        const { data } = await refreshClient.post('/api/users/token/refresh');
+        const { data } = await apiClient.post<LoginResponse>(
+          '/auth/v1/refresh',
+          { refresh_token: refreshTokenRef.current },
+        );
+
+        if (!data) {
+          dispatch(logout());
+          return;
+        }
 
         dispatch(
           setCredentials({
-            accessToken: data.accessToken,
-            user: data.user,
+            refreshToken: data.refresh_token,
+            accessToken: data.access_token,
+            user: { email: '', name: '' },
           }),
         );
       } catch {

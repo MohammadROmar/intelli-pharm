@@ -1,15 +1,18 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-import { clearAuthHint, setAuthHint } from '../lib/authHint';
+import {
+  clearRefreshToken,
+  getRefreshToken,
+  setRefreshToken,
+} from '../lib/refreshToken';
 
 interface User {
   name: string;
   email: string;
-  role: string;
 }
 
 interface SessionState {
   accessToken: string | null;
+  refreshToken: string | null;
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -17,6 +20,7 @@ interface SessionState {
 
 const initialState: SessionState = {
   accessToken: null,
+  refreshToken: getRefreshToken(),
   user: null,
   isAuthenticated: false,
   isLoading: true,
@@ -28,22 +32,28 @@ export const sessionSlice = createSlice({
   reducers: {
     setCredentials: (
       state,
-      action: PayloadAction<{ accessToken: string; user: User }>,
+      action: PayloadAction<{
+        accessToken: string;
+        refreshToken: string;
+        user: User;
+      }>,
     ) => {
       state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.isLoading = false;
 
-      setAuthHint();
+      setRefreshToken(action.payload.refreshToken);
     },
     logout: (state) => {
       state.accessToken = null;
+      state.refreshToken = null;
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
 
-      clearAuthHint();
+      clearRefreshToken();
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

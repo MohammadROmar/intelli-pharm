@@ -9,9 +9,9 @@ import {
   PaginationPrevious,
 } from './pagination';
 
-interface DynamicPaginationProps {
+export interface DynamicPaginationProps {
   maxPages: number;
-  currentPage: number | string;
+  currentPage: number;
   basePath: string;
   totalItems: number;
   itemsPerPage: number;

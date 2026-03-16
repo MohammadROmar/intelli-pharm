@@ -8,8 +8,7 @@ import {
   Truck,
 } from 'lucide-react';
 
-import { formatDate } from '../lib/formatDate';
-import { formatPrice } from '../lib/formatPrice';
+import { formatDate, formatPrice } from '@/shared/lib';
 import type { MedicineDetail } from '../model/medicineDetailTypes';
 import {
   Card,
@@ -120,13 +119,13 @@ export function MedicineInfoGrid({ medicine }: Props) {
           <DetailCell label={t('labelCreatedAt')}>
             <span className="flex items-center gap-1.5 font-normal">
               <CalendarDays className="size-3.5 shrink-0" />
-              {formatDate(medicine.created_at)}
+              {formatDate(medicine.created_at, i18n.language)}
             </span>
           </DetailCell>
           <DetailCell label={t('labelUpdatedAt')}>
             <span className="flex items-center gap-1.5 font-normal">
               <RefreshCw className="size-3.5 shrink-0" />
-              {formatDate(medicine.updated_at)}
+              {formatDate(medicine.updated_at, i18n.language)}
             </span>
           </DetailCell>
         </div>

@@ -29,7 +29,7 @@ export function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
-      {isLoading && <Spinner />}
+      {isLoading && <Spinner className="flex items-center justify-center" />}
       {children}
     </Comp>
   );

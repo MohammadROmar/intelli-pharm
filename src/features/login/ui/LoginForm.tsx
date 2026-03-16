@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { Lock, Mail } from 'lucide-react';
 
 import { useLogin } from '../model/useLogin';
 import {
@@ -10,14 +11,14 @@ import {
   FieldLabel,
   Input,
 } from '@/shared/ui';
-import { Lock, Mail } from 'lucide-react';
 
 type FormFields = { email: string; password: string };
 
 export function LoginForm() {
   const { t } = useTranslation();
 
-  const { isPending } = useLogin();
+  const { mutate: login, isError, error, isPending } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -25,7 +26,7 @@ export function LoginForm() {
   } = useForm<FormFields>();
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
-    console.log(data);
+    login(data);
   };
 
   return (
@@ -37,6 +38,7 @@ export function LoginForm() {
             id="email"
             type="email"
             icon={Mail}
+            aria-invalid={!!errors.email}
             {...register('email', {
               required: true,
               disabled: isPending,
@@ -61,22 +63,19 @@ export function LoginForm() {
           <Input
             id="password"
             icon={Lock}
+            aria-invalid={!!errors.password}
             placeholder="••••••••"
             {...register('password', {
               required: true,
               disabled: isPending,
-              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+              minLength: 8,
             })}
             name="password"
             autoComplete="current-password"
             type="password"
           />
           {errors.password && (
-            <FieldError>
-              {t('form.errors.invalidField', {
-                field: t('form.fields.password'),
-              })}
-            </FieldError>
+            <FieldError>{t('form.errors.minLength', { min: 8 })}</FieldError>
           )}
         </Field>
         <Field>
@@ -84,6 +83,7 @@ export function LoginForm() {
             {t('loginPage.login')}
           </Button>
         </Field>
+        {isError && <FieldError>{t(error.i18nKey)}</FieldError>}
       </FieldGroup>
     </form>
   );

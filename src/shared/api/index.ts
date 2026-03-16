@@ -1,2 +1,2 @@
 export { queryClient } from './queryClient';
-export { apiClient, refreshClient } from './apiClient';
+export { apiClient, type ApiError, type ApiResponse } from './apiClient';

@@ -1,10 +1,17 @@
+import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { getCategories } from '@/entities/category';
+import { getCategories, type CategoryListResponse } from '@/entities/category';
+import type { ApiError, ApiResponse } from '@/shared/api';
 
 export function useGetCategories() {
-  return useQuery({
-    queryKey: ['categories'],
-    queryFn: getCategories,
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page');
+  const name = searchParams.get('name');
+
+  return useQuery<ApiResponse<CategoryListResponse>, ApiError>({
+    queryKey: ['categories', { page, name }],
+    queryFn: () => getCategories(page, name),
+    placeholderData: (prev) => prev,
   });
 }

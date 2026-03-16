@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 import type { CategoryListItem } from '../model/categoryTypes';
+import { formatDate } from '@/shared/lib';
 import { TableCell, TableActions, TableRow } from '@/shared/ui';
 
 type CategoryRowProps = {
@@ -7,11 +10,13 @@ type CategoryRowProps = {
 };
 
 export function CategoryRow({ category, onDelete }: CategoryRowProps) {
+  const { i18n } = useTranslation();
+
   return (
     <TableRow>
       <TableCell className="font-medium">{category.id}</TableCell>
       <TableCell>{category.name}</TableCell>
-      <TableCell>{category.parentName ?? '—'}</TableCell>
+      <TableCell>{formatDate(category.created_at, i18n.language)}</TableCell>
 
       <TableActions
         item={category}

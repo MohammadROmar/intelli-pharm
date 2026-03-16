@@ -1,7 +1,7 @@
 import { PackageSearch, Repeat2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { formatPrice } from '../lib/formatPrice';
+import { formatPrice } from '../../../shared/lib/formatPrice';
 import type { Alternative } from '../model/medicineDetailTypes';
 import {
   Table,

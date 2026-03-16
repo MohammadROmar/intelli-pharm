@@ -129,6 +129,7 @@
   "categoriesPage": {
     "category": "Category",
     "categoryInfo": "Category Information",
+    "searchPlaceholder": "Search Category...",
     "categoryInfoDescription": "Name and optional parent category",
     "categoryNamePlaceholder": "e.g. Antibiotics",
     "list": {
@@ -138,7 +139,8 @@
       "id": "ID",
       "name": "Name",
       "actions": "Actions",
-      "parentName": "Parent Name"
+      "parentName": "Parent Name",
+      "createdAt": "Created At"
     },
     "create": {
       "title": "Add New Category",
@@ -239,6 +241,13 @@
     "next": "Next"
   },
 
+  "logout": {
+    "title": "Logout",
+    "description": "Are you sure you want to logout?",
+    "cancel": "Cancel",
+    "confirm": "Logout"
+  },
+
   "sidebar": {
     "toggle": "Toggle sidebar",
 
@@ -274,5 +283,25 @@
       "confirm": "Confirm Delete",
       "cancel": "Cancel"
     }
+  },
+
+  "errors": {
+    "badRequestTitle": "Bad Request",
+    "badRequest": "Invalid request. Please check your input.",
+    "unauthorizedTitle": "Not Logged In",
+    "unauthorized": "You are not logged in.",
+    "forbiddenTitle": "Access Denied",
+    "forbidden": "You don't have permission to do this.",
+    "notFoundTitle": "Not Found",
+    "notFound": "The requested resource was not found.",
+    "validationFailedTitle": "Validation Error",
+    "validationFailed": "Some fields are invalid.",
+    "tooManyRequestsTitle": "Slow Down",
+    "tooManyRequests": "Too many requests. Please slow down.",
+    "serverErrorTitle": "Server Error",
+    "serverError": "Something went wrong on our end.",
+    "unknownTitle": "Something Went Wrong",
+    "unknown": "An unexpected error occurred.",
+    "retry": "Retry"
   }
 }

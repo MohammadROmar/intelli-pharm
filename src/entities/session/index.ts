@@ -5,4 +5,9 @@ export {
   setLoading,
   default as sessionReducer,
 } from './model/slice';
-export { setAuthHint, clearAuthHint, hasAuthHint } from './lib/authHint';
+export {
+  setRefreshToken,
+  clearRefreshToken,
+  hasRefreshToken,
+  getRefreshToken,
+} from './lib/refreshToken';

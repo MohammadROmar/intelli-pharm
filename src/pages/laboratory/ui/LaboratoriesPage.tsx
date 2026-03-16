@@ -41,6 +41,7 @@ export default function LaboratoriesPage() {
       <TableCard
         title={t('list.all')}
         basePath="/dashboard/laboratories"
+        itemsPerPage={10}
         currentPage={+(page ?? 1)}
         maxPages={20}
         totalItems={200}

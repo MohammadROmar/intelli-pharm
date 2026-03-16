@@ -1,29 +1,24 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
+import type { LoginParams, LoginResponse } from './loginTypes';
+import { login } from '../api/api';
 import { setCredentials } from '@/entities/session';
-import { apiClient } from '@/shared/api';
+import type { ApiResponse, ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';
-
-interface LoginParams {
-  email: string;
-  password: string;
-}
 
 export const useLogin = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  return useMutation({
-    mutationFn: async (credentials: LoginParams) => {
-      const { data } = await apiClient.post('/api/users/login', credentials);
-      return data;
-    },
+  return useMutation<ApiResponse<LoginResponse>, ApiError, LoginParams>({
+    mutationFn: login,
     onSuccess: (data) => {
       dispatch(
         setCredentials({
-          accessToken: data.accessToken,
-          user: data.user,
+          accessToken: data.data!.access_token,
+          refreshToken: data.data!.refresh_token,
+          user: { email: '', name: '' },
         }),
       );
 

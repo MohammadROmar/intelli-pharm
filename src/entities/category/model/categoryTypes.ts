@@ -1,9 +1,20 @@
 export type Category = {
   name: string;
-  parentId: number | null;
+  parent_id: number | null;
 };
 
 export type CategoryListItem = Category & {
   id: number;
-  parentName: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CategoryListResponse = {
+  data: CategoryListItem[];
+  meta: {
+    current_page: number;
+    per_page: number;
+    to: number;
+    total: number;
+  };
 };

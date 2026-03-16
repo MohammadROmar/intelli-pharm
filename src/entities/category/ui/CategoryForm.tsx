@@ -63,16 +63,16 @@ export function CategoryForm({
           />
           {errors.name && <FieldError>{t('form.errors.required')}</FieldError>}
         </Field>
-        <Field data-invalid={!!errors.parentId}>
+        <Field data-invalid={!!errors.parent_id}>
           <FieldLabel asChild>
             <p>{t('form.fields.categoryParent')}</p>
           </FieldLabel>
           <Controller
-            name="parentId"
+            name="parent_id"
             control={control}
             render={({ field }) => (
               <GenericSingleSelect
-                invalid={!!errors.parentId}
+                invalid={!!errors.parent_id}
                 options={dummyCategories}
                 valueKey="id"
                 labelKey="name"

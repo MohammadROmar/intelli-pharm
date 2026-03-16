@@ -120,7 +120,10 @@ export {
   TableHeader,
   TableRow,
 } from './table';
-export { DynamicPagination } from './pagination/DynamicPagination';
+export {
+  DynamicPagination,
+  type DynamicPaginationProps,
+} from './pagination/DynamicPagination';
 export { PageTitle } from './PageTitle';
 export {
   Command,
@@ -166,3 +169,5 @@ export { Textarea } from './textarea';
 export { Switch, SwitchRow } from './switch';
 export { FormSectionHeader } from './FormSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
+export { QueryError } from './QueryError';
+export { SearchField } from './SearchField';

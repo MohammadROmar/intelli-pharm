@@ -1,9 +1,8 @@
 import type { Order } from '../model/orderTypes';
 import { apiClient } from '@/shared/api';
 
-export async function getOrders(): Promise<Order[]> {
-  const { data } = await apiClient.get('/erp/v1/orders');
-  return data;
+export async function getOrders() {
+  return apiClient.get<Order[]>('/erp/v1/orders');
 }
 
 export async function deleteOrder(id: number) {

@@ -1,22 +1,19 @@
 import type { Employee, EmployeeFormData } from '../model/employeeTypes';
 import { apiClient } from '@/shared/api';
 
-export async function getEmployees(): Promise<Employee[]> {
-  const { data } = await apiClient.get('/erp/v1/employees');
-  return data;
+export async function getEmployees() {
+  return apiClient.get<Employee[]>('/erp/v1/employees');
 }
 
 export async function createEmployee(payload: EmployeeFormData) {
-  const { data } = await apiClient.post('/erp/v1/employees', payload);
-  return data;
+  return apiClient.post('/erp/v1/employees', payload);
 }
 
 export async function updateEmployee(
   id: string,
   payload: Partial<EmployeeFormData>,
 ) {
-  const { data } = await apiClient.put(`/erp/v1/employees/${id}`, payload);
-  return data;
+  return apiClient.put(`/erp/v1/employees/${id}`, payload);
 }
 
 export async function deleteEmployee(id: string) {

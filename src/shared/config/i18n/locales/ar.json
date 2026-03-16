@@ -128,6 +128,7 @@
   "categoriesPage": {
     "category": "فئة",
     "categoryInfo": "معلومات الفئة",
+    "searchPlaceholder": "البحث عن فئة...",
     "categoryInfoDescription": "الاسم وفئة اصلية اختيارية.",
     "categoryNamePlaceholder": "مثال. مضادات حيوية",
     "list": {
@@ -137,7 +138,8 @@
       "id": "المعرف",
       "name": "الاسم",
       "actions": "الخيارات",
-      "parentName": "الفئة الأصلية"
+      "parentName": "الفئة الأصلية",
+      "createdAt": "تاريخ الانشاء"
     },
     "create": {
       "title": "إضافة فئة جديدة",
@@ -238,6 +240,13 @@
     "next": "التالي"
   },
 
+  "logout": {
+    "title": "تسجيل الخروج",
+    "description": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "cancel": "إلغاء",
+    "confirm": "تسجيل الخروج"
+  },
+
   "sidebar": {
     "toggle": "تبديل حالة الشريط الجانبي",
 
@@ -273,5 +282,25 @@
       "confirm": "تأكيد الحذف",
       "cancel": "إلغاء"
     }
+  },
+
+  "errors": {
+    "badRequestTitle": "طلب غير صالح",
+    "badRequest": "طلب غير صالح. يرجى التحقق من المدخلات.",
+    "unauthorizedTitle": "غير مسجّل الدخول",
+    "unauthorized": "أنت غير مسجّل الدخول.",
+    "forbiddenTitle": "غير مصرح بالوصول",
+    "forbidden": "ليس لديك صلاحية للقيام بذلك.",
+    "notFoundTitle": "غير موجود",
+    "notFound": "المورد المطلوب غير موجود.",
+    "validationFailedTitle": "خطأ في البيانات",
+    "validationFailed": "بعض الحقول غير صحيحة.",
+    "tooManyRequestsTitle": "طلبات كثيرة",
+    "tooManyRequests": "طلبات كثيرة جداً. يرجى التباطؤ.",
+    "serverErrorTitle": "خطأ في الخادم",
+    "serverError": "حدث خطأ من طرفنا.",
+    "unknownTitle": "حدث خطأ ما",
+    "unknown": "حدث خطأ غير متوقع.",
+    "retry": "إعادة المحاولة"
   }
 }

@@ -1,4 +1,8 @@
-export type { Category, CategoryListItem } from './model/categoryTypes';
+export type {
+  Category,
+  CategoryListItem,
+  CategoryListResponse,
+} from './model/categoryTypes';
 export { CategoryRow } from './ui/CategoryRow';
 export { CategoryForm } from './ui/CategoryForm';
 export {
