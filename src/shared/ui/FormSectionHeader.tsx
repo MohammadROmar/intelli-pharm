@@ -14,7 +14,7 @@ export function FormSectionHeader({
       <div className="bg-primary/10 text-primary mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg">
         <Icon className="size-5" />
       </div>
-      <div>
+      <div className="space-y-0.5">
         <p className="text-foreground text-sm font-semibold">{title}</p>
         <p className="text-muted-foreground text-xs">{description}</p>
       </div>

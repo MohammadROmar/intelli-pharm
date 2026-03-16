@@ -72,6 +72,7 @@ export function CategoryForm({
             control={control}
             render={({ field }) => (
               <GenericSingleSelect
+                disabled={isLoading}
                 invalid={!!errors.parent_id}
                 options={dummyCategories}
                 valueKey="id"

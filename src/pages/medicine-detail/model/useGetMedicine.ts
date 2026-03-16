@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { getMedicineById } from '@/entities/medicine/api/api';
+import { getMedicineById } from '@/entities/medicine';
 
 export function useGetMedicine() {
   const { id } = useParams();

@@ -1,10 +1,7 @@
 import {
   Tags,
   Users,
-  Command,
   PillBottle,
-  AudioWaveform,
-  GalleryVerticalEnd,
   LayoutDashboard,
   Package,
   Pipette,
@@ -17,92 +14,68 @@ export const SIDEBAR_WIDTH_MOBILE = '18rem';
 export const SIDEBAR_WIDTH_ICON = '3rem';
 export const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
-export const sidebarData = {
-  user: {
-    name: 'Admin',
-    email: 'admin@intellipharm.com',
-    avatar: '/avatars/shadcn.jpg',
+export const sidebarData = [
+  {
+    key: 'labels.dashboard',
+    url: '/dashboard',
+    icon: LayoutDashboard,
   },
-  teams: [
-    {
-      name: 'Acme Inc',
-      logo: GalleryVerticalEnd,
-      plan: 'Enterprise',
-    },
-    {
-      name: 'Acme Corp.',
-      logo: AudioWaveform,
-      plan: 'Startup',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: Command,
-      plan: 'Free',
-    },
-  ],
-  navMain: [
-    {
-      key: 'labels.dashboard',
-      url: '/dashboard',
-      icon: LayoutDashboard,
-    },
-    {
-      key: 'labels.orders',
-      url: '/dashboard/orders',
-      icon: Package,
-    },
-    {
-      key: 'labels.laboratories',
-      url: '/dashboard/laboratories',
-      icon: Pipette,
-    },
-    {
-      key: 'labels.medicines',
-      url: '/dashboard/medicines',
-      icon: PillBottle,
-      isActive: false,
-      items: [
-        {
-          key: 'medicines.list',
-          url: '/dashboard/medicines',
-        },
-        {
-          key: 'medicines.new',
-          url: '/dashboard/medicines/new',
-        },
-      ],
-    },
-    {
-      key: 'labels.categories',
-      url: '/dashboard/categories',
-      icon: Tags,
-      isActive: false,
-      items: [
-        {
-          key: 'categories.list',
-          url: '/dashboard/categories',
-        },
-        {
-          key: 'categories.new',
-          url: '/dashboard/categories/new',
-        },
-      ],
-    },
-    {
-      key: 'labels.employees',
-      url: '/dashboard/employees',
-      icon: Users,
-      isActive: false,
-      items: [
-        {
-          key: 'employees.list',
-          url: '/dashboard/employees',
-        },
-        {
-          key: 'employees.new',
-          url: '/dashboard/employees/new',
-        },
-      ],
-    },
-  ],
-};
+  {
+    key: 'labels.orders',
+    url: '/dashboard/orders',
+    icon: Package,
+  },
+  {
+    key: 'labels.laboratories',
+    url: '/dashboard/laboratories',
+    icon: Pipette,
+  },
+  {
+    key: 'labels.medicines',
+    url: '/dashboard/medicines',
+    icon: PillBottle,
+    isActive: false,
+    items: [
+      {
+        key: 'medicines.list',
+        url: '/dashboard/medicines',
+      },
+      {
+        key: 'medicines.new',
+        url: '/dashboard/medicines/new',
+      },
+    ],
+  },
+  {
+    key: 'labels.categories',
+    url: '/dashboard/categories',
+    icon: Tags,
+    isActive: false,
+    items: [
+      {
+        key: 'categories.list',
+        url: '/dashboard/categories',
+      },
+      {
+        key: 'categories.new',
+        url: '/dashboard/categories/new',
+      },
+    ],
+  },
+  {
+    key: 'labels.employees',
+    url: '/dashboard/employees',
+    icon: Users,
+    isActive: false,
+    items: [
+      {
+        key: 'employees.list',
+        url: '/dashboard/employees',
+      },
+      {
+        key: 'employees.new',
+        url: '/dashboard/employees/new',
+      },
+    ],
+  },
+];

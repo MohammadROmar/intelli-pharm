@@ -3,7 +3,7 @@ import { useDirection } from '@radix-ui/react-direction';
 
 import { NavMain } from './NavMain';
 import { NavUser } from './NavUser';
-import { sidebarData } from '@/shared/config';
+import { sidebarData, useAppSelector } from '@/shared/config';
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +15,7 @@ import {
   SidebarRail,
   Logo,
 } from '@/shared/ui';
+import { useTranslation } from 'react-i18next';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const dir = useDirection();
@@ -26,10 +27,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarBrand />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={sidebarData.navMain} />
+        <NavMain items={sidebarData} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={sidebarData.user} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
@@ -37,6 +38,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 }
 
 function SidebarBrand() {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'employeesPage.roles',
+  });
+  const roles = useAppSelector((state) => state.session.roles);
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -52,7 +58,7 @@ function SidebarBrand() {
             <div className="grid flex-1 text-sm leading-tight">
               <span className="truncate font-medium">IntelliPharm</span>
               <span className="text-sidebar-foreground/70 truncate text-xs">
-                Admin
+                {roles ? t(roles[0]) : ''}
               </span>
             </div>
           </Link>

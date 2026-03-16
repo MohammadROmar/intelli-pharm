@@ -43,7 +43,6 @@ export default function LaboratoriesPage() {
         basePath="/dashboard/laboratories"
         itemsPerPage={10}
         currentPage={+(page ?? 1)}
-        maxPages={20}
         totalItems={200}
       >
         <TableHeader>

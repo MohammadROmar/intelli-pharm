@@ -105,7 +105,7 @@ export function DynamicPagination({
         <span className="text-foreground font-medium">{totalItems}</span>{' '}
       </p>
 
-      <Pagination className="mx-0 block w-fit">
+      <Pagination className="block">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious

@@ -7,8 +7,8 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import type { ApiError } from '@/shared/api';
-import { Button } from '@/shared/ui';
+import type { ApiError } from '../api';
+import { Button } from './Button';
 
 function getIcon(error: ApiError) {
   if (!error.status) return <WifiOff className="size-8" />;

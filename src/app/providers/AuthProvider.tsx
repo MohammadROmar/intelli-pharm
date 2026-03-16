@@ -36,7 +36,8 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
           setCredentials({
             refreshToken: data.refresh_token,
             accessToken: data.access_token,
-            user: { email: '', name: '' },
+            roles: data.roles,
+            user: { name: data.name, email: data.email },
           }),
         );
       } catch {

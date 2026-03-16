@@ -1,18 +1,17 @@
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { getEmployees } from '@/entities/employee';
 import type { ApiError, ApiResponse } from '@/shared/api';
-import type { EmployeeListResponse } from '@/entities/employee/model/employeeTypes';
+import { getMedicines } from '@/entities/medicine';
 
-export function useGetEmployees() {
+export function useGetMedicines() {
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page');
   const name = searchParams.get('name');
 
-  return useQuery<ApiResponse<EmployeeListResponse>, ApiError>({
-    queryKey: ['employees', { page, name }],
-    queryFn: () => getEmployees(page, name),
+  return useQuery<ApiResponse<unknown>, ApiError>({
+    queryKey: ['medicines', { page, name }],
+    queryFn: () => getMedicines(page, name),
     placeholderData: (prev) => prev,
   });
 }

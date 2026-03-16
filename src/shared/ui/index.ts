@@ -162,7 +162,7 @@ export {
   DialogTrigger,
 } from './dialog';
 export { TableActions } from './TableActions';
-export { TableCard } from './TableCard';
+export { TableCard, TableCardHeader } from './TableCard';
 export { FormActions } from './FormActions';
 export { Badge } from './badge';
 export { Textarea } from './textarea';
@@ -171,3 +171,4 @@ export { FormSectionHeader } from './FormSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
 export { SearchField } from './SearchField';
+export { Toaster } from './sonner';

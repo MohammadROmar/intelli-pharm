@@ -1,5 +1,8 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { Plus } from 'lucide-react';
 
+import { buttonVariants } from '../lib';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
 import { Table } from './table';
 import {
@@ -7,8 +10,9 @@ import {
   type DynamicPaginationProps,
 } from './pagination/DynamicPagination';
 import { Badge } from './badge';
+import { SearchField } from './SearchField';
 
-type TableCardProps = DynamicPaginationProps & {
+type TableCardProps = Omit<DynamicPaginationProps, 'maxPages'> & {
   title: string;
   header?: ReactNode;
   children: ReactNode;
@@ -20,22 +24,25 @@ export function TableCard({
   title,
   basePath,
   currentPage,
-  maxPages,
   totalItems,
   itemsPerPage,
   children,
   header,
 }: TableCardProps) {
+  const maxPages = Math.max(totalItems / itemsPerPage, 1);
+
   return (
     <Card>
-      <CardHeader className="flex flex-col justify-between gap-4 lg:flex-row">
-        <CardTitle className="flex items-center gap-2">
-          <h2>{title}</h2>
-          <Badge variant="secondary" className="tabular-nums">
-            {totalItems}
-          </Badge>
-        </CardTitle>
-        {header}
+      <CardHeader>
+        <div className="flex flex-col justify-between gap-4 lg:flex-row">
+          <CardTitle className="flex items-center gap-2">
+            <h2>{title}</h2>
+            <Badge variant="secondary" className="tabular-nums">
+              {totalItems}
+            </Badge>
+          </CardTitle>
+          {header}
+        </div>
       </CardHeader>
       <CardContent>
         <Table>{children}</Table>
@@ -51,5 +58,26 @@ export function TableCard({
         />
       </CardFooter>
     </Card>
+  );
+}
+
+export function TableCardHeader({
+  placeholder,
+  createText,
+}: {
+  placeholder: string;
+  createText: string;
+}) {
+  return (
+    <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
+      <SearchField placeholder={placeholder} />
+      <Link
+        to="/dashboard/employees/new"
+        className={buttonVariants({ size: 'sm', className: 'shrink-0' })}
+      >
+        <Plus className="mr-1.5 size-4" />
+        {createText}
+      </Link>
+    </div>
   );
 }

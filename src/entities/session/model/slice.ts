@@ -13,6 +13,7 @@ interface User {
 interface SessionState {
   accessToken: string | null;
   refreshToken: string | null;
+  roles: string[] | null;
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -21,6 +22,7 @@ interface SessionState {
 const initialState: SessionState = {
   accessToken: null,
   refreshToken: getRefreshToken(),
+  roles: null,
   user: null,
   isAuthenticated: false,
   isLoading: true,
@@ -35,11 +37,13 @@ export const sessionSlice = createSlice({
       action: PayloadAction<{
         accessToken: string;
         refreshToken: string;
+        roles: string[];
         user: User;
       }>,
     ) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
+      state.roles = action.payload.roles;
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.isLoading = false;
@@ -49,6 +53,7 @@ export const sessionSlice = createSlice({
     logout: (state) => {
       state.accessToken = null;
       state.refreshToken = null;
+      state.roles = null;
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;

@@ -37,7 +37,6 @@ export default function OrdersListPage() {
         itemsPerPage={10}
         currentPage={parseInt(page ?? '1')}
         totalItems={200}
-        maxPages={20}
       >
         <TableHeader>
           <TableRow>

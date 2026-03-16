@@ -123,6 +123,7 @@ export function EmployeeForm({
             rules={{ required: true }}
             render={({ field }) => (
               <GenericSingleSelect
+                disabled={isLoading}
                 invalid={!!errors.role}
                 options={roles}
                 valueKey="value"

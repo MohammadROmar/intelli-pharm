@@ -161,25 +161,33 @@
     "namePlaceholder": "e.g. John Smith",
     "detailsSubtitle": "Name, email, password and role.",
     "roles": {
+      "admin": "Administrator",
       "distributor": "Distributor",
       "rep": "Representative"
     },
     "list": {
       "title": "Employees",
+      "createdAt": "Created At",
       "subtitle": "Manage access roles and permissions for your warehouse staff.",
       "all": "All Employees",
       "id": "ID",
       "name": "Name",
       "email": "Email",
       "role": "Role",
-      "actions": "Actions"
+      "actions": "Actions",
+      "searchPlaceholder": "Search Employee..."
     },
     "create": {
       "title": "Create Employee",
       "subtitle": "Add a new employee to your warehouse team.",
       "formTitle": "Employee Details",
       "formSubtitle": "Fill in the required details below.",
-      "create": "Create Employee"
+      "create": "Create Employee",
+      "success": {
+        "title": "Employee Created",
+        "description": "The new employee has been added successfully."
+      },
+      "erros": "Failed to create employee"
     },
     "update": {
       "title": "Edit Employee Details",
@@ -250,6 +258,8 @@
 
   "sidebar": {
     "toggle": "Toggle sidebar",
+    "account": "Account",
+    "notifications": "Notifications",
 
     "labels": {
       "dashboard": "Dashboard",

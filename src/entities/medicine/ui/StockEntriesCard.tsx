@@ -51,8 +51,8 @@ export function StockEntriesCard() {
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="space-y-1">
             <CardTitle>{t('stockEntriesTitle')}</CardTitle>
             <CardDescription>{t('stockEntriesSubtitle')}</CardDescription>
           </div>

@@ -38,6 +38,7 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   hasMoreLabel?: boolean;
   invalid?: boolean;
   icon?: ElementType;
+  disabled?: boolean;
 }
 
 export function GenericSingleSelect<T extends Record<string, unknown>>({
@@ -57,6 +58,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   invalid,
   hasMoreLabel = true,
   icon: Icon,
+  disabled,
 }: GenericSingleSelectProps<T>) {
   const [localSearch, setLocalSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -152,11 +154,12 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <Button
+          disabled={disabled}
           variant="outline"
           role="combobox"
           aria-expanded={isOpen}
           className={cn(
-            'relative w-full justify-between',
+            'relative w-full justify-between!',
             invalid && 'border-destructive!',
             Icon && 'ltr:pl-9! rtl:pr-9!',
             className,
@@ -173,7 +176,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0">
+      <PopoverContent className="w-full p-0!">
         <Command shouldFilter={false}>
           <CommandInput
             placeholder={t('search')}

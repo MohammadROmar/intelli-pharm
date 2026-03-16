@@ -17,7 +17,7 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
       <TableCell className="font-medium">{employee.id}</TableCell>
       <TableCell>{employee.name}</TableCell>
       <TableCell>{employee.email}</TableCell>
-      <TableCell>{t(employee.role)}</TableCell>
+      <TableCell>{t(employee.roles[0])}</TableCell>
 
       <TableActions
         itemId={employee.id}

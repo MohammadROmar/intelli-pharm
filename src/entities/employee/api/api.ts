@@ -1,8 +1,13 @@
-import type { Employee, EmployeeFormData } from '../model/employeeTypes';
+import type {
+  EmployeeFormData,
+  EmployeeListResponse,
+} from '../model/employeeTypes';
 import { apiClient } from '@/shared/api';
 
-export async function getEmployees() {
-  return apiClient.get<Employee[]>('/erp/v1/employees');
+export async function getEmployees(page: string | null, name: string | null) {
+  return apiClient.get<EmployeeListResponse>('/erp/v1/employees', {
+    params: { page_number: page ?? 1, per_page: 10, search: name },
+  });
 }
 
 export async function createEmployee(payload: EmployeeFormData) {

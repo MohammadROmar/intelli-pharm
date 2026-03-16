@@ -18,7 +18,8 @@ export const useLogin = () => {
         setCredentials({
           accessToken: data.data!.access_token,
           refreshToken: data.data!.refresh_token,
-          user: { email: '', name: '' },
+          roles: data.data!.roles,
+          user: { email: data.data!.email, name: data.data!.name },
         }),
       );
 

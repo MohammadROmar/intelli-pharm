@@ -26,3 +26,9 @@ export async function getMedicineById(id: number) {
   const { data } = await apiClient.get(`/erp/v1/medicines${id}`);
   return data;
 }
+
+export async function getMedicines(page: string | null, name: string | null) {
+  return apiClient.get<unknown>('/erp/v1/categories', {
+    params: { page_number: page ?? 1, per_page: 10, name },
+  });
+}

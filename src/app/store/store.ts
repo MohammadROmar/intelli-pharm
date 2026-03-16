@@ -42,7 +42,8 @@ apiClient.interceptors.response.use(
           setCredentials({
             accessToken: data!.access_token,
             refreshToken: data!.refresh_token,
-            user: { email: '', name: '' },
+            roles: data!.roles,
+            user: { email: data!.email, name: data!.name },
           }),
         );
 
