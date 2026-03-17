@@ -7,14 +7,14 @@ import { Button } from './Button';
 type FormActionsProps = {
   isLoading?: boolean;
   onReset: () => void;
-  isCreate?: boolean;
+  isEdit?: boolean;
   classNames?: { container?: string; reset?: string; submit?: string };
 };
 
 export function FormActions({
   onReset,
   isLoading,
-  isCreate = true,
+  isEdit = false,
   classNames,
 }: FormActionsProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'form.actions' });
@@ -42,7 +42,7 @@ export function FormActions({
           disabled={isLoading}
           className={classNames?.submit}
         >
-          {t(`${isCreate ? 'create' : 'edit'}`)}
+          {t(`${isEdit ? 'edit' : 'create'}`)}
         </Button>
       </div>
     </Field>

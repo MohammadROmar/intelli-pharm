@@ -67,7 +67,7 @@ function Detail() {
   );
 }
 
-function Edit() {
+function Update() {
   const { path, itemId } = useTableActions();
   return (
     <Link
@@ -90,6 +90,6 @@ function Delete<T>() {
 
 export const TableActions = Object.assign(TableActionsRoot, {
   Detail,
-  Edit,
+  Update,
   Delete,
 });

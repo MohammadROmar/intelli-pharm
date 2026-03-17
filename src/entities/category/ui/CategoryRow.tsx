@@ -25,7 +25,7 @@ export function CategoryRow({ category, onDelete }: CategoryRowProps) {
         path="/dashboard/categories"
       >
         <TableActions.Detail />
-        <TableActions.Edit />
+        <TableActions.Update />
         <TableActions.Delete />
       </TableActions>
     </TableRow>

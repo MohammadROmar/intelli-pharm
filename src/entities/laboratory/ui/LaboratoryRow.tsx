@@ -18,7 +18,7 @@ export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
         onDelete={onDelete}
         path="/dashboard/laboratories"
       >
-        <TableActions.Edit />
+        <TableActions.Update />
         <TableActions.Delete />
       </TableActions>
     </TableRow>

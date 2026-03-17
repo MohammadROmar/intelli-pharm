@@ -2,15 +2,26 @@ export type Employee = {
   id: string;
   name: string;
   email: string;
-  roles: string[];
+  roles: Role[];
+  permissions: string[];
 };
 
-export type EmployeeFormData = Omit<
-  Employee,
-  'id' | 'createdAt' | 'updatedAt'
-> & {
+type Role = 'distributor' | 'rep' | 'admin';
+
+export type BaseEmployeeFormData = {
+  name: string;
+  email: string;
+  role: Role;
+};
+
+export type CreateEmployeeFormData = BaseEmployeeFormData & {
   password: string;
-  role: 'distributor' | 'rep';
+};
+
+export type UpdateEmployeeFormData = BaseEmployeeFormData;
+
+export type EmployeeInternalFormData = BaseEmployeeFormData & {
+  password?: string;
 };
 
 export type EmployeeListResponse = {

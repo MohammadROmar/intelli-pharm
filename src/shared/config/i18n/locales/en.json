@@ -190,8 +190,20 @@
       "erros": "Failed to create employee"
     },
     "update": {
-      "title": "Edit Employee Details",
-      "subtitle": "Update employee information"
+      "title": "Edit Details",
+      "subtitle": "Manage employee details and access.",
+      "formTitle": "Employee Details",
+      "formSubtitle": "Fill in the required details below.",
+      "success": {
+        "title": "Employee Updated",
+        "description": "Employee data has been updated successfully."
+      },
+      "error": "Failed to update employee"
+    },
+    "editRestricted": {
+      "title": "Admin accounts cannot be edited here",
+      "message": "For security reasons, admin account details can only be updated from the Edit Profile page.",
+      "cta": "Go to Edit Profile"
     }
   },
 

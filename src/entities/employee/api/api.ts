@@ -1,5 +1,7 @@
 import type {
-  EmployeeFormData,
+  Employee,
+  CreateEmployeeFormData,
+  UpdateEmployeeFormData,
   EmployeeListResponse,
 } from '../model/employeeTypes';
 import { apiClient } from '@/shared/api';
@@ -10,15 +12,22 @@ export async function getEmployees(page: string | null, name: string | null) {
   });
 }
 
-export async function createEmployee(payload: EmployeeFormData) {
+export async function createEmployee(payload: CreateEmployeeFormData) {
   return apiClient.post('/erp/v1/employees', payload);
 }
 
-export async function updateEmployee(
-  id: string,
-  payload: Partial<EmployeeFormData>,
-) {
+export async function updateEmployee({
+  id,
+  payload,
+}: {
+  id: string;
+  payload: Partial<UpdateEmployeeFormData>;
+}) {
   return apiClient.put(`/erp/v1/employees/${id}`, payload);
+}
+
+export async function getEmployee(id: number) {
+  return apiClient.get<Employee>(`/erp/v1/employees/${id}`);
 }
 
 export async function deleteEmployee(id: string) {

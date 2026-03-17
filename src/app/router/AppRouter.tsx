@@ -13,6 +13,7 @@ import { LazyEmployeeCreatePage } from '@/pages/employee-create';
 import { LazyEmployeeListPage } from '@/pages/employee-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
+import { LazyUpdateEmployeePage } from '@/pages/employee-edit';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,13 @@ const router = createBrowserRouter([
         path: 'employees',
         children: [
           { index: true, element: <LazyEmployeeListPage /> },
+          {
+            path: ':id',
+            children: [
+              { index: true, element: <p>EmployeeDetails</p> },
+              { path: 'edit', element: <LazyUpdateEmployeePage /> },
+            ],
+          },
           { path: 'new', element: <LazyEmployeeCreatePage /> },
         ],
       },

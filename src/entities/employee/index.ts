@@ -1,12 +1,16 @@
 export type {
   Employee,
-  EmployeeFormData,
+  BaseEmployeeFormData,
+  CreateEmployeeFormData,
+  EmployeeInternalFormData,
+  UpdateEmployeeFormData,
   EmployeeListResponse,
 } from './model/employeeTypes';
 export { EmployeeForm } from './ui/EmployeeForm';
 export { EmployeeRow } from './ui/EmployeeRow';
 export {
   getEmployees,
+  getEmployee,
   createEmployee,
   deleteEmployee,
   updateEmployee,

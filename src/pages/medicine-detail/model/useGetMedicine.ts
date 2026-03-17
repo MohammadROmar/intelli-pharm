@@ -7,7 +7,7 @@ export function useGetMedicine() {
   const { id } = useParams();
 
   const medicineId = Number(id);
-  const isValidId = Number.isFinite(MediaDeviceInfo);
+  const isValidId = !isNaN(medicineId);
 
   return useQuery({
     queryKey: ['medicines', medicineId],

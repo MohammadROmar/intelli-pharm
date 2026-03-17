@@ -28,7 +28,7 @@ export function FormSkeleton({ fields }: { fields: number }) {
               />
             </div>
           </div>
-          {[...Array(fields)].map((_, i) => (
+          {Array.from({ length: fields }).map((_, i) => (
             <div key={`form-skeleton-field-${i}`} className="space-y-3">
               <Skeleton
                 className="h-5 w-24"

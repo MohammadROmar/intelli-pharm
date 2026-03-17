@@ -65,13 +65,17 @@ function BreadCrumbsItems() {
       {segments.map((segment, i) => {
         const href = `/${segments.slice(0, i + 1).join('/')}`;
 
+        const isId = /^\d+$/.test(segment);
+
+        const label = isId ? `#${segment}` : t(`sidebar.labels.${segment}`);
+
         return (
           <BreadcrumbItem key={href}>
             {i === segments.length - 1 ? (
-              <BreadcrumbPage>{t(`sidebar.labels.${segment}`)}</BreadcrumbPage>
+              <BreadcrumbPage>{label}</BreadcrumbPage>
             ) : (
               <BreadcrumbLink asChild href={href}>
-                <Link to={href}>{t(`sidebar.labels.${segment}`)}</Link>
+                <Link to={href}>{label}</Link>
               </BreadcrumbLink>
             )}
           </BreadcrumbItem>

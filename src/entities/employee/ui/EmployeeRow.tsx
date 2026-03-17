@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import type { Employee } from '../model/employeeTypes';
 import { TableCell, TableRow, TableActions } from '@/shared/ui';
+import { Info } from 'lucide-react';
+import { buttonVariants } from '@/shared/lib';
 
 type EmployeeRowProps = {
   employee: Employee;
@@ -11,6 +13,8 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'employeesPage.roles',
   });
+
+  const isAdmin = employee.roles[0] === 'admin';
 
   return (
     <TableRow>
@@ -25,8 +29,20 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
         onDelete={onDelete}
         path="/dashboard/employees"
       >
-        <TableActions.Detail />
-        <TableActions.Edit />
+        {isAdmin ? (
+          <div
+            className={buttonVariants({
+              variant: 'ghost',
+              size: 'sm',
+              className: 'pointer-events-none opacity-50',
+            })}
+          >
+            <Info className="size-4" />
+          </div>
+        ) : (
+          <TableActions.Detail />
+        )}
+        <TableActions.Update />
         <TableActions.Delete />
       </TableActions>
     </TableRow>

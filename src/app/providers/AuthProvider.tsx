@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
+import { LoginSkeleton } from '@/pages/login';
 import type { LoginResponse } from '@/features/login';
 import {
   setCredentials,
@@ -10,7 +11,6 @@ import {
 } from '@/entities/session';
 import { apiClient } from '@/shared/api';
 import { useAppDispatch, useAppSelector } from '@/shared/config';
-import { LoginSkeleton } from '@/pages/login';
 
 export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -18,6 +18,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
 
   const [showDashboardSkeleton] = useState(() => hasRefreshToken());
   const refreshTokenRef = useRef(refreshToken);
+  console.log(refreshTokenRef.current);
 
   useEffect(() => {
     const initAuth = async () => {
@@ -47,7 +48,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    initAuth();
+    if (refreshTokenRef.current) initAuth();
   }, [dispatch]);
 
   if (isLoading) {

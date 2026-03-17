@@ -31,7 +31,7 @@ export function TableSkeleton() {
                     style={{ animationDelay: '0.5s' }}
                   />
                 </TableHead>
-                {[...Array(3)].map((_, i) => (
+                {Array.from({ length: 3 }).map((_, i) => (
                   <TableHead key={`table-skeleton-head-${i}`}>
                     <Skeleton
                       className="h-6"
@@ -42,9 +42,9 @@ export function TableSkeleton() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {[...Array(10)].map((_, i) => (
+              {Array.from({ length: 10 }).map((_, i) => (
                 <TableRow key={`table-skeleton-row-${i}`}>
-                  {[...Array(4)].map((_, i) => (
+                  {Array.from({ length: 4 }).map((_, i) => (
                     <TableCell
                       key={`table-skeleton-row-cell-${i}`}
                       className="py-3"
