@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { FolderTree, Tag, Tags } from 'lucide-react';
+import { Tag, Tags } from 'lucide-react';
 
 import type { Category, CategoryListItem } from '../model/categoryTypes';
 import {
@@ -9,10 +9,9 @@ import {
   FieldError,
   FieldLabel,
   FormActions,
-  GenericSingleSelect,
   FormSectionHeader,
 } from '@/shared/ui';
-import { dummyCategories } from '../model/dummyCategories';
+import { CategorySelector } from './CategorySelector';
 
 type CategoryFormProps = {
   onSubmit: SubmitHandler<Category>;
@@ -71,13 +70,9 @@ export function CategoryForm({
             name="parent_id"
             control={control}
             render={({ field }) => (
-              <GenericSingleSelect
-                disabled={isLoading}
+              <CategorySelector
+                isLoading={isLoading}
                 invalid={!!errors.parent_id}
-                options={dummyCategories}
-                valueKey="id"
-                labelKey="name"
-                icon={FolderTree}
                 value={field.value}
                 onValueChange={field.onChange}
               />

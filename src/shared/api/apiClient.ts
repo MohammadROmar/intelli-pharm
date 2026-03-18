@@ -24,7 +24,7 @@ export class ApiError extends Error {
   }
 }
 
-const statusToI18nKey = (status?: number): string => {
+export const statusToI18nKey = (status?: number): string => {
   switch (status) {
     case 400:
       return 'errors.badRequest';

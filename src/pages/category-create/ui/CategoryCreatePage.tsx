@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CategoryForm } from '@/entities/category';
+import { CategoryCreateForm } from '@/features/category-create';
 import {
   Card,
   CardContent,
@@ -26,23 +25,9 @@ export default function CategoryCreatePage() {
           <CardDescription>{t('formSubtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <Form />
+          <CategoryCreateForm />
         </CardContent>
       </Card>
     </>
-  );
-}
-
-function Form() {
-  const [formKey, setFormKey] = useState(0);
-
-  return (
-    <CategoryForm
-      key={formKey}
-      onSubmit={(data) => {
-        console.log(data);
-      }}
-      onReset={() => setFormKey((prev) => prev + 1)}
-    />
   );
 }

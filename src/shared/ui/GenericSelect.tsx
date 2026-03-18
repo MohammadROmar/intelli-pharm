@@ -25,8 +25,8 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   options: T[];
   valueKey: keyof T;
   labelKey: keyof T;
-  value?: T[keyof T] | null;
   defaultValue?: Partial<T>;
+  value?: T[keyof T] | null;
   onValueChange: (value: T[keyof T] | null) => void;
   onSearchChange?: (searchTerm: string) => void;
   onLoadMore?: () => void;
@@ -191,7 +191,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
               displayClassName,
             )}
           >
-            {filteredOptions.length === 0 ? (
+            {filteredOptions.length === 0 && !isLoading ? (
               <CommandEmpty>{t('noResultsFound')}</CommandEmpty>
             ) : (
               <CommandGroup>
@@ -223,13 +223,13 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
 
             {/* Infinite scroll indicators */}
             {isLoading ? (
-              <div className="text-muted-foreground flex items-center justify-center gap-2 p-2 text-center text-xs">
+              <div className="text-muted-foreground flex items-center justify-center gap-2 p-2 py-5.5 text-center text-sm">
                 <Loader2 className="text-primary size-4 animate-spin" />
-                Loading more...
+                {t('loadingMore')}
               </div>
             ) : hasNextPage ? (
               <div className="text-muted-foreground p-2 text-center text-xs">
-                Scroll to load more
+                {t('scrollToLoad')}
               </div>
             ) : filteredOptions.length > 0 && hasMoreLabel ? (
               <div className="text-muted-foreground p-2 text-center text-xs">
