@@ -1,19 +1,10 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { Toaster as Sonner, type ToasterProps } from 'sonner';
 import { useTranslation } from 'react-i18next';
-import {
-  CircleCheckIcon,
-  InfoIcon,
-  Loader2Icon,
-  OctagonXIcon,
-  TriangleAlertIcon,
-} from 'lucide-react';
 
 import SidebarProvider from '../providers/SidebarProvider';
 import { AppSidebar } from '@/widgets/sidebar';
 import { ThemeToggle } from '@/features/theme-toggle';
 import { LocaleToggle } from '@/features/locale-toggle';
-import { useTheme } from '@/shared/config';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -37,7 +28,10 @@ export default function DashboardLayout() {
           <div className="flex w-full items-center justify-between gap-4 px-3">
             <div className="flex items-center gap-2">
               <SidebarTrigger srLabel={t('sidebar.toggle')} />
-              <Separator orientation="vertical" className="mr-2 h-4" />
+              <Separator
+                orientation="vertical"
+                className="h-4! ltr:mr-2 rtl:ml-2"
+              />
               <Breadcrumb className="hidden md:block">
                 <BreadcrumbList>
                   <BreadCrumbsItems />
@@ -56,8 +50,6 @@ export default function DashboardLayout() {
           <Outlet />
         </div>
       </SidebarInset>
-
-      <Toaster />
     </SidebarProvider>
   );
 }
@@ -90,33 +82,5 @@ function BreadCrumbsItems() {
         );
       })}
     </>
-  );
-}
-
-function Toaster() {
-  const { theme } = useTheme();
-
-  return (
-    <Sonner
-      theme={theme as ToasterProps['theme']}
-      icons={{
-        success: <CircleCheckIcon className="size-5 text-green-500" />,
-        info: <InfoIcon className="size-5 text-cyan-500" />,
-        warning: <TriangleAlertIcon className="size-5 text-yellow-500" />,
-        error: <OctagonXIcon className="size-5 text-red-500" />,
-        loading: <Loader2Icon className="size-5 animate-spin" />,
-      }}
-      style={
-        {
-          '--normal-bg': 'var(--popover)',
-          '--normal-text': 'var(--popover-foreground)',
-          '--normal-border': 'var(--border)',
-          '--border-radius': 'var(--radius)',
-        } as React.CSSProperties
-      }
-      position="top-center"
-      toastOptions={{ descriptionClassName: 'text-muted-foreground!' }}
-      className="toaster group font-cairo!"
-    />
   );
 }

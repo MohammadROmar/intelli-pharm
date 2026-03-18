@@ -171,3 +171,5 @@ export { FormSectionHeader } from './FormSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
 export { SearchField } from './SearchField';
+export { Toaster } from './toaster';
+export { DeleteModal } from './DeleteModal';

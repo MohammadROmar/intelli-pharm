@@ -16,5 +16,5 @@ export async function updateCategory(id: number, payload: Partial<Category>) {
 }
 
 export async function deleteCategory(id: number) {
-  await apiClient.delete(`/erp/v1/categories/${id}`);
+  return apiClient.delete(`/erp/v1/categories/${id}`);
 }

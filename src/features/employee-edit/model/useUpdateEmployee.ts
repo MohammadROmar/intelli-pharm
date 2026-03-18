@@ -1,5 +1,6 @@
 import { toast } from 'sonner';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { UpdateEmployeeFormData } from '@/entities/employee';
@@ -10,10 +11,12 @@ export function useUpdateEmployee() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
 
+  const naviagte = useNavigate();
+
   return useMutation<
     ApiResponse<unknown>,
     ApiError,
-    { id: string; payload: Partial<UpdateEmployeeFormData> }
+    { id: number; payload: Partial<UpdateEmployeeFormData> }
   >({
     mutationFn: updateEmployee,
 
@@ -22,6 +25,7 @@ export function useUpdateEmployee() {
         description: t('employeesPage.update.success.description'),
       });
       queryClient.invalidateQueries({ queryKey: ['employees'] });
+      naviagte('/dashboard/employees');
     },
 
     onError: (error) => {

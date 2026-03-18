@@ -15,7 +15,8 @@
   "loginPage": {
     "title": "Login to your account",
     "subtitle": "Enter your email below to login to your account",
-    "login": "Login"
+    "login": "Login",
+    "error": "Login failed"
   },
 
   "ordersPage": {
@@ -152,6 +153,13 @@
     "update": {
       "title": "Edit Category",
       "subtitle": "Update category information"
+    },
+    "delete": {
+      "success": {
+        "title": "Category Deleted",
+        "description": "The medicine category has beeen permanently removed from the system."
+      },
+      "error": "Failed to delete category"
     }
   },
 
@@ -187,7 +195,7 @@
         "title": "Employee Created",
         "description": "The new employee has been added successfully."
       },
-      "erros": "Failed to create employee"
+      "error": "Failed to create employee"
     },
     "update": {
       "title": "Edit Details",
@@ -199,6 +207,13 @@
         "description": "Employee data has been updated successfully."
       },
       "error": "Failed to update employee"
+    },
+    "delete": {
+      "success": {
+        "title": "Employee Deleted",
+        "description": "Employee has beeen permanently removed from the system."
+      },
+      "error": "Failed to delete employee"
     },
     "editRestricted": {
       "title": "Admin accounts cannot be edited here",

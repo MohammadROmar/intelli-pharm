@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useDeleteCategory } from '../model/useDeleteCategory';
 import type { CategoryListItem } from '@/entities/category';
-import { DeleteModal } from '@/shared/ui/DeleteModal';
+import { DeleteModal } from '@/shared/ui';
 
 interface DeleteCategoryModalProps {
   category: CategoryListItem | null;

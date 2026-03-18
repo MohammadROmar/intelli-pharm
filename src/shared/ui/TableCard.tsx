@@ -61,18 +61,14 @@ export function TableCard({
   );
 }
 
-export function TableCardHeader({
-  placeholder,
-  createText,
-}: {
-  placeholder: string;
-  createText: string;
-}) {
+type Props = { placeholder: string; createText: string; basePath: string };
+
+export function TableCardHeader({ placeholder, createText, basePath }: Props) {
   return (
     <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
       <SearchField placeholder={placeholder} />
       <Link
-        to="/dashboard/employees/new"
+        to={`${basePath}/new`}
         className={buttonVariants({ size: 'sm', className: 'shrink-0' })}
       >
         <Plus className="mr-1.5 size-4" />

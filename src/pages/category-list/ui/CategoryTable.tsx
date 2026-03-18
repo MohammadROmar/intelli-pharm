@@ -39,6 +39,7 @@ export function CategoriesTable({ data }: Props) {
           <TableCardHeader
             createText={t('create.title')}
             placeholder={t('searchPlaceholder')}
+            basePath="/dashboard/categories"
           />
         }
         basePath="/dashboard/categories"

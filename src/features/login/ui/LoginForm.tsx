@@ -17,7 +17,7 @@ type FormFields = { email: string; password: string };
 export function LoginForm() {
   const { t } = useTranslation();
 
-  const { mutate: login, isError, error, isPending } = useLogin();
+  const { mutate: login, isPending } = useLogin();
 
   const {
     register,
@@ -83,7 +83,6 @@ export function LoginForm() {
             {t('loginPage.login')}
           </Button>
         </Field>
-        {isError && <FieldError>{t(error.i18nKey)}</FieldError>}
       </FieldGroup>
     </form>
   );

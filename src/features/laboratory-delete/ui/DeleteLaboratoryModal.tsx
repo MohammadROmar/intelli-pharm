@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useDeleteLaboratory } from '../model/useDeleteLaboratory';
 import type { LaboratoryListItem } from '@/entities/laboratory';
-import { DeleteModal } from '@/shared/ui/DeleteModal';
+import { DeleteModal } from '@/shared/ui';
 
 interface DeleteLaboratoryModalProps {
   laboratory: LaboratoryListItem | null;

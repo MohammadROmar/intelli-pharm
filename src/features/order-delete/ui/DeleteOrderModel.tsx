@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useDeleteOrder } from '../model/useDeleteOrder';
 import type { Order } from '@/entities/order';
-import { DeleteModal } from '@/shared/ui/DeleteModal';
+import { DeleteModal } from '@/shared/ui';
 
 interface DeleteOrderModalProps {
   order: Order | null;

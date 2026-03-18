@@ -65,7 +65,7 @@ function Detail() {
   const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
 
   return (
-    <Tooltip>
+    <Tooltip disableHoverableContent>
       <TooltipTrigger asChild>
         <Link
           to={`${path}/${itemId}`}
@@ -85,7 +85,7 @@ function Update() {
   const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
 
   return (
-    <Tooltip>
+    <Tooltip disableHoverableContent>
       <TooltipTrigger asChild>
         <Link
           to={`${path}/${itemId}/edit`}
@@ -105,7 +105,7 @@ function Delete<T>() {
   const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
 
   return (
-    <Tooltip>
+    <Tooltip disableHoverableContent>
       <TooltipTrigger asChild>
         <Button
           size="sm"

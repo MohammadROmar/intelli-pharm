@@ -38,6 +38,7 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
           <TableCardHeader
             createText={t('create.title')}
             placeholder={t('list.searchPlaceholder')}
+            basePath="/dashboard/employees"
           />
         }
         basePath="/dashboard/employees"

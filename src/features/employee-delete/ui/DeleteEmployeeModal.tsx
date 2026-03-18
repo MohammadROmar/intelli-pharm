@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useDeleteEmployee } from '../model/useDeleteEmployee';
 import type { Employee } from '@/entities/employee';
-import { DeleteModal } from '@/shared/ui/DeleteModal';
+import { DeleteModal } from '@/shared/ui';
 
 interface DeleteEmployeeModalProps {
   employee: Employee | null;
