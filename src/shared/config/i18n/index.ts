@@ -17,3 +17,7 @@ i18n
     returnObjects: true,
     interpolation: { escapeValue: false },
   });
+
+i18n.on('languageChanged', (lng) => {
+  window.dispatchEvent(new CustomEvent('app:languageChanged', { detail: lng }));
+});

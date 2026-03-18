@@ -325,5 +325,11 @@
     "unknownTitle": "Something Went Wrong",
     "unknown": "An unexpected error occurred.",
     "retry": "Retry"
+  },
+
+  "tableActions": {
+    "details": "Details",
+    "update": "Update",
+    "delete": "Delete"
   }
 }

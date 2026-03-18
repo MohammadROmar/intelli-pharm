@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import type { LoginResponse } from '@/features/login/index.initial';
 import { sessionReducer, logout, setCredentials } from '@/entities/session';
 import { apiClient } from '@/shared/api';
-import type { LoginResponse } from '@/features/login';
 
 export const store = configureStore({
   reducer: { session: sessionReducer },

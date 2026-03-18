@@ -14,7 +14,6 @@ export function UpdateEmployeeForm({ employee }: Props) {
   const { mutate, isPending } = useUpdateEmployee();
 
   function onSubmit(payload: UpdateEmployeeFormData) {
-    console.log(payload);
     mutate(
       { id: employee.id, payload },
       {

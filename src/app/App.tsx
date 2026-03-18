@@ -9,8 +9,6 @@ import { store } from './store/store';
 import { useDocumentDirection } from '@/shared/lib';
 import { queryClient } from '@/shared/api';
 
-import '@/shared/config/i18n';
-
 function App() {
   const { dir } = useDocumentDirection();
 

@@ -1,6 +1,6 @@
-export { default as Logo } from './Logo';
+export { Logo } from './Logo';
 export { Avatar, AvatarFallback, AvatarImage } from './Avatar';
-export { default as BackgroundPattern } from './BackgroundPattern';
+export { BackgroundPattern } from './BackgroundPattern';
 export {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -171,4 +171,3 @@ export { FormSectionHeader } from './FormSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
 export { SearchField } from './SearchField';
-export { Toaster } from './sonner';

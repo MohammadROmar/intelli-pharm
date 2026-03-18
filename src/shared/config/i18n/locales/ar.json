@@ -324,5 +324,11 @@
     "unknownTitle": "حدث خطأ ما",
     "unknown": "حدث خطأ غير متوقع.",
     "retry": "إعادة المحاولة"
+  },
+
+  "tableActions": {
+    "details": "التفاصيل",
+    "update": "تعديل",
+    "delete": "حذف"
   }
 }

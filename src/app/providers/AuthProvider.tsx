@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
 import { LoginSkeleton } from '@/pages/login';
-import type { LoginResponse } from '@/features/login';
+import type { LoginResponse } from '@/features/login/index.initial';
 import {
   setCredentials,
   logout,
@@ -18,20 +18,24 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
 
   const [showDashboardSkeleton] = useState(() => hasRefreshToken());
   const refreshTokenRef = useRef(refreshToken);
-  console.log(refreshTokenRef.current);
 
   useEffect(() => {
+    async function refreshToken() {
+      if (!refreshTokenRef.current) throw new Error('No refresh token');
+
+      return apiClient.post<LoginResponse>('/auth/v1/refresh', {
+        refresh_token: refreshTokenRef.current,
+      });
+    }
+
     const initAuth = async () => {
       try {
-        const { data } = await apiClient.post<LoginResponse>(
-          '/auth/v1/refresh',
-          { refresh_token: refreshTokenRef.current },
-        );
+        const [{ data }] = await Promise.all([
+          refreshToken(),
+          import('@/shared/config/i18n'),
+        ]);
 
-        if (!data) {
-          dispatch(logout());
-          return;
-        }
+        if (!data) throw new Error('Refresh failed');
 
         dispatch(
           setCredentials({
@@ -48,7 +52,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    if (refreshTokenRef.current) initAuth();
+    initAuth();
   }, [dispatch]);
 
   if (isLoading) {

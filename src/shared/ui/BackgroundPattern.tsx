@@ -1,4 +1,6 @@
-export default function BackgroundPattern() {
+import { memo } from 'react';
+
+export const BackgroundPattern = memo(function BackgroundPattern() {
   return (
     <div
       className="absolute inset-0 -z-10 opacity-25"
@@ -48,4 +50,4 @@ export default function BackgroundPattern() {
       }}
     />
   );
-}
+});

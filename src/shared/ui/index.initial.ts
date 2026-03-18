@@ -2,7 +2,6 @@ export {
   SidebarContext,
   type SidebarContextProps,
 } from './Sidebar/SidebarContext';
-export { TooltipProvider } from './Tooltip';
 export {
   CardsSkeleton,
   FormSkeleton,

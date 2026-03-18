@@ -2,7 +2,10 @@ import { memo, type ComponentProps } from 'react';
 
 type LogoProps = { withColors?: boolean } & ComponentProps<'svg'>;
 
-const Logo = memo(function Logo({ withColors = false, ...props }: LogoProps) {
+export const Logo = memo(function Logo({
+  withColors = false,
+  ...props
+}: LogoProps) {
   return (
     <svg
       viewBox="0 0 1515 1427"
@@ -42,5 +45,3 @@ const Logo = memo(function Logo({ withColors = false, ...props }: LogoProps) {
     </svg>
   );
 });
-
-export default Logo;
