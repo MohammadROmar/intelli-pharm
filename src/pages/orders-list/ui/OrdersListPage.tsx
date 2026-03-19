@@ -52,9 +52,7 @@ export default function OrdersListPage() {
             <OrderRow
               key={order.id}
               order={order}
-              onDelete={(order) => {
-                setOrderToDelete(order);
-              }}
+              onDelete={setOrderToDelete}
             />
           ))}
         </TableBody>

@@ -21,3 +21,26 @@ export type ImageFile = {
   file: File;
   preview: string;
 };
+
+export type Medicine = {
+  id: number;
+  category_id: number;
+  name: string;
+  price: string;
+  is_imported: boolean;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  category: { id: number; name: string };
+  alternatives: unknown[];
+};
+
+export type MedicineResponse = {
+  data: Medicine[];
+  meta: {
+    current_page: number;
+    per_page: number;
+    to: number;
+    total: number;
+  };
+};

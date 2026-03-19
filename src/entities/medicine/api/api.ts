@@ -1,5 +1,9 @@
+import type {
+  FormValues,
+  ImageFile,
+  MedicineResponse,
+} from '../model/medicineTypes';
 import { apiClient } from '@/shared/api';
-import type { FormValues, ImageFile } from '../model/medicineTypes';
 
 export async function createMedicine(values: FormValues, images: ImageFile[]) {
   const fd = new FormData();
@@ -28,7 +32,11 @@ export async function getMedicineById(id: number) {
 }
 
 export async function getMedicines(page: string | null, name: string | null) {
-  return apiClient.get<unknown>('/erp/v1/categories', {
+  return apiClient.get<MedicineResponse>('/erp/v1/medicines', {
     params: { page_number: page ?? 1, per_page: 10, name },
   });
+}
+
+export async function deleteMedicine(id: number) {
+  return apiClient.delete(`/erp/v1/medicines/${id}`);
 }

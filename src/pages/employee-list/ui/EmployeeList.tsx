@@ -60,9 +60,7 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
             <EmployeeRow
               key={employee.id}
               employee={employee}
-              onDelete={(employee) => {
-                setEmployeeToDelete(employee);
-              }}
+              onDelete={setEmployeeToDelete}
             />
           ))}
         </TableBody>

@@ -30,7 +30,7 @@ export default function DashboardLayout() {
               <SidebarTrigger srLabel={t('sidebar.toggle')} />
               <Separator
                 orientation="vertical"
-                className="h-4! ltr:mr-2 rtl:ml-2"
+                className="md:h-4! ltr:mr-2 rtl:ml-2"
               />
               <Breadcrumb className="hidden md:block">
                 <BreadcrumbList>

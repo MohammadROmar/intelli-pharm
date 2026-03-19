@@ -54,9 +54,23 @@
 
   "medicinesPage": {
     "medicine": "Medicine",
+    "searchPlaceholder": "Search medicine...",
     "create": {
       "title": "Add New Medicine",
       "subtitle": "Register a new medicine with stock and image details."
+    },
+    "list": {
+      "title": "Medicine Inventory",
+      "subtitle": "Manage, update, or remove medicine records in the table below.",
+      "all": "All Medicines",
+      "id": "ID",
+      "name": "Name",
+      "status": "Status",
+      "active": "Active",
+      "inavtive": "Inactive",
+      "price": "Price",
+      "createdAt": "Created At",
+      "actions": "Actions"
     },
     "form": {
       "basicInfoTitle": "Basic Information",
@@ -124,6 +138,13 @@
       "altPrice": "Price",
       "altImported": "Origin",
       "altNote": "Note"
+    },
+    "delete": {
+      "success": {
+        "title": "Medicine delleted",
+        "description": "The medicine has beeen permanently removed from the system."
+      },
+      "error": "Failed to delete medicine"
     }
   },
 

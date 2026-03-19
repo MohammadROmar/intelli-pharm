@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DeleteCategoryModal } from '@/features/category-delete';
-import {
-  CategoryRow,
-  type CategoryListItem,
-  type CategoryListResponse,
-} from '@/entities/category';
 import {
   TableBody,
   TableHead,
@@ -15,22 +9,24 @@ import {
   TableCard,
   TableCardHeader,
 } from '@/shared/ui';
+import type { Medicine, MedicineResponse } from '@/entities/medicine';
+import { DeleteMedicineModal } from '@/features/medicine-delete/ui/DeleteMedicineModal';
+import { MedicineRow } from '@/entities/medicine/ui/MedicineRow';
 
-type Props = {
-  data: CategoryListResponse;
-};
+type Props = { data: MedicineResponse };
 
-export function CategoriesTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'categoriesPage' });
+export function MedicinesTable({ data }: Props) {
+  const { t } = useTranslation('translation', { keyPrefix: 'medicinesPage' });
 
-  const [categoryToDelete, setCategoryToDelete] =
-    useState<CategoryListItem | null>(null);
+  const [medicineToDelete, setMedicineToDelete] = useState<Medicine | null>(
+    null,
+  );
 
   return (
     <>
-      <DeleteCategoryModal
-        category={categoryToDelete}
-        onClose={() => setCategoryToDelete(null)}
+      <DeleteMedicineModal
+        medicine={medicineToDelete}
+        onClose={() => setMedicineToDelete(null)}
       />
 
       <TableCard
@@ -39,10 +35,10 @@ export function CategoriesTable({ data }: Props) {
           <TableCardHeader
             createText={t('create.title')}
             placeholder={t('searchPlaceholder')}
-            basePath="/dashboard/categories"
+            basePath="/dashboard/medicines"
           />
         }
-        basePath="/dashboard/categories"
+        basePath="/dashboard/medicines"
         currentPage={data.meta.current_page}
         totalItems={data.meta.total}
         itemsPerPage={data.meta.per_page}
@@ -51,16 +47,18 @@ export function CategoriesTable({ data }: Props) {
           <TableRow>
             <TableHead className="w-25">{t('list.id')}</TableHead>
             <TableHead>{t('list.name')}</TableHead>
+            <TableHead>{t('list.status')}</TableHead>
+            <TableHead>{t('list.price')}</TableHead>
             <TableHead>{t('list.createdAt')}</TableHead>
             <TableHead>{t('list.actions')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.data.map((category) => (
-            <CategoryRow
-              key={category.id}
-              category={category}
-              onDelete={setCategoryToDelete}
+          {data.data.map((medicine) => (
+            <MedicineRow
+              key={medicine.id}
+              medicine={medicine}
+              onDelete={setMedicineToDelete}
             />
           ))}
         </TableBody>
