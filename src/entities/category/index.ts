@@ -9,5 +9,7 @@ export {
   getCategories,
   createCategory,
   deleteCategory,
-  updateCategory,
+  editCategory,
+  getCategory,
+  getInfiniteCategories,
 } from './api/api';

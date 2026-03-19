@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getInfinityCategories } from '../api/api';
+import { getInfiniteCategories } from '../api/api';
 
 export function useInfiniteCategories(searchTerm: string) {
   const queryResult = useInfiniteQuery({
@@ -7,7 +7,7 @@ export function useInfiniteCategories(searchTerm: string) {
     initialPageParam: 1,
 
     queryFn: async ({ pageParam = 1 }) =>
-      getInfinityCategories(pageParam.toString(), searchTerm),
+      getInfiniteCategories(pageParam.toString(), searchTerm),
 
     getNextPageParam: (lastPageData) => {
       const currentPage = lastPageData.page;

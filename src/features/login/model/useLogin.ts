@@ -32,7 +32,6 @@ export function useLogin() {
     },
 
     onError: (error) => {
-      console.log('first');
       toast.error(t('loginPage.error'), {
         description: t(error.i18nKey),
       });

@@ -15,15 +15,16 @@ import { LazyEmployeeListPage } from '@/pages/employee-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
 import { LazyUpdateEmployeePage } from '@/pages/employee-edit';
+import { LazyCategoryEditPage } from '@/pages/category-edit';
 
 const router = createBrowserRouter([
   {
     element: <RootLayout />,
+    errorElement: <LazyErrorPage />,
     children: [
       {
         path: '/',
         element: <PublicOnlyRoute />,
-        errorElement: <LazyErrorPage />,
         children: [
           {
             index: true,
@@ -34,7 +35,6 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <DashboardRoute />,
-        errorElement: <LazyErrorPage />,
         children: [
           { index: true, element: <></> },
           { path: 'orders', element: <LazyOrdersListPage /> },
@@ -50,6 +50,13 @@ const router = createBrowserRouter([
             path: 'categories',
             children: [
               { index: true, element: <LazyCategoryListPage /> },
+              {
+                path: ':id',
+                children: [
+                  { index: true, element: <p>CategoryDetails</p> },
+                  { path: 'edit', element: <LazyCategoryEditPage /> },
+                ],
+              },
               { path: 'new', element: <LazyCategoryCreatePage /> },
             ],
           },

@@ -150,14 +150,21 @@
       "formSubtitle": "Fill in the information bellow to register the new category.",
       "create": "Create Category",
       "success": {
-        "title": "Category Created",
+        "title": "Category created",
         "description": "The new category has been added successfully."
       },
       "error": "Failed to create category"
     },
-    "update": {
+    "edit": {
       "title": "Edit Category",
-      "subtitle": "Update category information"
+      "subtitle": "Update category information",
+      "formTitle": "Category Details",
+      "formSubtitle": "Change the information bellow to edit the category.",
+      "success": {
+        "title": "Category updated",
+        "description": "Category has been updated successfully."
+      },
+      "error": "Failed to update category"
     },
     "delete": {
       "success": {
@@ -197,7 +204,7 @@
       "formSubtitle": "Fill in the required details below.",
       "create": "Create Employee",
       "success": {
-        "title": "Employee Created",
+        "title": "Employee created",
         "description": "The new employee has been added successfully."
       },
       "error": "Failed to create employee"

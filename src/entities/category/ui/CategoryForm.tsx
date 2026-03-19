@@ -79,7 +79,11 @@ export function CategoryForm({
             )}
           />
         </Field>
-        <FormActions isLoading={isLoading} onReset={onReset} />
+        <FormActions
+          isEdit={!!defaultValues}
+          isLoading={isLoading}
+          onReset={onReset}
+        />
       </form>
     </>
   );
