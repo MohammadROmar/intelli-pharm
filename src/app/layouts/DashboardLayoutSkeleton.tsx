@@ -1,5 +1,5 @@
 import { SIDEBAR_WIDTH } from '@/shared/config';
-import { Skeleton, CardsSkeleton } from '@/shared/ui/index.initial';
+import { Skeleton, Spinner } from '@/shared/ui/index.initial';
 
 export default function DashboardSkeleton() {
   return (
@@ -14,8 +14,8 @@ export default function DashboardSkeleton() {
       <SidebarSkeleton />
       <div className="relative grid grid-rows-[auto_1fr]">
         <HeaderSkeleton />
-        <main className="size-full">
-          <CardsSkeleton />
+        <main className="text-skeleton flex size-full items-center justify-center">
+          <Spinner className="size-12" />
         </main>
       </div>
     </div>

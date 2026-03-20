@@ -1,18 +1,14 @@
-import { lazy } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
-import { WithSuspense } from '@/shared/ui/index.initial';
+import { Toaster } from '@/shared/ui';
 
-const Toaster = lazy(() =>
-  import('@/shared/ui/toaster').then((m) => ({ default: m.Toaster })),
-);
+import '@/shared/config/i18n';
 
 export default function RootLayout() {
   return (
     <>
       <ScrollRestoration />
-      <WithSuspense Component={Toaster} />
-
+      <Toaster />
       <Outlet />
     </>
   );

@@ -60,7 +60,6 @@ export async function deleteMedicine(id: number) {
 
 export async function getInfiniteMedicines(page: string, search?: string) {
   const response = await getMedicines(page, search ?? null);
-  console.log(response);
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));

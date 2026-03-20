@@ -1,14 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
 import { LoginSkeleton } from '@/pages/login';
 import type { LoginResponse } from '@/features/login/index.initial';
-import {
-  setCredentials,
-  logout,
-  setLoading,
-  hasRefreshToken,
-} from '@/entities/session';
+import { setCredentials, logout, setLoading } from '@/entities/session';
 import { apiClient } from '@/shared/api';
 import { useAppDispatch, useAppSelector } from '@/shared/config';
 
@@ -16,7 +11,6 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
   const { isLoading, refreshToken } = useAppSelector((state) => state.session);
 
-  const [showDashboardSkeleton] = useState(() => hasRefreshToken());
   const refreshTokenRef = useRef(refreshToken);
 
   useEffect(() => {
@@ -30,10 +24,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
 
     const initAuth = async () => {
       try {
-        const [{ data }] = await Promise.all([
-          refreshToken(),
-          import('@/shared/config/i18n'),
-        ]);
+        const { data } = await refreshToken();
 
         if (!data) throw new Error('Refresh failed');
 
@@ -56,9 +47,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   }, [dispatch]);
 
   if (isLoading) {
-    return (
-      <>{showDashboardSkeleton ? <DashboardSkeleton /> : <LoginSkeleton />}</>
-    );
+    return <>{refreshToken ? <DashboardSkeleton /> : <LoginSkeleton />}</>;
   }
 
   return <>{children}</>;

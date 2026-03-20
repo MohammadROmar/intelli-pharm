@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import RootLayout from '../layouts/RootLayout';
 import PublicOnlyRoute from './PublicOnlyRoute';
 import DashboardRoute from './DashboardRoute';
+import { LazyRootLayout } from '../layouts/LazyRootLayout';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
 import { LazyLoginPage } from '@/pages/login';
@@ -21,7 +21,7 @@ import { LazyMedicineEditPage } from '@/pages/medicine-edit';
 
 const router = createBrowserRouter([
   {
-    element: <RootLayout />,
+    element: <LazyRootLayout />,
     errorElement: <LazyErrorPage />,
     children: [
       {
