@@ -5,6 +5,7 @@ export type {
 } from './model/categoryTypes';
 export { CategoryRow } from './ui/CategoryRow';
 export { CategoryForm } from './ui/CategoryForm';
+export { CategorySelector } from './ui/CategorySelector';
 export {
   getCategories,
   createCategory,

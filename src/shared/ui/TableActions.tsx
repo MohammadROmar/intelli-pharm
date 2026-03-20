@@ -34,9 +34,9 @@ function useTableActions<T>() {
 
 type TableActionsProps<T> = {
   itemId: string | number;
-  path: string;
+  path?: string;
   item: T;
-  onDelete: (item: T) => void;
+  onDelete?: (item: T) => void;
   children: React.ReactNode;
 };
 

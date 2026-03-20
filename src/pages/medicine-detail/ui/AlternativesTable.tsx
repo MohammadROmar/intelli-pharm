@@ -1,8 +1,8 @@
 import { PackageSearch, Repeat2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { formatPrice } from '../../../shared/lib/formatPrice';
-import type { Alternative } from '../model/medicineDetailTypes';
+import type { Medicine } from '@/entities/medicine';
+import { formatPrice } from '@/shared/lib';
 import {
   Table,
   TableBody,
@@ -16,15 +16,16 @@ import {
   CardHeader,
   CardTitle,
   Badge,
+  TableActions,
 } from '@/shared/ui';
 
 interface Props {
-  alternatives: Alternative[];
+  alternatives: Medicine[];
 }
 
 export function AlternativesTable({ alternatives }: Props) {
   const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+    keyPrefix: 'medicinesPage',
   });
 
   return (
@@ -34,9 +35,11 @@ export function AlternativesTable({ alternatives }: Props) {
           <div>
             <CardTitle className="flex items-center gap-2 text-base">
               <Repeat2 className="size-4" />
-              {t('alternativesTitle')}
+              {t('detail.alternativesTitle')}
             </CardTitle>
-            <CardDescription>{t('alternativesSubtitle')}</CardDescription>
+            <CardDescription>
+              {t('detail.alternativesSubtitle')}
+            </CardDescription>
           </div>
           {alternatives.length > 0 && (
             <Badge variant="secondary">{alternatives.length}</Badge>
@@ -48,37 +51,35 @@ export function AlternativesTable({ alternatives }: Props) {
         {alternatives.length === 0 ? (
           <div className="text-muted-foreground flex flex-col items-center gap-2 py-10">
             <PackageSearch className="size-8" />
-            <p className="text-sm">{t('noAlternatives')}</p>
+            <p className="text-sm">{t('detail.noAlternatives')}</p>
           </div>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{t('altName')}</TableHead>
-                <TableHead>{t('altPrice')}</TableHead>
-                <TableHead>{t('altImported')}</TableHead>
-                <TableHead className="max-w-xs">{t('altNote')}</TableHead>
+                <TableHead>{t('list.name')}</TableHead>
+                <TableHead>{t('list.status')}</TableHead>
+                <TableHead className="max-w-xs">{t('list.price')}</TableHead>
+                <TableHead className="max-w-xs">{t('list.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {alternatives.map((alt) => (
                 <TableRow key={alt.id}>
                   <TableCell className="font-medium">{alt.name}</TableCell>
+                  <TableCell>
+                    {alt.is_active ? t('list.active') : t('list.inactive')}
+                  </TableCell>
                   <TableCell className="tabular-nums">
                     {formatPrice(alt.price, i18n.language)}
                   </TableCell>
-                  <TableCell>
-                    {alt.is_imported ? (
-                      <Badge variant="outline" className="font-normal">
-                        {t('imported')}
-                      </Badge>
-                    ) : (
-                      <span className="text-muted-foreground">—</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground max-w-xs truncate text-sm">
-                    {alt.pivot.note || '—'}
-                  </TableCell>
+                  <TableActions
+                    itemId={alt.id}
+                    item={alt}
+                    path="/dashboard/medicines"
+                  >
+                    <TableActions.Detail />
+                  </TableActions>
                 </TableRow>
               ))}
             </TableBody>

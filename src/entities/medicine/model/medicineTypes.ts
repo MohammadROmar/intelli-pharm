@@ -14,6 +14,7 @@ export type FormValues = {
   is_alternative: boolean;
   stocks: StockEntry[];
   is_alternative_to_id: string | null;
+  imagesCount: number;
 };
 
 export type ImageFile = {
@@ -29,10 +30,12 @@ export type Medicine = {
   price: string;
   is_imported: boolean;
   is_active: boolean;
+  note?: string;
   created_at: string;
   updated_at: string;
   category: { id: number; name: string };
-  alternatives: unknown[];
+  alternatives: Medicine[];
+  images: string[];
 };
 
 export type MedicineResponse = {

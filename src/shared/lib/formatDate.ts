@@ -1,9 +1,13 @@
-export function formatDate(iso: string, language?: string): string {
+export function formatDate(
+  iso: string,
+  language?: string,
+  hasHour: boolean = true,
+): string {
   return new Intl.DateTimeFormat(language, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+    hour: hasHour ? '2-digit' : undefined,
+    minute: hasHour ? '2-digit' : undefined,
   }).format(new Date(iso));
 }

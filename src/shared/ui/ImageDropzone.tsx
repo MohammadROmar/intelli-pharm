@@ -4,6 +4,7 @@ import { GripVertical, ImagePlus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Badge } from './badge';
+import { cn } from '../lib';
 
 interface ImageFile {
   id: string;
@@ -13,11 +14,19 @@ interface ImageFile {
 
 type ImageDropzoneProps = {
   images: ImageFile[];
+  disabled?: boolean;
+  hasError?: boolean;
   onAdd: (files: ImageFile[]) => void;
   onRemove: (id: string) => void;
 };
 
-export function ImageDropzone({ images, onAdd, onRemove }: ImageDropzoneProps) {
+export function ImageDropzone({
+  images,
+  disabled,
+  onAdd,
+  hasError,
+  onRemove,
+}: ImageDropzoneProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'dragNDrop' });
 
   const onDrop = useCallback(
@@ -34,20 +43,24 @@ export function ImageDropzone({ images, onAdd, onRemove }: ImageDropzoneProps) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { 'image/*': ['.png', '.jpg', '.jpeg', '.webp', '.gif'] },
+    accept: { 'image/*': ['.png', '.jpg', '.jpeg'] },
     multiple: true,
+    disabled,
   });
 
   return (
     <div className="space-y-4">
       <div
         {...getRootProps()}
-        className={[
+        className={cn(
           'relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 transition-all duration-200',
           isDragActive
             ? 'border-primary bg-primaborder-primary/10 scale-[1.01]'
-            : 'border-border bg-muted/20 hover:bg-muted/40 hover:border-primary/60',
-        ].join(' ')}
+            : hasError
+              ? 'border-destructive'
+              : 'border-border bg-muted/20 hover:bg-muted/40 hover:border-primary/60',
+          disabled && 'border-border! bg-card! cursor-not-allowed! opacity-60',
+        )}
       >
         <input {...getInputProps()} />
         <div className="flex flex-col items-center gap-2 text-center">
@@ -72,9 +85,7 @@ export function ImageDropzone({ images, onAdd, onRemove }: ImageDropzoneProps) {
                   {t('browse')}
                 </span>
               </p>
-              <p className="text-muted-foreground text-xs">
-                PNG, JPG, WEBP, GIF
-              </p>
+              <p className="text-muted-foreground text-xs">PNG, JPG, JPEG</p>
             </>
           )}
         </div>

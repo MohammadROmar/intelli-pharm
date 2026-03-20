@@ -4,12 +4,14 @@ import {
   useFormContext,
   useFormState,
 } from 'react-hook-form';
-import { Package, Plus, Trash2, Warehouse } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Package, Plus, Trash2, Warehouse } from 'lucide-react';
 
-import type { FormValues } from '../model/medicineTypes';
-import { required, fRequired, positiveNumber } from '../utils/utils';
-import { useFieldError } from '../model/useFieldError';
+import {
+  useMedicineFieldError,
+  type MedicineFormData,
+} from '@/entities/medicine';
+import { required, fRequired, positiveNumber } from '@/shared/lib';
 import {
   Badge,
   Button,
@@ -26,14 +28,12 @@ import {
   Input,
 } from '@/shared/ui';
 
-const WAREHOUSES = [
-  { id: '1', name: 'Main Warehouse' },
-  { id: '2', name: 'Branch A' },
-  { id: '3', name: 'Branch B' },
-];
-export function StockEntriesCard() {
-  const { register, control, getFieldState } = useFormContext<FormValues>();
-  const formState = useFormState<FormValues>({
+const WAREHOUSES = [{ id: '1', name: 'Main Warehouse' }];
+
+export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
+  const { register, control, getFieldState } =
+    useFormContext<MedicineFormData>();
+  const formState = useFormState<MedicineFormData>({
     name: 'stocks',
   });
 
@@ -41,7 +41,7 @@ export function StockEntriesCard() {
     keyPrefix: 'medicinesPage.form',
   });
 
-  const { te } = useFieldError('medicinesPage.form');
+  const { te } = useMedicineFieldError('medicinesPage.form');
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -61,6 +61,7 @@ export function StockEntriesCard() {
             size="sm"
             variant="outline"
             className="text-primary"
+            disabled={isPending}
             onClick={() =>
               append(
                 { warehouse_id: '', quantity: '', expiry_date: '' },
@@ -125,7 +126,7 @@ export function StockEntriesCard() {
                 <Controller
                   name={`stocks.${index}.warehouse_id`}
                   control={control}
-                  rules={{ validate: fRequired() }}
+                  rules={{ validate: required() }}
                   render={({ field: f }) => (
                     <Field data-invalid={warehouseState.invalid}>
                       <FieldLabel asChild className="text-xs">
@@ -133,6 +134,7 @@ export function StockEntriesCard() {
                       </FieldLabel>
                       <GenericSingleSelect
                         icon={Warehouse}
+                        disabled={isPending}
                         invalid={warehouseState.invalid}
                         options={WAREHOUSES}
                         valueKey="id"
@@ -160,8 +162,9 @@ export function StockEntriesCard() {
                     className="text-sm"
                     icon={Package}
                     {...register(`stocks.${index}.quantity`, {
+                      disabled: isPending,
                       validate: {
-                        required: required(),
+                        required: fRequired(),
                         positive: positiveNumber(),
                       },
                     })}
@@ -179,6 +182,7 @@ export function StockEntriesCard() {
                     aria-invalid={expiryState.invalid}
                     className="text-sm"
                     {...register(`stocks.${index}.expiry_date`, {
+                      disabled: isPending,
                       validate: { required: required() },
                     })}
                   />

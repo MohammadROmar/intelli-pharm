@@ -1,16 +1,19 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Pencil } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 
 import { MedicineImageGallery } from './MedicineImageGallery';
 import { MedicineInfoGrid } from './MedicineInfoGrid';
 import { AlternativesTable } from './AlternativesTable';
+import { DeleteMedicineModal } from '@/features/medicine-delete';
+import type { Medicine } from '@/entities/medicine';
 import { buttonVariants } from '@/shared/lib';
-import type { MedicineDetail } from '../model/medicineDetailTypes';
+import { Button } from '@/shared/ui';
 
-type MedicineDetailProps = { medicine: MedicineDetail };
+type Props = { medicine: Medicine };
 
-export function MedicineDetail({ medicine }: MedicineDetailProps) {
+export function MedicineDetail({ medicine }: Props) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.detail',
   });
@@ -20,20 +23,23 @@ export function MedicineDetail({ medicine }: MedicineDetailProps) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-3xl font-bold tracking-tight">{medicine.name}</h1>
 
-        <Link
-          to="/dashboard/medicines/1/edit"
-          className={buttonVariants({
-            variant: 'default',
-            size: 'sm',
-            className: 'shrink-0',
-          })}
-        >
-          <Pencil className="mr-1.5 size-4" />
-          {t('edit')}
-        </Link>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <Link
+            to={`/dashboard/medicines/${medicine.id}/edit`}
+            className={buttonVariants({
+              variant: 'default',
+              size: 'sm',
+              className: 'shrink-0',
+            })}
+          >
+            <Pencil className="size-4" />
+            {t('edit')}
+          </Link>
+          <DeleteMedicineBtn medicine={medicine} label={t('delete')} />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[2fr_3fr]">
+      <div className="grid max-w-full grid-cols-1 gap-6 lg:grid-cols-3">
         <MedicineImageGallery
           images={medicine.images}
           medicineName={medicine.name}
@@ -43,5 +49,29 @@ export function MedicineDetail({ medicine }: MedicineDetailProps) {
 
       <AlternativesTable alternatives={medicine.alternatives} />
     </div>
+  );
+}
+
+function DeleteMedicineBtn({ medicine, label }: Props & { label: string }) {
+  const [deleteMedicine, setDeleteMedicine] = useState<Medicine | null>(null);
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <DeleteMedicineModal
+        medicine={deleteMedicine}
+        onClose={() => setDeleteMedicine(null)}
+        onDeleteSuccess={() => navigate('/dashboard/medicines')}
+      />
+
+      <Button
+        size="sm"
+        onClick={() => setDeleteMedicine(medicine)}
+        variant="destructive"
+      >
+        <Trash2 className="size-4" />
+        {label}
+      </Button>
+    </>
   );
 }

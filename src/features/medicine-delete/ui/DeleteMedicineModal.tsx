@@ -7,11 +7,13 @@ import { DeleteModal } from '@/shared/ui';
 interface DeleteMedicineModalProps {
   medicine: Medicine | null;
   onClose: () => void;
+  onDeleteSuccess?: () => void;
 }
 
 export function DeleteMedicineModal({
   medicine,
   onClose,
+  onDeleteSuccess,
 }: DeleteMedicineModalProps) {
   const { mutate, isPending } = useDeleteMedicine();
 
@@ -19,8 +21,12 @@ export function DeleteMedicineModal({
 
   function handleConfirm() {
     if (!medicine) return;
+
     mutate(medicine.id, {
-      onSuccess: () => onClose(),
+      onSuccess: () => {
+        onClose();
+        onDeleteSuccess?.();
+      },
     });
   }
 

@@ -57,7 +57,12 @@
     "searchPlaceholder": "Search medicine...",
     "create": {
       "title": "Add New Medicine",
-      "subtitle": "Register a new medicine with stock and image details."
+      "subtitle": "Register a new medicine with stock and image details.",
+      "success": {
+        "title": "Medicine created",
+        "description": "The new medicine has been added successfully."
+      },
+      "error": "Failed to create medicine"
     },
     "list": {
       "title": "Medicine Inventory",
@@ -67,7 +72,7 @@
       "name": "Name",
       "status": "Status",
       "active": "Active",
-      "inavtive": "Inactive",
+      "inactive": "Inactive",
       "price": "Price",
       "createdAt": "Created At",
       "actions": "Actions"
@@ -106,16 +111,20 @@
       "productPhotosSubtitle": "{{imagesCount}} image (images) selected",
       "required": "{{field}} is required",
       "fRequired": "{{field}} is required",
-      "validNum": "{{field}} must be a valid number"
+      "validNum": "{{field}} must be a valid number",
+      "images": "Images",
+      "imagesRequired": "at least one image is required"
     },
     "detail": {
       "breadcrumbMedicines": "Medicines",
       "edit": "Edit Details",
+      "delete": "Delete",
+      "note": "Note",
       "active": "Active",
       "inactive": "Inactive",
       "imported": "Imported",
       "yes": "Yes",
-      "no": "Local",
+      "no": "No",
       "none": "None",
       "infoTitle": "Medicine Information",
       "infoSubtitle": "Detailed information about the selected medicine.",
@@ -123,7 +132,7 @@
       "labelCategory": "Category",
       "labelPrice": "Unit Price",
       "labelStatus": "Status",
-      "labelImported": "Origin",
+      "labelImported": "Imported",
       "labelAlternatives": "Alternatives",
       "labelCreatedAt": "Created",
       "labelUpdatedAt": "Last Updated",
@@ -133,11 +142,7 @@
       "noImages": "No images uploaded",
       "alternativesTitle": "Alternative Medicines",
       "alternativesSubtitle": "Other medicines that can substitute this one.",
-      "noAlternatives": "No alternatives registered for this medicine.",
-      "altName": "Medicine",
-      "altPrice": "Price",
-      "altImported": "Origin",
-      "altNote": "Note"
+      "noAlternatives": "No alternatives registered for this medicine."
     },
     "delete": {
       "success": {

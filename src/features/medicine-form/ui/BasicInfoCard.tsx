@@ -4,12 +4,16 @@ import {
   useFormState,
   useWatch,
 } from 'react-hook-form';
-import { DollarSign, Pill, StickyNote, Tag } from 'lucide-react';
+import { DollarSign, Pill, StickyNote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import type { FormValues } from '../model/medicineTypes';
-import { required, fRequired, positiveNumber } from '../utils/utils';
-import { useFieldError } from '../model/useFieldError';
+import {
+  MedicineSelector,
+  useMedicineFieldError,
+  type MedicineFormData,
+} from '@/entities/medicine';
+import { CategorySelector } from '@/entities/category';
+import { required, fRequired, positiveNumber } from '@/shared/lib';
 import {
   Card,
   CardContent,
@@ -23,30 +27,16 @@ import {
   FieldLegend,
   FieldSet,
   FormSectionHeader,
-  GenericSingleSelect,
   Input,
   Separator,
   SwitchRow,
   Textarea,
 } from '@/shared/ui';
 
-const CATEGORIES = [
-  { id: '1', name: 'Electronics' },
-  { id: '2', name: 'Smartphones' },
-  { id: '3', name: 'Laptops' },
-  { id: '4', name: 'Clothing' },
-];
+export function BasicInfoCard({ isPending }: { isPending?: boolean }) {
+  const { register, control } = useFormContext<MedicineFormData>();
 
-const MEDICINES = [
-  { id: '1', name: 'Paracetamol 500mg' },
-  { id: '2', name: 'Ibuprofen 400mg' },
-  { id: '3', name: 'Amoxicillin 250mg' },
-];
-
-export function BasicInfoCard() {
-  const { register, control } = useFormContext<FormValues>();
-
-  const { errors } = useFormState<FormValues>({
+  const { errors } = useFormState<MedicineFormData>({
     name: ['name', 'category_id', 'price', 'is_alternative_to_id'],
   });
 
@@ -56,7 +46,7 @@ export function BasicInfoCard() {
     keyPrefix: 'medicinesPage.form',
   });
 
-  const { te } = useFieldError('medicinesPage.form');
+  const { te } = useMedicineFieldError('medicinesPage.form');
 
   return (
     <Card>
@@ -81,6 +71,7 @@ export function BasicInfoCard() {
             autoComplete="off"
             icon={Pill}
             {...register('name', {
+              disabled: isPending,
               validate: { required: required() },
             })}
           />
@@ -97,12 +88,9 @@ export function BasicInfoCard() {
                 <FieldLabel asChild>
                   <p>{t('category')}</p>
                 </FieldLabel>
-                <GenericSingleSelect
-                  icon={Tag}
+                <CategorySelector
+                  isLoading={isPending}
                   invalid={fieldState.invalid}
-                  options={CATEGORIES}
-                  valueKey="id"
-                  labelKey="name"
                   value={field.value}
                   onValueChange={field.onChange}
                 />
@@ -121,6 +109,7 @@ export function BasicInfoCard() {
               placeholder="0.00"
               aria-invalid={!!errors.price}
               {...register('price', {
+                disabled: isPending,
                 validate: {
                   required: required(),
                   positiveNumber: positiveNumber(),
@@ -139,7 +128,7 @@ export function BasicInfoCard() {
             placeholder={t('notePlaceholder')}
             rows={3}
             className="resize-none"
-            {...register('note')}
+            {...register('note', { disabled: isPending })}
           />
         </Field>
 
@@ -164,6 +153,7 @@ export function BasicInfoCard() {
                 render={({ field }) => (
                   <SwitchRow
                     id={name}
+                    disabled={isPending}
                     label={t(labelKey)}
                     description={t(descKey)}
                     checked={field.value}
@@ -188,13 +178,10 @@ export function BasicInfoCard() {
                         {t('alternativeToMedicine')}
                       </p>
                     </FieldLabel>
-                    <GenericSingleSelect
-                      icon={Pill}
+                    <MedicineSelector
+                      isLoading={isPending}
                       invalid={fieldState.invalid}
-                      options={MEDICINES}
-                      valueKey="id"
-                      labelKey="name"
-                      value={field.value ?? ''}
+                      value={field.value}
                       onValueChange={field.onChange}
                     />
                     <FieldError

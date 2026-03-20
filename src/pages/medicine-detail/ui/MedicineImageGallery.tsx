@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImageOff } from 'lucide-react';
 
-import { Badge } from '@/shared/ui';
 import { cn } from '@/shared/lib';
+import { ScrollArea, ScrollBar } from '@/shared/ui';
 
-interface Props {
+type Props = {
   images?: string[];
   medicineName: string;
-}
+};
 
 export function MedicineImageGallery({ images, medicineName }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -30,11 +30,6 @@ export function MedicineImageGallery({ images, medicineName }: Props) {
               alt={`${medicineName} — ${t('imageAlt')} ${activeIndex + 1}`}
               className="h-full w-full object-cover transition-opacity duration-200"
             />
-            {activeIndex === 0 && (
-              <Badge className="absolute top-3 right-3 shadow-sm">
-                {t('primaryImage')}
-              </Badge>
-            )}
           </>
         ) : (
           <div className="text-muted-foreground flex h-full w-full flex-col items-center justify-center gap-2">
@@ -45,27 +40,30 @@ export function MedicineImageGallery({ images, medicineName }: Props) {
       </div>
 
       {images && images.length > 1 && (
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {images.map((src, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setActiveIndex(i)}
-              className={cn(
-                'bg-muted relative size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all',
-                i === activeIndex
-                  ? 'border-primary'
-                  : 'border-transparent opacity-60 hover:opacity-100',
-              )}
-            >
-              <img
-                src={src}
-                alt={`${medicineName} ${t('thumbnail')} ${i + 1}`}
-                className="h-full w-full object-cover"
-              />
-            </button>
-          ))}
-        </div>
+        <ScrollArea className="pb-3">
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {images.map((src, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveIndex(i)}
+                className={cn(
+                  'bg-muted md:maw-40 relative size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all',
+                  i === activeIndex
+                    ? 'border-primary'
+                    : 'border-transparent opacity-60 hover:opacity-100',
+                )}
+              >
+                <img
+                  src={src}
+                  alt={`${medicineName} ${t('thumbnail')} ${i + 1}`}
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       )}
     </div>
   );

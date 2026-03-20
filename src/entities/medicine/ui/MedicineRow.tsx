@@ -20,7 +20,9 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
       <TableCell>{medicine.name}</TableCell>
       <TableCell>{medicine.is_active ? t('active') : t('inactive')}</TableCell>
       <TableCell>{medicine.price}</TableCell>
-      <TableCell>{formatDate(medicine.created_at, i18n.language)}</TableCell>
+      <TableCell>
+        {formatDate(medicine.created_at, i18n.language, false)}
+      </TableCell>
 
       <TableActions
         item={medicine}

@@ -2,6 +2,7 @@ import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Tag, Tags } from 'lucide-react';
 
+import { CategorySelector } from './CategorySelector';
 import type { Category, CategoryListItem } from '../model/categoryTypes';
 import {
   Input,
@@ -11,7 +12,6 @@ import {
   FormActions,
   FormSectionHeader,
 } from '@/shared/ui';
-import { CategorySelector } from './CategorySelector';
 
 type CategoryFormProps = {
   onSubmit: SubmitHandler<Category>;

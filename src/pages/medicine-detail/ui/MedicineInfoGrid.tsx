@@ -8,8 +8,8 @@ import {
   Truck,
 } from 'lucide-react';
 
+import type { Medicine } from '@/entities/medicine';
 import { formatDate, formatPrice } from '@/shared/lib';
-import type { MedicineDetail } from '../model/medicineDetailTypes';
 import {
   Card,
   CardContent,
@@ -38,7 +38,7 @@ function DetailCell({
 }
 
 interface Props {
-  medicine: MedicineDetail;
+  medicine: Medicine;
 }
 
 export function MedicineInfoGrid({ medicine }: Props) {
@@ -47,7 +47,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
   });
 
   return (
-    <Card className="h-fit">
+    <Card className="h-fit lg:col-span-2">
       <CardHeader>
         <div>
           <CardTitle className="flex items-center gap-2 text-base">
@@ -59,9 +59,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="grid grid-cols-2 gap-6">
-          <DetailCell label={t('labelId')}>
-            MED-{String(medicine.id).padStart(6, '0')}
-          </DetailCell>
+          <DetailCell label={t('labelId')}>{medicine.id}</DetailCell>
           <DetailCell label={t('labelCategory')}>
             <Badge variant="secondary" className="font-normal">
               <Folders className="mr-1 size-3" />
@@ -129,6 +127,17 @@ export function MedicineInfoGrid({ medicine }: Props) {
             </span>
           </DetailCell>
         </div>
+
+        {medicine.note && (
+          <>
+            <Separator />
+            <DetailCell label={t('note')}>
+              <span className="flex items-center gap-1.5 font-normal">
+                {medicine.note}
+              </span>
+            </DetailCell>
+          </>
+        )}
       </CardContent>
     </Card>
   );

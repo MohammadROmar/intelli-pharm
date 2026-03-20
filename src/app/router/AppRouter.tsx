@@ -17,6 +17,7 @@ import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
 import { LazyUpdateEmployeePage } from '@/pages/employee-edit';
 import { LazyCategoryEditPage } from '@/pages/category-edit';
 import { LazyMedicineListPage } from '@/pages/medicine-list/inedx';
+import { LazyMedicineEditPage } from '@/pages/medicine-edit';
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,13 @@ const router = createBrowserRouter([
             children: [
               { index: true, element: <LazyMedicineListPage /> },
               { path: 'new', element: <LazyMedicineCreatePage /> },
-              { path: ':id', element: <LazyMedicineDetailsPage /> },
+              {
+                path: ':id',
+                children: [
+                  { index: true, element: <LazyMedicineDetailsPage /> },
+                  { path: 'edit', element: <LazyMedicineEditPage /> },
+                ],
+              },
             ],
           },
           {

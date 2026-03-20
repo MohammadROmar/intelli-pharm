@@ -35,12 +35,14 @@ function SwitchRow({
   label,
   description,
   checked,
+  disabled,
   onCheckedChange,
 }: {
   id: string;
   label: string;
   description: string;
   checked: boolean;
+  disabled?: boolean;
   onCheckedChange: (v: boolean) => void;
 }) {
   return (
@@ -54,7 +56,12 @@ function SwitchRow({
         </FieldLabel>
         <FieldDescription className="text-xs">{description}</FieldDescription>
       </div>
-      <Switch id={id} checked={checked} onCheckedChange={onCheckedChange} />
+      <Switch
+        disabled={disabled}
+        id={id}
+        checked={checked}
+        onCheckedChange={onCheckedChange}
+      />
     </Field>
   );
 }

@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { DeleteMedicineModal } from '@/features/medicine-delete';
+import { MedicineRow } from '@/entities/medicine';
+import type { Medicine, MedicineResponse } from '@/entities/medicine';
 import {
   TableBody,
   TableHead,
@@ -9,9 +12,6 @@ import {
   TableCard,
   TableCardHeader,
 } from '@/shared/ui';
-import type { Medicine, MedicineResponse } from '@/entities/medicine';
-import { DeleteMedicineModal } from '@/features/medicine-delete/ui/DeleteMedicineModal';
-import { MedicineRow } from '@/entities/medicine/ui/MedicineRow';
 
 type Props = { data: MedicineResponse };
 

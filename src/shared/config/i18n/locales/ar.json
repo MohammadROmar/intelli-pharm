@@ -57,7 +57,21 @@
     "searchPlaceholder": "البحث عن دواء...",
     "create": {
       "title": "إضافة دواء جديد",
-      "subtitle": "تسجيل دواء جديد مع تفاصيل المخزون والصورة."
+      "subtitle": "تسجيل دواء جديد مع تفاصيل المخزون والصورة.",
+      "success": {
+        "title": "تم إنشاء الدواء",
+        "description": "تمت إضافة الدواء الجديد بنجاح."
+      },
+      "error": "فشل إضافة الدواء"
+    },
+    "edit": {
+      "title": "تعديل دواء",
+      "subtitle": "قم بتغيير المعلومات ادناه لتعديلها.",
+      "success": {
+        "title": "تم تعديل الدواء",
+        "description": "تمت تعديل تفاصيل الدواء بنجاح."
+      },
+      "error": "فشل تعديل الدواء"
     },
     "list": {
       "title": "الأدوية",
@@ -83,6 +97,7 @@
       "note": "ملاحظة (اختياري)",
       "flags": "علامات",
       "active": "نشط",
+      "inactive": "غير نشط",
       "activeDescription": "الدواء متاح للبيع والطلب.",
       "imported": "مستورد",
       "importedDescription": "هذا الدواء يتم توريده من مورد خارجي.",
@@ -106,24 +121,28 @@
       "productPhotosSubtitle": "تم تحديد {{imagesCount}} صورة (صور)",
       "required": "{{field}} مطلوب",
       "fRequired": "{{field}} مطلوبة",
-      "validNum": "{{field}} يجب أن يكون رقماً صحيحاً"
+      "validNum": "{{field}} يجب أن يكون رقماً صحيحاً",
+      "images": "الصور",
+      "imagesRequired": "مطلوبة صورة واحدة على الأقل"
     },
     "detail": {
       "breadcrumbMedicines": "الأدوية",
       "edit": "تعديل التفاصيل",
+      "delete": "حذف",
       "active": "نشط",
       "inactive": "غير نشط",
       "imported": "مستورد",
       "yes": "نعم",
-      "no": "محلي",
+      "no": "لا",
       "none": "لا يوجد",
       "infoTitle": "معلومات الدواء",
+      "note": "الملاحظة",
       "infoSubtitle": "معلومات مفصلة عن الدواء المحدد.",
       "labelId": "رقم الدواء",
       "labelCategory": "الفئة",
       "labelPrice": "سعر الوحدة",
       "labelStatus": "الحالة",
-      "labelImported": "المصدر",
+      "labelImported": "مستورد",
       "labelAlternatives": "البدائل",
       "labelCreatedAt": "تاريخ الإنشاء",
       "labelUpdatedAt": "آخر تحديث",
@@ -133,11 +152,7 @@
       "noImages": "لا توجد صور مرفوعة",
       "alternativesTitle": "الأدوية البديلة",
       "alternativesSubtitle": "الأدوية التي يمكن أن تحل محل هذا الدواء.",
-      "noAlternatives": "لا توجد بدائل مسجلة لهذا الدواء.",
-      "altName": "الدواء",
-      "altPrice": "السعر",
-      "altImported": "المصدر",
-      "altNote": "ملاحظة"
+      "noAlternatives": "لا توجد بدائل مسجلة لهذا الدواء."
     },
     "delete": {
       "success": {

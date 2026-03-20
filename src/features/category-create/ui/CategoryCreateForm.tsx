@@ -10,9 +10,7 @@ export function CategoryCreateForm() {
 
   function handleSubmit(payload: Category) {
     mutate(payload, {
-      onSuccess: () => {
-        setFormKey((prev) => prev + 1);
-      },
+      onSuccess: () => setFormKey((prev) => prev + 1),
     });
   }
 

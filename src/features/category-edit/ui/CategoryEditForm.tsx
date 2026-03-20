@@ -15,14 +15,11 @@ export function CategoryEditForm({ category }: Props) {
   const { mutate, isPending } = useEditCategory();
 
   function handleSubmit(payload: Category) {
-    mutate(
-      { id: category.id, payload },
-      {
-        onSuccess: () => {
-          setFormKey((prev) => prev + 1);
-        },
-      },
-    );
+    const data = { id: category.id, payload };
+
+    mutate(data, {
+      onSuccess: () => setFormKey((prev) => prev + 1),
+    });
   }
 
   return (

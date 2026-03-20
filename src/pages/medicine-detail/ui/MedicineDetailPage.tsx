@@ -1,8 +1,18 @@
-import { dummyMedicineDetail } from '../model/dummyMedicine';
 import { MedicineDetail } from './MedicineDetail';
+import { MedicineDetailSkeleton } from './MedicineDetailSkeleton';
+import { useGetMedicine } from '@/entities/medicine';
+import { QueryError } from '@/shared/ui';
 
 export default function MedicineDetailPage() {
-  // const { isPending, isError, error } = useGetMedicine();
+  const { isLoading, data, isError, error } = useGetMedicine();
 
-  return <MedicineDetail medicine={dummyMedicineDetail} />;
+  if (isError) {
+    return <QueryError error={error} />;
+  }
+
+  if (isLoading || !data) {
+    return <MedicineDetailSkeleton />;
+  }
+
+  return <MedicineDetail medicine={data.data!} />;
 }
