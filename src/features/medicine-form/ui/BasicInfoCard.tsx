@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import {
   MedicineSelector,
   useMedicineFieldError,
+  type Medicine,
   type MedicineFormData,
 } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
@@ -33,7 +34,9 @@ import {
   Textarea,
 } from '@/shared/ui';
 
-export function BasicInfoCard({ isPending }: { isPending?: boolean }) {
+type Props = { medicine?: Medicine; isPending?: boolean };
+
+export function BasicInfoCard({ medicine, isPending }: Props) {
   const { register, control } = useFormContext<MedicineFormData>();
 
   const { errors } = useFormState<MedicineFormData>({
@@ -89,6 +92,7 @@ export function BasicInfoCard({ isPending }: { isPending?: boolean }) {
                   <p>{t('category')}</p>
                 </FieldLabel>
                 <CategorySelector
+                  parent={medicine?.category}
                   isLoading={isPending}
                   invalid={fieldState.invalid}
                   value={field.value}
@@ -179,6 +183,7 @@ export function BasicInfoCard({ isPending }: { isPending?: boolean }) {
                       </p>
                     </FieldLabel>
                     <MedicineSelector
+                      altFor={medicine?.alternative_for[0]}
                       isLoading={isPending}
                       invalid={fieldState.invalid}
                       value={field.value}

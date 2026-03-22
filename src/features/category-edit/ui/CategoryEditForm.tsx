@@ -22,12 +22,18 @@ export function CategoryEditForm({ category }: Props) {
     });
   }
 
+  const hasParent = !!category.parent_id;
+  const parentData = hasParent
+    ? { id: category.parent_id!, name: category.parent_name! }
+    : undefined;
+
   return (
     <CategoryForm
       key={formKey}
       isLoading={isPending}
       onSubmit={handleSubmit}
       defaultValues={category}
+      parentData={parentData}
       onReset={() => setFormKey((prev) => prev + 1)}
     />
   );

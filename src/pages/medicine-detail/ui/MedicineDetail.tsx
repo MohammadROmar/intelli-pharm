@@ -10,6 +10,7 @@ import { DeleteMedicineModal } from '@/features/medicine-delete';
 import type { Medicine } from '@/entities/medicine';
 import { buttonVariants } from '@/shared/lib';
 import { Button } from '@/shared/ui';
+import { StocksCard } from './StocksCard';
 
 type Props = { medicine: Medicine };
 
@@ -23,7 +24,7 @@ export function MedicineDetail({ medicine }: Props) {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-3xl font-bold tracking-tight">{medicine.name}</h1>
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
           <Link
             to={`/dashboard/medicines/${medicine.id}/edit`}
             className={buttonVariants({
@@ -47,7 +48,15 @@ export function MedicineDetail({ medicine }: Props) {
         <MedicineInfoGrid medicine={medicine} />
       </div>
 
-      <AlternativesTable alternatives={medicine.alternatives} />
+      <StocksCard stocks={medicine.stocks} />
+      <AlternativesTable
+        mode="alternatives"
+        alternatives={medicine.alternatives}
+      />
+      <AlternativesTable
+        mode="alternativeFor"
+        alternatives={medicine.alternative_for}
+      />
     </div>
   );
 }

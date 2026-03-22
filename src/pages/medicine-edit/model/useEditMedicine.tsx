@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import type { ApiError, ApiResponse } from '@/shared/api';
 import {
-  postMedicine,
+  editMedicine,
   type ImageFile,
   type MedicineFormData,
 } from '@/entities/medicine';
+import type { ApiError, ApiResponse } from '@/shared/api';
 
 export function useEditMedicine(id: number) {
   const queryClient = useQueryClient();
@@ -21,7 +21,7 @@ export function useEditMedicine(id: number) {
     ApiError,
     { values: MedicineFormData; images: ImageFile[] }
   >({
-    mutationFn: (payload) => postMedicine({ ...payload, id }),
+    mutationFn: (payload) => editMedicine(id, payload),
     onSuccess: () => {
       toast.success(t('medicinesPage.edit.success.title'), {
         description: t('medicinesPage.edit.success.description'),

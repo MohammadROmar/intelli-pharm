@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 
 import type { ApiError, ApiResponse } from '@/shared/api';
 import {
-  postMedicine,
+  createMedicine,
   type ImageFile,
   type MedicineFormData,
 } from '@/entities/medicine';
@@ -19,7 +19,7 @@ export function useCreateMedicine() {
     ApiError,
     { values: MedicineFormData; images: ImageFile[] }
   >({
-    mutationFn: postMedicine,
+    mutationFn: createMedicine,
     onSuccess: () => {
       toast.success(t('medicinesPage.create.success.title'), {
         description: t('medicinesPage.create.success.description'),

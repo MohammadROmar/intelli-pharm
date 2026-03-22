@@ -2,29 +2,37 @@ import { useState } from 'react';
 import { Pill } from 'lucide-react';
 
 import { useInfiniteMedicines } from '../model/useInfiniteMedicines';
-import type { Medicine } from '../model/medicineTypes';
 import {
   GenericSingleSelect,
   type GenericSingleSelectProps,
 } from '@/shared/ui';
 
+type Props = {
+  altFor?: { id: number; name: string };
+} & Partial<GenericSingleSelectProps<{ name: string; id: number }>>;
+
 export function MedicineSelector({
+  altFor,
   value,
   onValueChange,
   invalid,
   isLoading,
-}: Partial<GenericSingleSelectProps<Medicine>>) {
+}: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const { medicines, queryResult } = useInfiniteMedicines(searchTerm);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 
+  const selectableMedicines = altFor
+    ? [altFor, ...medicines.filter((medicine) => medicine.id !== altFor.id)]
+    : medicines;
+
   return (
     <GenericSingleSelect
       disabled={isFetching || isLoading}
       invalid={invalid}
-      options={medicines}
+      options={selectableMedicines}
       valueKey="id"
       labelKey="name"
       icon={Pill}

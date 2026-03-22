@@ -1,5 +1,6 @@
 export {
-  postMedicine,
+  createMedicine,
+  editMedicine,
   getMedicineById,
   getMedicines,
   deleteMedicine,
@@ -9,6 +10,10 @@ export type {
   Medicine,
   ImageFile,
   FormValues as MedicineFormData,
+  AlternativeMedicine,
+  MedicineCategory,
+  MedicineStock,
+  StockEntry,
 } from './model/medicineTypes';
 export { useGetMedicine } from './model/useGetMedicine';
 export { useFieldError as useMedicineFieldError } from './model/useFieldError';

@@ -17,6 +17,7 @@ type CategoryFormProps = {
   onSubmit: SubmitHandler<Category>;
   defaultValues?: Partial<CategoryListItem>;
   isLoading?: boolean;
+  parentData?: { id: number; name: string };
   onReset: () => void;
 };
 
@@ -24,6 +25,7 @@ export function CategoryForm({
   onSubmit,
   defaultValues,
   isLoading,
+  parentData,
   onReset,
 }: CategoryFormProps) {
   const {
@@ -73,6 +75,7 @@ export function CategoryForm({
               <CategorySelector
                 isLoading={isLoading}
                 invalid={!!errors.parent_id}
+                parent={parentData}
                 value={field.value}
                 onValueChange={field.onChange}
               />

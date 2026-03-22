@@ -150,9 +150,25 @@
       "imageAlt": "صورة",
       "thumbnail": "مصغّرة",
       "noImages": "لا توجد صور مرفوعة",
-      "alternativesTitle": "الأدوية البديلة",
-      "alternativesSubtitle": "الأدوية التي يمكن أن تحل محل هذا الدواء.",
-      "noAlternatives": "لا توجد بدائل مسجلة لهذا الدواء."
+      "stocksTitle": "إدخالات المخزون",
+      "stocksSubtitle": "مستويات المخزون وتواريخ الانتهاء.",
+      "stockWarehouse": "المستودع",
+      "stockQuantity": "الكمية",
+      "stockExpiry": "تاريخ الانتهاء",
+      "stockStatus": "الحالة",
+      "stockExpired": "منتهي الصلاحية",
+      "stockExpiringSoon": "ينتهي قريباً",
+      "stockOk": "جيد",
+      "alternatives": {
+        "title": "الأدوية البديلة",
+        "subtitle": "الأدوية التي يمكن أن تحل محل هذا الدواء.",
+        "noAlts": "لا توجد بدائل مسجلة لهذا الدواء."
+      },
+      "alternativeFor": {
+        "title": "بديل عن",
+        "subtitle": "هذا الدواء مسجل كبديل للأدوية التالية.",
+        "noAlts": "هذا الدواء ليس بديلاً عن أي دواء آخر."
+      }
     },
     "delete": {
       "success": {

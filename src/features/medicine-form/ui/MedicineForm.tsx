@@ -3,15 +3,17 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { BasicInfoCard } from './BasicInfoCard';
 import { StockEntriesCard } from './StockEntriesCard';
 import { ImagesCard } from './ImagesCard';
+import { medicineToFromData } from '../lib/utils';
 import {
   useMedicineImages,
   type MedicineFormData,
   type ImageFile,
+  type Medicine,
 } from '@/entities/medicine';
 import { FormActions } from '@/shared/ui';
 
 type MedicineFormProps = {
-  defaultValues?: Partial<MedicineFormData>;
+  medicine?: Medicine;
   isPending?: boolean;
   onSubmit: (payload: {
     values: MedicineFormData;
@@ -21,16 +23,18 @@ type MedicineFormProps = {
 };
 
 export function MedicineForm({
-  defaultValues,
+  medicine,
   isPending,
   onSubmit,
   onReset,
 }: MedicineFormProps) {
   const methods = useForm<MedicineFormData>({
-    defaultValues: defaultValues ?? {
-      stocks: [{ warehouse_id: '', expiry_date: '', quantity: '' }],
-      imagesCount: 0,
-    },
+    defaultValues: medicine
+      ? medicineToFromData(medicine)
+      : {
+          stocks: [{ warehouse_id: '', expiry_date: '', quantity: '' }],
+          imagesCount: 0,
+        },
   });
 
   const { images, handleImageRemove, handleImagesAdd } = useMedicineImages();
@@ -45,7 +49,7 @@ export function MedicineForm({
         onSubmit={methods.handleSubmit(submitHandler)}
         className="space-y-6"
       >
-        <BasicInfoCard isPending={isPending} />
+        <BasicInfoCard medicine={medicine} isPending={isPending} />
         <StockEntriesCard isPending={isPending} />
         <ImagesCard
           images={images}
@@ -54,7 +58,7 @@ export function MedicineForm({
           onRemove={handleImageRemove}
         />
         <FormActions
-          isEdit={!!defaultValues}
+          isEdit={!!medicine}
           isLoading={isPending}
           onReset={onReset}
         />

@@ -1,45 +1,24 @@
+import { medicineToFormData } from '../lib/utils';
 import type {
-  FormValues,
-  ImageFile,
   Medicine,
+  MedicineFormData,
   MedicineResponse,
 } from '../model/medicineTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
 const PER_PAGE = 10;
 
-export async function postMedicine({
-  values,
-  images,
-  id,
-}: {
-  values: FormValues;
-  images: ImageFile[];
-  id?: number;
-}) {
-  const fd = new FormData();
-  fd.append('name', values.name);
-  fd.append('category_id', values.category_id);
-  fd.append('price', values.price);
-  fd.append('is_imported', values.is_imported ? '1' : '0');
-  fd.append('is_active', values.is_active ? '1' : '0');
-  fd.append('is_alternative', values.is_alternative ? '1' : '0');
-
-  if (values.note) fd.append('note', values.note);
-  if (values.is_alternative && values.is_alternative_to_id)
-    fd.append('is_alternative_to_id', values.is_alternative_to_id.toString());
-
-  values.stocks.forEach((s, i) => {
-    fd.append(`stocks[${i}][warehouse_id]`, s.warehouse_id);
-    fd.append(`stocks[${i}][quantity]`, s.quantity);
-    fd.append(`stocks[${i}][expiry_date]`, s.expiry_date);
+export async function createMedicine(data: MedicineFormData) {
+  const fd = medicineToFormData(data);
+  return apiClient.post('/erp/v1/medicines', fd, {
+    headers: { 'Content-Type': undefined },
   });
+}
 
-  images.forEach((img) => fd.append('images[]', img.file));
-
-  const medthodFn = id ? apiClient.post : apiClient.put;
-
-  return medthodFn(`/erp/v1/medicines${id ? `/${id}` : ''}`, fd, {
+export async function editMedicine(id: number, data: MedicineFormData) {
+  const fd = medicineToFormData(data);
+  console.log(fd);
+  return apiClient.put(`/erp/v1/medicines/${id}`, fd, {
     headers: { 'Content-Type': undefined },
   });
 }

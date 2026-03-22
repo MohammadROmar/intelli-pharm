@@ -2,11 +2,15 @@ import { useState } from 'react';
 
 import { useEditMedicine } from '../model/useEditMedicine';
 import { MedicineForm } from '@/features/medicine-form';
-import type { ImageFile, MedicineFormData } from '@/entities/medicine';
+import type {
+  ImageFile,
+  Medicine,
+  MedicineFormData,
+} from '@/entities/medicine';
 
-type Props = { id: number; data: MedicineFormData };
+type Props = { id: number; medicine: Medicine };
 
-export function MedicineEditForm({ id, data }: Props) {
+export function MedicineEditForm({ id, medicine }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useEditMedicine(id);
 
@@ -20,7 +24,7 @@ export function MedicineEditForm({ id, data }: Props) {
   return (
     <MedicineForm
       key={formKey}
-      defaultValues={data}
+      medicine={medicine}
       isPending={isPending}
       onSubmit={handleSubmit}
       onReset={() => setFormKey((prev) => prev + 1)}

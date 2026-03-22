@@ -5,6 +5,7 @@ export type Category = {
 
 export type CategoryListItem = Category & {
   id: number;
+  parent_name: string | null;
   created_at: string;
   updated_at: string;
 };

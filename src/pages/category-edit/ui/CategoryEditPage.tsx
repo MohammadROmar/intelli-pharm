@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
+import { useGetCategory } from '../model/useGetCategory';
 import { CategoryEditForm } from '@/features/category-edit';
 import {
   Card,
@@ -11,7 +12,6 @@ import {
   PageTitle,
   QueryError,
 } from '@/shared/ui';
-import { useGetCategory } from '../model/useGetCategory';
 
 export default function CategoryEditPage() {
   const { t } = useTranslation('translation', {

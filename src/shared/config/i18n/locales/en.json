@@ -140,9 +140,25 @@
       "imageAlt": "Image",
       "thumbnail": "Thumbnail",
       "noImages": "No images uploaded",
-      "alternativesTitle": "Alternative Medicines",
-      "alternativesSubtitle": "Other medicines that can substitute this one.",
-      "noAlternatives": "No alternatives registered for this medicine."
+      "stocksTitle": "Stock Entries",
+      "stocksSubtitle": "Warehouse stock levels and expiry dates.",
+      "stockWarehouse": "Warehouse",
+      "stockQuantity": "Quantity",
+      "stockExpiry": "Expiry Date",
+      "stockStatus": "Status",
+      "stockExpired": "Expired",
+      "stockExpiringSoon": "Expiring Soon",
+      "stockOk": "Good",
+      "alternatives": {
+        "title": "Alternative Medicines",
+        "subtitle": "Other medicines that can substitute this one.",
+        "noAlts": "No alternatives registered for this medicine."
+      },
+      "alternativeFor": {
+        "title": "Alternative For",
+        "subtitle": "This medicine is a registered alternative for the following.",
+        "noAlts": "This medicine is not an alternative for any other medicine."
+      }
     },
     "delete": {
       "success": {

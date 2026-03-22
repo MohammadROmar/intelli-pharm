@@ -6,10 +6,10 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-export const required = () => (v: string | null) =>
+export const required = () => (v: string | number | null) =>
   ((v ? String(v) : '') ?? '').trim().length > 0 || 'required';
 
-export const fRequired = () => (v: string) => {
+export const fRequired = () => (v: string | number) => {
   return ((v ? String(v) : '') ?? '').trim().length > 0 || 'fRequired';
 };
 
