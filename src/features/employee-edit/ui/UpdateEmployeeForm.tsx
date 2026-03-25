@@ -30,8 +30,7 @@ export function UpdateEmployeeForm({ employee }: Props) {
       onReset={() => setFormKey((prev) => prev + 1)}
       isLoading={isPending}
       defaultValues={{
-        email: employee.email,
-        name: employee.name,
+        ...employee,
         role: employee.roles[0],
       }}
     />

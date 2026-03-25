@@ -253,9 +253,8 @@
 
   "employeesPage": {
     "employee": "Employee",
-    "detailsTitle": "Personal Information",
     "namePlaceholder": "e.g. John Smith",
-    "detailsSubtitle": "Name, email, password and role.",
+    "vehicleCapacityPlaceholder": "Enter vehicle capacity",
     "roles": {
       "admin": "Administrator",
       "distributor": "Distributor",
@@ -276,14 +275,22 @@
     "create": {
       "title": "Create Employee",
       "subtitle": "Add a new employee to your warehouse team.",
-      "formTitle": "Employee Details",
-      "formSubtitle": "Fill in the required details below.",
       "create": "Create Employee",
       "success": {
         "title": "Employee created",
         "description": "The new employee has been added successfully."
       },
       "error": "Failed to create employee"
+    },
+    "form": {
+      "personalInfoTitle": "Personal Information",
+      "personalInfoSubtitle": "Manage personal and account details.",
+      "innerPersonalInfoTitle": "Personal Information",
+      "innerPersonalInfoSubtitle": "Name, email, phone number and password.",
+      "employmentInfoTitle": "Employment Details",
+      "employmentInfoSubtitle": "Manage role, schedule, and status.",
+      "innerEmploymentInfoTitle": "Work Information",
+      "innerEmploymentInfoSubtitle": "Role, working hours, and status."
     },
     "update": {
       "title": "Edit Details",
@@ -340,7 +347,12 @@
       "name": "Name",
       "role": "Role",
       "categoryName": "Category Name",
-      "categoryParent": "Parent Category"
+      "categoryParent": "Parent Category",
+      "phoneNumber": "Phone Number",
+      "workingStart": "Start time",
+      "workingEnd": "End time",
+      "active": "Active",
+      "vehicleCapacity": "Vehicle capacity"
     },
     "errors": {
       "required": "This field is required.",

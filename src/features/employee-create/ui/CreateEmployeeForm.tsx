@@ -4,10 +4,11 @@ import { useCreateEmployee } from '../model/useCreateEmployee';
 import { EmployeeForm, type CreateEmployeeFormData } from '@/entities/employee';
 
 export function CreateEmployeeForm() {
-  const [formKey, setFormKey] = useState(0); // Becasue reset function does not behave correctly
+  const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useCreateEmployee();
 
   function onSubmit(payload: CreateEmployeeFormData) {
+    console.log(payload);
     mutate(payload, {
       onSuccess: () => setFormKey((prev) => prev + 1),
     });

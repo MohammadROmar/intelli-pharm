@@ -3,16 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { AdminEditRestricted } from './AdminEditRestricted';
 import { useGetEmployee } from '../model/useGetEmployee';
 import { UpdateEmployeeForm } from '@/features/employee-edit';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  FormSkeleton,
-  PageTitle,
-  QueryError,
-} from '@/shared/ui';
+import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
 
 export default function UpdateEmployeePage() {
   const { data, isLoading, isError, error } = useGetEmployee();
@@ -36,15 +27,7 @@ export default function UpdateEmployeePage() {
       {isAdmin ? (
         <AdminEditRestricted />
       ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('formTitle')}</CardTitle>
-            <CardDescription>{t('formSubtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <UpdateEmployeeForm employee={data.data!} />
-          </CardContent>
-        </Card>
+        <UpdateEmployeeForm employee={data.data!} />
       )}
     </>
   );

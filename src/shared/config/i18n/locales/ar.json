@@ -262,9 +262,8 @@
 
   "employeesPage": {
     "employee": "موظف",
-    "detailsTitle": "المعلومات الشخصية",
-    "detailsSubtitle": "الاسم، البريد الالكتروني، كلمة المرور والدور.",
     "namePlaceholder": "مثال. أحمد محمد",
+    "vehicleCapacityPlaceholder": "أدخل سعة المركبة",
     "roles": {
       "admin": "مسؤول",
       "distributor": "موزع",
@@ -285,14 +284,22 @@
     "create": {
       "title": "إضافة موظف",
       "subtitle": "أضف موظفًا جديدًا إلى فريق المستودع.",
-      "formTitle": "بيانات الموظف",
-      "formSubtitle": "يرجى تعبئة البيانات المطلوبة أدناه.",
       "create": "إنشاء موظف",
       "success": {
         "title": "تم إنشاء الموظف",
         "description": "تمت إضافة الموظف الجديد بنجاح."
       },
       "error": "فشل إنشاء موظف"
+    },
+    "form": {
+      "personalInfoTitle": " المعلومات الشخصية",
+      "personalInfoSubtitle": "إدارة البيانات الشخصية ومعلومات الحساب.",
+      "innerPersonalInfoTitle": "المعلومات الشخصية",
+      "innerPersonalInfoSubtitle": "الاسم، البريد الإلكتروني، ؤقم الهاتف وكلمة المرور.",
+      "employmentInfoTitle": "تفاصيل العمل",
+      "employmentInfoSubtitle": "إدارة الدور، أوقات العمل، والحالة.",
+      "innerEmploymentInfoTitle": "معلومات العمل",
+      "innerEmploymentInfoSubtitle": "الدور، ساعات العمل، والحالة."
     },
     "update": {
       "title": "تعديل الموظف",
@@ -349,7 +356,12 @@
       "name": "الاسم",
       "role": "الدور",
       "categoryName": "اسم الفئة",
-      "categoryParent": "الفئة الأصلية (اختياري)"
+      "categoryParent": "الفئة الأصلية (اختياري)",
+      "phoneNumber": "رقم الهاتف",
+      "workingStart": "وقت البدء",
+      "workingEnd": "وقت الانتهاء",
+      "active": "نشط",
+      "vehicleCapacity": "سعة المركبة"
     },
     "errors": {
       "required": "هذا الحقل مطلوب.",
