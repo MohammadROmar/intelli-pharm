@@ -77,3 +77,17 @@ export type MedicineResponse = {
 };
 
 export type MedicineFormData = { values: FormValues; images: ImageFile[] };
+
+export type BooleanFilter = '1' | '0' | undefined;
+
+export type MedicineFilters = {
+  name?: string;
+  category?: string;
+  min_price?: string;
+  max_price?: string;
+  imported?: BooleanFilter;
+  laboratory?: string;
+  alternative?: BooleanFilter;
+  active?: BooleanFilter;
+  alternative_for?: string;
+};

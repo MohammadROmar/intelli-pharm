@@ -33,3 +33,8 @@ export type EmployeeListResponse = {
     total: number;
   };
 };
+
+export type EmployeeFilters = {
+  name?: string;
+  email?: string;
+};

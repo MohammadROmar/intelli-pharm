@@ -176,6 +176,40 @@
         "description": "تم حذف الدواء بشكل نهائي من النظام."
       },
       "error": "فشل حذف الدواء"
+    },
+    "filters": {
+      "trigger": "تصفية",
+      "title": "تصفية الأدوية",
+      "subtitle": "ضيّق نتائج قائمة الأدوية باستخدام فلتر واحد أو أكثر.",
+
+      "sectionSearch": "بحث",
+      "sectionPrice": "نطاق السعر",
+      "sectionClassification": "التصنيف",
+      "sectionFlags": "حالة الدواء",
+
+      "nameLabel": "الاسم",
+      "namePlaceholder": "البحث باسم الدواء…",
+
+      "minPriceLabel": "أقل سعر",
+      "maxPriceLabel": "أعلى سعر",
+
+      "categoryLabel": "الفئة",
+      "laboratoryLabel": "المختبر",
+
+      "alternativeForLabel": "بديل عن",
+      "alternativeForHint": "عرض الأدوية التي تعتبر بديلاً للدواء المحدد.",
+
+      "activeLabel": "نشط",
+      "importedLabel": "مستورد",
+      "alternativeLabel": "بديل",
+
+      "selectPlaceholder": "الكل",
+      "boolAll": "الكل",
+      "boolYes": "نعم",
+      "boolNo": "لا",
+
+      "apply": "تطبيق الفلاتر",
+      "clear": "مسح الفلاتر"
     }
   },
   "categoriesPage": {
@@ -282,6 +316,17 @@
       "title": "لا يمكن تعديل حسابات المسؤولين من هنا",
       "message": "لأسباب أمنية، لا يمكن تعديل بيانات حساب المسؤول إلا من صفحة تعديل الملف الشخصي.",
       "cta": "الذهاب إلى تعديل الملف الشخصي"
+    },
+    "filters": {
+      "title": "تصفية الموظفين",
+      "subtitle": "ضيّق نتائج قائمة الموظفين باستخدام فلتر واحد أو أكثر.",
+      "trigger": "تصفية",
+      "nameLabel": "الاسم",
+      "namePlaceholder": "البحث باسم الموظف",
+      "emailLabel": "البريد الالكتروني",
+      "emailPlaceholder": "البحث بالبريد الالكتروني...",
+      "apply": "تطبيق الفلاتر",
+      "clear": "مسح الفلاتر"
     }
   },
 
@@ -411,5 +456,21 @@
     "details": "التفاصيل",
     "update": "تعديل",
     "delete": "حذف"
+  },
+  "common": {
+    "noResults": {
+      "noResultsTitle": "لا توجد نتائج",
+      "noResultsMessage": "لا توجد عناصر تطابق البحث. جرّب مصطلح بحث مختلف.",
+      "clearSearch": "مسح البحث",
+
+      "emptyTitle": "لا توجد عناصر بعد",
+      "emptyMessage": "ابدأ بإضافة أول عنصر.",
+      "addFirstItem": "إضافة عنصر"
+    },
+    "filters": {
+      "apply": "تطبيق الفلاتر",
+      "clear": "مسح الفلاتر",
+      "trigger": "تصفية"
+    }
   }
 }

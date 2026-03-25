@@ -166,6 +166,40 @@
         "description": "The medicine has beeen permanently removed from the system."
       },
       "error": "Failed to delete medicine"
+    },
+    "filters": {
+      "trigger": "Filters",
+      "title": "Filter Medicines",
+      "subtitle": "Narrow down the medicine list using one or more filters.",
+
+      "sectionSearch": "Search",
+      "sectionPrice": "Price Range",
+      "sectionClassification": "Classification",
+      "sectionFlags": "Status Flags",
+
+      "nameLabel": "Name",
+      "namePlaceholder": "Search by medicine name…",
+
+      "minPriceLabel": "Min Price",
+      "maxPriceLabel": "Max Price",
+
+      "categoryLabel": "Category",
+      "laboratoryLabel": "Laboratory",
+
+      "alternativeForLabel": "Alternative For",
+      "alternativeForHint": "Show medicines that are alternatives for the selected medicine.",
+
+      "activeLabel": "Active",
+      "importedLabel": "Imported",
+      "alternativeLabel": "Is Alternative",
+
+      "selectPlaceholder": "All",
+      "boolAll": "All",
+      "boolYes": "Yes",
+      "boolNo": "No",
+
+      "apply": "Apply Filters",
+      "clear": "Clear Filters"
     }
   },
 
@@ -273,6 +307,17 @@
       "title": "Admin accounts cannot be edited here",
       "message": "For security reasons, admin account details can only be updated from the Edit Profile page.",
       "cta": "Go to Edit Profile"
+    },
+    "filters": {
+      "title": "Filter Employees",
+      "subtitle": "Narrow down the employees list using one or more filters.",
+      "trigger": "Filters",
+      "nameLabel": "Name",
+      "namePlaceholder": "Search by employee name…",
+      "emailLabel": "Email",
+      "emaiPlaceholder": "Search by employee email...",
+      "apply": "Apply Filters",
+      "clear": "Clear Filters"
     }
   },
 
@@ -402,5 +447,21 @@
     "details": "Details",
     "update": "Update",
     "delete": "Delete"
+  },
+  "common": {
+    "noResults": {
+      "noResultsTitle": "No results found",
+      "noResultsMessage": "No items matched your search. Try a different search term.",
+      "clearSearch": "Clear search",
+
+      "emptyTitle": "No items yet",
+      "emptyMessage": "Get started by adding your first item.",
+      "addFirstItem": "Add Category"
+    },
+    "filters": {
+      "apply": "Apply Filters",
+      "clear": "Clear Filters",
+      "trigger": "Filters"
+    }
   }
 }

@@ -16,6 +16,7 @@ export function CategoryRow({ category, onDelete }: CategoryRowProps) {
     <TableRow>
       <TableCell className="font-medium">{category.id}</TableCell>
       <TableCell>{category.name}</TableCell>
+      <TableCell>{category.parent_name ?? '-'}</TableCell>
       <TableCell>
         {formatDate(category.created_at, i18n.language, false)}
       </TableCell>

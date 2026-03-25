@@ -40,7 +40,7 @@ function SwitchRow({
 }: {
   id: string;
   label: string;
-  description: string;
+  description?: string;
   checked: boolean;
   disabled?: boolean;
   onCheckedChange: (v: boolean) => void;
@@ -54,7 +54,9 @@ function SwitchRow({
         <FieldLabel htmlFor={id} className="cursor-pointer text-sm font-medium">
           {label}
         </FieldLabel>
-        <FieldDescription className="text-xs">{description}</FieldDescription>
+        {description && (
+          <FieldDescription className="text-xs">{description}</FieldDescription>
+        )}
       </div>
       <Switch
         disabled={disabled}

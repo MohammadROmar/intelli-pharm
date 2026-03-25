@@ -14,6 +14,8 @@ export type {
   MedicineCategory,
   MedicineStock,
   StockEntry,
+  BooleanFilter,
+  MedicineFilters,
 } from './model/medicineTypes';
 export { useGetMedicine } from './model/useGetMedicine';
 export { useFieldError as useMedicineFieldError } from './model/useFieldError';

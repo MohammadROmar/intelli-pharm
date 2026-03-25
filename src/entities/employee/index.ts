@@ -5,6 +5,7 @@ export type {
   EmployeeInternalFormData,
   UpdateEmployeeFormData,
   EmployeeListResponse,
+  EmployeeFilters,
 } from './model/employeeTypes';
 export { EmployeeForm } from './ui/EmployeeForm';
 export { EmployeeRow } from './ui/EmployeeRow';

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 
-import { buttonVariants } from '../lib';
+import { buttonVariants, cn } from '../lib';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
 import { Table } from './table';
 import {
@@ -15,6 +15,7 @@ import { SearchField } from './SearchField';
 type TableCardProps = Omit<DynamicPaginationProps, 'maxPages'> & {
   title: string;
   header?: ReactNode;
+  headerClassName?: string;
   children: ReactNode;
 };
 
@@ -28,13 +29,19 @@ export function TableCard({
   itemsPerPage,
   children,
   header,
+  headerClassName,
 }: TableCardProps) {
   const maxPages = Math.max(totalItems / itemsPerPage, 1);
 
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col justify-between gap-4 lg:flex-row">
+        <div
+          className={cn(
+            'flex flex-col justify-between gap-4 lg:flex-row',
+            headerClassName,
+          )}
+        >
           <CardTitle className="flex items-center gap-2">
             <h2>{title}</h2>
             <Badge variant="secondary" className="tabular-nums">

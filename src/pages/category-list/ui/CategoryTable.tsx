@@ -14,6 +14,7 @@ import {
   TableRow,
   TableCard,
   TableCardHeader,
+  TableEmptyState,
 } from '@/shared/ui';
 
 type Props = {
@@ -25,6 +26,8 @@ export function CategoriesTable({ data }: Props) {
 
   const [categoryToDelete, setCategoryToDelete] =
     useState<CategoryListItem | null>(null);
+
+  const categories = data.data;
 
   return (
     <>
@@ -47,23 +50,30 @@ export function CategoriesTable({ data }: Props) {
         totalItems={data.meta.total}
         itemsPerPage={data.meta.per_page}
       >
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-25">{t('list.id')}</TableHead>
-            <TableHead>{t('list.name')}</TableHead>
-            <TableHead>{t('list.createdAt')}</TableHead>
-            <TableHead>{t('list.actions')}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.data.map((category) => (
-            <CategoryRow
-              key={category.id}
-              category={category}
-              onDelete={setCategoryToDelete}
-            />
-          ))}
-        </TableBody>
+        {categories.length > 0 ? (
+          <>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-25">{t('list.id')}</TableHead>
+                <TableHead>{t('list.name')}</TableHead>
+                <TableHead>{t('list.parentName')}</TableHead>
+                <TableHead>{t('list.createdAt')}</TableHead>
+                <TableHead>{t('list.actions')}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {categories.map((category) => (
+                <CategoryRow
+                  key={category.id}
+                  category={category}
+                  onDelete={setCategoryToDelete}
+                />
+              ))}
+            </TableBody>
+          </>
+        ) : (
+          <TableEmptyState variant="empty" />
+        )}
       </TableCard>
     </>
   );

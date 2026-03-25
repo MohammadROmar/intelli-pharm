@@ -1,19 +1,22 @@
-import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import { EmployeeFiltersModal } from './EmployeeFiltersModal';
+import { useEmployeeFilters } from '../model/useEmployeeFilters';
+import { DeleteEmployeeModal } from '@/features/employee-delete';
 import {
   EmployeeRow,
   type Employee,
   type EmployeeListResponse,
 } from '@/entities/employee';
-import { DeleteEmployeeModal } from '@/features/employee-delete';
 import {
   TableBody,
   TableHead,
   TableHeader,
   TableRow,
   TableCard,
-  TableCardHeader,
+  FiltersTrigger,
+  TableEmptyState,
 } from '@/shared/ui';
 
 export function EmployeeList({ data }: { data: EmployeeListResponse }) {
@@ -25,6 +28,8 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
     keyPrefix: 'employeesPage',
   });
 
+  const employees = data.data;
+
   return (
     <>
       <DeleteEmployeeModal
@@ -34,37 +39,78 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
 
       <TableCard
         title={t('list.all')}
-        header={
-          <TableCardHeader
-            createText={t('create.title')}
-            placeholder={t('list.searchPlaceholder')}
-            basePath="/dashboard/employees"
-          />
-        }
+        header={<Filters />}
+        headerClassName="flex-row"
         basePath="/dashboard/employees"
         itemsPerPage={data.meta.per_page}
         currentPage={data.meta.current_page}
         totalItems={data.meta.total}
       >
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-25">{t('list.id')}</TableHead>
-            <TableHead>{t('list.name')}</TableHead>
-            <TableHead>{t('list.email')}</TableHead>
-            <TableHead>{t('list.role')}</TableHead>
-            <TableHead>{t('list.actions')}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.data.map((employee) => (
-            <EmployeeRow
-              key={employee.id}
-              employee={employee}
-              onDelete={setEmployeeToDelete}
-            />
-          ))}
-        </TableBody>
+        {employees.length > 0 ? (
+          <>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-25">{t('list.id')}</TableHead>
+                <TableHead>{t('list.name')}</TableHead>
+                <TableHead>{t('list.email')}</TableHead>
+                <TableHead>{t('list.role')}</TableHead>
+                <TableHead>{t('list.actions')}</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {employees.map((employee) => (
+                <EmployeeRow
+                  key={employee.id}
+                  employee={employee}
+                  onDelete={setEmployeeToDelete}
+                />
+              ))}
+            </TableBody>
+          </>
+        ) : (
+          <EmptyState />
+        )}
       </TableCard>
     </>
+  );
+}
+
+function Filters() {
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  const { filters, applyFilters, clearFilters, activeCount } =
+    useEmployeeFilters();
+
+  return (
+    <>
+      <FiltersTrigger
+        onClick={() => setFiltersOpen(true)}
+        activeCount={activeCount}
+      />
+      <EmployeeFiltersModal
+        open={filtersOpen}
+        onOpenChange={setFiltersOpen}
+        defaultValues={filters}
+        onApply={(values) => {
+          applyFilters(values);
+          setFiltersOpen(false);
+        }}
+        onClear={() => {
+          clearFilters();
+          setFiltersOpen(false);
+        }}
+      />
+    </>
+  );
+}
+
+function EmptyState() {
+  const { hasActiveFilters, clearFilters } = useEmployeeFilters();
+
+  return (
+    <TableEmptyState
+      variant={hasActiveFilters ? 'search' : 'empty'}
+      onClearSearch={clearFilters}
+    />
   );
 }

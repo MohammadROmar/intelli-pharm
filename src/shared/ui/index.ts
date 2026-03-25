@@ -175,3 +175,5 @@ export { Toaster } from './toaster';
 export { DeleteModal } from './DeleteModal';
 export { ScrollArea, ScrollBar } from './scroll-area';
 export { Spinner } from './spinner';
+export { TableEmptyState } from './TableEmptyState';
+export { FiltersModal, FiltersTrigger } from './FiltersModal';

@@ -9,5 +9,6 @@ export {
 export { useDocumentDirection } from './hooks/useDocumentDirection';
 export { useIsMobile } from './hooks/useMobile';
 export { useDebounce } from './hooks/useDebounce';
+export { useFilters } from './hooks/useFilters';
 export { formatDate } from './formatDate';
 export { formatPrice } from './formatPrice';
