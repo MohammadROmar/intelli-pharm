@@ -9,8 +9,10 @@ type OrderRowProps = {
 export function OrderRow({ order, onDelete }: OrderRowProps) {
   return (
     <TableRow>
-      <TableCell className="font-medium">{order.id}</TableCell>
-      <TableCell>{order.warehouseId}</TableCell>
+      <TableCell className="text-muted-foreground">{order.id}</TableCell>
+      <TableCell className="text-muted-foreground">
+        {order.warehouseId}
+      </TableCell>
       <TableCell>{order.pharmacyName}</TableCell>
       <TableCell>{order.items}</TableCell>
 

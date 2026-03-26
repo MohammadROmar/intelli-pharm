@@ -1,13 +1,13 @@
 import type { ElementType, PropsWithChildren } from 'react';
 
+import { Badge } from './badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-  Badge,
-} from '@/shared/ui';
+} from './Card';
 
 type Props = {
   title: string;
@@ -16,7 +16,7 @@ type Props = {
   itemsCount: number;
 } & PropsWithChildren;
 
-export function MedicineDetailCard({
+export function DetailCard({
   title,
   subtitle,
   icon: Icon,
@@ -38,7 +38,7 @@ export function MedicineDetailCard({
         </div>
       </CardHeader>
 
-      <CardContent>{children}</CardContent>
+      <CardContent className="space-y-5">{children}</CardContent>
     </Card>
   );
 }

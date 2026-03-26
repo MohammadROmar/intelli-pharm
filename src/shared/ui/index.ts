@@ -102,6 +102,7 @@ export {
   CardsSkeleton,
   FormSkeleton,
   TableSkeleton,
+  DetailSkeleton,
 } from './skeleton';
 export {
   Tooltip,
@@ -177,3 +178,5 @@ export { ScrollArea, ScrollBar } from './scroll-area';
 export { Spinner } from './spinner';
 export { TableEmptyState } from './TableEmptyState';
 export { FiltersModal, FiltersTrigger } from './FiltersModal';
+export { DetailCell } from './DetailCell';
+export { DetailCard } from './DetailCard';

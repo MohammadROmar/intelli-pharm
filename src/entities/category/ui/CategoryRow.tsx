@@ -14,10 +14,10 @@ export function CategoryRow({ category, onDelete }: CategoryRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{category.id}</TableCell>
+      <TableCell className="text-muted-foreground">{category.id}</TableCell>
       <TableCell>{category.name}</TableCell>
       <TableCell>{category.parent_name ?? '-'}</TableCell>
-      <TableCell>
+      <TableCell className="text-muted-foreground">
         {formatDate(category.created_at, i18n.language, false)}
       </TableCell>
 

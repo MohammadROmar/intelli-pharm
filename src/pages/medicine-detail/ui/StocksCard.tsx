@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { PackageCheck } from 'lucide-react';
 
-import { MedicineDetailCard } from './MedicineDetailCard';
 import type { MedicineStock } from '@/entities/medicine';
 import { formatDate } from '@/shared/lib';
 import {
@@ -12,6 +11,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  DetailCard,
 } from '@/shared/ui';
 
 const TODAY = new Date();
@@ -32,7 +32,7 @@ export function StocksCard({ stocks }: Props) {
   });
 
   return (
-    <MedicineDetailCard
+    <DetailCard
       title={t('stocksTitle')}
       subtitle={t('stocksSubtitle')}
       itemsCount={stocks.length}
@@ -96,6 +96,6 @@ export function StocksCard({ stocks }: Props) {
           })}
         </TableBody>
       </Table>
-    </MedicineDetailCard>
+    </DetailCard>
   );
 }

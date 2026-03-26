@@ -41,20 +41,77 @@
       "title": "Laboratories",
       "subtitle": "Manage and monitor laboratories.",
       "all": "All Laboratories",
+      "searchPlaceholder": "Search Laboratory...",
       "id": "ID",
       "name": "Name",
+      "createdAt": "Created",
       "actions": "Actions"
     },
     "create": {
       "title": "Add New Laboratory",
       "subtitle": "Enter the name of the laboratory to add it to the system.",
-      "addLab": "Add Laboratory"
+      "action": "Add Laboratory",
+      "success": {
+        "title": "Laboratory created",
+        "description": "The new laboratory has been added successfully."
+      },
+      "error": "Failed to create laboratory"
+    },
+    "edit": {
+      "title": "Edit Laboratory",
+      "subtitle": "Change the name to edit it.",
+      "action": "Edit Details",
+      "success": {
+        "title": "Laboratory edited",
+        "description": "Laboratory edited successfully."
+      },
+      "error": "Failed to edit Laboratory"
+    },
+    "detail": {
+      "breadcrumb": "Laboratories",
+      "edit": "Edit Details",
+      "delete": "Delete",
+      "actions": "Actions",
+
+      "infoCardTilte": "Laboratory Information",
+      "infoCardSubtilte": "Detailed information about the laboratory.",
+
+      "identitySubtitle": "Pharmaceutical Laboratory",
+      "statTotal": "Total Medicines",
+      "statActive": "Active",
+      "statInactive": "{{count}} inactive",
+
+      "labelId": "Laboratory ID",
+      "labelName": "Name",
+      "labelCreatedAt": "Created",
+      "labelUpdatedAt": "Last Updated",
+
+      "medicinesTitle": "Registered Medicines",
+      "medicinesSubtitle": "All medicines produced by this laboratory.",
+      "noMedicines": "No medicines registered for this laboratory.",
+
+      "colId": "ID",
+      "colName": "Name",
+      "colPrice": "Price",
+      "colStatus": "Status",
+      "colImported": "Origin",
+      "colCreatedAt": "Created",
+
+      "active": "Active",
+      "inactive": "Inactive",
+      "imported": "Imported"
+    },
+    "delete": {
+      "success": {
+        "title": "Laboratory Deleted",
+        "description": "Laboratory has beeen permanently removed from the system."
+      },
+      "error": "Failed to delete laboratory"
     }
   },
 
   "medicinesPage": {
     "medicine": "Medicine",
-    "searchPlaceholder": "Search medicine...",
     "create": {
       "title": "Add New Medicine",
       "subtitle": "Register a new medicine with stock and image details.",
@@ -74,7 +131,7 @@
       "active": "Active",
       "inactive": "Inactive",
       "price": "Price",
-      "createdAt": "Created At",
+      "createdAt": "Created",
       "actions": "Actions"
     },
     "form": {
@@ -206,18 +263,18 @@
   "categoriesPage": {
     "category": "Category",
     "categoryInfo": "Category Information",
-    "searchPlaceholder": "Search Category...",
     "categoryInfoDescription": "Name and optional parent category",
     "categoryNamePlaceholder": "e.g. Antibiotics",
     "list": {
       "title": "Medicine Categories",
       "subtitle": "Manage and organize your medicine categories",
       "all": "All Categories",
+      "searchPlaceholder": "Search Category...",
       "id": "ID",
       "name": "Name",
       "actions": "Actions",
       "parentName": "Parent Name",
-      "createdAt": "Created At"
+      "createdAt": "Created"
     },
     "create": {
       "title": "Add New Category",
@@ -262,7 +319,7 @@
     },
     "list": {
       "title": "Employees",
-      "createdAt": "Created At",
+      "createdAt": "Created",
       "subtitle": "Manage access roles and permissions for your warehouse staff.",
       "all": "All Employees",
       "id": "ID",
@@ -357,7 +414,8 @@
     "errors": {
       "required": "This field is required.",
       "minLength": "Must be at least {{min}} characters.",
-      "invalidField": "Please enter a valid {{field}}."
+      "invalidField": "Please enter a valid {{field}}.",
+      "endAfterStart": "End hours must be after start."
     },
     "actions": {
       "create": "Create",

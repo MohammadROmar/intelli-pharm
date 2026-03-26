@@ -1,7 +1,6 @@
 import { MedicineDetail } from './MedicineDetail';
-import { MedicineDetailSkeleton } from './MedicineDetailSkeleton';
 import { useGetMedicine } from '@/entities/medicine';
-import { QueryError } from '@/shared/ui';
+import { DetailSkeleton, QueryError } from '@/shared/ui';
 
 export default function MedicineDetailPage() {
   const { isLoading, data, isError, error } = useGetMedicine();
@@ -11,7 +10,7 @@ export default function MedicineDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <MedicineDetailSkeleton />;
+    return <DetailSkeleton rows={4} tables={3} hasImage />;
   }
 
   return <MedicineDetail medicine={data.data!} />;

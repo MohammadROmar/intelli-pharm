@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 
-import { WithSuspense } from '@/shared/ui/index.initial';
-import { MedicineDetailSkeleton } from './MedicineDetailSkeleton';
+import { DetailSkeleton, WithSuspense } from '@/shared/ui/index.initial';
 
 const MedicineDetailsPage = lazy(() => import('./MedicineDetailPage'));
 
@@ -9,7 +8,7 @@ export function LazyMedicineDetailsPage() {
   return (
     <WithSuspense
       Component={MedicineDetailsPage}
-      loader={<MedicineDetailSkeleton />}
+      loader={<DetailSkeleton rows={4} tables={3} hasImage />}
     />
   );
 }

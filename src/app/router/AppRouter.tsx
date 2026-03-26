@@ -7,7 +7,7 @@ import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
 import { LazyLoginPage } from '@/pages/login';
 import { LazyOrdersListPage } from '@/pages/orders-list';
-import { LazyLaboratoriesPage } from '@/pages/laboratory';
+import { LazyLaboratoriesListPage } from '@/pages/laboratories-list';
 import { LazyCategoryListPage } from '@/pages/category-list';
 import { LazyCategoryCreatePage } from '@/pages/category-create';
 import { LazyEmployeeCreatePage } from '@/pages/employee-create';
@@ -16,8 +16,9 @@ import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
 import { LazyUpdateEmployeePage } from '@/pages/employee-edit';
 import { LazyCategoryEditPage } from '@/pages/category-edit';
-import { LazyMedicineListPage } from '@/pages/medicine-list/inedx';
+import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineEditPage } from '@/pages/medicine-edit';
+import { LazyLaboratoryDetailPage } from '@/pages/laboratories-detail';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,13 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <></> },
           { path: 'orders', element: <LazyOrdersListPage /> },
-          { path: 'laboratories', element: <LazyLaboratoriesPage /> },
+          {
+            path: 'laboratories',
+            children: [
+              { index: true, element: <LazyLaboratoriesListPage /> },
+              { path: ':id', element: <LazyLaboratoryDetailPage /> },
+            ],
+          },
           {
             path: 'medicines',
             children: [

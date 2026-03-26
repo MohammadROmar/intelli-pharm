@@ -17,7 +17,13 @@ export async function getEmployees(
 }
 
 export async function createEmployee(payload: CreateEmployeeFormData) {
-  return apiClient.post('/erp/v1/employees', payload);
+  const data: CreateEmployeeFormData = {
+    ...payload,
+    working_start: payload.working_start.slice(0, 5),
+    working_end: payload.working_end.slice(0, 5),
+  };
+
+  return apiClient.post('/erp/v1/employees', data);
 }
 
 export async function updateEmployee({

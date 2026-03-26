@@ -28,7 +28,8 @@ import {
 type Props = { isLoading?: boolean };
 
 export function EmployeeInfoCard({ isLoading }: Props) {
-  const { register, control } = useFormContext<EmployeeInternalFormData>();
+  const { register, getValues, control } =
+    useFormContext<EmployeeInternalFormData>();
   const { errors } = useFormState<EmployeeInternalFormData>({
     name: ['role', 'is_active', 'working_start', 'working_end'],
   });
@@ -108,11 +109,14 @@ export function EmployeeInfoCard({ isLoading }: Props) {
               type="number"
               autoComplete="off"
               icon={Truck}
-              placeholder={t('employeesPage.vehicleCapacityPlaceholder')}
+              min="0"
+              placeholder="0.00"
               aria-invalid={!!errors.vehicle_capacity}
               {...register('vehicle_capacity', {
                 required: true,
                 disabled: isLoading,
+                valueAsNumber: true,
+                shouldUnregister: true,
               })}
             />
             {errors.vehicle_capacity && (
@@ -158,12 +162,16 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             aria-invalid={!!errors.working_end}
             className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
             {...register('working_end', {
-              required: true,
+              required: 'form.errors.required',
+              validate: (value) => {
+                const start = getValues('working_start');
+                return value > start || 'form.errors.endAfterStart';
+              },
               disabled: isLoading,
             })}
           />
-          {errors.working_end && (
-            <FieldError>{t('form.errors.required')}</FieldError>
+          {errors.working_end?.message && (
+            <FieldError>{t(errors.working_end.message)}</FieldError>
           )}
         </Field>
       </CardContent>

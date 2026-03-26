@@ -12,6 +12,9 @@ export function useGetCategories() {
   return useQuery<ApiResponse<CategoryListResponse>, ApiError>({
     queryKey: ['categories', { page, name }],
     queryFn: () => getCategories(page, name),
-    placeholderData: (prev) => prev,
+    placeholderData: (prev) => {
+      const data = prev?.data?.data;
+      return data && data.length > 0 ? prev : undefined;
+    },
   });
 }

@@ -1,0 +1,88 @@
+import { PackageSearch, Pill } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+import type { LaboratoryMedicine } from '@/entities/laboratory';
+import { formatDate, formatPrice } from '@/shared/lib';
+import {
+  Badge,
+  DetailCard,
+  Table,
+  TableActions,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/shared/ui';
+
+type Props = { medicines: LaboratoryMedicine[] };
+
+export function LaboratoryMedicinesTable({ medicines }: Props) {
+  const { t, i18n } = useTranslation('translation', {
+    keyPrefix: 'laboratoriesPage.detail',
+  });
+
+  return (
+    <DetailCard
+      title={t('medicinesTitle')}
+      subtitle={t('medicinesSubtitle')}
+      icon={Pill}
+      itemsCount={medicines.length}
+    >
+      {medicines.length === 0 ? (
+        <div className="text-muted-foreground flex flex-col items-center gap-2 py-10">
+          <PackageSearch className="size-8" />
+          <p className="text-sm">{t('noMedicines')}</p>
+        </div>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-36">{t('colId')}</TableHead>
+              <TableHead>{t('colName')}</TableHead>
+              <TableHead>{t('colStatus')}</TableHead>
+              <TableHead>{t('colPrice')}</TableHead>
+              <TableHead>{t('colCreatedAt')}</TableHead>
+              <TableHead>{t('actions')}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {medicines.map((medicine) => (
+              <TableRow key={medicine.id}>
+                <TableCell className="text-muted-foreground text-xs">
+                  {medicine.id}
+                </TableCell>
+
+                <TableCell className="font-medium">{medicine.name}</TableCell>
+
+                <TableCell>
+                  <Badge
+                    variant={medicine.is_active ? 'default' : 'secondary'}
+                    className="font-normal"
+                  >
+                    {medicine.is_active ? t('active') : t('inactive')}
+                  </Badge>
+                </TableCell>
+
+                <TableCell className="tabular-nums">
+                  {formatPrice(medicine.price, i18n.language)}
+                </TableCell>
+
+                <TableCell className="text-muted-foreground text-sm">
+                  {formatDate(medicine.created_at, i18n.language, false)}
+                </TableCell>
+                <TableActions
+                  item={medicine}
+                  itemId={medicine.id}
+                  path="/dashboard/medicines"
+                >
+                  <TableActions.Detail />
+                </TableActions>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </DetailCard>
+  );
+}

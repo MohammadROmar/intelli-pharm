@@ -18,7 +18,6 @@ export async function createMedicine(data: MedicineFormData) {
 
 export async function editMedicine(id: number, data: MedicineFormData) {
   const fd = medicineToFormData(data);
-  console.log(fd);
   return apiClient.put(`/erp/v1/medicines/${id}`, fd, {
     headers: { 'Content-Type': undefined },
   });

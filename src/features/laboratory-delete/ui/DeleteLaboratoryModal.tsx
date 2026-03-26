@@ -7,11 +7,13 @@ import { DeleteModal } from '@/shared/ui';
 interface DeleteLaboratoryModalProps {
   laboratory: LaboratoryListItem | null;
   onClose: () => void;
+  onDeleteSuccess?: () => void;
 }
 
 export function DeleteLaboratoryModal({
   laboratory,
   onClose,
+  onDeleteSuccess,
 }: DeleteLaboratoryModalProps) {
   const { mutate, isPending } = useDeleteLaboratory();
 
@@ -20,7 +22,10 @@ export function DeleteLaboratoryModal({
   function handleConfirm() {
     if (!laboratory) return;
     mutate(laboratory.id, {
-      onSuccess: () => onClose(),
+      onSuccess: () => {
+        onClose();
+        onDeleteSuccess?.();
+      },
     });
   }
 

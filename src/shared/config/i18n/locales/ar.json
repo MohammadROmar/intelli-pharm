@@ -41,20 +41,77 @@
       "title": "المختبرات",
       "subtitle": "إدارة ومراقبة المختبرات.",
       "all": "جميع المختبرات",
+      "searchPlaceholder": "البحث عن مختبر...",
       "id": "المعرف",
       "name": "الاسم",
+      "createdAt": "تاريخ الإنشاء",
       "actions": "الإجراءات"
     },
     "create": {
       "title": "إضافة مختبر جديد",
       "subtitle": "أدخل اسم المختبر لإضافته إلى النظام.",
-      "addLab": "إضافة مختبر"
+      "action": "إضافة مختبر",
+      "success": {
+        "title": "تم إنشاء المختبر",
+        "description": "تم إنشاء المختبر بنجاح."
+      },
+      "error": "فشل إضافة المختبر"
+    },
+    "edit": {
+      "title": "تعديل مختبر",
+      "subtitle": "قم بتغيير الاسم لتعديله.",
+      "action": "تعديل التفاصيل",
+      "success": {
+        "title": "تم تعديل المختبر",
+        "description": "تم تعديل المختبر بنجاح."
+      },
+      "error": "فشل تعديل المختبر"
+    },
+    "detail": {
+      "breadcrumb": "المختبرات",
+      "edit": "تعديل التفاصيل",
+      "delete": "حذف",
+      "actions": "الإجراءات",
+
+      "infoCardTilte": "معلومات المختبر",
+      "infoCardSubtilte": "معلومات مفصلة عن المختبر.",
+
+      "identitySubtitle": "مختبر صيدلاني",
+      "statTotal": "إجمالي الأدوية",
+      "statActive": "نشط",
+      "statInactive": "{{count}} غير نشط",
+
+      "labelId": "رقم المختبر",
+      "labelName": "الاسم",
+      "labelCreatedAt": "تاريخ الإنشاء",
+      "labelUpdatedAt": "آخر تحديث",
+
+      "medicinesTitle": "الأدوية المسجلة",
+      "medicinesSubtitle": "جميع الأدوية المنتجة من هذا المختبر.",
+      "noMedicines": "لا توجد أدوية مسجلة لهذا المختبر.",
+
+      "colId": "المعرف",
+      "colName": "الاسم",
+      "colPrice": "السعر",
+      "colStatus": "الحالة",
+      "colImported": "المصدر",
+      "colCreatedAt": "تاريخ الإنشاء",
+
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "imported": "مستورد"
+    },
+    "delete": {
+      "success": {
+        "title": "تم حذف المختبر",
+        "description": "تم حذف المختبر بشكل نهائي من النظام."
+      },
+      "error": "فشل حذف المختبر"
     }
   },
 
   "medicinesPage": {
     "medicine": "دواء",
-    "searchPlaceholder": "البحث عن دواء...",
     "create": {
       "title": "إضافة دواء جديد",
       "subtitle": "تسجيل دواء جديد مع تفاصيل المخزون والصورة.",
@@ -215,13 +272,13 @@
   "categoriesPage": {
     "category": "فئة",
     "categoryInfo": "معلومات الفئة",
-    "searchPlaceholder": "البحث عن فئة...",
     "categoryInfoDescription": "الاسم وفئة اصلية اختيارية.",
     "categoryNamePlaceholder": "مثال. مضادات حيوية",
     "list": {
       "title": "فئات الأدوية",
       "all": "جميع الفئات",
       "subtitle": "إدارة وتنظيم فئات الأدوية",
+      "searchPlaceholder": "البحث عن فئة...",
       "id": "المعرف",
       "name": "الاسم",
       "actions": "الخيارات",
@@ -366,7 +423,8 @@
     "errors": {
       "required": "هذا الحقل مطلوب.",
       "minLength": "يجب أن يحتوي الحقل على {{min}} محارف.",
-      "invalidField": "يرجى ادخال  {{field}} بشكل صحيح."
+      "invalidField": "يرجى ادخال  {{field}} بشكل صحيح.",
+      "endAfterStart": "ساعة نهاية العمل يجب ان تكون بعد بدايته."
     },
     "actions": {
       "create": "إضافة",

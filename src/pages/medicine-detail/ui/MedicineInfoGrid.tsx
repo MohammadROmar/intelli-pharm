@@ -18,28 +18,10 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  DetailCell,
 } from '@/shared/ui';
 
-function DetailCell({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <p className="text-muted-foreground text-[11px] font-medium tracking-widest uppercase">
-        {label}
-      </p>
-      <div className="text-sm font-semibold">{children}</div>
-    </div>
-  );
-}
-
-interface Props {
-  medicine: Medicine;
-}
+type Props = { medicine: Medicine };
 
 export function MedicineInfoGrid({ medicine }: Props) {
   const { t, i18n } = useTranslation('translation', {
@@ -116,13 +98,13 @@ export function MedicineInfoGrid({ medicine }: Props) {
         <div className="grid grid-cols-2 gap-6">
           <DetailCell label={t('labelCreatedAt')}>
             <span className="flex items-center gap-1.5 font-normal">
-              <CalendarDays className="size-3.5 shrink-0" />
+              <CalendarDays className="text-muted-foreground size-3.5 shrink-0" />
               {formatDate(medicine.created_at, i18n.language)}
             </span>
           </DetailCell>
           <DetailCell label={t('labelUpdatedAt')}>
             <span className="flex items-center gap-1.5 font-normal">
-              <RefreshCw className="size-3.5 shrink-0" />
+              <RefreshCw className="text-muted-foreground size-3.5 shrink-0" />
               {formatDate(medicine.updated_at, i18n.language)}
             </span>
           </DetailCell>

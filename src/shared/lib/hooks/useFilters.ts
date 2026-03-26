@@ -35,14 +35,16 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        next.delete('name');
-        next.delete('email');
-        next.delete('page');
+
+        for (const item of filterKeys) {
+          next.delete(String(item));
+        }
+
         return next;
       },
       { replace: false },
     );
-  }, [setSearchParams]);
+  }, [setSearchParams, filterKeys]);
 
   const activeCount = Object.values(filters).filter(
     (v) => v !== undefined && v !== '',

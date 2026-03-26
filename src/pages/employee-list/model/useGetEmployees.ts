@@ -15,6 +15,9 @@ export function useGetEmployees() {
   return useQuery<ApiResponse<EmployeeListResponse>, ApiError>({
     queryKey: ['employees', { page, filters }],
     queryFn: () => getEmployees(page, filters),
-    placeholderData: (prev) => prev,
+    placeholderData: (prev) => {
+      const data = prev?.data?.data;
+      return data && data.length > 0 ? prev : undefined;
+    },
   });
 }

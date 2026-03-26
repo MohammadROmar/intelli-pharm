@@ -8,7 +8,6 @@ export function CreateEmployeeForm() {
   const { mutate, isPending } = useCreateEmployee();
 
   function onSubmit(payload: CreateEmployeeFormData) {
-    console.log(payload);
     mutate(payload, {
       onSuccess: () => setFormKey((prev) => prev + 1),
     });

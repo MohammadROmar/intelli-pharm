@@ -4,10 +4,10 @@ import { LaboratoryForm, type Laboratory } from '@/entities/laboratory';
 
 export function CreateLaboratoryForm() {
   const [formKey, setFormKey] = useState(0);
-  const { isPending } = useCreateLaboratory();
+  const { mutate, isPending } = useCreateLaboratory();
 
   function onSubmit(payload: Laboratory) {
-    console.log(payload);
+    mutate(payload);
   }
 
   return (

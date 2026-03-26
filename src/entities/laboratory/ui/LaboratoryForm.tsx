@@ -54,9 +54,11 @@ export function LaboratoryForm({
         </Field>
         <FormActions
           isLoading={isLoading}
+          isEdit={!!defaultValues}
           onReset={onReset}
           classNames={{
-            container: 'lg:justify-center lg:flex-col-reverse lg:items-center',
+            container:
+              'lg:justify-center! lg:flex-col-reverse! lg:items-center!',
             reset: 'w-full',
             submit: 'w-full',
           }}

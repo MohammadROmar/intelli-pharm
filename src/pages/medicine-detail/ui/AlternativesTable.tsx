@@ -1,7 +1,6 @@
 import { PackageSearch, Repeat2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { MedicineDetailCard } from './MedicineDetailCard';
 import type { AlternativeMedicine } from '@/entities/medicine';
 import { formatPrice } from '@/shared/lib';
 import {
@@ -12,6 +11,7 @@ import {
   TableHeader,
   TableRow,
   TableActions,
+  DetailCard,
 } from '@/shared/ui';
 
 type Props = {
@@ -25,7 +25,7 @@ export function AlternativesTable({ alternatives, mode }: Props) {
   });
 
   return (
-    <MedicineDetailCard
+    <DetailCard
       title={t(`detail.${mode}.title`)}
       subtitle={t(`detail.${mode}.subtitle`)}
       icon={Repeat2}
@@ -40,8 +40,8 @@ export function AlternativesTable({ alternatives, mode }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>{t('list.id')}</TableHead>
               <TableHead>{t('list.name')}</TableHead>
-              <TableHead>{t('list.status')}</TableHead>
               <TableHead className="max-w-xs">{t('list.price')}</TableHead>
               <TableHead className="max-w-xs">{t('list.actions')}</TableHead>
             </TableRow>
@@ -49,10 +49,10 @@ export function AlternativesTable({ alternatives, mode }: Props) {
           <TableBody>
             {alternatives.map((alt) => (
               <TableRow key={alt.id}>
-                <TableCell className="font-medium">{alt.name}</TableCell>
-                <TableCell>
-                  {alt.is_active ? t('list.active') : t('list.inactive')}
+                <TableCell className="text-muted-foreground">
+                  {alt.id}
                 </TableCell>
+                <TableCell>{alt.name}</TableCell>
                 <TableCell className="tabular-nums">
                   {formatPrice(alt.price, i18n.language)}
                 </TableCell>
@@ -68,6 +68,6 @@ export function AlternativesTable({ alternatives, mode }: Props) {
           </TableBody>
         </Table>
       )}
-    </MedicineDetailCard>
+    </DetailCard>
   );
 }

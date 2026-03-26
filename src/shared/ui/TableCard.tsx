@@ -52,7 +52,7 @@ export function TableCard({
         </div>
       </CardHeader>
       <CardContent>
-        <Table>{children}</Table>
+        {totalItems === 0 ? children : <Table>{children}</Table>}
       </CardContent>
       <CardFooter>
         <DynamicPagination

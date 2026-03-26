@@ -7,6 +7,10 @@ export {
   FormSkeleton,
   TableSkeleton,
   Skeleton,
+  DetailCellSkeleton,
+  DetailHeaderSkeleton,
+  DetailRowSkeleton,
+  DetailSkeleton,
 } from './skeleton';
 export { WithSuspense } from './WithSuspense';
 export { Card, CardContent, CardHeader } from './Card';
