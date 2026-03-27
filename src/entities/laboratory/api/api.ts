@@ -3,7 +3,7 @@ import type {
   Laboratory,
   LaboratoryDetail,
 } from '../model/laboratoryTypes';
-import { apiClient } from '@/shared/api';
+import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
 const PER_PAGE = 10;
 
@@ -40,4 +40,21 @@ export async function updateLaboratory(id: number, payload: Laboratory) {
 
 export async function deleteLaboratory(id: number) {
   return apiClient.delete(`/erp/v1/laboratories/${id}`);
+}
+
+export async function getInfiniteLaboratories(page: string, name?: string) {
+  const response = await getLaboratories(page, name ?? null);
+
+  if (!response.isSuccess || !response.data) {
+    throw new ApiError(statusToI18nKey(response.statusCode));
+  }
+  const { data } = response;
+
+  return {
+    items: data.data!,
+    page: data.current_page,
+    pageSize: PER_PAGE,
+    totalPages: Math.max(data.total / PER_PAGE, 1),
+    totalCount: data.total,
+  };
 }

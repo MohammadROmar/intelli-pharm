@@ -4,6 +4,7 @@ export function medicineToFormData({ values, images }: MedicineFormData) {
   const fd = new FormData();
   fd.append('name', values.name);
   fd.append('category_id', values.category_id.toString());
+  fd.append('laboratory_id', values.laboratory_id.toString());
   fd.append('price', values.price);
   fd.append('is_imported', values.is_imported ? '1' : '0');
   fd.append('is_active', values.is_active ? '1' : '0');

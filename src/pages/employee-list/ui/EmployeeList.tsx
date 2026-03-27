@@ -24,6 +24,7 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
     null,
   );
 
+  console.log(data);
   const { t } = useTranslation('translation', {
     keyPrefix: 'employeesPage',
   });

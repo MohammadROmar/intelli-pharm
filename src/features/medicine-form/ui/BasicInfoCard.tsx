@@ -14,6 +14,7 @@ import {
   type MedicineFormData,
 } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
+import { LaboratorySelector } from '@/entities/laboratory';
 import { required, fRequired, positiveNumber } from '@/shared/lib';
 import {
   Card,
@@ -65,21 +66,43 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
           description={t('medicineDetailsSubtitle')}
         />
 
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{t('medicineName')}</FieldLabel>
-          <Input
-            id="name"
-            placeholder={t('medicineNamePlaceholder')}
-            aria-invalid={!!errors.name}
-            autoComplete="off"
-            icon={Pill}
-            {...register('name', {
-              disabled: isPending,
-              validate: { required: required() },
-            })}
-          />
-          <FieldError errors={te(errors.name, 'medicineName')} />
-        </Field>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <Field data-invalid={!!errors.name}>
+            <FieldLabel htmlFor="name">{t('medicineName')}</FieldLabel>
+            <Input
+              id="name"
+              placeholder={t('medicineNamePlaceholder')}
+              aria-invalid={!!errors.name}
+              autoComplete="off"
+              icon={Pill}
+              {...register('name', {
+                disabled: isPending,
+                validate: { required: required() },
+              })}
+            />
+            <FieldError errors={te(errors.name, 'medicineName')} />
+          </Field>
+
+          <Field data-invalid={!!errors.price}>
+            <FieldLabel htmlFor="price">{t('price')}</FieldLabel>
+            <Input
+              id="price"
+              type="number"
+              icon={DollarSign}
+              min="0"
+              placeholder="0.00"
+              aria-invalid={!!errors.price}
+              {...register('price', {
+                disabled: isPending,
+                validate: {
+                  required: required(),
+                  positiveNumber: positiveNumber(),
+                },
+              })}
+            />
+            <FieldError errors={te(errors.price, 'price')} />
+          </Field>
+        </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Controller
@@ -103,25 +126,26 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
             )}
           />
 
-          <Field data-invalid={!!errors.price}>
-            <FieldLabel htmlFor="price">{t('price')}</FieldLabel>
-            <Input
-              id="price"
-              type="number"
-              icon={DollarSign}
-              min="0"
-              placeholder="0.00"
-              aria-invalid={!!errors.price}
-              {...register('price', {
-                disabled: isPending,
-                validate: {
-                  required: required(),
-                  positiveNumber: positiveNumber(),
-                },
-              })}
-            />
-            <FieldError errors={te(errors.price, 'price')} />
-          </Field>
+          <Controller
+            name="laboratory_id"
+            control={control}
+            rules={{ validate: required() }}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel asChild>
+                  <p>{t('laboratory')}</p>
+                </FieldLabel>
+                <LaboratorySelector
+                  selected={medicine?.laboratory ?? undefined}
+                  isLoading={isPending}
+                  invalid={fieldState.invalid}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+                <FieldError errors={te(fieldState.error, 'laboratory')} />
+              </Field>
+            )}
+          />
         </div>
 
         <Field>

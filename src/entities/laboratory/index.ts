@@ -17,3 +17,4 @@ export {
 export { LaboratoryForm } from './ui/LaboratoryForm';
 export { LaboratoryRow } from './ui/LaboratoryRow';
 export { LaboratorySheet } from './ui/LaboratorySheet';
+export { LaboratorySelector } from './ui/LaboratorySelector';

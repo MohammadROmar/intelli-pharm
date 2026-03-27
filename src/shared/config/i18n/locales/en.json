@@ -142,6 +142,7 @@
       "medicineDetailsSubtitle": "Name, category, price and notes.",
       "medicineName": "Medicine Name",
       "category": "Category",
+      "laboratory": "Laboratory",
       "price": "Price",
       "note": "Note (optional)",
       "flags": "FLAGS",

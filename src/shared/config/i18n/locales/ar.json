@@ -152,6 +152,7 @@
       "medicineDetailsSubtitle": "الاسم، الفئة، السعر والملاحظات.",
       "medicineName": "اسم الدواء",
       "category": "الفئة",
+      "laboratory": "المختبر",
       "price": "السعر",
       "note": "ملاحظة (اختياري)",
       "flags": "علامات",

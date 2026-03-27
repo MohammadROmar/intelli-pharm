@@ -19,6 +19,7 @@ export async function getEmployees(
 export async function createEmployee(payload: CreateEmployeeFormData) {
   const data: CreateEmployeeFormData = {
     ...payload,
+    is_active: payload.is_active ?? false,
     working_start: payload.working_start.slice(0, 5),
     working_end: payload.working_end.slice(0, 5),
   };
