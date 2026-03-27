@@ -1,8 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import type { LaboratoryDetail } from './laboratoryTypes';
-import { getLaboratoryById } from '../api/api';
+import {
+  getLaboratoryById,
+  type LaboratoryDetail,
+} from '@/entities/laboratory';
 import type { ApiError, ApiResponse } from '@/shared/api';
 
 export function useGetLaboratory() {

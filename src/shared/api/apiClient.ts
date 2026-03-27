@@ -82,7 +82,10 @@ export const apiClient = axios.create({
 apiClient.interceptors.response.use(
   (res) => res.data,
   (error: AxiosError) => {
-    console.log(error.response);
+    if (import.meta.env.DEV) {
+      console.log(error.response);
+    }
+
     const status = error.response?.status;
     return Promise.reject(new ApiError(statusToI18nKey(status), status));
   },

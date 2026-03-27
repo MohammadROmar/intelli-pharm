@@ -19,6 +19,7 @@ import { LazyCategoryEditPage } from '@/pages/category-edit';
 import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineEditPage } from '@/pages/medicine-edit';
 import { LazyLaboratoryDetailPage } from '@/pages/laboratories-detail';
+import { LazyCityListPage } from '@/pages/city-list';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
               { index: true, element: <LazyLaboratoriesListPage /> },
               { path: ':id', element: <LazyLaboratoryDetailPage /> },
             ],
+          },
+          {
+            path: 'cities',
+            children: [{ index: true, element: <LazyCityListPage /> }],
           },
           {
             path: 'medicines',

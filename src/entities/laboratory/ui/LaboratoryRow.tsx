@@ -1,5 +1,9 @@
-import { buttonVariants, formatDate } from '@/shared/lib';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Pencil } from 'lucide-react';
+
 import type { LaboratoryListItem } from '../model/laboratoryTypes';
+import { buttonVariants, formatDate } from '@/shared/lib';
 import {
   TableActions,
   TableCell,
@@ -8,9 +12,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/shared/ui';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Pencil } from 'lucide-react';
 
 type LaboratoryRowProps = {
   laboratory: LaboratoryListItem;

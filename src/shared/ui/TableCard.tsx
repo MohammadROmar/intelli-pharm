@@ -54,16 +54,18 @@ export function TableCard({
       <CardContent>
         {totalItems === 0 ? children : <Table>{children}</Table>}
       </CardContent>
-      <CardFooter>
-        <DynamicPagination
-          itemsPerPage={itemsPerPage}
-          maxVisiblePages={MAX_VISIBLE_PAGES}
-          totalItems={totalItems}
-          basePath={basePath}
-          currentPage={currentPage}
-          maxPages={maxPages}
-        />
-      </CardFooter>
+      {totalItems > 0 && (
+        <CardFooter>
+          <DynamicPagination
+            itemsPerPage={itemsPerPage}
+            maxVisiblePages={MAX_VISIBLE_PAGES}
+            totalItems={totalItems}
+            basePath={basePath}
+            currentPage={currentPage}
+            maxPages={maxPages}
+          />
+        </CardFooter>
+      )}
     </Card>
   );
 }

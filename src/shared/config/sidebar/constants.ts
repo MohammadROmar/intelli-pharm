@@ -5,6 +5,7 @@ import {
   LayoutDashboard,
   Package,
   Pipette,
+  Building,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -29,6 +30,11 @@ export const sidebarData = [
     key: 'labels.laboratories',
     url: '/dashboard/laboratories',
     icon: Pipette,
+  },
+  {
+    key: 'labels.cities',
+    url: '/dashboard/cities',
+    icon: Building,
   },
   {
     key: 'labels.medicines',

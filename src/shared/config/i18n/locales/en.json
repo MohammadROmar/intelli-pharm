@@ -111,6 +111,47 @@
     }
   },
 
+  "citiesPage": {
+    "city": "City",
+    "cityNamePlaceholder": "e.g. Damascus",
+    "list": {
+      "title": "Cities",
+      "subtitle": "Manage and monitor laboratories.",
+      "all": "All Cities",
+      "searchPlaceholder": "Search City...",
+      "id": "ID",
+      "name": "Name",
+      "actions": "Actions"
+    },
+    "create": {
+      "title": "Add New City",
+      "subtitle": "Enter the name of the city to add it to the system.",
+      "action": "Add City",
+      "success": {
+        "title": "City created",
+        "description": "The new city has been added successfully."
+      },
+      "error": "Failed to create city"
+    },
+    "edit": {
+      "title": "Edit City",
+      "subtitle": "Change the name to edit it.",
+      "action": "Edit Details",
+      "success": {
+        "title": "City edited",
+        "description": "City edited successfully."
+      },
+      "error": "Failed to edit City"
+    },
+    "delete": {
+      "success": {
+        "title": "City Deleted",
+        "description": "City has beeen permanently removed from the system."
+      },
+      "error": "Failed to delete city"
+    }
+  },
+
   "medicinesPage": {
     "medicine": "Medicine",
     "create": {
@@ -469,7 +510,8 @@
       "categories": "Categories",
       "employees": "Employees",
       "new": "New",
-      "edit": "Edit"
+      "edit": "Edit",
+      "cities": "Cities"
     },
 
     "medicines": {
