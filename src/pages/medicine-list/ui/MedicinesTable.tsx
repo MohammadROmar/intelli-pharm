@@ -74,7 +74,7 @@ export function MedicinesTable({ data }: Props) {
 
 function MedicineFilters() {
   const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount } =
+  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
     useMedicineFilters();
 
   return (
@@ -84,6 +84,7 @@ function MedicineFilters() {
         open={open}
         onOpenChange={setOpen}
         defaultValues={filters}
+        hasActiveFilters={hasActiveFilters}
         onApply={(v) => {
           applyFilters(v);
           setOpen(false);

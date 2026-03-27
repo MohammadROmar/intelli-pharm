@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { Mail, UserRound } from 'lucide-react';
 
 import type { EmployeeFilters } from '@/entities/employee';
-import { Input, Separator, Field, FieldLabel, FiltersModal } from '@/shared/ui';
+import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   defaultValues?: EmployeeFilters;
   onApply: (filters: EmployeeFilters) => void;
+  hasActiveFilters?: boolean;
   onClear: () => void;
 };
 
@@ -18,6 +19,7 @@ export function EmployeeFiltersModal({
   open,
   onOpenChange,
   defaultValues = {},
+  hasActiveFilters,
   onApply,
   onClear,
 }: Props) {
@@ -40,10 +42,6 @@ export function EmployeeFiltersModal({
     );
     onApply(cleaned);
   }
-
-  const hasActiveFilters =
-    (defaultValues.name !== undefined && defaultValues.name !== '') ||
-    (defaultValues.email !== undefined && defaultValues.email !== '');
 
   return (
     <FiltersModal
@@ -85,8 +83,6 @@ export function EmployeeFiltersModal({
           />
         </Field>
       </form>
-
-      <Separator />
     </FiltersModal>
   );
 }

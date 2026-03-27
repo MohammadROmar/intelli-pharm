@@ -7,7 +7,7 @@ export function CreateLaboratoryForm() {
   const { mutate, isPending } = useCreateLaboratory();
 
   function onSubmit(payload: Laboratory) {
-    mutate(payload);
+    mutate(payload, { onSuccess: () => setFormKey((prev) => prev + 1) });
   }
 
   return (

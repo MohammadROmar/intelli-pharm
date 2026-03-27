@@ -19,16 +19,24 @@ export function useLogin() {
     mutationFn: login,
 
     onSuccess: (data) => {
-      dispatch(
-        setCredentials({
-          accessToken: data.data!.access_token,
-          refreshToken: data.data!.refresh_token,
-          roles: data.data!.roles,
-          user: { email: data.data!.email, name: data.data!.name },
-        }),
-      );
+      const role = data.data?.roles[0];
 
-      navigate('/dashboard', { replace: true });
+      if (role && role === 'admin') {
+        dispatch(
+          setCredentials({
+            accessToken: data.data!.access_token,
+            refreshToken: data.data!.refresh_token,
+            roles: data.data!.roles,
+            user: { email: data.data!.email, name: data.data!.name },
+          }),
+        );
+
+        navigate('/dashboard', { replace: true });
+      } else {
+        toast.error(t('loginPage.error'), {
+          description: t('loginPage.onlyAdmin'),
+        });
+      }
     },
 
     onError: (error) => {

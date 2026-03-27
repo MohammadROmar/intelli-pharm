@@ -78,7 +78,7 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
 function Filters() {
   const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const { filters, applyFilters, clearFilters, activeCount } =
+  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
     useEmployeeFilters();
 
   return (
@@ -90,6 +90,7 @@ function Filters() {
       <EmployeeFiltersModal
         open={filtersOpen}
         onOpenChange={setFiltersOpen}
+        hasActiveFilters={hasActiveFilters}
         defaultValues={filters}
         onApply={(values) => {
           applyFilters(values);

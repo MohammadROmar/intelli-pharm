@@ -31,9 +31,15 @@ export async function updateEmployee({
   payload,
 }: {
   id: number;
-  payload: Partial<UpdateEmployeeFormData>;
+  payload: UpdateEmployeeFormData;
 }) {
-  return apiClient.put(`/erp/v1/employees/${id}`, payload);
+  const data: UpdateEmployeeFormData = {
+    ...payload,
+    working_start: payload.working_start.slice(0, 5),
+    working_end: payload.working_end.slice(0, 5),
+  };
+
+  return apiClient.put(`/erp/v1/employees/${id}`, data);
 }
 
 export async function getEmployee(id: number) {

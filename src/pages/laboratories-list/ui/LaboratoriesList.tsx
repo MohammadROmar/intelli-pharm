@@ -87,7 +87,7 @@ function EmotyState() {
     <TableEmptyState
       variant={name ? 'search' : 'empty'}
       onClearSearch={() => {
-        setSearchParams(() => new URLSearchParams());
+        setSearchParams(() => new URLSearchParams(), { replace: true });
       }}
     />
   );

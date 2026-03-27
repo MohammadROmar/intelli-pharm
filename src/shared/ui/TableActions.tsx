@@ -53,7 +53,7 @@ function TableActionsRoot<T>({
         { itemId, path, item, onDelete } as TableActionsContextValue<unknown>
       }
     >
-      <TableCell className="relative z-10 flex items-center gap-1">
+      <TableCell className="relative z-10 flex items-center gap-4">
         {children}
       </TableCell>
     </TableActionsContext.Provider>
@@ -70,7 +70,11 @@ function Detail() {
         <Link
           to={`${path}/${itemId}`}
           aria-label={t('details')}
-          className={buttonVariants({ size: 'sm', variant: 'ghost' })}
+          className={buttonVariants({
+            size: 'sm',
+            variant: 'ghost',
+            className: 'p-0!',
+          })}
         >
           <Info className="size-4" />
         </Link>
@@ -90,7 +94,11 @@ function Update() {
         <Link
           to={`${path}/${itemId}/edit`}
           aria-label={t('update')}
-          className={buttonVariants({ size: 'sm', variant: 'ghost' })}
+          className={buttonVariants({
+            size: 'sm',
+            variant: 'ghost',
+            className: 'p-0!',
+          })}
         >
           <Pencil className="size-4" />
         </Link>
@@ -112,6 +120,7 @@ function Delete<T>() {
           aria-label={t('delete')}
           variant="ghost"
           onClick={() => onDelete(item)}
+          className="p-0!"
         >
           <Trash2 className="text-destructive size-4" />
         </Button>

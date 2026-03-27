@@ -3,14 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Pencil, Trash2 } from 'lucide-react';
 
-import { MedicineImageGallery } from './MedicineImageGallery';
+import { StocksCard } from './StocksCard';
 import { MedicineInfoGrid } from './MedicineInfoGrid';
 import { AlternativesTable } from './AlternativesTable';
+import { MedicineImageGallery } from './MedicineImageGallery';
 import { DeleteMedicineModal } from '@/features/medicine-delete';
 import type { Medicine } from '@/entities/medicine';
 import { buttonVariants } from '@/shared/lib';
 import { Button } from '@/shared/ui';
-import { StocksCard } from './StocksCard';
 
 type Props = { medicine: Medicine };
 

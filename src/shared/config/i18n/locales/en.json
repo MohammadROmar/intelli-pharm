@@ -16,7 +16,8 @@
     "title": "Login to your account",
     "subtitle": "Enter your email below to login to your account",
     "login": "Login",
-    "error": "Login failed"
+    "error": "Login failed",
+    "onlyAdmin": "Only admins can login."
   },
 
   "ordersPage": {
@@ -190,7 +191,7 @@
       "labelPrice": "Unit Price",
       "labelStatus": "Status",
       "labelImported": "Imported",
-      "labelAlternatives": "Alternatives",
+      "labelLaboratories": "Laboratory",
       "labelCreatedAt": "Created",
       "labelUpdatedAt": "Last Updated",
       "primaryImage": "Primary",

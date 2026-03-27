@@ -16,7 +16,7 @@ export function useUpdateEmployee() {
   return useMutation<
     ApiResponse<unknown>,
     ApiError,
-    { id: number; payload: Partial<UpdateEmployeeFormData> }
+    { id: number; payload: UpdateEmployeeFormData }
   >({
     mutationFn: updateEmployee,
 

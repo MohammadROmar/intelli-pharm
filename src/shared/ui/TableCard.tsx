@@ -2,15 +2,15 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 
-import { buttonVariants, cn } from '../lib';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
 import { Table } from './table';
+import { Badge } from './badge';
+import { SearchField } from './SearchField';
 import {
   DynamicPagination,
   type DynamicPaginationProps,
 } from './pagination/DynamicPagination';
-import { Badge } from './badge';
-import { SearchField } from './SearchField';
+import { buttonVariants, cn } from '../lib';
 
 type TableCardProps = Omit<DynamicPaginationProps, 'maxPages'> & {
   title: string;
@@ -31,7 +31,7 @@ export function TableCard({
   header,
   headerClassName,
 }: TableCardProps) {
-  const maxPages = Math.max(totalItems / itemsPerPage, 1);
+  const maxPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
     <Card>

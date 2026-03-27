@@ -72,7 +72,7 @@ export function FiltersModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn('sm:max-w-md', className)}>
-        <DialogHeader>
+        <DialogHeader className="text-start">
           <DialogTitle className="flex items-center gap-2">
             <SlidersHorizontal className="h-4 w-4" />
             {title}
@@ -84,7 +84,7 @@ export function FiltersModal({
         {children}
         <Separator />
 
-        <DialogFooter className="flex-row gap-2 sm:justify-between">
+        <DialogFooter className="flex-row justify-end! gap-2">
           <Button
             type="button"
             variant="ghost"

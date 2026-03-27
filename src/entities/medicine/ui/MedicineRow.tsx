@@ -16,7 +16,7 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{medicine.id}</TableCell>
+      <TableCell className="text-muted-foreground">{medicine.id}</TableCell>
       <TableCell>{medicine.name}</TableCell>
       <TableCell>
         <Badge
@@ -27,7 +27,7 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
         </Badge>
       </TableCell>
       <TableCell>{medicine.price}</TableCell>
-      <TableCell>
+      <TableCell className="text-muted-foreground">
         {formatDate(medicine.created_at, i18n.language, false)}
       </TableCell>
 

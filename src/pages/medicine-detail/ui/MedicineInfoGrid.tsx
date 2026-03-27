@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   Activity,
   CalendarDays,
   Folders,
   Pill,
+  Pipette,
   RefreshCw,
   Truck,
 } from 'lucide-react';
@@ -43,10 +45,12 @@ export function MedicineInfoGrid({ medicine }: Props) {
         <div className="grid grid-cols-2 gap-6">
           <DetailCell label={t('labelId')}>{medicine.id}</DetailCell>
           <DetailCell label={t('labelCategory')}>
-            <Badge variant="secondary" className="font-normal">
-              <Folders className="mr-1 size-3" />
-              {medicine.category.name}
-            </Badge>
+            <Link to={`/dashboard/categories/${medicine.category.id}`}>
+              <Badge variant="secondary" className="font-normal">
+                <Folders className="mr-1 size-3" />
+                {medicine.category.name}
+              </Badge>
+            </Link>
           </DetailCell>
         </div>
 
@@ -82,13 +86,16 @@ export function MedicineInfoGrid({ medicine }: Props) {
               <span className="font-normal">{t('no')}</span>
             )}
           </DetailCell>
-          <DetailCell label={t('labelAlternatives')}>
-            {medicine.alternatives.length > 0 ? (
-              <Badge variant="secondary" className="font-normal">
-                {medicine.alternatives.length}
-              </Badge>
+          <DetailCell label={t('labelLaboratories')}>
+            {medicine.laboratory ? (
+              <Link to={`/dashboard/laboratories/${medicine.laboratory.id}`}>
+                <Badge variant="secondary" className="font-normal">
+                  <Pipette className="mr-1 size-3" />
+                  {medicine.laboratory.name}
+                </Badge>
+              </Link>
             ) : (
-              <span className="font-normal">{t('none')}</span>
+              <span className="font-normal">-</span>
             )}
           </DetailCell>
         </div>

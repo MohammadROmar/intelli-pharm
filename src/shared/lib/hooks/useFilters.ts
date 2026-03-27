@@ -50,9 +50,7 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
     (v) => v !== undefined && v !== '',
   ).length;
 
-  const hasActiveFilters = Object.values(filters).some(
-    (v) => v !== undefined && v !== null && v !== '',
-  );
+  const hasActiveFilters = activeCount !== 0;
 
   return { filters, applyFilters, clearFilters, activeCount, hasActiveFilters };
 }

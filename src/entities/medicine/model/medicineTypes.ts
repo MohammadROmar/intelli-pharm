@@ -60,7 +60,7 @@ export type Medicine = {
   images: string[];
   note?: string;
   category: MedicineCategory;
-  laboratory: null | { id: number; name: string };
+  laboratory: { id: number; name: string } | null;
   stocks: MedicineStock[];
   alternatives: AlternativeMedicine[];
   alternative_for: AlternativeMedicine[];

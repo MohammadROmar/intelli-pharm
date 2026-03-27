@@ -1,3 +1,5 @@
+type Role = 'distributor' | 'rep' | 'admin';
+
 export type LoginResponse = {
   name: string;
   email: string;
@@ -5,7 +7,7 @@ export type LoginResponse = {
   refresh_token: string;
   token_type: string;
   expires_in: number;
-  roles: string[];
+  roles: Role[];
   permissions: string[];
 };
 
