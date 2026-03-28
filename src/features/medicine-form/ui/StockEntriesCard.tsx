@@ -23,7 +23,7 @@ import {
   Field,
   FieldError,
   FieldLabel,
-  FormSectionHeader,
+  CardSectionHeader,
   GenericSingleSelect,
   Input,
 } from '@/shared/ui';
@@ -76,7 +76,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <FormSectionHeader
+        <CardSectionHeader
           icon={Warehouse}
           title={t('warehouseStock')}
           description={t('warehouseStockSubtitle')}

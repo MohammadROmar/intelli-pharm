@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
-import { LaboratoriesTable } from './LaboratoriesList';
+import { LaboratoryTable } from './LaboratoryList';
 import { useGetLaboratories } from '../model/useGetLaboratories';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
-export default function LaboratoriesPage() {
+export default function LaboratoryListPage() {
   const { t } = useTranslation('translation', {
     keyPrefix: 'laboratoriesPage',
   });
@@ -23,7 +23,7 @@ export default function LaboratoriesPage() {
     <>
       <PageTitle title={t('list.title')} subtitle={t('list.subtitle')} />
 
-      <LaboratoriesTable data={data.data!} />
+      <LaboratoryTable data={data.data!} />
     </>
   );
 }

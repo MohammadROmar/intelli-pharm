@@ -12,6 +12,7 @@ import {
   TableRow,
   TableActions,
   DetailCard,
+  DetailEmptyState,
 } from '@/shared/ui';
 
 type Props = {
@@ -32,10 +33,10 @@ export function AlternativesTable({ alternatives, mode }: Props) {
       itemsCount={alternatives.length}
     >
       {alternatives.length === 0 ? (
-        <div className="text-muted-foreground flex flex-col items-center gap-2 py-10">
-          <PackageSearch className="size-8" />
-          <p className="text-sm">{t(`detail.${mode}.noAlts`)}</p>
-        </div>
+        <DetailEmptyState
+          label={t(`detail.${mode}.noAlts`)}
+          icon={PackageSearch}
+        />
       ) : (
         <Table>
           <TableHeader>

@@ -10,7 +10,7 @@ import {
   FieldError,
   FieldLabel,
   FormActions,
-  FormSectionHeader,
+  CardSectionHeader,
 } from '@/shared/ui';
 
 type CategoryFormProps = {
@@ -39,7 +39,7 @@ export function CategoryForm({
 
   return (
     <>
-      <FormSectionHeader
+      <CardSectionHeader
         icon={Tags}
         title={t('categoriesPage.categoryInfo')}
         description={t('categoriesPage.categoryInfoDescription')}

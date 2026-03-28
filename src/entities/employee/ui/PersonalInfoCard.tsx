@@ -12,7 +12,7 @@ import {
   Field,
   FieldError,
   FieldLabel,
-  FormSectionHeader,
+  CardSectionHeader,
   Input,
 } from '@/shared/ui';
 
@@ -36,7 +36,7 @@ export function PersonalInfoCard({ isEdit, isLoading }: Props) {
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <FormSectionHeader
+        <CardSectionHeader
           icon={User}
           title={t('employeesPage.form.innerPersonalInfoTitle')}
           description={t('employeesPage.form.innerPersonalInfoSubtitle')}

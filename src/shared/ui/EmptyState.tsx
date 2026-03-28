@@ -2,6 +2,7 @@ import { FolderOpen, SearchX } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Button } from './Button';
+import type { ElementType } from 'react';
 
 interface Props {
   variant: 'empty' | 'search';
@@ -57,6 +58,17 @@ export function TableEmptyState({
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+type DetailProps = { label: string; icon: ElementType };
+
+export function DetailEmptyState({ label, icon: Icon }: DetailProps) {
+  return (
+    <div className="text-muted-foreground flex flex-col items-center gap-2 py-10">
+      <Icon className="size-8" />
+      <p className="text-sm">{label}</p>
     </div>
   );
 }

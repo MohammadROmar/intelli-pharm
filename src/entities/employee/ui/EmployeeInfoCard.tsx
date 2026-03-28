@@ -19,7 +19,7 @@ import {
   Field,
   FieldError,
   FieldLabel,
-  FormSectionHeader,
+  CardSectionHeader,
   GenericSingleSelect,
   Input,
   SwitchRow,
@@ -50,7 +50,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <FormSectionHeader
+        <CardSectionHeader
           icon={User}
           title={t('employeesPage.form.innerEmploymentInfoTitle')}
           description={t('employeesPage.form.innerEmploymentInfoSubtitle')}

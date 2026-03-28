@@ -5,7 +5,7 @@ import { useGetEmployee } from '../model/useGetEmployee';
 import { UpdateEmployeeForm } from '@/features/employee-edit';
 import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
 
-export default function UpdateEmployeePage() {
+export default function EmployeeEditPage() {
   const { data, isLoading, isError, error } = useGetEmployee();
   const { t } = useTranslation('translation', {
     keyPrefix: 'employeesPage.update',

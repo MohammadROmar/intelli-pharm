@@ -15,7 +15,7 @@ import {
   CardHeader,
   CardTitle,
   FieldError,
-  FormSectionHeader,
+  CardSectionHeader,
   ImageDropzone,
 } from '@/shared/ui';
 
@@ -59,7 +59,7 @@ export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
           })}
         />
 
-        <FormSectionHeader
+        <CardSectionHeader
           icon={PackagePlus}
           title={t('productPhotosTitle')}
           description={t('productPhotosSubtitle', {

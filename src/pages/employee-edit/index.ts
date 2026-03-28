@@ -1,1 +1,1 @@
-export { LazyUpdateEmployeePage } from './ui/LazyUpdateEmployeePage';
+export { LazyEmployeeEditPage } from './ui/LazyEmployeeEditPage';

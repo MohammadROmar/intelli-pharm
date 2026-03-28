@@ -21,7 +21,7 @@ import {
 
 type Props = { data: LaboratoriesResponse };
 
-export function LaboratoriesTable({ data }: Props) {
+export function LaboratoryTable({ data }: Props) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'laboratoriesPage',
   });

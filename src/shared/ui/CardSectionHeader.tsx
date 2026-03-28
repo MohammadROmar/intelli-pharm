@@ -1,16 +1,20 @@
-type FormSectionHeaderProps = {
+import { cn } from '../lib';
+
+type CardSectionHeaderProps = {
   icon: React.ElementType;
   title: string;
   description: string;
+  className?: string;
 };
 
-export function FormSectionHeader({
+export function CardSectionHeader({
   icon: Icon,
   title,
   description,
-}: FormSectionHeaderProps) {
+  className,
+}: CardSectionHeaderProps) {
   return (
-    <div className="mb-6 flex items-start gap-3">
+    <div className={cn('mb-6 flex items-start gap-3', className)}>
       <div className="bg-primary/10 text-primary mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg">
         <Icon className="size-5" />
       </div>

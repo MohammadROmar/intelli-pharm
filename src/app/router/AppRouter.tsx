@@ -2,25 +2,33 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import PublicOnlyRoute from './PublicOnlyRoute';
 import DashboardRoute from './DashboardRoute';
+
 import { LazyRootLayout } from '../layouts/LazyRootLayout';
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
+
 import { LazyLoginPage } from '@/pages/login';
-import { LazyOrdersListPage } from '@/pages/orders-list';
-import { LazyLaboratoriesListPage } from '@/pages/laboratories-list';
-import { LazyCategoryListPage } from '@/pages/category-list';
-import { LazyCategoryCreatePage } from '@/pages/category-create';
-import { LazyEmployeeCreatePage } from '@/pages/employee-create';
-import { LazyEmployeeListPage } from '@/pages/employee-list';
+
+import { LazyOrderListPage } from '@/pages/orders-list';
+
+import { LazyLaboratoryListPage } from '@/pages/laboratory-list';
+import { LazyLaboratoryDetailPage } from '@/pages/laboratory-detail';
+
+import { LazyCityListPage } from '@/pages/city-list';
+
+import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
-import { LazyUpdateEmployeePage } from '@/pages/employee-edit';
-import { LazyCategoryEditPage } from '@/pages/category-edit';
-import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineEditPage } from '@/pages/medicine-edit';
-import { LazyLaboratoryDetailPage } from '@/pages/laboratories-detail';
-import { LazyCityListPage } from '@/pages/city-list';
+
+import { LazyCategoryListPage } from '@/pages/category-list';
+import { LazyCategoryCreatePage } from '@/pages/category-create';
 import { LazyCategoryDetailPage } from '@/pages/category-detail';
+import { LazyCategoryEditPage } from '@/pages/category-edit';
+
+import { LazyEmployeeListPage } from '@/pages/employee-list';
+import { LazyEmployeeCreatePage } from '@/pages/employee-create';
+import { LazyEmployeeEditPage } from '@/pages/employee-edit';
 
 const router = createBrowserRouter([
   {
@@ -42,11 +50,11 @@ const router = createBrowserRouter([
         element: <DashboardRoute />,
         children: [
           { index: true, element: <></> },
-          { path: 'orders', element: <LazyOrdersListPage /> },
+          { path: 'orders', element: <LazyOrderListPage /> },
           {
             path: 'laboratories',
             children: [
-              { index: true, element: <LazyLaboratoriesListPage /> },
+              { index: true, element: <LazyLaboratoryListPage /> },
               { path: ':id', element: <LazyLaboratoryDetailPage /> },
             ],
           },
@@ -87,7 +95,7 @@ const router = createBrowserRouter([
                 path: ':id',
                 children: [
                   { index: true, element: <p>EmployeeDetails</p> },
-                  { path: 'edit', element: <LazyUpdateEmployeePage /> },
+                  { path: 'edit', element: <LazyEmployeeEditPage /> },
                 ],
               },
               { path: 'new', element: <LazyEmployeeCreatePage /> },

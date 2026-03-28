@@ -2,12 +2,12 @@ import { lazy } from 'react';
 
 import { WithSuspense, FormSkeleton } from '@/shared/ui/index.initial';
 
-const UpdateEmployeePage = lazy(() => import('./UpdateEmployeePage'));
+const EmployeeEditPage = lazy(() => import('./EmployeeEditPage'));
 
-export function LazyUpdateEmployeePage() {
+export function LazyEmployeeEditPage() {
   return (
     <WithSuspense
-      Component={UpdateEmployeePage}
+      Component={EmployeeEditPage}
       loader={<FormSkeleton fields={3} />}
     />
   );

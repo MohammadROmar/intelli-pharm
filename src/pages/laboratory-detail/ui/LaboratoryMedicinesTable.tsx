@@ -6,6 +6,7 @@ import { formatDate, formatPrice } from '@/shared/lib';
 import {
   Badge,
   DetailCard,
+  DetailEmptyState,
   Table,
   TableActions,
   TableBody,
@@ -30,10 +31,7 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
       itemsCount={medicines.length}
     >
       {medicines.length === 0 ? (
-        <div className="text-muted-foreground flex flex-col items-center gap-2 py-10">
-          <PackageSearch className="size-8" />
-          <p className="text-sm">{t('noMedicines')}</p>
-        </div>
+        <DetailEmptyState label={t('noMedicines')} icon={PackageSearch} />
       ) : (
         <Table>
           <TableHeader>

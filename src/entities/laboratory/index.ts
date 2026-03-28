@@ -5,7 +5,7 @@ export type {
   LaboratoryDetail,
   LaboratoryMedicine,
 } from './model/laboratoryTypes';
-export { useGetLaboratory } from '../../pages/laboratories-list/model/useGetLaboratory';
+export { useGetLaboratory } from '../../pages/laboratory-list/model/useGetLaboratory';
 export {
   getLaboratories,
   createLaboratory,

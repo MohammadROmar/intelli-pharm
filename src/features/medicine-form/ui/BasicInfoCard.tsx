@@ -28,7 +28,7 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-  FormSectionHeader,
+  CardSectionHeader,
   Input,
   Separator,
   SwitchRow,
@@ -60,7 +60,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <FormSectionHeader
+        <CardSectionHeader
           icon={Pill}
           title={t('medicineDetailsTitle')}
           description={t('medicineDetailsSubtitle')}
