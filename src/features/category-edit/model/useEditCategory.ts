@@ -19,14 +19,17 @@ export function useEditCategory() {
   >({
     mutationFn: editCategory,
     onSuccess: () => {
-      toast.success(t('categoriesPage.edit.success.title'), {
-        description: t('categoriesPage.edit.success.description'),
+      toast.success(t('common.toasts.edit.title'), {
+        description: t('common.toasts.edit.description', {
+          item: t('categoriesPage.category'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       navigate('/dashboard/categories');
     },
     onError: (error) => {
-      toast.error(t('categoriesPage.edit.error'), {
+      toast.error(t('common.toasts.edit.error'), {
         description: t(error.i18nKey),
       });
     },

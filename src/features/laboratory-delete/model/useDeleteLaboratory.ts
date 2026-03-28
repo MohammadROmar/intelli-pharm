@@ -13,14 +13,17 @@ export function useDeleteLaboratory() {
     mutationFn: deleteLaboratory,
 
     onSuccess: () => {
-      toast.success(t('laboratoriesPage.delete.success.title'), {
-        description: t('laboratoriesPage.delete.success.description'),
+      toast.success(t('common.toasts.delete.title'), {
+        description: t('common.toasts.delete.description', {
+          item: t('laboratoriesPage.laboratory'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['laboratories'] });
     },
 
     onError: (error) => {
-      toast.error(t('laboratoriesPage.delete.error'), {
+      toast.error(t('common.toasts.delete.error'), {
         description: t(error.i18nKey),
       });
     },

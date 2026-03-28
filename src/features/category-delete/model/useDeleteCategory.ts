@@ -13,14 +13,17 @@ export function useDeleteCategory() {
     mutationFn: deleteCategory,
 
     onSuccess: () => {
-      toast.success(t('categoriesPage.delete.success.title'), {
-        description: t('categoriesPage.delete.success.description'),
+      toast.success(t('common.toasts.delete.title'), {
+        description: t('common.toasts.delete.description', {
+          item: t('categoriesPage.category'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
 
     onError: (error) => {
-      toast.error(t('categoriesPage.delete.error'), {
+      toast.error(t('common.toasts.delete.error'), {
         description: t(error.i18nKey),
       });
     },

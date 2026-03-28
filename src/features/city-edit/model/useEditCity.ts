@@ -20,15 +20,18 @@ export function useEditCity() {
     mutationFn: editCity,
 
     onSuccess: () => {
-      toast.success(t('citiesPage.edit.success.title'), {
-        description: t('citiesPage.edit.success.description'),
+      toast.success(t('common.toasts.edit.title'), {
+        description: t('common.toasts.edit.description', {
+          item: t('citiesPage.city'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['cities'] });
       naviagte('/dashboard/cities');
     },
 
     onError: (error) => {
-      toast.error(t('citiesPage.edit.error'), {
+      toast.error(t('common.toasts.edit.error'), {
         description: t(error.i18nKey),
       });
     },

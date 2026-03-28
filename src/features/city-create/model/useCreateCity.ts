@@ -13,14 +13,16 @@ export function useCreateCity() {
     mutationFn: createCity,
 
     onSuccess: () => {
-      toast.success(t('citiesPage.create.success.title'), {
-        description: t('citiesPage.create.success.description'),
+      toast.success(t('common.toasts.create.title'), {
+        description: t('common.toasts.create.description', {
+          item: t('citiesPage.city'),
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['cities'] });
     },
 
     onError: (error) => {
-      toast.error(t('citiesPage.create.error'), {
+      toast.error(t('common.toasts.create.error'), {
         description: t(error.i18nKey),
       });
     },

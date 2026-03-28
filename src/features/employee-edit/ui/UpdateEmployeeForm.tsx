@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useUpdateEmployee } from '../model/useUpdateEmployee';
+import { useEditEmployee } from '../model/useEditEmployee';
 import {
   EmployeeForm,
   type Employee,
@@ -11,7 +11,7 @@ type Props = { employee: Employee };
 
 export function UpdateEmployeeForm({ employee }: Props) {
   const [formKey, setFormKey] = useState(0);
-  const { mutate, isPending } = useUpdateEmployee();
+  const { mutate, isPending } = useEditEmployee();
 
   function onSubmit(payload: UpdateEmployeeFormData) {
     mutate(

@@ -1,8 +1,8 @@
 import { MedicineRestockForm } from './MedicineRestockForm';
-import { useMedicineRestock } from '../model/useMedicineRestock';
+import { useRestockMedicine } from '../model/useRestockMedicine';
 
 export function MedicineRestock({ id }: { id: number }) {
-  const { mutate, isPending } = useMedicineRestock(id);
+  const { mutate, isPending } = useRestockMedicine(id);
 
   return (
     <MedicineRestockForm

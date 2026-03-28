@@ -7,7 +7,7 @@ import type { RestockPayload } from './restockTypes';
 import { restockMedicine } from '../api';
 import type { ApiError, ApiResponse } from '@/shared/api';
 
-export function useMedicineRestock(id: number) {
+export function useRestockMedicine(id: number) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -17,15 +17,16 @@ export function useMedicineRestock(id: number) {
     mutationFn: (payload) => restockMedicine(id, payload),
 
     onSuccess: () => {
-      toast.success(t('medicinesPage.restock.success.title'), {
-        description: t('medicinesPage.restock.success.description'),
+      toast.success(t('common.toasts.restock.title'), {
+        description: t('common.toasts.restock.description'),
       });
+
       queryClient.invalidateQueries({ queryKey: ['medicines'] });
       navigate(`/dashboard/medicines/${id}`);
     },
 
     onError: (error) => {
-      toast.error(t('medicinesPage.restock.error'), {
+      toast.error(t('common.toasts.restock.error'), {
         description: t(error.i18nKey),
       });
     },

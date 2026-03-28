@@ -13,13 +13,16 @@ export function useDeleteEmployee() {
   return useMutation<ApiResponse<unknown>, ApiError, number>({
     mutationFn: deleteEmployee,
     onSuccess: () => {
-      toast.success(t('employeesPage.delete.success.title'), {
-        description: t('employeesPage.delete.success.description'),
+      toast.success(t('common.toasts.delete.title'), {
+        description: t('common.toasts.delete.description', {
+          item: t('employeesPage.employee'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['employees'] });
     },
     onError: (error) => {
-      toast.error(t('employeesPage.delete.error'), {
+      toast.error(t('common.toasts.delete.error'), {
         description: t(error.i18nKey),
       });
     },

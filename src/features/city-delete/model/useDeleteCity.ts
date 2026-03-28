@@ -13,14 +13,17 @@ export function useDeleteCity() {
     mutationFn: deleteCity,
 
     onSuccess: () => {
-      toast.success(t('citiesPage.delete.success.title'), {
-        description: t('citiesPage.delete.success.description'),
+      toast.success(t('common.toasts.delete.title'), {
+        description: t('common.toasts.delete.description', {
+          item: t('citiesPage.city'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['cities'] });
     },
 
     onError: (error) => {
-      toast.error(t('citiesPage.delete.error'), {
+      toast.error(t('common.toasts.delete.error'), {
         description: t(error.i18nKey),
       });
     },

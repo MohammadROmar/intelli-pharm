@@ -16,14 +16,16 @@ export function useCreateEmployee() {
     mutationFn: createEmployee,
 
     onSuccess: () => {
-      toast.success(t('employeesPage.create.success.title'), {
-        description: t('employeesPage.create.success.description'),
+      toast.success(t('common.toasts.created.title'), {
+        description: t('common.toasts.created.description', {
+          item: t('employeesPage.employee'),
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['employees'] });
     },
 
     onError: (error) => {
-      toast.error(t('employeesPage.create.error'), {
+      toast.error(t('common.toasts.create.error'), {
         description: t(error.i18nKey),
       });
     },

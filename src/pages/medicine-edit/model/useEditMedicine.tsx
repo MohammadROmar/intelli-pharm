@@ -23,14 +23,17 @@ export function useEditMedicine(id: number) {
   >({
     mutationFn: (payload) => editMedicine(id, payload),
     onSuccess: () => {
-      toast.success(t('medicinesPage.edit.success.title'), {
-        description: t('medicinesPage.edit.success.description'),
+      toast.success(t('common.toasts.edit.title'), {
+        description: t('common.toasts.edit.description', {
+          item: t('medicinesPage.medicine'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['medicines'] });
       navigate(`/dashboard/medicines/${id}`);
     },
     onError: (error) => {
-      toast.error(t('medicinesPage.edit.error'), {
+      toast.error(t('common.toasts.edit.error'), {
         description: t(error.i18nKey),
       });
     },

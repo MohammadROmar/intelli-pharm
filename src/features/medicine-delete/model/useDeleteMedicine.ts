@@ -13,14 +13,17 @@ export function useDeleteMedicine() {
     mutationFn: deleteMedicine,
 
     onSuccess: () => {
-      toast.success(t('medicinesPage.delete.success.title'), {
-        description: t('medicinesPage.delete.success.description'),
+      toast.success(t('common.toasts.delete.title'), {
+        description: t('common.toasts.delete.description', {
+          item: t('medicinesPage.medicine'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['medicines'] });
     },
 
     onError: (error) => {
-      toast.error(t('medicinesPage.delete.error'), {
+      toast.error(t('common.toasts.delete.error'), {
         description: t(error.i18nKey),
       });
     },

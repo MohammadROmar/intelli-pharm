@@ -13,14 +13,16 @@ export function useCreateLaboratory() {
     mutationFn: createLaboratory,
 
     onSuccess: () => {
-      toast.success(t('laboratoriesPage.create.success.title'), {
-        description: t('laboratoriesPage.create.success.description'),
+      toast.success(t('common.toasts.created.title'), {
+        description: t('common.toasts.created.description', {
+          item: t('laboratoriesPage.laboratory'),
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['laboratories'] });
     },
 
     onError: (error) => {
-      toast.error(t('laboratoriesPage.create.error'), {
+      toast.error(t('common.toasts.create.error'), {
         description: t(error.i18nKey),
       });
     },

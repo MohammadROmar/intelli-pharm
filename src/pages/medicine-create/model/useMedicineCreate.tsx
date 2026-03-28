@@ -21,13 +21,15 @@ export function useCreateMedicine() {
   >({
     mutationFn: createMedicine,
     onSuccess: () => {
-      toast.success(t('medicinesPage.create.success.title'), {
-        description: t('medicinesPage.create.success.description'),
+      toast.success(t('common.toasts.created.title'), {
+        description: t('common.toasts.created.description', {
+          item: t('medicinesPage.medicine'),
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
     onError: (error) => {
-      toast.error(t('medicinesPage.create.error'), {
+      toast.error(t('common.toasts.create.error'), {
         description: t(error.i18nKey),
       });
     },

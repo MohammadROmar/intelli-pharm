@@ -51,22 +51,12 @@
     "create": {
       "title": "Add New Laboratory",
       "subtitle": "Enter the name of the laboratory to add it to the system.",
-      "action": "Add Laboratory",
-      "success": {
-        "title": "Laboratory created",
-        "description": "The new laboratory has been added successfully."
-      },
-      "error": "Failed to create laboratory"
+      "action": "Add Laboratory"
     },
     "edit": {
       "title": "Edit Laboratory",
       "subtitle": "Change the name to edit it.",
-      "action": "Edit Details",
-      "success": {
-        "title": "Laboratory edited",
-        "description": "Laboratory edited successfully."
-      },
-      "error": "Failed to edit Laboratory"
+      "action": "Edit Details"
     },
     "detail": {
       "breadcrumb": "Laboratories",
@@ -101,13 +91,6 @@
       "active": "Active",
       "inactive": "Inactive",
       "imported": "Imported"
-    },
-    "delete": {
-      "success": {
-        "title": "Laboratory Deleted",
-        "description": "Laboratory has beeen permanently removed from the system."
-      },
-      "error": "Failed to delete laboratory"
     }
   },
 
@@ -126,29 +109,12 @@
     "create": {
       "title": "Add New City",
       "subtitle": "Enter the name of the city to add it to the system.",
-      "action": "Add City",
-      "success": {
-        "title": "City created",
-        "description": "The new city has been added successfully."
-      },
-      "error": "Failed to create city"
+      "action": "Add City"
     },
     "edit": {
       "title": "Edit City",
       "subtitle": "Change the name to edit it.",
-      "action": "Edit Details",
-      "success": {
-        "title": "City edited",
-        "description": "City edited successfully."
-      },
-      "error": "Failed to edit City"
-    },
-    "delete": {
-      "success": {
-        "title": "City Deleted",
-        "description": "City has beeen permanently removed from the system."
-      },
-      "error": "Failed to delete city"
+      "action": "Edit Details"
     }
   },
 
@@ -156,12 +122,7 @@
     "medicine": "Medicine",
     "create": {
       "title": "Add New Medicine",
-      "subtitle": "Register a new medicine with stock and image details.",
-      "success": {
-        "title": "Medicine created",
-        "description": "The new medicine has been added successfully."
-      },
-      "error": "Failed to create medicine"
+      "subtitle": "Register a new medicine with stock and image details."
     },
     "list": {
       "title": "Medicine Inventory",
@@ -264,13 +225,6 @@
         "noAlts": "This medicine is not an alternative for any other medicine."
       }
     },
-    "delete": {
-      "success": {
-        "title": "Medicine delleted",
-        "description": "The medicine has beeen permanently removed from the system."
-      },
-      "error": "Failed to delete medicine"
-    },
     "restock": {
       "tooltipLabel": "Restock",
 
@@ -294,13 +248,7 @@
       "cancel": "Cancel",
 
       "required": "{{field}} is required",
-      "fRequired": "{{field}} is required",
-
-      "success": {
-        "title": "Stock edited",
-        "description": "Stock edited successfully."
-      },
-      "error": "Failed to edit stock"
+      "fRequired": "{{field}} is required"
     },
     "filters": {
       "trigger": "Filters",
@@ -359,30 +307,13 @@
       "subtitle": "Organize your inventory by adding a new category.",
       "formTitle": "Category Details",
       "formSubtitle": "Fill in the information bellow to register the new category.",
-      "create": "Create Category",
-      "success": {
-        "title": "Category created",
-        "description": "The new category has been added successfully."
-      },
-      "error": "Failed to create category"
+      "create": "Create Category"
     },
     "edit": {
       "title": "Edit Category",
       "subtitle": "Update category information",
       "formTitle": "Category Details",
-      "formSubtitle": "Change the information bellow to edit the category.",
-      "success": {
-        "title": "Category updated",
-        "description": "Category has been updated successfully."
-      },
-      "error": "Failed to update category"
-    },
-    "delete": {
-      "success": {
-        "title": "Category Deleted",
-        "description": "The medicine category has beeen permanently removed from the system."
-      },
-      "error": "Failed to delete category"
+      "formSubtitle": "Change the information bellow to edit the category."
     },
     "detail": {
       "breadcrumb": "Categories",
@@ -452,12 +383,7 @@
     "create": {
       "title": "Create Employee",
       "subtitle": "Add a new employee to your warehouse team.",
-      "create": "Create Employee",
-      "success": {
-        "title": "Employee created",
-        "description": "The new employee has been added successfully."
-      },
-      "error": "Failed to create employee"
+      "create": "Create Employee"
     },
     "form": {
       "personalInfoTitle": "Personal Information",
@@ -473,19 +399,7 @@
       "title": "Edit Details",
       "subtitle": "Manage employee details and access.",
       "formTitle": "Employee Details",
-      "formSubtitle": "Fill in the required details below.",
-      "success": {
-        "title": "Employee Updated",
-        "description": "Employee data has been updated successfully."
-      },
-      "error": "Failed to update employee"
-    },
-    "delete": {
-      "success": {
-        "title": "Employee Deleted",
-        "description": "Employee has beeen permanently removed from the system."
-      },
-      "error": "Failed to delete employee"
+      "formSubtitle": "Fill in the required details below."
     },
     "editRestricted": {
       "title": "Admin accounts cannot be edited here",
@@ -649,6 +563,28 @@
       "emptyTitle": "No items yet",
       "emptyMessage": "Get started by adding your first item.",
       "addFirstItem": "Add Category"
+    },
+    "toasts": {
+      "create": {
+        "title": "Created successfully",
+        "description": "{{item}} has been created successfully.",
+        "error": "Creation failed"
+      },
+      "edit": {
+        "title": "Updated successfully",
+        "description": "{{item}} has been updated successfully.",
+        "error": "Update failed"
+      },
+      "delete": {
+        "title": "Deleted successfully",
+        "description": "{{item}} has been deleted successfully.",
+        "error": "Deletion failed"
+      },
+      "restock": {
+        "title": "Restock successfully",
+        "description": "Stock has been updated successfully.",
+        "error": "Restock failed"
+      }
     },
     "filters": {
       "apply": "Apply Filters",

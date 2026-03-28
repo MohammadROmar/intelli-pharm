@@ -13,13 +13,15 @@ export function useCreateCategory() {
   return useMutation<ApiResponse<unknown>, ApiError, Category>({
     mutationFn: createCategory,
     onSuccess: () => {
-      toast.success(t('categoriesPage.create.success.title'), {
-        description: t('categoriesPage.create.success.description'),
+      toast.success(t('common.toasts.create.title'), {
+        description: t('common.toasts.create.description', {
+          item: t('categoriesPage.category'),
+        }),
       });
       queryClient.invalidateQueries({ queryKey: ['categories'] });
     },
     onError: (error) => {
-      toast.error(t('categoriesPage.create.error'), {
+      toast.error(t('common.toasts.create.error'), {
         description: t(error.i18nKey),
       });
     },

@@ -20,15 +20,18 @@ export function useEditLaboratory() {
     mutationFn: editLaboratory,
 
     onSuccess: () => {
-      toast.success(t('laboratoriesPage.edit.success.title'), {
-        description: t('laboratoriesPage.edit.success.description'),
+      toast.success(t('common.toasts.edit.title'), {
+        description: t('common.toasts.edit.description', {
+          item: t('laboratoriesPage.laboratory'),
+        }),
       });
+
       queryClient.invalidateQueries({ queryKey: ['laboratories'] });
       naviagte('/dashboard/laboratories');
     },
 
     onError: (error) => {
-      toast.error(t('laboratoriesPage.edit.error'), {
+      toast.error(t('common.toasts.edit.error'), {
         description: t(error.i18nKey),
       });
     },
