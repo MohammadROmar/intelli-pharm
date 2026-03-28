@@ -357,6 +357,50 @@
         "description": "تم حذف فئة الدواء بشكل نهائي من النظام."
       },
       "error": "فشل حذف الفئة"
+    },
+    "detail": {
+      "breadcrumb": "الفئات",
+      "edit": "تعديل التفاصيل",
+      "delete": "حذف",
+      "topLevel": "فئة رئيسية",
+      "childLevel": "فئة فرعية",
+      "categoryType": "النوع",
+
+      "infoTitle": "معلومات الفئة",
+      "infoSubtitle": "معلومات مفصلة عن الفئة المحددة.",
+
+      "labelId": "رقم الفئة",
+      "labelName": "الاسم",
+      "labelParent": "الفئة الأم",
+      "labelParentId": "رقم الفئة الأم",
+      "labelParentName": "اسم الفئة الأم",
+      "labelChildren": "الفئات الفرعية",
+      "labelCreatedAt": "تاريخ الإنشاء",
+      "labelUpdatedAt": "آخر تحديث",
+
+      "noParent": "لا يوجد (فئة رئيسية)",
+
+      "noChildren": "لا توجد فئات فرعية",
+
+      "childrenCount": "{{count}} فئة فرعية",
+      "childrenTitle": "الفئات الفرعية",
+      "childrenSubtitle": "الفئات المدرجة تحت هذه الفئة.",
+
+      "addChild": "إضافة فئة فرعية",
+
+      "colId": "الرقم",
+      "colName": "الاسم",
+      "colActions": "الإجراءات"
+    },
+    "filters": {
+      "trigger": "الفلاتر",
+      "title": "فلاتر الفئات",
+      "subtitle": "ضيّق نتائج قائمة الفئات باستخدام فلتر واحد أو أكثر.",
+      "nameLabel": "الاسم",
+      "namePlaceholder": "البحث باسم الفئة",
+      "parentLabel": "الفئة الأصلية",
+      "apply": "تطبيق الفلاتر",
+      "clear": "مسح الفلاتر"
     }
   },
 

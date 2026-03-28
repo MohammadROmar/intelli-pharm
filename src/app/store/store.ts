@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import type { LoginResponse } from '@/features/login/index.initial';
 import { sessionReducer, logout, setCredentials } from '@/entities/session';
 import { apiClient } from '@/shared/api';
+import type { AxiosRequestConfig } from 'axios';
 
 export const store = configureStore({
   reducer: { session: sessionReducer },
@@ -26,10 +27,17 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _retry?: boolean;
+    };
     const state = store.getState();
 
-    if (error.response?.status === 404 && !originalRequest._retry) {
+    if (
+      error.status === 401 &&
+      originalRequest &&
+      !originalRequest._retry &&
+      originalRequest.url !== '/auth/v1/refresh'
+    ) {
       originalRequest._retry = true;
 
       try {
@@ -47,7 +55,9 @@ apiClient.interceptors.response.use(
           }),
         );
 
-        originalRequest.headers.Authorization = `Bearer ${data!.access_token}`;
+        if (originalRequest.headers) {
+          originalRequest.headers.Authorization = `Bearer ${data!.access_token}`;
+        }
 
         return apiClient(originalRequest);
       } catch (refreshError) {
@@ -55,6 +65,7 @@ apiClient.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   },
 );

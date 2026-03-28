@@ -19,7 +19,7 @@ function getIcon(error: ApiError) {
 }
 
 function toTitleKey(i18nKey: string): string {
-  const parts = i18nKey.split('.');
+  const parts = (i18nKey ?? 'errors.unknown').split('.');
   parts[parts.length - 1] += 'Title';
   return parts.join('.');
 }

@@ -1,20 +1,24 @@
 import type {
-  CategoryListItem,
   Category,
   CategoryListResponse,
+  CategoryFilters,
+  CategoryDetail,
 } from '../model/categoryTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
 const PER_PAGE = 10;
 
-export async function getCategories(page: string | null, name: string | null) {
+export async function getCategories(
+  page: string | null,
+  filters: CategoryFilters,
+) {
   return apiClient.get<CategoryListResponse>('/erp/v1/categories', {
-    params: { page_number: page ?? 1, per_page: PER_PAGE, name },
+    params: { page_number: page ?? 1, per_page: PER_PAGE, ...filters },
   });
 }
 
 export function getCategory(id: number) {
-  return apiClient.get<CategoryListItem>(`/erp/v1/categories/${id}`);
+  return apiClient.get<CategoryDetail>(`/erp/v1/categories/${id}`);
 }
 
 export async function createCategory(payload: Category) {
@@ -35,12 +39,13 @@ export async function deleteCategory(id: number) {
   return apiClient.delete(`/erp/v1/categories/${id}`);
 }
 
-export async function getInfiniteCategories(page: string, search?: string) {
-  const response = await getCategories(page, search ?? null);
+export async function getInfiniteCategories(page: string, name?: string) {
+  const response = await getCategories(page, { name });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));
   }
+
   const { data: categories, meta } = response.data;
 
   return {

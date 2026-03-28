@@ -348,6 +348,48 @@
         "description": "The medicine category has beeen permanently removed from the system."
       },
       "error": "Failed to delete category"
+    },
+    "detail": {
+      "breadcrumb": "Categories",
+      "edit": "Edit Details",
+      "delete": "Delete",
+      "topLevel": "Top Level",
+      "childLevel": "Subcategory",
+      "categoryType": "Type",
+
+      "infoTitle": "Category Information",
+      "infoSubtitle": "Detailed information about the selected category.",
+
+      "labelId": "Category ID",
+      "labelName": "Name",
+      "labelParent": "Parent",
+      "labelParentId": "Parent ID",
+      "labelParentName": "Parent Name",
+      "labelChildren": "Subcategories",
+      "labelCreatedAt": "Created",
+      "labelUpdatedAt": "Last Updated",
+
+      "noParent": "None (top-level)",
+
+      "noChildren": "No subcategories",
+
+      "childrenCount": "{{count}} subcategories",
+      "childrenTitle": "Subcategories",
+      "childrenSubtitle": "Categories nested under this one.",
+
+      "colId": "ID",
+      "colName": "Name",
+      "colActions": "Actions"
+    },
+    "filters": {
+      "trigger": "Filters",
+      "title": "Filter Categories",
+      "subtitle": "Narrow down the categories list using one or more filters.",
+      "nameLabel": "Name",
+      "namePlaceholder": "Search by category name…",
+      "parentLabel": "Parent Category",
+      "apply": "Apply Filters",
+      "clear": "Clear Filters"
     }
   },
 

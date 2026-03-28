@@ -19,3 +19,27 @@ export type CategoryListResponse = {
     total: number;
   };
 };
+
+export type CategoryFilters = {
+  name?: string | null;
+  parent_id?: string | null;
+};
+
+export type CategoryChild = {
+  id: number;
+  name: string;
+  parent_id: number;
+  parent_name: string;
+  created_at: string | null;
+  updated_at: string | null;
+};
+
+export type CategoryDetail = {
+  id: number;
+  name: string;
+  parent_id: number | null;
+  parent_name: string | null;
+  children: CategoryChild[];
+  created_at: string;
+  updated_at: string;
+};

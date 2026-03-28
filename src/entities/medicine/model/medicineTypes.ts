@@ -88,7 +88,6 @@ export type MedicineFilters = {
   max_price?: string;
   imported?: BooleanFilter;
   laboratory?: string;
-  alternative?: BooleanFilter;
   active?: BooleanFilter;
   alternative_for?: string;
 };

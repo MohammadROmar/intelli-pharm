@@ -10,7 +10,6 @@ const FILTER_KEYS: (keyof MedicineFilters)[] = [
   'max_price',
   'imported',
   'laboratory',
-  'alternative',
   'active',
   'alternative_for',
 ];
@@ -25,8 +24,6 @@ export function useMedicineFilters() {
     max_price: searchParams.get('max_price') ?? undefined,
     imported: (searchParams.get('imported') ?? undefined) as BooleanFilter,
     laboratory: searchParams.get('laboratory') ?? undefined,
-    alternative: (searchParams.get('alternative') ??
-      undefined) as BooleanFilter,
     active: (searchParams.get('active') ?? undefined) as BooleanFilter,
     alternative_for: searchParams.get('alternative_for') ?? undefined,
   };

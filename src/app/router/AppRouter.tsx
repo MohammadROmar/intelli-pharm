@@ -20,6 +20,7 @@ import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineEditPage } from '@/pages/medicine-edit';
 import { LazyLaboratoryDetailPage } from '@/pages/laboratories-detail';
 import { LazyCityListPage } from '@/pages/city-list';
+import { LazyCategoryDetailPage } from '@/pages/category-detail';
 
 const router = createBrowserRouter([
   {
@@ -49,10 +50,7 @@ const router = createBrowserRouter([
               { path: ':id', element: <LazyLaboratoryDetailPage /> },
             ],
           },
-          {
-            path: 'cities',
-            children: [{ index: true, element: <LazyCityListPage /> }],
-          },
+          { path: 'cities', element: <LazyCityListPage /> },
           {
             path: 'medicines',
             children: [
@@ -74,7 +72,7 @@ const router = createBrowserRouter([
               {
                 path: ':id',
                 children: [
-                  { index: true, element: <p>CategoryDetails</p> },
+                  { index: true, element: <LazyCategoryDetailPage /> },
                   { path: 'edit', element: <LazyCategoryEditPage /> },
                 ],
               },

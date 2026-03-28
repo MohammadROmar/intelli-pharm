@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { CategoryFiltersModal } from './CategoryFiltersModal';
+import { useCategoryFilters } from '../model/useCategoryFilters';
 import { DeleteCategoryModal } from '@/features/category-delete';
 import {
   CategoryRow,
@@ -13,8 +15,8 @@ import {
   TableHeader,
   TableRow,
   TableCard,
-  TableCardHeader,
   TableEmptyState,
+  FiltersTrigger,
 } from '@/shared/ui';
 
 type Props = {
@@ -38,13 +40,7 @@ export function CategoriesTable({ data }: Props) {
 
       <TableCard
         title={t('list.all')}
-        header={
-          <TableCardHeader
-            createText={t('create.title')}
-            placeholder={t('list.searchPlaceholder')}
-            basePath="/dashboard/categories"
-          />
-        }
+        header={<CategoryFilters />}
         basePath="/dashboard/categories"
         currentPage={data.meta.current_page}
         totalItems={data.meta.total}
@@ -72,9 +68,46 @@ export function CategoriesTable({ data }: Props) {
             </TableBody>
           </>
         ) : (
-          <TableEmptyState variant="empty" />
+          <EmptyState />
         )}
       </TableCard>
     </>
+  );
+}
+
+function CategoryFilters() {
+  const [open, setOpen] = useState(false);
+  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
+    useCategoryFilters();
+
+  return (
+    <>
+      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
+      <CategoryFiltersModal
+        open={open}
+        onOpenChange={setOpen}
+        defaultValues={filters}
+        hasActiveFilters={hasActiveFilters}
+        onApply={(v) => {
+          applyFilters(v);
+          setOpen(false);
+        }}
+        onClear={() => {
+          clearFilters();
+          setOpen(false);
+        }}
+      />
+    </>
+  );
+}
+
+function EmptyState() {
+  const { hasActiveFilters, clearFilters } = useCategoryFilters();
+
+  return (
+    <TableEmptyState
+      variant={hasActiveFilters ? 'search' : 'empty'}
+      onClearSearch={clearFilters}
+    />
   );
 }

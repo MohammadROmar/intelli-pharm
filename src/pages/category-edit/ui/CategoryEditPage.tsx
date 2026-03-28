@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useGetCategory } from '../model/useGetCategory';
 import { CategoryEditForm } from '@/features/category-edit';
+import { useGetCategory } from '@/entities/category';
 import {
   Card,
   CardContent,

@@ -15,12 +15,14 @@ export type ApiResponse<T> = {
 export class ApiError extends Error {
   public readonly i18nKey: string;
   public readonly status?: number;
+  public readonly config?: AxiosRequestConfig;
 
-  constructor(i18nKey: string, status?: number) {
+  constructor(i18nKey: string, status?: number, config?: AxiosRequestConfig) {
     super(i18nKey);
     this.name = 'ApiError';
     this.i18nKey = i18nKey;
     this.status = status;
+    this.config = config;
   }
 }
 
@@ -87,6 +89,8 @@ apiClient.interceptors.response.use(
     }
 
     const status = error.response?.status;
-    return Promise.reject(new ApiError(statusToI18nKey(status), status));
+    return Promise.reject(
+      new ApiError(statusToI18nKey(status), status, error.config),
+    );
   },
 );
