@@ -20,6 +20,7 @@ import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
 import { LazyMedicineEditPage } from '@/pages/medicine-edit';
+import { LazyMedicineRestockPage } from '@/pages/medicine-restock';
 
 import { LazyCategoryListPage } from '@/pages/category-list';
 import { LazyCategoryCreatePage } from '@/pages/category-create';
@@ -69,6 +70,7 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <LazyMedicineDetailsPage /> },
                   { path: 'edit', element: <LazyMedicineEditPage /> },
+                  { path: 'restock', element: <LazyMedicineRestockPage /> },
                 ],
               },
             ],

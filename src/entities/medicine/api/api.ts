@@ -1,9 +1,9 @@
 import { medicineToFormData } from '../lib/utils';
-import type { MedicineFilters } from '../model/medicineTypes';
 import type {
   Medicine,
   MedicineFormData,
   MedicineResponse,
+  MedicineFilters,
 } from '../model/medicineTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
@@ -17,8 +17,8 @@ export async function createMedicine(data: MedicineFormData) {
 }
 
 export async function editMedicine(id: number, data: MedicineFormData) {
-  const fd = medicineToFormData(data);
-  return apiClient.put(`/erp/v1/medicines/${id}`, fd, {
+  const fd = medicineToFormData(data, true);
+  return apiClient.post(`/erp/v1/medicines/${id}`, fd, {
     headers: { 'Content-Type': undefined },
   });
 }

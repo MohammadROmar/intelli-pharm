@@ -5,7 +5,7 @@ import {
   useFormState,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Package, Plus, Trash2, Warehouse } from 'lucide-react';
+import { Calendar, Package, Plus, Trash2, Warehouse } from 'lucide-react';
 
 import {
   useMedicineFieldError,
@@ -179,6 +179,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
                   <Input
                     id={`expiry-${index}`}
                     type="date"
+                    icon={Calendar}
                     aria-invalid={expiryState.invalid}
                     className="text-sm"
                     {...register(`stocks.${index}.expiry_date`, {

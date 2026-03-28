@@ -50,7 +50,7 @@ export function MedicineForm({
         className="space-y-6"
       >
         <BasicInfoCard medicine={medicine} isPending={isPending} />
-        <StockEntriesCard isPending={isPending} />
+        {!medicine && <StockEntriesCard isPending={isPending} />}
         <ImagesCard
           images={images}
           isPending={isPending}

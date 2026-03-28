@@ -1,8 +1,18 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { PackagePlus } from 'lucide-react';
 
 import type { Medicine } from '../model/medicineTypes';
-import { formatDate } from '@/shared/lib';
-import { Badge, TableActions, TableCell, TableRow } from '@/shared/ui';
+import { buttonVariants, formatDate } from '@/shared/lib';
+import {
+  Badge,
+  TableActions,
+  TableCell,
+  TableRow,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/shared/ui';
 
 type MedicineRowProps = {
   medicine: Medicine;
@@ -39,8 +49,34 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
       >
         <TableActions.Detail />
         <TableActions.Update />
+        <Restock id={medicine.id} />
         <TableActions.Delete />
       </TableActions>
     </TableRow>
+  );
+}
+
+function Restock({ id }: { id: number }) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'medicinesPage.restock',
+  });
+
+  return (
+    <Tooltip disableHoverableContent>
+      <TooltipTrigger asChild>
+        <Link
+          to={`/dashboard/medicines/${id}/restock`}
+          aria-label={t('update')}
+          className={buttonVariants({
+            size: 'sm',
+            variant: 'ghost',
+            className: 'p-0!',
+          })}
+        >
+          <PackagePlus className="size-4" />
+        </Link>
+      </TooltipTrigger>
+      <TooltipContent>{t('tooltipLabel')}</TooltipContent>
+    </Tooltip>
   );
 }

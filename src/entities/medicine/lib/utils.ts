@@ -1,6 +1,9 @@
 import type { MedicineFormData } from '../model/medicineTypes';
 
-export function medicineToFormData({ values, images }: MedicineFormData) {
+export function medicineToFormData(
+  { values, images }: MedicineFormData,
+  isEdit: boolean = false,
+) {
   const fd = new FormData();
   fd.append('name', values.name);
   fd.append('category_id', values.category_id.toString());
@@ -21,6 +24,8 @@ export function medicineToFormData({ values, images }: MedicineFormData) {
   });
 
   images.forEach((img) => fd.append('images[]', img.file));
+
+  if (isEdit) fd.append('_method', 'PUT');
 
   return fd;
 }

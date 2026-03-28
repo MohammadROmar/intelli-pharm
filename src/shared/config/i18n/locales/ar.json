@@ -226,8 +226,12 @@
       "imagesRequired": "مطلوبة صورة واحدة على الأقل"
     },
     "detail": {
+      "medicine": "الدواء",
+      "stock": "المخزون",
+      "restock": "إعادة التخزين",
+      "actions": "الإجراءات",
       "breadcrumbMedicines": "الأدوية",
-      "edit": "تعديل التفاصيل",
+      "edit": "تعديل",
       "delete": "حذف",
       "active": "نشط",
       "inactive": "غير نشط",
@@ -276,6 +280,36 @@
         "description": "تم حذف الدواء بشكل نهائي من النظام."
       },
       "error": "فشل حذف الدواء"
+    },
+    "restock": {
+      "tooltipLabel": "إعادة التخزين",
+      "title": "إعادة تخزين الدواء",
+      "subtitle": "أضف إدخالات مخزون لمستودع واحد أو أكثر.",
+
+      "warehouseStock": "إدخالات المستودع",
+      "warehouseStockSubtitle": "كل صف يضيف مخزوناً إلى مستودع محدد.",
+
+      "stockLabel": "إدخال",
+      "warehouse": "المستودع",
+      "quantity": "الكمية",
+      "expiryDate": "تاريخ الانتهاء",
+      "addStock": "إضافة إدخال",
+
+      "totalQuantity": "إجمالي الوحدات المضافة",
+      "units": "وحدة",
+
+      "submit": "تأكيد إعادة التخزين",
+      "submitting": "جارٍ الحفظ…",
+      "cancel": "إلغاء",
+
+      "required": "{{field}} مطلوب",
+      "fRequired": "{{field}} مطلوبة",
+
+      "success": {
+        "title": "تم تعديل المخزون",
+        "description": "تمت تعديل المخزون بنجاح."
+      },
+      "error": "فشل تعديل المخزون"
     },
     "filters": {
       "trigger": "الفلاتر",
@@ -564,7 +598,8 @@
       "employees": "الموظفين",
       "new": "الإضافة",
       "edit": "التعديل",
-      "cities": "المدن"
+      "cities": "المدن",
+      "restock": "إعادة التخزين"
     },
 
     "medicines": {
