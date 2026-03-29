@@ -21,10 +21,6 @@ export async function createCity(payload: City) {
   return apiClient.post('/erp/v1/cities', payload);
 }
 
-export async function deleteCity(id: number) {
-  return apiClient.delete(`/erp/v1/cities/${id}`);
-}
-
 export async function getInfiniteCities(page: string, name?: string) {
   const response = await getCities(page, name ?? null);
 

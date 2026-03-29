@@ -1,20 +1,21 @@
+export {
+  editCategory,
+  getCategories,
+  createCategory,
+  getCategoryById,
+  getInfiniteCategories,
+} from './api';
+
 export type {
   Category,
-  CategoryListItem,
-  CategoryListResponse,
-  CategoryFilters,
   CategoryChild,
   CategoryDetail,
+  CategoryFilters,
+  CategoryListItem,
+  CategoryListResponse,
 } from './model/categoryTypes';
 export { useGetCategory } from './model/useGetCategory';
+
 export { CategoryRow } from './ui/CategoryRow';
 export { CategoryForm } from './ui/CategoryForm';
 export { CategorySelector } from './ui/CategorySelector';
-export {
-  getCategories,
-  createCategory,
-  deleteCategory,
-  editCategory,
-  getCategory,
-  getInfiniteCategories,
-} from './api/api';

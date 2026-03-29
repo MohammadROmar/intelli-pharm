@@ -44,6 +44,8 @@ export function RegionsTable({ data }: Props) {
       <TableCard
         title={t('all')}
         header={<RegionFilters />}
+        currItemsCount={regions.length}
+        headerClassName="flex-row"
         basePath="/dashboard/regions"
         currentPage={data.meta.current_page}
         totalItems={data.meta.total}

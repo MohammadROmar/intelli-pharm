@@ -81,36 +81,38 @@ export function DynamicPagination({
   maxVisiblePages = 7,
   extraParams,
 }: DynamicPaginationProps) {
-  const safePage = Math.max(1, Math.min(Number(currentPage), maxPages));
+  const { t } = useTranslation();
 
-  const isFirst = safePage <= 1;
-  const isLast = safePage >= maxPages;
+  const isFirst = currentPage <= 1;
+  const isLast = currentPage >= maxPages;
 
   const siblingCount = siblingCountFromMax(Math.max(5, maxVisiblePages));
-  const pageItems = buildPageItems(safePage, maxPages, siblingCount);
+  const pageItems = buildPageItems(currentPage, maxPages, siblingCount);
 
-  const firstItem = (safePage - 1) * itemsPerPage + 1;
-  const lastItem = Math.min(safePage * itemsPerPage, totalItems);
-
-  const { t } = useTranslation();
+  const firstItem = (currentPage - 1) * itemsPerPage + 1;
+  const lastItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-3 lg:flex-row lg:justify-between">
-      <p className="text-muted-foreground text-sm">
-        {t('pagination.showing')}{' '}
-        <span className="text-foreground font-medium">{firstItem}</span>{' '}
-        {t('pagination.to')}{' '}
-        <span className="text-foreground font-medium">{lastItem}</span>{' '}
-        {t('pagination.of')}{' '}
-        <span className="text-foreground font-medium">{totalItems}</span>{' '}
-      </p>
+      {!(currentPage > maxPages) && (
+        <p className="text-muted-foreground text-sm">
+          {t('pagination.showing')}{' '}
+          <span className="text-foreground font-medium">{firstItem}</span>{' '}
+          {t('pagination.to')}{' '}
+          <span className="text-foreground font-medium">{lastItem}</span>{' '}
+          {t('pagination.of')}{' '}
+          <span className="text-foreground font-medium">{totalItems}</span>{' '}
+        </p>
+      )}
 
       <Pagination className="block">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
               label={t('pagination.prev')}
-              to={isFirst ? '#' : buildUrl(basePath, safePage - 1, extraParams)}
+              to={
+                isFirst ? '#' : buildUrl(basePath, currentPage - 1, extraParams)
+              }
               aria-disabled={isFirst}
               tabIndex={isFirst ? -1 : undefined}
               className={isFirst ? 'pointer-events-none opacity-50' : undefined}
@@ -126,7 +128,7 @@ export function DynamicPagination({
               );
             }
 
-            const isActive = item === safePage;
+            const isActive = item === currentPage;
 
             return (
               <PaginationItem key={item}>
@@ -145,7 +147,9 @@ export function DynamicPagination({
           <PaginationItem>
             <PaginationNext
               label={t('pagination.next')}
-              to={isLast ? '#' : buildUrl(basePath, safePage + 1, extraParams)}
+              to={
+                isLast ? '#' : buildUrl(basePath, currentPage + 1, extraParams)
+              }
               aria-disabled={isLast}
               tabIndex={isLast ? -1 : undefined}
               className={isLast ? 'pointer-events-none opacity-50' : undefined}

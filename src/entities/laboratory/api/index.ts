@@ -34,10 +34,6 @@ export async function createLaboratory(payload: Laboratory) {
   return apiClient.post('/erp/v1/laboratories', payload);
 }
 
-export async function deleteLaboratory(id: number) {
-  return apiClient.delete(`/erp/v1/laboratories/${id}`);
-}
-
 export async function getInfiniteLaboratories(page: string, name?: string) {
   const response = await getLaboratories(page, name ?? null);
 

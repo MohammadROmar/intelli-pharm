@@ -1,8 +1,9 @@
-import { FolderOpen, SearchX } from 'lucide-react';
+import type { ElementType } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { FolderOpen, SearchX } from 'lucide-react';
 
 import { Button } from './Button';
-import type { ElementType } from 'react';
 
 interface Props {
   variant: 'empty' | 'search';
@@ -21,7 +22,12 @@ export function TableEmptyState({
     keyPrefix: 'common.noResults',
   });
 
-  const isSearch = variant === 'search';
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get('page');
+
+  const hasPage = page && page !== '1';
+
+  const isSearch = variant === 'search' || hasPage;
   const Icon = isSearch ? SearchX : FolderOpen;
 
   return (
@@ -29,7 +35,7 @@ export function TableEmptyState({
       <div className="py-16 text-center">
         <div className="flex flex-col items-center gap-3">
           <div className="bg-muted text-muted-foreground flex h-14 w-14 items-center justify-center rounded-2xl">
-            <Icon className="h-7 w-7" />
+            <Icon className="size-7" />
           </div>
 
           <p className="text-foreground text-sm font-semibold">

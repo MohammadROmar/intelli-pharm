@@ -4,7 +4,7 @@ import { PersonalInfoCard } from './PersonalInfoCard';
 import { EmployeeInfoCard } from './EmployeeInfoCard';
 import type {
   CreateEmployeeFormData,
-  UpdateEmployeeFormData,
+  EditEmployeeFormData,
   EmployeeInternalFormData,
   BaseEmployeeFormData,
 } from '../model/employeeTypes';
@@ -20,7 +20,7 @@ type CreateProps = {
 
 type EditProps = {
   mode: 'edit';
-  onSubmit: SubmitHandler<UpdateEmployeeFormData>;
+  onSubmit: SubmitHandler<EditEmployeeFormData>;
   defaultValues: BaseEmployeeFormData;
   isLoading?: boolean;
   onReset: () => void;
@@ -44,7 +44,7 @@ export function EmployeeForm(props: EmployeeFormProps) {
         data as CreateEmployeeFormData,
       );
     } else {
-      (onSubmit as SubmitHandler<UpdateEmployeeFormData>)(data);
+      (onSubmit as SubmitHandler<EditEmployeeFormData>)(data);
     }
   };
 

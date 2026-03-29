@@ -36,10 +36,6 @@ export async function getMedicines(
   });
 }
 
-export async function deleteMedicine(id: number) {
-  return apiClient.delete(`/erp/v1/medicines/${id}`);
-}
-
 export async function getInfiniteMedicines(page: string, name?: string) {
   const response = await getMedicines(page, { name });
 

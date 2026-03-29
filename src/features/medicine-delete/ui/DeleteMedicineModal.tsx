@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteMedicine } from '../model/useDeleteMedicine';
 import type { Medicine } from '@/entities/medicine';
+import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 interface DeleteMedicineModalProps {
@@ -15,7 +15,10 @@ export function DeleteMedicineModal({
   onClose,
   onDeleteSuccess,
 }: DeleteMedicineModalProps) {
-  const { mutate, isPending } = useDeleteMedicine();
+  const { mutate, isPending } = useDeleteEntity({
+    item: 'medicines',
+    translationKey: 'medicinesPage.medicine',
+  });
 
   const { t } = useTranslation();
 

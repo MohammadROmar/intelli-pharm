@@ -4,16 +4,16 @@ import { useEditEmployee } from '../model/useEditEmployee';
 import {
   EmployeeForm,
   type Employee,
-  type UpdateEmployeeFormData,
+  type EditEmployeeFormData,
 } from '@/entities/employee';
 
 type Props = { employee: Employee };
 
-export function UpdateEmployeeForm({ employee }: Props) {
+export function EditEmployeeForm({ employee }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useEditEmployee();
 
-  function onSubmit(payload: UpdateEmployeeFormData) {
+  function onSubmit(payload: EditEmployeeFormData) {
     mutate(
       { id: employee.id, payload },
       {

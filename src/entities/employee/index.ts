@@ -1,18 +1,19 @@
-export type {
-  Employee,
-  BaseEmployeeFormData,
-  CreateEmployeeFormData,
-  EmployeeInternalFormData,
-  UpdateEmployeeFormData,
-  EmployeeListResponse,
-  EmployeeFilters,
-} from './model/employeeTypes';
-export { EmployeeForm } from './ui/EmployeeForm';
-export { EmployeeRow } from './ui/EmployeeRow';
 export {
   getEmployees,
-  getEmployee,
+  getEmployeeById,
   createEmployee,
-  deleteEmployee,
   editEmployee,
-} from './api/api';
+} from './api';
+
+export type {
+  Employee,
+  EmployeeFilters,
+  EmployeeListResponse,
+  BaseEmployeeFormData,
+  EditEmployeeFormData,
+  CreateEmployeeFormData,
+  EmployeeInternalFormData,
+} from './model/employeeTypes';
+
+export { EmployeeRow } from './ui/EmployeeRow';
+export { EmployeeForm } from './ui/EmployeeForm';

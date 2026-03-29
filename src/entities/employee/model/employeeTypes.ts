@@ -28,7 +28,7 @@ export type CreateEmployeeFormData = BaseEmployeeFormData & {
   password: string;
 };
 
-export type UpdateEmployeeFormData = BaseEmployeeFormData;
+export type EditEmployeeFormData = BaseEmployeeFormData;
 
 export type EmployeeInternalFormData = BaseEmployeeFormData & {
   password?: string;

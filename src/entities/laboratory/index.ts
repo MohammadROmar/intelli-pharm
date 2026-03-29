@@ -1,3 +1,10 @@
+export {
+  getLaboratories,
+  createLaboratory,
+  editLaboratory,
+  getLaboratoryById,
+} from './api';
+
 export type {
   Laboratory,
   LaboratoryListItem,
@@ -5,15 +12,9 @@ export type {
   LaboratoryDetail,
   LaboratoryMedicine,
 } from './model/laboratoryTypes';
-export { useGetLaboratory } from '../../pages/laboratory-list/model/useGetLaboratory';
-export {
-  getLaboratories,
-  createLaboratory,
-  deleteLaboratory,
-  editLaboratory,
-  getLaboratoryById,
-} from './api/api';
-export { LaboratoryForm } from './ui/LaboratoryForm';
+export { useGetLaboratory } from './model/useGetLaboratory';
+
 export { LaboratoryRow } from './ui/LaboratoryRow';
+export { LaboratoryForm } from './ui/LaboratoryForm';
 export { LaboratorySheet } from './ui/LaboratorySheet';
 export { LaboratorySelector } from './ui/LaboratorySelector';

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import type { LoginParams, LoginResponse } from './loginTypes';
-import { login } from '../api/api';
+import { login } from '../api';
 import { setCredentials } from '@/entities/session';
 import type { ApiResponse, ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';

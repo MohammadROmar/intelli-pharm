@@ -1,39 +1,11 @@
-import { toast } from 'sonner';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
 import { editLaboratory } from '@/entities/laboratory';
-import type { ApiError, ApiResponse } from '@/shared/api';
+import { useEditEntity } from '@/shared/model';
 
 export function useEditLaboratory() {
-  const queryClient = useQueryClient();
-  const { t } = useTranslation();
-
-  const naviagte = useNavigate();
-
-  return useMutation<
-    ApiResponse<unknown>,
-    ApiError,
-    { id: number; name: string }
-  >({
+  return useEditEntity<{ id: number; name: string }>({
+    queryKey: 'laboratories',
     mutationFn: editLaboratory,
-
-    onSuccess: () => {
-      toast.success(t('common.toasts.edit.title'), {
-        description: t('common.toasts.edit.description', {
-          item: t('laboratoriesPage.laboratory'),
-        }),
-      });
-
-      queryClient.invalidateQueries({ queryKey: ['laboratories'] });
-      naviagte('/dashboard/laboratories');
-    },
-
-    onError: (error) => {
-      toast.error(t('common.toasts.edit.error'), {
-        description: t(error.i18nKey),
-      });
-    },
+    translationKey: 'laboratoriesPage.laboratory',
+    redirectTo: '/dashboard/laboratories',
   });
 }

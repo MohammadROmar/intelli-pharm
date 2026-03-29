@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getInfiniteLaboratories } from '../api/api';
+import { getInfiniteLaboratories } from '../api';
 import { getNextPageParam } from '@/shared/lib';
 
 export function useInfiniteLaboratories(searchTerm: string) {

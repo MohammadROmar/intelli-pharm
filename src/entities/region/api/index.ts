@@ -26,7 +26,3 @@ export async function createRegion(payload: Region) {
 export async function editRegion({ id, name, city_id }: RegionListItem) {
   return apiClient.put(`/erp/v1/regions/${id}`, { name, city_id });
 }
-
-export async function deleteRegion(id: number) {
-  return apiClient.delete(`/erp/v1/regions/${id}`);
-}

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteCity } from '../model/useDeleteCity';
 import type { CityDetail } from '@/entities/city';
+import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 interface DeleteCityModalProps {
@@ -15,7 +15,10 @@ export function DeleteCityModal({
   onClose,
   onDeleteSuccess,
 }: DeleteCityModalProps) {
-  const { mutate, isPending } = useDeleteCity();
+  const { mutate, isPending } = useDeleteEntity({
+    item: 'cities',
+    translationKey: 'citiesPage.city',
+  });
 
   const { t } = useTranslation();
 

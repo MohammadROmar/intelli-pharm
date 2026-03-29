@@ -1,18 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-
 import { getCityById, type CityDetail } from '@/entities/city';
-import type { ApiError, ApiResponse } from '@/shared/api';
+import { useGetEntityById } from '@/shared/model';
 
 export function useGetCity() {
-  const { id } = useParams();
-
-  const cityId = Number(id);
-  const isValidId = !isNaN(cityId);
-
-  return useQuery<ApiResponse<CityDetail>, ApiError>({
-    queryKey: ['cities', `id-${cityId}`],
-    queryFn: () => getCityById(cityId),
-    enabled: isValidId,
+  return useGetEntityById<CityDetail>({
+    queryKey: 'cities',
+    fetchFn: getCityById,
   });
 }

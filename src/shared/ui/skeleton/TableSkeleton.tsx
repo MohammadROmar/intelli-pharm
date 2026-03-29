@@ -18,8 +18,12 @@ export function TableSkeleton() {
       </div>
 
       <Card>
-        <CardHeader>
-          <Skeleton className="h-4 w-52" />
+        <CardHeader className="flex! flex-row items-center! justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-5 w-32" />
+            <Skeleton className="h-4 w-6" />
+          </div>
+          <Skeleton className="h-8 w-20" />
         </CardHeader>
         <CardContent>
           <Table className="h-full">

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AdminEditRestricted } from './AdminEditRestricted';
 import { useGetEmployee } from '../model/useGetEmployee';
-import { UpdateEmployeeForm } from '@/features/employee-edit';
+import { EditEmployeeForm } from '@/features/employee-edit';
 import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
 
 export default function EmployeeEditPage() {
@@ -27,7 +27,7 @@ export default function EmployeeEditPage() {
       {isAdmin ? (
         <AdminEditRestricted />
       ) : (
-        <UpdateEmployeeForm employee={data.data!} />
+        <EditEmployeeForm employee={data.data!} />
       )}
     </>
   );

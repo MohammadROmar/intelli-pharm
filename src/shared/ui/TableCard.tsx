@@ -16,6 +16,7 @@ type TableCardProps = Omit<DynamicPaginationProps, 'maxPages'> & {
   title: string;
   header?: ReactNode;
   headerClassName?: string;
+  currItemsCount: number;
   children: ReactNode;
 };
 
@@ -29,9 +30,12 @@ export function TableCard({
   itemsPerPage,
   children,
   header,
+  currItemsCount,
   headerClassName,
 }: TableCardProps) {
   const maxPages = Math.ceil(totalItems / itemsPerPage);
+
+  const hasNoItems = totalItems === 0 || currItemsCount === 0;
 
   return (
     <Card>
@@ -52,7 +56,7 @@ export function TableCard({
         </div>
       </CardHeader>
       <CardContent>
-        {totalItems === 0 ? children : <Table>{children}</Table>}
+        {hasNoItems ? children : <Table>{children}</Table>}
       </CardContent>
       {totalItems > 0 && (
         <CardFooter>

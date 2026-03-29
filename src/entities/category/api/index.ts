@@ -17,7 +17,7 @@ export async function getCategories(
   });
 }
 
-export function getCategory(id: number) {
+export function getCategoryById(id: number) {
   return apiClient.get<CategoryDetail>(`/erp/v1/categories/${id}`);
 }
 
@@ -33,10 +33,6 @@ export async function editCategory({
   payload: Partial<Category>;
 }) {
   return apiClient.put(`/erp/v1/categories/${id}`, payload);
-}
-
-export async function deleteCategory(id: number) {
-  return apiClient.delete(`/erp/v1/categories/${id}`);
 }
 
 export async function getInfiniteCategories(page: string, name?: string) {

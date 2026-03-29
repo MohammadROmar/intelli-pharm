@@ -1,14 +1,15 @@
 export {
   createCity,
-  deleteCity,
   editCity,
   getCities,
   getCityById,
   getInfiniteCities,
-} from './api/api';
-export type { CitiesResponse, City, CityDetail } from './model/cityTypes';
+} from './api';
+
 export { useInfiniteCities } from './model/useInfiniteCities';
-export { CityForm } from './ui/CityForm';
+export type { CitiesResponse, City, CityDetail } from './model/cityTypes';
+
 export { CityRow } from './ui/CityRow';
-export { CitySelector } from './ui/CitySelector';
+export { CityForm } from './ui/CityForm';
 export { CitySheet } from './ui/CitySheet';
+export { CitySelector } from './ui/CitySelector';

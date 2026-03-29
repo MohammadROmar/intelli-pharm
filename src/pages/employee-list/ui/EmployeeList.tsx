@@ -41,6 +41,7 @@ export function EmployeeList({ data }: { data: EmployeeListResponse }) {
         title={t('list.all')}
         header={<Filters />}
         headerClassName="flex-row"
+        currItemsCount={employees.length}
         basePath="/dashboard/employees"
         itemsPerPage={data.meta.per_page}
         currentPage={data.meta.current_page}

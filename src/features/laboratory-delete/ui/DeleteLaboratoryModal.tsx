@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteLaboratory } from '../model/useDeleteLaboratory';
 import type { LaboratoryListItem } from '@/entities/laboratory';
+import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 interface DeleteLaboratoryModalProps {
@@ -15,7 +15,10 @@ export function DeleteLaboratoryModal({
   onClose,
   onDeleteSuccess,
 }: DeleteLaboratoryModalProps) {
-  const { mutate, isPending } = useDeleteLaboratory();
+  const { mutate, isPending } = useDeleteEntity({
+    item: 'laboratories',
+    translationKey: 'laboratoriesPage.laboratory',
+  });
 
   const { t } = useTranslation();
 

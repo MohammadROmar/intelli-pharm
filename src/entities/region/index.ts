@@ -1,10 +1,4 @@
-export {
-  createRegion,
-  deleteRegion,
-  editRegion,
-  getRegionById,
-  getRegions,
-} from './api/api';
+export { createRegion, editRegion, getRegionById, getRegions } from './api';
 
 export type {
   Region,
@@ -16,5 +10,5 @@ export type {
 } from './model/regionTypes';
 export { useGetRegion } from './model/useGetRegion';
 
-export { RegionForm } from './ui/RegionForm';
 export { RegionRow } from './ui/RegionsRow';
+export { RegionForm } from './ui/RegionForm';

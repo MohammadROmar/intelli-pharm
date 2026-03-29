@@ -39,6 +39,7 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
         for (const item of filterKeys) {
           next.delete(String(item));
         }
+        next.delete('page');
 
         return next;
       },

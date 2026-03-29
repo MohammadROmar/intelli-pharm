@@ -19,9 +19,7 @@ import {
   FiltersTrigger,
 } from '@/shared/ui';
 
-type Props = {
-  data: CategoryListResponse;
-};
+type Props = { data: CategoryListResponse };
 
 export function CategoriesTable({ data }: Props) {
   const { t } = useTranslation('translation', { keyPrefix: 'categoriesPage' });
@@ -41,6 +39,8 @@ export function CategoriesTable({ data }: Props) {
       <TableCard
         title={t('list.all')}
         header={<CategoryFilters />}
+        headerClassName="flex-row"
+        currItemsCount={categories.length}
         basePath="/dashboard/categories"
         currentPage={data.meta.current_page}
         totalItems={data.meta.total}

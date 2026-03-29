@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteCategory } from '../model/useDeleteCategory';
 import type { CategoryDetail, CategoryListItem } from '@/entities/category';
+import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 interface DeleteCategoryModalProps {
@@ -15,7 +15,10 @@ export function DeleteCategoryModal({
   onClose,
   onDeleteSuccess,
 }: DeleteCategoryModalProps) {
-  const { mutate, isPending } = useDeleteCategory();
+  const { mutate, isPending } = useDeleteEntity({
+    item: 'categories',
+    translationKey: 'categoriesPage.category',
+  });
 
   const { t } = useTranslation();
 

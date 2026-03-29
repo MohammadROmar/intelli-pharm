@@ -1,7 +1,7 @@
 import type {
   Employee,
   CreateEmployeeFormData,
-  UpdateEmployeeFormData,
+  EditEmployeeFormData,
   EmployeeListResponse,
   EmployeeFilters,
 } from '../model/employeeTypes';
@@ -32,9 +32,9 @@ export async function editEmployee({
   payload,
 }: {
   id: number;
-  payload: UpdateEmployeeFormData;
+  payload: EditEmployeeFormData;
 }) {
-  const data: UpdateEmployeeFormData = {
+  const data: EditEmployeeFormData = {
     ...payload,
     working_start: payload.working_start.slice(0, 5),
     working_end: payload.working_end.slice(0, 5),
@@ -43,10 +43,6 @@ export async function editEmployee({
   return apiClient.put(`/erp/v1/employees/${id}`, data);
 }
 
-export async function getEmployee(id: number) {
+export async function getEmployeeById(id: number) {
   return apiClient.get<Employee>(`/erp/v1/employees/${id}`);
-}
-
-export async function deleteEmployee(id: number) {
-  return apiClient.delete<unknown>(`/erp/v1/employees/${id}`);
 }

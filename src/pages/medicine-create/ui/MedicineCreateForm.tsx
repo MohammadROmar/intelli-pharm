@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useCreateMedicine } from '../model/useMedicineCreate';
+import { useCreateMedicine } from '../model/useCreateMedicine';
 import { MedicineForm } from '@/features/medicine-form';
 import { type ImageFile, type MedicineFormData } from '@/entities/medicine';
 

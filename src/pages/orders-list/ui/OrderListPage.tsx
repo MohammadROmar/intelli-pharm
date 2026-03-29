@@ -35,6 +35,7 @@ export default function OrdersListPage() {
         title={t('all')}
         basePath="/dashboard/orders"
         itemsPerPage={10}
+        currItemsCount={dummyOrders.length}
         currentPage={parseInt(page ?? '1')}
         totalItems={200}
       >

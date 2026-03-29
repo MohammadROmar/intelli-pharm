@@ -60,6 +60,7 @@ function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
       title={t('list.all')}
       basePath="/dashboard/cities"
       itemsPerPage={10}
+      currItemsCount={cities.length}
       header={
         <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
           <SearchField placeholder={t('list.searchPlaceholder')} />

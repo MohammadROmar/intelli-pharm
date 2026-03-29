@@ -41,6 +41,7 @@ export function LaboratoryTable({ data }: Props) {
       <TableCard
         title={t('list.all')}
         basePath="/dashboard/laboratories"
+        currItemsCount={labs.length}
         itemsPerPage={10}
         header={
           <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">

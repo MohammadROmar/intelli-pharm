@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getInfiniteCategories } from '../api/api';
+import { getInfiniteCategories } from '../api';
 import { getNextPageParam } from '@/shared/lib';
 
 export function useInfiniteCategories(searchTerm: string) {

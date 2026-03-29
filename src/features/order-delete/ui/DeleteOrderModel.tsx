@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteOrder } from '../model/useDeleteOrder';
 import type { Order } from '@/entities/order';
+import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 interface DeleteOrderModalProps {
@@ -10,7 +10,10 @@ interface DeleteOrderModalProps {
 }
 
 export function DeleteOrderModal({ order, onClose }: DeleteOrderModalProps) {
-  const { mutate, isPending } = useDeleteOrder();
+  const { mutate, isPending } = useDeleteEntity({
+    item: 'orders',
+    translationKey: 'ordersPage.order',
+  });
 
   const { t } = useTranslation();
 

@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { getInfiniteMedicines } from '../api/api';
+import { getInfiniteMedicines } from '../api';
 import { getNextPageParam } from '@/shared/lib';
 
 export function useInfiniteMedicines(searchTerm: string) {

@@ -1,13 +1,14 @@
 export {
-  logout,
-  sessionSlice,
-  setCredentials,
-  setLoading,
-  default as sessionReducer,
-} from './model/slice';
-export {
   setRefreshToken,
-  clearRefreshToken,
   hasRefreshToken,
   getRefreshToken,
+  clearRefreshToken,
 } from './lib/refreshToken';
+
+export {
+  logout,
+  setLoading,
+  sessionSlice,
+  setCredentials,
+  default as sessionReducer,
+} from './model/slice';

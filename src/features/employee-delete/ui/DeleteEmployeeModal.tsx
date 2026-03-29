@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
-import { useDeleteEmployee } from '../model/useDeleteEmployee';
 import type { Employee } from '@/entities/employee';
+import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 interface DeleteEmployeeModalProps {
@@ -13,7 +13,10 @@ export function DeleteEmployeeModal({
   employee,
   onClose,
 }: DeleteEmployeeModalProps) {
-  const { mutate, isPending } = useDeleteEmployee();
+  const { mutate, isPending } = useDeleteEntity({
+    item: 'employees',
+    translationKey: 'employeesPage.employee',
+  });
 
   const { t } = useTranslation();
 
