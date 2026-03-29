@@ -34,10 +34,6 @@ export async function createLaboratory(payload: Laboratory) {
   return apiClient.post('/erp/v1/laboratories', payload);
 }
 
-export async function updateLaboratory(id: number, payload: Laboratory) {
-  return apiClient.put(`/erp/v1/laboratories/${id}`, payload);
-}
-
 export async function deleteLaboratory(id: number) {
   return apiClient.delete(`/erp/v1/laboratories/${id}`);
 }

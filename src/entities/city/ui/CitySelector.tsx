@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pipette } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 
 import { useInfiniteCities } from '../model/useInfiniteCities';
 import {
@@ -35,7 +35,7 @@ export function CitySelector({
       options={selectableCities}
       valueKey="id"
       labelKey="name"
-      icon={Pipette}
+      icon={Building2}
       value={value}
       onValueChange={onValueChange!}
       onSearchChange={setSearchTerm}

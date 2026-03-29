@@ -1,0 +1,99 @@
+import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { MapPin } from 'lucide-react';
+
+import { CitySelector } from '@/entities/city';
+import type { Region, RegionListItem } from '../model/regionTypes';
+import {
+  Input,
+  Field,
+  FieldError,
+  FieldLabel,
+  FormActions,
+  CardSectionHeader,
+} from '@/shared/ui';
+
+type RegionFormProps = {
+  onSubmit: SubmitHandler<Region>;
+  defaultValues?: Partial<RegionListItem>;
+  isLoading?: boolean;
+  selected?: { id: number; name: string };
+  onReset: () => void;
+};
+
+export function RegionForm({
+  onSubmit,
+  defaultValues,
+  isLoading,
+  selected,
+  onReset,
+}: RegionFormProps) {
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Region>({ defaultValues });
+
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'regionsPage.form',
+  });
+
+  const isEdit = !!defaultValues;
+
+  return (
+    <>
+      <CardSectionHeader
+        icon={MapPin}
+        title={t('info')}
+        description={t('infoDescription')}
+      />
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <Field data-invalid={!!errors.name}>
+          <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
+          <Input
+            id="name"
+            type="text"
+            autoComplete="off"
+            icon={MapPin}
+            placeholder={t('namePlaceholder')}
+            {...register('name', {
+              required: true,
+              disabled: isLoading,
+              validate: (value) => value && value.trim() !== '',
+            })}
+          />
+          {errors.name && <FieldError>{t('errors.required')}</FieldError>}
+        </Field>
+        {!isEdit && (
+          <Field data-invalid={!!errors.city_id}>
+            <FieldLabel asChild>
+              <p>{t('city')}</p>
+            </FieldLabel>
+            <Controller
+              name="city_id"
+              control={control}
+              rules={{ required: true }}
+              render={({ field }) => (
+                <CitySelector
+                  isLoading={isLoading}
+                  invalid={!!errors.city_id}
+                  selected={selected}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+            {errors.city_id && <FieldError>{t('errors.required')}</FieldError>}
+          </Field>
+        )}
+        <FormActions
+          isEdit={!!defaultValues}
+          isLoading={isLoading}
+          onReset={onReset}
+        />
+      </form>
+    </>
+  );
+}

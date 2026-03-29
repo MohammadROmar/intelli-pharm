@@ -118,6 +118,66 @@
     }
   },
 
+  "regionsPage": {
+    "region": "Region",
+    "list": {
+      "title": "Regions",
+      "subtitle": "Manage, update, or remove region records in the table below.",
+      "all": "All Regions",
+      "id": "ID",
+      "name": "Name",
+      "cityId": "City ID",
+      "actions": "Actions"
+    },
+    "create": {
+      "title": "Add New Area",
+      "subtitle": "Register a new area in the system."
+    },
+    "edit": {
+      "title": "Edit Area",
+      "subtitle": "Change the information below to edit it."
+    },
+    "form": {
+      "title": "Area Details",
+      "subtitle": "Enter the area details below.",
+      "info": "Area Information",
+      "infoDescription": "The area name and the city it belongs to.",
+      "name": "Name",
+      "namePlaceholder": "e.g. Al Mazzeh",
+      "city": "City",
+      "errors": {
+        "required": "This field is required."
+      }
+    },
+    "detail": {
+      "breadcrumb": "Regions",
+      "edit": "Edit Details",
+      "delete": "Delete",
+
+      "cardTitle": "Region Information",
+      "cardSubtitle": "Detailed information about this region.",
+
+      "labelCity": "City",
+      "labelPharmaciesCount": "Total Pharmacies",
+
+      "pharmaciesTitle": "Registered Pharmacies",
+      "pharmaciesSubtitle": "All pharmacies operating in this region.",
+      "noPharmacies": "No pharmacies registered in this region.",
+
+      "colId": "ID",
+      "colName": "Name",
+      "colPhone": "Phone",
+      "colActions": "Actions"
+    },
+    "filters": {
+      "title": "Filter Medicines",
+      "subtitle": "Narrow down the region list using one or more filters",
+      "nameLabel": "Name",
+      "namePlaceholder": "Search by region name…",
+      "cityLabel": "City"
+    }
+  },
+
   "medicinesPage": {
     "medicine": "Medicine",
     "create": {
@@ -503,9 +563,14 @@
       "new": "New",
       "edit": "Edit",
       "cities": "Cities",
-      "restock": "Restock"
+      "restock": "Restock",
+      "regions": "Regions"
     },
 
+    "regions": {
+      "list": "All Regions",
+      "new": "Add Regions"
+    },
     "medicines": {
       "list": "All Medicines",
       "new": "Add Medicine"

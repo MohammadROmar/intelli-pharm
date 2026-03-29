@@ -54,7 +54,11 @@ function EditLaboratoryButton({ id, label }: Props) {
         <Link
           to={`/dashboard/laboratories/${id}?active=edit`}
           aria-label={label}
-          className={buttonVariants({ size: 'sm', variant: 'ghost' })}
+          className={buttonVariants({
+            size: 'sm',
+            variant: 'ghost',
+            className: 'px-1!',
+          })}
         >
           <Pencil className="size-4" />
         </Link>

@@ -27,7 +27,7 @@ export async function createEmployee(payload: CreateEmployeeFormData) {
   return apiClient.post('/erp/v1/employees', data);
 }
 
-export async function updateEmployee({
+export async function editEmployee({
   id,
   payload,
 }: {

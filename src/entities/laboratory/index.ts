@@ -9,7 +9,6 @@ export { useGetLaboratory } from '../../pages/laboratory-list/model/useGetLabora
 export {
   getLaboratories,
   createLaboratory,
-  updateLaboratory,
   deleteLaboratory,
   editLaboratory,
   getLaboratoryById,

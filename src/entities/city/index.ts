@@ -5,7 +5,6 @@ export {
   getCities,
   getCityById,
   getInfiniteCities,
-  updateCity,
 } from './api/api';
 export type { CitiesResponse, City, CityDetail } from './model/cityTypes';
 export { useInfiniteCities } from './model/useInfiniteCities';

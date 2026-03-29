@@ -47,7 +47,7 @@ function DeleteCategoryBtn({ category, label }: Props & { label: string }) {
       <DeleteCategoryModal
         category={categoryToDelete}
         onClose={() => setCategoryToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/laboratories')}
+        onDeleteSuccess={() => navigate('/dashboard/categories')}
       />
 
       <Button

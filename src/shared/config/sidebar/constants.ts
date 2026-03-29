@@ -5,7 +5,8 @@ import {
   LayoutDashboard,
   Package,
   Pipette,
-  Building,
+  Building2,
+  MapPin,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -34,7 +35,22 @@ export const sidebarData = [
   {
     key: 'labels.cities',
     url: '/dashboard/cities',
-    icon: Building,
+    icon: Building2,
+  },
+  {
+    key: 'labels.regions',
+    url: '/dashboard/regions',
+    icon: MapPin,
+    items: [
+      {
+        key: 'regions.list',
+        url: '/dashboard/regions',
+      },
+      {
+        key: 'regions.new',
+        url: '/dashboard/regions/new',
+      },
+    ],
   },
   {
     key: 'labels.medicines',

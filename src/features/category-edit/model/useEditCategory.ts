@@ -6,18 +6,14 @@ import { editCategory, type Category } from '@/entities/category';
 import type { ApiError, ApiResponse } from '@/shared/api';
 import { useNavigate } from 'react-router-dom';
 
-export function useEditCategory() {
+export function useEditCategory(id: number) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { t } = useTranslation();
 
-  return useMutation<
-    ApiResponse<unknown>,
-    ApiError,
-    { id: number; payload: Category }
-  >({
-    mutationFn: editCategory,
+  return useMutation<ApiResponse<unknown>, ApiError, Category>({
+    mutationFn: (payload) => editCategory({ id, payload }),
     onSuccess: () => {
       toast.success(t('common.toasts.edit.title'), {
         description: t('common.toasts.edit.description', {
@@ -26,7 +22,7 @@ export function useEditCategory() {
       });
 
       queryClient.invalidateQueries({ queryKey: ['categories'] });
-      navigate('/dashboard/categories');
+      navigate(`/dashboard/categories/${id}`);
     },
     onError: (error) => {
       toast.error(t('common.toasts.edit.error'), {

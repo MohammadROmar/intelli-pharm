@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import type { UpdateEmployeeFormData } from '@/entities/employee';
-import { updateEmployee } from '@/entities/employee';
+import { editEmployee } from '@/entities/employee';
 import type { ApiError, ApiResponse } from '@/shared/api';
 
 export function useEditEmployee() {
@@ -18,7 +18,7 @@ export function useEditEmployee() {
     ApiError,
     { id: number; payload: UpdateEmployeeFormData }
   >({
-    mutationFn: updateEmployee,
+    mutationFn: editEmployee,
 
     onSuccess: () => {
       toast.success(t('common.toasts.edit.title'), {

@@ -44,7 +44,7 @@ export function CategoryChildrenTable({ category }: Props) {
           <TableBody>
             {children.map((child: CategoryChild) => (
               <TableRow key={child.id}>
-                <TableCell className="text-muted-foreground font-mono text-xs">
+                <TableCell className="text-muted-foreground text-xs">
                   {child.id}
                 </TableCell>
                 <TableCell>

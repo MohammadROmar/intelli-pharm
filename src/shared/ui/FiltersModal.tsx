@@ -5,15 +5,9 @@ import { SlidersHorizontal, X } from 'lucide-react';
 import { Button } from './Button';
 import { Badge } from './badge';
 import { Separator } from './Separator';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from './dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader } from './dialog';
 import { cn } from '../lib';
+import { CardSectionHeader } from './CardSectionHeader';
 
 type Props = {
   open: boolean;
@@ -73,11 +67,12 @@ export function FiltersModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn('sm:max-w-md', className)}>
         <DialogHeader className="text-start">
-          <DialogTitle className="flex items-center gap-2">
-            <SlidersHorizontal className="h-4 w-4" />
-            {title}
-          </DialogTitle>
-          <DialogDescription>{subtitle}</DialogDescription>
+          <CardSectionHeader
+            title={title}
+            description={subtitle}
+            icon={SlidersHorizontal}
+            className="mb-0!"
+          />
         </DialogHeader>
 
         <Separator />

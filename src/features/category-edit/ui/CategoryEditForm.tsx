@@ -12,12 +12,10 @@ type Props = { category: CategoryListItem };
 export function CategoryEditForm({ category }: Props) {
   const [formKey, setFormKey] = useState(0);
 
-  const { mutate, isPending } = useEditCategory();
+  const { mutate, isPending } = useEditCategory(category.id);
 
   function handleSubmit(payload: Category) {
-    const data = { id: category.id, payload };
-
-    mutate(data, {
+    mutate(payload, {
       onSuccess: () => setFormKey((prev) => prev + 1),
     });
   }

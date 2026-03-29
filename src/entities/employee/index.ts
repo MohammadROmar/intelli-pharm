@@ -14,5 +14,5 @@ export {
   getEmployee,
   createEmployee,
   deleteEmployee,
-  updateEmployee,
+  editEmployee,
 } from './api/api';

@@ -21,10 +21,6 @@ export async function createCity(payload: City) {
   return apiClient.post('/erp/v1/cities', payload);
 }
 
-export async function updateCity(id: number, payload: City) {
-  return apiClient.put(`/erp/v1/cities/${id}`, payload);
-}
-
 export async function deleteCity(id: number) {
   return apiClient.delete(`/erp/v1/cities/${id}`);
 }

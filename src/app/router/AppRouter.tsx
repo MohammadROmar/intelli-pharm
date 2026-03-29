@@ -16,6 +16,11 @@ import { LazyLaboratoryDetailPage } from '@/pages/laboratory-detail';
 
 import { LazyCityListPage } from '@/pages/city-list';
 
+import { LazyRegionListPage } from '@/pages/region-list';
+import { LazyRegionCreatePage } from '@/pages/region-create';
+import { LazyRegionEditPage } from '@/pages/region-edit';
+import { LazyRegionDetailPage } from '@/pages/region-detail';
+
 import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
@@ -46,12 +51,15 @@ const router = createBrowserRouter([
           },
         ],
       },
+
       {
         path: '/dashboard',
         element: <DashboardRoute />,
         children: [
           { index: true, element: <></> },
+
           { path: 'orders', element: <LazyOrderListPage /> },
+
           {
             path: 'laboratories',
             children: [
@@ -59,7 +67,24 @@ const router = createBrowserRouter([
               { path: ':id', element: <LazyLaboratoryDetailPage /> },
             ],
           },
+
           { path: 'cities', element: <LazyCityListPage /> },
+
+          {
+            path: 'regions',
+            children: [
+              { index: true, element: <LazyRegionListPage /> },
+              { path: 'new', element: <LazyRegionCreatePage /> },
+              {
+                path: ':id',
+                children: [
+                  { index: true, element: <LazyRegionDetailPage /> },
+                  { path: 'edit', element: <LazyRegionEditPage /> },
+                ],
+              },
+            ],
+          },
+
           {
             path: 'medicines',
             children: [
@@ -75,6 +100,7 @@ const router = createBrowserRouter([
               },
             ],
           },
+
           {
             path: 'categories',
             children: [
@@ -89,6 +115,7 @@ const router = createBrowserRouter([
               { path: 'new', element: <LazyCategoryCreatePage /> },
             ],
           },
+
           {
             path: 'employees',
             children: [
