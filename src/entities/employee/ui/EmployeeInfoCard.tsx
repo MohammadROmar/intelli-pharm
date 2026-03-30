@@ -134,8 +134,6 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             type="time"
             autoComplete="off"
             icon={Clock}
-            step="1"
-            lang="en-GB"
             aria-invalid={!!errors.working_start}
             className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
             {...register('working_start', {
@@ -157,8 +155,6 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             type="time"
             autoComplete="off"
             icon={Clock}
-            step="1"
-            lang="en-GB"
             aria-invalid={!!errors.working_end}
             className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
             {...register('working_end', {

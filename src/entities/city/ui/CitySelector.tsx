@@ -20,7 +20,7 @@ export function CitySelector({
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { cities, queryResult } = useInfiniteCities(searchTerm);
+  const { entities: cities, queryResult } = useInfiniteCities(searchTerm);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 

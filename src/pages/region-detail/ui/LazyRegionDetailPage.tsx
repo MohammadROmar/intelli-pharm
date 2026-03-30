@@ -8,7 +8,7 @@ export function LazyRegionDetailPage() {
   return (
     <WithSuspense
       Component={RegionDetailPage}
-      loader={<DetailSkeleton rows={1} tables={1} />}
+      loader={<DetailSkeleton cards={[{ rows: 1 }]} tables={1} />}
     />
   );
 }

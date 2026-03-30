@@ -20,7 +20,8 @@ export function LaboratorySelector({
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { laboratories, queryResult } = useInfiniteLaboratories(searchTerm);
+  const { entities: laboratories, queryResult } =
+    useInfiniteLaboratories(searchTerm);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 

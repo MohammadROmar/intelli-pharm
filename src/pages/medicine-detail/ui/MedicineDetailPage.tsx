@@ -10,7 +10,7 @@ export default function MedicineDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <DetailSkeleton rows={4} tables={3} hasImage />;
+    return <DetailSkeleton cards={[{ rows: 4 }]} tables={3} hasImage />;
   }
 
   return <MedicineDetail medicine={data.data!} />;

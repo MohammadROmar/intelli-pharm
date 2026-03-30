@@ -8,7 +8,7 @@ export function LazyCategoryDetailPage() {
   return (
     <WithSuspense
       Component={CategoryDetailPage}
-      loader={<DetailSkeleton rows={4} tables={1} />}
+      loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={1} />}
     />
   );
 }

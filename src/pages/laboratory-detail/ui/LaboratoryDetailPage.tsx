@@ -10,7 +10,7 @@ export default function LaboratoryDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <DetailSkeleton rows={3} tables={1} />;
+    return <DetailSkeleton cards={[{ rows: 3 }]} tables={1} />;
   }
 
   return <LaboratoryDetail laboratory={data.data!} />;

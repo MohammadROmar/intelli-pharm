@@ -6,7 +6,7 @@ import { cn } from '../../lib';
 function DetailCellSkeleton() {
   return (
     <div className="space-y-2">
-      <Skeleton className="h-2.5 w-16" />
+      <Skeleton className="h-4 w-16" />
       <Skeleton className="h-5 w-28" />
     </div>
   );
@@ -38,16 +38,16 @@ function DetailHeaderSkeleton() {
 
 type Props = {
   hasImage?: boolean;
-  rows: number;
+  cards: { rows: number }[];
   tables: number;
 };
 
-function DetailSkeleton({ rows, tables, hasImage }: Props) {
+function DetailSkeleton({ cards, tables, hasImage }: Props) {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-start gap-3">
-          <Skeleton className="h-8 w-56" />
+          <Skeleton className="h-9 w-56" />
         </div>
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
@@ -73,25 +73,30 @@ function DetailSkeleton({ rows, tables, hasImage }: Props) {
           </div>
         )}
 
-        <Card className="h-fit">
-          <DetailHeaderSkeleton />
-          <CardContent className="space-y-5">
-            {Array.from({ length: rows }).map((_, i) => (
-              <DetailRowSkeleton
-                key={`detail-row-skeleton-${i}`}
-                hasSeparator={i !== rows - 1}
-              />
-            ))}
-          </CardContent>
-        </Card>
+        {cards.map(({ rows }, i) => (
+          <Card key={`detail-card-skeleton-${i}`} className="h-fit">
+            <DetailHeaderSkeleton />
+            <CardContent className="space-y-5">
+              {Array.from({ length: rows }).map((_, j) => (
+                <DetailRowSkeleton
+                  key={`detail-row-skeleton-${j}`}
+                  hasSeparator={j !== rows - 1}
+                />
+              ))}
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {Array.from({ length: tables }).map((_, i) => (
-        <Card key={i}>
+        <Card key={`detail-table-row-${i}`}>
           <DetailHeaderSkeleton />
           <CardContent className="overflow-x-auto">
             {Array.from({ length: 3 }).map((_, j) => (
-              <div key={j} className="border-b px-4 py-4 last:border-0">
+              <div
+                key={`detail-table-row-${j}`}
+                className="border-b px-4 py-4 last:border-0"
+              >
                 <div className="flex items-center justify-between gap-4">
                   <Skeleton className="h-4 w-16" />
                   <Skeleton className="h-4 w-32" />

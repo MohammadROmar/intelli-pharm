@@ -16,6 +16,9 @@ export const fRequired = () => (v: string | number) => {
 export const positiveNumber = () => (v: string) =>
   (!isNaN(Number(v)) && Number(v) > 0) || 'validNum';
 
+export const isValidPhone = () => (v: string) =>
+  /^09\d{8}$/.test(v.trim()) || 'invalidPhone';
+
 export function getNextPageParam(lastPageData: LastPageData) {
   const currentPage = lastPageData.page;
   const totalPages = lastPageData.totalPages;

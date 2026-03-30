@@ -20,7 +20,8 @@ export function CategorySelector({
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { categories, queryResult } = useInfiniteCategories(searchTerm);
+  const { entities: categories, queryResult } =
+    useInfiniteCategories(searchTerm);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 

@@ -1,22 +1,11 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-
+import type { CategoryListItem } from './categoryTypes';
 import { getInfiniteCategories } from '../api';
-import { getNextPageParam } from '@/shared/lib';
+import { useInfiniteEntities } from '@/shared/model';
 
 export function useInfiniteCategories(searchTerm: string) {
-  const queryResult = useInfiniteQuery({
-    queryKey: ['categories', searchTerm],
-    initialPageParam: 1,
-    getNextPageParam,
-    queryFn: async ({ pageParam = 1 }) =>
-      getInfiniteCategories(pageParam.toString(), searchTerm),
+  return useInfiniteEntities<CategoryListItem>({
+    queryKey: 'categories',
+    searchTerm,
+    queryFn: getInfiniteCategories,
   });
-
-  const flatCategories =
-    queryResult.data?.pages.flatMap((page) => page.items) ?? [];
-
-  return {
-    categories: flatCategories,
-    queryResult,
-  };
 }

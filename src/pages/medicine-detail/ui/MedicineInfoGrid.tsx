@@ -49,10 +49,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
           </span>
         </DetailCell>
         <DetailCell label={t('labelStatus')}>
-          <Badge
-            variant={medicine.is_active ? 'default' : 'secondary'}
-            className="font-normal"
-          >
+          <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
             <Activity className="mr-1 size-3" />
             {medicine.is_active ? t('active') : t('inactive')}
           </Badge>

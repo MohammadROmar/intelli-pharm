@@ -10,7 +10,7 @@ export default function CategoryDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <DetailSkeleton rows={4} tables={1} />;
+    return <DetailSkeleton cards={[{ rows: 4 }]} tables={1} />;
   }
 
   return <CategoryDetail category={data.data!} />;

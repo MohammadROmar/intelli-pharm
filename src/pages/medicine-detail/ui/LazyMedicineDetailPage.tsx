@@ -8,7 +8,7 @@ export function LazyMedicineDetailsPage() {
   return (
     <WithSuspense
       Component={MedicineDetailsPage}
-      loader={<DetailSkeleton rows={4} tables={3} hasImage />}
+      loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={3} hasImage />}
     />
   );
 }

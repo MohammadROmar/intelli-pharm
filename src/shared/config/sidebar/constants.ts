@@ -7,6 +7,7 @@ import {
   Pipette,
   Building2,
   MapPin,
+  Cross,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -49,6 +50,21 @@ export const sidebarData = [
       {
         key: 'regions.new',
         url: '/dashboard/regions/new',
+      },
+    ],
+  },
+  {
+    key: 'labels.pharmacies',
+    url: '/dashboard/pharmacies',
+    icon: Cross,
+    items: [
+      {
+        key: 'pharmacies.list',
+        url: '/dashboard/pharmacies',
+      },
+      {
+        key: 'pharmacies.new',
+        url: '/dashboard/pharmacies/new',
       },
     ],
   },

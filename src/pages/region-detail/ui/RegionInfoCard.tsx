@@ -11,8 +11,6 @@ export function RegionInfoCard({ region }: Props) {
     keyPrefix: 'regionsPage.detail',
   });
 
-  console.log(region);
-
   return (
     <DetailCard title={t('cardTitle')} subtitle={t('cardSubtitle')} icon={Map}>
       <div className="grid grid-cols-2 gap-6">

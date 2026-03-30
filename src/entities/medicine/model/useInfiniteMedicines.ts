@@ -1,22 +1,11 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-
+import type { Medicine } from './medicineTypes';
 import { getInfiniteMedicines } from '../api';
-import { getNextPageParam } from '@/shared/lib';
+import { useInfiniteEntities } from '@/shared/model';
 
 export function useInfiniteMedicines(searchTerm: string) {
-  const queryResult = useInfiniteQuery({
-    queryKey: ['medicines', searchTerm],
-    initialPageParam: 1,
-    getNextPageParam,
-    queryFn: async ({ pageParam = 1 }) =>
-      getInfiniteMedicines(pageParam.toString(), searchTerm),
+  return useInfiniteEntities<Medicine>({
+    queryKey: 'medicines',
+    searchTerm,
+    queryFn: getInfiniteMedicines,
   });
-
-  const flatMedicines =
-    queryResult.data?.pages.flatMap((page) => page.items) ?? [];
-
-  return {
-    medicines: flatMedicines,
-    queryResult,
-  };
 }

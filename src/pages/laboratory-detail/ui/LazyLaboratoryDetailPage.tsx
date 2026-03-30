@@ -8,7 +8,7 @@ export function LazyLaboratoryDetailPage() {
   return (
     <WithSuspense
       Component={LaboratoryDetailPage}
-      loader={<DetailSkeleton rows={3} tables={1} />}
+      loader={<DetailSkeleton cards={[{ rows: 3 }]} tables={1} />}
     />
   );
 }

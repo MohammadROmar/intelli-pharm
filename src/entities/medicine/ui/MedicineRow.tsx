@@ -29,10 +29,7 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
       <TableCell className="text-muted-foreground">{medicine.id}</TableCell>
       <TableCell>{medicine.name}</TableCell>
       <TableCell>
-        <Badge
-          variant={medicine.is_active ? 'default' : 'secondary'}
-          className="font-normal"
-        >
+        <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
           {medicine.is_active ? t('active') : t('inactive')}
         </Badge>
       </TableCell>

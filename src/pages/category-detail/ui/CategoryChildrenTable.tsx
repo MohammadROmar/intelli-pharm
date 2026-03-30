@@ -1,4 +1,4 @@
-import { FolderTree, Tag } from 'lucide-react';
+import { FolderTree } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { CategoryChild, CategoryDetail } from '@/entities/category';
@@ -49,7 +49,6 @@ export function CategoryChildrenTable({ category }: Props) {
                 </TableCell>
                 <TableCell>
                   <span className="flex items-center gap-2 font-medium">
-                    <Tag className="text-muted-foreground size-3.5 shrink-0" />
                     {child.name}
                   </span>
                 </TableCell>

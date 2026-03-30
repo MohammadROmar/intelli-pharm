@@ -12,7 +12,7 @@ export default function RegionDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <DetailSkeleton rows={1} tables={1} />;
+    return <DetailSkeleton cards={[{ rows: 1 }]} tables={1} />;
   }
 
   const region = data.data!;

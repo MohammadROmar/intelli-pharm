@@ -130,18 +130,18 @@
       "actions": "Actions"
     },
     "create": {
-      "title": "Add New Area",
-      "subtitle": "Register a new area in the system."
+      "title": "Add New Region",
+      "subtitle": "Register a new region in the system."
     },
     "edit": {
-      "title": "Edit Area",
+      "title": "Edit Region",
       "subtitle": "Change the information below to edit it."
     },
     "form": {
-      "title": "Area Details",
-      "subtitle": "Enter the area details below.",
-      "info": "Area Information",
-      "infoDescription": "The area name and the city it belongs to.",
+      "title": "Region Details",
+      "subtitle": "Enter the region details below.",
+      "info": "Region Information",
+      "infoDescription": "The region name and the city it belongs to.",
       "name": "Name",
       "namePlaceholder": "e.g. Al Mazzeh",
       "city": "City",
@@ -150,7 +150,6 @@
       }
     },
     "detail": {
-      "breadcrumb": "Regions",
       "edit": "Edit Details",
       "delete": "Delete",
 
@@ -175,6 +174,94 @@
       "nameLabel": "Name",
       "namePlaceholder": "Search by region name…",
       "cityLabel": "City"
+    }
+  },
+
+  "pharmaciesPage": {
+    "pharmacy": "Pharmacy",
+    "list": {
+      "title": "Pharmacies",
+      "subtitle": "Manage, update, or remove pharmacy records in the table below.",
+      "all": "All Pharmacies",
+      "id": "ID",
+      "name": "Name",
+      "region": "Region",
+      "pharmacistName": "Pharmacist Name",
+      "pharmacistNumber": "Pharmacist Number",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "actions": "Actions"
+    },
+    "create": {
+      "title": "Add New Pharmacy",
+      "subtitle": "Register a new pharmacy in the system."
+    },
+    "edit": {
+      "title": "Edit Pharmacy",
+      "subtitle": "Update pharmacy information."
+    },
+    "form": {
+      "pharmacyDetailsTitle": "Pharmacy Details",
+      "pharmacyDetailsSubtitle": "General information about the pharmacy.",
+
+      "pharmacistDetailsTitle": "Pharmacist Information",
+      "pharmacistDetailsSubtitle": "Contact details for the pharmacist in charge.",
+
+      "labelName": "Pharmacy Name",
+      "labelRegion": "Region",
+      "labelActive": "Active",
+      "descriptionActive": "Pharmacy is open and accepting patients.",
+      "labelOpeningTime": "Opens At",
+      "labelClosingTime": "Closes At",
+      "labelLatitude": "Latitude",
+      "labelLongitude": "Longitude",
+      "hintCoordinates": "GPS decimal coordinates (e.g. 33.5138).",
+
+      "labelPharmacistName": "Pharmacist Name",
+      "labelPhone": "Phone",
+      "labelAltPhone": "Alternative Phone",
+      "optional": "optional",
+
+      "placeholderName": "e.g. Central Pharmacy",
+      "placeholderPharmacistName": "e.g. Rana Khaled",
+
+      "errors": {
+        "required": "This field is required.",
+        "endAfterStart": "The pharmacy's closing time must be after its opening time.",
+        "invalidPhone": "Phone number is invalid."
+      }
+    },
+    "detail": {
+      "breadcrumb": "Pharmacies",
+      "edit": "Edit Details",
+      "delete": "Delete",
+      "active": "Active",
+      "inactive": "Inactive",
+
+      "pharmacistCardTitle": "Pharmacy Details",
+      "pharmacistCardSubtitle": "Identifier and pharmacist contact information.",
+
+      "locationCardTitle": "Location & Hours",
+      "locationCardSubtitle": "Operating region, working hours and GPS coordinates.",
+
+      "labelId": "Pharmacy ID",
+      "labelPharmacistName": "Pharmacist",
+      "labelPhone": "Phone",
+      "labelAltPhone": "Alt. Phone",
+      "labelStatus": "Status",
+      "labelRegion": "Region",
+      "labelOpeningTime": "Opens At",
+      "labelClosingTime": "Closes At",
+      "labelLatitude": "Latitude",
+      "labelLongitude": "Longitude"
+    },
+    "filters": {
+      "title": "Filter Pharmacies",
+      "subtitle": "Narrow down the pharmacy list using one or more filters.",
+      "nameLabel": "Pharmacy name",
+      "namePlaceholder": "Search by pharmacy name…",
+      "labelRegion": "Region"
     }
   },
 
@@ -371,7 +458,7 @@
     },
     "edit": {
       "title": "Edit Category",
-      "subtitle": "Update category information",
+      "subtitle": "Update category information.",
       "formTitle": "Category Details",
       "formSubtitle": "Change the information bellow to edit the category."
     },
@@ -564,12 +651,17 @@
       "edit": "Edit",
       "cities": "Cities",
       "restock": "Restock",
-      "regions": "Regions"
+      "regions": "Regions",
+      "pharmacies": "Pharmacies"
     },
 
     "regions": {
       "list": "All Regions",
       "new": "Add Regions"
+    },
+    "pharmacies": {
+      "list": "All Pharmacies",
+      "new": "Add Pharmacies"
     },
     "medicines": {
       "list": "All Medicines",

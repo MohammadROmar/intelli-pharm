@@ -54,10 +54,7 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
                 <TableCell className="font-medium">{medicine.name}</TableCell>
 
                 <TableCell>
-                  <Badge
-                    variant={medicine.is_active ? 'default' : 'secondary'}
-                    className="font-normal"
-                  >
+                  <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
                     {medicine.is_active ? t('active') : t('inactive')}
                   </Badge>
                 </TableCell>

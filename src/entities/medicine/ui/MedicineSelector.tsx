@@ -20,7 +20,7 @@ export function MedicineSelector({
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { medicines, queryResult } = useInfiniteMedicines(searchTerm);
+  const { entities: medicines, queryResult } = useInfiniteMedicines(searchTerm);
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 

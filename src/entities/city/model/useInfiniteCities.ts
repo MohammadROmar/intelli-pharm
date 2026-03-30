@@ -1,22 +1,11 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-
 import { getInfiniteCities } from '../api';
-import { getNextPageParam } from '@/shared/lib';
+import { useInfiniteEntities } from '@/shared/model';
+import type { CityDetail } from './cityTypes';
 
 export function useInfiniteCities(searchTerm: string) {
-  const queryResult = useInfiniteQuery({
-    queryKey: ['cities', searchTerm],
-    initialPageParam: 1,
-    getNextPageParam,
-    queryFn: async ({ pageParam = 1 }) =>
-      getInfiniteCities(pageParam.toString(), searchTerm),
+  return useInfiniteEntities<CityDetail>({
+    queryKey: 'cities',
+    searchTerm,
+    queryFn: getInfiniteCities,
   });
-
-  const flatCities =
-    queryResult.data?.pages.flatMap((page) => page.items) ?? [];
-
-  return {
-    cities: flatCities,
-    queryResult,
-  };
 }

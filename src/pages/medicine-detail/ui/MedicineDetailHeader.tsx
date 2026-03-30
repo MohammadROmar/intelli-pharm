@@ -83,10 +83,7 @@ function DeleteMedicineBtn({ medicine, label }: Props & { label: string }) {
     <>
       <DeleteMedicineModal
         medicine={medicineToDelete}
-        onClose={() => {
-          console.log('first');
-          setMedicineToDelete(null);
-        }}
+        onClose={() => setMedicineToDelete(null)}
         onDeleteSuccess={() => navigate('/dashboard/medicines')}
       />
 

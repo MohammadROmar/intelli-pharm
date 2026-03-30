@@ -1,22 +1,11 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
-
+import type { LaboratoryListItem } from './laboratoryTypes';
 import { getInfiniteLaboratories } from '../api';
-import { getNextPageParam } from '@/shared/lib';
+import { useInfiniteEntities } from '@/shared/model';
 
 export function useInfiniteLaboratories(searchTerm: string) {
-  const queryResult = useInfiniteQuery({
-    queryKey: ['laboratories', searchTerm],
-    initialPageParam: 1,
-    getNextPageParam,
-    queryFn: async ({ pageParam = 1 }) =>
-      getInfiniteLaboratories(pageParam.toString(), searchTerm),
+  return useInfiniteEntities<LaboratoryListItem>({
+    queryKey: 'laboratories',
+    searchTerm,
+    queryFn: getInfiniteLaboratories,
   });
-
-  const flatLaboratories =
-    queryResult.data?.pages.flatMap((page) => page.items) ?? [];
-
-  return {
-    laboratories: flatLaboratories,
-    queryResult,
-  };
 }

@@ -178,6 +178,94 @@
     }
   },
 
+  "pharmaciesPage": {
+    "pharmacy": "الصيدلية",
+    "list": {
+      "title": "الصيدليات",
+      "subtitle": "قم بإدارة أو تحديث أو حذف سجلات الصيدليات من خلال الجدول أدناه.",
+      "all": "جميع الصيدليات",
+      "id": "المعرف",
+      "name": "الاسم",
+      "region": "المنطقة",
+      "pharmacistName": "اسم الصيدلاني",
+      "pharmacistNumber": "رقم الصيدلاني",
+      "status": "الحالة",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "actions": "الإجراءات"
+    },
+    "create": {
+      "title": "إضافة صيدلية جديدة",
+      "subtitle": "تسجيل صيدلية جديدة في النظام."
+    },
+    "edit": {
+      "title": "تعديل الصيدلية",
+      "subtitle": "تحديث معلومات الصيدلية."
+    },
+    "form": {
+      "pharmacyDetailsTitle": "تفاصيل الصيدلية",
+      "pharmacyDetailsSubtitle": "المعلومات العامة عن الصيدلية.",
+
+      "pharmacistDetailsTitle": "معلومات الصيدلاني",
+      "pharmacistDetailsSubtitle": "بيانات التواصل مع الصيدلاني المسؤول.",
+
+      "labelName": "اسم الصيدلية",
+      "labelRegion": "المنطقة",
+      "labelActive": "نشطة",
+      "descriptionActive": "الصيدلية مفتوحة وتستقبل المرضى.",
+      "labelOpeningTime": "وقت الفتح",
+      "labelClosingTime": "وقت الإغلاق",
+      "labelLatitude": "خط العرض",
+      "labelLongitude": "خط الطول",
+      "hintCoordinates": "إحداثيات GPS العشرية (مثال: 33.5138).",
+
+      "labelPharmacistName": "اسم الصيدلاني",
+      "labelPhone": "الهاتف",
+      "labelAltPhone": "هاتف بديل",
+      "optional": "اختياري",
+
+      "placeholderName": "مثال: الصيدلية المركزية",
+      "placeholderPharmacistName": "مثال: رنا خالد",
+
+      "errors": {
+        "required": "هذا الحقل مطلوب.",
+        "endAfterStart": "ساعة اغلاق الصيدلية يجب أن تكون بعد فتحها.",
+        "invalidPhone": "رقم هاتف غير صحيح."
+      }
+    },
+    "detail": {
+      "breadcrumb": "الصيدليات",
+      "edit": "تعديل التفاصيل",
+      "delete": "حذف",
+      "active": "نشط",
+      "inactive": "غير نشط",
+
+      "pharmacistCardTitle": "تفاصيل الصيدلية",
+      "pharmacistCardSubtitle": "المعرف ومعلومات التواصل مع الصيدلاني.",
+
+      "locationCardTitle": "الموقع وساعات العمل",
+      "locationCardSubtitle": "المنطقة وأوقات العمل وإحداثيات GPS.",
+
+      "labelId": "رقم الصيدلية",
+      "labelPharmacistName": "الصيدلاني",
+      "labelPhone": "الهاتف",
+      "labelAltPhone": "هاتف بديل",
+      "labelStatus": "الحالة",
+      "labelRegion": "المنطقة",
+      "labelOpeningTime": "وقت الفتح",
+      "labelClosingTime": "وقت الإغلاق",
+      "labelLatitude": "خط العرض",
+      "labelLongitude": "خط الطول"
+    },
+    "filters": {
+      "title": "فلاتر الصيدليات",
+      "subtitle": "ضيّق نتائج قائمة الصيدليات باستخدام فلتر واحد أو أكثر.",
+      "nameLabel": "اسم الصيدلية",
+      "namePlaceholder": "البحث باسم الصيدلية...",
+      "labelRegion": "المنطقة"
+    }
+  },
+
   "medicinesPage": {
     "medicine": "الدواء",
     "create": {
@@ -375,7 +463,7 @@
     },
     "edit": {
       "title": "تعديل الفئة",
-      "subtitle": "تحديث معلومات الفئة",
+      "subtitle": "تحديث معلومات الفئة.",
       "formTitle": "تفاصيل الفئة",
       "formSubtitle": "غيَّر المعلومات أدناه لتعديل الفئة الجديدة."
     },
@@ -570,12 +658,17 @@
       "edit": "التعديل",
       "cities": "المدن",
       "restock": "إعادة التخزين",
-      "regions": "المناطق"
+      "regions": "المناطق",
+      "pharmacies": "الصيدليات"
     },
 
     "regions": {
       "list": "جميع المناطق",
       "new": "إضافة منطقة"
+    },
+    "pharmacies": {
+      "list": "جميع الصيدليات",
+      "new": "إضافة صيدلية"
     },
     "medicines": {
       "list": "جميع الأدوية",

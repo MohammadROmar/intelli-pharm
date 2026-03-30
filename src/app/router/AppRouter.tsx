@@ -21,6 +21,11 @@ import { LazyRegionCreatePage } from '@/pages/region-create';
 import { LazyRegionEditPage } from '@/pages/region-edit';
 import { LazyRegionDetailPage } from '@/pages/region-detail';
 
+import { LazyPharmacyListPage } from '@/pages/pharmacy-list';
+import { LazyPharmacyCreatePage } from '@/pages/pharmacy-create';
+import { LazyPharmacyDetailPage } from '@/pages/pharmacy-detail';
+import { LazyPharmacyEditPage } from '@/pages/pharmacy-edit';
+
 import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
 import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
@@ -85,6 +90,20 @@ const router = createBrowserRouter([
             ],
           },
 
+          {
+            path: 'pharmacies',
+            children: [
+              { index: true, element: <LazyPharmacyListPage /> },
+              { path: 'new', element: <LazyPharmacyCreatePage /> },
+              {
+                path: ':id',
+                children: [
+                  { index: true, element: <LazyPharmacyDetailPage /> },
+                  { path: 'edit', element: <LazyPharmacyEditPage /> },
+                ],
+              },
+            ],
+          },
           {
             path: 'medicines',
             children: [
