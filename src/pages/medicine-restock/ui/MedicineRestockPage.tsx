@@ -1,17 +1,28 @@
+import { useTranslation } from 'react-i18next';
+
 import { MedicineRestock } from '@/features/medicine-restock';
 import { useGetMedicine } from '@/entities/medicine';
-import { FormSkeleton, QueryError } from '@/shared/ui';
+import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
 
 export default function MedicineRestockPage() {
-  const { isLoading, data, isError, error } = useGetMedicine();
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'medicinesPage.restock',
+  });
+
+  const { isLoading, data, isError, error, refetch } = useGetMedicine();
 
   if (isError) {
-    return <QueryError error={error} />;
+    return <QueryError error={error} onRetry={refetch} />;
   }
 
   if (isLoading || !data) {
-    return <FormSkeleton fields={3} />;
+    return <FormSkeleton cards={[{ rows: 2 }]} />;
   }
 
-  return <MedicineRestock id={data.data!.id} />;
+  return (
+    <>
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <MedicineRestock id={data.data!.id} />;
+    </>
+  );
 }

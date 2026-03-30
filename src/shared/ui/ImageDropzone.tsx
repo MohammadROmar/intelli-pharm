@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { Badge } from './badge';
 import { cn } from '../lib';
 
-interface ImageFile {
+type ImageFile = {
   id: string;
   file: File;
   preview: string;
-}
+};
 
 type ImageDropzoneProps = {
   images: ImageFile[];

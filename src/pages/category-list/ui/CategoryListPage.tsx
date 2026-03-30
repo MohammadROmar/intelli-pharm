@@ -9,26 +9,20 @@ export default function CategoryListPage() {
     keyPrefix: 'categoriesPage.list',
   });
 
-  const {
-    data: categories,
-    isError,
-    error,
-    isLoading,
-    refetch,
-  } = useGetCategories();
+  const { data, isError, error, isLoading, refetch } = useGetCategories();
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;
   }
 
-  if (isLoading || !categories) {
+  if (isLoading || !data) {
     return <TableSkeleton />;
   }
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <CategoriesTable data={categories.data!} />
+      <CategoriesTable data={data.data!} />
     </>
   );
 }

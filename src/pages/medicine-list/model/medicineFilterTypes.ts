@@ -1,4 +1,4 @@
-export interface MedicineFilters {
+export type MedicineFilters = {
   name?: string;
   category?: string;
   min_price?: string;
@@ -8,9 +8,9 @@ export interface MedicineFilters {
   alternative?: '1' | '0' | string;
   active?: '1' | '0' | string;
   alternative_for?: string;
-}
+};
 
-export interface SelectOption {
+export type SelectOption = {
   id: string;
   name: string;
-}
+};

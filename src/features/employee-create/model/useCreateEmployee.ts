@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
+
 import {
   createEmployee,
   type CreateEmployeeFormData,
@@ -5,9 +8,17 @@ import {
 import { useCreateEntity } from '@/shared/model';
 
 export function useCreateEmployee() {
+  const { t } = useTranslation();
+
   return useCreateEntity<CreateEmployeeFormData>({
     queryKey: 'employees',
     mutationFn: createEmployee,
     translationKey: 'employeesPage.employee',
+
+    onError: ({ status, i18nKey }) => {
+      toast.error(t(`common.toasts.edit.error`), {
+        description: t(status === 422 ? 'errors.emailAlreadyTaken' : i18nKey),
+      });
+    },
   });
 }

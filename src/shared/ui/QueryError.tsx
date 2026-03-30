@@ -24,10 +24,10 @@ function toTitleKey(i18nKey: string): string {
   return parts.join('.');
 }
 
-interface Props {
+type Props = {
   error: ApiError;
   onRetry?: () => void;
-}
+};
 
 export function QueryError({ error, onRetry }: Props) {
   const { t } = useTranslation();
@@ -40,11 +40,11 @@ export function QueryError({ error, onRetry }: Props) {
           {icon}
         </div>
 
-        <h2 className="text-foreground mb-2 text-xl font-semibold">
+        <h2 className="text-foreground mb-1 text-xl font-semibold">
           {t(toTitleKey(error.i18nKey))}
         </h2>
 
-        <p className="text-muted-foreground mb-8 max-w-sm text-sm leading-relaxed">
+        <p className="text-muted-foreground mb-6 max-w-sm text-sm leading-relaxed">
           {t(error.i18nKey)}
         </p>
 

@@ -4,11 +4,11 @@ import type { RegionDetail, RegionListItem } from '@/entities/region';
 import { DeleteModal } from '@/shared/ui';
 import { useDeleteEntity } from '@/shared/model';
 
-interface DeleteRegionModalProps {
+type DeleteRegionModalProps = {
   region: RegionDetail | RegionListItem | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
-}
+};
 
 export function DeleteRegionModal({
   region,

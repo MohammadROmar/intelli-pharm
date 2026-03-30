@@ -4,11 +4,11 @@ import type { CategoryDetail, CategoryListItem } from '@/entities/category';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-interface DeleteCategoryModalProps {
+type DeleteCategoryModalProps = {
   category: CategoryDetail | CategoryListItem | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
-}
+};
 
 export function DeleteCategoryModal({
   category,

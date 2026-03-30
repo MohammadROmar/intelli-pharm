@@ -4,11 +4,11 @@ import type { CityDetail } from '@/entities/city';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-interface DeleteCityModalProps {
+type DeleteCityModalProps = {
   city: CityDetail | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
-}
+};
 
 export function DeleteCityModal({
   city,

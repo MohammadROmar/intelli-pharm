@@ -8,7 +8,7 @@ export function LazyEmployeeCreatePage() {
   return (
     <WithSuspense
       Component={EmployeeCreatePage}
-      loader={<FormSkeleton fields={4} />}
+      loader={<FormSkeleton cards={[{ rows: 4 }, { rows: 4 }]} />}
     />
   );
 }

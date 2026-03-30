@@ -8,7 +8,7 @@ export function LazyRegionCreatePage() {
   return (
     <WithSuspense
       Component={RegionCreatePage}
-      loader={<FormSkeleton fields={2} />}
+      loader={<FormSkeleton cards={[{ rows: 2 }]} />}
     />
   );
 }

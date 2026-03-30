@@ -4,10 +4,10 @@ import type { Order } from '@/entities/order';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-interface DeleteOrderModalProps {
+type DeleteOrderModalProps = {
   order: Order | null;
   onClose: () => void;
-}
+};
 
 export function DeleteOrderModal({ order, onClose }: DeleteOrderModalProps) {
   const { mutate, isPending } = useDeleteEntity({

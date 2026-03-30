@@ -5,7 +5,6 @@ import { useCreateRegion } from '../model/useCreateRegion';
 
 export function CreateRegionForm() {
   const [formKey, setFormKey] = useState(0);
-
   const { mutate, isPending } = useCreateRegion();
 
   function handleSubmit(payload: Region) {

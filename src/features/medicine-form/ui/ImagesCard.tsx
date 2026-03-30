@@ -11,20 +11,18 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
   FieldError,
   CardSectionHeader,
   ImageDropzone,
 } from '@/shared/ui';
 
-interface Props {
+type Props = {
   images: ImageFile[];
   isPending?: boolean;
   onAdd: (files: ImageFile[]) => void;
   onRemove: (id: string) => void;
-}
+};
 
 export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
   const { register, setValue } = useFormContext<MedicineFormData>();
@@ -46,8 +44,13 @@ export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('medicineImagesTitle')}</CardTitle>
-        <CardDescription>{t('medicineImagesSubtitle')}</CardDescription>
+        <CardSectionHeader
+          icon={PackagePlus}
+          title={t('productPhotosTitle')}
+          description={t('productPhotosSubtitle', {
+            imagesCount: images.length,
+          })}
+        />
       </CardHeader>
 
       <CardContent>
@@ -56,14 +59,6 @@ export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
           {...register('imagesCount', {
             disabled: isPending,
             validate: (v) => Number(v) > 0 || 'imagesRequired',
-          })}
-        />
-
-        <CardSectionHeader
-          icon={PackagePlus}
-          title={t('productPhotosTitle')}
-          description={t('productPhotosSubtitle', {
-            imagesCount: images.length,
           })}
         />
 

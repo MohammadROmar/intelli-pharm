@@ -21,7 +21,7 @@ import {
   CommandList,
 } from './command';
 
-export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
+export type GenericSingleSelectProps<T extends Record<string, unknown>> = {
   options: T[];
   valueKey: keyof T;
   labelKey: keyof T;
@@ -39,7 +39,7 @@ export interface GenericSingleSelectProps<T extends Record<string, unknown>> {
   invalid?: boolean;
   icon?: ElementType;
   disabled?: boolean;
-}
+};
 
 export function GenericSingleSelect<T extends Record<string, unknown>>({
   options,

@@ -4,11 +4,11 @@ import type { PharmacyDetail } from '@/entities/pharmacy';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-interface DeletePharmacyModalProps {
+type DeletePharmacyModalProps = {
   pharmacy: PharmacyDetail | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
-}
+};
 
 export function DeletePharmacyModal({
   pharmacy,

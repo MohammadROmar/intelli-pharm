@@ -13,6 +13,8 @@ import {
   Field,
   FieldError,
   FieldLabel,
+  FieldLegend,
+  FieldSet,
   Input,
   Separator,
   SwitchRow,
@@ -45,7 +47,6 @@ export function PharmacyDetailsCard({ isPending }: Props) {
           icon={Cross}
           title={t('pharmacyDetailsTitle')}
           description={t('pharmacyDetailsSubtitle')}
-          className="mb-0!"
         />
       </CardHeader>
       <CardContent className="space-y-5">
@@ -106,49 +107,55 @@ export function PharmacyDetailsCard({ isPending }: Props) {
 
         <Separator />
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <Field data-invalid={!!errors.opening_time}>
-            <FieldLabel htmlFor="opening_time">
-              {t('labelOpeningTime')}
-            </FieldLabel>
-            <Input
-              id="opening_time"
-              type="time"
-              icon={Clock}
-              aria-invalid={!!errors.opening_time}
-              {...register('opening_time', {
-                disabled: isPending,
-                validate: { required: required() },
-              })}
-            />
-            {errors.opening_time && (
-              <FieldError>{t('errors.required')}</FieldError>
-            )}
-          </Field>
+        <FieldSet>
+          <FieldLegend className="text-muted-foreground mb-3 text-xs font-medium tracking-wider uppercase">
+            {t('workingHours')}
+          </FieldLegend>
 
-          <Field data-invalid={!!errors.closing_time}>
-            <FieldLabel htmlFor="closing_time">
-              {t('labelClosingTime')}
-            </FieldLabel>
-            <Input
-              id="closing_time"
-              type="time"
-              icon={Clock}
-              aria-invalid={!!errors.closing_time}
-              {...register('closing_time', {
-                disabled: isPending,
-                required: 'errors.required',
-                validate: (value) => {
-                  const start = getValues('opening_time');
-                  return value > start || 'errors.endAfterStart';
-                },
-              })}
-            />
-            {errors.closing_time?.message && (
-              <FieldError>{t(errors.closing_time.message)}</FieldError>
-            )}
-          </Field>
-        </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <Field data-invalid={!!errors.opening_time}>
+              <FieldLabel htmlFor="opening_time">
+                {t('labelOpeningTime')}
+              </FieldLabel>
+              <Input
+                id="opening_time"
+                type="time"
+                icon={Clock}
+                aria-invalid={!!errors.opening_time}
+                {...register('opening_time', {
+                  disabled: isPending,
+                  validate: { required: required() },
+                })}
+              />
+              {errors.opening_time && (
+                <FieldError>{t('errors.required')}</FieldError>
+              )}
+            </Field>
+
+            <Field data-invalid={!!errors.closing_time}>
+              <FieldLabel htmlFor="closing_time">
+                {t('labelClosingTime')}
+              </FieldLabel>
+              <Input
+                id="closing_time"
+                type="time"
+                icon={Clock}
+                aria-invalid={!!errors.closing_time}
+                {...register('closing_time', {
+                  disabled: isPending,
+                  required: 'errors.required',
+                  validate: (value) => {
+                    const start = getValues('opening_time');
+                    return value > start || 'errors.endAfterStart';
+                  },
+                })}
+              />
+              {errors.closing_time?.message && (
+                <FieldError>{t(errors.closing_time.message)}</FieldError>
+              )}
+            </Field>
+          </div>
+        </FieldSet>
       </CardContent>
     </Card>
   );

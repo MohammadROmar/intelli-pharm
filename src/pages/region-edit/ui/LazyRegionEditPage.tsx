@@ -8,7 +8,7 @@ export function LazyRegionEditPage() {
   return (
     <WithSuspense
       Component={RegionEditPage}
-      loader={<FormSkeleton fields={2} />}
+      loader={<FormSkeleton cards={[{ rows: 1 }]} />}
     />
   );
 }

@@ -6,9 +6,7 @@ import type { EmployeeInternalFormData } from '../model/employeeTypes';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
   Field,
   FieldError,
   FieldLabel,
@@ -29,19 +27,14 @@ export function PersonalInfoCard({ isEdit, isLoading }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('employeesPage.form.personalInfoTitle')}</CardTitle>
-        <CardDescription>
-          {t('employeesPage.form.personalInfoSubtitle')}
-        </CardDescription>
+        <CardSectionHeader
+          icon={User}
+          title={t('employeesPage.form.personalInfoTitle')}
+          description={t('employeesPage.form.personalInfoSubtitle')}
+        />
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <CardSectionHeader
-          icon={User}
-          title={t('employeesPage.form.innerPersonalInfoTitle')}
-          description={t('employeesPage.form.innerPersonalInfoSubtitle')}
-        />
-
         <Field data-invalid={!!errors.name}>
           <FieldLabel htmlFor="name">{t('form.fields.name')}</FieldLabel>
           <Input

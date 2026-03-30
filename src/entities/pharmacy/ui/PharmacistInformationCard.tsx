@@ -34,7 +34,6 @@ export function PharmacistInformationCard({ isPending }: Props) {
           icon={User}
           title={t('pharmacistDetailsTitle')}
           description={t('pharmacistDetailsSubtitle')}
-          className="mb-0!"
         />
       </CardHeader>
       <CardContent className="space-y-5">

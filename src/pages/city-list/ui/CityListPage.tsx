@@ -9,10 +9,10 @@ export default function CitiesPage() {
     keyPrefix: 'citiesPage',
   });
 
-  const { data, isLoading, isError, error } = useGetCities();
+  const { data, isLoading, isError, error, refetch } = useGetCities();
 
   if (isError) {
-    return <QueryError error={error} />;
+    return <QueryError error={error} onRetry={refetch} />;
   }
 
   if (isLoading || !data) {

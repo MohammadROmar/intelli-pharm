@@ -17,9 +17,7 @@ import {
   Button,
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
   Field,
   FieldError,
   FieldLabel,
@@ -52,10 +50,12 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
     <Card>
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="space-y-1">
-            <CardTitle>{t('stockEntriesTitle')}</CardTitle>
-            <CardDescription>{t('stockEntriesSubtitle')}</CardDescription>
-          </div>
+          <CardSectionHeader
+            icon={Warehouse}
+            title={t('warehouseStock')}
+            description={t('warehouseStockSubtitle')}
+          />
+
           <Button
             type="button"
             size="sm"
@@ -76,12 +76,6 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <CardSectionHeader
-          icon={Warehouse}
-          title={t('warehouseStock')}
-          description={t('warehouseStockSubtitle')}
-        />
-
         {fields.map((field, index) => {
           const warehouseState = getFieldState(
             `stocks.${index}.warehouse_id`,

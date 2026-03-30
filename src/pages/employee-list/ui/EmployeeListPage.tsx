@@ -9,26 +9,20 @@ export default function EmployeeListPage() {
     keyPrefix: 'employeesPage.list',
   });
 
-  const {
-    data: employeesData,
-    isError,
-    error,
-    isLoading,
-    refetch,
-  } = useGetEmployees();
+  const { data, isError, error, isLoading, refetch } = useGetEmployees();
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;
   }
 
-  if (isLoading || !employeesData) {
+  if (isLoading || !data) {
     return <TableSkeleton />;
   }
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <EmployeeList data={employeesData.data!} />
+      <EmployeeList data={data.data!} />
     </>
   );
 }

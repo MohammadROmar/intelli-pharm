@@ -9,14 +9,14 @@ export default function MedicineEditPage() {
     keyPrefix: 'medicinesPage.edit',
   });
 
-  const { isLoading, data, isError, error } = useGetMedicine();
+  const { isLoading, data, isError, error, refetch } = useGetMedicine();
 
   if (isError) {
-    return <QueryError error={error} />;
+    return <QueryError error={error} onRetry={refetch} />;
   }
 
   if (isLoading || !data) {
-    return <FormSkeleton fields={4} />;
+    return <FormSkeleton cards={[{ rows: 6 }, { rows: 2 }]} />;
   }
 
   const medicine = data.data!;

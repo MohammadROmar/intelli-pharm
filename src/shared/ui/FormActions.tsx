@@ -8,6 +8,8 @@ type FormActionsProps = {
   isLoading?: boolean;
   onReset: () => void;
   isEdit?: boolean;
+  label?: string;
+  form?: string;
   classNames?: { container?: string; reset?: string; submit?: string };
 };
 
@@ -15,6 +17,8 @@ export function FormActions({
   onReset,
   isLoading,
   isEdit = false,
+  label,
+  form,
   classNames,
 }: FormActionsProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'form.actions' });
@@ -40,9 +44,10 @@ export function FormActions({
           type="submit"
           isLoading={isLoading}
           disabled={isLoading}
+          form={form}
           className={classNames?.submit}
         >
-          {t(`${isEdit ? 'edit' : 'create'}`)}
+          {label ?? t(`${isEdit ? 'edit' : 'create'}`)}
         </Button>
       </div>
     </Field>

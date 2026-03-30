@@ -3,14 +3,11 @@ import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import type { ApiError, ApiResponse } from '../api';
 
-interface UseGetEntityOptions<TData> extends Omit<
-  UseQueryOptions<ApiResponse<TData>, ApiError>,
-  'queryKey' | 'queryFn'
-> {
+type UseGetEntityOptions<TData> = {
   queryKey: string;
   fetchFn: (id: number) => Promise<ApiResponse<TData>>;
   paramName?: string;
-}
+} & Omit<UseQueryOptions<ApiResponse<TData>, ApiError>, 'queryKey' | 'queryFn'>;
 
 export function useGetEntityById<TData>({
   queryKey,

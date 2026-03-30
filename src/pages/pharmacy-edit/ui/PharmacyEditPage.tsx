@@ -16,7 +16,7 @@ export default function PharmacyEditPage() {
   }
 
   if (isLoading || !data) {
-    return <FormSkeleton fields={2} />;
+    return <FormSkeleton cards={[{ rows: 3 }, { rows: 2 }]} />;
   }
 
   return (

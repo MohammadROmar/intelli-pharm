@@ -1,14 +1,13 @@
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CirclePlus, Pencil } from 'lucide-react';
+import { CirclePlus, Pencil, Pipette } from 'lucide-react';
 
 import {
   Button,
+  CardSectionHeader,
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from '@/shared/ui';
 
@@ -43,8 +42,11 @@ export function LaboratorySheet({
 
       <SheetContent side={isRtl ? 'left' : 'right'}>
         <SheetHeader>
-          <SheetTitle>{t('title')}</SheetTitle>
-          <SheetDescription>{t('subtitle')}</SheetDescription>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={Pipette}
+          />
         </SheetHeader>
 
         <div className="grid flex-1 gap-6 p-4 pt-0">{children}</div>

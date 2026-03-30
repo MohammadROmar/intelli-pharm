@@ -4,11 +4,11 @@ import type { Medicine } from '@/entities/medicine';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-interface DeleteMedicineModalProps {
+type DeleteMedicineModalProps = {
   medicine: Medicine | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
-}
+};
 
 export function DeleteMedicineModal({
   medicine,

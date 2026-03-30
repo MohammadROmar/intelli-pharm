@@ -71,7 +71,6 @@ export function FiltersModal({
             title={title}
             description={subtitle}
             icon={SlidersHorizontal}
-            className="mb-0!"
           />
         </DialogHeader>
 

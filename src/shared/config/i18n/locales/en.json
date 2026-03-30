@@ -212,6 +212,7 @@
       "labelRegion": "Region",
       "labelActive": "Active",
       "descriptionActive": "Pharmacy is open and accepting patients.",
+      "workingHours": "Working Hours",
       "labelOpeningTime": "Opens At",
       "labelClosingTime": "Closes At",
       "labelLatitude": "Latitude",
@@ -285,15 +286,14 @@
       "actions": "Actions"
     },
     "form": {
-      "basicInfoTitle": "Basic Information",
-      "basicInfoSubtitle": "Core details for the medicine.",
       "medicineDetailsTitle": "Medicine Details",
       "medicineDetailsSubtitle": "Name, category, price and notes.",
       "medicineName": "Medicine Name",
       "category": "Category",
       "laboratory": "Laboratory",
       "price": "Price",
-      "note": "Note (optional)",
+      "note": "Note",
+      "optional": "optional",
       "flags": "FLAGS",
       "active": "Active",
       "activeDescription": "Medicine is available for sale and ordering.",
@@ -302,8 +302,6 @@
       "alternative": "Alternative",
       "alternativeToMedicine": "Alternative To",
       "alternativeDescription": "This is a generic or alternative substitute.",
-      "stockEntriesTitle": "Stock Entries",
-      "stockEntriesSubtitle": "Add stock per warehouse with quantity and expiry date.",
       "addStock": "Add Stock",
       "warehouseStock": "Warehouse Stock",
       "warehouseStockSubtitle": "Each row represents stock in a specific warehouse.",
@@ -313,8 +311,6 @@
       "medicineNamePlaceholder": "e.g. Paracetamol 500mg",
       "notePlaceholder": "Additional notes about this medicine…",
       "expiryDate": "Expiry Date",
-      "medicineImagesTitle": "Medicine Images",
-      "medicineImagesSubtitle": "Upload product images. Drag & drop or click to browse.",
       "productPhotosTitle": "Product Photos",
       "productPhotosSubtitle": "{{imagesCount}} image (images) selected",
       "required": "{{field}} is required",
@@ -378,14 +374,14 @@
       "title": "Restock Medicine",
       "subtitle": "Add stock entries to one or more warehouses.",
 
-      "warehouseStock": "Warehouse Entries",
-      "warehouseStockSubtitle": "Each row adds stock to a specific warehouse.",
+      "warehouseStock": "Warehouse Stocks",
+      "warehouseStockSubtitle": "Each row represents stock in a specific warehouse.",
 
-      "stockLabel": "Entry",
+      "stockLabel": "Stock",
       "warehouse": "Warehouse",
       "quantity": "Quantity",
       "expiryDate": "Expiry Date",
-      "addStock": "Add Entry",
+      "addStock": "Add Stock",
 
       "totalQuantity": "Total units being added",
       "units": "units",
@@ -452,15 +448,11 @@
     "create": {
       "title": "Add New Category",
       "subtitle": "Organize your inventory by adding a new category.",
-      "formTitle": "Category Details",
-      "formSubtitle": "Fill in the information bellow to register the new category.",
       "create": "Create Category"
     },
     "edit": {
       "title": "Edit Category",
-      "subtitle": "Update category information.",
-      "formTitle": "Category Details",
-      "formSubtitle": "Change the information bellow to edit the category."
+      "subtitle": "Update category information."
     },
     "detail": {
       "breadcrumb": "Categories",
@@ -534,19 +526,14 @@
     },
     "form": {
       "personalInfoTitle": "Personal Information",
-      "personalInfoSubtitle": "Manage personal and account details.",
-      "innerPersonalInfoTitle": "Personal Information",
-      "innerPersonalInfoSubtitle": "Name, email, phone number and password.",
-      "employmentInfoTitle": "Employment Details",
-      "employmentInfoSubtitle": "Manage role, schedule, and status.",
-      "innerEmploymentInfoTitle": "Work Information",
-      "innerEmploymentInfoSubtitle": "Role, working hours, and status."
+      "personalInfoSubtitle": "Name, email, phone number and password.",
+      "title": "Work Information",
+      "employmentInfoSubtitle": "Role, working hours, and status.",
+      "activeDescription": "Determine whether this employee can access the system."
     },
     "update": {
       "title": "Edit Details",
-      "subtitle": "Manage employee details and access.",
-      "formTitle": "Employee Details",
-      "formSubtitle": "Fill in the required details below."
+      "subtitle": "Manage employee details and access."
     },
     "editRestricted": {
       "title": "Admin accounts cannot be edited here",
@@ -586,6 +573,7 @@
       "role": "Role",
       "categoryName": "Category Name",
       "categoryParent": "Parent Category",
+      "optional": "optional",
       "phoneNumber": "Phone Number",
       "workingStart": "Start time",
       "workingEnd": "End time",
@@ -703,7 +691,8 @@
     "serverError": "Something went wrong on our end.",
     "unknownTitle": "Something Went Wrong",
     "unknown": "An unexpected error occurred.",
-    "retry": "Retry"
+    "retry": "Retry",
+    "emailAlreadyTaken": "The email has already been taken."
   },
 
   "tableActions": {

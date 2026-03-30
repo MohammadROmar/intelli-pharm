@@ -1,14 +1,13 @@
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CirclePlus } from 'lucide-react';
+import { Building2, CirclePlus } from 'lucide-react';
 
 import {
   Button,
+  CardSectionHeader,
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from '@/shared/ui';
 
@@ -43,8 +42,11 @@ export function CitySheet({
 
       <SheetContent side={isRtl ? 'left' : 'right'}>
         <SheetHeader>
-          <SheetTitle>{t('title')}</SheetTitle>
-          <SheetDescription>{t('subtitle')}</SheetDescription>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={Building2}
+          />
         </SheetHeader>
 
         <div className="grid flex-1 gap-6 p-4 pt-0">{children}</div>

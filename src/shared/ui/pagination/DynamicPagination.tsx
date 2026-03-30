@@ -1,4 +1,6 @@
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+
 import {
   Pagination,
   PaginationContent,
@@ -8,8 +10,9 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from './pagination';
+import { buildUrl } from '../../lib/buildUrl';
 
-export interface DynamicPaginationProps {
+export type DynamicPaginationProps = {
   maxPages: number;
   currentPage: number;
   basePath: string;
@@ -17,16 +20,7 @@ export interface DynamicPaginationProps {
   itemsPerPage: number;
   maxVisiblePages?: number;
   extraParams?: Record<string, string>;
-}
-
-function buildUrl(
-  basePath: string,
-  page: number,
-  extraParams?: Record<string, string>,
-): string {
-  const params = new URLSearchParams({ ...extraParams, page: String(page) });
-  return `${basePath}?${params.toString()}`;
-}
+};
 
 type PageItem = number | 'left-ellipsis' | 'right-ellipsis';
 
@@ -82,6 +76,7 @@ export function DynamicPagination({
   extraParams,
 }: DynamicPaginationProps) {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
 
   const isFirst = currentPage <= 1;
   const isLast = currentPage >= maxPages;
@@ -111,7 +106,14 @@ export function DynamicPagination({
             <PaginationPrevious
               label={t('pagination.prev')}
               to={
-                isFirst ? '#' : buildUrl(basePath, currentPage - 1, extraParams)
+                isFirst
+                  ? '#'
+                  : buildUrl(
+                      basePath,
+                      currentPage - 1,
+                      searchParams,
+                      extraParams,
+                    )
               }
               aria-disabled={isFirst}
               tabIndex={isFirst ? -1 : undefined}
@@ -133,7 +135,7 @@ export function DynamicPagination({
             return (
               <PaginationItem key={item}>
                 <PaginationLink
-                  to={buildUrl(basePath, item, extraParams)}
+                  to={buildUrl(basePath, item, searchParams, extraParams)}
                   isActive={isActive}
                   className="text-xs md:text-sm"
                   aria-current={isActive ? 'page' : undefined}
@@ -148,7 +150,14 @@ export function DynamicPagination({
             <PaginationNext
               label={t('pagination.next')}
               to={
-                isLast ? '#' : buildUrl(basePath, currentPage + 1, extraParams)
+                isLast
+                  ? '#'
+                  : buildUrl(
+                      basePath,
+                      currentPage + 1,
+                      searchParams,
+                      extraParams,
+                    )
               }
               aria-disabled={isLast}
               tabIndex={isLast ? -1 : undefined}

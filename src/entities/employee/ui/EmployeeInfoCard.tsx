@@ -13,9 +13,7 @@ import type { EmployeeInternalFormData } from '../model/employeeTypes';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
   Field,
   FieldError,
   FieldLabel,
@@ -43,19 +41,14 @@ export function EmployeeInfoCard({ isLoading }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('employeesPage.form.employmentInfoTitle')}</CardTitle>
-        <CardDescription>
-          {t('employeesPage.form.employmentInfoSubtitle')}
-        </CardDescription>
+        <CardSectionHeader
+          icon={User}
+          title={t('employeesPage.form.employmentInfoTitle')}
+          description={t('employeesPage.form.employmentInfoSubtitle')}
+        />
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <CardSectionHeader
-          icon={User}
-          title={t('employeesPage.form.innerEmploymentInfoTitle')}
-          description={t('employeesPage.form.innerEmploymentInfoSubtitle')}
-        />
-
         <Controller
           name="is_active"
           control={control}
@@ -64,6 +57,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
               id="active"
               disabled={isLoading}
               label={t('form.fields.active')}
+              description={t('employeesPage.form.activeDescription')}
               checked={field.value}
               onCheckedChange={field.onChange}
             />

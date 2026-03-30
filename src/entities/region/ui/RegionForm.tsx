@@ -11,6 +11,10 @@ import {
   FieldLabel,
   FormActions,
   CardSectionHeader,
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
 } from '@/shared/ui';
 
 type RegionFormProps = {
@@ -42,58 +46,70 @@ export function RegionForm({
   const isEdit = !!defaultValues;
 
   return (
-    <>
-      <CardSectionHeader
-        icon={MapPin}
-        title={t('info')}
-        description={t('infoDescription')}
-      />
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
-          <Input
-            id="name"
-            type="text"
-            autoComplete="off"
-            icon={MapPin}
-            placeholder={t('namePlaceholder')}
-            {...register('name', {
-              required: true,
-              disabled: isLoading,
-              validate: (value) => value && value.trim() !== '',
-            })}
-          />
-          {errors.name && <FieldError>{t('errors.required')}</FieldError>}
-        </Field>
-        {!isEdit && (
-          <Field data-invalid={!!errors.city_id}>
-            <FieldLabel asChild>
-              <p>{t('city')}</p>
-            </FieldLabel>
-            <Controller
-              name="city_id"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <CitySelector
-                  isLoading={isLoading}
-                  invalid={!!errors.city_id}
-                  selected={selected}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
+    <Card>
+      <CardHeader>
+        <CardSectionHeader
+          icon={MapPin}
+          title={t('info')}
+          description={t('infoDescription')}
+        />
+      </CardHeader>
+      <CardContent>
+        <form
+          id="regions-form"
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5"
+        >
+          <Field data-invalid={!!errors.name}>
+            <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
+            <Input
+              id="name"
+              type="text"
+              autoComplete="off"
+              icon={MapPin}
+              placeholder={t('namePlaceholder')}
+              {...register('name', {
+                required: true,
+                disabled: isLoading,
+                validate: (value) => value && value.trim() !== '',
+              })}
             />
-            {errors.city_id && <FieldError>{t('errors.required')}</FieldError>}
+            {errors.name && <FieldError>{t('errors.required')}</FieldError>}
           </Field>
-        )}
+          {!isEdit && (
+            <Field data-invalid={!!errors.city_id}>
+              <FieldLabel asChild>
+                <p>{t('city')}</p>
+              </FieldLabel>
+              <Controller
+                name="city_id"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <CitySelector
+                    isLoading={isLoading}
+                    invalid={!!errors.city_id}
+                    selected={selected}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  />
+                )}
+              />
+              {errors.city_id && (
+                <FieldError>{t('errors.required')}</FieldError>
+              )}
+            </Field>
+          )}
+        </form>
+      </CardContent>
+      <CardFooter>
         <FormActions
+          form="regions-form"
           isEdit={!!defaultValues}
           isLoading={isLoading}
           onReset={onReset}
         />
-      </form>
-    </>
+      </CardFooter>
+    </Card>
   );
 }

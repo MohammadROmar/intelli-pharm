@@ -5,10 +5,10 @@ import { useGetRegion } from '@/entities/region';
 import { DetailSkeleton, QueryError } from '@/shared/ui';
 
 export default function RegionDetailPage() {
-  const { data, isLoading, isError, error } = useGetRegion();
+  const { data, isLoading, isError, error, refetch } = useGetRegion();
 
   if (isError) {
-    return <QueryError error={error} />;
+    return <QueryError error={error} onRetry={refetch} />;
   }
 
   if (isLoading || !data) {

@@ -19,14 +19,14 @@ import {
   FiltersModal,
 } from '@/shared/ui';
 
-interface Props {
+type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   defaultValues?: MedicineFilters;
   onApply: (filters: MedicineFilters) => void;
   onClear: () => void;
   hasActiveFilters?: boolean;
-}
+};
 
 export function MedicineFiltersModal({
   open,

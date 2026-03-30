@@ -5,19 +5,16 @@ import {
   setRefreshToken,
 } from '../lib/refreshToken';
 
-interface User {
-  name: string;
-  email: string;
-}
+type User = { name: string; email: string };
 
-interface SessionState {
+type SessionState = {
   accessToken: string | null;
   refreshToken: string | null;
   roles: string[] | null;
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-}
+};
 
 const initialState: SessionState = {
   accessToken: null,

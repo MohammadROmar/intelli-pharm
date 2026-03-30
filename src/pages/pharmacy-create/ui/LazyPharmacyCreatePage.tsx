@@ -8,7 +8,7 @@ export function LazyPharmacyCreatePage() {
   return (
     <WithSuspense
       Component={PharmacyCreatePage}
-      loader={<FormSkeleton fields={2} />}
+      loader={<FormSkeleton cards={[{ rows: 3 }, { rows: 2 }]} />}
     />
   );
 }

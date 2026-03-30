@@ -8,7 +8,7 @@ export function LazyMedicineRestockPage() {
   return (
     <WithSuspense
       Component={MedicineRestockPage}
-      loader={<FormSkeleton fields={3} />}
+      loader={<FormSkeleton cards={[{ rows: 2 }]} />}
     />
   );
 }

@@ -1,17 +1,27 @@
-import { CategoryDetail } from './CategoryDetail';
 import { useGetCategory } from '@/entities/category';
 import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { CategoryDetailHeader } from './CategoryDetailHeader';
+import { CategoryMetaGrid } from './CategoryMetaGrid';
+import { CategoryChildrenTable } from './CategoryChildrenTable';
 
 export default function CategoryDetailPage() {
-  const { data, isLoading, isError, error } = useGetCategory();
+  const { data, isLoading, isError, error, refetch } = useGetCategory();
 
   if (isError) {
-    return <QueryError error={error} />;
+    return <QueryError error={error} onRetry={refetch} />;
   }
 
   if (isLoading || !data) {
     return <DetailSkeleton cards={[{ rows: 4 }]} tables={1} />;
   }
 
-  return <CategoryDetail category={data.data!} />;
+  const category = data.data!;
+
+  return (
+    <div className="space-y-6">
+      <CategoryDetailHeader category={category} />
+      <CategoryMetaGrid category={category} />
+      <CategoryChildrenTable category={category} />
+    </div>
+  );
 }

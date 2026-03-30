@@ -24,12 +24,7 @@ export function DetailCard({
     <Card className={className}>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardSectionHeader
-            title={title}
-            description={subtitle}
-            icon={icon}
-            className="mb-0!"
-          />
+          <CardSectionHeader title={title} description={subtitle} icon={icon} />
           {itemsCount > 0 && <Badge variant="secondary">{itemsCount}</Badge>}
         </div>
       </CardHeader>

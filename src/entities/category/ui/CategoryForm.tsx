@@ -11,6 +11,10 @@ import {
   FieldLabel,
   FormActions,
   CardSectionHeader,
+  CardHeader,
+  Card,
+  CardContent,
+  CardFooter,
 } from '@/shared/ui';
 
 type CategoryFormProps = {
@@ -38,56 +42,73 @@ export function CategoryForm({
   const { t } = useTranslation();
 
   return (
-    <>
-      <CardSectionHeader
-        icon={Tags}
-        title={t('categoriesPage.categoryInfo')}
-        description={t('categoriesPage.categoryInfoDescription')}
-      />
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">
-            {t('form.fields.categoryName')}
-          </FieldLabel>
-          <Input
-            id="name"
-            type="text"
-            autoComplete="off"
-            icon={Tag}
-            placeholder={t('categoriesPage.categoryNamePlaceholder')}
-            {...register('name', {
-              required: true,
-              disabled: isLoading,
-              validate: (value) => value && value.trim() !== '',
-            })}
-          />
-          {errors.name && <FieldError>{t('form.errors.required')}</FieldError>}
-        </Field>
-        <Field data-invalid={!!errors.parent_id}>
-          <FieldLabel asChild>
-            <p>{t('form.fields.categoryParent')}</p>
-          </FieldLabel>
-          <Controller
-            name="parent_id"
-            control={control}
-            render={({ field }) => (
-              <CategorySelector
-                isLoading={isLoading}
-                invalid={!!errors.parent_id}
-                parent={parentData}
-                value={field.value}
-                onValueChange={field.onChange}
-              />
+    <Card>
+      <CardHeader>
+        <CardSectionHeader
+          icon={Tags}
+          title={t('categoriesPage.categoryInfo')}
+          description={t('categoriesPage.categoryInfoDescription')}
+        />
+      </CardHeader>
+      <CardContent>
+        <form
+          id="category-form"
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-5"
+        >
+          <Field data-invalid={!!errors.name}>
+            <FieldLabel htmlFor="name">
+              {t('form.fields.categoryName')}
+            </FieldLabel>
+            <Input
+              id="name"
+              type="text"
+              autoComplete="off"
+              icon={Tag}
+              placeholder={t('categoriesPage.categoryNamePlaceholder')}
+              {...register('name', {
+                required: true,
+                disabled: isLoading,
+                validate: (value) => value && value.trim() !== '',
+              })}
+            />
+            {errors.name && (
+              <FieldError>{t('form.errors.required')}</FieldError>
             )}
-          />
-        </Field>
+          </Field>
+          <Field data-invalid={!!errors.parent_id}>
+            <FieldLabel asChild>
+              <p>
+                {t('form.fields.categoryParent')}{' '}
+                <span className="text-muted-foreground text-xs font-normal">
+                  ({t('optional')})
+                </span>
+              </p>
+            </FieldLabel>
+            <Controller
+              name="parent_id"
+              control={control}
+              render={({ field }) => (
+                <CategorySelector
+                  isLoading={isLoading}
+                  invalid={!!errors.parent_id}
+                  parent={parentData}
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          </Field>
+        </form>
+      </CardContent>
+      <CardFooter>
         <FormActions
+          form="category-form"
           isEdit={!!defaultValues}
           isLoading={isLoading}
           onReset={onReset}
         />
-      </form>
-    </>
+      </CardFooter>
+    </Card>
   );
 }

@@ -4,15 +4,12 @@ import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 import { useMutationSideEffects } from './useMutationSideEffects';
 import type { ApiError, ApiResponse } from '../api';
 
-interface UseEditEntityOptions<
-  TVariables,
-  TData = ApiResponse<unknown>,
-> extends Omit<UseMutationOptions<TData, ApiError, TVariables>, 'mutationFn'> {
+type UseEditEntityOptions<TVariables, TData = ApiResponse<unknown>> = {
   queryKey: string;
   translationKey: string;
   mutationFn: (variables: TVariables) => Promise<TData>;
   redirectTo?: string;
-}
+} & Omit<UseMutationOptions<TData, ApiError, TVariables>, 'mutationFn'>;
 
 export function useEditEntity<TVariables, TData = ApiResponse<unknown>>({
   queryKey,
@@ -31,7 +28,6 @@ export function useEditEntity<TVariables, TData = ApiResponse<unknown>>({
 
   return useMutation<TData, ApiError, TVariables>({
     mutationFn,
-    ...mutationOptions,
     onSuccess: () => {
       onSuccess();
 
@@ -40,5 +36,6 @@ export function useEditEntity<TVariables, TData = ApiResponse<unknown>>({
       }
     },
     onError,
+    ...mutationOptions,
   });
 }

@@ -10,13 +10,13 @@ import {
   DialogTitle,
 } from './dialog';
 
-interface DeleteModalProps {
+type DeleteModalProps = {
   isPending: boolean;
   hasItem: boolean | null;
   label: string;
   onConfirm: () => void;
   onClose: () => void;
-}
+};
 
 export function DeleteModal({
   hasItem,

@@ -19,9 +19,7 @@ import { required, fRequired, positiveNumber } from '@/shared/lib';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
   Field,
   FieldError,
   FieldGroup,
@@ -55,17 +53,14 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('basicInfoTitle')}</CardTitle>
-        <CardDescription>{t('basicInfoSubtitle')}</CardDescription>
-      </CardHeader>
-
-      <CardContent className="space-y-5">
         <CardSectionHeader
           icon={Pill}
           title={t('medicineDetailsTitle')}
           description={t('medicineDetailsSubtitle')}
         />
+      </CardHeader>
 
+      <CardContent className="space-y-5">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field data-invalid={!!errors.name}>
             <FieldLabel htmlFor="name">{t('medicineName')}</FieldLabel>
@@ -149,7 +144,12 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
         </div>
 
         <Field>
-          <FieldLabel htmlFor="note">{t('note')}</FieldLabel>
+          <FieldLabel htmlFor="note">
+            {t('note')}{' '}
+            <span className="text-muted-foreground text-xs font-normal">
+              ({t('optional')})
+            </span>
+          </FieldLabel>
           <Textarea
             icon={StickyNote}
             id="note"
@@ -163,7 +163,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
         <Separator className="my-2" />
 
         <FieldSet>
-          <FieldLegend className="text-muted-foreground mb-3 text-[11px] font-medium tracking-wider uppercase">
+          <FieldLegend className="text-muted-foreground mb-3 text-xs font-medium tracking-wider uppercase">
             {t('flags')}
           </FieldLegend>
           <FieldGroup className="space-y-3">

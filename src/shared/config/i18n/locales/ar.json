@@ -213,6 +213,7 @@
       "labelRegion": "المنطقة",
       "labelActive": "نشطة",
       "descriptionActive": "الصيدلية مفتوحة وتستقبل المرضى.",
+      "workingHours": "ساعات العمل",
       "labelOpeningTime": "وقت الفتح",
       "labelClosingTime": "وقت الإغلاق",
       "labelLatitude": "خط العرض",
@@ -291,15 +292,14 @@
       "actions": "الإجراءات"
     },
     "form": {
-      "basicInfoTitle": "المعلومات الأساسية",
-      "basicInfoSubtitle": "التفاصيل الأساسية للدواء.",
       "medicineDetailsTitle": "تفاصيل الدواء",
       "medicineDetailsSubtitle": "الاسم، الفئة، السعر والملاحظات.",
       "medicineName": "اسم الدواء",
       "category": "الفئة",
       "laboratory": "المختبر",
       "price": "السعر",
-      "note": "ملاحظة (اختياري)",
+      "note": "ملاحظة",
+      "optional": "اختياري",
       "flags": "علامات",
       "active": "نشط",
       "activeDescription": "الدواء متاح للبيع والطلب.",
@@ -308,8 +308,6 @@
       "alternative": "بديل",
       "alternativeToMedicine": "بديل عن",
       "alternativeDescription": "هذا بديل عام أو مكافئ.",
-      "stockEntriesTitle": "إدخالات المخزون",
-      "stockEntriesSubtitle": "أضف مخزونًا لكل مستودع مع الكمية وتاريخ انتهاء الصلاحية.",
       "addStock": "إضافة مخزون",
       "warehouseStock": "مخزون المستودع",
       "warehouseStockSubtitle": "كل صف يمثل مخزونًا في مستودع معين.",
@@ -319,8 +317,6 @@
       "notePlaceholder": "ملاحظات اضافية حول هذا الدواء...",
       "quantity": "الكمية",
       "expiryDate": "تاريخ انتهاء الصلاحية",
-      "medicineImagesTitle": "صور الدواء",
-      "medicineImagesSubtitle": "قم بتحميل صور المنتج. اسحب وأفلت أو انقر للتصفح.",
       "productPhotosTitle": "صور المنتج",
       "productPhotosSubtitle": "تم تحديد {{imagesCount}} صورة (صور)",
       "required": "{{field}} مطلوب",
@@ -383,14 +379,14 @@
       "title": "إعادة تخزين الدواء",
       "subtitle": "أضف إدخالات مخزون لمستودع واحد أو أكثر.",
 
-      "warehouseStock": "إدخالات المستودع",
-      "warehouseStockSubtitle": "كل صف يضيف مخزوناً إلى مستودع محدد.",
+      "warehouseStock": "مخزون المستودع",
+      "warehouseStockSubtitle": "كل صف يمثل مخزونًا في مستودع معين.",
 
-      "stockLabel": "إدخال",
+      "stockLabel": "المخزون",
       "warehouse": "المستودع",
       "quantity": "الكمية",
       "expiryDate": "تاريخ الانتهاء",
-      "addStock": "إضافة إدخال",
+      "addStock": "إضافة مخزون",
 
       "totalQuantity": "إجمالي الوحدات المضافة",
       "units": "وحدة",
@@ -457,15 +453,11 @@
     "create": {
       "title": "إضافة فئة جديدة",
       "subtitle": "قم بتنظيم المستودع من خلال إضافة فئة جديدة.",
-      "formTitle": "تفاصيل الفئة",
-      "formSubtitle": "املأ المعلومات أدناه لتسجيل الفئة الجديدة.",
       "create": "إنشاء فئة"
     },
     "edit": {
       "title": "تعديل الفئة",
-      "subtitle": "تحديث معلومات الفئة.",
-      "formTitle": "تفاصيل الفئة",
-      "formSubtitle": "غيَّر المعلومات أدناه لتعديل الفئة الجديدة."
+      "subtitle": "تحديث معلومات الفئة."
     },
     "detail": {
       "breadcrumb": "الفئات",
@@ -540,20 +532,15 @@
       "create": "إنشاء موظف"
     },
     "form": {
-      "personalInfoTitle": " المعلومات الشخصية",
-      "personalInfoSubtitle": "إدارة البيانات الشخصية ومعلومات الحساب.",
-      "innerPersonalInfoTitle": "المعلومات الشخصية",
-      "innerPersonalInfoSubtitle": "الاسم، البريد الإلكتروني، ؤقم الهاتف وكلمة المرور.",
-      "employmentInfoTitle": "تفاصيل العمل",
-      "employmentInfoSubtitle": "إدارة الدور، أوقات العمل، والحالة.",
-      "innerEmploymentInfoTitle": "معلومات العمل",
-      "innerEmploymentInfoSubtitle": "الدور، ساعات العمل، والحالة."
+      "personalInfoTitle": "المعلومات الشخصية",
+      "personalInfoSubtitle": "الاسم، البريد الإلكتروني، ؤقم الهاتف وكلمة المرور.",
+      "employmentInfoTitle": "معلومات العمل",
+      "employmentInfoSubtitle": "الدور، ساعات العمل، والحالة.",
+      "activeDescription": "تحديد ما إذا كان بإمكان هذا الموظف الوصول إلى النظام."
     },
     "update": {
       "title": "تعديل الموظف",
-      "subtitle": "إدارة بيانات الموظف وصلاحياته.",
-      "formTitle": "بيانات الموظف",
-      "formSubtitle": "يرجى تعبئة البيانات المطلوبة أدناه."
+      "subtitle": "إدارة بيانات الموظف وصلاحياته."
     },
     "editRestricted": {
       "title": "لا يمكن تعديل حسابات المسؤولين من هنا",
@@ -592,7 +579,8 @@
       "name": "الاسم",
       "role": "الدور",
       "categoryName": "اسم الفئة",
-      "categoryParent": "الفئة الأصلية (اختياري)",
+      "categoryParent": "الفئة الأصلية",
+      "optional": "اختياري",
       "phoneNumber": "رقم الهاتف",
       "workingStart": "وقت البدء",
       "workingEnd": "وقت الانتهاء",
@@ -710,7 +698,8 @@
     "serverError": "حدث خطأ من طرفنا.",
     "unknownTitle": "حدث خطأ ما",
     "unknown": "حدث خطأ غير متوقع.",
-    "retry": "إعادة المحاولة"
+    "retry": "إعادة المحاولة",
+    "emailAlreadyTaken": "البريد الإلكتروني مستخدم بالفعل."
   },
 
   "tableActions": {

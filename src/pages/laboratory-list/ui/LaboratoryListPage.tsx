@@ -9,10 +9,10 @@ export default function LaboratoryListPage() {
     keyPrefix: 'laboratoriesPage',
   });
 
-  const { data, isLoading, isError, error } = useGetLaboratories();
+  const { data, isLoading, isError, error, refetch } = useGetLaboratories();
 
   if (isError) {
-    return <QueryError error={error} />;
+    return <QueryError error={error} onRetry={refetch} />;
   }
 
   if (isLoading || !data) {

@@ -4,10 +4,10 @@ import type { Employee } from '@/entities/employee';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-interface DeleteEmployeeModalProps {
+type DeleteEmployeeModalProps = {
   employee: Employee | null;
   onClose: () => void;
-}
+};
 
 export function DeleteEmployeeModal({
   employee,

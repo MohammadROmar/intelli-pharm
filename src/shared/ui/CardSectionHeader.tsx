@@ -14,7 +14,7 @@ export function CardSectionHeader({
   className,
 }: CardSectionHeaderProps) {
   return (
-    <div className={cn('mb-6 flex items-start gap-3', className)}>
+    <div className={cn('flex items-start gap-3', className)}>
       <div className="bg-primary/10 text-primary mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg">
         <Icon className="size-5" />
       </div>

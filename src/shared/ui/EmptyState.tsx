@@ -5,12 +5,12 @@ import { FolderOpen, SearchX } from 'lucide-react';
 
 import { Button } from './Button';
 
-interface Props {
+type Props = {
   variant: 'empty' | 'search';
   query?: string;
   onClearSearch?: () => void;
   onAdd?: () => void;
-}
+};
 
 export function TableEmptyState({
   variant,
