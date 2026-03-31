@@ -28,10 +28,71 @@
       "all": "جميع الطلبات",
       "id": "المعرف",
       "pharmacyName": "اسم الصيدلية",
-      "itemsCount": "عدد العناصر",
-      "createdAt": "تاريخ الانشاء",
-      "warehouse": "المستودع",
-      "actions": "الخيارات"
+      "status": "الحالة",
+      "totalAmount": "الكمية الكلية",
+      "totalQuantity": "السعر الكلي",
+      "created": "تاريخ الإنشاء",
+      "actions": "الإجراءات"
+    },
+    "detail": {
+      "orderNo": "الطلب رقم {{order}}",
+
+      "cardTitle": "ملخص الطلب",
+      "cardSubtitle": "التفاصيل الكاملة لهذا الطلب.",
+
+      "labelId": "رقم الطلب",
+      "labelStatus": "الحالة",
+      "labelPharmacy": "الصيدلية",
+      "labelWarehouse": "المستودع",
+      "labelTotalAmount": "المبلغ الإجمالي",
+      "labelTotalQuantity": "الكمية الإجمالية",
+      "labelCreatedAt": "وقت الطلب",
+      "labelUpdatedAt": "آخر تحديث",
+      "units": "وحدة",
+
+      "itemsTitle": "عناصر الطلب",
+      "itemsSubtitle": "الأدوية المدرجة في هذا الطلب.",
+      "noItems": "لا توجد عناصر في هذا الطلب.",
+
+      "colMedicineId": "رقم الدواء",
+      "colMedicine": "الدواء",
+      "colQty": "الكمية",
+      "colUnitPrice": "سعر الوحدة",
+      "colTotalPrice": "الإجمالي",
+      "colActions": "الإجراءات",
+      "footerTotal": "إجمالي الطلب"
+    },
+    "changeStatus": {
+      "trigger": "تغيير الحالة",
+      "title": "تغيير حالة الطلب",
+      "subtitle": "اختر الحالة التالية لهذا الطلب.",
+
+      "currentStatus": "الحالة الحالية",
+      "next": "التالي",
+      "cancel": "إلغاء",
+      "back": "رجوع",
+      "confirm": "تأكيد",
+      "confirming": "جارٍ التحديث…",
+
+      "confirmTitle": "هل أنت متأكد؟",
+      "confirmMessage": "أنت على وشك تحديث حالة الطلب إلى {{status}}.",
+      "confirmDestructiveMessage": "أنت على وشك إلغاء هذا الطلب. لا يمكن التراجع عن هذا الإجراء.",
+
+      "error": "حدث خطأ ما. يرجى المحاولة مجدداً.",
+
+      "statusDescription": {
+        "pending": "تم تقديم الطلب وينتظر التأكيد.",
+        "processing": "جارٍ تجهيز الطلب.",
+        "completed": "تم إكمال الطلب بنجاح.",
+        "cancelled": "تم إلغاء الطلب."
+      }
+    },
+
+    "status": {
+      "pending": "قيد الانتظار",
+      "processing": "يتم المعالجة",
+      "completed": "تم التسليم",
+      "cancelled": "ملغى"
     }
   },
 
@@ -263,7 +324,11 @@
       "subtitle": "ضيّق نتائج قائمة الصيدليات باستخدام فلتر واحد أو أكثر.",
       "nameLabel": "اسم الصيدلية",
       "namePlaceholder": "البحث باسم الصيدلية...",
-      "labelRegion": "المنطقة"
+      "labelRegion": "المنطقة",
+      "labelPharmacistName": "اسم الصيدلاني",
+      "placeholderPharmacistName": "البحث باسم الصيدلاني...",
+      "labelPhone": "الهاتف",
+      "labelAltPhone": "هاتف بديل"
     }
   },
 

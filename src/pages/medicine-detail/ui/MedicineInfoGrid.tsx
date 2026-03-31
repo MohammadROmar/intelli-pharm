@@ -31,12 +31,12 @@ export function MedicineInfoGrid({ medicine }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelId')}>{medicine.id}</DetailCell>
         <DetailCell label={t('labelCategory')}>
-          <Link to={`/dashboard/categories/${medicine.category.id}`}>
-            <Badge variant="secondary" className="font-normal">
+          <Badge asChild variant="secondary" className="font-normal">
+            <Link to={`/dashboard/categories/${medicine.category.id}`}>
               <Folders className="mr-1 size-3" />
               {medicine.category.name}
-            </Badge>
-          </Link>
+            </Link>
+          </Badge>
         </DetailCell>
       </div>
 
@@ -71,12 +71,12 @@ export function MedicineInfoGrid({ medicine }: Props) {
         </DetailCell>
         <DetailCell label={t('labelLaboratories')}>
           {medicine.laboratory ? (
-            <Link to={`/dashboard/laboratories/${medicine.laboratory.id}`}>
-              <Badge variant="secondary" className="font-normal">
+            <Badge asChild variant="secondary" className="font-normal">
+              <Link to={`/dashboard/laboratories/${medicine.laboratory.id}`}>
                 <Pipette className="mr-1 size-3" />
                 {medicine.laboratory.name}
-              </Badge>
-            </Link>
+              </Link>
+            </Badge>
           ) : (
             <span className="font-normal">-</span>
           )}

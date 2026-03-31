@@ -4,6 +4,7 @@ import { Activity, Clock, MapPin } from 'lucide-react';
 import type { PharmacyDetail } from '@/entities/pharmacy';
 import { formatTime } from '@/shared/lib';
 import { Badge, DetailCard, DetailCell, Separator } from '@/shared/ui';
+import { Link } from 'react-router-dom';
 
 type Props = { pharmacy: PharmacyDetail };
 
@@ -29,10 +30,12 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
           </Badge>
         </DetailCell>
         <DetailCell label={t('labelRegion')}>
-          <span className="flex items-center gap-1.5">
-            <MapPin className="text-muted-foreground size-4 shrink-0" />
-            {pharmacy.region}
-          </span>
+          <Badge asChild variant="secondary">
+            <Link to={`/dashboard/regions/${pharmacy.region_id}`}>
+              <MapPin className="text-muted-foreground size-4 shrink-0" />
+              {pharmacy.region}
+            </Link>
+          </Badge>
         </DetailCell>
       </div>
 
@@ -57,12 +60,12 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelLatitude')}>
-          <span className="flex items-center gap-1.5 font-mono text-sm">
+          <span className="flex items-center gap-1.5 text-sm">
             {pharmacy.latitude}
           </span>
         </DetailCell>
         <DetailCell label={t('labelLongitude')}>
-          <span className="font-mono text-sm">{pharmacy.longitude}</span>
+          <span className="text-sm">{pharmacy.longitude}</span>
         </DetailCell>
       </div>
     </DetailCard>

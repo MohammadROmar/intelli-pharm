@@ -28,10 +28,71 @@
       "all": "All Orders",
       "id": "ID",
       "pharmacyName": "Pharmacy Name",
-      "itemsCount": "Number of Items",
-      "createdAt": "Creation Date",
-      "warehouse": "Warehouse",
+      "status": "status",
+      "totalAmount": "Total Amount",
+      "totalQuantity": "Total Price",
+      "created": "Created",
       "actions": "Actions"
+    },
+    "detail": {
+      "orderNo": "Order #{{order}}",
+
+      "cardTitle": "Order Summary",
+      "cardSubtitle": "Full details for this order.",
+
+      "labelId": "Order ID",
+      "labelStatus": "Status",
+      "labelPharmacy": "Pharmacy",
+      "labelWarehouse": "Warehouse",
+      "labelTotalAmount": "Total Amount",
+      "labelTotalQuantity": "Total Quantity",
+      "labelCreatedAt": "Placed At",
+      "labelUpdatedAt": "Last Updated",
+      "units": "units",
+
+      "itemsTitle": "Order Items",
+      "itemsSubtitle": "Medicines included in this order.",
+      "noItems": "No items found in this order.",
+
+      "colMedicineId": "Medicine ID",
+      "colMedicine": "Medicine",
+      "colQty": "Qty",
+      "colUnitPrice": "Unit Price",
+      "colTotalPrice": "Total",
+      "colActions": "Actions",
+      "footerTotal": "Order Total"
+    },
+    "changeStatus": {
+      "trigger": "Change Status",
+      "title": "Change Order Status",
+      "subtitle": "Select the next status for this order.",
+
+      "currentStatus": "Current status",
+      "next": "Next",
+      "cancel": "Cancel",
+      "back": "Back",
+      "confirm": "Confirm",
+      "confirming": "Updating…",
+
+      "confirmTitle": "Are you sure?",
+      "confirmMessage": "You are about to mark this order as {{status}}.",
+      "confirmDestructiveMessage": "You are about to cancel this order. This action cannot be undone.",
+
+      "error": "Something went wrong. Please try again.",
+
+      "statusDescription": {
+        "pending": "The order has been submitted and is waiting for confirmation.",
+        "processing": "The order is being prepared.",
+        "completed": "The order has been completed successfully.",
+        "cancelled": "The order has been cancelled."
+      }
+    },
+
+    "status": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
     }
   },
 
@@ -262,7 +323,11 @@
       "subtitle": "Narrow down the pharmacy list using one or more filters.",
       "nameLabel": "Pharmacy name",
       "namePlaceholder": "Search by pharmacy name…",
-      "labelRegion": "Region"
+      "labelRegion": "Region",
+      "labelPharmacistName": "Pharmacist Name",
+      "placeholderPharmacistName": "Search by pharmacist name...",
+      "labelPhone": "Phone",
+      "labelAltPhone": "Alternative Phone"
     }
   },
 

@@ -20,9 +20,12 @@ import {
   SwitchRow,
 } from '@/shared/ui';
 
-type Props = { isPending?: boolean };
+type Props = {
+  isPending?: boolean;
+  selectedRegion?: { id: number; name: string };
+};
 
-export function PharmacyDetailsCard({ isPending }: Props) {
+export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'pharmaciesPage.form',
   });
@@ -79,7 +82,7 @@ export function PharmacyDetailsCard({ isPending }: Props) {
                 <RegionSelector
                   isLoading={isPending}
                   invalid={!!errors.region_id}
-                  // selected={} TO BE ADDED
+                  selected={selectedRegion}
                   value={field.value ? +field.value : null}
                   onValueChange={field.onChange}
                 />

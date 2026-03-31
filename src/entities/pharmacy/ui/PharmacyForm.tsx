@@ -33,6 +33,10 @@ export function PharmacyForm({
     onSubmit(data);
   }
 
+  const selectedRegion = defaultValues
+    ? { id: defaultValues.region_id, name: defaultValues.region }
+    : undefined;
+
   return (
     <FormProvider {...methods}>
       <form
@@ -40,7 +44,10 @@ export function PharmacyForm({
         noValidate
         className="space-y-6"
       >
-        <PharmacyDetailsCard isPending={isPending} />
+        <PharmacyDetailsCard
+          isPending={isPending}
+          selectedRegion={selectedRegion}
+        />
         <PharmacistInformationCard isPending={isPending} />
         <FormActions
           isEdit={!!defaultValues}

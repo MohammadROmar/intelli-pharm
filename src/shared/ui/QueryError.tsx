@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   AlertTriangle,
   RefreshCw,
@@ -5,7 +6,6 @@ import {
   ShieldOff,
   WifiOff,
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 import type { ApiError } from '../api';
 import { Button } from './Button';

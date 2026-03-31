@@ -1,15 +1,15 @@
 import { useTranslation } from 'react-i18next';
 
-import { RegionsTable } from './RegionTable';
-import { useGetRegions } from '../model/useGetRegions';
+import { OrdersTable } from './OrdersTable';
+import { useGetOrders } from '../model/useGetOrders';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
-export default function RegionListPage() {
+export default function OrderListPage() {
   const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.list',
+    keyPrefix: 'ordersPage.list',
   });
 
-  const { data, isError, error, isLoading, refetch } = useGetRegions();
+  const { data, isError, error, isLoading, refetch } = useGetOrders();
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;
@@ -22,7 +22,7 @@ export default function RegionListPage() {
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <RegionsTable data={data.data!} />
+      <OrdersTable data={data.data!} />
     </>
   );
 }

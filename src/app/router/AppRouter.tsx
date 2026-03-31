@@ -9,7 +9,8 @@ import { LazyNotFoundPage } from '@/pages/not-found';
 
 import { LazyLoginPage } from '@/pages/login';
 
-import { LazyOrderListPage } from '@/pages/orders-list';
+import { LazyOrderListPage } from '@/pages/order-list';
+import { LazyOrderDetailPage } from '@/pages/order-detail';
 
 import { LazyLaboratoryListPage } from '@/pages/laboratory-list';
 import { LazyLaboratoryDetailPage } from '@/pages/laboratory-detail';
@@ -63,7 +64,13 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <></> },
 
-          { path: 'orders', element: <LazyOrderListPage /> },
+          {
+            path: 'orders',
+            children: [
+              { index: true, element: <LazyOrderListPage /> },
+              { path: ':id', element: <LazyOrderDetailPage /> },
+            ],
+          },
 
           {
             path: 'laboratories',

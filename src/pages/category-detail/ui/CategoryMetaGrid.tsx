@@ -66,16 +66,16 @@ export function CategoryMetaGrid({ category }: Props) {
           )}
         </DetailCell>
         <DetailCell label={t('labelParentName')}>
-          <Link to={`/dashboard/categories/${category.parent_id}`}>
-            <Badge variant="secondary">
+          <Badge asChild variant="secondary">
+            <Link to={`/dashboard/categories/${category.parent_id}`}>
               <FolderTree className="text-muted-foreground size-4 shrink-0" />
               {category.parent_name ?? (
                 <span className="text-muted-foreground font-normal">
                   {t('noParent')}
                 </span>
               )}
-            </Badge>
-          </Link>
+            </Link>
+          </Badge>
         </DetailCell>
       </div>
 

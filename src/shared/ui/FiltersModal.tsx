@@ -6,8 +6,9 @@ import { Button } from './Button';
 import { Badge } from './badge';
 import { Separator } from './Separator';
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from './dialog';
-import { cn } from '../lib';
 import { CardSectionHeader } from './CardSectionHeader';
+import { ScrollArea } from './scroll-area';
+import { cn } from '../lib';
 
 type Props = {
   open: boolean;
@@ -75,7 +76,7 @@ export function FiltersModal({
         </DialogHeader>
 
         <Separator />
-        {children}
+        <ScrollArea className="max-h-[60vh]">{children}</ScrollArea>
         <Separator />
 
         <DialogFooter className="flex-row justify-end! gap-2">

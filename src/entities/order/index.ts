@@ -1,5 +1,13 @@
-export { getOrders } from './api';
+export { getOrders, getOrderById, changeOrderStatus } from './api';
 
-export type { Order } from './model/orderTypes';
+export type {
+  OrderItem,
+  OrderStatus,
+  OrderDetail,
+  OrderFilters,
+  OrderListItem,
+  OrderListResponse,
+} from './model/orderTypes';
 
 export { OrderRow } from './ui/OrderRow';
+export { OrderStatusBadge } from './ui/OrderStatusBadge';

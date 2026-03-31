@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { UserRound } from 'lucide-react';
+import { Phone, User, UserRound } from 'lucide-react';
 
 import { type PharmacyFilters } from '@/entities/pharmacy';
 import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
@@ -87,6 +87,43 @@ export function PharmacyFiltersModal({
             </Field>
           )}
         />
+
+        <Field>
+          <FieldLabel htmlFor="pharmacist_name">
+            {t('labelPharmacistName')}
+          </FieldLabel>
+          <Input
+            id="pharmacist_name"
+            autoComplete="off"
+            icon={User}
+            placeholder={t('placeholderPharmacistName')}
+            {...register('pharmacist_name')}
+          />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="pharmacist_phone">{t('labelPhone')}</FieldLabel>
+          <Input
+            id="pharmacist_phone"
+            type="tel"
+            icon={Phone}
+            placeholder="0911223344"
+            {...register('pharmacist_phone')}
+          />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="pharmacist_alt_phone">
+            {t('labelAltPhone')}
+          </FieldLabel>
+          <Input
+            id="pharmacist_alt_phone"
+            type="tel"
+            icon={Phone}
+            placeholder="0999887766"
+            {...register('pharmacist_alt_phone')}
+          />
+        </Field>
       </form>
     </FiltersModal>
   );
