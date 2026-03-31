@@ -1,6 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { PharmacyDetailsCard } from './PharmacyDetailsCard';
+import { LocationPickerCard } from './LocationPickerCard';
 import { PharmacistInformationCard } from './PharmacistInformationCard';
 import type { Pharmacy } from '../model/pharmacyTypes';
 import { FormActions } from '@/shared/ui';
@@ -22,16 +23,12 @@ export function PharmacyForm({
     defaultValues: {
       is_active: true,
       pharmacist_alt_phone: '',
-      latitude: 33.3,
-      longitude: 33.3,
+      latitude: 33.5132,
+      longitude: 36.2768,
       ...defaultValues,
     },
     mode: 'onTouched',
   });
-
-  function handleFormSubmit(data: Pharmacy) {
-    onSubmit(data);
-  }
 
   const selectedRegion = defaultValues
     ? { id: defaultValues.region_id, name: defaultValues.region }
@@ -40,7 +37,7 @@ export function PharmacyForm({
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={methods.handleSubmit(handleFormSubmit)}
+        onSubmit={methods.handleSubmit(onSubmit)}
         noValidate
         className="space-y-6"
       >
@@ -49,6 +46,7 @@ export function PharmacyForm({
           selectedRegion={selectedRegion}
         />
         <PharmacistInformationCard isPending={isPending} />
+        <LocationPickerCard isPending={isPending} />
         <FormActions
           isEdit={!!defaultValues}
           isLoading={isPending}

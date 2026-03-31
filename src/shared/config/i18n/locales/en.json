@@ -288,6 +288,13 @@
       "placeholderName": "e.g. Central Pharmacy",
       "placeholderPharmacistName": "e.g. Rana Khaled",
 
+      "locationPickerTitle": "Pharmacy Location",
+      "locationPickerSubtitle": "Click the map or drag the pin to set the exact location.",
+      "useCurrentLocation": "Use Current Location",
+      "geoErrorDenied": "Location access was denied. Please allow it in your browser or device settings.",
+      "geoErrorUnavailable": "Could not determine your location. Try again.",
+      "geoErrorTimeout": "Location request timed out. Try again.",
+
       "errors": {
         "required": "This field is required.",
         "endAfterStart": "The pharmacy's closing time must be after its opening time.",
@@ -316,7 +323,8 @@
       "labelOpeningTime": "Opens At",
       "labelClosingTime": "Closes At",
       "labelLatitude": "Latitude",
-      "labelLongitude": "Longitude"
+      "labelLongitude": "Longitude",
+      "showOnMap": "Show on Map"
     },
     "filters": {
       "title": "Filter Pharmacies",

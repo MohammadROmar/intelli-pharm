@@ -1,6 +1,7 @@
 import { PharmacistCard } from './PharmacistCard';
 import { PharmacyInfoCard } from './PharmacyInfoCard';
 import { PharmacyDetailHeader } from './PharmacyDetailHeader';
+import { PharmacyLocationCard } from './PharmacyLocationCard';
 import { useGetPharmacy } from '@/entities/pharmacy';
 import { DetailSkeleton, QueryError } from '@/shared/ui';
 
@@ -22,6 +23,7 @@ export default function PharmacyDetailPage() {
       <PharmacyDetailHeader pharmacy={pharmacy} />
       <PharmacistCard pharmacy={pharmacy} />
       <PharmacyInfoCard pharmacy={pharmacy} />
+      <PharmacyLocationCard pharmacy={pharmacy} />
     </div>
   );
 }
