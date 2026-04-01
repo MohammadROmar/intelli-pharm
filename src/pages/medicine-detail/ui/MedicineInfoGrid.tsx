@@ -5,7 +5,7 @@ import {
   CalendarDays,
   Folders,
   Pill,
-  Pipette,
+  FlaskConical,
   RefreshCw,
   Truck,
 } from 'lucide-react';
@@ -73,7 +73,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
           {medicine.laboratory ? (
             <Badge asChild variant="secondary" className="font-normal">
               <Link to={`/dashboard/laboratories/${medicine.laboratory.id}`}>
-                <Pipette className="mr-1 size-3" />
+                <FlaskConical className="mr-1 size-3" />
                 {medicine.laboratory.name}
               </Link>
             </Badge>

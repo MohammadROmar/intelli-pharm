@@ -1,8 +1,6 @@
-import { useTranslation } from 'react-i18next';
-
 import type { RegionDetail, RegionListItem } from '@/entities/region';
-import { DeleteModal } from '@/shared/ui';
 import { useDeleteEntity } from '@/shared/model';
+import { DeleteModal } from '@/shared/ui';
 
 type DeleteRegionModalProps = {
   region: RegionDetail | RegionListItem | null;
@@ -20,8 +18,6 @@ export function DeleteRegionModal({
     translationKey: 'regionsPage.region',
   });
 
-  const { t } = useTranslation();
-
   function handleConfirm() {
     if (!region) return;
     mutate(region.id, {
@@ -35,7 +31,7 @@ export function DeleteRegionModal({
   return (
     <DeleteModal
       hasItem={!!region}
-      label={t('regionsPage.region')}
+      label={region?.name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

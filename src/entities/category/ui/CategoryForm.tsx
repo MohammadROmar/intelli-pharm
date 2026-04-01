@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Tag, Tags } from 'lucide-react';
+import { Folder, Folders } from 'lucide-react';
 
 import { CategorySelector } from './CategorySelector';
 import type { Category, CategoryListItem } from '../model/categoryTypes';
@@ -45,7 +45,7 @@ export function CategoryForm({
     <Card>
       <CardHeader>
         <CardSectionHeader
-          icon={Tags}
+          icon={Folders}
           title={t('categoriesPage.categoryInfo')}
           description={t('categoriesPage.categoryInfoDescription')}
         />
@@ -64,7 +64,7 @@ export function CategoryForm({
               id="name"
               type="text"
               autoComplete="off"
-              icon={Tag}
+              icon={Folder}
               placeholder={t('categoriesPage.categoryNamePlaceholder')}
               {...register('name', {
                 required: true,

@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 import type { Employee } from '@/entities/employee';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
@@ -18,8 +16,6 @@ export function DeleteEmployeeModal({
     translationKey: 'employeesPage.employee',
   });
 
-  const { t } = useTranslation();
-
   function handleConfirm() {
     if (!employee) return;
     mutate(employee.id, {
@@ -30,7 +26,7 @@ export function DeleteEmployeeModal({
   return (
     <DeleteModal
       hasItem={!!employee}
-      label={t('employeesPage.employee')}
+      label={employee?.name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

@@ -15,18 +15,24 @@ export function LaboratoryDetailHeader({ laboratory }: Props) {
     keyPrefix: 'laboratoriesPage.detail',
   });
 
-  return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <h1 className="text-3xl font-bold tracking-tight">{laboratory.name}</h1>
+  const pageTitle = `${laboratory.name} | ${t('pageTitle')} - IntelliPharm`;
 
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <LaboratoryEditButton
-          id={laboratory.id}
-          defaultName={laboratory.name}
-        />
-        <DeleteLaboratoryBtn laboratory={laboratory} label={t('delete')} />
+  return (
+    <>
+      <title>{pageTitle}</title>
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">{laboratory.name}</h1>
+
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+          <LaboratoryEditButton
+            id={laboratory.id}
+            defaultName={laboratory.name}
+          />
+          <DeleteLaboratoryBtn laboratory={laboratory} label={t('delete')} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

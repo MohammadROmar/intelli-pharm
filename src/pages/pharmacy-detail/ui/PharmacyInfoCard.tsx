@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Activity, Clock, MapPin } from 'lucide-react';
+import { Activity, Briefcase, Clock, MapPin } from 'lucide-react';
 
 import type { PharmacyDetail } from '@/entities/pharmacy';
 import { formatTime } from '@/shared/lib';
@@ -15,9 +15,9 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
 
   return (
     <DetailCard
-      title={t('locationCardTitle')}
-      subtitle={t('locationCardSubtitle')}
-      icon={MapPin}
+      title={t('pharmacyStateCardTitle')}
+      subtitle={t('pharmacyStateCardSubtitle')}
+      icon={Briefcase}
     >
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelStatus')}>
@@ -53,19 +53,6 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
             <Clock className="text-muted-foreground size-4 shrink-0" />
             {formatTime(pharmacy.closing_time, i18n.language)}
           </span>
-        </DetailCell>
-      </div>
-
-      <Separator />
-
-      <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('labelLatitude')}>
-          <span className="flex items-center gap-1.5 text-sm">
-            {pharmacy.latitude}
-          </span>
-        </DetailCell>
-        <DetailCell label={t('labelLongitude')}>
-          <span className="text-sm">{pharmacy.longitude}</span>
         </DetailCell>
       </div>
     </DetailCard>

@@ -15,8 +15,8 @@ import {
   SidebarMenuItem,
   SidebarRail,
   Logo,
+  ScrollArea,
 } from '@/shared/ui';
-import { cn } from '@/shared/lib';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const dir = useDirection();
@@ -28,7 +28,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarBrand />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={sidebarData} />
+        <ScrollArea className="h-full">
+          <NavMain items={sidebarData} />
+        </ScrollArea>
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
@@ -56,12 +58,7 @@ function SidebarBrand() {
             <div className="bg-sidebar-primary flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg">
               <Logo className="size-4 text-white" />
             </div>
-            <div
-              className={cn(
-                'grid flex-1 text-sm leading-tight',
-                // !open && 'hidden',
-              )}
-            >
+            <div className="grid flex-1 text-sm leading-tight">
               <span className="truncate font-medium">IntelliPharm</span>
               <span className="text-sidebar-foreground/70 truncate text-xs">
                 {roles ? t(roles[0]) : ''}

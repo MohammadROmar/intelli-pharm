@@ -1,13 +1,13 @@
 import {
-  Tags,
+  Folders,
   Users,
-  PillBottle,
   LayoutDashboard,
   Package,
-  Pipette,
+  FlaskConical,
   Building2,
   MapPin,
   Cross,
+  Pill,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -31,7 +31,7 @@ export const sidebarData = [
   {
     key: 'labels.laboratories',
     url: '/dashboard/laboratories',
-    icon: Pipette,
+    icon: FlaskConical,
   },
   {
     key: 'labels.cities',
@@ -71,7 +71,7 @@ export const sidebarData = [
   {
     key: 'labels.medicines',
     url: '/dashboard/medicines',
-    icon: PillBottle,
+    icon: Pill,
     isActive: false,
     items: [
       {
@@ -87,7 +87,7 @@ export const sidebarData = [
   {
     key: 'labels.categories',
     url: '/dashboard/categories',
-    icon: Tags,
+    icon: Folders,
     isActive: false,
     items: [
       {

@@ -8,18 +8,9 @@ import { Separator } from './Separator';
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from './dialog';
 import { CardSectionHeader } from './CardSectionHeader';
 import { ScrollArea } from './scroll-area';
-import { cn } from '../lib';
-
-type Props = {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onClear: () => void;
-  title: string;
-  subtitle: string;
-  form: string;
-  hasActiveFilters?: boolean;
-  className?: string;
-} & PropsWithChildren;
+import { cn, useKeyboardShortcut } from '../lib';
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
+import { Kbd, KbdGroup } from './kbd';
 
 type TriggerProps = {
   onClick: () => void;
@@ -31,6 +22,16 @@ export function FiltersTrigger({ onClick, activeCount = 0 }: TriggerProps) {
     keyPrefix: 'common.filters',
   });
 
+  useKeyboardShortcut(
+    {
+      key: 'f',
+      ctrlOrMeta: true,
+      shift: true,
+      preventDefault: true,
+    },
+    onClick,
+  );
+
   return (
     <Button
       variant="outline"
@@ -39,15 +40,33 @@ export function FiltersTrigger({ onClick, activeCount = 0 }: TriggerProps) {
       className="relative gap-2"
     >
       <SlidersHorizontal className="size-4" />
-      {t('trigger')}
+      <span>{t('trigger')}</span>
+
       {activeCount > 0 && (
         <Badge className="ml-1 flex size-4 items-center justify-center rounded-full p-0 text-[10px]">
           {activeCount}
         </Badge>
       )}
+
+      <KbdGroup className="hidden! lg:flex! rtl:flex-row-reverse">
+        <Kbd>⌘</Kbd>
+        <Kbd>⇧</Kbd>
+        <Kbd>F</Kbd>
+      </KbdGroup>
     </Button>
   );
 }
+
+type Props = {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onClear: () => void;
+  title: string;
+  subtitle: string;
+  form: string;
+  hasActiveFilters?: boolean;
+  className?: string;
+} & PropsWithChildren;
 
 export function FiltersModal({
   open,
@@ -67,12 +86,16 @@ export function FiltersModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn('sm:max-w-md', className)}>
-        <DialogHeader className="text-start">
-          <CardSectionHeader
-            title={title}
-            description={subtitle}
-            icon={SlidersHorizontal}
-          />
+        <DialogHeader className="relative text-start">
+          <div aria-hidden>
+            <CardSectionHeader
+              title={title}
+              description={subtitle}
+              icon={SlidersHorizontal}
+            />
+          </div>
+          <DialogTitle className="sr-only">{title}</DialogTitle>
+          <DialogDescription className="sr-only">{subtitle}</DialogDescription>
         </DialogHeader>
 
         <Separator />

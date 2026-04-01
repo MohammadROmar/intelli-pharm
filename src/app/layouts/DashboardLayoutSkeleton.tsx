@@ -14,7 +14,7 @@ export default function DashboardSkeleton() {
       <SidebarSkeleton />
       <div className="relative grid grid-rows-[auto_1fr]">
         <HeaderSkeleton />
-        <main className="text-skeleton flex size-full items-center justify-center">
+        <main className="text-skeleton flex size-full items-center justify-center overflow-x-hidden">
           <Spinner className="size-12" />
         </main>
       </div>

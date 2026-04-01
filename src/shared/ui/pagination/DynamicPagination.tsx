@@ -11,6 +11,7 @@ import {
   PaginationPrevious,
 } from './pagination';
 import { buildUrl } from '../../lib/buildUrl';
+import { cn } from '@/shared/lib';
 
 export type DynamicPaginationProps = {
   maxPages: number;
@@ -87,9 +88,16 @@ export function DynamicPagination({
   const firstItem = (currentPage - 1) * itemsPerPage + 1;
   const lastItem = Math.min(currentPage * itemsPerPage, totalItems);
 
+  const isValidPage = currentPage <= maxPages;
+
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-3 lg:flex-row lg:justify-between">
-      {!(currentPage > maxPages) && (
+    <div
+      className={cn(
+        'flex w-full flex-col items-center justify-center gap-3 lg:flex-row lg:justify-between',
+        !isValidPage && 'lg:justify-end',
+      )}
+    >
+      {isValidPage && (
         <p className="text-muted-foreground text-sm">
           {t('pagination.showing')}{' '}
           <span className="text-foreground font-medium">{firstItem}</span>{' '}

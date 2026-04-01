@@ -14,6 +14,7 @@ export { buttonVariants } from './buttonVariants';
 
 export { useIsMobile } from './hooks/useMobile';
 export { useFilters } from './hooks/useFilters';
-export { useGeolocation, type LatLng } from './hooks/useGeolocation';
 export { useDebounce } from './hooks/useDebounce';
+export { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
 export { useDocumentDirection } from './hooks/useDocumentDirection';
+export { useGeolocation, type LatLng } from './hooks/useGeolocation';

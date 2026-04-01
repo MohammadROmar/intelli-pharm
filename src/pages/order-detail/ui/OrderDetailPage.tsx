@@ -22,21 +22,26 @@ export default function OrderDetailPage() {
   }
 
   const order = data.data!;
+  const pageTitle = `#${order.id} | ${t('pageTitle')} - IntelliPharm`;
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">
-          {t('orderNo', { order: order.id })}
-        </h1>
-        <ChangeOrderStatus order={order} />
+    <>
+      <title>{pageTitle}</title>
+
+      <div className="space-y-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-3xl font-bold tracking-tight">
+            {t('orderNo', { order: order.id })}
+          </h1>
+          <ChangeOrderStatus order={order} />
+        </div>
+        <OrderInfoCard order={order} />
+        <OrderItemsTable
+          items={order.items}
+          totalAmount={order.total_amount}
+          totalQuantity={order.total_quantity}
+        />
       </div>
-      <OrderInfoCard order={order} />
-      <OrderItemsTable
-        items={order.items}
-        totalAmount={order.total_amount}
-        totalQuantity={order.total_quantity}
-      />
-    </div>
+    </>
   );
 }

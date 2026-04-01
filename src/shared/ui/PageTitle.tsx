@@ -4,10 +4,18 @@ type PageTitleProps = {
 };
 
 export function PageTitle({ title, subtitle }: PageTitleProps) {
+  const pageTitle = `${title} - IntelliPharm`;
+
   return (
-    <div className="space-y-1">
-      <h1 className="text-4xl leading-tight font-bold">{title}</h1>
-      {subtitle && <p className="text-muted-foreground text-sm">{subtitle}</p>}
-    </div>
+    <>
+      <title>{pageTitle}</title>
+
+      <div className="space-y-1">
+        <h1 className="text-4xl leading-tight font-bold">{title}</h1>
+        {subtitle && (
+          <p className="text-muted-foreground text-sm">{subtitle}</p>
+        )}
+      </div>
+    </>
   );
 }

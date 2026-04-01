@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 import type { CityDetail } from '@/entities/city';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
@@ -20,8 +18,6 @@ export function DeleteCityModal({
     translationKey: 'citiesPage.city',
   });
 
-  const { t } = useTranslation();
-
   function handleConfirm() {
     if (!city) return;
     mutate(city.id, {
@@ -35,7 +31,7 @@ export function DeleteCityModal({
   return (
     <DeleteModal
       hasItem={!!city}
-      label={t('citiesPage.city')}
+      label={city?.name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 import type { PharmacyDetail } from '@/entities/pharmacy';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
@@ -20,8 +18,6 @@ export function DeletePharmacyModal({
     translationKey: 'pharmaciesPage.pharmacy',
   });
 
-  const { t } = useTranslation();
-
   function handleConfirm() {
     if (!pharmacy) return;
 
@@ -36,7 +32,7 @@ export function DeletePharmacyModal({
   return (
     <DeleteModal
       hasItem={!!pharmacy}
-      label={t('pharmaciesPage.pharmacy')}
+      label={pharmacy?.name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

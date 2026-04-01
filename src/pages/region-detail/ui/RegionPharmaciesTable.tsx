@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Building2, PackageSearch } from 'lucide-react';
+import { Cross, PackageSearch } from 'lucide-react';
 
 import type { RegionPharmacy } from '@/entities/region';
 import {
@@ -25,7 +25,7 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
     <DetailCard
       title={t('pharmaciesTitle')}
       subtitle={t('pharmaciesSubtitle')}
-      icon={Building2}
+      icon={Cross}
       itemsCount={pharmacies.length}
     >
       {pharmacies.length === 0 ? (

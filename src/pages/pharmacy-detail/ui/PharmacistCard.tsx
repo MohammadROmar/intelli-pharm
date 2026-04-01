@@ -1,4 +1,4 @@
-import { Phone, User } from 'lucide-react';
+import { Phone, Cross, User } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { PharmacyDetail } from '@/entities/pharmacy';
@@ -15,7 +15,7 @@ export function PharmacistCard({ pharmacy }: Props) {
     <DetailCard
       title={t('pharmacistCardTitle')}
       subtitle={t('pharmacistCardSubtitle')}
-      icon={User}
+      icon={Cross}
     >
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelId')}>

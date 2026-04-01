@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AlertCircle,
@@ -114,22 +114,19 @@ export function LocationPickerCard({ isPending }: Props) {
   const { position, setPosition } = useLocationPickerForm();
   const geo = useGeolocation();
 
-  const [centerOn, setCenterOn] = useState<LatLng | null>(null);
   const didSyncRef = useRef(false);
-
-  useEffect(() => {
-    if (geo.status !== 'success' || didSyncRef.current) return;
-    didSyncRef.current = true;
-    setPosition(geo.coords);
-    setCenterOn(geo.coords);
-  }, [geo.status, geo.status === 'success' ? geo.coords : null, setPosition]);
 
   useEffect(() => {
     if (geo.status === 'loading') {
       didSyncRef.current = false;
-      setCenterOn(null);
+      return;
     }
-  }, [geo.status]);
+    if (geo.status !== 'success' || didSyncRef.current) return;
+
+    didSyncRef.current = true;
+    setPosition(geo.coords);
+  }, [geo.status, geo.coords, setPosition]);
+  const centerOn = geo.status === 'success' ? geo.coords : null;
 
   return (
     <Card>

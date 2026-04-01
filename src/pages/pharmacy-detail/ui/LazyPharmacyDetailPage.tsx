@@ -8,7 +8,12 @@ export function LazyPharmacyDetailPage() {
   return (
     <WithSuspense
       Component={PharmacyDetailPage}
-      loader={<DetailSkeleton cards={[{ rows: 2 }, { rows: 3 }]} tables={0} />}
+      loader={
+        <DetailSkeleton
+          cards={[{ rows: 2 }, { rows: 2 }, { rows: 1 }]}
+          tables={0}
+        />
+      }
     />
   );
 }

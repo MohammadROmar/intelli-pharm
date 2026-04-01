@@ -35,6 +35,8 @@
       "actions": "الإجراءات"
     },
     "detail": {
+      "pageTitle": "تفاصيل الطلب",
+
       "orderNo": "الطلب رقم {{order}}",
 
       "cardTitle": "ملخص الطلب",
@@ -93,6 +95,21 @@
       "processing": "يتم المعالجة",
       "completed": "تم التسليم",
       "cancelled": "ملغى"
+    },
+
+    "filters": {
+      "title": "تصفية الطلبات",
+      "subtitle": "ضيّق نتائج الطلبات حسب الصيدلية أو الحالة أو التاريخ أو الإجمالي.",
+
+      "pharmacyLabel": "الصيدلية",
+
+      "statusLabel": "الحالة",
+
+      "dateFromLabel": "من",
+      "dateToLabel": "إلى",
+
+      "minTotalLabel": "أدنى مبلغ",
+      "maxTotalLabel": "أعلى مبلغ"
     }
   },
 
@@ -120,6 +137,8 @@
       "action": "تعديل التفاصيل"
     },
     "detail": {
+      "pageTitle": "تفاصيل المختبر",
+
       "breadcrumb": "المختبرات",
       "edit": "تعديل التفاصيل",
       "delete": "حذف",
@@ -211,6 +230,8 @@
       }
     },
     "detail": {
+      "pageTitle": "تفاصيل المنطقة",
+
       "breadcrumb": "المناطق",
       "edit": "تعديل التفاصيل",
       "delete": "حذف",
@@ -303,7 +324,8 @@
       }
     },
     "detail": {
-      "breadcrumb": "الصيدليات",
+      "pageTitle": "تفاصيل الصيدلية",
+
       "edit": "تعديل التفاصيل",
       "delete": "حذف",
       "active": "نشط",
@@ -312,8 +334,11 @@
       "pharmacistCardTitle": "تفاصيل الصيدلية",
       "pharmacistCardSubtitle": "المعرف ومعلومات التواصل مع الصيدلاني.",
 
-      "locationCardTitle": "الموقع وساعات العمل",
-      "locationCardSubtitle": "المنطقة وأوقات العمل وإحداثيات GPS.",
+      "pharmacyStateCardTitle": "الحالة وساعات العمل",
+      "pharmacyStateCardSubtitle": "تفاصيل حالة الصيدلية وساعات العمل.",
+
+      "locationCardTitle": "الموقع",
+      "locationCardSubtitle": "إحداثيات GPS للصيدلية وعرض الخريطة.",
 
       "labelId": "رقم الصيدلية",
       "labelPharmacistName": "الصيدلاني",
@@ -399,6 +424,7 @@
       "imagesRequired": "مطلوبة صورة واحدة على الأقل"
     },
     "detail": {
+      "pageTitle": "تفاصيل الدواء",
       "medicine": "الدواء",
       "stock": "المخزون",
       "restock": "إعادة التخزين",
@@ -533,6 +559,8 @@
       "subtitle": "تحديث معلومات الفئة."
     },
     "detail": {
+      "pageTitle": "تفاصيل الفئة",
+
       "breadcrumb": "الفئات",
       "edit": "تعديل التفاصيل",
       "delete": "حذف",

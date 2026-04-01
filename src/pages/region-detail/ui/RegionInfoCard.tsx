@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Building2, MapPin, Map } from 'lucide-react';
+import { Cross, Building2, Map } from 'lucide-react';
 
 import type { RegionDetail } from '@/entities/region';
 import { DetailCard, DetailCell } from '@/shared/ui';
@@ -16,13 +16,13 @@ export function RegionInfoCard({ region }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelCity')}>
           <span className="flex items-center gap-1.5">
-            <MapPin className="text-muted-foreground size-4 shrink-0" />
+            <Building2 className="text-muted-foreground size-4 shrink-0" />
             {region.city.name}
           </span>
         </DetailCell>
         <DetailCell label={t('labelPharmaciesCount')}>
           <span className="flex items-center gap-1.5">
-            <Building2 className="text-muted-foreground size-4 shrink-0" />
+            <Cross className="text-muted-foreground size-4 shrink-0" />
             <span className="tabular-nums">{region.pharmacies.length}</span>
           </span>
         </DetailCell>

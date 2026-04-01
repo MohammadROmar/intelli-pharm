@@ -6,7 +6,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Clock, Shield, Truck, User } from 'lucide-react';
+import { Clock, Shield, Truck, Briefcase } from 'lucide-react';
 
 import { getRoles } from '../lib/getRoles';
 import type { EmployeeInternalFormData } from '../model/employeeTypes';
@@ -42,7 +42,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
     <Card>
       <CardHeader>
         <CardSectionHeader
-          icon={User}
+          icon={Briefcase}
           title={t('employeesPage.form.employmentInfoTitle')}
           description={t('employeesPage.form.employmentInfoSubtitle')}
         />

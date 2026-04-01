@@ -22,54 +22,60 @@ export function MedicineDetailHeader({ medicine }: Props) {
     keyPrefix: 'medicinesPage.detail',
   });
 
+  const pageTitle = `${medicine.name} | ${t('pageTitle')} - IntelliPharm`;
+
   return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <h1 className="text-3xl font-bold tracking-tight">{medicine.name}</h1>
+    <>
+      <title>{pageTitle}</title>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            <MoreHorizontal />
-            {t('actions')}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-40" align="start">
-          <DropdownMenuGroup>
-            <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
-              {t('medicine')}
-            </DropdownMenuLabel>
-            <DropdownMenuItem asChild>
-              <Link
-                to={`/dashboard/medicines/${medicine.id}/edit`}
-                className="cursor-pointer"
-              >
-                <Pencil className="size-4" />
-                {t('edit')}
-              </Link>
-            </DropdownMenuItem>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">{medicine.name}</h1>
 
-            <DropdownMenuItem asChild variant="destructive">
-              <DeleteMedicineBtn medicine={medicine} label={t('delete')} />
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline">
+              <MoreHorizontal />
+              {t('actions')}
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-40" align="start">
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
+                {t('medicine')}
+              </DropdownMenuLabel>
+              <DropdownMenuItem asChild>
+                <Link
+                  to={`/dashboard/medicines/${medicine.id}/edit`}
+                  className="cursor-pointer"
+                >
+                  <Pencil className="size-4" />
+                  {t('edit')}
+                </Link>
+              </DropdownMenuItem>
 
-          <DropdownMenuGroup>
-            <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
-              {t('stock')}
-            </DropdownMenuLabel>
-            <DropdownMenuItem asChild>
-              <Link
-                to={`/dashboard/medicines/${medicine.id}/restock`}
-                className="cursor-pointer"
-              >
-                <PackagePlus className="size-4" />
-                {t('restock')}
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+              <DropdownMenuItem asChild variant="destructive">
+                <DeleteMedicineBtn medicine={medicine} label={t('delete')} />
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
+                {t('stock')}
+              </DropdownMenuLabel>
+              <DropdownMenuItem asChild>
+                <Link
+                  to={`/dashboard/medicines/${medicine.id}/restock`}
+                  className="cursor-pointer"
+                >
+                  <PackagePlus className="size-4" />
+                  {t('restock')}
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </>
   );
 }
 

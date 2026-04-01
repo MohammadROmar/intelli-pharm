@@ -90,7 +90,7 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  SidebarLink,
+  SidebarMenuLink,
 } from './Sidebar/Sidebar';
 export {
   SidebarContext,
@@ -180,3 +180,4 @@ export { TableEmptyState, DetailEmptyState } from './EmptyState';
 export { FiltersModal, FiltersTrigger } from './FiltersModal';
 export { DetailCell } from './DetailCell';
 export { DetailCard } from './DetailCard';
+export { Kbd, KbdGroup } from './kbd';

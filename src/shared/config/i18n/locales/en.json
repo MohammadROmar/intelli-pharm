@@ -35,6 +35,8 @@
       "actions": "Actions"
     },
     "detail": {
+      "pageTitle": "Order Details",
+
       "orderNo": "Order #{{order}}",
 
       "cardTitle": "Order Summary",
@@ -85,6 +87,19 @@
         "processing": "The order is being prepared.",
         "completed": "The order has been completed successfully.",
         "cancelled": "The order has been cancelled."
+      },
+      "filters": {
+        "title": "Filter Orders",
+        "subtitle": "Narrow down orders by pharmacy, status, date or total.",
+
+        "pharmacyLabel": "Pharmacy",
+
+        "statusLabel": "Status",
+        "dateFromLabel": "From",
+        "dateToLabel": "To",
+
+        "minTotalLabel": "Min Total",
+        "maxTotalLabel": "Max Total"
       }
     },
 
@@ -120,6 +135,8 @@
       "action": "Edit Details"
     },
     "detail": {
+      "pageTitle": "Laboratory Details",
+
       "breadcrumb": "Laboratories",
       "edit": "Edit Details",
       "delete": "Delete",
@@ -211,6 +228,8 @@
       }
     },
     "detail": {
+      "pageTitle": "Region Details",
+
       "edit": "Edit Details",
       "delete": "Delete",
 
@@ -302,7 +321,8 @@
       }
     },
     "detail": {
-      "breadcrumb": "Pharmacies",
+      "pageTitle": "Pharmacy Details",
+
       "edit": "Edit Details",
       "delete": "Delete",
       "active": "Active",
@@ -311,8 +331,11 @@
       "pharmacistCardTitle": "Pharmacy Details",
       "pharmacistCardSubtitle": "Identifier and pharmacist contact information.",
 
-      "locationCardTitle": "Location & Hours",
-      "locationCardSubtitle": "Operating region, working hours and GPS coordinates.",
+      "pharmacyStateCardTitle": "State & Hours",
+      "pharmacyStateCardSubtitle": "Pharmacy state & working hours details.",
+
+      "locationCardTitle": "Location",
+      "locationCardSubtitle": "Pharmcay's GPS coordinates and Map View.",
 
       "labelId": "Pharmacy ID",
       "labelPharmacistName": "Pharmacist",
@@ -393,6 +416,8 @@
       "imagesRequired": "at least one image is required"
     },
     "detail": {
+      "pageTitle": "Medicine Details",
+
       "medicine": "Medicine",
       "stock": "Stock",
       "restock": "Restock",
@@ -528,6 +553,7 @@
       "subtitle": "Update category information."
     },
     "detail": {
+      "pageTitle": "Category Details",
       "breadcrumb": "Categories",
       "edit": "Edit Details",
       "delete": "Delete",

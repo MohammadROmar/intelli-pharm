@@ -1,12 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-  CalendarDays,
-  Folders,
-  FolderTree,
-  RefreshCw,
-  Tags,
-} from 'lucide-react';
+import { CalendarDays, Folders, FolderTree, RefreshCw } from 'lucide-react';
 
 import type { CategoryDetail } from '@/entities/category';
 import { Badge, DetailCard, DetailCell, Separator } from '@/shared/ui';
@@ -22,7 +16,11 @@ export function CategoryMetaGrid({ category }: Props) {
   const isTopLevel = category.parent_id === null;
 
   return (
-    <DetailCard title={t('infoTitle')} subtitle={t('infoSubtitle')} icon={Tags}>
+    <DetailCard
+      title={t('infoTitle')}
+      subtitle={t('infoSubtitle')}
+      icon={Folders}
+    >
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelId')}>
           <span>{category.id}</span>

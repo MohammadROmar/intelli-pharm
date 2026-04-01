@@ -13,7 +13,12 @@ export default function PharmacyDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 2 }, { rows: 3 }]} tables={0} />;
+    return (
+      <DetailSkeleton
+        cards={[{ rows: 2 }, { rows: 2 }, { rows: 1 }]}
+        tables={0}
+      />
+    );
   }
 
   const pharmacy = data.data!;

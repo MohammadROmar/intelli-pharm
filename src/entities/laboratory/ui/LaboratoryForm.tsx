@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Pipette } from 'lucide-react';
+import { FlaskConical } from 'lucide-react';
 
 import type { Laboratory } from '../model/laboratoryTypes';
 import {
@@ -42,7 +42,7 @@ export function LaboratoryForm({
             id="name"
             type="text"
             autoComplete="off"
-            icon={Pipette}
+            icon={FlaskConical}
             placeholder={t('laboratoriesPage.labNamePlaceholder')}
             {...register('name', {
               required: true,

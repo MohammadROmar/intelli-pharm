@@ -15,25 +15,31 @@ export function CategoryDetailHeader({ category }: Props) {
     keyPrefix: 'categoriesPage.detail',
   });
 
-  return (
-    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <h1 className="text-3xl font-bold tracking-tight">{category.name}</h1>
+  const pageTitle = `${category.name} | ${t('pageTitle')} - IntelliPharm`;
 
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-        <Link
-          to={`/dashboard/categories/${category.id}/edit`}
-          className={buttonVariants({
-            variant: 'default',
-            size: 'sm',
-            className: 'shrink-0',
-          })}
-        >
-          <Pencil className="size-4" />
-          {t('edit')}
-        </Link>
-        <DeleteCategoryBtn category={category} label={t('delete')} />
+  return (
+    <>
+      <title>{pageTitle}</title>
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">{category.name}</h1>
+
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+          <Link
+            to={`/dashboard/categories/${category.id}/edit`}
+            className={buttonVariants({
+              variant: 'default',
+              size: 'sm',
+              className: 'shrink-0',
+            })}
+          >
+            <Pencil className="size-4" />
+            {t('edit')}
+          </Link>
+          <DeleteCategoryBtn category={category} label={t('delete')} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

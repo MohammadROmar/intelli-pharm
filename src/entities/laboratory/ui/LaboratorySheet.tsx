@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CirclePlus, Pencil, Pipette } from 'lucide-react';
+import { CirclePlus, Pencil, FlaskConical } from 'lucide-react';
 
 import {
   Button,
@@ -45,7 +45,7 @@ export function LaboratorySheet({
           <CardSectionHeader
             title={t('title')}
             description={t('subtitle')}
-            icon={Pipette}
+            icon={FlaskConical}
           />
         </SheetHeader>
 

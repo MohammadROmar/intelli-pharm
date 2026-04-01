@@ -1,8 +1,7 @@
 import {
   CalendarDays,
-  FlaskConical,
   Pill,
-  Pipette,
+  FlaskConical,
   RefreshCw,
   ShieldCheck,
 } from 'lucide-react';
@@ -27,7 +26,7 @@ export function LaboratoryInfoGrid({ laboratory }: Props) {
     <DetailCard
       title={t('infoCardTilte')}
       subtitle={t('infoCardSubtilte')}
-      icon={Pipette}
+      icon={FlaskConical}
       itemsCount={0}
     >
       <div className="grid grid-cols-2 gap-6">

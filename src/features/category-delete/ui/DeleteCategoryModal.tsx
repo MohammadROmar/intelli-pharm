@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 import type { CategoryDetail, CategoryListItem } from '@/entities/category';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
@@ -20,8 +18,6 @@ export function DeleteCategoryModal({
     translationKey: 'categoriesPage.category',
   });
 
-  const { t } = useTranslation();
-
   function handleConfirm() {
     if (!category) return;
     mutate(category.id, {
@@ -35,7 +31,7 @@ export function DeleteCategoryModal({
   return (
     <DeleteModal
       hasItem={!!category}
-      label={t('categoriesPage.category')}
+      label={category?.name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

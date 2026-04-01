@@ -3,12 +3,12 @@ import { useCallback, useState } from 'react';
 export type LatLng = { lat: number; lng: number };
 
 type GeolocationState =
-  | { status: 'idle' }
-  | { status: 'loading' }
+  | { status: 'idle'; coords?: null }
+  | { status: 'loading'; coords?: null }
   | { status: 'success'; coords: LatLng }
-  | { status: 'denied' }
-  | { status: 'unavailable' }
-  | { status: 'timeout' };
+  | { status: 'denied'; coords?: null }
+  | { status: 'unavailable'; coords?: null }
+  | { status: 'timeout'; coords?: null };
 
 type UseGeolocationReturn = GeolocationState & {
   requestLocation: () => void;

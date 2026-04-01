@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Pipette } from 'lucide-react';
+import { FlaskConical } from 'lucide-react';
 
 import { useInfiniteLaboratories } from '../model/useInfiniteLaboratories';
 import {
@@ -39,7 +39,7 @@ export function LaboratorySelector({
       options={selectableLaboratories}
       valueKey="id"
       labelKey="name"
-      icon={Pipette}
+      icon={FlaskConical}
       value={value}
       onValueChange={onValueChange!}
       onSearchChange={setSearchTerm}

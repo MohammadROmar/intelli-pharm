@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
 import type { LaboratoryListItem } from '@/entities/laboratory';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
@@ -20,8 +18,6 @@ export function DeleteLaboratoryModal({
     translationKey: 'laboratoriesPage.laboratory',
   });
 
-  const { t } = useTranslation();
-
   function handleConfirm() {
     if (!laboratory) return;
     mutate(laboratory.id, {
@@ -35,7 +31,7 @@ export function DeleteLaboratoryModal({
   return (
     <DeleteModal
       hasItem={!!laboratory}
-      label={t('laboratoriesPage.laboratory')}
+      label={laboratory?.name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}
