@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AddCityButton } from '@/features/city-create';
 import { DeleteCityModal } from '@/features/city-delete';
+import { CityEditButton } from '@/features/city-edit';
 import { CityRow, type CitiesResponse, type CityDetail } from '@/entities/city';
 import {
   SearchField,
@@ -14,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/ui';
-import { CityEditButton } from '@/features/city-edit';
 
 type Props = { data: CitiesResponse };
 
@@ -59,7 +59,7 @@ function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
     <TableCard
       title={t('list.all')}
       basePath="/dashboard/cities"
-      itemsPerPage={10}
+      itemsPerPage={data.meta.per_page}
       currItemsCount={cities.length}
       header={
         <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
@@ -91,13 +91,13 @@ function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
           </TableBody>
         </>
       ) : (
-        <EmotyState />
+        <EmptyState />
       )}
     </TableCard>
   );
 }
 
-function EmotyState() {
+function EmptyState() {
   const [searchParams, setSearchParams] = useSearchParams();
   const name = searchParams.get('name');
 

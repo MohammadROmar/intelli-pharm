@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Button } from './Button';
 import {
   Dialog,
-  DialogContent,
-  DialogDescription,
+  DialogTitle,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
+  DialogContent,
+  DialogDescription,
 } from './dialog';
+import { Button } from './Button';
 
 type DeleteModalProps = {
   isPending: boolean;
@@ -31,14 +30,13 @@ export function DeleteModal({
 
   const [stableLabel, setStableLabel] = useState(label);
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (label) setStableLabel(label);
-  }, [label]);
+  if (label && label !== stableLabel) {
+    setStableLabel(label);
+  }
 
   return (
     <Dialog
-      open={hasItem ?? undefined}
+      open={!!hasItem}
       onOpenChange={(open) => {
         if (!open) onClose();
       }}

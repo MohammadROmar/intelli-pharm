@@ -1,18 +1,15 @@
 import type {
   Region,
   RegionDetail,
-  RegionFilters,
   RegionListItem,
   RegionsListResponse,
 } from '../model/regionTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-const PER_PAGE = 10;
-
-export async function getRegions(page: string | null, filters: RegionFilters) {
-  return apiClient.get<RegionsListResponse>('/erp/v1/regions', {
-    params: { page_number: page ?? 1, per_page: PER_PAGE, ...filters },
-  });
+export async function getRegions(
+  params: Record<string, string | number | null | undefined>,
+) {
+  return apiClient.get<RegionsListResponse>('/erp/v1/regions', { params });
 }
 
 export async function getRegionById(id: number) {
@@ -27,8 +24,8 @@ export async function editRegion({ id, name, city_id }: RegionListItem) {
   return apiClient.put(`/erp/v1/regions/${id}`, { name, city_id });
 }
 
-export async function getInfiniteRegions(page: string, name?: string) {
-  const response = await getRegions(page, { name });
+export async function getInfiniteRegions(page_number: string, name?: string) {
+  const response = await getRegions({ page_number, name });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));
@@ -39,8 +36,8 @@ export async function getInfiniteRegions(page: string, name?: string) {
   return {
     items: data,
     page: meta.current_page,
-    pageSize: PER_PAGE,
-    totalPages: Math.max(meta.total / PER_PAGE, 1),
+    pageSize: meta.per_page,
+    totalPages: Math.max(meta.total / meta.per_page, 1),
     totalCount: meta.total,
   };
 }

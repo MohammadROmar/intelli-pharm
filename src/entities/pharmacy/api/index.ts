@@ -3,19 +3,13 @@ import type {
   PharmaciesResponse,
   Pharmacy,
   PharmacyDetail,
-  PharmacyFilters,
 } from '../model/pharmacyTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-const PER_PAGE = 10;
-
 export async function getPharmacies(
-  page: string | null,
-  filters: PharmacyFilters,
+  params: Record<string, string | number | null | undefined>,
 ) {
-  return apiClient.get<PharmaciesResponse>('/erp/v1/pharmacies', {
-    params: { page_number: page ?? 1, per_page: PER_PAGE, ...filters },
-  });
+  return apiClient.get<PharmaciesResponse>('/erp/v1/pharmacies', { params });
 }
 
 export async function editPharmacy({
@@ -38,8 +32,11 @@ export async function createPharmacy(pharmacy: Pharmacy) {
   return apiClient.post('/erp/v1/pharmacies', payload);
 }
 
-export async function getInfinitePharmacies(page: string, name?: string) {
-  const response = await getPharmacies(page, { name });
+export async function getInfinitePharmacies(
+  page_number: string,
+  name?: string,
+) {
+  const response = await getPharmacies({ page_number, name });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));
@@ -50,8 +47,8 @@ export async function getInfinitePharmacies(page: string, name?: string) {
   return {
     items: data.data!,
     page: data.meta.current_page,
-    pageSize: PER_PAGE,
-    totalPages: Math.max(data.meta.total / PER_PAGE, 1),
+    pageSize: data.meta.per_page,
+    totalPages: Math.max(data.meta.total / data.meta.per_page, 1),
     totalCount: data.meta.total,
   };
 }

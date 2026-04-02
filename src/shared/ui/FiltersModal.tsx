@@ -2,15 +2,21 @@ import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SlidersHorizontal, X } from 'lucide-react';
 
-import { Button } from './Button';
 import { Badge } from './badge';
-import { Separator } from './Separator';
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from './dialog';
-import { CardSectionHeader } from './CardSectionHeader';
-import { ScrollArea } from './scroll-area';
-import { cn, useKeyboardShortcut } from '../lib';
-import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
+import { Button } from './Button';
 import { Kbd, KbdGroup } from './kbd';
+import { Separator } from './Separator';
+import { ScrollArea } from './scroll-area';
+import { CardSectionHeader } from './CardSectionHeader';
+import {
+  Dialog,
+  DialogTitle,
+  DialogFooter,
+  DialogHeader,
+  DialogContent,
+  DialogDescription,
+} from './dialog';
+import { cn, useKeyboardShortcut } from '../lib';
 
 type TriggerProps = {
   onClick: () => void;
@@ -85,8 +91,8 @@ export function FiltersModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={cn('sm:max-w-md', className)}>
-        <DialogHeader className="relative text-start">
+      <DialogContent className={cn('p-0! sm:max-w-md', className)}>
+        <DialogHeader className="relative p-6! pb-0! text-start">
           <div aria-hidden>
             <CardSectionHeader
               title={title}
@@ -99,10 +105,11 @@ export function FiltersModal({
         </DialogHeader>
 
         <Separator />
-        <ScrollArea className="max-h-[60vh]">{children}</ScrollArea>
+
+        <ScrollArea className="mx-2 max-h-[60vh] px-4">{children}</ScrollArea>
         <Separator />
 
-        <DialogFooter className="flex-row justify-end! gap-2">
+        <DialogFooter className="flex-row justify-end! gap-2 p-6 pt-0">
           <Button
             type="button"
             variant="ghost"

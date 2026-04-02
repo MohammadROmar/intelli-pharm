@@ -1,20 +1,21 @@
 import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { getEmployees } from '@/entities/employee';
 import { useEmployeeFilters } from './useEmployeeFilters';
+import { getEmployees, type EmployeeListResponse } from '@/entities/employee';
 import type { ApiError, ApiResponse } from '@/shared/api';
-import type { EmployeeListResponse } from '@/entities/employee/model/employeeTypes';
+import { getPage, getPerPage } from '@/shared/lib';
 
 export function useGetEmployees() {
   const [searchParams] = useSearchParams();
-  const page = searchParams.get('page');
-
   const { filters } = useEmployeeFilters();
 
+  const page_number = getPage(searchParams);
+  const per_page = getPerPage(searchParams);
+
   return useQuery<ApiResponse<EmployeeListResponse>, ApiError>({
-    queryKey: ['employees', { page, filters }],
-    queryFn: () => getEmployees(page, filters),
+    queryKey: ['employees', { page_number, per_page, filters }],
+    queryFn: () => getEmployees({ ...filters, page_number, per_page }),
     placeholderData: (prev) => {
       const data = prev?.data?.data;
       return data && data.length > 0 ? prev : undefined;

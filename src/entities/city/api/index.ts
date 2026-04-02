@@ -1,12 +1,10 @@
 import type { CitiesResponse, City, CityDetail } from '../model/cityTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-const PER_PAGE = 10;
-
-export async function getCities(page: string | null, name: string | null) {
-  return apiClient.get<CitiesResponse>('/erp/v1/cities', {
-    params: { page_number: page ?? 1, per_page: PER_PAGE, name },
-  });
+export async function getCities(
+  params: Record<string, string | number | null | undefined>,
+) {
+  return apiClient.get<CitiesResponse>('/erp/v1/cities', { params });
 }
 
 export async function editCity({ id, name }: { id: number; name: string }) {
@@ -21,8 +19,8 @@ export async function createCity(payload: City) {
   return apiClient.post('/erp/v1/cities', payload);
 }
 
-export async function getInfiniteCities(page: string, name?: string) {
-  const response = await getCities(page, name ?? null);
+export async function getInfiniteCities(page_number: string, name?: string) {
+  const response = await getCities({ page_number, name });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));
@@ -32,8 +30,8 @@ export async function getInfiniteCities(page: string, name?: string) {
   return {
     items: data.data!,
     page: data.meta.current_page,
-    pageSize: PER_PAGE,
-    totalPages: Math.max(data.meta.total / PER_PAGE, 1),
+    pageSize: data.meta.per_page,
+    totalPages: Math.max(data.meta.total / data.meta.per_page, 1),
     totalCount: data.meta.total,
   };
 }

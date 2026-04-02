@@ -42,7 +42,7 @@ export function LaboratoryTable({ data }: Props) {
         title={t('list.all')}
         basePath="/dashboard/laboratories"
         currItemsCount={labs.length}
-        itemsPerPage={10}
+        itemsPerPage={data.per_page}
         header={
           <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
             <SearchField placeholder={t('list.searchPlaceholder')} />

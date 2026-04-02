@@ -3,11 +3,8 @@ import type {
   Medicine,
   MedicineFormData,
   MedicineResponse,
-  MedicineFilters,
 } from '../model/medicineTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
-
-const PER_PAGE = 10;
 
 export async function createMedicine(data: MedicineFormData) {
   const fd = medicineToFormData(data);
@@ -28,16 +25,13 @@ export async function getMedicineById(id: number) {
 }
 
 export async function getMedicines(
-  page: string | null,
-  filters: MedicineFilters,
+  params: Record<string, string | number | null | undefined>,
 ) {
-  return apiClient.get<MedicineResponse>('/erp/v1/medicines', {
-    params: { page_number: page ?? 1, per_page: PER_PAGE, ...filters },
-  });
+  return apiClient.get<MedicineResponse>('/erp/v1/medicines', { params });
 }
 
-export async function getInfiniteMedicines(page: string, name?: string) {
-  const response = await getMedicines(page, { name });
+export async function getInfiniteMedicines(page_number: string, name?: string) {
+  const response = await getMedicines({ page_number, name });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));
@@ -48,8 +42,8 @@ export async function getInfiniteMedicines(page: string, name?: string) {
   return {
     items: data,
     page: meta.current_page,
-    pageSize: PER_PAGE,
-    totalPages: Math.max(meta.total / PER_PAGE, 1),
+    pageSize: meta.per_page,
+    totalPages: Math.max(meta.total / meta.per_page, 1),
     totalCount: meta.total,
   };
 }

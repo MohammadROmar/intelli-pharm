@@ -2,10 +2,11 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
 import { Table } from './table';
 import { Badge } from './badge';
 import { SearchField } from './SearchField';
+import { PerPageSelect } from './PerPageSelect';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
 import {
   DynamicPagination,
   type DynamicPaginationProps,
@@ -34,7 +35,6 @@ export function TableCard({
   headerClassName,
 }: TableCardProps) {
   const maxPages = Math.ceil(totalItems / itemsPerPage);
-
   const hasNoItems = totalItems === 0 || currItemsCount === 0;
 
   return (
@@ -55,11 +55,13 @@ export function TableCard({
           {header}
         </div>
       </CardHeader>
+
       <CardContent>
         {hasNoItems ? children : <Table>{children}</Table>}
       </CardContent>
+
       {totalItems > 0 && (
-        <CardFooter>
+        <CardFooter className="flex flex-col gap-4 sm:items-center sm:justify-between">
           <DynamicPagination
             itemsPerPage={itemsPerPage}
             maxVisiblePages={MAX_VISIBLE_PAGES}
@@ -68,15 +70,25 @@ export function TableCard({
             currentPage={currentPage}
             maxPages={maxPages}
           />
+
+          <PerPageSelect />
         </CardFooter>
       )}
     </Card>
   );
 }
 
-type Props = { placeholder: string; createText: string; basePath: string };
+type HeaderProps = {
+  placeholder: string;
+  createText: string;
+  basePath: string;
+};
 
-export function TableCardHeader({ placeholder, createText, basePath }: Props) {
+export function TableCardHeader({
+  placeholder,
+  createText,
+  basePath,
+}: HeaderProps) {
   return (
     <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
       <SearchField placeholder={placeholder} />

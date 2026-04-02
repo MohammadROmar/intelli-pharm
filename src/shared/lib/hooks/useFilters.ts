@@ -32,8 +32,16 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
   );
 
   const clearFilters = useCallback(() => {
-    setSearchParams({});
-  }, [setSearchParams]);
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        filterKeys.forEach((key) => next.delete(key.toString()));
+        next.delete('page');
+        return next;
+      },
+      { replace: false },
+    );
+  }, [setSearchParams, filterKeys]);
 
   const activeCount = Object.values(filters).filter(
     (v) => v !== undefined && v !== '',

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { CitiesTable } from './CityList';
+import { CitiesTable } from './CityTable';
 import { useGetCities } from '../model/useGetCities';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 

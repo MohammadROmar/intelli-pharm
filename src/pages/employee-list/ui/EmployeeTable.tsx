@@ -19,7 +19,7 @@ import {
   TableEmptyState,
 } from '@/shared/ui';
 
-export function EmployeeList({ data }: { data: EmployeeListResponse }) {
+export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
     null,
   );

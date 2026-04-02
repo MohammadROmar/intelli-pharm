@@ -840,6 +840,7 @@
       "title": "Something went wrong",
       "description": "An unexpected error occurred. Try again — if the problem persists, refresh the page.",
       "tryAgain": "Try Again"
-    }
+    },
+    "rowsPerPage": "Rows per page"
   }
 }

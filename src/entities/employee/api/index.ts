@@ -3,17 +3,13 @@ import type {
   CreateEmployeeFormData,
   EditEmployeeFormData,
   EmployeeListResponse,
-  EmployeeFilters,
 } from '../model/employeeTypes';
 import { apiClient } from '@/shared/api';
 
 export async function getEmployees(
-  page: string | null,
-  filters: EmployeeFilters,
+  params: Record<string, string | number | null | undefined>,
 ) {
-  return apiClient.get<EmployeeListResponse>('/erp/v1/employees', {
-    params: { page_number: page ?? 1, per_page: 10, ...filters },
-  });
+  return apiClient.get<EmployeeListResponse>('/erp/v1/employees', { params });
 }
 
 export async function createEmployee(payload: CreateEmployeeFormData) {

@@ -5,14 +5,11 @@ import type {
 } from '../model/laboratoryTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-const PER_PAGE = 10;
-
 export async function getLaboratories(
-  page: string | null,
-  name: string | null,
+  params: Record<string, string | number | null | undefined>,
 ) {
   return apiClient.get<LaboratoriesResponse>('/erp/v1/laboratories', {
-    params: { page_number: page ?? 1, per_page: PER_PAGE, name },
+    params,
   });
 }
 
@@ -34,8 +31,11 @@ export async function createLaboratory(payload: Laboratory) {
   return apiClient.post('/erp/v1/laboratories', payload);
 }
 
-export async function getInfiniteLaboratories(page: string, name?: string) {
-  const response = await getLaboratories(page, name ?? null);
+export async function getInfiniteLaboratories(
+  page_number: string,
+  name?: string,
+) {
+  const response = await getLaboratories({ page_number, name });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));
@@ -45,8 +45,8 @@ export async function getInfiniteLaboratories(page: string, name?: string) {
   return {
     items: data.data!,
     page: data.current_page,
-    pageSize: PER_PAGE,
-    totalPages: Math.max(data.total / PER_PAGE, 1),
+    pageSize: data.per_page,
+    totalPages: Math.max(data.total / data.per_page, 1),
     totalCount: data.total,
   };
 }

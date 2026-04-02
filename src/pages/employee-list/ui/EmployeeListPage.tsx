@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { EmployeeList } from './EmployeeList';
+import { EmployeeTable } from './EmployeeTable';
 import { useGetEmployees } from '../model/useGetEmployees';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
@@ -22,7 +22,7 @@ export default function EmployeeListPage() {
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <EmployeeList data={data.data!} />
+      <EmployeeTable data={data.data!} />
     </>
   );
 }

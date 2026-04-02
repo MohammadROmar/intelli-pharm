@@ -22,7 +22,6 @@ export default function LaboratoryListPage() {
   return (
     <>
       <PageTitle title={t('list.title')} subtitle={t('list.subtitle')} />
-
       <LaboratoryTable data={data.data!} />
     </>
   );
