@@ -11,12 +11,14 @@ import {
 import { useLocationPickerForm } from '../model/useLocationPickerForm';
 import { useGeolocation, type LatLng } from '@/shared/lib';
 import {
-  Button,
   Card,
-  CardContent,
-  CardHeader,
-  CardSectionHeader,
+  Button,
   Skeleton,
+  CardHeader,
+  CardContent,
+  ErrorBoundary,
+  CardSectionHeader,
+  SectionErrorFallback,
 } from '@/shared/ui';
 
 const MapLocationPicker = lazy(() =>
@@ -27,7 +29,6 @@ function CoordinateDisplay({ position }: { position: LatLng }) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'pharmaciesPage.form',
   });
-
   return (
     <div className="bg-muted/40 flex items-center justify-between gap-4 rounded-lg px-4 py-2.5">
       <div className="flex items-center gap-1.5 text-xs">
@@ -140,11 +141,13 @@ export function LocationPickerCard({ isPending }: Props) {
 
       <CardContent className="space-y-4">
         <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
-          <MapLocationPicker
-            position={position}
-            onChange={setPosition}
-            centerOn={centerOn}
-          />
+          <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+            <MapLocationPicker
+              position={position}
+              onChange={setPosition}
+              centerOn={centerOn}
+            />
+          </ErrorBoundary>
         </Suspense>
 
         <CoordinateDisplay position={position} />

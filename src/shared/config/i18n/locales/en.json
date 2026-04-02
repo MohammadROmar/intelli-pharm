@@ -835,6 +835,11 @@
       "apply": "Apply Filters",
       "clear": "Clear Filters",
       "trigger": "Filters"
+    },
+    "errorBoundary": {
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Try again — if the problem persists, refresh the page.",
+      "tryAgain": "Try Again"
     }
   }
 }

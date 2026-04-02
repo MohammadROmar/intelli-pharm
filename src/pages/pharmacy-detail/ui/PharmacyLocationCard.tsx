@@ -5,10 +5,12 @@ import { MapPin, Navigation } from 'lucide-react';
 import type { PharmacyDetail } from '@/entities/pharmacy';
 import {
   Button,
+  Skeleton,
+  Separator,
   DetailCard,
   DetailCell,
-  Separator,
-  Skeleton,
+  ErrorBoundary,
+  SectionErrorFallback,
 } from '@/shared/ui';
 
 const MapView = lazy(() =>
@@ -51,7 +53,9 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
 
       {mapVisible ? (
         <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
-          <MapView position={position} label={pharmacy.name} />
+          <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+            <MapView position={position} label={pharmacy.name} />
+          </ErrorBoundary>
         </Suspense>
       ) : (
         <Button
