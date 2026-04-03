@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient, type ApiError, type ApiResponse } from '@/shared/api';
@@ -14,6 +15,7 @@ export function useGetEntities<T extends { data?: Y[] }, Y>({
   filters,
 }: Props) {
   const [searchParams] = useSearchParams();
+  const { i18n } = useTranslation();
 
   const page_number = getPage(searchParams);
   const per_page = getPerPage(searchParams);
@@ -21,7 +23,7 @@ export function useGetEntities<T extends { data?: Y[] }, Y>({
   const params = { ...filters, page_number, per_page };
 
   return useQuery<ApiResponse<T>, ApiError>({
-    queryKey: [queryKey, { page_number, per_page, filters }],
+    queryKey: [queryKey, { page_number, per_page, filters }, i18n.language],
     queryFn: () => apiClient.get(`/erp/v1/${queryKey}`, { params }),
     placeholderData: (prev) => {
       const data = prev?.data?.data;

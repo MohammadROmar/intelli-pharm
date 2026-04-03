@@ -5,6 +5,7 @@ import { MedicineDetailHeader } from './MedicineDetailHeader';
 import { MedicineImageGallery } from './MedicineImageGallery';
 import { useGetMedicine } from '@/entities/medicine';
 import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { MedicineBarcodeCard } from './MedicineBarcodeCard';
 
 export default function MedicineDetailPage() {
   const { isLoading, data, isError, error, refetch } = useGetMedicine();
@@ -30,6 +31,8 @@ export default function MedicineDetailPage() {
         />
         <MedicineInfoGrid medicine={medicine} />
       </div>
+
+      <MedicineBarcodeCard barcode={medicine.barcode} />
 
       <StocksCard stocks={medicine.stocks} />
       <AlternativesTable

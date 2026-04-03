@@ -1,5 +1,5 @@
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
-import { Calendar, Package, Trash2, Warehouse } from 'lucide-react';
+import { Calendar, Package, Trash2, Boxes } from 'lucide-react';
 
 import { required, fRequired, positiveNumber } from '@/shared/lib';
 import {
@@ -85,7 +85,7 @@ export function StockRowCard({
                 <p>{t('warehouse')}</p>
               </FieldLabel>
               <GenericSingleSelect
-                icon={Warehouse}
+                icon={Boxes}
                 disabled={isPending}
                 invalid={warehouseState.invalid}
                 options={WAREHOUSES}

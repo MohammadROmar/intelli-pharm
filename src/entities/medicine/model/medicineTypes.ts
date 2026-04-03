@@ -13,6 +13,7 @@ export type FormValues = {
   is_active: boolean;
   is_alternative: boolean;
   laboratory_id: number;
+  barcode?: string;
   stocks: StockEntry[];
   is_alternative_to_id: number | null;
   imagesCount: number;
@@ -55,6 +56,7 @@ export type Medicine = {
   is_imported: boolean;
   is_active: boolean;
   available_quantity: number;
+  barcode?: string;
   in_stock: boolean;
   created_at: string;
   updated_at: string;
@@ -90,4 +92,18 @@ export type MedicineFilters = {
   laboratory?: string;
   active?: BooleanFilter;
   alternative_for?: string;
+};
+
+export type BarcodeScanResult = {
+  id: number;
+  category_id: number;
+  name: string;
+  price: string;
+  is_imported: boolean;
+  is_active: boolean;
+  available_quantity: number;
+  in_stock: boolean;
+  barcode: string;
+  created_at: string;
+  updated_at: string;
 };

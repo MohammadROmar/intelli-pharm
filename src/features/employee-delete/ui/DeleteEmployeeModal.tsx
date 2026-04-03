@@ -1,8 +1,9 @@
+import { AdminDeleteRestricted } from './AdminDeleteRestricted';
 import type { Employee } from '@/entities/employee';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
-type DeleteEmployeeModalProps = {
+export type DeleteEmployeeModalProps = {
   employee: Employee | null;
   onClose: () => void;
 };
@@ -21,6 +22,12 @@ export function DeleteEmployeeModal({
     mutate(employee.id, {
       onSuccess: () => onClose(),
     });
+  }
+
+  const isAdmin = employee?.roles[0] === 'admin';
+
+  if (isAdmin) {
+    return <AdminDeleteRestricted employee={employee} onClose={onClose} />;
   }
 
   return (

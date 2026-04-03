@@ -29,7 +29,7 @@ export function LaboratoryTable({ data }: Props) {
   const [laboratoryToDelete, setLaboratoryToDelete] =
     useState<LaboratoryListItem | null>(null);
 
-  const labs = data.data!;
+  const laboratories = data.data!;
 
   return (
     <>
@@ -41,29 +41,28 @@ export function LaboratoryTable({ data }: Props) {
       <TableCard
         title={t('list.all')}
         basePath="/dashboard/laboratories"
-        currItemsCount={labs.length}
-        itemsPerPage={data.per_page}
+        currItemsCount={laboratories.length}
+        itemsPerPage={data.meta.per_page}
+        totalItems={data.meta.total}
+        currentPage={data.meta.current_page}
         header={
           <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
             <SearchField placeholder={t('list.searchPlaceholder')} />
             <AddLaboratoryButton />
           </div>
         }
-        currentPage={data.current_page}
-        totalItems={data.total}
       >
-        {labs.length > 0 ? (
+        {laboratories.length > 0 ? (
           <>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-25">{t('list.id')}</TableHead>
                 <TableHead>{t('list.name')}</TableHead>
-                <TableHead>{t('list.createdAt')}</TableHead>
                 <TableHead>{t('list.actions')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {labs.map((lab) => (
+              {laboratories.map((lab) => (
                 <LaboratoryRow
                   key={lab.id}
                   laboratory={lab}

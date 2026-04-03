@@ -29,9 +29,11 @@ import { LazyPharmacyEditPage } from '@/pages/pharmacy-edit';
 
 import { LazyMedicineListPage } from '@/pages/medicine-list';
 import { LazyMedicineCreatePage } from '@/pages/medicine-create';
-import { LazyMedicineDetailsPage } from '@/pages/medicine-detail';
+import { LazyMedicineDetailPage } from '@/pages/medicine-detail';
 import { LazyMedicineEditPage } from '@/pages/medicine-edit';
 import { LazyMedicineRestockPage } from '@/pages/medicine-restock';
+import { LazyMedicineScanPage } from '@/pages/medicine-scan';
+import { LazyMedicineScanResultPage } from '@/pages/medicine-scan-result';
 
 import { LazyCategoryListPage } from '@/pages/category-list';
 import { LazyCategoryCreatePage } from '@/pages/category-create';
@@ -119,9 +121,19 @@ const router = createBrowserRouter([
               {
                 path: ':id',
                 children: [
-                  { index: true, element: <LazyMedicineDetailsPage /> },
+                  { index: true, element: <LazyMedicineDetailPage /> },
                   { path: 'edit', element: <LazyMedicineEditPage /> },
                   { path: 'restock', element: <LazyMedicineRestockPage /> },
+                ],
+              },
+              {
+                path: 'scan',
+                children: [
+                  { index: true, element: <LazyMedicineScanPage /> },
+                  {
+                    path: ':barcode',
+                    element: <LazyMedicineScanResultPage />,
+                  },
                 ],
               },
             ],

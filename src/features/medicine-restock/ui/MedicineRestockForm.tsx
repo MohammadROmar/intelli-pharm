@@ -1,6 +1,6 @@
 import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Plus, Warehouse } from 'lucide-react';
+import { Boxes, Plus } from 'lucide-react';
 
 import { StockRowCard } from './StockRowCard';
 import type {
@@ -48,7 +48,7 @@ export function MedicineRestockForm({
       <Card>
         <CardHeader className="flex! flex-wrap items-center justify-between gap-4">
           <CardSectionHeader
-            icon={Warehouse}
+            icon={Boxes}
             title={t('warehouseStock')}
             description={t('warehouseStockSubtitle')}
           />

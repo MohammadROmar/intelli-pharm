@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
 
 import type { LaboratoryListItem } from '../model/laboratoryTypes';
-import { buttonVariants, formatDate } from '@/shared/lib';
+import { buttonVariants } from '@/shared/lib';
 import {
   TableActions,
   TableCell,
@@ -19,7 +19,7 @@ type LaboratoryRowProps = {
 };
 
 export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
-  const { t, i18n } = useTranslation('translation', {
+  const { t } = useTranslation('translation', {
     keyPrefix: 'tableActions',
   });
 
@@ -27,9 +27,6 @@ export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
     <TableRow>
       <TableCell className="text-muted-foreground">{laboratory.id}</TableCell>
       <TableCell>{laboratory.name}</TableCell>
-      <TableCell className="text-muted-foreground">
-        {formatDate(laboratory.created_at, i18n.language, false)}
-      </TableCell>
 
       <TableActions
         item={laboratory}

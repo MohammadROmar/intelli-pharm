@@ -5,7 +5,7 @@ import {
   useFormState,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Package, Plus, Trash2, Warehouse } from 'lucide-react';
+import { Boxes, Calendar, Package, Plus, Trash2 } from 'lucide-react';
 
 import {
   useMedicineFieldError,
@@ -51,7 +51,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
       <CardHeader>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <CardSectionHeader
-            icon={Warehouse}
+            icon={Boxes}
             title={t('warehouseStock')}
             description={t('warehouseStockSubtitle')}
           />
@@ -127,7 +127,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
                         <p>{t('warehouse')}</p>
                       </FieldLabel>
                       <GenericSingleSelect
-                        icon={Warehouse}
+                        icon={Boxes}
                         disabled={isPending}
                         invalid={warehouseState.invalid}
                         options={WAREHOUSES}

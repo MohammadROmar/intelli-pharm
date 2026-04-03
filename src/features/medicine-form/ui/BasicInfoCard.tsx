@@ -32,6 +32,7 @@ import {
   SwitchRow,
   Textarea,
 } from '@/shared/ui';
+import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
 
 type Props = { medicine?: Medicine; isPending?: boolean };
 
@@ -98,6 +99,8 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
             <FieldError errors={te(errors.price, 'price')} />
           </Field>
         </div>
+
+        <MedicineBarcodeScanner />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Controller

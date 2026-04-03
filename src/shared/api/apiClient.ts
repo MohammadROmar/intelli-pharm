@@ -17,8 +17,15 @@ export class ApiError extends Error {
   public readonly status?: number;
   public readonly config?: AxiosRequestConfig;
 
-  constructor(i18nKey: string, status?: number, config?: AxiosRequestConfig) {
+  constructor(
+    i18nKey: string,
+    status?: number,
+    message?: string,
+    config?: AxiosRequestConfig,
+  ) {
     super(i18nKey);
+
+    this.message = message ?? i18nKey;
     this.name = 'ApiError';
     this.i18nKey = i18nKey;
     this.status = status;
@@ -76,6 +83,10 @@ interface ApiInstance extends Omit<
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
 }
 
+type ResponseError = AxiosError & {
+  response?: { data?: { errors?: { message?: string } } };
+};
+
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: { 'Content-Type': 'application/json' },
@@ -83,14 +94,21 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.response.use(
   (res) => res.data,
-  (error: AxiosError) => {
+  (error: ResponseError) => {
     if (import.meta.env.DEV) {
       console.log(error.response);
     }
 
+    const responseError = error.response?.data?.errors?.message;
     const status = error.response?.status;
+
     return Promise.reject(
-      new ApiError(statusToI18nKey(status), status, error.config),
+      new ApiError(
+        statusToI18nKey(status),
+        status,
+        responseError,
+        error.config,
+      ),
     );
   },
 );

@@ -393,6 +393,8 @@
       "flags": "FLAGS",
       "active": "Active",
       "activeDescription": "Medicine is available for sale and ordering.",
+      "barcode": "Barcode",
+      "barcodePlaceholder": "e.g. 6912345678901",
       "imported": "Imported",
       "importedDescription": "This medicine is sourced from an overseas supplier.",
       "alternative": "Alternative",
@@ -436,6 +438,13 @@
       "infoSubtitle": "Detailed information about the selected medicine.",
       "labelId": "Medicine ID",
       "labelCategory": "Category",
+      "barcodeCardTitle": "Barcode",
+      "barcodeCardSubtitle": "Stored barcode.",
+      "labelBarcode": "Barcode",
+      "labelVerification": "Verification",
+      "barcodeMatch": "✓ Matches",
+      "barcodeMismatch": "✗ Does not match",
+      "scanToVerify": "Scan to Verify",
       "labelPrice": "Unit Price",
       "labelStatus": "Status",
       "labelImported": "Imported",
@@ -465,6 +474,28 @@
         "subtitle": "This medicine is a registered alternative for the following.",
         "noAlts": "This medicine is not an alternative for any other medicine."
       }
+    },
+    "scan": {
+      "cardTitle": "Scan Medicine",
+      "cardSubtitle": "Point the camera at a barcode, or scan with a USB scanner.",
+      "resultTitle": "Scan Result",
+      "title": "Scan Medicine",
+      "subtitle": "Scan barcode using your camera or USB scanner.",
+      "usbHint": "USB scanner connected? Just scan — it works automatically.",
+      "scanAgain": "Scan again",
+      "notFoundTitle": "Medicine not found",
+      "notFoundMessage": "No medicine is registered with this barcode.",
+      "viewFullDetails": "View Full Details",
+
+      "active": "Active",
+      "inactive": "Inactive",
+      "inStock": "In Stock",
+      "outOfStock": "Out of Stock",
+      "imported": "Imported",
+
+      "labelPrice": "Unit Price",
+      "labelAvailableQty": "Available",
+      "units": "units"
     },
     "restock": {
       "tooltipLabel": "Restock",
@@ -639,6 +670,11 @@
       "message": "For security reasons, admin account details can only be updated from the Edit Profile page.",
       "cta": "Go to Edit Profile"
     },
+    "deleteRestricted": {
+      "title": "Admin accounts cannot be deleted",
+      "message": "For security reasons, admin accounts cannot be deleted.",
+      "action": "Ok"
+    },
     "filters": {
       "title": "Filter Employees",
       "subtitle": "Narrow down the employees list using one or more filters.",
@@ -739,7 +775,8 @@
       "cities": "Cities",
       "restock": "Restock",
       "regions": "Regions",
-      "pharmacies": "Pharmacies"
+      "pharmacies": "Pharmacies",
+      "scan": "Scan"
     },
 
     "regions": {
@@ -752,6 +789,7 @@
     },
     "medicines": {
       "list": "All Medicines",
+      "scanMedicine": "Scan Medicine",
       "new": "Add Medicine"
     },
     "categories": {
@@ -791,7 +829,8 @@
     "unknownTitle": "Something Went Wrong",
     "unknown": "An unexpected error occurred.",
     "retry": "Retry",
-    "emailAlreadyTaken": "The email has already been taken."
+    "emailAlreadyTaken": "The email has already been taken.",
+    "invalidCredentials": "Please check your email and password."
   },
 
   "tableActions": {
@@ -799,6 +838,18 @@
     "update": "Update",
     "delete": "Delete"
   },
+
+  "barcode": {
+    "title": "Scan Barcode",
+    "subtitle": "Use the camera or a connected USB scanner.",
+    "lastScanned": "Last scanned",
+    "detected": "Detected",
+    "usbHint": "If you have a USB barcode scanner connected, just scan — it works automatically without clicking anything.",
+    "errorCameraDenied": "Camera access was denied. Allow camera access in your browser settings, or use a USB scanner instead.",
+    "errorCameraUnavailable": "Camera is not available on this device.",
+    "done": "Done"
+  },
+
   "common": {
     "noResults": {
       "noResultsTitle": "No results found",

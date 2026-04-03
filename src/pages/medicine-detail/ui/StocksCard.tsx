@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { PackageCheck } from 'lucide-react';
+import { Boxes } from 'lucide-react';
 
 import type { MedicineStock } from '@/entities/medicine';
 import { formatDate } from '@/shared/lib';
@@ -36,7 +36,7 @@ export function StocksCard({ stocks }: Props) {
       title={t('stocksTitle')}
       subtitle={t('stocksSubtitle')}
       itemsCount={stocks.length}
-      icon={PackageCheck}
+      icon={Boxes}
     >
       <Table>
         <TableHeader>

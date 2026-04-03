@@ -398,6 +398,8 @@
       "price": "السعر",
       "note": "ملاحظة",
       "optional": "اختياري",
+      "barcode": "الباركود",
+      "barcodePlaceholder": "مثال: 6912345678901",
       "flags": "علامات",
       "active": "نشط",
       "activeDescription": "الدواء متاح للبيع والطلب.",
@@ -438,6 +440,13 @@
       "yes": "نعم",
       "no": "لا",
       "none": "لا يوجد",
+      "barcodeCardTitle": "الباركود",
+      "barcodeCardSubtitle": "الباركود المحفوظ.",
+      "labelBarcode": "الباركود",
+      "labelVerification": "التحقق",
+      "barcodeMatch": "✓ متطابق",
+      "barcodeMismatch": "✗ غير متطابق",
+      "scanToVerify": "مسح للتحقق",
       "infoTitle": "معلومات الدواء",
       "note": "الملاحظة",
       "infoSubtitle": "معلومات مفصلة عن الدواء المحدد.",
@@ -472,6 +481,28 @@
         "subtitle": "هذا الدواء مسجل كبديل للأدوية التالية.",
         "noAlts": "هذا الدواء ليس بديلاً عن أي دواء آخر."
       }
+    },
+    "scan": {
+      "resultTitle": "نتائج المسح",
+      "title": "مسح الدواء",
+      "subtitle": "امسح الباركود باستخدام الكاميرا أو الماسح الضوئي USB.",
+      "cardTitle": "مسح الدواء",
+      "cardSubtitle": "وجّه الكاميرا نحو الباركود، أو استخدم ماسح USB.",
+      "usbHint": "ماسح USB متصل؟ فقط امسح — يعمل تلقائياً.",
+      "scanAgain": "مسح مجدداً",
+      "notFoundTitle": "الدواء غير موجود",
+      "notFoundMessage": "لا يوجد دواء مسجل بهذا الباركود.",
+      "viewFullDetails": "عرض التفاصيل الكاملة",
+
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "inStock": "متوفر",
+      "outOfStock": "غير متوفر",
+      "imported": "مستورد",
+
+      "labelPrice": "سعر الوحدة",
+      "labelAvailableQty": "المتوفر",
+      "units": "وحدة"
     },
     "restock": {
       "tooltipLabel": "إعادة التخزين",
@@ -648,6 +679,11 @@
       "message": "لأسباب أمنية، لا يمكن تعديل بيانات حساب المسؤول إلا من صفحة تعديل الملف الشخصي.",
       "cta": "الذهاب إلى تعديل الملف الشخصي"
     },
+    "deleteRestricted": {
+      "title": "لا يمكن حذف حسابات المسؤولين",
+      "message": "لأسباب أمنية، لا يمكن حذف بيانات حساب المسؤول.",
+      "action": "حسناً"
+    },
     "filters": {
       "title": "فلاتر الموظفين",
       "subtitle": "ضيّق نتائج قائمة الموظفين باستخدام فلتر واحد أو أكثر.",
@@ -748,7 +784,8 @@
       "cities": "المدن",
       "restock": "إعادة التخزين",
       "regions": "المناطق",
-      "pharmacies": "الصيدليات"
+      "pharmacies": "الصيدليات",
+      "scan": "المسح"
     },
 
     "regions": {
@@ -761,6 +798,7 @@
     },
     "medicines": {
       "list": "جميع الأدوية",
+      "scanMedicine": "مسح الدواء",
       "new": "إضافة دواء"
     },
     "categories": {
@@ -800,7 +838,8 @@
     "unknownTitle": "حدث خطأ ما",
     "unknown": "حدث خطأ غير متوقع.",
     "retry": "إعادة المحاولة",
-    "emailAlreadyTaken": "البريد الإلكتروني مستخدم بالفعل."
+    "emailAlreadyTaken": "البريد الإلكتروني مستخدم بالفعل.",
+    "invalidCredentials": "يرجى التأكد من البريد الاكتروني وكلمة المرور."
   },
 
   "tableActions": {
@@ -808,6 +847,18 @@
     "update": "تعديل",
     "delete": "حذف"
   },
+
+  "barcode": {
+    "title": "مسح الباركود",
+    "subtitle": "استخدم الكاميرا أو ماسح USB متصل.",
+    "lastScanned": "آخر مسح",
+    "detected": "تم الكشف",
+    "usbHint": "إذا كان لديك ماسح باركود USB متصل، فقط امسح — يعمل تلقائياً دون النقر على أي شيء.",
+    "errorCameraDenied": "تم رفض الوصول إلى الكاميرا. اسمح بالوصول في إعدادات المتصفح، أو استخدم ماسح USB.",
+    "errorCameraUnavailable": "الكاميرا غير متاحة على هذا الجهاز.",
+    "done": "تم"
+  },
+
   "common": {
     "noResults": {
       "noResultsTitle": "لا توجد نتائج",

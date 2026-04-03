@@ -1,5 +1,6 @@
 import { medicineToFormData } from '../lib/utils';
 import type {
+  BarcodeScanResult,
   Medicine,
   MedicineFormData,
   MedicineResponse,
@@ -28,6 +29,12 @@ export async function getMedicines(
   params: Record<string, string | number | null | undefined>,
 ) {
   return apiClient.get<MedicineResponse>('/erp/v1/medicines', { params });
+}
+
+export async function getMedicineByBarcode(barcode: string) {
+  return apiClient.get<BarcodeScanResult>(
+    `/erp/v1/medicines/barcode/${barcode}`,
+  );
 }
 
 export async function getInfiniteMedicines(page_number: string, name?: string) {

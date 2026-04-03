@@ -47,9 +47,9 @@ export async function getInfiniteLaboratories(
 
   return {
     items: data.data!,
-    page: data.current_page,
-    pageSize: data.per_page,
-    totalPages: Math.max(data.total / data.per_page, 1),
-    totalCount: data.total,
+    page: data.meta.current_page,
+    pageSize: data.meta.per_page,
+    totalPages: Math.max(data.meta.total / data.meta.per_page, 1),
+    totalCount: data.meta.total,
   };
 }

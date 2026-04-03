@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import type { ApiError, ApiResponse } from '../api';
@@ -16,6 +17,8 @@ export function useGetEntityById<TData>({
   enabled = true,
   ...queryOptions
 }: UseGetEntityOptions<TData>) {
+  const { i18n } = useTranslation();
+
   const params = useParams();
   const rawId = params[paramName];
 
@@ -23,7 +26,7 @@ export function useGetEntityById<TData>({
   const isValidId = rawId !== undefined && !isNaN(numericId);
 
   return useQuery<ApiResponse<TData>, ApiError>({
-    queryKey: [queryKey, `id-${rawId}`],
+    queryKey: [queryKey, `${paramName}-${rawId}`, i18n.language],
     queryFn: () => fetchFn(numericId),
     enabled: isValidId && enabled,
     ...queryOptions,

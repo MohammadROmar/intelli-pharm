@@ -13,6 +13,6 @@ export {
   DetailSkeleton,
 } from './skeleton';
 export { WithSuspense } from './WithSuspense';
-export { Card, CardContent, CardHeader } from './Card';
+export { Card, CardHeader, CardContent, CardFooter } from './Card';
 export { Separator } from './Separator';
 export { Spinner } from './spinner';

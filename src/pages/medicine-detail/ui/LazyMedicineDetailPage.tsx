@@ -2,12 +2,12 @@ import { lazy } from 'react';
 
 import { DetailSkeleton, WithSuspense } from '@/shared/ui/index.initial';
 
-const MedicineDetailsPage = lazy(() => import('./MedicineDetailPage'));
+const MedicineDetailPage = lazy(() => import('./MedicineDetailPage'));
 
-export function LazyMedicineDetailsPage() {
+export function LazyMedicineDetailPage() {
   return (
     <WithSuspense
-      Component={MedicineDetailsPage}
+      Component={MedicineDetailPage}
       loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={3} hasImage />}
     />
   );

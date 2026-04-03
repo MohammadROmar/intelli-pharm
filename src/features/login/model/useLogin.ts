@@ -40,8 +40,13 @@ export function useLogin() {
     },
 
     onError: (error) => {
+      const isInvalidCredentials = error.message === 'Invalid credentials';
+      const toastDescription = isInvalidCredentials
+        ? 'errors.invalidCredentials'
+        : error.i18nKey;
+
       toast.error(t('loginPage.error'), {
-        description: t(error.i18nKey),
+        description: t(toastDescription),
       });
     },
   });

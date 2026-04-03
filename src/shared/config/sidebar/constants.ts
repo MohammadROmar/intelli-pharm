@@ -79,6 +79,10 @@ export const sidebarData = [
         url: '/dashboard/medicines',
       },
       {
+        key: 'medicines.scanMedicine',
+        url: '/dashboard/medicines/scan',
+      },
+      {
         key: 'medicines.new',
         url: '/dashboard/medicines/new',
       },

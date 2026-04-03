@@ -3,6 +3,8 @@ export {
   getMedicines,
   createMedicine,
   getMedicineById,
+  getMedicineByBarcode,
+  getInfiniteMedicines,
 } from './api';
 
 export type {
@@ -14,6 +16,7 @@ export type {
   MedicineFilters,
   MedicineCategory,
   MedicineResponse,
+  BarcodeScanResult,
   AlternativeMedicine,
   FormValues as MedicineFormData,
 } from './model/medicineTypes';

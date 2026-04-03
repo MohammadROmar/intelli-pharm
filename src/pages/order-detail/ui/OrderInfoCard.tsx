@@ -4,7 +4,7 @@ import {
   Cross,
   Package,
   RefreshCw,
-  Warehouse,
+  Boxes,
   ShoppingCart,
   CalendarDays,
 } from 'lucide-react';
@@ -46,7 +46,7 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
         </DetailCell>
         <DetailCell label={t('labelWarehouse')}>
           <span className="flex items-center gap-1.5">
-            <Warehouse className="text-muted-foreground size-4 shrink-0" />
+            <Boxes className="text-muted-foreground size-4 shrink-0" />
             {order.warehouse_id}
           </span>
         </DetailCell>

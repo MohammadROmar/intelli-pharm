@@ -7,7 +7,9 @@ import {
   CardSectionHeader,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from '@/shared/ui';
 
@@ -42,11 +44,17 @@ export function CitySheet({
 
       <SheetContent side={isRtl ? 'left' : 'right'}>
         <SheetHeader>
-          <CardSectionHeader
-            title={t('title')}
-            description={t('subtitle')}
-            icon={Building2}
-          />
+          <SheetTitle className="sr-only">{t('title')}</SheetTitle>
+          <SheetDescription className="sr-only">
+            {t('subtitle')}
+          </SheetDescription>
+          <div aria-hidden>
+            <CardSectionHeader
+              title={t('title')}
+              description={t('subtitle')}
+              icon={Building2}
+            />
+          </div>
         </SheetHeader>
 
         <div className="grid flex-1 gap-6 p-4 pt-0">{children}</div>

@@ -2,18 +2,11 @@ export type Laboratory = {
   name: string;
 };
 
-export type LaboratoryListItem = {
-  id: number;
-  created_at: string;
-  updated_at: string;
-} & Laboratory;
+export type LaboratoryListItem = { id: number } & Laboratory;
 
 export type LaboratoriesResponse = {
   data?: LaboratoryListItem[];
-  current_page: number;
-  per_page: number;
-  to: number;
-  total: number;
+  meta: { current_page: number; per_page: number; to: number; total: number };
 };
 
 export type LaboratoryMedicine = {
