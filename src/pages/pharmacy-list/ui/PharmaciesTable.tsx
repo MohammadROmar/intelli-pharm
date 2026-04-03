@@ -24,7 +24,7 @@ export function PharmaciesTable({ data }: Props) {
   const [pharmacyToDelete, setPharmacyToDelete] =
     useState<PharmacyDetail | null>(null);
 
-  const pharmacies = data.data;
+  const pharmacies = data.data!;
 
   return (
     <>

@@ -6,12 +6,6 @@ import type {
 } from '../model/pharmacyTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-export async function getPharmacies(
-  params: Record<string, string | number | null | undefined>,
-) {
-  return apiClient.get<PharmaciesResponse>('/erp/v1/pharmacies', { params });
-}
-
 export async function editPharmacy({
   id,
   pharmacy,
@@ -36,7 +30,10 @@ export async function getInfinitePharmacies(
   page_number: string,
   name?: string,
 ) {
-  const response = await getPharmacies({ page_number, name });
+  const response = await apiClient.get<PharmaciesResponse>(
+    '/erp/v1/pharmacies',
+    { params: { page_number, name } },
+  );
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));

@@ -5,12 +5,6 @@ import type {
 } from '../model/categoryTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-export async function getCategories(
-  params: Record<string, string | number | null | undefined>,
-) {
-  return apiClient.get<CategoryListResponse>('/erp/v1/categories', { params });
-}
-
 export function getCategoryById(id: number) {
   return apiClient.get<CategoryDetail>(`/erp/v1/categories/${id}`);
 }
@@ -33,7 +27,10 @@ export async function getInfiniteCategories(
   page_number: string,
   name?: string,
 ) {
-  const response = await getCategories({ page_number, name });
+  const response = await apiClient.get<CategoryListResponse>(
+    '/erp/v1/categories',
+    { params: { page_number, name } },
+  );
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));

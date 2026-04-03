@@ -6,12 +6,6 @@ import type {
 } from '../model/regionTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-export async function getRegions(
-  params: Record<string, string | number | null | undefined>,
-) {
-  return apiClient.get<RegionsListResponse>('/erp/v1/regions', { params });
-}
-
 export async function getRegionById(id: number) {
   return apiClient.get<RegionDetail>(`/erp/v1/regions/${id}`);
 }
@@ -25,7 +19,9 @@ export async function editRegion({ id, name, city_id }: RegionListItem) {
 }
 
 export async function getInfiniteRegions(page_number: string, name?: string) {
-  const response = await getRegions({ page_number, name });
+  const response = await apiClient.get<RegionsListResponse>('/erp/v1/regions', {
+    params: { page_number, name },
+  });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));

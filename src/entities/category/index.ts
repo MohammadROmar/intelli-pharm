@@ -1,6 +1,5 @@
 export {
   editCategory,
-  getCategories,
   createCategory,
   getCategoryById,
   getInfiniteCategories,

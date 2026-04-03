@@ -1,6 +1,5 @@
 export {
   editPharmacy,
-  getPharmacies,
   createPharmacy,
   getPharmacyById,
   getInfinitePharmacies,

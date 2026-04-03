@@ -5,7 +5,7 @@ export type City = {
 export type CityDetail = { id: number } & City;
 
 export type CitiesResponse = {
-  data: CityDetail[] | null;
+  data?: CityDetail[];
   meta: {
     current_page: number;
     per_page: number;

@@ -23,7 +23,7 @@ export type PharmacyFilters = {
 };
 
 export type PharmaciesResponse = {
-  data: PharmacyDetail[];
+  data?: PharmacyDetail[];
   meta: {
     current_page: number;
     per_page: number;

@@ -35,7 +35,10 @@ export async function getInfiniteLaboratories(
   page_number: string,
   name?: string,
 ) {
-  const response = await getLaboratories({ page_number, name });
+  const response = await apiClient.get<LaboratoriesResponse>(
+    '/erp/v1/laboratories',
+    { params: { page_number, name } },
+  );
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));

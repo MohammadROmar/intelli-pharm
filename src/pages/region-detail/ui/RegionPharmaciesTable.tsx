@@ -58,7 +58,7 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
                 <TableActions
                   item={pharmacy}
                   itemId={pharmacy.id}
-                  path="/dashboard/pharmacies/"
+                  path="/dashboard/pharmacies"
                 >
                   <TableActions.Detail />
                 </TableActions>

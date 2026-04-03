@@ -35,7 +35,7 @@ export type EmployeeInternalFormData = BaseEmployeeFormData & {
 };
 
 export type EmployeeListResponse = {
-  data: Employee[];
+  data?: Employee[];
   meta: {
     current_page: number;
     per_page: number;

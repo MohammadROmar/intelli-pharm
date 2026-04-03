@@ -9,7 +9,7 @@ export type LaboratoryListItem = {
 } & Laboratory;
 
 export type LaboratoriesResponse = {
-  data: LaboratoryListItem[] | null;
+  data?: LaboratoryListItem[];
   current_page: number;
   per_page: number;
   to: number;
