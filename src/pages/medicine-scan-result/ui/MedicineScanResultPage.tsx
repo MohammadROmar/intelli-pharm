@@ -27,7 +27,10 @@ function BarcodeNotFound({ barcode }: { barcode: string }) {
         <p className="text-muted-foreground mb-8 font-mono text-xs">
           {barcode}
         </p>
-        <Link to={'/dashboard/medicines/scan'} className="gap-2">
+        <Link
+          to={'/dashboard/medicines/scan'}
+          className="flex items-center gap-2"
+        >
           <ScanBarcode className="size-4" />
           {t('scanAgain')}
         </Link>

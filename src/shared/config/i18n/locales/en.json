@@ -847,6 +847,7 @@
     "usbHint": "If you have a USB barcode scanner connected, just scan — it works automatically without clicking anything.",
     "errorCameraDenied": "Camera access was denied. Allow camera access in your browser settings, or use a USB scanner instead.",
     "errorCameraUnavailable": "Camera is not available on this device.",
+    "scanHint": "Center Barcode in Frame",
     "done": "Done"
   },
 

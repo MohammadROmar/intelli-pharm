@@ -143,3 +143,8 @@
 @utility input-icon {
   @apply text-muted-foreground pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 ltr:left-3 rtl:right-3;
 }
+
+#qr-shaded-region,
+.qr-shaded-region {
+  display: none !important;
+}

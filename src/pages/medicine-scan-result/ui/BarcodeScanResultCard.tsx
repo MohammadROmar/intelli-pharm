@@ -22,7 +22,7 @@ export function BarcodeScanResultCard({ result }: Props) {
 
   return (
     <div className="grid h-full">
-      <div className="flex min-h-[70vh] flex-col items-center justify-center">
+      <div className="flex min-h-[70vh] flex-col items-center justify-center px-4">
         <div className="w-full max-w-sm space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">

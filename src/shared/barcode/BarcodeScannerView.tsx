@@ -38,7 +38,11 @@ export function BarcodeScannerView({ onScan }: Props) {
           <Skeleton className="aspect-square max-h-64 w-full rounded-xl" />
         }
       >
-        <CameraScanner onScan={onScan} onError={handleCameraError} />
+        <CameraScanner
+          hintText={t('scanHint')}
+          onScan={onScan}
+          onError={handleCameraError}
+        />
       </Suspense>
     </div>
   );
