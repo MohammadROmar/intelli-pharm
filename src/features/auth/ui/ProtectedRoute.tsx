@@ -1,15 +1,14 @@
-import { Navigate } from 'react-router-dom';
-import type { PropsWithChildren } from 'react';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import { useAppSelector } from '@/shared/config';
 
-export function ProtectedRoute({ children }: PropsWithChildren) {
+export function ProtectedRoute() {
   const isAuthenticated = useAppSelector(
     (state) => state.session.isAuthenticated,
   );
 
   if (isAuthenticated) {
-    return <>{children}</>;
+    return <Outlet />;
   }
 
   return <Navigate to="/" replace />;

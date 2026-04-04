@@ -183,3 +183,15 @@ export { DetailCard } from './DetailCard';
 export { Kbd, KbdGroup } from './kbd';
 export { ErrorBoundary } from './ErrorBoundary';
 export { SectionErrorFallback } from './ErrorFallback';
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from './select';

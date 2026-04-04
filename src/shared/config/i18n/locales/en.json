@@ -688,6 +688,18 @@
     }
   },
 
+  "chat": {
+    "backToDashboard": "Dashboard",
+    "headerTitle": "IntelliPharm AI",
+
+    "emptyTitle": "How can I help you today?",
+    "emptySubtitle": "Type a question below to get started.",
+
+    "inputPlaceholder": "Type your question here...",
+    "inputHint": "Write your question and press Enter or tap Send.",
+    "sendButton": "Send"
+  },
+
   "notFoundPage": {
     "title": "Page Not Found",
     "subtitle": "Oops! The page you're trying to access doesn't exist.",
@@ -776,7 +788,8 @@
       "restock": "Restock",
       "regions": "Regions",
       "pharmacies": "Pharmacies",
-      "scan": "Scan"
+      "scan": "Scan",
+      "chat": "Chat with AI"
     },
 
     "regions": {

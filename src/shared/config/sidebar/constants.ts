@@ -8,6 +8,7 @@ import {
   MapPin,
   Cross,
   Pill,
+  Bot,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -22,6 +23,11 @@ export const sidebarData = [
     key: 'labels.dashboard',
     url: '/dashboard',
     icon: LayoutDashboard,
+  },
+  {
+    key: 'labels.chat',
+    url: '/chat',
+    icon: Bot,
   },
   {
     key: 'labels.orders',

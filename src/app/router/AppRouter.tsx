@@ -1,7 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
+import { ProtectedRoute } from '@/features/auth/index.initial';
 import PublicOnlyRoute from './PublicOnlyRoute';
 import DashboardRoute from './DashboardRoute';
+import ChatRoute from './ChatRoute';
 
 import { LazyRootLayout } from '../layouts/LazyRootLayout';
 import { LazyErrorPage } from '@/pages/error';
@@ -44,6 +46,8 @@ import { LazyEmployeeListPage } from '@/pages/employee-list';
 import { LazyEmployeeCreatePage } from '@/pages/employee-create';
 import { LazyEmployeeEditPage } from '@/pages/employee-edit';
 
+import { LazyChatPage } from '@/pages/ai-chat';
+
 const router = createBrowserRouter([
   {
     element: <LazyRootLayout />,
@@ -61,115 +65,127 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/dashboard',
-        element: <DashboardRoute />,
+        element: <ProtectedRoute />,
         children: [
-          { index: true, element: <></> },
-
           {
-            path: 'orders',
+            path: 'dashboard',
+            element: <DashboardRoute />,
             children: [
-              { index: true, element: <LazyOrderListPage /> },
-              { path: ':id', element: <LazyOrderDetailPage /> },
-            ],
-          },
+              { index: true, element: <></> },
 
-          {
-            path: 'laboratories',
-            children: [
-              { index: true, element: <LazyLaboratoryListPage /> },
-              { path: ':id', element: <LazyLaboratoryDetailPage /> },
-            ],
-          },
-
-          { path: 'cities', element: <LazyCityListPage /> },
-
-          {
-            path: 'regions',
-            children: [
-              { index: true, element: <LazyRegionListPage /> },
-              { path: 'new', element: <LazyRegionCreatePage /> },
               {
-                path: ':id',
+                path: 'orders',
                 children: [
-                  { index: true, element: <LazyRegionDetailPage /> },
-                  { path: 'edit', element: <LazyRegionEditPage /> },
+                  { index: true, element: <LazyOrderListPage /> },
+                  { path: ':id', element: <LazyOrderDetailPage /> },
                 ],
               },
-            ],
-          },
 
-          {
-            path: 'pharmacies',
-            children: [
-              { index: true, element: <LazyPharmacyListPage /> },
-              { path: 'new', element: <LazyPharmacyCreatePage /> },
               {
-                path: ':id',
+                path: 'laboratories',
                 children: [
-                  { index: true, element: <LazyPharmacyDetailPage /> },
-                  { path: 'edit', element: <LazyPharmacyEditPage /> },
+                  { index: true, element: <LazyLaboratoryListPage /> },
+                  { path: ':id', element: <LazyLaboratoryDetailPage /> },
                 ],
               },
-            ],
-          },
-          {
-            path: 'medicines',
-            children: [
-              { index: true, element: <LazyMedicineListPage /> },
-              { path: 'new', element: <LazyMedicineCreatePage /> },
+
+              { path: 'cities', element: <LazyCityListPage /> },
+
               {
-                path: ':id',
+                path: 'regions',
                 children: [
-                  { index: true, element: <LazyMedicineDetailPage /> },
-                  { path: 'edit', element: <LazyMedicineEditPage /> },
-                  { path: 'restock', element: <LazyMedicineRestockPage /> },
-                ],
-              },
-              {
-                path: 'scan',
-                children: [
-                  { index: true, element: <LazyMedicineScanPage /> },
+                  { index: true, element: <LazyRegionListPage /> },
+                  { path: 'new', element: <LazyRegionCreatePage /> },
                   {
-                    path: ':barcode',
-                    element: <LazyMedicineScanResultPage />,
+                    path: ':id',
+                    children: [
+                      { index: true, element: <LazyRegionDetailPage /> },
+                      { path: 'edit', element: <LazyRegionEditPage /> },
+                    ],
                   },
                 ],
               },
+
+              {
+                path: 'pharmacies',
+                children: [
+                  { index: true, element: <LazyPharmacyListPage /> },
+                  { path: 'new', element: <LazyPharmacyCreatePage /> },
+                  {
+                    path: ':id',
+                    children: [
+                      { index: true, element: <LazyPharmacyDetailPage /> },
+                      { path: 'edit', element: <LazyPharmacyEditPage /> },
+                    ],
+                  },
+                ],
+              },
+              {
+                path: 'medicines',
+                children: [
+                  { index: true, element: <LazyMedicineListPage /> },
+                  { path: 'new', element: <LazyMedicineCreatePage /> },
+                  {
+                    path: ':id',
+                    children: [
+                      { index: true, element: <LazyMedicineDetailPage /> },
+                      { path: 'edit', element: <LazyMedicineEditPage /> },
+                      { path: 'restock', element: <LazyMedicineRestockPage /> },
+                    ],
+                  },
+                  {
+                    path: 'scan',
+                    children: [
+                      { index: true, element: <LazyMedicineScanPage /> },
+                      {
+                        path: ':barcode',
+                        element: <LazyMedicineScanResultPage />,
+                      },
+                    ],
+                  },
+                ],
+              },
+
+              {
+                path: 'categories',
+                children: [
+                  { index: true, element: <LazyCategoryListPage /> },
+                  {
+                    path: ':id',
+                    children: [
+                      { index: true, element: <LazyCategoryDetailPage /> },
+                      { path: 'edit', element: <LazyCategoryEditPage /> },
+                    ],
+                  },
+                  { path: 'new', element: <LazyCategoryCreatePage /> },
+                ],
+              },
+
+              {
+                path: 'employees',
+                children: [
+                  { index: true, element: <LazyEmployeeListPage /> },
+                  {
+                    path: ':id',
+                    children: [
+                      { index: true, element: <p>EmployeeDetails</p> },
+                      { path: 'edit', element: <LazyEmployeeEditPage /> },
+                    ],
+                  },
+                  { path: 'new', element: <LazyEmployeeCreatePage /> },
+                ],
+              },
             ],
           },
 
           {
-            path: 'categories',
-            children: [
-              { index: true, element: <LazyCategoryListPage /> },
-              {
-                path: ':id',
-                children: [
-                  { index: true, element: <LazyCategoryDetailPage /> },
-                  { path: 'edit', element: <LazyCategoryEditPage /> },
-                ],
-              },
-              { path: 'new', element: <LazyCategoryCreatePage /> },
-            ],
-          },
-
-          {
-            path: 'employees',
-            children: [
-              { index: true, element: <LazyEmployeeListPage /> },
-              {
-                path: ':id',
-                children: [
-                  { index: true, element: <p>EmployeeDetails</p> },
-                  { path: 'edit', element: <LazyEmployeeEditPage /> },
-                ],
-              },
-              { path: 'new', element: <LazyEmployeeCreatePage /> },
-            ],
+            path: 'chat',
+            element: <ChatRoute />,
+            children: [{ index: true, element: <LazyChatPage /> }],
           },
         ],
       },
+
       { path: '*', element: <LazyNotFoundPage /> },
     ],
   },

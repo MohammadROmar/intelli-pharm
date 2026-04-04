@@ -697,6 +697,16 @@
     }
   },
 
+  "chat": {
+    "backToDashboard": "لوحة التحكم",
+    "headerTitle": "IntelliPharm AI",
+    "emptyTitle": "كيف يمكنني مساعدتك اليوم؟",
+    "emptySubtitle": "اكتب سؤالاً أدناه للبدء.",
+    "inputPlaceholder": "اكتب سؤالك هنا...",
+    "inputHint": "اكتب سؤالك ثم اضغط Enter أو اضغط إرسال.",
+    "sendButton": "إرسال"
+  },
+
   "notFoundPage": {
     "title": "الصفحة غير موجودة",
     "subtitle": "عذرًا! الصفحة التي تحاول الوصول إليها غير موجودة.",
@@ -785,7 +795,8 @@
       "restock": "إعادة التخزين",
       "regions": "المناطق",
       "pharmacies": "الصيدليات",
-      "scan": "المسح"
+      "scan": "المسح",
+      "chat": "دردش مع الذكاء الاصطناعي"
     },
 
     "regions": {
