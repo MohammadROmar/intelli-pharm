@@ -16,7 +16,7 @@ export default function MedicineEditPage() {
   }
 
   if (isLoading || !data) {
-    return <FormSkeleton cards={[{ rows: 6 }, { rows: 2 }]} />;
+    return <FormSkeleton cards={[{ rows: 7 }, { rows: 2 }]} />;
   }
 
   const medicine = data.data!;

@@ -136,6 +136,10 @@
       "subtitle": "قم بتغيير الاسم لتعديله.",
       "action": "تعديل التفاصيل"
     },
+    "form": {
+      "placeholderNameEn": "مثال: Damascus Central Laboratory",
+      "placeholderNameAr": "مثال: مختبر دمشق المركزي"
+    },
     "detail": {
       "pageTitle": "تفاصيل المختبر",
 
@@ -186,6 +190,10 @@
       "name": "الاسم",
       "actions": "الإجراءات"
     },
+    "form": {
+      "placeholderNameEn": "مثال: Damascus",
+      "placeholderNameAr": "مثال: دمشق"
+    },
     "create": {
       "title": "إضافة مدينة جديدة",
       "subtitle": "أدخل اسم المدينة لإضافتها إلى النظام.",
@@ -222,8 +230,8 @@
       "subtitle": "أدخل معلومات المنطقة ادناه.",
       "info": "معلومات المنطقة",
       "infoDescription": "اسم المنطقة والمدينة التي تتبع لها.",
-      "name": "الاسم",
-      "namePlaceholder": "مثال. المزة",
+      "placeholderNameEn": "مثال: Al Mazzeh",
+      "placeholderNameAr": "مثال: المزة",
       "city": "المدينة",
       "errors": {
         "required": "هذا الحقل مطلوب."
@@ -291,7 +299,9 @@
       "pharmacistDetailsTitle": "معلومات الصيدلاني",
       "pharmacistDetailsSubtitle": "بيانات التواصل مع الصيدلاني المسؤول.",
 
-      "labelName": "اسم الصيدلية",
+      "placeholderNameEn": "مثال: Central Pharmacy",
+      "placeholderNameAr": "مثال: الصيدلية المركزية",
+
       "labelRegion": "المنطقة",
       "labelActive": "نشطة",
       "descriptionActive": "الصيدلية مفتوحة وتستقبل المرضى.",
@@ -307,7 +317,6 @@
       "labelAltPhone": "هاتف بديل",
       "optional": "اختياري",
 
-      "placeholderName": "مثال: الصيدلية المركزية",
       "placeholderPharmacistName": "مثال: رنا خالد",
 
       "locationPickerTitle": "موقع الصيدلية",
@@ -392,7 +401,8 @@
     "form": {
       "medicineDetailsTitle": "تفاصيل الدواء",
       "medicineDetailsSubtitle": "الاسم، الفئة، السعر والملاحظات.",
-      "medicineName": "اسم الدواء",
+      "placeholderNameEn": "مثال: Paracetamol 500mg",
+      "placeholderNameAr": "مثال: باراسيتامول ٥٠٠ملغ",
       "category": "الفئة",
       "laboratory": "المختبر",
       "price": "السعر",
@@ -413,7 +423,6 @@
       "warehouseStockSubtitle": "كل صف يمثل مخزونًا في مستودع معين.",
       "stock": "المخزون",
       "warehouse": "المستودع",
-      "medicineNamePlaceholder": "على سبيل المثال Paracetamol 500mg",
       "notePlaceholder": "ملاحظات اضافية حول هذا الدواء...",
       "quantity": "الكمية",
       "expiryDate": "تاريخ انتهاء الصلاحية",
@@ -580,6 +589,10 @@
       "parentName": "الفئة الأصلية",
       "createdAt": "تاريخ الانشاء"
     },
+    "form": {
+      "placeholderNameEn": "مثال: Antibiotics",
+      "placeholderNameAr": "مثال: مضادات حيوية"
+    },
     "create": {
       "title": "إضافة فئة جديدة",
       "subtitle": "قم بتنظيم المستودع من خلال إضافة فئة جديدة.",
@@ -722,8 +735,10 @@
   "form": {
     "fields": {
       "email": "البريد الإلكتروني",
-      "password": "كلمة المرور",
       "name": "الاسم",
+      "nameEn": "الاسم (بالإنجليزية)",
+      "nameAr": "الاسم (بالعربية)",
+      "password": "كلمة المرور",
       "role": "الدور",
       "categoryName": "اسم الفئة",
       "categoryParent": "الفئة الأصلية",
@@ -734,11 +749,17 @@
       "active": "نشط",
       "vehicleCapacity": "سعة المركبة"
     },
+    "hints": {
+      "nameEn": "أحرف وأرقام إنجليزية ورموز خاصة (* $ @ & ...) فقط.",
+      "nameAr": "أحرف وأرقام عربية فقط. الرموز الخاصة غير مسموح بها."
+    },
     "errors": {
       "required": "هذا الحقل مطلوب.",
       "minLength": "يجب أن يحتوي الحقل على {{min}} محارف.",
       "invalidField": "يرجى ادخال  {{field}} بشكل صحيح.",
-      "endAfterStart": "ساعة نهاية العمل يجب ان تكون بعد بدايته."
+      "endAfterStart": "ساعة نهاية العمل يجب ان تكون بعد بدايته.",
+      "englishOnly": "يُسمح بالأحرف والأرقام الإنجليزية والرموز الخاصة فقط.",
+      "arabicOnly": "يُسمح بالأحرف والأرقام العربية فقط. الرموز الخاصة غير مسموح بها."
     },
     "actions": {
       "create": "إضافة",

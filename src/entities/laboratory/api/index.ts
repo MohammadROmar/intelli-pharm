@@ -18,9 +18,9 @@ export async function editLaboratory({
   name,
 }: {
   id: number;
-  name: string;
+  name: Laboratory;
 }) {
-  return apiClient.put(`/erp/v1/laboratories/${id}`, { name });
+  return apiClient.put(`/erp/v1/laboratories/${id}`, name);
 }
 
 export async function getLaboratoryById(id: number) {

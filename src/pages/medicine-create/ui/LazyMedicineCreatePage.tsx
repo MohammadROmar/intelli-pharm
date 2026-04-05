@@ -8,7 +8,7 @@ export function LazyMedicineCreatePage() {
   return (
     <WithSuspense
       Component={MedicineCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 6 }, { rows: 2 }, { rows: 1 }]} />}
+      loader={<FormSkeleton cards={[{ rows: 7 }, { rows: 2 }, { rows: 1 }]} />}
     />
   );
 }

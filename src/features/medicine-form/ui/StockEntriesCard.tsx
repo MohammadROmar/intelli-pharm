@@ -11,7 +11,7 @@ import {
   useMedicineFieldError,
   type MedicineFormData,
 } from '@/entities/medicine';
-import { required, fRequired, positiveNumber } from '@/shared/lib';
+import { required, fRequired, positiveNumber } from '@/shared/form';
 import {
   Badge,
   Button,

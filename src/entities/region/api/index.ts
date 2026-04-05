@@ -1,7 +1,6 @@
 import type {
   Region,
   RegionDetail,
-  RegionListItem,
   RegionsListResponse,
 } from '../model/regionTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
@@ -14,7 +13,11 @@ export async function createRegion(payload: Region) {
   return apiClient.post('/erp/v1/regions', payload);
 }
 
-export async function editRegion({ id, name, city_id }: RegionListItem) {
+export async function editRegion({
+  id,
+  name,
+  city_id,
+}: { id: number } & Region) {
   return apiClient.put(`/erp/v1/regions/${id}`, { name, city_id });
 }
 

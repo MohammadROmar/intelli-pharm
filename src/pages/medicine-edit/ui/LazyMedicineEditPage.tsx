@@ -8,7 +8,7 @@ export function LazyMedicineEditPage() {
   return (
     <WithSuspense
       Component={MedicineEditPage}
-      loader={<FormSkeleton cards={[{ rows: 6 }, { rows: 2 }]} />}
+      loader={<FormSkeleton cards={[{ rows: 7 }, { rows: 2 }]} />}
     />
   );
 }

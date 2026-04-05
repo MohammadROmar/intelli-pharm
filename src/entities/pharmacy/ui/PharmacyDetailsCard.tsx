@@ -4,7 +4,7 @@ import { Clock, Cross } from 'lucide-react';
 
 import type { Pharmacy } from '../model/pharmacyTypes';
 import { RegionSelector } from '@/entities/region';
-import { fRequired, required } from '@/shared/lib';
+import { BilingualNameFields, fRequired, required } from '@/shared/form';
 import {
   Card,
   CardContent,
@@ -33,7 +33,8 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
   const { register, control, getValues } = useFormContext<Pharmacy>();
   const { errors } = useFormState<Pharmacy>({
     name: [
-      'name',
+      'name.ar',
+      'name.en',
       'latitude',
       'is_active',
       'region_id',
@@ -52,22 +53,15 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
           description={t('pharmacyDetailsSubtitle')}
         />
       </CardHeader>
+
       <CardContent className="space-y-5">
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{t('labelName')}</FieldLabel>
-          <Input
-            id="name"
-            autoComplete="off"
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <BilingualNameFields
             icon={Cross}
-            placeholder={t('placeholderName')}
-            aria-invalid={!!errors.name}
-            {...register('name', {
-              disabled: isPending,
-              validate: { required: required() },
-            })}
+            disabled={isPending}
+            i18nPrefix="pharmaciesPage.form"
           />
-          {errors.name && <FieldError>{t('errors.required')}</FieldError>}
-        </Field>
+        </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Controller

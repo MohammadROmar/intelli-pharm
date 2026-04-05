@@ -2,8 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Bot, User } from 'lucide-react';
 
 import type { ChatMessage as TChatMessage } from '../model/chatTypes';
-import { cn } from '@/shared/lib';
-import { formatTime12h } from '@/shared/lib/formatTime';
+import { cn, formatTime12h } from '@/shared/lib';
 
 type Props = { message: TChatMessage };
 

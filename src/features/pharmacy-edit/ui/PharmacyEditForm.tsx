@@ -25,7 +25,7 @@ export function PharmacyEditForm({ pharmacy }: Props) {
       key={formKey}
       isPending={isPending}
       onSubmit={handleSubmit}
-      defaultValues={pharmacy}
+      defaultValues={{ ...pharmacy, name: { ar: '', en: '' } }}
       onReset={() => setFormKey((prev) => prev + 1)}
     />
   );

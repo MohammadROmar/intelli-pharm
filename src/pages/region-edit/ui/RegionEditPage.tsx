@@ -16,7 +16,7 @@ export default function RegionEditPage() {
   }
 
   if (isLoading || !data) {
-    return <FormSkeleton cards={[{ rows: 1 }]} />;
+    return <FormSkeleton cards={[{ rows: 2 }]} />;
   }
 
   return (

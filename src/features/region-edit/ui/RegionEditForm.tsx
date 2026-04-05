@@ -21,7 +21,7 @@ export function RegionEditForm({ region }: Props) {
       key={formKey}
       isLoading={isPending}
       onSubmit={handleSubmit}
-      defaultValues={region}
+      defaultValues={{ ...region, name: { ar: '', en: '' } }}
       selected={region.city}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

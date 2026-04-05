@@ -4,11 +4,11 @@ import { useState } from 'react';
 
 type Props = { id: number; defaultName: string };
 
-export function LaboratoryEditForm({ id, defaultName }: Props) {
+export function LaboratoryEditForm({ id }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useEditLaboratory();
 
-  function onSubmit({ name }: Laboratory) {
+  function onSubmit(name: Laboratory) {
     mutate({ id, name });
   }
 
@@ -16,7 +16,7 @@ export function LaboratoryEditForm({ id, defaultName }: Props) {
     <LaboratoryForm
       key={formKey}
       onSubmit={onSubmit}
-      defaultValues={{ name: defaultName }}
+      /* defaultValues={{ TO BE ADDED }} */
       isLoading={isPending}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

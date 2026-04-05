@@ -17,6 +17,7 @@ export function medicineToFromData(medicine: Medicine): MedicineFormData {
 
   return {
     ...medicine,
+    name: { ar: '', en: '' },
     stocks,
     is_alternative,
     note: medicine.note ?? '',

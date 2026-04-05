@@ -1,13 +1,16 @@
-import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
+import {
+  useForm,
+  type SubmitHandler,
+  Controller,
+  FormProvider,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Folder, Folders } from 'lucide-react';
 
 import { CategorySelector } from './CategorySelector';
-import type { Category, CategoryListItem } from '../model/categoryTypes';
+import type { Category } from '../model/categoryTypes';
 import {
-  Input,
   Field,
-  FieldError,
   FieldLabel,
   FormActions,
   CardSectionHeader,
@@ -16,10 +19,11 @@ import {
   CardContent,
   CardFooter,
 } from '@/shared/ui';
+import { BilingualNameFields } from '@/shared/form';
 
 type CategoryFormProps = {
   onSubmit: SubmitHandler<Category>;
-  defaultValues?: Partial<CategoryListItem>;
+  defaultValues?: Partial<Category>;
   isLoading?: boolean;
   parentData?: { id: number; name: string };
   onReset: () => void;
@@ -32,12 +36,12 @@ export function CategoryForm({
   parentData,
   onReset,
 }: CategoryFormProps) {
+  const methods = useForm<Category>({ defaultValues });
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Category>({ defaultValues });
+  } = methods;
 
   const { t } = useTranslation();
 
@@ -50,56 +54,46 @@ export function CategoryForm({
           description={t('categoriesPage.categoryInfoDescription')}
         />
       </CardHeader>
+
       <CardContent>
-        <form
-          id="category-form"
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-5"
-        >
-          <Field data-invalid={!!errors.name}>
-            <FieldLabel htmlFor="name">
-              {t('form.fields.categoryName')}
-            </FieldLabel>
-            <Input
-              id="name"
-              type="text"
-              autoComplete="off"
-              icon={Folder}
-              placeholder={t('categoriesPage.categoryNamePlaceholder')}
-              {...register('name', {
-                required: true,
-                disabled: isLoading,
-                validate: (value) => value && value.trim() !== '',
-              })}
-            />
-            {errors.name && (
-              <FieldError>{t('form.errors.required')}</FieldError>
-            )}
-          </Field>
-          <Field data-invalid={!!errors.parent_id}>
-            <FieldLabel asChild>
-              <p>
-                {t('form.fields.categoryParent')}{' '}
-                <span className="text-muted-foreground text-xs font-normal">
-                  ({t('optional')})
-                </span>
-              </p>
-            </FieldLabel>
-            <Controller
-              name="parent_id"
-              control={control}
-              render={({ field }) => (
-                <CategorySelector
-                  isLoading={isLoading}
-                  invalid={!!errors.parent_id}
-                  parent={parentData}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
-            />
-          </Field>
-        </form>
+        <FormProvider {...methods}>
+          <form
+            id="category-form"
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-5"
+          >
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <BilingualNameFields
+                icon={Folder}
+                disabled={isLoading}
+                i18nPrefix="categoriesPage.form"
+              />
+            </div>
+            <Field data-invalid={!!errors.parent_id}>
+              <FieldLabel asChild>
+                <p>
+                  {t('form.fields.categoryParent')}{' '}
+                  <span className="text-muted-foreground text-xs font-normal">
+                    ({t('form.fields.optional')})
+                  </span>
+                </p>
+              </FieldLabel>
+              <Controller
+                name="parent_id"
+                control={control}
+                render={({ field }) => (
+                  <CategorySelector
+                    isLoading={isLoading}
+                    invalid={!!errors.parent_id}
+                    parent={parentData}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  />
+                )}
+              />
+            </Field>
+          </form>
+        </FormProvider>
       </CardContent>
       <CardFooter>
         <FormActions

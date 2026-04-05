@@ -1,7 +1,7 @@
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
 import { Calendar, Package, Trash2, Boxes } from 'lucide-react';
 
-import { required, fRequired, positiveNumber } from '@/shared/lib';
+import { required, fRequired, positiveNumber } from '@/shared/form';
 import {
   Badge,
   Button,

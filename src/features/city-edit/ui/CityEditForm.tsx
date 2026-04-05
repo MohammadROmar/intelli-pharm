@@ -4,11 +4,11 @@ import { useState } from 'react';
 
 type Props = { id: number; defaultName: string };
 
-export function CityEditForm({ id, defaultName }: Props) {
+export function CityEditForm({ id }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useEditCity();
 
-  function onSubmit({ name }: City) {
+  function onSubmit(name: City) {
     mutate({ id, name });
   }
 
@@ -16,7 +16,7 @@ export function CityEditForm({ id, defaultName }: Props) {
     <CityForm
       key={formKey}
       onSubmit={onSubmit}
-      defaultValues={{ name: defaultName }}
+      /* defaultValues={{ name: defaultName }} */
       isLoading={isPending}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

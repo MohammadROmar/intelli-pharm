@@ -30,7 +30,7 @@ export function CategoryEditForm({ category }: Props) {
       key={formKey}
       isLoading={isPending}
       onSubmit={handleSubmit}
-      defaultValues={category}
+      defaultValues={{ ...category, name: { ar: '', en: '' } }}
       parentData={parentData}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

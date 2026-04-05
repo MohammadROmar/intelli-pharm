@@ -1,5 +1,5 @@
 export type Pharmacy = {
-  name: string;
+  name: { ar: string; en: string };
   latitude: number;
   longitude: number;
   region_id: number;
@@ -12,7 +12,11 @@ export type Pharmacy = {
   pharmacist_alt_phone?: string;
 };
 
-export type PharmacyDetail = { id: number; region: string } & Pharmacy;
+export type PharmacyDetail = Omit<Pharmacy, 'name'> & {
+  id: number;
+  name: string;
+  region: string;
+};
 
 export type PharmacyFilters = {
   name?: string | null;

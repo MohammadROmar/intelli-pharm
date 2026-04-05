@@ -5,7 +5,7 @@ export type StockEntry = {
 };
 
 export type FormValues = {
-  name: string;
+  name: { ar: string; en: string };
   category_id: number;
   price: string;
   note: string;

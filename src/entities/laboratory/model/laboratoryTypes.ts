@@ -1,8 +1,11 @@
 export type Laboratory = {
-  name: string;
+  name: {
+    ar: string;
+    en: string;
+  };
 };
 
-export type LaboratoryListItem = { id: number } & Laboratory;
+export type LaboratoryListItem = { id: number; name: string };
 
 export type LaboratoriesResponse = {
   data?: LaboratoryListItem[];

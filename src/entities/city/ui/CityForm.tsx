@@ -1,16 +1,9 @@
-import { useForm, type SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { FlaskConical } from 'lucide-react';
+import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
+import { Building2 } from 'lucide-react';
 
 import type { City } from '../model/cityTypes';
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  Input,
-  FormActions,
-} from '@/shared/ui';
+import { FieldGroup, FormActions } from '@/shared/ui';
+import { BilingualNameFields } from '@/shared/form';
 
 type CityFormProps = {
   onSubmit: SubmitHandler<City>;
@@ -25,45 +18,32 @@ export function CityForm({
   isLoading,
   onReset,
 }: CityFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<City>({ defaultValues });
-
-  const { t } = useTranslation();
+  const methods = useForm<City>({ defaultValues });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FieldGroup className="flex h-full flex-col justify-between">
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{t('form.fields.name')}</FieldLabel>
-          <Input
-            id="name"
-            type="text"
-            autoComplete="off"
-            icon={FlaskConical}
-            placeholder={t('citiesPage.cityNamePlaceholder')}
-            {...register('name', {
-              required: true,
-              disabled: isLoading,
-              validate: (value) => value && value.trim() !== '',
-            })}
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <FieldGroup className="flex h-full flex-col justify-between">
+          <div className="space-y-5">
+            <BilingualNameFields
+              icon={Building2}
+              disabled={isLoading}
+              i18nPrefix="citiesPage.form"
+            />
+          </div>
+          <FormActions
+            isLoading={isLoading}
+            isEdit={!!defaultValues}
+            onReset={onReset}
+            classNames={{
+              container:
+                'lg:justify-center! lg:flex-col-reverse! lg:items-center!',
+              reset: 'w-full',
+              submit: 'w-full',
+            }}
           />
-          {errors.name && <FieldError>{t('form.errors.required')}</FieldError>}
-        </Field>
-        <FormActions
-          isLoading={isLoading}
-          isEdit={!!defaultValues}
-          onReset={onReset}
-          classNames={{
-            container:
-              'lg:justify-center! lg:flex-col-reverse! lg:items-center!',
-            reset: 'w-full',
-            submit: 'w-full',
-          }}
-        />
-      </FieldGroup>
-    </form>
+        </FieldGroup>
+      </form>
+    </FormProvider>
   );
 }

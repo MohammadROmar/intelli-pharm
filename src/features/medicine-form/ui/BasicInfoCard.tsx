@@ -7,6 +7,7 @@ import {
 import { DollarSign, Pill, StickyNote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
 import {
   MedicineSelector,
   useMedicineFieldError,
@@ -15,7 +16,12 @@ import {
 } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
 import { LaboratorySelector } from '@/entities/laboratory';
-import { required, fRequired, positiveNumber } from '@/shared/lib';
+import {
+  required,
+  fRequired,
+  positiveNumber,
+  BilingualNameFields,
+} from '@/shared/form';
 import {
   Card,
   CardContent,
@@ -32,7 +38,6 @@ import {
   SwitchRow,
   Textarea,
 } from '@/shared/ui';
-import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
 
 type Props = { medicine?: Medicine; isPending?: boolean };
 
@@ -40,7 +45,13 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
   const { register, control } = useFormContext<MedicineFormData>();
 
   const { errors } = useFormState<MedicineFormData>({
-    name: ['name', 'category_id', 'price', 'is_alternative_to_id'],
+    name: [
+      'name.ar',
+      'name.en',
+      'category_id',
+      'price',
+      'is_alternative_to_id',
+    ],
   });
 
   const isAlternative = useWatch({ control, name: 'is_alternative' });
@@ -63,22 +74,14 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
 
       <CardContent className="space-y-5">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Field data-invalid={!!errors.name}>
-            <FieldLabel htmlFor="name">{t('medicineName')}</FieldLabel>
-            <Input
-              id="name"
-              placeholder={t('medicineNamePlaceholder')}
-              aria-invalid={!!errors.name}
-              autoComplete="off"
-              icon={Pill}
-              {...register('name', {
-                disabled: isPending,
-                validate: { required: required() },
-              })}
-            />
-            <FieldError errors={te(errors.name, 'medicineName')} />
-          </Field>
+          <BilingualNameFields
+            icon={Pill}
+            disabled={isPending}
+            i18nPrefix="medicinesPage.form"
+          />
+        </div>
 
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field data-invalid={!!errors.price}>
             <FieldLabel htmlFor="price">{t('price')}</FieldLabel>
             <Input
@@ -98,9 +101,8 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
             />
             <FieldError errors={te(errors.price, 'price')} />
           </Field>
+          <MedicineBarcodeScanner />
         </div>
-
-        <MedicineBarcodeScanner />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Controller

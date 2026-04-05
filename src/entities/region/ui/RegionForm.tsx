@@ -1,11 +1,15 @@
-import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
+import {
+  useForm,
+  type SubmitHandler,
+  Controller,
+  FormProvider,
+} from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { MapPin } from 'lucide-react';
 
 import { CitySelector } from '@/entities/city';
-import type { Region, RegionListItem } from '../model/regionTypes';
+import type { Region } from '../model/regionTypes';
 import {
-  Input,
   Field,
   FieldError,
   FieldLabel,
@@ -16,10 +20,11 @@ import {
   CardContent,
   CardFooter,
 } from '@/shared/ui';
+import { BilingualNameFields } from '@/shared/form';
 
 type RegionFormProps = {
   onSubmit: SubmitHandler<Region>;
-  defaultValues?: Partial<RegionListItem>;
+  defaultValues?: Partial<Region>;
   isLoading?: boolean;
   selected?: { id: number; name: string };
   onReset: () => void;
@@ -32,12 +37,13 @@ export function RegionForm({
   selected,
   onReset,
 }: RegionFormProps) {
+  const methods = useForm<Region>({ defaultValues });
+
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Region>({ defaultValues });
+  } = methods;
 
   const { t } = useTranslation('translation', {
     keyPrefix: 'regionsPage.form',
@@ -55,52 +61,45 @@ export function RegionForm({
         />
       </CardHeader>
       <CardContent>
-        <form
-          id="regions-form"
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-5"
-        >
-          <Field data-invalid={!!errors.name}>
-            <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
-            <Input
-              id="name"
-              type="text"
-              autoComplete="off"
-              icon={MapPin}
-              placeholder={t('namePlaceholder')}
-              {...register('name', {
-                required: true,
-                disabled: isLoading,
-                validate: (value) => value && value.trim() !== '',
-              })}
-            />
-            {errors.name && <FieldError>{t('errors.required')}</FieldError>}
-          </Field>
-          {!isEdit && (
-            <Field data-invalid={!!errors.city_id}>
-              <FieldLabel asChild>
-                <p>{t('city')}</p>
-              </FieldLabel>
-              <Controller
-                name="city_id"
-                control={control}
-                rules={{ required: true }}
-                render={({ field }) => (
-                  <CitySelector
-                    isLoading={isLoading}
-                    invalid={!!errors.city_id}
-                    selected={selected}
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  />
-                )}
+        <FormProvider {...methods}>
+          <form
+            id="regions-form"
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-5"
+          >
+            <div className="space-y-5">
+              <BilingualNameFields
+                icon={MapPin}
+                disabled={isLoading}
+                i18nPrefix="regionsPage.form"
               />
-              {errors.city_id && (
-                <FieldError>{t('errors.required')}</FieldError>
-              )}
-            </Field>
-          )}
-        </form>
+            </div>
+            {!isEdit && (
+              <Field data-invalid={!!errors.city_id}>
+                <FieldLabel asChild>
+                  <p>{t('city')}</p>
+                </FieldLabel>
+                <Controller
+                  name="city_id"
+                  control={control}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <CitySelector
+                      isLoading={isLoading}
+                      invalid={!!errors.city_id}
+                      selected={selected}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    />
+                  )}
+                />
+                {errors.city_id && (
+                  <FieldError>{t('errors.required')}</FieldError>
+                )}
+              </Field>
+            )}
+          </form>
+        </FormProvider>
       </CardContent>
       <CardFooter>
         <FormActions

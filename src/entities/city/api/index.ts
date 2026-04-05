@@ -1,8 +1,8 @@
 import type { CitiesResponse, City, CityDetail } from '../model/cityTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-export async function editCity({ id, name }: { id: number; name: string }) {
-  return apiClient.put(`/erp/v1/cities/${id}`, { name });
+export async function editCity({ id, name }: { id: number; name: City }) {
+  return apiClient.put(`/erp/v1/cities/${id}`, name);
 }
 
 export async function getCityById(id: number) {

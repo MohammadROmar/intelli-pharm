@@ -1,10 +1,11 @@
 export type Category = {
-  name: string;
+  name: { ar: string; en: string };
   parent_id: number | null;
 };
 
-export type CategoryListItem = Category & {
+export type CategoryListItem = Omit<Category, 'name'> & {
   id: number;
+  name: string;
   parent_name: string | null;
   created_at: string;
   updated_at: string;

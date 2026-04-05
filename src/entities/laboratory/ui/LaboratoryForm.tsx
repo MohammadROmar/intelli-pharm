@@ -1,16 +1,9 @@
-import { useForm, type SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { FlaskConical } from 'lucide-react';
 
 import type { Laboratory } from '../model/laboratoryTypes';
-import {
-  Field,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  Input,
-  FormActions,
-} from '@/shared/ui';
+import { FieldGroup, FormActions } from '@/shared/ui';
+import { BilingualNameFields } from '@/shared/form';
 
 type LaboratoryFormProps = {
   onSubmit: SubmitHandler<Laboratory>;
@@ -25,45 +18,33 @@ export function LaboratoryForm({
   isLoading,
   onReset,
 }: LaboratoryFormProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Laboratory>({ defaultValues });
-
-  const { t } = useTranslation();
+  const methods = useForm<Laboratory>({ defaultValues });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FieldGroup className="flex h-full flex-col justify-between">
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{t('form.fields.name')}</FieldLabel>
-          <Input
-            id="name"
-            type="text"
-            autoComplete="off"
-            icon={FlaskConical}
-            placeholder={t('laboratoriesPage.labNamePlaceholder')}
-            {...register('name', {
-              required: true,
-              disabled: isLoading,
-              validate: (value) => value && value.trim() !== '',
-            })}
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+        <FieldGroup className="flex h-full flex-col justify-between gap-5">
+          <div className="space-y-5">
+            <BilingualNameFields
+              icon={FlaskConical}
+              disabled={isLoading}
+              i18nPrefix="laboratoriesPage.form"
+            />
+          </div>
+
+          <FormActions
+            isLoading={isLoading}
+            isEdit={!!defaultValues}
+            onReset={onReset}
+            classNames={{
+              container:
+                'lg:justify-center! lg:flex-col-reverse! lg:items-center!',
+              reset: 'w-full',
+              submit: 'w-full',
+            }}
           />
-          {errors.name && <FieldError>{t('form.errors.required')}</FieldError>}
-        </Field>
-        <FormActions
-          isLoading={isLoading}
-          isEdit={!!defaultValues}
-          onReset={onReset}
-          classNames={{
-            container:
-              'lg:justify-center! lg:flex-col-reverse! lg:items-center!',
-            reset: 'w-full',
-            submit: 'w-full',
-          }}
-        />
-      </FieldGroup>
-    </form>
+        </FieldGroup>
+      </form>
+    </FormProvider>
   );
 }

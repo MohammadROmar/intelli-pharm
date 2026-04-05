@@ -3,7 +3,7 @@ import { useFormContext, useFormState } from 'react-hook-form';
 import { Phone, User } from 'lucide-react';
 
 import type { Pharmacy } from '../model/pharmacyTypes';
-import { isValidPhone, required } from '@/shared/lib';
+import { isValidPhone, required } from '@/shared/form';
 import {
   Card,
   CardContent,

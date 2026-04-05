@@ -1,8 +1,11 @@
 export type City = {
-  name: string;
+  name: {
+    ar: string;
+    en: string;
+  };
 };
 
-export type CityDetail = { id: number } & City;
+export type CityDetail = { id: number; name: string };
 
 export type CitiesResponse = {
   data?: CityDetail[];

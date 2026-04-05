@@ -1,6 +1,6 @@
-export type Region = { name: string; city_id: number };
+export type Region = { name: { ar: string; en: string }; city_id: number };
 
-export type RegionListItem = { id: number } & Region;
+export type RegionListItem = { id: number; name: string; city_id: number };
 
 type City = { id: number; name: string };
 

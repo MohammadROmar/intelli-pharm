@@ -5,7 +5,8 @@ export function medicineToFormData(
   isEdit: boolean = false,
 ) {
   const fd = new FormData();
-  fd.append('name', values.name);
+  fd.append('name[ar]', values.name.ar);
+  fd.append('name[en]', values.name.en);
   fd.append('category_id', values.category_id.toString());
   fd.append('laboratory_id', values.laboratory_id.toString());
   fd.append('price', values.price);
