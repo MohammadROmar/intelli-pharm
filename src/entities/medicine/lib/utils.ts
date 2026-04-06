@@ -14,6 +14,7 @@ export function medicineToFormData(
   fd.append('is_active', values.is_active ? '1' : '0');
   fd.append('is_alternative', values.is_alternative ? '1' : '0');
 
+  if (values.barcode) fd.append('barcode', values.barcode);
   if (values.note) fd.append('note', values.note);
   if (values.is_alternative && values.is_alternative_to_id)
     fd.append('is_alternative_to_id', values.is_alternative_to_id.toString());

@@ -35,6 +35,7 @@ export type GenericSingleSelectProps<T extends Record<string, unknown>> = {
   isFetchingNextPage?: boolean;
   isLoading?: boolean;
   className?: string;
+  placeholder?: string;
   hasMoreLabel?: boolean;
   invalid?: boolean;
   icon?: ElementType;
@@ -52,6 +53,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   onLoadMore,
   hasNextPage,
   isFetchingNextPage,
+  placeholder,
   isLoading,
   className,
   displayClassName,
@@ -171,15 +173,17 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           ) : defaultValue ? (
             <span className="truncate">{String(defaultValue[labelKey])}</span>
           ) : (
-            <span className="text-muted-foreground">{t('placeholder')}</span>
+            <span className="text-muted-foreground">
+              {placeholder ?? t('placeholder')}
+            </span>
           )}
-          <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className="size-4 shrink-0 opacity-50 ltr:ml-2 rtl:mr-2" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0!">
         <Command shouldFilter={false}>
           <CommandInput
-            placeholder={t('search')}
+            // placeholder={t('search')}
             value={localSearch}
             onValueChange={setLocalSearch}
             className="pl-8"

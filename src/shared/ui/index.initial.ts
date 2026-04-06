@@ -1,18 +1,19 @@
+export { Spinner } from './spinner';
+export { Separator } from './Separator';
+export { WithSuspense } from './WithSuspense';
+export { Card, CardHeader, CardContent, CardFooter } from './Card';
 export {
   SidebarContext,
   type SidebarContextProps,
 } from './Sidebar/SidebarContext';
 export {
+  Skeleton,
   CardsSkeleton,
   FormSkeleton,
   TableSkeleton,
-  Skeleton,
-  DetailCellSkeleton,
-  DetailHeaderSkeleton,
-  DetailRowSkeleton,
   DetailSkeleton,
+  DetailRowSkeleton,
+  DetailCellSkeleton,
+  DetailTableSkeleton,
+  DetailHeaderSkeleton,
 } from './skeleton';
-export { WithSuspense } from './WithSuspense';
-export { Card, CardHeader, CardContent, CardFooter } from './Card';
-export { Separator } from './Separator';
-export { Spinner } from './spinner';

@@ -204,6 +204,50 @@
     }
   },
 
+  "metricsPage": {
+    "emptyTitle": "No data found",
+    "emptySubtitle": "Try adjusting the filters to see results.",
+    "clearSearch": "Clear search",
+
+    "pharmacy": {
+      "title": "Pharmacy Metrics",
+      "subtitle": "Performance overview and analytics for all pharmacies.",
+      "selectorPlaceholder": "Select a pharmacy",
+      "cards": {
+        "avgScore": "Average Score",
+        "selectedPharmacies": "Across selected pharmacies",
+        "totalOrders": "Total orders",
+        "completed": "completed",
+        "completionRate": "Completion Rate",
+        "ordersFulfilled": "Orders fulfilled",
+        "totalItems": "Total items",
+        "pharmacies": "pharmacy (pharmacies)"
+      },
+
+      "scoreChart": {
+        "title": "Score distribution",
+        "subtitle": "Evaluating completion rates and recent order activity",
+        "score": "Score",
+        "recency": "Recency"
+      },
+
+      "detailedBreakdown": {
+        "title": "Detailed Breakdown",
+        "subtitle": "A granular look at individual pharmacy performance and fulfillment metrics.",
+        "pharmacy": "Pharmacy",
+        "avg": "avg",
+        "colPharmacy": "Pharmacy",
+        "colScore": "Score",
+        "colRecencyScore": "Recency Score",
+        "colOrders": "Orders",
+        "colCompletion": "Completion",
+        "colItems": "Items",
+        "colCalculatedAt": "Calculated",
+        "colActions": "Actions"
+      }
+    }
+  },
+
   "regionsPage": {
     "region": "Region",
     "list": {
@@ -809,7 +853,12 @@
       "regions": "Regions",
       "pharmacies": "Pharmacies",
       "scan": "Scan",
-      "chat": "Chat with AI"
+      "chat": "Chat with AI",
+      "metrics": "Metrics",
+      "seasonal": "Seasonal Metrics",
+      "medicine": "Medicine Metrics",
+      "area": "Area Metrics",
+      "pharmacy": "Pharmacy Metrics"
     },
 
     "regions": {
@@ -832,6 +881,12 @@
     "employees": {
       "list": "All Employees",
       "new": "Add Employee"
+    },
+    "metrics": {
+      "seasonal": "Seasonal Metrics",
+      "medicine": "Medicine Metrics",
+      "area": "Area Metrics",
+      "pharmacy": "Pharmacy Metrics"
     }
   },
 

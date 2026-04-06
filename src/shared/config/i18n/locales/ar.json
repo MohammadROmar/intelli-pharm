@@ -206,6 +206,50 @@
     }
   },
 
+  "metricsPage": {
+    "emptyTitle": "لا توجد بيانات",
+    "emptySubtitle": "جرّب تعديل الفلاتر لعرض النتائج.",
+    "clearSearch": "مسح البحث",
+
+    "pharmacy": {
+      "title": "مقاييس الصيدليات",
+      "subtitle": "نظرة عامة على الأداء وتحليلات لجميع الصيدليات.",
+      "selectorPlaceholder": "اختر صيدلية",
+      "cards": {
+        "avgScore": "متوسط الدرجات",
+        "selectedPharmacies": "عبر الصيدليات المختارة",
+        "totalOrders": "إجمالي الطلبات",
+        "completed": "مكتمل",
+        "completionRate": "معدل الإكمال",
+        "ordersFulfilled": "من الطلبات منفذ",
+        "totalItems": "إجمالي العناصر",
+        "pharmacies": "صيدلية (صيدليات)"
+      },
+
+      "scoreChart": {
+        "title": "توزيع الدرجات",
+        "subtitle": "تقييم معدلات الإنجاز ونشاط الطلبات الأخيرة",
+        "score": "الدرجة",
+        "recency": "الحداثة"
+      },
+
+      "detailedBreakdown": {
+        "title": "تحليل تفصيلي",
+        "subtitle": "عرض تفصيلي لأداء الصيدليات الفردية ومقاييس التنفيذ.",
+        "pharmacy": "الصيدلية",
+        "avg": "بمتوسط",
+        "colPharmacy": "الصيدلية",
+        "colScore": "الدرجة",
+        "colRecencyScore": "درجة الحداثة",
+        "colOrders": "الطلبات",
+        "colCompletion": "الإكمال",
+        "colItems": "العناصر",
+        "colCalculatedAt": "تاريخ الحساب",
+        "colActions": "إجراءات"
+      }
+    }
+  },
+
   "regionsPage": {
     "region": "المنطقة",
     "list": {
@@ -817,7 +861,12 @@
       "regions": "المناطق",
       "pharmacies": "الصيدليات",
       "scan": "المسح",
-      "chat": "دردش مع الذكاء الاصطناعي"
+      "chat": "دردش مع الذكاء الاصطناعي",
+      "metrics": "المقاييس",
+      "seasonal": "المقاييس الموسمية",
+      "medicine": "مقاييس الأدوية",
+      "area": "مقاييس المناطق",
+      "pharmacy": "مقاييس الصيدليات"
     },
 
     "regions": {
@@ -840,6 +889,12 @@
     "employees": {
       "list": "جميع الموظفين",
       "new": "إضافة موظف"
+    },
+    "metrics": {
+      "seasonal": "المقاييس الموسمية",
+      "medicine": "مقاييس الأدوية",
+      "area": "مقاييس المناطق",
+      "pharmacy": "مقاييس الصيدليات"
     }
   },
 

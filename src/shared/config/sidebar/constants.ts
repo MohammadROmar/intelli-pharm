@@ -1,14 +1,15 @@
 import {
-  Folders,
-  Users,
-  LayoutDashboard,
-  Package,
-  FlaskConical,
-  Building2,
-  MapPin,
-  Cross,
-  Pill,
   Bot,
+  Pill,
+  Cross,
+  Users,
+  MapPin,
+  Package,
+  Folders,
+  Building2,
+  BarChart3,
+  FlaskConical,
+  LayoutDashboard,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -20,108 +21,131 @@ export const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 export const sidebarData = [
   {
-    key: 'labels.dashboard',
+    label: 'labels.dashboard',
     url: '/dashboard',
     icon: LayoutDashboard,
   },
   {
-    key: 'labels.chat',
+    label: 'labels.chat',
     url: '/chat',
     icon: Bot,
   },
   {
-    key: 'labels.orders',
+    label: 'labels.orders',
     url: '/dashboard/orders',
     icon: Package,
   },
   {
-    key: 'labels.laboratories',
+    label: 'labels.laboratories',
     url: '/dashboard/laboratories',
     icon: FlaskConical,
   },
   {
-    key: 'labels.cities',
+    label: 'labels.cities',
     url: '/dashboard/cities',
     icon: Building2,
   },
   {
-    key: 'labels.regions',
+    label: 'labels.metrics',
+    url: '/dashboard/metrics',
+    icon: BarChart3,
+    items: [
+      {
+        label: 'metrics.seasonal',
+        url: '/dashboard/metrics/seasonal',
+      },
+      {
+        label: 'metrics.medicine',
+        url: '/dashboard/metrics/medicine',
+      },
+      {
+        label: 'metrics.area',
+        url: '/dashboard/metrics/area',
+      },
+      {
+        label: 'metrics.pharmacy',
+        url: '/dashboard/metrics/pharmacy',
+      },
+    ],
+  },
+  {
+    label: 'labels.regions',
     url: '/dashboard/regions',
     icon: MapPin,
     items: [
       {
-        key: 'regions.list',
+        label: 'regions.list',
         url: '/dashboard/regions',
       },
       {
-        key: 'regions.new',
+        label: 'regions.new',
         url: '/dashboard/regions/new',
       },
     ],
   },
   {
-    key: 'labels.pharmacies',
+    label: 'labels.pharmacies',
     url: '/dashboard/pharmacies',
     icon: Cross,
     items: [
       {
-        key: 'pharmacies.list',
+        label: 'pharmacies.list',
         url: '/dashboard/pharmacies',
       },
       {
-        key: 'pharmacies.new',
+        label: 'pharmacies.new',
         url: '/dashboard/pharmacies/new',
       },
     ],
   },
   {
-    key: 'labels.medicines',
+    label: 'labels.medicines',
     url: '/dashboard/medicines',
     icon: Pill,
     isActive: false,
     items: [
       {
-        key: 'medicines.list',
+        label: 'medicines.list',
         url: '/dashboard/medicines',
       },
       {
-        key: 'medicines.scanMedicine',
+        label: 'medicines.scanMedicine',
         url: '/dashboard/medicines/scan',
       },
       {
-        key: 'medicines.new',
+        label: 'medicines.new',
         url: '/dashboard/medicines/new',
       },
     ],
   },
   {
-    key: 'labels.categories',
+    label: 'labels.categories',
     url: '/dashboard/categories',
     icon: Folders,
     isActive: false,
     items: [
       {
-        key: 'categories.list',
+        label: 'categories.list',
         url: '/dashboard/categories',
       },
       {
-        key: 'categories.new',
+        label: 'categories.new',
         url: '/dashboard/categories/new',
       },
     ],
   },
   {
-    key: 'labels.employees',
+    label: 'labels.employees',
     url: '/dashboard/employees',
     icon: Users,
     isActive: false,
     items: [
       {
-        key: 'employees.list',
+        label: 'employees.list',
         url: '/dashboard/employees',
       },
       {
-        key: 'employees.new',
+        label: 'employees.new',
         url: '/dashboard/employees/new',
       },
     ],

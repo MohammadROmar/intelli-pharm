@@ -19,6 +19,8 @@ import { LazyLaboratoryDetailPage } from '@/pages/laboratory-detail';
 
 import { LazyCityListPage } from '@/pages/city-list';
 
+import { LazyMetricsPharmacyPage } from '@/pages/metrics-pharmacy';
+
 import { LazyRegionListPage } from '@/pages/region-list';
 import { LazyRegionCreatePage } from '@/pages/region-create';
 import { LazyRegionEditPage } from '@/pages/region-edit';
@@ -90,6 +92,13 @@ const router = createBrowserRouter([
               },
 
               { path: 'cities', element: <LazyCityListPage /> },
+
+              {
+                path: 'metrics',
+                children: [
+                  { path: 'pharmacy', element: <LazyMetricsPharmacyPage /> },
+                ],
+              },
 
               {
                 path: 'regions',

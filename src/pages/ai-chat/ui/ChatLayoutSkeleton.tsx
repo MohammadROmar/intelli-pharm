@@ -43,8 +43,6 @@ export function ChatLayoutSkeleton() {
           <MessageSkeleton reverse />
           <MessageSkeleton />
           <MessageSkeleton reverse />
-          <MessageSkeleton />
-          <MessageSkeleton reverse />
         </div>
       </main>
 

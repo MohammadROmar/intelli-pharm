@@ -16,8 +16,8 @@ export function OrderRow({ order }: OrderRowProps) {
       <TableCell>
         <OrderStatusBadge status={order.status} withIcon={false} />
       </TableCell>
-      <TableCell>{order.total_amount}</TableCell>
       <TableCell>{order.total_quantity}</TableCell>
+      <TableCell>{order.total_amount}</TableCell>
       <TableCell className="text-muted-foreground">
         {formatDate(order.created_at, i18n.language, false)}
       </TableCell>

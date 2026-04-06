@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FolderTree } from 'lucide-react';
+import { Cross } from 'lucide-react';
 
 import { useInfinitePharmacies } from '../model/useInfinitePharmacies';
 import {
@@ -8,15 +8,16 @@ import {
 } from '@/shared/ui';
 
 type Props = {
-  parent?: { id: number; name: string };
+  selected?: { id: number; name: string };
 } & Partial<GenericSingleSelectProps<{ id: number; name: string }>>;
 
 export function PharmacySelector({
-  parent,
+  selected,
   value,
   onValueChange,
   invalid,
   isLoading,
+  placeholder,
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -25,8 +26,11 @@ export function PharmacySelector({
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 
-  const selectablePharmacies = parent
-    ? [parent, ...pharmacies.filter((pharmacy) => pharmacy.id !== parent.id)]
+  const selectablePharmacies = selected
+    ? [
+        selected,
+        ...pharmacies.filter((pharmacy) => pharmacy.id !== selected.id),
+      ]
     : pharmacies;
 
   return (
@@ -36,11 +40,12 @@ export function PharmacySelector({
       options={selectablePharmacies}
       valueKey="id"
       labelKey="name"
-      icon={FolderTree}
+      icon={Cross}
       value={value}
       onValueChange={onValueChange!}
       onSearchChange={setSearchTerm}
       onLoadMore={fetchNextPage}
+      placeholder={placeholder}
       hasNextPage={hasNextPage}
       isLoading={isFetching}
       isFetchingNextPage={isFetchingNextPage}

@@ -89,30 +89,37 @@ function DetailSkeleton({ cards, tables, hasImage }: Props) {
       </div>
 
       {Array.from({ length: tables }).map((_, i) => (
-        <Card key={`detail-table-row-${i}`}>
-          <DetailHeaderSkeleton />
-          <CardContent className="overflow-x-auto">
-            {Array.from({ length: 3 }).map((_, j) => (
-              <div
-                key={`detail-table-row-${j}`}
-                className="border-b px-4 py-4 last:border-0"
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <Skeleton className="h-4 w-16" />
-                  <Skeleton className="h-4 w-32" />
-                  <Skeleton className="h-5 w-20 rounded-full" />
-                  <Skeleton className="h-4 w-40" />
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <DetailTableSkeleton key={`detail-table-row-${i}`} />
       ))}
     </div>
   );
 }
 
+function DetailTableSkeleton() {
+  return (
+    <Card>
+      <DetailHeaderSkeleton />
+      <CardContent className="overflow-x-auto">
+        {Array.from({ length: 3 }).map((_, j) => (
+          <div
+            key={`detail-table-row-${j}`}
+            className="border-b px-4 py-4 last:border-0"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <Skeleton className="h-4 w-16" />
+              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-5 w-20 rounded-full" />
+              <Skeleton className="h-4 w-40" />
+            </div>
+          </div>
+        ))}
+      </CardContent>
+    </Card>
+  );
+}
+
 export {
+  DetailTableSkeleton,
   DetailCellSkeleton,
   DetailRowSkeleton,
   DetailHeaderSkeleton,

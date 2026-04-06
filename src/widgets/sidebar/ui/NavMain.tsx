@@ -17,12 +17,12 @@ import {
 } from '@/shared/ui';
 
 type NavSubItem = {
-  key: string;
+  label: string;
   url: string;
 };
 
 type SidebarItem = {
-  key: string;
+  label: string;
   url: string;
   icon?: LucideIcon;
   isActive?: boolean;
@@ -33,36 +33,32 @@ type NavMainProps = {
   items: SidebarItem[];
 };
 
-const NavItemContent = ({
-  icon: Icon,
-  label,
-}: {
-  icon?: LucideIcon;
-  label: string;
-}) => (
-  <>
-    {Icon && <Icon className="size-4" />}
-    <span className="truncate">{label}</span>
-  </>
-);
+type NavItemContentProps = { icon?: LucideIcon; label: string };
 
-const NavLinkItem = ({
-  item,
-  label,
-}: {
-  item: SidebarItem | NavSubItem;
-  label: string;
-}) => (
-  <SidebarMenuButton tooltip={label} asChild>
-    <SidebarMenuLink to={item.url}>
-      {'icon' in item ? (
-        <NavItemContent icon={item.icon} label={label} />
-      ) : (
-        <span>{label}</span>
-      )}
-    </SidebarMenuLink>
-  </SidebarMenuButton>
-);
+function NavItemContent({ icon: Icon, label }: NavItemContentProps) {
+  return (
+    <>
+      {Icon && <Icon className="size-4" />}
+      <span className="truncate">{label}</span>
+    </>
+  );
+}
+
+type NavLinkItemProps = { item: SidebarItem | NavSubItem; label: string };
+
+function NavLinkItem({ item, label }: NavLinkItemProps) {
+  return (
+    <SidebarMenuButton tooltip={label} asChild>
+      <SidebarMenuLink to={item.url}>
+        {'icon' in item ? (
+          <NavItemContent icon={item.icon} label={label} />
+        ) : (
+          <span>{label}</span>
+        )}
+      </SidebarMenuLink>
+    </SidebarMenuButton>
+  );
+}
 
 export function NavMain({ items }: NavMainProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
@@ -79,14 +75,14 @@ export function NavMain({ items }: NavMainProps) {
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => {
-          const label = t(item.key);
+          const label = t(item.label);
           const hasSubItems = Boolean(item.items?.length);
           const isInitiallyOpen =
             item.isActive || pathname.startsWith(item.url);
 
           if (!hasSubItems) {
             return (
-              <SidebarMenuItem key={item.key}>
+              <SidebarMenuItem key={item.label}>
                 <NavLinkItem item={item} label={label} />
               </SidebarMenuItem>
             );
@@ -94,7 +90,7 @@ export function NavMain({ items }: NavMainProps) {
 
           return (
             <Collapsible
-              key={item.key}
+              key={item.label}
               asChild
               defaultOpen={isInitiallyOpen}
               className="group/collapsible"
@@ -113,8 +109,8 @@ export function NavMain({ items }: NavMainProps) {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
-                      <SidebarMenuSubItem key={subItem.key}>
-                        <NavLinkItem item={subItem} label={t(subItem.key)} />
+                      <SidebarMenuSubItem key={subItem.label}>
+                        <NavLinkItem item={subItem} label={t(subItem.label)} />
                       </SidebarMenuSubItem>
                     ))}
                   </SidebarMenuSub>
