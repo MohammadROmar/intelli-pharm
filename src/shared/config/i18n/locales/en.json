@@ -752,7 +752,7 @@
 
   "chat": {
     "backToDashboard": "Dashboard",
-    "headerTitle": "IntelliPharm AI",
+    "headerTitle": "IntelliPharma AI",
 
     "emptyTitle": "How can I help you today?",
     "emptySubtitle": "Type a question below to get started.",

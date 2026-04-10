@@ -762,7 +762,7 @@
 
   "chat": {
     "backToDashboard": "لوحة التحكم",
-    "headerTitle": "IntelliPharm AI",
+    "headerTitle": "IntelliPharma AI",
     "emptyTitle": "كيف يمكنني مساعدتك اليوم؟",
     "emptySubtitle": "اكتب سؤالاً أدناه للبدء.",
     "inputPlaceholder": "اكتب سؤالك هنا...",

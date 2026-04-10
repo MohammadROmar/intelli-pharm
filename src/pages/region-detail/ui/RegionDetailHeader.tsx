@@ -15,7 +15,7 @@ export function RegionDetailHeader({ region }: Props) {
     keyPrefix: 'regionsPage.detail',
   });
 
-  const pageTitle = `${region.name} | ${t('pageTitle')} - IntelliPharm`;
+  const pageTitle = `${region.name} | ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>

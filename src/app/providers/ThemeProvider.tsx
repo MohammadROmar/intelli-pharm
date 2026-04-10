@@ -6,7 +6,7 @@ import type { Theme, ThemeProviderProps } from '@/shared/config';
 export default function ThemeProvider({
   children,
   defaultTheme = 'system',
-  storageKey = 'intelli-pharm-theme',
+  storageKey = 'intelli-pharma-theme',
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(

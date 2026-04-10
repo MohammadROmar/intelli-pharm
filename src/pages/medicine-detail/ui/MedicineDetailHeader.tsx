@@ -22,7 +22,7 @@ export function MedicineDetailHeader({ medicine }: Props) {
     keyPrefix: 'medicinesPage.detail',
   });
 
-  const pageTitle = `${medicine.name} | ${t('pageTitle')} - IntelliPharm`;
+  const pageTitle = `${medicine.name} | ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>

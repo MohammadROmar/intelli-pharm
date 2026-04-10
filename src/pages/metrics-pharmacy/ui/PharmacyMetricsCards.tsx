@@ -22,7 +22,7 @@ export function PharmacyMetricsCards({ metrics }: Props) {
   } = calculatePharmacyMetrics(metrics);
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
       <StatCard
         icon={TrendingUp}
         title={t('avgScore')}

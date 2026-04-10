@@ -60,7 +60,7 @@ export function PersonalInfoCard({ isEdit, isLoading }: Props) {
             type="email"
             autoComplete="email"
             icon={Mail}
-            placeholder="example@intellipharm.com"
+            placeholder="example@intellipharma.com"
             aria-invalid={!!errors.email}
             {...register('email', {
               required: true,

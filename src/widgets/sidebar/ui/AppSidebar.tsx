@@ -59,7 +59,7 @@ function SidebarBrand() {
               <Logo className="size-4 text-white" />
             </div>
             <div className="grid flex-1 text-sm leading-tight">
-              <span className="truncate font-medium">IntelliPharm</span>
+              <span className="truncate font-medium">IntelliPharma</span>
               <span className="text-sidebar-foreground/70 truncate text-xs">
                 {roles ? t(roles[0]) : ''}
               </span>

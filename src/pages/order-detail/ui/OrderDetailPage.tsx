@@ -22,7 +22,7 @@ export default function OrderDetailPage() {
   }
 
   const order = data.data!;
-  const pageTitle = `#${order.id} | ${t('pageTitle')} - IntelliPharm`;
+  const pageTitle = `#${order.id} | ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>

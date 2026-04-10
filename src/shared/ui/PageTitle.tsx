@@ -4,7 +4,7 @@ type PageTitleProps = {
 };
 
 export function PageTitle({ title, subtitle }: PageTitleProps) {
-  const pageTitle = `${title} - IntelliPharm`;
+  const pageTitle = `${title} - IntelliPharma`;
 
   return (
     <>

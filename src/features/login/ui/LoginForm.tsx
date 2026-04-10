@@ -45,7 +45,7 @@ export function LoginForm() {
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
             autoComplete="email"
-            placeholder="example@intellipharm.com"
+            placeholder="example@intellipharma.com"
           />
 
           {errors.email && (

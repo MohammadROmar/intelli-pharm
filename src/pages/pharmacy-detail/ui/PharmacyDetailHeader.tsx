@@ -15,7 +15,7 @@ export function PharmacyDetailHeader({ pharmacy }: Props) {
     keyPrefix: 'pharmaciesPage.detail',
   });
 
-  const pageTitle = `${pharmacy.name} | ${t('pageTitle')} - IntelliPharm`;
+  const pageTitle = `${pharmacy.name} | ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>

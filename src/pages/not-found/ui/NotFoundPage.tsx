@@ -18,7 +18,7 @@ export default function NotFoundPage() {
         <div className="bg-primary flex size-8 items-center justify-center rounded-lg">
           <Logo className="size-5 text-white" />
         </div>
-        <h1 className="text-xl font-bold">IntelliPharm</h1>
+        <h1 className="text-xl font-bold">IntelliPharma</h1>
       </div>
 
       <div className="mt-8 flex flex-1 flex-col items-center justify-center text-center">
