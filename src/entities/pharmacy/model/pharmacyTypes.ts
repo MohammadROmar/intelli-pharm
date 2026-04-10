@@ -12,10 +12,18 @@ export type Pharmacy = {
   pharmacist_alt_phone?: string;
 };
 
+export type HistoryNote = {
+  id: number;
+  notes: string;
+  user_name: string;
+  visited_at: string;
+};
+
 export type PharmacyDetail = Omit<Pharmacy, 'name'> & {
   id: number;
   name: string;
   region: string;
+  history_notes: HistoryNote[];
 };
 
 export type PharmacyFilters = {

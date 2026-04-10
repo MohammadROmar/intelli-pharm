@@ -88,7 +88,7 @@ function ScoreChart({ metrics }: ScoreChartProps) {
         />
       </CardHeader>
 
-      <CardContent className="h-64">
+      <CardContent className="h-64 pl-0!">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}

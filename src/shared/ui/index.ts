@@ -175,7 +175,7 @@ export { SearchField } from './SearchField';
 export { Toaster } from './toaster';
 export { DeleteModal } from './DeleteModal';
 export { ScrollArea, ScrollBar } from './scroll-area';
-export { Spinner } from './spinner';
+export { Loader } from './Loader';
 export { TableEmptyState, DetailEmptyState } from './EmptyState';
 export { FiltersModal, FiltersTrigger } from './FiltersModal';
 export { DetailCell } from './DetailCell';

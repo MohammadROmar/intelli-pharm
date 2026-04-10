@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 
 import { cn, buttonVariants } from '../lib';
-import { Spinner } from './spinner';
+import { Loader } from './Loader';
 
 type ButtonProps = ComponentProps<'button'> & {
   asChild?: boolean;
@@ -29,7 +29,7 @@ export function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
-      {isLoading && <Spinner className="flex items-center justify-center" />}
+      {isLoading && <Loader className="flex items-center justify-center" />}
       {children}
     </Comp>
   );

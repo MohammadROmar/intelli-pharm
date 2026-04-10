@@ -2,6 +2,7 @@ import { PharmacistCard } from './PharmacistCard';
 import { PharmacyInfoCard } from './PharmacyInfoCard';
 import { PharmacyDetailHeader } from './PharmacyDetailHeader';
 import { PharmacyLocationCard } from './PharmacyLocationCard';
+import { MedicineHistoryNotesCard } from './MedicineHistoryNotesCard';
 import { useGetPharmacy } from '@/entities/pharmacy';
 import { DetailSkeleton, QueryError } from '@/shared/ui';
 
@@ -28,6 +29,7 @@ export default function PharmacyDetailPage() {
       <PharmacyDetailHeader pharmacy={pharmacy} />
       <PharmacistCard pharmacy={pharmacy} />
       <PharmacyInfoCard pharmacy={pharmacy} />
+      <MedicineHistoryNotesCard notes={pharmacy.history_notes} />
       <PharmacyLocationCard pharmacy={pharmacy} />
     </div>
   );

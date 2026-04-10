@@ -403,7 +403,13 @@
       "labelClosingTime": "وقت الإغلاق",
       "labelLatitude": "خط العرض",
       "labelLongitude": "خط الطول",
-      "showOnMap": "عرض على الخريطة"
+      "showOnMap": "عرض على الخريطة",
+
+      "historyNotesTitle": "سجل الزيارات",
+      "historyNotesSubtitle": "ملاحظات سُجِّلت من قِبَل مندوبي المبيعات خلال زيارات الصيدليات.",
+      "historyNotesEmpty": "لم يتم تسجيل أي ملاحظات زيارة لهذا الدواء.",
+      "historyNoteExpand": "عرض المزيد",
+      "historyNoteCollapse": "عرض أقل"
     },
     "filters": {
       "title": "فلاتر الصيدليات",

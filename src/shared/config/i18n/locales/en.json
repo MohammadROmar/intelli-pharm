@@ -400,7 +400,13 @@
       "labelClosingTime": "Closes At",
       "labelLatitude": "Latitude",
       "labelLongitude": "Longitude",
-      "showOnMap": "Show on Map"
+      "showOnMap": "Show on Map",
+
+      "historyNotesTitle": "Visit History",
+      "historyNotesSubtitle": "Notes logged by sales representatives during pharmacy visits.",
+      "historyNotesEmpty": "No visit notes have been recorded for this medicine.",
+      "historyNoteExpand": "Show more",
+      "historyNoteCollapse": "Show less"
     },
     "filters": {
       "title": "Filter Pharmacies",
