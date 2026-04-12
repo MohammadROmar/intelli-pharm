@@ -44,7 +44,7 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
   }, [setSearchParams, filterKeys]);
 
   const activeCount = Object.values(filters).filter(
-    (v) => v !== undefined && v !== '',
+    (v) => v !== undefined && v !== null && v !== '',
   ).length;
 
   const hasActiveFilters = activeCount !== 0;

@@ -3,10 +3,10 @@ import { cn } from '@/shared/lib';
 
 export type ScoreTier = 'excellent' | 'average' | 'poor' | 'na';
 
-export interface ScoreBadgeProps {
+export type ScoreBadgeProps = {
   score: string | number;
   className?: string;
-}
+};
 
 const SCORE_THRESHOLDS = {
   EXCELLENT: 70,

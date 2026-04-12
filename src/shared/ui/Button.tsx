@@ -1,9 +1,9 @@
+import type { ComponentProps } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import type { VariantProps } from 'class-variance-authority';
-import type { ComponentProps } from 'react';
+import { Loader2 } from 'lucide-react';
 
 import { cn, buttonVariants } from '../lib';
-import { Loader } from './Loader';
 
 type ButtonProps = ComponentProps<'button'> & {
   asChild?: boolean;
@@ -29,7 +29,9 @@ export function Button({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
-      {isLoading && <Loader className="flex items-center justify-center" />}
+      {isLoading && (
+        <Loader2 className="flex animate-spin items-center justify-center" />
+      )}
       {children}
     </Comp>
   );

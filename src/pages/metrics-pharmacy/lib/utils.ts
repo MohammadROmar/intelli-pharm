@@ -1,13 +1,13 @@
 import type { PharmacyMetrics } from '../model/pharmacyMetricsTypes';
 
-export interface AggregatedMetrics {
+export type AggregatedMetrics = {
   averageScore: number;
   completionRate: number;
   totalOrders: number;
   completedOrders: number;
   totalItems: number;
   totalPharmacies: number;
-}
+};
 
 export function calculatePharmacyMetrics(
   data: PharmacyMetrics[],

@@ -3,11 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import { PharmacyMetricsCards } from './PharmacyMetricsCards';
 import { DetailedBreakdownTable } from './DetailedBreakdownTable';
-import { MetricsPharmacySkeleton } from './MetricsPharmacySkeleton';
 import { PharmacyMetricsSelector } from './PharmacyMetricsSelector';
 import { useGetPharmacyMetrics } from '../model/useGetPharmacyMetrics';
-import { PageTitle, QueryError, Skeleton } from '@/shared/ui';
 import { MetricsEmptyState } from '@/entities/metrics';
+import { MetricsSkeleton, PageTitle, QueryError, Skeleton } from '@/shared/ui';
 
 const ScoreChart = lazy(() => import('./ScoreChart'));
 
@@ -23,7 +22,7 @@ export default function MetricsPharmacyPage() {
   }
 
   if (isLoading || !data) {
-    return <MetricsPharmacySkeleton />;
+    return <MetricsSkeleton />;
   }
 
   const metrics = data.data!;

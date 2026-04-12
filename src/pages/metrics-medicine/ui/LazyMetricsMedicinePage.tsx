@@ -2,12 +2,12 @@ import { lazy } from 'react';
 
 import { MetricsSkeleton, WithSuspense } from '@/shared/ui/index.initial';
 
-const MetricsPharmacyPage = lazy(() => import('./MetricsPharmacyPage'));
+const MetricsMedicinePage = lazy(() => import('./MetricsMedicinePage'));
 
-export function LazyMetricsPharmacyPage() {
+export function LazyMetricsMedicinePage() {
   return (
     <WithSuspense
-      Component={MetricsPharmacyPage}
+      Component={MetricsMedicinePage}
       loader={<MetricsSkeleton />}
     />
   );

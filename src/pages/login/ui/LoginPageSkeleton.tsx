@@ -25,8 +25,8 @@ export function LoginSkeleton() {
           </div>
 
           <div className="flex w-full items-center justify-center gap-4">
-            <Skeleton className="size-9 border" />
-            <Skeleton className="size-9 border" />
+            <Skeleton className="size-9" />
+            <Skeleton className="size-9" />
           </div>
         </div>
       </div>

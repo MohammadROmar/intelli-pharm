@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Boxes, CircleCheckBig, TrendingUp } from 'lucide-react';
+import { Boxes, CircleCheckBig, ShoppingCart, TrendingUp } from 'lucide-react';
 
 import { calculatePharmacyMetrics } from '../lib/utils';
 import type { PharmacyMetrics } from '../model/pharmacyMetricsTypes';
@@ -19,7 +20,7 @@ export function PharmacyMetricsCards({ metrics }: Props) {
     completionRate,
     completedOrders,
     totalPharmacies,
-  } = calculatePharmacyMetrics(metrics);
+  } = useMemo(() => calculatePharmacyMetrics(metrics), [metrics]);
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -30,7 +31,7 @@ export function PharmacyMetricsCards({ metrics }: Props) {
         subtitle={t('selectedPharmacies')}
       />
       <StatCard
-        icon={Box}
+        icon={ShoppingCart}
         title={t('totalOrders')}
         value={totalOrders}
         subtitle={`${completedOrders} ${t('completed')}`}

@@ -9,10 +9,10 @@ import {
 } from 'recharts';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
+import { BarChart4 } from 'lucide-react';
 
 import type { PharmacyMetrics } from '../model/pharmacyMetricsTypes';
 import { Card, CardContent, CardHeader, CardSectionHeader } from '@/shared/ui';
-import { BarChart4 } from 'lucide-react';
 
 type ScoreChartProps = { metrics: PharmacyMetrics[] };
 

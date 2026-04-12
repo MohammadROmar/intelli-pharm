@@ -2,11 +2,11 @@ import { useId, useRef } from 'react';
 
 import { useHtml5QrScanner } from '@/shared/barcode';
 
-interface Props {
+type Props = {
   hintText: string;
   onScan: (barcode: string) => void;
   onError: (error: Error) => void;
-}
+};
 
 const DEDUPE_INTERVAL_MS = 2000;
 

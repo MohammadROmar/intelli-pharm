@@ -8,10 +8,11 @@ export {
 } from './Sidebar/SidebarContext';
 export {
   Skeleton,
-  CardsSkeleton,
   FormSkeleton,
   TableSkeleton,
+  CardsSkeleton,
   DetailSkeleton,
+  MetricsSkeleton,
   DetailRowSkeleton,
   DetailCellSkeleton,
   DetailTableSkeleton,

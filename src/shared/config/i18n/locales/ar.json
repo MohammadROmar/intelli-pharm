@@ -211,6 +211,53 @@
     "emptySubtitle": "جرّب تعديل الفلاتر لعرض النتائج.",
     "clearSearch": "مسح البحث",
 
+    "medicine": {
+      "title": "مقاييس الأدوية",
+      "subtitle": "تحليلات استخدام البدائل واتجاهات الطلب لكل دواء",
+
+      "cards": {
+        "ordersTitle": "إجمالي الطلبات",
+        "ordersSubtitle": "عبر الأدوية المحددة",
+        "acceptanceRateTitle": "متوسط معدل القبول",
+        "acceptanceRateSubtitle": "قبول البدائل",
+        "altsUsedTitle": "البدائل المستخدمة",
+        "altsUsedSubtitle": "إجمالي الاستبدالات",
+        "medicines": "الأدوية",
+        "record": "سجل (سجلات)"
+      },
+
+      "ordersByMedsChart": {
+        "title": "الطلبات حسب الدواء",
+        "subtitle": "توزيع الطلبات عبر الأدوية المختلفة",
+        "totalOrders": "إجمالي الطلبات"
+      },
+
+      "altAcceptanceRateChart": {
+        "title": "معدل قبول البدائل",
+        "subtitle": "اتجاهات قبول الأدوية البديلة بمرور الوقت",
+        "acceptanceRate": "معدل القبول"
+      },
+
+      "detailedBreakdown": {
+        "title": "تحليل تفصيلي",
+        "subtitle": "بيانات ومقاييس شاملة لكل دواء",
+        "medicine": "الدواء",
+        "colMedicine": "الدواء",
+        "colPeriod": "الفترة",
+        "colTotalOrders": "إجمالي الطلبات",
+        "colAcceptanceRate": "معدل القبول",
+        "colAlternativesUsed": "البدائل المستخدمة",
+        "colActions": "الإجراءات"
+      },
+
+      "filters": {
+        "title": "فلاتر مقاييس الأدوية",
+        "subtitle": "ضيّق قائمة النتائج باستخدام فلتر واحد أو أكثر.",
+        "medicine": "الدواء",
+        "period": "الفترة"
+      }
+    },
+
     "pharmacy": {
       "title": "مقاييس الصيدليات",
       "subtitle": "نظرة عامة على الأداء وتحليلات لجميع الصيدليات.",
@@ -247,6 +294,15 @@
         "colCalculatedAt": "تاريخ الحساب",
         "colActions": "إجراءات"
       }
+    },
+
+    "yearQuarterPicker": {
+      "yearPlaceholder": "السنة",
+      "allYears": "جميع السنوات",
+      "quarterPlaceholder": "الربع",
+      "allQuarters": "جميع الأرباع",
+      "quarterRequiresYear": "اختر سنة أولاً لتصفية النتائج حسب الربع.",
+      "quarterRequiresYearShort": "اختر سنة أولاً"
     }
   },
 

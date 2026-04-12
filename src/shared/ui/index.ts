@@ -103,6 +103,8 @@ export {
   FormSkeleton,
   TableSkeleton,
   DetailSkeleton,
+  MetricsSkeleton,
+  MetricsCardsSkeleton,
 } from './skeleton';
 export {
   Tooltip,

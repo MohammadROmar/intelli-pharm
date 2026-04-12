@@ -20,7 +20,6 @@ const MAX_INPUT_HEIGHT = 200;
 const MIN_INPUT_HEIGHT = 44;
 const MIN_THUMB_HEIGHT = 20;
 
-// Must match "inset-y-2" => top 8px + bottom 8px
 const TRACK_VERTICAL_INSET = 8;
 
 export function ChatInput({ onSend, isLoading }: ChatInputProps) {
