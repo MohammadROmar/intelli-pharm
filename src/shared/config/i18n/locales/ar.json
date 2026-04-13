@@ -424,7 +424,7 @@
       "useCurrentLocation": "استخدام الموقع الحالي",
       "geoErrorDenied": "تم رفض الوصول إلى الموقع. يرجى السماح بذلك في إعدادات المتصفح أو الجهاز.",
       "geoErrorUnavailable": "تعذّر تحديد موقعك. حاول مرة أخرى.",
-      "geoErrorTimeout": "انتهت مهلة طلب الموقع. حاول مرة أخرى.",
+      "geoErrorTimeout": "انتهت مهلة طلب الموقع. تأكد من تشغيل الموقع ثم حاول مرة أخرى.",
 
       "errors": {
         "required": "هذا الحقل مطلوب.",
@@ -509,6 +509,8 @@
       "medicineDetailsSubtitle": "الاسم، الفئة، السعر والملاحظات.",
       "placeholderNameEn": "مثال: Paracetamol 500mg",
       "placeholderNameAr": "مثال: باراسيتامول ٥٠٠ملغ",
+      "scientificName": "الاسم العلمي",
+      "placeHolderScientificName": "مثال: Paracetamolum",
       "category": "الفئة",
       "laboratory": "المختبر",
       "price": "السعر",
@@ -546,7 +548,8 @@
       "stock": "المخزون",
       "restock": "إعادة التخزين",
       "actions": "الإجراءات",
-      "breadcrumbMedicines": "الأدوية",
+      "availableQuantity": "الكمية المتاحة",
+      "scientificName": "الاسم العلمي",
       "edit": "تعديل",
       "delete": "حذف",
       "active": "نشط",
@@ -995,6 +998,18 @@
     "details": "التفاصيل",
     "update": "تعديل",
     "delete": "حذف"
+  },
+
+  "queryDisabled": {
+    "itemId": {
+      "title": "لا يمكن تحميل هذا العنصر",
+      "description": "رابط الصفحة غير صالح. يرجى استخدام معرّف رقمي صحيح للعنصر.",
+      "receivedValue": "القيمة المُستلمة: {{value}}",
+      "actions": {
+        "goBack": "رجوع",
+        "openList": "تصفح العناصر"
+      }
+    }
   },
 
   "barcode": {

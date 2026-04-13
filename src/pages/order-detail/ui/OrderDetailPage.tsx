@@ -4,14 +4,18 @@ import { OrderInfoCard } from './OrderInfoCard';
 import { OrderItemsTable } from './OrderItemsTable';
 import { useGetOrder } from '../model/useGetOrder';
 import { ChangeOrderStatus } from '@/features/order-change-status';
-import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 
 export default function OrderDetailPage() {
   const { t } = useTranslation('translation', {
     keyPrefix: 'ordersPage.detail',
   });
 
-  const { data, isLoading, isError, error, refetch } = useGetOrder();
+  const { data, isLoading, isEnabled, isError, error, refetch } = useGetOrder();
+
+  if (!isEnabled) {
+    return <QueryDisabled path="/dashboard/orders" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

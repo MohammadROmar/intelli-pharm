@@ -4,10 +4,15 @@ import { PharmacyDetailHeader } from './PharmacyDetailHeader';
 import { PharmacyLocationCard } from './PharmacyLocationCard';
 import { MedicineHistoryNotesCard } from './MedicineHistoryNotesCard';
 import { useGetPharmacy } from '@/entities/pharmacy';
-import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 
 export default function PharmacyDetailPage() {
-  const { data, isLoading, isError, error, refetch } = useGetPharmacy();
+  const { data, isLoading, isEnabled, isError, error, refetch } =
+    useGetPharmacy();
+
+  if (!isEnabled) {
+    return <QueryDisabled path="/dashboard/pharmacies" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

@@ -23,7 +23,7 @@ export function DetailCard({
   return (
     <Card className={className}>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <CardSectionHeader title={title} description={subtitle} icon={icon} />
           {itemsCount > 0 && <Badge variant="secondary">{itemsCount}</Badge>}
         </div>

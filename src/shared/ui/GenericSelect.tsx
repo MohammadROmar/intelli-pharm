@@ -161,7 +161,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           role="combobox"
           aria-expanded={isOpen}
           className={cn(
-            'relative w-full justify-between!',
+            'not-dark:bg-card! relative w-full justify-between!',
             invalid && 'border-destructive!',
             Icon && 'ltr:pl-9! rtl:pr-9!',
             className,

@@ -49,8 +49,8 @@ export function QueryError({ error, onRetry }: Props) {
         </p>
 
         {onRetry && (
-          <Button onClick={onRetry}>
-            <RefreshCw className="size-4" />
+          <Button onClick={onRetry} className="group">
+            <RefreshCw className="size-4 transition-transform duration-300 group-hover:rotate-180" />
             {t('errors.retry')}
           </Button>
         )}

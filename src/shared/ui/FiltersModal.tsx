@@ -21,9 +21,14 @@ import { cn, useKeyboardShortcut } from '../lib';
 type TriggerProps = {
   onClick: () => void;
   activeCount?: number;
+  className?: string;
 };
 
-export function FiltersTrigger({ onClick, activeCount = 0 }: TriggerProps) {
+export function FiltersTrigger({
+  onClick,
+  activeCount = 0,
+  className,
+}: TriggerProps) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'common.filters',
   });
@@ -43,7 +48,7 @@ export function FiltersTrigger({ onClick, activeCount = 0 }: TriggerProps) {
       variant="outline"
       size="sm"
       onClick={onClick}
-      className="relative gap-2"
+      className={cn('relative gap-2', className)}
     >
       <SlidersHorizontal className="size-4" />
       <span>{t('trigger')}</span>

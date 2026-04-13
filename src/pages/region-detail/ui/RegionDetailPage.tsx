@@ -2,10 +2,15 @@ import { RegionInfoCard } from './RegionInfoCard';
 import { RegionDetailHeader } from './RegionDetailHeader';
 import { RegionPharmaciesTable } from './RegionPharmaciesTable';
 import { useGetRegion } from '@/entities/region';
-import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 
 export default function RegionDetailPage() {
-  const { data, isLoading, isError, error, refetch } = useGetRegion();
+  const { data, isLoading, isEnabled, isError, error, refetch } =
+    useGetRegion();
+
+  if (!isEnabled) {
+    return <QueryDisabled path="/dashboard/regions" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

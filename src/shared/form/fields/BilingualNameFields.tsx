@@ -29,7 +29,7 @@ export function BilingualNameFields({
 
   const { register } = useFormContext<BilingualName>();
   const { errors } = useFormState<BilingualName>({
-    name: ['name.en', 'name.ar', 'name'],
+    name: ['name.en', 'name.ar'],
   });
 
   const { t } = useTranslation();

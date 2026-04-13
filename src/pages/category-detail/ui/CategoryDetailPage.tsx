@@ -1,11 +1,16 @@
 import { useGetCategory } from '@/entities/category';
-import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 import { CategoryDetailHeader } from './CategoryDetailHeader';
 import { CategoryMetaGrid } from './CategoryMetaGrid';
 import { CategoryChildrenTable } from './CategoryChildrenTable';
 
 export default function CategoryDetailPage() {
-  const { data, isLoading, isError, error, refetch } = useGetCategory();
+  const { data, isLoading, isEnabled, isError, error, refetch } =
+    useGetCategory();
+
+  if (!isEnabled) {
+    return <QueryDisabled path="/dashboard/categories" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

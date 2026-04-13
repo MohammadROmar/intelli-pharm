@@ -1,11 +1,17 @@
 import { LaboratoryInfoGrid } from './LaboratoryInfoGrid';
-import { LaboratoryMedicinesTable } from './LaboratoryMedicinesTable';
 import { LaboratoryDetailHeader } from './LaboratoryDetailHeader';
+import { LaboratoryMedicinesTable } from './LaboratoryMedicinesTable';
+
 import { useGetLaboratory } from '@/entities/laboratory';
-import { DetailSkeleton, QueryError } from '@/shared/ui';
+import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 
 export default function LaboratoryDetailPage() {
-  const { data, isLoading, isError, error, refetch } = useGetLaboratory();
+  const { data, isLoading, isEnabled, isError, error, refetch } =
+    useGetLaboratory();
+
+  if (!isEnabled) {
+    return <QueryDisabled path="/dashboard/laboratories" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

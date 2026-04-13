@@ -1,14 +1,19 @@
 import { StocksCard } from './StocksCard';
 import { MedicineInfoGrid } from './MedicineInfoGrid';
 import { AlternativesTable } from './AlternativesTable';
-import { MedicineDetailHeader } from './MedicineDetailHeader';
-import { MedicineImageGallery } from './MedicineImageGallery';
-import { useGetMedicine } from '@/entities/medicine';
-import { DetailSkeleton, QueryError } from '@/shared/ui';
 import { MedicineBarcodeCard } from './MedicineBarcodeCard';
+import { MedicineImageGallery } from './MedicineImageGallery';
+import { MedicineDetailHeader } from './MedicineDetailHeader';
+import { useGetMedicine } from '@/entities/medicine';
+import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 
 export default function MedicineDetailPage() {
-  const { isLoading, data, isError, error, refetch } = useGetMedicine();
+  const { isLoading, data, isEnabled, isError, error, refetch } =
+    useGetMedicine();
+
+  if (!isEnabled) {
+    return <QueryDisabled path="/dashboard/medicines" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

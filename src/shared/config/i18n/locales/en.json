@@ -421,7 +421,7 @@
       "useCurrentLocation": "Use Current Location",
       "geoErrorDenied": "Location access was denied. Please allow it in your browser or device settings.",
       "geoErrorUnavailable": "Could not determine your location. Try again.",
-      "geoErrorTimeout": "Location request timed out. Try again.",
+      "geoErrorTimeout": "Location request timed out. Check your location settings and try again.",
 
       "errors": {
         "required": "This field is required.",
@@ -501,6 +501,8 @@
       "medicineDetailsSubtitle": "Name, category, price and notes.",
       "placeholderNameEn": "e.g. Paracetamol 500mg",
       "placeholderNameAr": "e.g. باراسيتامول ٥٠٠ملغ",
+      "scientificName": "Scientific Name",
+      "placeHolderScientificName": "e.g. Paracetamolum",
       "category": "Category",
       "laboratory": "Laboratory",
       "price": "Price",
@@ -535,6 +537,8 @@
     "detail": {
       "pageTitle": "Medicine Details",
 
+      "availableQuantity": "Available quantity",
+      "scientificName": "Scientific Name",
       "medicine": "Medicine",
       "stock": "Stock",
       "restock": "Restock",
@@ -987,6 +991,18 @@
     "details": "Details",
     "update": "Update",
     "delete": "Delete"
+  },
+
+  "queryDisabled": {
+    "itemId": {
+      "title": "Cannot load this item",
+      "description": "The page link is invalid. Please use a valid numeric item ID.",
+      "receivedValue": "Received value: {{value}}",
+      "actions": {
+        "goBack": "Go back",
+        "openList": "Browse items"
+      }
+    }
   },
 
   "barcode": {

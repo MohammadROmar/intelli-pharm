@@ -4,7 +4,7 @@ import {
   useFormState,
   useWatch,
 } from 'react-hook-form';
-import { DollarSign, Pill, StickyNote } from 'lucide-react';
+import { Dna, DollarSign, Pill, StickyNote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
@@ -42,12 +42,15 @@ import {
 type Props = { medicine?: Medicine; isPending?: boolean };
 
 export function BasicInfoCard({ medicine, isPending }: Props) {
+  'use no memo';
+
   const { register, control } = useFormContext<MedicineFormData>();
 
   const { errors } = useFormState<MedicineFormData>({
     name: [
       'name.ar',
       'name.en',
+      'scientific_name',
       'category_id',
       'price',
       'is_alternative_to_id',
@@ -80,6 +83,23 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
             i18nPrefix="medicinesPage.form"
           />
         </div>
+
+        <Field data-invalid={!!errors.scientific_name}>
+          <FieldLabel htmlFor="scientific_name">
+            {t('scientificName')}
+          </FieldLabel>
+          <Input
+            id="scientific_name"
+            icon={Dna}
+            placeholder={t('placeHolderScientificName')}
+            aria-invalid={!!errors.scientific_name}
+            {...register('scientific_name', {
+              disabled: isPending,
+              validate: { required: required() },
+            })}
+          />
+          <FieldError errors={te(errors.scientific_name, 'scientificName')} />
+        </Field>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Field data-invalid={!!errors.price}>

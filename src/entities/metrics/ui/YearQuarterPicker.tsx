@@ -3,16 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { CalendarDays } from 'lucide-react';
 
 import {
-  Badge,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
+  GenericSingleSelect,
 } from '@/shared/ui';
 
 export type Quarter = 'Q1' | 'Q2' | 'Q3' | 'Q4';
@@ -20,9 +15,24 @@ export type Quarter = 'Q1' | 'Q2' | 'Q3' | 'Q4';
 const QUARTERS: Quarter[] = ['Q1', 'Q2', 'Q3', 'Q4'];
 const ALL_SELECTION = 'ALL';
 
-function getYearOptions(): string[] {
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
+function getYearOptions(allLabel: string): SelectOption[] {
   const current = new Date().getFullYear();
-  return Array.from({ length: 7 }, (_, i) => String(current + 1 - i));
+  const years = Array.from({ length: 7 }, (_, i) => {
+    const yearString = String(current + 1 - i);
+    return { value: yearString, label: yearString };
+  });
+
+  return [{ value: ALL_SELECTION, label: allLabel }, ...years];
+}
+
+function getQuarterOptions(allLabel: string): SelectOption[] {
+  const quarters = QUARTERS.map((q) => ({ value: q, label: q }));
+  return [{ value: ALL_SELECTION, label: allLabel }, ...quarters];
 }
 
 export type YearQuarterValue = {
@@ -47,11 +57,16 @@ export function YearQuarterPicker({
     keyPrefix: 'metricsPage.yearQuarterPicker',
   });
 
-  const yearOptions = useMemo(() => getYearOptions(), []);
+  const yearOptions = useMemo(() => getYearOptions(t('allYears')), [t]);
+  const quarterOptions = useMemo(
+    () => getQuarterOptions(t('allQuarters')),
+    [t],
+  );
+
   const isQuarterDisabled = disabled || !year;
 
-  const handleYearChange = (value: string) => {
-    const isClearing = value === ALL_SELECTION;
+  const handleYearChange = (value: string | null) => {
+    const isClearing = !value || value === ALL_SELECTION;
     const newYear = isClearing ? undefined : value;
 
     onChange({
@@ -60,8 +75,8 @@ export function YearQuarterPicker({
     });
   };
 
-  const handleQuarterChange = (value: string) => {
-    const isClearing = value === ALL_SELECTION;
+  const handleQuarterChange = (value: string | null) => {
+    const isClearing = !value || value === ALL_SELECTION;
 
     onChange({
       year,
@@ -70,26 +85,20 @@ export function YearQuarterPicker({
   };
 
   return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
-      <div className="flex flex-col gap-1">
-        <Select
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+      <div className="sm:col-span-2">
+        <GenericSingleSelect
+          options={yearOptions}
+          valueKey="value"
+          labelKey="label"
           value={year ?? ALL_SELECTION}
           onValueChange={handleYearChange}
           disabled={disabled}
-        >
-          <SelectTrigger className="h-8 w-32 text-sm">
-            <CalendarDays className="text-muted-foreground mr-2 size-3.5 shrink-0" />
-            <SelectValue placeholder={t('yearPlaceholder')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={ALL_SELECTION}>{t('allYears')}</SelectItem>
-            {yearOptions.map((y) => (
-              <SelectItem key={y} value={y}>
-                {y}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          icon={CalendarDays}
+          className="h-8 w-36 text-sm"
+          placeholder={t('yearPlaceholder')}
+          hasMoreLabel={false}
+        />
       </div>
 
       <div className="flex flex-col gap-1">
@@ -97,28 +106,17 @@ export function YearQuarterPicker({
           <Tooltip>
             <TooltipTrigger asChild>
               <span className="inline-block">
-                <Select
+                <GenericSingleSelect
+                  options={quarterOptions}
+                  valueKey="value"
+                  labelKey="label"
                   value={quarter ?? ALL_SELECTION}
                   onValueChange={handleQuarterChange}
                   disabled={isQuarterDisabled}
-                >
-                  <SelectTrigger
-                    className="h-8 w-24 text-sm"
-                    data-disabled={isQuarterDisabled || undefined}
-                  >
-                    <SelectValue placeholder={t('quarterPlaceholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={ALL_SELECTION}>
-                      {t('allQuarters')}
-                    </SelectItem>
-                    {QUARTERS.map((q) => (
-                      <SelectItem key={q} value={q}>
-                        {q}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                  className="h-8 w-32 text-sm"
+                  placeholder={t('quarterPlaceholder')}
+                  hasMoreLabel={false}
+                />
               </span>
             </TooltipTrigger>
             {isQuarterDisabled && !disabled && (
@@ -135,15 +133,6 @@ export function YearQuarterPicker({
           </p>
         )}
       </div>
-
-      {(year || quarter) && (
-        <Badge
-          variant="secondary"
-          className="h-8 self-start px-2.5 text-xs font-normal sm:self-auto"
-        >
-          {[year, quarter].filter(Boolean).join(' · ')}
-        </Badge>
-      )}
     </div>
   );
 }

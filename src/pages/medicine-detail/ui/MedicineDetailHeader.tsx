@@ -33,7 +33,7 @@ export function MedicineDetailHeader({ medicine }: Props) {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">
+            <Button variant="outline" className="not-dark:bg-card">
               <MoreHorizontal />
               {t('actions')}
             </Button>

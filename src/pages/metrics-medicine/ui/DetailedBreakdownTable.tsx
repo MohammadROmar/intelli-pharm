@@ -54,7 +54,7 @@ export function DetailedBreakdownTable({ metrics }: Props) {
               <TableActions
                 item={metric}
                 itemId={metric.medicine_id}
-                path="/dashboard/pharmacies"
+                path="/dashboard/medicines"
               >
                 <TableActions.Detail />
               </TableActions>

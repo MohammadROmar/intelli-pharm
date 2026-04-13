@@ -173,6 +173,7 @@ export { Switch, SwitchRow } from './switch';
 export { CardSectionHeader } from './CardSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
+export { QueryDisabled } from './QueryDisabled';
 export { SearchField } from './SearchField';
 export { Toaster } from './toaster';
 export { DeleteModal } from './DeleteModal';

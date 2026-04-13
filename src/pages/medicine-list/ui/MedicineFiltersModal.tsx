@@ -143,9 +143,11 @@ export function MedicineFiltersModal({
               control={control}
               render={({ field }) => (
                 <Field>
-                  <FieldLabel htmlFor="f-category">
-                    <Tag className="text-muted-foreground mr-1.5 inline-block h-3.5 w-3.5 align-middle" />
-                    {t('categoryLabel')}
+                  <FieldLabel asChild>
+                    <p>
+                      <Tag className="text-muted-foreground mr-1.5 inline-block h-3.5 w-3.5 align-middle" />
+                      {t('categoryLabel')}
+                    </p>
                   </FieldLabel>
                   <CategorySelector
                     value={field.value ? +field.value : null}
@@ -160,9 +162,11 @@ export function MedicineFiltersModal({
               control={control}
               render={({ field }) => (
                 <Field>
-                  <FieldLabel htmlFor="f-alt-for">
-                    <Pill className="text-muted-foreground mr-1.5 inline-block h-3.5 w-3.5 align-middle" />
-                    {t('alternativeForLabel')}
+                  <FieldLabel asChild>
+                    <p>
+                      <Pill className="text-muted-foreground mr-1.5 inline-block h-3.5 w-3.5 align-middle" />
+                      {t('alternativeForLabel')}
+                    </p>
                   </FieldLabel>
                   <MedicineSelector
                     value={field.value ? +field.value : null}

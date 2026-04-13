@@ -15,13 +15,14 @@ export function MedicineMetricsHeader() {
     useMedicineMetricsFilters();
 
   return (
-    <div className="flex flex-wrap justify-between gap-4">
+    <div className="flex flex-wrap items-center justify-between gap-4">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
 
       <div>
         <FiltersTrigger
           onClick={() => setOpen(true)}
           activeCount={activeCount}
+          className="bg-card!"
         />
         <MedicineMetricsFiltersModal
           open={open}

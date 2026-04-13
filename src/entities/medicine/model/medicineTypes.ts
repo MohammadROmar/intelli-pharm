@@ -7,6 +7,7 @@ export type StockEntry = {
 export type FormValues = {
   name: { ar: string; en: string };
   category_id: number;
+  scientific_name: string;
   price: string;
   note: string;
   is_imported: boolean;
@@ -61,6 +62,7 @@ export type Medicine = {
   created_at: string;
   updated_at: string;
   images: string[];
+  scientific_name: string;
   note?: string;
   category: MedicineCategory;
   laboratory: { id: number; name: string };

@@ -8,6 +8,8 @@ import {
   FlaskConical,
   RefreshCw,
   Truck,
+  Boxes,
+  Dna,
 } from 'lucide-react';
 
 import type { Medicine } from '@/entities/medicine';
@@ -37,6 +39,23 @@ export function MedicineInfoGrid({ medicine }: Props) {
               {medicine.category.name}
             </Link>
           </Badge>
+        </DetailCell>
+      </div>
+
+      <Separator />
+
+      <div className="grid grid-cols-2 gap-6">
+        <DetailCell label={t('scientificName')}>
+          <span className="flex items-center gap-1.5 font-normal">
+            <Dna className="text-muted-foreground size-3.5 shrink-0" />
+            {medicine.scientific_name ?? '-'}
+          </span>
+        </DetailCell>
+        <DetailCell label={t('availableQuantity')}>
+          <span className="flex items-center gap-1.5 font-normal">
+            <Boxes className="text-muted-foreground size-3.5 shrink-0" />
+            {medicine.available_quantity}
+          </span>
         </DetailCell>
       </div>
 

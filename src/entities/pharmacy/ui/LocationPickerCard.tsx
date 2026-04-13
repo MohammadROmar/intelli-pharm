@@ -31,17 +31,21 @@ function CoordinateDisplay({ position }: { position: LatLng }) {
   });
   return (
     <div className="bg-muted/40 flex items-center justify-between gap-4 rounded-lg px-4 py-2.5">
-      <div className="flex items-center gap-1.5 text-xs">
-        <Navigation className="text-muted-foreground size-3.5 shrink-0" />
-        <span className="text-muted-foreground">{t('labelLatitude')}</span>
+      <div className="flex flex-col items-center gap-1.5 text-xs sm:flex-row">
+        <div className="flex items-center gap-1.5">
+          <Navigation className="text-muted-foreground size-3.5 shrink-0" />
+          <span className="text-muted-foreground">{t('labelLatitude')}</span>
+        </div>
         <span className="text-foreground font-mono font-medium tabular-nums">
           {position.lat.toFixed(6)}
         </span>
       </div>
-      <div className="bg-border h-4 w-px" />
-      <div className="flex items-center gap-1.5 text-xs">
-        <Navigation className="text-muted-foreground size-3.5 shrink-0 -rotate-90" />
-        <span className="text-muted-foreground">{t('labelLongitude')}</span>
+      <div aria-hidden className="bg-border h-4 w-px" />
+      <div className="flex flex-col items-center gap-1.5 text-xs sm:flex-row">
+        <div className="flex items-center gap-1.5">
+          <Navigation className="text-muted-foreground size-3.5 shrink-0 -rotate-90" />
+          <span className="text-muted-foreground">{t('labelLongitude')}</span>
+        </div>
         <span className="text-foreground font-mono font-medium tabular-nums">
           {position.lng.toFixed(6)}
         </span>
