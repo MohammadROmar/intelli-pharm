@@ -74,7 +74,7 @@ export function ChangeOrderStatusDialog({
         size="sm"
         onClick={() => handleOpenChange(true)}
         disabled={!hasTransitions}
-        className="shrink-0 gap-1.5"
+        className="bg-card! shrink-0 gap-1.5"
       >
         <RefreshCw className="size-4" />
         {t('trigger')}

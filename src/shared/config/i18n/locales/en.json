@@ -811,6 +811,8 @@
   },
 
   "chat": {
+    "pageTitle": "Chat with AI",
+
     "backToDashboard": "Dashboard",
     "headerTitle": "IntelliPharma AI",
 

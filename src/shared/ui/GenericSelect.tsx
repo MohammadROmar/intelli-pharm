@@ -9,17 +9,17 @@ import { useEffect, useRef, useState, type ElementType } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 
-import { useDebounce, cn } from '../lib';
 import { Button } from './Button';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import {
   Command,
-  CommandEmpty,
+  CommandList,
+  CommandItem,
   CommandGroup,
   CommandInput,
-  CommandItem,
-  CommandList,
+  CommandEmpty,
 } from './command';
+import { useDebounce, cn } from '../lib';
 
 export type GenericSingleSelectProps<T extends Record<string, unknown>> = {
   options: T[];
@@ -96,38 +96,17 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
         if (!hasNextPage || isFetchingNextPageRef.current) return;
 
         const { scrollTop, scrollHeight, clientHeight } = container;
-        const atBottom = scrollTop + clientHeight >= scrollHeight - 5;
+        const atBottom = scrollTop + clientHeight >= scrollHeight - 10;
 
         if (atBottom && !isLoading && !isFetchingNextPageRef.current) {
           onLoadMore();
         }
       };
 
-      const handleWheel = (e: WheelEvent) => {
-        const { scrollTop, scrollHeight, clientHeight } = container;
-        const atBottom = scrollTop + clientHeight >= scrollHeight - 5;
-        const atTop = scrollTop <= 5;
-
-        if (
-          (atBottom && e.deltaY > 0 && !hasNextPage) ||
-          (atTop && e.deltaY < 0)
-        ) {
-          return;
-        }
-
-        e.preventDefault();
-        container.scrollTop += e.deltaY;
-        if (!isLoading) {
-          handleScroll();
-        }
-      };
-
       container.addEventListener('scroll', handleScroll);
-      container.addEventListener('wheel', handleWheel, { passive: false });
 
       return () => {
         container.removeEventListener('scroll', handleScroll);
-        container.removeEventListener('wheel', handleWheel);
       };
     }, 10);
 
@@ -187,8 +166,9 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           />
           <CommandList
             ref={scrollRef}
+            onWheel={(e) => e.stopPropagation()}
             className={cn(
-              `max-h-75 max-w-72 overflow-y-auto`,
+              'thin-scrollbar max-h-75 max-w-72 overflow-y-auto overscroll-contain',
               displayClassName,
             )}
           >
@@ -222,7 +202,6 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
               </CommandGroup>
             )}
 
-            {/* Infinite scroll indicators */}
             {isLoading ? (
               <div className="text-muted-foreground flex items-center justify-center gap-2 p-2 py-5.5 text-center text-sm">
                 <Loader2 className="text-primary size-4 animate-spin" />

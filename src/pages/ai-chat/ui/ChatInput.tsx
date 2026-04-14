@@ -203,9 +203,14 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             <Textarea
               ref={textareaRef}
               value={value}
+              autoFocus
+              autoCorrect="off"
+              autoComplete="off"
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               onScroll={handleScroll}
+              aria-label={t('inputPlaceholder')}
+              aria-multiline
               placeholder={t('inputPlaceholder')}
               disabled={isLoading}
               rows={2}

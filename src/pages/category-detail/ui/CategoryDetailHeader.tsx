@@ -15,7 +15,7 @@ export function CategoryDetailHeader({ category }: Props) {
     keyPrefix: 'categoriesPage.detail',
   });
 
-  const pageTitle = `${category.name} | ${t('pageTitle')} - IntelliPharma`;
+  const pageTitle = `${category.name} · ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>

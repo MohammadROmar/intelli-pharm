@@ -26,7 +26,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarBrand />
       </SidebarHeader>
-      <SidebarContent className="thin-scrollbar">
+      <SidebarContent
+        onWheel={(e) => e.stopPropagation()}
+        className="thin-scrollbar"
+      >
         <NavMain items={sidebarData} />
       </SidebarContent>
       <SidebarFooter>

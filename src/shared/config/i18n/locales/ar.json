@@ -820,6 +820,8 @@
   },
 
   "chat": {
+    "pageTitle": "دردش مع الذكاء الاصطناعي",
+
     "backToDashboard": "لوحة التحكم",
     "headerTitle": "IntelliPharma AI",
     "emptyTitle": "كيف يمكنني مساعدتك اليوم؟",

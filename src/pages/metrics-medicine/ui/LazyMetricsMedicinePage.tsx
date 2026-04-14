@@ -8,7 +8,7 @@ export function LazyMetricsMedicinePage() {
   return (
     <WithSuspense
       Component={MetricsMedicinePage}
-      loader={<MetricsSkeleton />}
+      loader={<MetricsSkeleton charts={2} />}
     />
   );
 }

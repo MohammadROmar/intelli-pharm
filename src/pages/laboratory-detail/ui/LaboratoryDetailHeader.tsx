@@ -15,7 +15,7 @@ export function LaboratoryDetailHeader({ laboratory }: Props) {
     keyPrefix: 'laboratoriesPage.detail',
   });
 
-  const pageTitle = `${laboratory.name} | ${t('pageTitle')} - IntelliPharma`;
+  const pageTitle = `${laboratory.name} · ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>

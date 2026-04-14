@@ -16,7 +16,7 @@ export function LaboratoryEditForm({ id }: Props) {
     <LaboratoryForm
       key={formKey}
       onSubmit={onSubmit}
-      /* defaultValues={{ TO BE ADDED }} */
+      defaultValues={{}}
       isLoading={isPending}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

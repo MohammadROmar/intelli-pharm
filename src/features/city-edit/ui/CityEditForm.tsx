@@ -16,7 +16,7 @@ export function CityEditForm({ id }: Props) {
     <CityForm
       key={formKey}
       onSubmit={onSubmit}
-      /* defaultValues={{ name: defaultName }} */
+      defaultValues={{}}
       isLoading={isPending}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

@@ -98,7 +98,7 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          "fixed inset-y-0 z-10 hidden h-dvh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex rtl:[body[data-scroll-locked='1']_&]:mr-(--removed-body-scroll-bar-size)",
+          'fixed inset-y-0 z-10 hidden h-dvh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex rtl:[body[data-scroll-locked]_&]:mr-(--removed-body-scroll-bar-size)',
           side === 'left'
             ? 'group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] ltr:left-0 rtl:right-0'
             : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
