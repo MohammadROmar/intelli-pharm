@@ -84,7 +84,6 @@ function Sidebar({
       data-side={side}
       data-slot="sidebar"
     >
-      {/* This is what handles the sidebar gap on desktop */}
       <div
         data-slot="sidebar-gap"
         className={cn(
@@ -99,7 +98,7 @@ function Sidebar({
       <div
         data-slot="sidebar-container"
         className={cn(
-          'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex',
+          "fixed inset-y-0 z-10 hidden h-dvh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex rtl:[body[data-scroll-locked='1']_&]:mr-(--removed-body-scroll-bar-size)",
           side === 'left'
             ? 'group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] ltr:left-0 rtl:right-0'
             : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
@@ -138,7 +137,7 @@ function SidebarTrigger({
       data-slot="sidebar-trigger"
       variant={isMobile ? 'outline' : 'ghost'}
       size="icon"
-      className={cn(!isMobile && 'size-7', className)}
+      className={cn(!isMobile ? 'size-7' : 'bg-card!', className)}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();

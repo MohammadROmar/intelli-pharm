@@ -15,7 +15,11 @@ export function LocaleToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="transition-none">
+        <Button
+          variant="outline"
+          size="icon"
+          className="bg-card! transition-none"
+        >
           <Globe className="absolute h-[1.2rem] w-[1.2rem]" />
           <span className="sr-only">{t('locale.toggle')}</span>
         </Button>

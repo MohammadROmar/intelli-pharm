@@ -1,13 +1,13 @@
-import { useChat } from '../model/useChat';
 import { ChatMessageList } from './ChatMessageList';
 import { ChatInput } from './ChatInput';
+import { useChat } from '../model/useChat';
 
 export default function ChatPage() {
   const { messages, isLoading, error, send } = useChat();
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="mx-auto flex min-h-0 flex-1 flex-col">
+    <div className="grid h-full grid-rows-[1fr_auto] overflow-y-hidden">
+      <div className="thin-scrollbar mx-auto flex h-full min-h-0 w-full flex-col overflow-y-auto">
         <ChatMessageList
           messages={messages}
           isLoading={isLoading}

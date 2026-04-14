@@ -15,7 +15,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
   Logo,
-  ScrollArea,
 } from '@/shared/ui';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -27,10 +26,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarBrand />
       </SidebarHeader>
-      <SidebarContent>
-        <ScrollArea className="h-full">
-          <NavMain items={sidebarData} />
-        </ScrollArea>
+      <SidebarContent className="thin-scrollbar">
+        <NavMain items={sidebarData} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

@@ -87,14 +87,12 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
     }
   }, [isOpen]);
 
-  // Infinite scroll effect
   useEffect(() => {
     const timeout = setTimeout(() => {
       const container = scrollRef.current;
       if (!container || !onLoadMore) return;
 
       const handleScroll = () => {
-        // Guard: do nothing if there is no next page or a next-page fetch is already in flight
         if (!hasNextPage || isFetchingNextPageRef.current) return;
 
         const { scrollTop, scrollHeight, clientHeight } = container;
@@ -114,7 +112,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           (atBottom && e.deltaY > 0 && !hasNextPage) ||
           (atTop && e.deltaY < 0)
         ) {
-          return; // Let event bubble for parent scrolling
+          return;
         }
 
         e.preventDefault();
@@ -138,7 +136,6 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
 
   const selectedOption = options.find((option) => option[valueKey] === value);
 
-  // When onSearchChange is not provided, fall back to local client-side filtering
   const filteredOptions =
     onSearchChange || !debouncedSearch.trim()
       ? options
@@ -161,7 +158,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           role="combobox"
           aria-expanded={isOpen}
           className={cn(
-            'not-dark:bg-card! relative w-full justify-between!',
+            'dark:bg-input/50 border-input bg-input/20 relative w-full justify-between!',
             invalid && 'border-destructive!',
             Icon && 'ltr:pl-9! rtl:pr-9!',
             className,
@@ -183,7 +180,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
       <PopoverContent className="w-full p-0!">
         <Command shouldFilter={false}>
           <CommandInput
-            // placeholder={t('search')}
+            placeholder={t('search')}
             value={localSearch}
             onValueChange={setLocalSearch}
             className="pl-8"

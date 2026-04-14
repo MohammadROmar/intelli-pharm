@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import { Bot } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+import { BotIcon } from './BotIcon';
 import { ChatMessage } from './ChatMessage';
 import type { ChatMessage as TChatMessage } from '../model/chatTypes';
-import { ScrollArea } from '@/shared/ui';
 
 function TypingIndicator() {
   return (
@@ -32,8 +32,8 @@ function EmptyState() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
-      <div className="bg-muted text-muted-foreground flex size-14 items-center justify-center rounded-2xl">
-        <Bot className="size-7" />
+      <div className="bg-muted text-muted-foreground flex size-36 items-center justify-center rounded-2xl">
+        <BotIcon size="6rem" />
       </div>
       <div>
         <p className="text-foreground font-semibold">{t('emptyTitle')}</p>
@@ -63,22 +63,20 @@ export function ChatMessageList({ messages, isLoading, error }: Props) {
   if (!hasMessages) return <EmptyState />;
 
   return (
-    <ScrollArea className="h-full w-screen overflow-y-hidden">
-      <div className="mx-auto w-full max-w-3xl">
-        <div className={'flex flex-col gap-4 overflow-y-auto px-4 py-6'}>
-          {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
-          ))}
+    <div className="mx-auto w-full max-w-3xl">
+      <div className={'flex flex-col gap-4 px-4 py-6'}>
+        {messages.map((message) => (
+          <ChatMessage key={message.id} message={message} />
+        ))}
 
-          {isLoading && <TypingIndicator />}
+        {isLoading && <TypingIndicator />}
 
-          {error && (
-            <p className="text-destructive text-center text-xs">{t(error)}</p>
-          )}
+        {error && (
+          <p className="text-destructive text-center text-xs">{t(error)}</p>
+        )}
 
-          <div ref={bottomRef} aria-hidden />
-        </div>
+        <div ref={bottomRef} aria-hidden />
       </div>
-    </ScrollArea>
+    </div>
   );
 }

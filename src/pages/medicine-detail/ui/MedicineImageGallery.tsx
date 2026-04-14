@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { ImageOff } from 'lucide-react';
 
 import { cn } from '@/shared/lib';
-import { ScrollArea, ScrollBar } from '@/shared/ui';
 
 type Props = {
   images?: string[];
@@ -40,30 +39,27 @@ export function MedicineImageGallery({ images, medicineName }: Props) {
       </div>
 
       {images && images.length > 1 && (
-        <ScrollArea className="pb-3">
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {images.map((src, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setActiveIndex(i)}
-                className={cn(
-                  'bg-muted md:maw-40 relative size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all',
-                  i === activeIndex
-                    ? 'border-primary'
-                    : 'border-transparent opacity-60 hover:opacity-100',
-                )}
-              >
-                <img
-                  src={src}
-                  alt={`${medicineName} ${t('thumbnail')} ${i + 1}`}
-                  className="h-full w-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        <div className="thin-scrollbar flex gap-2 overflow-x-auto pb-1">
+          {images.map((src, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActiveIndex(i)}
+              className={cn(
+                'bg-muted md:maw-40 relative size-16 shrink-0 overflow-hidden rounded-lg border-2 transition-all',
+                i === activeIndex
+                  ? 'border-primary'
+                  : 'border-transparent opacity-60 hover:opacity-100',
+              )}
+            >
+              <img
+                src={src}
+                alt={`${medicineName} ${t('thumbnail')} ${i + 1}`}
+                className="h-full w-full object-cover"
+              />
+            </button>
+          ))}
+        </div>
       )}
     </div>
   );

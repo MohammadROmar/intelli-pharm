@@ -6,7 +6,6 @@ import { Badge } from './badge';
 import { Button } from './Button';
 import { Kbd, KbdGroup } from './kbd';
 import { Separator } from './Separator';
-import { ScrollArea } from './scroll-area';
 import { CardSectionHeader } from './CardSectionHeader';
 import {
   Dialog,
@@ -111,7 +110,9 @@ export function FiltersModal({
 
         <Separator />
 
-        <ScrollArea className="mx-2 max-h-[60vh] px-4">{children}</ScrollArea>
+        <div className="thin-scrollbar mx-2 max-h-[60vh] overflow-y-auto px-4">
+          {children}
+        </div>
         <Separator />
 
         <DialogFooter className="flex-row justify-end! gap-2 p-6 pt-0">

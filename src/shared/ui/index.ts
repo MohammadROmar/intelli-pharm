@@ -177,7 +177,6 @@ export { QueryDisabled } from './QueryDisabled';
 export { SearchField } from './SearchField';
 export { Toaster } from './toaster';
 export { DeleteModal } from './DeleteModal';
-export { ScrollArea, ScrollBar } from './scroll-area';
 export { Loader } from './Loader';
 export { TableEmptyState, DetailEmptyState } from './EmptyState';
 export { FiltersModal, FiltersTrigger } from './FiltersModal';
