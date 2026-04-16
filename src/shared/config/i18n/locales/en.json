@@ -990,6 +990,7 @@
   },
 
   "tableActions": {
+    "openActions": "Open actions menu",
     "details": "Details",
     "update": "Update",
     "delete": "Delete"
@@ -1062,5 +1063,10 @@
       "tryAgain": "Try Again"
     },
     "rowsPerPage": "Rows per page"
+  },
+
+  "auth": {
+    "sessionExpiredTitle": "Session Expired",
+    "sessionExpiredDescription": "Your session has expired. Please log in again to continue."
   }
 }

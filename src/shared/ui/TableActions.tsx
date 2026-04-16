@@ -1,12 +1,16 @@
 import { createContext, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Info, Pencil, Trash2 } from 'lucide-react';
+import { Info, Pencil, Trash2, MoreHorizontal } from 'lucide-react';
 
 import { TableCell } from './table';
-import { buttonVariants } from '../lib';
 import { Button } from './Button';
-import { Tooltip, TooltipContent, TooltipTrigger } from './Tooltip';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './DropdownMenu';
 
 type TableActionsContextValue<T> = {
   itemId: string | number;
@@ -47,14 +51,26 @@ function TableActionsRoot<T>({
   onDelete,
   children,
 }: TableActionsProps<T>) {
+  const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
+
   return (
     <TableActionsContext.Provider
       value={
         { itemId, path, item, onDelete } as TableActionsContextValue<unknown>
       }
     >
-      <TableCell className="relative z-10 flex items-center gap-1">
-        {children}
+      <TableCell className="relative z-10 w-[1%] whitespace-nowrap">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="size-8 p-0!">
+              <span className="sr-only">{t('openActions')}</span>
+              <MoreHorizontal className="size-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="min-w-36" align="end">
+            {children}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </TableCell>
     </TableActionsContext.Provider>
   );
@@ -65,22 +81,12 @@ function Detail() {
   const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
 
   return (
-    <Tooltip disableHoverableContent>
-      <TooltipTrigger asChild>
-        <Link
-          to={`${path}/${itemId}`}
-          aria-label={t('details')}
-          className={buttonVariants({
-            size: 'sm',
-            variant: 'ghost',
-            className: 'px-1!',
-          })}
-        >
-          <Info className="size-4" />
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>{t('details')}</TooltipContent>
-    </Tooltip>
+    <DropdownMenuItem asChild>
+      <Link to={`${path}/${itemId}`} className="cursor-pointer">
+        <Info className="size-4" />
+        <span>{t('details')}</span>
+      </Link>
+    </DropdownMenuItem>
   );
 }
 
@@ -89,22 +95,12 @@ function Update() {
   const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
 
   return (
-    <Tooltip disableHoverableContent>
-      <TooltipTrigger asChild>
-        <Link
-          to={`${path}/${itemId}/edit`}
-          aria-label={t('update')}
-          className={buttonVariants({
-            size: 'sm',
-            variant: 'ghost',
-            className: 'px-1!',
-          })}
-        >
-          <Pencil className="size-4" />
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>{t('update')}</TooltipContent>
-    </Tooltip>
+    <DropdownMenuItem asChild>
+      <Link to={`${path}/${itemId}/edit`} className="cursor-pointer">
+        <Pencil className="size-4" />
+        <span>{t('update')}</span>
+      </Link>
+    </DropdownMenuItem>
   );
 }
 
@@ -113,20 +109,14 @@ function Delete<T>() {
   const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
 
   return (
-    <Tooltip disableHoverableContent>
-      <TooltipTrigger asChild>
-        <Button
-          size="sm"
-          aria-label={t('delete')}
-          variant="ghost"
-          onClick={() => onDelete(item)}
-          className="px-1!"
-        >
-          <Trash2 className="text-destructive size-4" />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>{t('delete')}</TooltipContent>
-    </Tooltip>
+    <DropdownMenuItem
+      onClick={() => onDelete(item)}
+      variant="destructive"
+      className="cursor-pointer"
+    >
+      <Trash2 className="size-4" />
+      <span>{t('delete')}</span>
+    </DropdownMenuItem>
   );
 }
 

@@ -1,11 +1,9 @@
 import { useEffect, useRef } from 'react';
 
 import { refreshSessionOnce } from '../lib/authBootstrap';
-import DashboardSkeleton from '../layouts/DashboardLayoutSkeleton';
-import { ChatLayoutSkeleton } from '@/pages/ai-chat';
-import { LoginSkeleton } from '@/pages/login';
 import { setCredentials, logout, setLoading } from '@/entities/session';
 import { useAppDispatch, useAppSelector } from '@/shared/config';
+import { Logo } from '@/shared/ui/index.initial';
 
 export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   const dispatch = useAppDispatch();
@@ -16,6 +14,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const initAuth = async () => {
       const token = initialRefreshTokenRef.current;
+      console.log(token);
 
       if (!token) {
         dispatch(logout());
@@ -44,10 +43,11 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   }, [dispatch]);
 
   if (isLoading) {
-    const isChat = window.location.pathname.startsWith('/chat');
-    const AuthSkeleton = isChat ? ChatLayoutSkeleton : DashboardSkeleton;
-
-    return <>{refreshToken ? <AuthSkeleton /> : <LoginSkeleton />}</>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Logo withColors className="size-12" />
+      </div>
+    );
   }
 
   return <>{children}</>;

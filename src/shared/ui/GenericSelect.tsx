@@ -13,11 +13,11 @@ import { Button } from './Button';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 import {
   Command,
-  CommandList,
-  CommandItem,
+  CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandEmpty,
+  CommandItem,
+  CommandList,
 } from './command';
 import { useDebounce, cn } from '../lib';
 
@@ -90,23 +90,35 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   useEffect(() => {
     const timeout = setTimeout(() => {
       const container = scrollRef.current;
-      if (!container || !onLoadMore) return;
+      if (!container) return;
 
       const handleScroll = () => {
-        if (!hasNextPage || isFetchingNextPageRef.current) return;
+        if (!hasNextPage || isFetchingNextPageRef.current || !onLoadMore)
+          return;
 
         const { scrollTop, scrollHeight, clientHeight } = container;
-        const atBottom = scrollTop + clientHeight >= scrollHeight - 10;
+
+        const atBottom = scrollTop + clientHeight >= scrollHeight - 100;
 
         if (atBottom && !isLoading && !isFetchingNextPageRef.current) {
           onLoadMore();
         }
       };
 
-      container.addEventListener('scroll', handleScroll);
+      const preventRadixLock = (e: Event) => {
+        e.stopPropagation();
+      };
+
+      container.addEventListener('scroll', handleScroll, { passive: true });
+      container.addEventListener('wheel', preventRadixLock, { passive: true });
+      container.addEventListener('touchmove', preventRadixLock, {
+        passive: true,
+      });
 
       return () => {
         container.removeEventListener('scroll', handleScroll);
+        container.removeEventListener('wheel', preventRadixLock);
+        container.removeEventListener('touchmove', preventRadixLock);
       };
     }, 10);
 
@@ -153,7 +165,14 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
               {placeholder ?? t('placeholder')}
             </span>
           )}
-          <ChevronsUpDown className="size-4 shrink-0 opacity-50 ltr:ml-2 rtl:mr-2" />
+          <div className="flex gap-2 ltr:ml-2 rtl:mr-2">
+            {isFetchingNextPage && (
+              <div className="flex items-center justify-center">
+                <Loader2 className="size-4 animate-spin" />
+              </div>
+            )}
+            <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0!">
@@ -166,9 +185,8 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           />
           <CommandList
             ref={scrollRef}
-            onWheel={(e) => e.stopPropagation()}
             className={cn(
-              'thin-scrollbar max-h-75 max-w-72 overflow-y-auto overscroll-contain',
+              'thin-scrollbar max-h-75 w-full max-w-72 overflow-y-auto',
               displayClassName,
             )}
           >

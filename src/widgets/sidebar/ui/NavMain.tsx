@@ -77,8 +77,7 @@ export function NavMain({ items }: NavMainProps) {
         {items.map((item) => {
           const label = t(item.label);
           const hasSubItems = Boolean(item.items?.length);
-          const isInitiallyOpen =
-            item.isActive || pathname.startsWith(item.url);
+          const isChildActive = item.isActive || pathname.startsWith(item.url);
 
           if (!hasSubItems) {
             return (
@@ -92,7 +91,7 @@ export function NavMain({ items }: NavMainProps) {
             <Collapsible
               key={item.label}
               asChild
-              defaultOpen={isInitiallyOpen}
+              defaultOpen={isChildActive}
               className="group/collapsible"
             >
               <SidebarMenuItem>
@@ -100,6 +99,11 @@ export function NavMain({ items }: NavMainProps) {
                   <SidebarMenuButton
                     tooltip={label}
                     onClick={handleTriggerClick}
+                    className={
+                      isChildActive
+                        ? 'text-sidebar-accent-foreground font-medium'
+                        : ''
+                    }
                   >
                     <NavItemContent icon={item.icon} label={label} />
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:mr-auto rtl:ml-0 rtl:rotate-180" />

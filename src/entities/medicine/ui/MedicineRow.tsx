@@ -3,15 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { PackagePlus } from 'lucide-react';
 
 import type { Medicine } from '../model/medicineTypes';
-import { buttonVariants, formatDate } from '@/shared/lib';
+import { formatDate } from '@/shared/lib';
 import {
   Badge,
-  TableActions,
-  TableCell,
   TableRow,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
+  TableCell,
+  TableActions,
+  DropdownMenuItem,
 } from '@/shared/ui';
 
 type MedicineRowProps = {
@@ -59,21 +57,14 @@ function Restock({ id }: { id: number }) {
   });
 
   return (
-    <Tooltip disableHoverableContent>
-      <TooltipTrigger asChild>
-        <Link
-          to={`/dashboard/medicines/${id}/restock`}
-          aria-label={t('update')}
-          className={buttonVariants({
-            size: 'sm',
-            variant: 'ghost',
-            className: 'p-0!',
-          })}
-        >
-          <PackagePlus className="size-4" />
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>{t('tooltipLabel')}</TooltipContent>
-    </Tooltip>
+    <DropdownMenuItem asChild>
+      <Link
+        to={`/dashboard/medicines/${id}/restock`}
+        className="cursor-pointer"
+      >
+        <PackagePlus className="size-4" />
+        <span>{t('tooltipLabel')}</span>
+      </Link>
+    </DropdownMenuItem>
   );
 }

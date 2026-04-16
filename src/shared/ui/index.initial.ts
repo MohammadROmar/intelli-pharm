@@ -1,3 +1,4 @@
+export { Logo } from './Logo';
 export { Loader } from './Loader';
 export { Separator } from './Separator';
 export { WithSuspense } from './WithSuspense';

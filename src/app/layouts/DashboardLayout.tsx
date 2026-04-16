@@ -67,7 +67,9 @@ function BreadCrumbsItems() {
 
         const isId = /^\d+$/.test(segment);
 
-        const label = isId ? `#${segment}` : t(`sidebar.labels.${segment}`);
+        const label = isId
+          ? `#${segment}`
+          : t(`sidebar.labels.${segment}`, { defaultValue: segment });
 
         return (
           <BreadcrumbItem key={href}>

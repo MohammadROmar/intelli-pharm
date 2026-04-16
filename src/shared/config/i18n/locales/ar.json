@@ -820,7 +820,7 @@
   },
 
   "chat": {
-    "pageTitle": "دردش مع الذكاء الاصطناعي",
+    "pageTitle": "الدردشة مع الذكاء الاصطناعي",
 
     "backToDashboard": "لوحة التحكم",
     "headerTitle": "IntelliPharma AI",
@@ -997,6 +997,7 @@
   },
 
   "tableActions": {
+    "openActions": "فتح قائمة الإجراءات",
     "details": "التفاصيل",
     "update": "تعديل",
     "delete": "حذف"
@@ -1053,8 +1054,8 @@
         "error": "فشل في الحذف"
       },
       "restock": {
-        "title": "تم التعديل بنجاح",
         "description": "تم تعديل المخزون بنجاح.",
+        "update": "تعديل المخزون",
         "error": "فشل في التعديل"
       }
     },
@@ -1069,5 +1070,10 @@
       "tryAgain": "إعادة المحاولة"
     },
     "rowsPerPage": "صفوف لكل صفحة"
+  },
+
+  "auth": {
+    "sessionExpiredTitle": "انتهت الجلسة",
+    "sessionExpiredDescription": "لقد انتهت صلاحية الجلسة الخاصة بك. يرجى تسجيل الدخول مرة أخرى للمتابعة."
   }
 }
