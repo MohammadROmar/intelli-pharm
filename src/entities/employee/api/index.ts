@@ -4,7 +4,7 @@ import type {
   EditEmployeeFormData,
   EmployeeListResponse,
 } from '../model/employeeTypes';
-import { apiClient } from '@/shared/api';
+import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
 export async function getEmployees(
   params: Record<string, string | number | null | undefined>,
@@ -41,4 +41,22 @@ export async function editEmployee({
 
 export async function getEmployeeById(id: number) {
   return apiClient.get<Employee>(`/erp/v1/employees/${id}`);
+}
+
+export async function getInfiniteEmployees(page_number: string, name?: string) {
+  const response = await getEmployees({ page_number, name });
+
+  if (!response.isSuccess || !response.data) {
+    throw new ApiError(statusToI18nKey(response.statusCode));
+  }
+
+  const { data, meta } = response.data;
+
+  return {
+    items: data!,
+    page: meta.current_page,
+    pageSize: meta.per_page,
+    totalPages: Math.max(meta.total / meta.per_page, 1),
+    totalCount: meta.total,
+  };
 }

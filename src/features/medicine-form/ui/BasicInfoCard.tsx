@@ -10,12 +10,12 @@ import { useTranslation } from 'react-i18next';
 import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
 import {
   MedicineSelector,
-  useMedicineFieldError,
   type Medicine,
   type MedicineFormData,
 } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
 import { LaboratorySelector } from '@/entities/laboratory';
+import { useFieldError } from '@/shared/lib';
 import {
   required,
   fRequired,
@@ -63,7 +63,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
     keyPrefix: 'medicinesPage.form',
   });
 
-  const { te } = useMedicineFieldError('medicinesPage.form');
+  const { te } = useFieldError('medicinesPage.form');
 
   return (
     <Card>

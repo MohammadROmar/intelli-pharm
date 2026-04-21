@@ -7,10 +7,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Boxes, Calendar, Package, Plus, Trash2 } from 'lucide-react';
 
-import {
-  useMedicineFieldError,
-  type MedicineFormData,
-} from '@/entities/medicine';
+import type { MedicineFormData } from '@/entities/medicine';
+import { useFieldError } from '@/shared/lib';
 import { required, fRequired, positiveNumber } from '@/shared/form';
 import {
   Badge,
@@ -39,7 +37,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
     keyPrefix: 'medicinesPage.form',
   });
 
-  const { te } = useMedicineFieldError('medicinesPage.form');
+  const { te } = useFieldError('medicinesPage.form');
 
   const { fields, append, remove } = useFieldArray({
     control,

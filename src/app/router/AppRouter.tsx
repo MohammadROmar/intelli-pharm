@@ -24,6 +24,7 @@ import { LazyMetricsMedicinePage } from '@/pages/metrics-medicine';
 
 import { LazyDeliveryListPage } from '@/pages/delivery-list';
 import { LazyDeliveryDetailPage } from '@/pages/delivery-detail';
+import { LazyDeliveryAssignPage } from '@/pages/delivery-assign';
 
 import { LazyRegionListPage } from '@/pages/region-list';
 import { LazyRegionCreatePage } from '@/pages/region-create';
@@ -110,6 +111,7 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <LazyDeliveryListPage /> },
                   { path: ':id', element: <LazyDeliveryDetailPage /> },
+                  { path: 'assign', element: <LazyDeliveryAssignPage /> },
                 ],
               },
 

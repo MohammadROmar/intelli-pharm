@@ -1,5 +1,4 @@
 export { Logo } from './Logo';
-export { Loader } from './Loader';
 export { Separator } from './Separator';
 export { WithSuspense } from './WithSuspense';
 export { Card, CardHeader, CardContent, CardFooter } from './Card';

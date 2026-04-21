@@ -305,6 +305,7 @@
   },
 
   "deliveriesPage": {
+    "delivery": "Delivery task",
     "status": {
       "pending": "Pending",
       "in_progress": "In Progress",
@@ -373,6 +374,31 @@
           "label": "Check Notes",
           "placeholder": "Any observations at the time of delivery..."
         }
+      }
+    },
+    "form": {
+      "title": "Delivery Assignment",
+      "subtitle": "Link each order to the appropriate delivery employee, set a future delivery schedule, and provide special instructions to ensure smooth and timely delivery.",
+
+      "assignmentCardTitle": "Delivery Assignment",
+      "assignmentCardSubtitle": "Assign an employee and link the order to be delivered.",
+
+      "scheduleCardTitle": "Schedule",
+      "scheduleCardSubtitle": "Set the delivery date, time and any additional notes.",
+
+      "labelEmployee": "Assigned Employee",
+      "labelOrder": "Order",
+      "labelScheduledAt": "Scheduled At",
+      "labelNotes": "Notes",
+
+      "hintScheduledAt": "Must be a future date and time.",
+      "hintNotes": "Any special handling instructions for the delivery.",
+      "placeholderNotes": "e.g. Handle with care, deliver to back entrance…",
+      "optional": "optional",
+
+      "errors": {
+        "required": "This field is required.",
+        "notInPast": "Scheduled time must be in the future."
       }
     },
     "detail": {
@@ -1047,7 +1073,8 @@
       "medicine": "Medicine Metrics",
       "area": "Area Metrics",
       "pharmacy": "Pharmacy Metrics",
-      "deliveries": "Deliveries"
+      "deliveries": "Deliveries",
+      "assign": "Assign Delivery"
     },
 
     "regions": {

@@ -17,3 +17,4 @@ export type {
 
 export { EmployeeRow } from './ui/EmployeeRow';
 export { EmployeeForm } from './ui/EmployeeForm';
+export { EmployeeSelector } from './ui/EmployeesSelector';

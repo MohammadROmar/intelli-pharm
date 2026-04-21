@@ -7,7 +7,7 @@ import { useCreateEntity } from '@/shared/model';
 
 export function useCreateMedicine() {
   return useCreateEntity<{ values: MedicineFormData; images: ImageFile[] }>({
-    queryKey: 'regions',
+    queryKey: 'medicines',
     mutationFn: createMedicine,
     translationKey: 'medicinesPage.medicine',
   });

@@ -3,11 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useFormContext, useFormState } from 'react-hook-form';
 import { ScanBarcode } from 'lucide-react';
 
-import {
-  useMedicineFieldError,
-  type MedicineFormData,
-} from '@/entities/medicine';
+import type { MedicineFormData } from '@/entities/medicine';
 import { BarcodeScanner } from '@/shared/barcode';
+import { useFieldError } from '@/shared/lib';
 import { Button, Field, FieldError, FieldLabel, Input } from '@/shared/ui';
 
 export function MedicineBarcodeScanner() {
@@ -20,7 +18,7 @@ export function MedicineBarcodeScanner() {
 
   const [scanOpen, setScanOpen] = useState(false);
 
-  const { te } = useMedicineFieldError('medicinesPage.form');
+  const { te } = useFieldError('medicinesPage.form');
 
   return (
     <>

@@ -15,6 +15,7 @@ export {
   usePerPage,
   type PerPageOption,
 } from './hooks/usePerPage';
+export { useFieldError } from './hooks/useFieldError';
 export { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
 export { useDocumentDirection } from './hooks/useDocumentDirection';
 export { useGeolocation, type LatLng } from './hooks/useGeolocation';

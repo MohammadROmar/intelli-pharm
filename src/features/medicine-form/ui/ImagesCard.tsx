@@ -3,11 +3,8 @@ import { useFormContext, useFormState } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { PackagePlus } from 'lucide-react';
 
-import {
-  useMedicineFieldError,
-  type MedicineFormData,
-  type ImageFile,
-} from '@/entities/medicine';
+import type { MedicineFormData, ImageFile } from '@/entities/medicine';
+import { useFieldError } from '@/shared/lib';
 import {
   Card,
   CardContent,
@@ -29,7 +26,7 @@ export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
   const { errors, isSubmitted } = useFormState<MedicineFormData>({
     name: ['imagesCount'],
   });
-  const { te } = useMedicineFieldError('medicinesPage.form');
+  const { te } = useFieldError('medicinesPage.form');
 
   const { t } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.form',

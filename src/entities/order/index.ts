@@ -10,4 +10,5 @@ export type {
 } from './model/orderTypes';
 
 export { OrderRow } from './ui/OrderRow';
+export { OrderSelector } from './ui/OrderSelector';
 export { OrderStatusBadge } from './ui/OrderStatusBadge';

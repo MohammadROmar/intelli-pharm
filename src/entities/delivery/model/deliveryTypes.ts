@@ -6,6 +6,13 @@ export type DeliveryStatus =
 
 export type PaymentStatus = 'pending' | 'paid' | 'partial';
 
+export type AssignDeliveryPayload = {
+  user_id: number;
+  order_id: number;
+  scheduled_at: string;
+  notes: string | undefined;
+};
+
 export type DeliveryConfirmation = {
   id: number;
   delivery_id: number;

@@ -22,7 +22,6 @@ export type {
 } from './model/medicineTypes';
 export { useGetMedicine } from './model/useGetMedicine';
 export { useMedicineImages } from './model/useMedicineImages';
-export { useFieldError as useMedicineFieldError } from './model/useFieldError';
 
 export { MedicineRow } from './ui/MedicineRow';
 export { MedicineSelector } from './ui/MedicineSelector';
