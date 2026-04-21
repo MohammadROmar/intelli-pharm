@@ -15,7 +15,7 @@ export function ScanPageSkeleton() {
       </div>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="gap-4">
           <div className="flex w-full items-center justify-center">
             <Skeleton className="size-16" />
           </div>

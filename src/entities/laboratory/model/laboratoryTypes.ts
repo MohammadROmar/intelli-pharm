@@ -1,8 +1,5 @@
 export type Laboratory = {
-  name: {
-    ar: string;
-    en: string;
-  };
+  name: { ar: string; en: string };
 };
 
 export type LaboratoryListItem = { id: number; name: string };
@@ -15,7 +12,7 @@ export type LaboratoriesResponse = {
 export type LaboratoryMedicine = {
   id: number;
   category_id: number;
-  name: string;
+  commercial_name: string;
   price: string;
   is_imported: number;
   is_active: number;

@@ -14,7 +14,6 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const initAuth = async () => {
       const token = initialRefreshTokenRef.current;
-      console.log(token);
 
       if (!token) {
         dispatch(logout());

@@ -25,7 +25,7 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
   return (
     <TableRow>
       <TableCell className="text-muted-foreground">{medicine.id}</TableCell>
-      <TableCell>{medicine.name}</TableCell>
+      <TableCell>{medicine.commercial_name}</TableCell>
       <TableCell>
         <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
           {medicine.is_active ? t('active') : t('inactive')}

@@ -32,7 +32,7 @@ export function DeleteMedicineModal({
   return (
     <DeleteModal
       hasItem={!!medicine}
-      label={medicine?.name}
+      label={medicine?.commercial_name}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

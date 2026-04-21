@@ -35,7 +35,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
         <DetailCell label={t('labelCategory')}>
           <Badge asChild variant="secondary" className="font-normal">
             <Link to={`/dashboard/categories/${medicine.category.id}`}>
-              <Folders className="mr-1 size-3" />
+              <Folders className="size-3" />
               {medicine.category.name}
             </Link>
           </Badge>
@@ -69,7 +69,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
         </DetailCell>
         <DetailCell label={t('labelStatus')}>
           <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
-            <Activity className="mr-1 size-3" />
+            <Activity className="size-3" />
             {medicine.is_active ? t('active') : t('inactive')}
           </Badge>
         </DetailCell>
@@ -81,7 +81,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
         <DetailCell label={t('labelImported')}>
           {medicine.is_imported ? (
             <Badge variant="outline" className="font-normal">
-              <Truck className="mr-1 size-3" />
+              <Truck className="size-3" />
               {t('yes')}
             </Badge>
           ) : (
@@ -92,7 +92,7 @@ export function MedicineInfoGrid({ medicine }: Props) {
           {medicine.laboratory ? (
             <Badge asChild variant="secondary" className="font-normal">
               <Link to={`/dashboard/laboratories/${medicine.laboratory.id}`}>
-                <FlaskConical className="mr-1 size-3" />
+                <FlaskConical className="size-3" />
                 {medicine.laboratory.name}
               </Link>
             </Badge>

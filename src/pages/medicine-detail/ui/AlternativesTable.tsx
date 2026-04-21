@@ -53,7 +53,7 @@ export function AlternativesTable({ alternatives, mode }: Props) {
                 <TableCell className="text-muted-foreground">
                   {alt.id}
                 </TableCell>
-                <TableCell>{alt.name}</TableCell>
+                <TableCell>{alt.commercial_name}</TableCell>
                 <TableCell className="tabular-nums">
                   {formatPrice(alt.price, i18n.language)}
                 </TableCell>

@@ -5,6 +5,7 @@ export {
   type Theme,
 } from './theme/ThemeContext';
 export { useTheme } from './theme/useTheme';
+
 export {
   SIDEBAR_COOKIE_MAX_AGE,
   SIDEBAR_COOKIE_NAME,
@@ -14,4 +15,6 @@ export {
   SIDEBAR_WIDTH_MOBILE,
   sidebarData,
 } from './sidebar/constants';
+export type { NavSubItem, SidebarItem } from './sidebar/constants';
+
 export { useAppDispatch, useAppSelector } from './store/typedStore';

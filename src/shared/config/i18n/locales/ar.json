@@ -306,6 +306,127 @@
     }
   },
 
+  "deliveriesPage": {
+    "status": {
+      "pending": "قيد الانتظار",
+      "in_progress": "جارٍ التنفيذ",
+      "completed": "مكتمل",
+      "cancelled": "ملغي"
+    },
+    "paymentStatus": {
+      "pending": "قيد الانتظار",
+      "paid": "مدفوع",
+      "partial": "جزئي"
+    },
+    "list": {
+      "title": "التوصيلات",
+      "subtitle": "قم بإدارة سجلات التوصيلات من خلال الجدول أدناه.",
+      "all": "جميع التوصيلات",
+      "id": "المعرف",
+      "pharmacyName": "اسم الصيدلية",
+      "scheduledAt": "موعد التوصيل",
+      "status": "حالة التوصيل",
+      "paymentStatus": "حالة الدفع",
+      "paymentAmount": "المبلغ",
+      "totalItems": "جميع العناصر",
+      "actions": "الإجراءات"
+    },
+    "changeStatus": {
+      "title": "تغيير حالة التوصيل",
+      "description": "الخطوة {{step}} من 2",
+      "tooltipLabel": "تغيير الحالة",
+      "terminalDescription": "وصل هذا التوصيل إلى حالة نهائية.",
+      "terminalCompleted": "اكتمل هذا التوصيل ولا يمكن تعديله.",
+      "terminalCancelled": "تم إلغاء هذا التوصيل ولا يمكن تعديله.",
+      "optional": "اختياري",
+      "back": "رجوع",
+      "cancel": "إلغاء",
+      "next": "التالي",
+      "confirm": "تأكيد التغيير",
+      "submitting": "جارٍ الحفظ...",
+      "confirmPrompt": "يرجى مراجعة التغييرات قبل التأكيد.",
+      "successMessage": "تم تحديث حالة التوصيل بنجاح",
+      "steps": {
+        "selectStatus": "اختر الحالة",
+        "confirm": "تأكيد"
+      },
+      "summary": {
+        "currentStatus": "الحالة الحالية",
+        "newStatus": "الحالة الجديدة",
+        "newPaymentStatus": "حالة الدفع"
+      },
+      "fields": {
+        "status": {
+          "title": "الحالة",
+          "label": "الحالة الجديدة",
+          "placeholder": "اختر الحالة الجديدة"
+        },
+        "paymentStatus": {
+          "label": "حالة الدفع",
+          "placeholder": "اختر حالة الدفع"
+        },
+        "receiverName": {
+          "label": "اسم المستلم",
+          "placeholder": "الاسم الكامل للشخص الذي استلم التوصيل"
+        },
+        "paymentAmount": {
+          "label": "المبلغ المحصَّل"
+        },
+        "checkNotes": {
+          "label": "ملاحظات الفحص",
+          "placeholder": "أي ملاحظات عند التسليم..."
+        }
+      }
+    },
+    "detail": {
+      "changeStatus": "تغيير الحالة",
+      "deliveryNo": "التوصيل #{{id}}",
+      "createdOn": "أُنشئ في {{date}}",
+      "notCompleted": "لم يكتمل بعد",
+      "sections": {
+        "delivery": "معلومات التوصيل",
+        "deliverySubtitle": "معلومات الموعد وملاحظات التعامل.",
+        "financial": "الملخص المالي",
+        "financialSubtitle": "إجمالي الطلب وعدد الأصناف بنظرة سريعة.",
+        "related": "السجلات المرتبطة",
+        "relatedSubtitle": "الصيدلية المرتبطة ومرجع الطلب.",
+        "items": "عناصر الطلب",
+        "itemsSubtitle": "قائمة تفصيلية بالأدوية والكميات والأسعار.",
+        "confirmation": "تأكيد التوصيل",
+        "confirmationSubtitle": "إثبات التسليم مع تفاصيل التحصيل وملاحظات الحالة."
+      },
+      "fields": {
+        "scheduledAt": "تاريخ الجدولة",
+        "completedAt": "تاريخ الإتمام",
+        "createdAt": "تاريخ الإنشاء",
+        "status": "الحالة",
+        "paymentStatus": "الدفع",
+        "assignedTo": "مُعيَّن إلى",
+        "updatedAt": "آخر تحديث",
+        "notes": "ملاحظات",
+        "totalPrice": "السعر الإجمالي",
+        "requiredPayment": "المبلغ المطلوب",
+        "numberOfItems": "عدد العناصر",
+        "pharmacy": "الصيدلية",
+        "order": "الطلب",
+        "receiverName": "اسم المستلم",
+        "paymentCollected": "المبلغ المحصَّل",
+        "confirmedAt": "تاريخ التأكيد",
+        "checkNotes": "ملاحظات الفحص"
+      },
+      "table": {
+        "medicineId": "المعرف",
+        "medicine": "الدواء",
+        "quantity": "الكمية",
+        "unitPrice": "سعر الوحدة",
+        "total": "الإجمالي",
+        "totalItems": "جميع العناصر",
+        "totalPrice": "السعر الكلي",
+        "actions": "الإجراءات"
+      }
+    }
+  },
+
   "regionsPage": {
     "region": "المنطقة",
     "list": {
@@ -933,7 +1054,8 @@
       "seasonal": "المقاييس الموسمية",
       "medicine": "مقاييس الأدوية",
       "area": "مقاييس المناطق",
-      "pharmacy": "مقاييس الصيدليات"
+      "pharmacy": "مقاييس الصيدليات",
+      "deliveries": "التوصيلات"
     },
 
     "regions": {
@@ -962,6 +1084,10 @@
       "medicine": "مقاييس الأدوية",
       "area": "مقاييس المناطق",
       "pharmacy": "مقاييس الصيدليات"
+    },
+    "deliveries": {
+      "list": "جميع التوصيلات",
+      "assign": "تعيين توصيل"
     }
   },
 

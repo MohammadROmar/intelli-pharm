@@ -2,6 +2,7 @@ import {
   Bot,
   Pill,
   Cross,
+  Truck,
   Users,
   MapPin,
   Package,
@@ -10,6 +11,7 @@ import {
   BarChart3,
   FlaskConical,
   LayoutDashboard,
+  type LucideIcon,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -19,53 +21,47 @@ export const SIDEBAR_WIDTH_MOBILE = '18rem';
 export const SIDEBAR_WIDTH_ICON = '3rem';
 export const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
-export const sidebarData = [
-  {
-    label: 'labels.dashboard',
-    url: '/dashboard',
-    icon: LayoutDashboard,
-  },
-  {
-    label: 'labels.chat',
-    url: '/chat',
-    icon: Bot,
-  },
-  {
-    label: 'labels.orders',
-    url: '/dashboard/orders',
-    icon: Package,
-  },
+export type NavSubItem = {
+  label: string;
+  url: string;
+};
+
+export type SidebarItem = {
+  label: string;
+  url: string;
+  icon?: LucideIcon;
+  isActive?: boolean;
+  items?: NavSubItem[];
+};
+
+export const sidebarData: SidebarItem[] = [
+  { label: 'labels.dashboard', url: '/dashboard', icon: LayoutDashboard },
+  { label: 'labels.chat', url: '/chat', icon: Bot },
+  { label: 'labels.orders', url: '/dashboard/orders', icon: Package },
   {
     label: 'labels.laboratories',
     url: '/dashboard/laboratories',
     icon: FlaskConical,
   },
-  {
-    label: 'labels.cities',
-    url: '/dashboard/cities',
-    icon: Building2,
-  },
+  { label: 'labels.cities', url: '/dashboard/cities', icon: Building2 },
   {
     label: 'labels.metrics',
     url: '/dashboard/metrics',
     icon: BarChart3,
     items: [
-      {
-        label: 'metrics.seasonal',
-        url: '/dashboard/metrics/seasonal',
-      },
-      {
-        label: 'metrics.medicine',
-        url: '/dashboard/metrics/medicine',
-      },
-      {
-        label: 'metrics.area',
-        url: '/dashboard/metrics/area',
-      },
-      {
-        label: 'metrics.pharmacy',
-        url: '/dashboard/metrics/pharmacy',
-      },
+      { label: 'metrics.seasonal', url: '/dashboard/metrics/seasonal' },
+      { label: 'metrics.medicine', url: '/dashboard/metrics/medicine' },
+      { label: 'metrics.area', url: '/dashboard/metrics/area' },
+      { label: 'metrics.pharmacy', url: '/dashboard/metrics/pharmacy' },
+    ],
+  },
+  {
+    label: 'labels.deliveries',
+    url: '/dashboard/deliveries',
+    icon: Truck,
+    items: [
+      { label: 'deliveries.list', url: '/dashboard/deliveries' },
+      { label: 'deliveries.assign', url: '/dashboard/deliveries/assign' },
     ],
   },
   {
@@ -73,14 +69,8 @@ export const sidebarData = [
     url: '/dashboard/regions',
     icon: MapPin,
     items: [
-      {
-        label: 'regions.list',
-        url: '/dashboard/regions',
-      },
-      {
-        label: 'regions.new',
-        url: '/dashboard/regions/new',
-      },
+      { label: 'regions.list', url: '/dashboard/regions' },
+      { label: 'regions.new', url: '/dashboard/regions/new' },
     ],
   },
   {
@@ -88,14 +78,8 @@ export const sidebarData = [
     url: '/dashboard/pharmacies',
     icon: Cross,
     items: [
-      {
-        label: 'pharmacies.list',
-        url: '/dashboard/pharmacies',
-      },
-      {
-        label: 'pharmacies.new',
-        url: '/dashboard/pharmacies/new',
-      },
+      { label: 'pharmacies.list', url: '/dashboard/pharmacies' },
+      { label: 'pharmacies.new', url: '/dashboard/pharmacies/new' },
     ],
   },
   {
@@ -104,18 +88,9 @@ export const sidebarData = [
     icon: Pill,
     isActive: false,
     items: [
-      {
-        label: 'medicines.list',
-        url: '/dashboard/medicines',
-      },
-      {
-        label: 'medicines.scanMedicine',
-        url: '/dashboard/medicines/scan',
-      },
-      {
-        label: 'medicines.new',
-        url: '/dashboard/medicines/new',
-      },
+      { label: 'medicines.list', url: '/dashboard/medicines' },
+      { label: 'medicines.scanMedicine', url: '/dashboard/medicines/scan' },
+      { label: 'medicines.new', url: '/dashboard/medicines/new' },
     ],
   },
   {
@@ -124,14 +99,8 @@ export const sidebarData = [
     icon: Folders,
     isActive: false,
     items: [
-      {
-        label: 'categories.list',
-        url: '/dashboard/categories',
-      },
-      {
-        label: 'categories.new',
-        url: '/dashboard/categories/new',
-      },
+      { label: 'categories.list', url: '/dashboard/categories' },
+      { label: 'categories.new', url: '/dashboard/categories/new' },
     ],
   },
   {
@@ -140,14 +109,8 @@ export const sidebarData = [
     icon: Users,
     isActive: false,
     items: [
-      {
-        label: 'employees.list',
-        url: '/dashboard/employees',
-      },
-      {
-        label: 'employees.new',
-        url: '/dashboard/employees/new',
-      },
+      { label: 'employees.list', url: '/dashboard/employees' },
+      { label: 'employees.new', url: '/dashboard/employees/new' },
     ],
   },
 ];

@@ -22,14 +22,16 @@ export function MedicineDetailHeader({ medicine }: Props) {
     keyPrefix: 'medicinesPage.detail',
   });
 
-  const pageTitle = `${medicine.name} · ${t('pageTitle')} - IntelliPharma`;
+  const pageTitle = `${medicine.commercial_name} · ${t('pageTitle')} - IntelliPharma`;
 
   return (
     <>
       <title>{pageTitle}</title>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">{medicine.name}</h1>
+        <h1 className="text-3xl font-bold tracking-tight">
+          {medicine.commercial_name}
+        </h1>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

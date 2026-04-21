@@ -6,11 +6,13 @@ import { apiClient, type ApiError, type ApiResponse } from '@/shared/api';
 import { getPage, getPerPage } from '@/shared/lib';
 
 type Props = {
+  module?: string;
   queryKey: string;
-  filters: Record<string, string | null | undefined>;
+  filters?: Record<string, string | null | undefined>;
 };
 
 export function useGetEntities<T extends { data?: Y[] }, Y>({
+  module = 'erp',
   queryKey,
   filters,
 }: Props) {
@@ -24,7 +26,7 @@ export function useGetEntities<T extends { data?: Y[] }, Y>({
 
   return useQuery<ApiResponse<T>, ApiError>({
     queryKey: [queryKey, { page_number, per_page, filters }, i18n.language],
-    queryFn: () => apiClient.get(`/erp/v1/${queryKey}`, { params }),
+    queryFn: () => apiClient.get(`/${module}/v1/${queryKey}`, { params }),
     placeholderData: (prev) => {
       const data = prev?.data?.data;
       return data && data.length > 0 ? prev : undefined;

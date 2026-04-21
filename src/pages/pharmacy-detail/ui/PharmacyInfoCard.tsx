@@ -25,7 +25,7 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
             variant={pharmacy.is_active ? 'default' : 'secondary'}
             className="font-normal"
           >
-            <Activity className="mr-1 size-3" />
+            <Activity className="size-3" />
             {pharmacy.is_active ? t('active') : t('inactive')}
           </Badge>
         </DetailCell>

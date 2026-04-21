@@ -36,7 +36,7 @@ export default function MedicineScanPage() {
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <Card>
-        <CardHeader className="text-center">
+        <CardHeader className="gap-4 text-center">
           <div className="bg-muted text-muted-foreground mx-auto flex size-16 items-center justify-center rounded-2xl">
             <ScanBarcode className="size-8" />
           </div>

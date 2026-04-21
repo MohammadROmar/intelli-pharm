@@ -41,7 +41,7 @@ export type MedicineStock = {
 export type AlternativeMedicine = {
   id: number;
   category_id: number | null;
-  name: string;
+  commercial_name: string;
   price: string;
   is_imported: boolean;
   is_active: boolean;
@@ -52,7 +52,7 @@ export type AlternativeMedicine = {
 export type Medicine = {
   id: number;
   category_id: number;
-  name: string;
+  commercial_name: string;
   price: string;
   is_imported: boolean;
   is_active: boolean;
@@ -99,7 +99,7 @@ export type MedicineFilters = {
 export type BarcodeScanResult = {
   id: number;
   category_id: number;
-  name: string;
+  commercial_name: string;
   price: string;
   is_imported: boolean;
   is_active: boolean;

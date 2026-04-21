@@ -60,7 +60,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
             onClick={handleSend}
             disabled={!value.trim() || isLoading}
             aria-label={t('sendButton')}
-            className="mr-1 mb-1 size-9 shrink-0 rounded-full! transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50"
+            className="mb-1 size-9 shrink-0 rounded-full! transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 ltr:ml-1 rtl:mr-1"
           >
             <ArrowUp className="size-4" />
           </Button>

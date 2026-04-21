@@ -15,23 +15,9 @@ import {
   SidebarMenuLink,
   useSidebar,
 } from '@/shared/ui';
+import type { NavSubItem, SidebarItem } from '@/shared/config';
 
-type NavSubItem = {
-  label: string;
-  url: string;
-};
-
-type SidebarItem = {
-  label: string;
-  url: string;
-  icon?: LucideIcon;
-  isActive?: boolean;
-  items?: NavSubItem[];
-};
-
-type NavMainProps = {
-  items: SidebarItem[];
-};
+type NavMainProps = { items: SidebarItem[] };
 
 type NavItemContentProps = { icon?: LucideIcon; label: string };
 

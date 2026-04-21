@@ -304,6 +304,126 @@
     }
   },
 
+  "deliveriesPage": {
+    "status": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "paymentStatus": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "partial": "Partial"
+    },
+    "list": {
+      "title": "Deliveries",
+      "subtitle": "Manage delivery records using the table below.",
+      "all": "All Deliveries",
+      "id": "ID",
+      "pharmacyName": "Pharmacy Name",
+      "scheduledAt": "Delivery Time",
+      "status": "Delivery Status",
+      "paymentStatus": "Payment Status",
+      "paymentAmount": "Amount",
+      "totalItems": "Total Items",
+      "actions": "Actions"
+    },
+    "changeStatus": {
+      "title": "Change Delivery Status",
+      "description": "Step {{step}} of 2",
+      "tooltipLabel": "Change Status",
+      "terminalDescription": "This delivery has reached a final state.",
+      "terminalCompleted": "This delivery has been completed and can no longer be modified.",
+      "terminalCancelled": "This delivery was cancelled and can no longer be modified.",
+      "optional": "optional",
+      "back": "Back",
+      "cancel": "Cancel",
+      "next": "Next",
+      "confirm": "Confirm Change",
+      "submitting": "Saving...",
+      "confirmPrompt": "Please review the changes before confirming.",
+      "successMessage": "Delivery status updated successfully",
+      "steps": {
+        "selectStatus": "Select Status",
+        "confirm": "Confirm"
+      },
+      "summary": {
+        "currentStatus": "Current Status",
+        "newStatus": "New Status",
+        "newPaymentStatus": "Payment Status"
+      },
+      "fields": {
+        "status": {
+          "label": "New Status",
+          "placeholder": "Select new status"
+        },
+        "paymentStatus": {
+          "label": "Payment Status",
+          "placeholder": "Select payment status"
+        },
+        "receiverName": {
+          "label": "Receiver Name",
+          "placeholder": "Full name of the person who received the delivery"
+        },
+        "paymentAmount": {
+          "label": "Payment Amount Collected"
+        },
+        "checkNotes": {
+          "label": "Check Notes",
+          "placeholder": "Any observations at the time of delivery..."
+        }
+      }
+    },
+    "detail": {
+      "changeStatus": "Change Status",
+      "deliveryNo": "Delivey #{{id}}",
+      "createdOn": "Created on {{date}}",
+      "notCompleted": "Not completed yet",
+      "sections": {
+        "delivery": "Delivery Information",
+        "deliverySubtitle": "Schedule and handling notes.",
+        "financial": "Financial Summary",
+        "financialSubtitle": "Order total and item count at a glance.",
+        "related": "Related Records",
+        "relatedSubtitle": "Linked pharmacy and order reference.",
+        "items": "Order Items",
+        "itemsSubtitle": "Detailed list of medicines, quantities, and pricing.",
+        "confirmation": "Delivery Confirmation",
+        "confirmationSubtitle": "Proof of handover with payment and condition notes."
+      },
+      "fields": {
+        "scheduledAt": "Scheduled Date",
+        "completedAt": "Completed Date",
+        "createdAt": "Created At",
+        "status": "Status",
+        "paymentStatus": "Payment",
+        "updatedAt": "Last Updated",
+        "notes": "Notes",
+        "totalPrice": "Total Price",
+        "requiredPayment": "Required Payment",
+        "numberOfItems": "No. of Items",
+        "pharmacy": "Pharmacy",
+        "assignedTo": "Assigned To",
+        "order": "Order",
+        "receiverName": "Receiver Name",
+        "paymentCollected": "Payment Collected",
+        "confirmedAt": "Confirmed At",
+        "checkNotes": "Check Notes"
+      },
+      "table": {
+        "medicineId": "ID",
+        "medicine": "Medicine",
+        "quantity": "Qty",
+        "unitPrice": "Unit Price",
+        "total": "Total",
+        "totalItems": "Total items",
+        "totalPrice": "Total price",
+        "actions": "Actions"
+      }
+    }
+  },
+
   "regionsPage": {
     "region": "Region",
     "list": {
@@ -926,7 +1046,8 @@
       "seasonal": "Seasonal Metrics",
       "medicine": "Medicine Metrics",
       "area": "Area Metrics",
-      "pharmacy": "Pharmacy Metrics"
+      "pharmacy": "Pharmacy Metrics",
+      "deliveries": "Deliveries"
     },
 
     "regions": {
@@ -955,6 +1076,10 @@
       "medicine": "Medicine Metrics",
       "area": "Area Metrics",
       "pharmacy": "Pharmacy Metrics"
+    },
+    "deliveries": {
+      "list": "All Deliveries",
+      "assign": "Assign Delivery"
     }
   },
 

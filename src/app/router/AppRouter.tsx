@@ -22,6 +22,9 @@ import { LazyCityListPage } from '@/pages/city-list';
 import { LazyMetricsPharmacyPage } from '@/pages/metrics-pharmacy';
 import { LazyMetricsMedicinePage } from '@/pages/metrics-medicine';
 
+import { LazyDeliveryListPage } from '@/pages/delivery-list';
+import { LazyDeliveryDetailPage } from '@/pages/delivery-detail';
+
 import { LazyRegionListPage } from '@/pages/region-list';
 import { LazyRegionCreatePage } from '@/pages/region-create';
 import { LazyRegionEditPage } from '@/pages/region-edit';
@@ -99,6 +102,14 @@ const router = createBrowserRouter([
                 children: [
                   { path: 'pharmacy', element: <LazyMetricsPharmacyPage /> },
                   { path: 'medicine', element: <LazyMetricsMedicinePage /> },
+                ],
+              },
+
+              {
+                path: 'deliveries',
+                children: [
+                  { index: true, element: <LazyDeliveryListPage /> },
+                  { path: ':id', element: <LazyDeliveryDetailPage /> },
                 ],
               },
 

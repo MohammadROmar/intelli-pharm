@@ -8,8 +8,8 @@ import {
 } from '@/shared/ui';
 
 type Props = {
-  altFor?: { id: number; name: string };
-} & Partial<GenericSingleSelectProps<{ name: string; id: number }>>;
+  altFor?: { id: number; commercial_name: string };
+} & Partial<GenericSingleSelectProps<{ commercial_name: string; id: number }>>;
 
 export function MedicineSelector({
   altFor,
@@ -34,7 +34,7 @@ export function MedicineSelector({
       invalid={invalid}
       options={selectableMedicines}
       valueKey="id"
-      labelKey="name"
+      labelKey="commercial_name"
       icon={Pill}
       value={value}
       onValueChange={onValueChange!}
