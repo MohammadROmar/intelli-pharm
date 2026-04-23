@@ -58,7 +58,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
               disabled={isLoading}
               label={t('form.fields.active')}
               description={t('employeesPage.form.activeDescription')}
-              checked={field.value}
+              checked={field.value ?? false}
               onCheckedChange={field.onChange}
             />
           )}

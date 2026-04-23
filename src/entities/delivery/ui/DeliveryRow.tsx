@@ -1,16 +1,17 @@
-import { formatDate } from '@/shared/lib';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { RefreshCw } from 'lucide-react';
+
+import { DeliveryStatusBadge } from './DeliveryStatusBadge';
+import { DeliveryPaymentStatusBadge } from './DeliveryPaymentStatusBadge';
 import type { DeliveryListItem } from '../model/deliveryTypes';
+import { formatDate, formatPrice } from '@/shared/lib';
 import {
   TableCell,
   TableActions,
   TableRow,
   DropdownMenuItem,
 } from '@/shared/ui';
-import { useTranslation } from 'react-i18next';
-import { DeliveryStatusBadge } from './DeliveryStatusBadge';
-import { DeliveryPaymentStatusBadge } from './DeliveryPaymentStatusBadge';
-import { Link } from 'react-router-dom';
-import { RefreshCw } from 'lucide-react';
 
 type DeliveryRowProps = { delivery: DeliveryListItem };
 
@@ -19,8 +20,11 @@ export function DeliveryRow({ delivery }: DeliveryRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{delivery.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">
+        {delivery.id}
+      </TableCell>
       <TableCell>{delivery.pharmacy_name}</TableCell>
+      <TableCell>{delivery.distributor_name}</TableCell>
       <TableCell className="text-muted-foreground">
         {formatDate(delivery.scheduled_at, i18n.language, false)}
       </TableCell>
@@ -29,7 +33,7 @@ export function DeliveryRow({ delivery }: DeliveryRowProps) {
         {<DeliveryPaymentStatusBadge status={delivery.payment_status} />}
       </TableCell>
       <TableCell className="font-medium">
-        {delivery.required_payment_amount}
+        {formatPrice(delivery.required_payment_amount, i18n.language)}
       </TableCell>
       <TableCell className="text-muted-foreground">
         {delivery.number_of_items}

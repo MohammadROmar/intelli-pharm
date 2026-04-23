@@ -9,12 +9,12 @@ type Props = {
   className?: string;
 };
 
-const statusStyles: Record<DeliveryStatus, string> = {
-  pending: 'bg-secondary text-secondary-foreground border-border',
-  in_progress: 'bg-primary/10 text-primary border-primary/20',
-  completed: 'bg-primary/10 text-primary border-primary/20',
-  cancelled: 'bg-destructive/10 text-destructive border-destructive/20',
-};
+const statusStyles = {
+  pending: 'muted',
+  in_progress: 'info',
+  completed: 'success',
+  cancelled: 'destructive',
+} as const;
 
 export const DeliveryStatusBadge = ({ status, className }: Props) => {
   const { t } = useTranslation('translation', {
@@ -23,8 +23,8 @@ export const DeliveryStatusBadge = ({ status, className }: Props) => {
 
   return (
     <Badge
-      variant="outline"
-      className={cn('font-medium', statusStyles[status], className)}
+      variant={statusStyles[status]}
+      className={cn('font-medium', className)}
     >
       {t(status)}
     </Badge>

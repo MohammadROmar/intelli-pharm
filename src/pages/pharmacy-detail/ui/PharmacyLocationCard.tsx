@@ -40,12 +40,15 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelLatitude')}>
           <span className="flex items-center gap-1.5">
-            <Navigation className="text-muted-foreground size-4 shrink-0" />
+            <Navigation className="text-muted-foreground size-3.5 shrink-0" />
             <span className="font-mono tabular-nums">{pharmacy.latitude}</span>
           </span>
         </DetailCell>
         <DetailCell label={t('labelLongitude')}>
-          <span className="font-mono tabular-nums">{pharmacy.longitude}</span>
+          <span className="flex items-center gap-1.5">
+            <Navigation className="text-muted-foreground size-3.5 shrink-0 -rotate-90" />
+            <span className="font-mono tabular-nums">{pharmacy.longitude}</span>
+          </span>
         </DetailCell>
       </div>
 
@@ -65,7 +68,7 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
           className="gap-2"
           onClick={() => setMapVisible(true)}
         >
-          <MapPin className="size-4" />
+          <MapPin className="size-3.5" />
           {t('showOnMap')}
         </Button>
       )}

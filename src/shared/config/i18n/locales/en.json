@@ -80,6 +80,8 @@
       "confirmMessage": "You are about to mark this order as {{status}}.",
       "confirmDestructiveMessage": "You are about to cancel this order. This action cannot be undone.",
 
+      "terminalStatusTooltip": "`{{status}}` is a final status. No further changes can be made.",
+
       "error": "Something went wrong. Please try again.",
 
       "statusDescription": {
@@ -323,6 +325,7 @@
       "all": "All Deliveries",
       "id": "ID",
       "pharmacyName": "Pharmacy Name",
+      "distributorName": "]istributor Name",
       "scheduledAt": "Delivery Time",
       "status": "Delivery Status",
       "paymentStatus": "Payment Status",
@@ -402,8 +405,9 @@
       }
     },
     "detail": {
+      "pageTitle": "Delivery Details",
       "changeStatus": "Change Status",
-      "deliveryNo": "Delivey #{{id}}",
+      "deliveryNo": "Delivery #{{id}}",
       "createdOn": "Created on {{date}}",
       "notCompleted": "Not completed yet",
       "sections": {
@@ -443,8 +447,7 @@
         "quantity": "Qty",
         "unitPrice": "Unit Price",
         "total": "Total",
-        "totalItems": "Total items",
-        "totalPrice": "Total price",
+        "totalItems": "Order Total",
         "actions": "Actions"
       }
     }
@@ -458,7 +461,7 @@
       "all": "All Regions",
       "id": "ID",
       "name": "Name",
-      "cityId": "City ID",
+      "city": "City",
       "actions": "Actions"
     },
     "create": {
@@ -913,6 +916,9 @@
       "id": "ID",
       "name": "Name",
       "email": "Email",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
       "role": "Role",
       "actions": "Actions",
       "searchPlaceholder": "Search Employee..."
@@ -1151,6 +1157,7 @@
   "queryDisabled": {
     "itemId": {
       "title": "Cannot load this item",
+      "editTitle": "Cannot edit this item",
       "description": "The page link is invalid. Please use a valid numeric item ID.",
       "receivedValue": "Received value: {{value}}",
       "actions": {

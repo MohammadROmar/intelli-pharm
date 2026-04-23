@@ -9,9 +9,11 @@ type RegionRowProps = {
 export function RegionRow({ region, onDelete }: RegionRowProps) {
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{region.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">
+        {region.id}
+      </TableCell>
       <TableCell>{region.name}</TableCell>
-      <TableCell className="text-muted-foreground">{region.city_id}</TableCell>
+      <TableCell>{region.city.name}</TableCell>
 
       <TableActions
         item={region}

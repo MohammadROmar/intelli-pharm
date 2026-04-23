@@ -42,19 +42,19 @@ export function BarcodeScanResultCard({ result }: Props) {
           <Card className="overflow-hidden">
             <div className="from-muted/60 to-muted/20 space-y-3 bg-linear-to-b px-6 pt-6 pb-5">
               <div className="flex flex-wrap gap-2">
-                <Badge variant={result.is_active ? 'default' : 'secondary'}>
-                  <Activity className="size-3" />
+                <Badge variant={result.is_active ? 'success' : 'muted'}>
+                  <Activity />
                   {result.is_active ? t('active') : t('inactive')}
                 </Badge>
 
-                <Badge variant={result.in_stock ? 'secondary' : 'destructive'}>
-                  <Boxes className="size-3" />
+                <Badge variant={result.in_stock ? 'info' : 'destructive'}>
+                  <Boxes />
                   {result.in_stock ? t('inStock') : t('outOfStock')}
                 </Badge>
 
                 {result.is_imported && (
                   <Badge variant="outline">
-                    <Truck className="size-3" />
+                    <Truck />
                     {t('imported')}
                   </Badge>
                 )}

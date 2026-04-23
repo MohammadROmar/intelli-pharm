@@ -62,13 +62,11 @@ export function CategoryForm({
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-5"
           >
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              <BilingualNameFields
-                icon={Folder}
-                disabled={isLoading}
-                i18nPrefix="categoriesPage.form"
-              />
-            </div>
+            <BilingualNameFields
+              icon={Folder}
+              disabled={isLoading}
+              i18nPrefix="categoriesPage.form"
+            />
             <Field data-invalid={!!errors.parent_id}>
               <FieldLabel asChild>
                 <p>

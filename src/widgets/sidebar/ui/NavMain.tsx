@@ -65,9 +65,18 @@ export function NavMain({ items }: NavMainProps) {
           const hasSubItems = Boolean(item.items?.length);
           const isChildActive = item.isActive || pathname.startsWith(item.url);
 
+          const isDashboard = item.url === '/dashboard';
+
+          const styles = isChildActive
+            ? 'text-sidebar-accent-foreground font-medium'
+            : undefined;
+
           if (!hasSubItems) {
             return (
-              <SidebarMenuItem key={item.label}>
+              <SidebarMenuItem
+                key={item.label}
+                className={!isDashboard ? styles : undefined}
+              >
                 <NavLinkItem item={item} label={label} />
               </SidebarMenuItem>
             );
@@ -85,11 +94,7 @@ export function NavMain({ items }: NavMainProps) {
                   <SidebarMenuButton
                     tooltip={label}
                     onClick={handleTriggerClick}
-                    className={
-                      isChildActive
-                        ? 'text-sidebar-accent-foreground font-medium'
-                        : ''
-                    }
+                    className={styles}
                   >
                     <NavItemContent icon={item.icon} label={label} />
                     <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:mr-auto rtl:ml-0 rtl:rotate-180" />

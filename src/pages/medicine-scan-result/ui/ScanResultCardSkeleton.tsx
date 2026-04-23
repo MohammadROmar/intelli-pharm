@@ -9,7 +9,7 @@ import {
 export function ScanResultCardSkeleton() {
   return (
     <div className="grid h-full">
-      <div className="m-auto flex min-h-[70vh] w-full max-w-104.5 flex-col items-center justify-center space-y-4">
+      <div className="m-auto flex min-h-[70vh] w-full max-w-96 flex-col items-center justify-center space-y-4">
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-1.5">
             <Skeleton className="size-3.5" />

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PackagePlus } from 'lucide-react';
 
 import type { Medicine } from '../model/medicineTypes';
-import { formatDate } from '@/shared/lib';
+import { formatDate, formatPrice } from '@/shared/lib';
 import {
   Badge,
   TableRow,
@@ -24,14 +24,16 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{medicine.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">
+        {medicine.id}
+      </TableCell>
       <TableCell>{medicine.commercial_name}</TableCell>
       <TableCell>
-        <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
+        <Badge variant={medicine.is_active ? 'success' : 'muted'}>
           {medicine.is_active ? t('active') : t('inactive')}
         </Badge>
       </TableCell>
-      <TableCell>{medicine.price}</TableCell>
+      <TableCell>{formatPrice(medicine.price, i18n.language)}</TableCell>
       <TableCell className="text-muted-foreground">
         {formatDate(medicine.created_at, i18n.language, false)}
       </TableCell>

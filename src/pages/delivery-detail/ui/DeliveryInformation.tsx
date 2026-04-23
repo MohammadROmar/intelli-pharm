@@ -8,13 +8,12 @@ import {
 } from 'lucide-react';
 
 import type { DeliveryDetail } from '@/entities/delivery';
-import { formatDate } from '@/shared/lib';
-import { DetailCard, DetailCell, Separator } from '@/shared/ui';
+import { DetailCard, DetailCell, Separator, SplitDateTime } from '@/shared/ui';
 
 type Props = { delivery: DeliveryDetail };
 
 export function DeliveryInformation({ delivery }: Props) {
-  const { t, i18n } = useTranslation('translation', {
+  const { t } = useTranslation('translation', {
     keyPrefix: 'deliveriesPage.detail',
   });
 
@@ -26,17 +25,11 @@ export function DeliveryInformation({ delivery }: Props) {
     >
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('fields.scheduledAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <Calendar className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(delivery.scheduled_at, i18n.language)}
-          </span>
+          <SplitDateTime date={delivery.scheduled_at} icon={Calendar} />
         </DetailCell>
         <DetailCell label={t('fields.completedAt')}>
           {delivery.completed_at ? (
-            <span className="flex items-center gap-1.5 font-normal">
-              <CheckCircle2 className="text-muted-foreground shrink-0" />
-              {formatDate(delivery.completed_at, i18n.language)}
-            </span>
+            <SplitDateTime date={delivery.completed_at} icon={CheckCircle2} />
           ) : (
             <span className="text-muted-foreground text-sm">
               {t('notCompleted')}
@@ -49,16 +42,10 @@ export function DeliveryInformation({ delivery }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('fields.createdAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <CalendarDays className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(delivery.created_at, i18n.language)}
-          </span>
+          <SplitDateTime date={delivery.created_at} icon={CalendarDays} />
         </DetailCell>
         <DetailCell label={t('fields.updatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <RefreshCw className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(delivery.updated_at, i18n.language)}
-          </span>
+          <SplitDateTime date={delivery.updated_at} icon={RefreshCw} />
         </DetailCell>
       </div>
 

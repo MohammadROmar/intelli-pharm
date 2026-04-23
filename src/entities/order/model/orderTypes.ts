@@ -1,6 +1,6 @@
 export type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
 
-type Item = { id: number; name: string };
+type Item = { id: number; commercial_name: string };
 
 export type OrderItem = {
   order_id: number;
@@ -20,7 +20,7 @@ export type OrderListItem = {
   total_quantity: string;
   created_at: string;
   updated_at: string;
-  pharmacy: Item;
+  pharmacy: { id: number; name: string };
 };
 
 export type OrderDetail = { items: OrderItem[] } & OrderListItem;

@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { ClipboardCheck, User } from 'lucide-react';
+import { CheckCircle2, ClipboardCheck, User } from 'lucide-react';
 
 import type { DeliveryConfirmation } from '@/entities/delivery';
-import { cn, formatDate, formatPrice } from '@/shared/lib';
-import { DetailCard, DetailCell } from '@/shared/ui';
+import { cn, formatPrice } from '@/shared/lib';
+import { DetailCard, DetailCell, SplitDateTime } from '@/shared/ui';
 
 type Props = { confirmations: DeliveryConfirmation[] };
 
@@ -53,7 +53,10 @@ export function Confirmations({ confirmations }: Props) {
               </DetailCell>
 
               <DetailCell label={t('fields.confirmedAt')}>
-                {formatDate(confirmation.created_at, i18n.language)}
+                <SplitDateTime
+                  date={confirmation.created_at}
+                  icon={CheckCircle2}
+                />
               </DetailCell>
 
               {confirmation.check_notes && (

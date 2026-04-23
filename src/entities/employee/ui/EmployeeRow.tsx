@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import type { Employee } from '../model/employeeTypes';
-import { TableCell, TableRow, TableActions } from '@/shared/ui';
+import { TableCell, TableRow, TableActions, Badge } from '@/shared/ui';
 
 type EmployeeRowProps = {
   employee: Employee;
@@ -10,15 +10,22 @@ type EmployeeRowProps = {
 
 export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
   const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.roles',
+    keyPrefix: 'employeesPage',
   });
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{employee.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">
+        {employee.id}
+      </TableCell>
       <TableCell>{employee.name}</TableCell>
       <TableCell>{employee.email}</TableCell>
-      <TableCell>{t(employee.roles[0])}</TableCell>
+      <TableCell>{t(`roles.${employee.roles[0]}`)}</TableCell>
+      <TableCell>
+        <Badge variant={employee.is_active ? 'success' : 'muted'}>
+          {employee.is_active ? t('list.active') : t('list.inactive')}
+        </Badge>
+      </TableCell>
 
       <TableActions
         itemId={employee.id}

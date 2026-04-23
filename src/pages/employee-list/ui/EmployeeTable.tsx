@@ -55,6 +55,7 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
                 <TableHead>{t('list.name')}</TableHead>
                 <TableHead>{t('list.email')}</TableHead>
                 <TableHead>{t('list.role')}</TableHead>
+                <TableHead>{t('list.status')}</TableHead>
                 <TableHead>{t('list.actions')}</TableHead>
               </TableRow>
             </TableHeader>

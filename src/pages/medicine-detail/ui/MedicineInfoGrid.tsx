@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   Activity,
@@ -13,8 +12,15 @@ import {
 } from 'lucide-react';
 
 import type { Medicine } from '@/entities/medicine';
-import { formatDate, formatPrice } from '@/shared/lib';
-import { Badge, Separator, DetailCell, DetailCard } from '@/shared/ui';
+import { formatPrice } from '@/shared/lib';
+import {
+  Badge,
+  Separator,
+  BadgeLink,
+  DetailCell,
+  DetailCard,
+  SplitDateTime,
+} from '@/shared/ui';
 
 type Props = { medicine: Medicine };
 
@@ -33,12 +39,11 @@ export function MedicineInfoGrid({ medicine }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelId')}>{medicine.id}</DetailCell>
         <DetailCell label={t('labelCategory')}>
-          <Badge asChild variant="secondary" className="font-normal">
-            <Link to={`/dashboard/categories/${medicine.category.id}`}>
-              <Folders className="size-3" />
-              {medicine.category.name}
-            </Link>
-          </Badge>
+          <BadgeLink
+            label={medicine.category.name}
+            to={`/dashboard/categories/${medicine.category.id}`}
+            icon={Folders}
+          />
         </DetailCell>
       </div>
 
@@ -68,8 +73,8 @@ export function MedicineInfoGrid({ medicine }: Props) {
           </span>
         </DetailCell>
         <DetailCell label={t('labelStatus')}>
-          <Badge variant={medicine.is_active ? 'default' : 'secondary'}>
-            <Activity className="size-3" />
+          <Badge variant={medicine.is_active ? 'success' : 'muted'}>
+            <Activity />
             {medicine.is_active ? t('active') : t('inactive')}
           </Badge>
         </DetailCell>
@@ -79,23 +84,18 @@ export function MedicineInfoGrid({ medicine }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelImported')}>
-          {medicine.is_imported ? (
-            <Badge variant="outline" className="font-normal">
-              <Truck className="size-3" />
-              {t('yes')}
-            </Badge>
-          ) : (
-            <span className="font-normal">{t('no')}</span>
-          )}
+          <span className="flex items-center gap-1.5 font-normal">
+            <Truck className="text-muted-foreground size-3.5" />
+            {medicine.is_imported ? t('yes') : t('no')}
+          </span>
         </DetailCell>
         <DetailCell label={t('labelLaboratories')}>
           {medicine.laboratory ? (
-            <Badge asChild variant="secondary" className="font-normal">
-              <Link to={`/dashboard/laboratories/${medicine.laboratory.id}`}>
-                <FlaskConical className="size-3" />
-                {medicine.laboratory.name}
-              </Link>
-            </Badge>
+            <BadgeLink
+              label={medicine.laboratory.name}
+              to={`/dashboard/laboratories/${medicine.laboratory.id}`}
+              icon={FlaskConical}
+            />
           ) : (
             <span className="font-normal">-</span>
           )}
@@ -106,16 +106,11 @@ export function MedicineInfoGrid({ medicine }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelCreatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <CalendarDays className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(medicine.created_at, i18n.language)}
-          </span>
+          <SplitDateTime date={medicine.created_at} icon={CalendarDays} />
         </DetailCell>
+
         <DetailCell label={t('labelUpdatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <RefreshCw className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(medicine.updated_at, i18n.language)}
-          </span>
+          <SplitDateTime date={medicine.updated_at} icon={RefreshCw} />
         </DetailCell>
       </div>
 

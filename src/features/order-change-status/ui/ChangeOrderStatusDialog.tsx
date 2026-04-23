@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { RefreshCw } from 'lucide-react';
 
 import { type OrderStatus } from '@/entities/order';
-import { Button, Dialog, DialogContent } from '@/shared/ui';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/shared/ui';
 import { SelectionStep } from './SelectionStep';
 import { ConfirmationStep } from './ConfirmationStep';
 
@@ -30,7 +38,7 @@ export function ChangeOrderStatusDialog({
   setIsOpen,
 }: ChangeOrderStatusDialogProps) {
   const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.changeStatus',
+    keyPrefix: 'ordersPage',
   });
 
   const [step, setStep] = useState<'select' | 'confirm'>('select');
@@ -38,15 +46,13 @@ export function ChangeOrderStatusDialog({
     null,
   );
 
-  const nextStatuses = TRANSITIONS[currentStatus] || [];
+  const nextStatuses = TRANSITIONS[currentStatus] ?? [];
   const hasTransitions = nextStatuses.length > 0;
 
   const handleOpenChange = useCallback(
     (open: boolean) => {
       if (isPending) return;
-
       setIsOpen(open);
-
       if (!open) {
         setTimeout(() => {
           setStep('select');
@@ -69,16 +75,35 @@ export function ChangeOrderStatusDialog({
 
   return (
     <>
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => handleOpenChange(true)}
-        disabled={!hasTransitions}
-        className="bg-card! shrink-0 gap-1.5"
-      >
-        <RefreshCw className="size-4" />
-        {t('trigger')}
-      </Button>
+      <TooltipProvider delayDuration={300}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className="shrink-0">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleOpenChange(true)}
+                disabled={!hasTransitions}
+                className="bg-card! w-full gap-1.5"
+              >
+                <RefreshCw className="size-4" />
+                {t('changeStatus.trigger')}
+              </Button>
+            </span>
+          </TooltipTrigger>
+
+          {!hasTransitions && (
+            <TooltipContent
+              side="bottom"
+              className="max-w-56 text-center text-xs"
+            >
+              {t('changeStatus.terminalStatusTooltip', {
+                status: t(`status.${currentStatus}`),
+              })}
+            </TooltipContent>
+          )}
+        </Tooltip>
+      </TooltipProvider>
 
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogContent className="sm:max-w-md">

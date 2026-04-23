@@ -33,6 +33,7 @@ export function DeliveriesTable({ data }: Props) {
             <TableRow>
               <TableHead className="w-25">{t('list.id')}</TableHead>
               <TableHead>{t('list.pharmacyName')}</TableHead>
+              <TableHead>{t('list.distributorName')}</TableHead>
               <TableHead>{t('list.scheduledAt')}</TableHead>
               <TableHead>{t('list.status')}</TableHead>
               <TableHead>{t('list.paymentStatus')}</TableHead>

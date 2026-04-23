@@ -2,14 +2,24 @@ import { useTranslation } from 'react-i18next';
 
 import { MedicineRestock } from '@/features/medicine-restock';
 import { useGetMedicine } from '@/entities/medicine';
-import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
+import {
+  PageTitle,
+  QueryError,
+  FormSkeleton,
+  QueryDisabled,
+} from '@/shared/ui';
 
 export default function MedicineRestockPage() {
   const { t } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.restock',
   });
 
-  const { isLoading, data, isError, error, refetch } = useGetMedicine();
+  const { data, isLoading, isEnabled, isError, error, refetch } =
+    useGetMedicine();
+
+  if (!isEnabled) {
+    return <QueryDisabled isEdit path="/dashboard/categories" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

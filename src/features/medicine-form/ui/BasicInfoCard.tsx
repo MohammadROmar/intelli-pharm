@@ -209,7 +209,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
                     disabled={isPending}
                     label={t(labelKey)}
                     description={t(descKey)}
-                    checked={field.value}
+                    checked={field.value ?? false}
                     onCheckedChange={field.onChange}
                   />
                 )}

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   Cross,
@@ -10,8 +9,14 @@ import {
 } from 'lucide-react';
 
 import { OrderStatusBadge, type OrderDetail } from '@/entities/order';
-import { formatDate, formatPrice } from '@/shared/lib';
-import { Badge, DetailCard, DetailCell, Separator } from '@/shared/ui';
+import { formatPrice } from '@/shared/lib';
+import {
+  Separator,
+  BadgeLink,
+  DetailCard,
+  DetailCell,
+  SplitDateTime,
+} from '@/shared/ui';
 
 export function OrderInfoCard({ order }: { order: OrderDetail }) {
   const { t, i18n } = useTranslation('translation', {
@@ -37,16 +42,15 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelPharmacy')}>
-          <Badge asChild variant="secondary">
-            <Link to={`/dashboard/pharmacies/${order.pharmacy.id}`}>
-              <Cross />
-              {order.pharmacy.name}
-            </Link>
-          </Badge>
+          <BadgeLink
+            label={order.pharmacy.name}
+            to={`/dashboard/pharmacies/${order.pharmacy.id}`}
+            icon={Cross}
+          />
         </DetailCell>
         <DetailCell label={t('labelWarehouse')}>
           <span className="flex items-center gap-1.5">
-            <Boxes className="text-muted-foreground size-4 shrink-0" />
+            <Boxes className="text-muted-foreground size-3.5 shrink-0" />
             {order.warehouse_id}
           </span>
         </DetailCell>
@@ -62,7 +66,7 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
         </DetailCell>
         <DetailCell label={t('labelTotalQuantity')}>
           <span className="flex items-center gap-1.5">
-            <Package className="text-muted-foreground size-4 shrink-0" />
+            <Package className="text-muted-foreground size-3.5 shrink-0" />
             <span className="tabular-nums">{order.total_quantity}</span>
             <span className="text-muted-foreground text-xs font-normal">
               {t('units')}
@@ -74,17 +78,12 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
       <Separator />
 
       <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('labelCreatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <CalendarDays className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(order.created_at, i18n.language)}
-          </span>
+        <DetailCell label={t('labelCreatedAt')} className="min-w-0">
+          <SplitDateTime date={order.created_at} icon={CalendarDays} />
         </DetailCell>
-        <DetailCell label={t('labelUpdatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <RefreshCw className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(order.updated_at, i18n.language)}
-          </span>
+
+        <DetailCell label={t('labelUpdatedAt')} className="min-w-0">
+          <SplitDateTime date={order.updated_at} icon={RefreshCw} />
         </DetailCell>
       </div>
     </DetailCard>

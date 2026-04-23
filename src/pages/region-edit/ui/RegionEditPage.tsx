@@ -2,14 +2,24 @@ import { useTranslation } from 'react-i18next';
 
 import { RegionEditForm } from '@/features/region-edit';
 import { useGetRegion } from '@/entities/region';
-import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
+import {
+  PageTitle,
+  QueryError,
+  FormSkeleton,
+  QueryDisabled,
+} from '@/shared/ui';
 
 export default function RegionEditPage() {
   const { t } = useTranslation('translation', {
     keyPrefix: 'regionsPage',
   });
 
-  const { data, isError, error, isLoading, refetch } = useGetRegion();
+  const { data, isError, error, isLoading, isEnabled, refetch } =
+    useGetRegion();
+
+  if (!isEnabled) {
+    return <QueryDisabled isEdit path="/dashboard/categories" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;

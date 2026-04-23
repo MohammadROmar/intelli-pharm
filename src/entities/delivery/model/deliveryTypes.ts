@@ -50,6 +50,7 @@ export type DeliveryListItem = {
   updated_at: string;
   number_of_items: number;
   pharmacy_name: string;
+  distributor_name: string;
 };
 
 export type DeliveryListResponse = {
@@ -60,6 +61,7 @@ export type DeliveryListResponse = {
 export type DeliveryDetail = {
   id: number;
   user_id: number;
+  distributor_name: string;
   order_id: number;
   status: DeliveryStatus;
   payment_status: PaymentStatus;
@@ -68,6 +70,7 @@ export type DeliveryDetail = {
   notes: string | null;
   required_payment_amount: number;
   number_of_items: number;
+  pharmacy_id: number;
   pharmacy_name: string;
   confirmations: DeliveryConfirmation[];
   order: DeliveryOrder;

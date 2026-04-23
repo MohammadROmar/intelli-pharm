@@ -16,13 +16,13 @@ export function RegionInfoCard({ region }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelCity')}>
           <span className="flex items-center gap-1.5">
-            <Building2 className="text-muted-foreground size-4 shrink-0" />
+            <Building2 className="text-muted-foreground size-3.5 shrink-0" />
             {region.city.name}
           </span>
         </DetailCell>
         <DetailCell label={t('labelPharmaciesCount')}>
           <span className="flex items-center gap-1.5">
-            <Cross className="text-muted-foreground size-4 shrink-0" />
+            <Cross className="text-muted-foreground size-3.5 shrink-0" />
             <span className="tabular-nums">{region.pharmacies.length}</span>
           </span>
         </DetailCell>

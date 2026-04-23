@@ -43,7 +43,7 @@ export function OrderItems({ delivery }: Props) {
         <TableBody>
           {delivery.order.items.map((item) => (
             <TableRow key={item.id}>
-              <TableCell className="text-muted-foreground">
+              <TableCell className="text-muted-foreground text-xs">
                 {item.medicine.id}
               </TableCell>
               <TableCell className="font-medium">
@@ -77,9 +77,7 @@ export function OrderItems({ delivery }: Props) {
             <TableCell className="font-semibold tabular-nums">
               {delivery.number_of_items}
             </TableCell>
-            <TableCell className="text-muted-foreground text-sm">
-              {t('table.totalPrice')}
-            </TableCell>
+            <TableCell />
             <TableCell className="font-bold tabular-nums">
               {formatPrice(delivery.required_payment_amount, i18n.language)}
             </TableCell>

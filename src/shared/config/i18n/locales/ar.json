@@ -80,6 +80,8 @@
       "confirmMessage": "أنت على وشك تحديث حالة الطلب إلى {{status}}.",
       "confirmDestructiveMessage": "أنت على وشك إلغاء هذا الطلب. لا يمكن التراجع عن هذا الإجراء.",
 
+      "terminalStatusTooltip": "`{{status}}` حالة نهائية. لا يمكن إجراء أي تغييرات إضافية.",
+
       "error": "حدث خطأ ما. يرجى المحاولة مجدداً.",
 
       "statusDescription": {
@@ -325,11 +327,12 @@
       "all": "جميع التوصيلات",
       "id": "المعرف",
       "pharmacyName": "اسم الصيدلية",
+      "distributorName": "اسم الموزع",
       "scheduledAt": "موعد التوصيل",
       "status": "حالة التوصيل",
       "paymentStatus": "حالة الدفع",
       "paymentAmount": "المبلغ",
-      "totalItems": "جميع العناصر",
+      "totalItems": "عدد العناصر",
       "actions": "الإجراءات"
     },
     "changeStatus": {
@@ -405,8 +408,9 @@
       }
     },
     "detail": {
+      "pageTitle": "تفاصيل التوصيل",
       "changeStatus": "تغيير الحالة",
-      "deliveryNo": "التوصيل #{{id}}",
+      "deliveryNo": "التوصيل رقم {{id}}",
       "createdOn": "أُنشئ في {{date}}",
       "notCompleted": "لم يكتمل بعد",
       "sections": {
@@ -446,8 +450,7 @@
         "quantity": "الكمية",
         "unitPrice": "سعر الوحدة",
         "total": "الإجمالي",
-        "totalItems": "جميع العناصر",
-        "totalPrice": "السعر الكلي",
+        "totalItems": "إجمالي الطلب",
         "actions": "الإجراءات"
       }
     }
@@ -461,7 +464,7 @@
       "all": "جميع المناطق",
       "id": "المعرف",
       "name": "الاسم",
-      "cityId": "معرف المدينة",
+      "city": "المدينة",
       "actions": "الإجراءات"
     },
     "create": {
@@ -922,6 +925,9 @@
       "all": "جميع الموظفين",
       "id": "المعرف",
       "name": "الاسم",
+      "status": "الحالة",
+      "active": "نشط",
+      "inactive": "غير نشط",
       "email": "البريد الإلكتروني",
       "role": "الدور",
       "actions": "الخيارات",
@@ -1159,6 +1165,7 @@
   "queryDisabled": {
     "itemId": {
       "title": "لا يمكن تحميل هذا العنصر",
+      "editTitle": "لا يمكن تعديل هذا العنصر",
       "description": "رابط الصفحة غير صالح. يرجى استخدام معرّف رقمي صحيح للعنصر.",
       "receivedValue": "القيمة المُستلمة: {{value}}",
       "actions": {

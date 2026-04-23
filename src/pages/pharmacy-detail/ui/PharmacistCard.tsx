@@ -23,7 +23,7 @@ export function PharmacistCard({ pharmacy }: Props) {
         </DetailCell>
         <DetailCell label={t('labelPharmacistName')}>
           <span className="flex items-center gap-1.5">
-            <User className="text-muted-foreground size-4 shrink-0" />
+            <User className="text-muted-foreground size-3.5 shrink-0" />
             {pharmacy.pharmacist_name}
           </span>
         </DetailCell>
@@ -34,14 +34,14 @@ export function PharmacistCard({ pharmacy }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelPhone')}>
           <span className="flex items-center gap-1.5">
-            <Phone className="text-muted-foreground size-4 shrink-0 tabular-nums" />
+            <Phone className="text-muted-foreground size-3.5 shrink-0 tabular-nums" />
             {pharmacy.pharmacist_phone}
           </span>
         </DetailCell>
         <DetailCell label={t('labelAltPhone')}>
           {pharmacy.pharmacist_alt_phone ? (
             <span className="flex items-center gap-1.5">
-              <Phone className="text-muted-foreground size-4 shrink-0 tabular-nums" />
+              <Phone className="text-muted-foreground size-3.5 shrink-0 tabular-nums" />
               {pharmacy.pharmacist_alt_phone}
             </span>
           ) : (

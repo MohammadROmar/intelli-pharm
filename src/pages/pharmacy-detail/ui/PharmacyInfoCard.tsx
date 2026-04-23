@@ -3,8 +3,13 @@ import { Activity, Briefcase, Clock, MapPin } from 'lucide-react';
 
 import type { PharmacyDetail } from '@/entities/pharmacy';
 import { formatTime } from '@/shared/lib';
-import { Badge, DetailCard, DetailCell, Separator } from '@/shared/ui';
-import { Link } from 'react-router-dom';
+import {
+  Badge,
+  BadgeLink,
+  DetailCard,
+  DetailCell,
+  Separator,
+} from '@/shared/ui';
 
 type Props = { pharmacy: PharmacyDetail };
 
@@ -22,20 +27,19 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelStatus')}>
           <Badge
-            variant={pharmacy.is_active ? 'default' : 'secondary'}
+            variant={pharmacy.is_active ? 'success' : 'muted'}
             className="font-normal"
           >
-            <Activity className="size-3" />
+            <Activity />
             {pharmacy.is_active ? t('active') : t('inactive')}
           </Badge>
         </DetailCell>
         <DetailCell label={t('labelRegion')}>
-          <Badge asChild variant="secondary">
-            <Link to={`/dashboard/regions/${pharmacy.region_id}`}>
-              <MapPin className="text-muted-foreground size-4 shrink-0" />
-              {pharmacy.region}
-            </Link>
-          </Badge>
+          <BadgeLink
+            label={pharmacy.region}
+            to={`/dashboard/regions/${pharmacy.region_id}`}
+            icon={MapPin}
+          />
         </DetailCell>
       </div>
 
@@ -44,13 +48,13 @@ export function PharmacyInfoCard({ pharmacy }: Props) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelOpeningTime')}>
           <span className="flex items-center gap-1.5">
-            <Clock className="text-muted-foreground size-4 shrink-0" />
+            <Clock className="text-muted-foreground size-3.5 shrink-0" />
             {formatTime(pharmacy.opening_time, i18n.language)}
           </span>
         </DetailCell>
         <DetailCell label={t('labelClosingTime')}>
           <span className="flex items-center gap-1.5">
-            <Clock className="text-muted-foreground size-4 shrink-0" />
+            <Clock className="text-muted-foreground size-3.5 shrink-0" />
             {formatTime(pharmacy.closing_time, i18n.language)}
           </span>
         </DetailCell>

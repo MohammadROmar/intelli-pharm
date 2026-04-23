@@ -1,13 +1,10 @@
 export function formatDate(
-  iso: string,
-  language?: string,
+  iso: string | Date,
+  language: string = 'en-US',
   hasHour: boolean = true,
 ): string {
   return new Intl.DateTimeFormat(language, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: hasHour ? '2-digit' : undefined,
-    minute: hasHour ? '2-digit' : undefined,
+    dateStyle: 'medium',
+    timeStyle: hasHour ? 'short' : undefined,
   }).format(new Date(iso));
 }

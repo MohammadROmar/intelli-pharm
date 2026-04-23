@@ -1,15 +1,20 @@
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CalendarDays, Folders, FolderTree, RefreshCw } from 'lucide-react';
 
 import type { CategoryDetail } from '@/entities/category';
-import { Badge, DetailCard, DetailCell, Separator } from '@/shared/ui';
-import { formatDate } from '@/shared/lib';
+import {
+  Badge,
+  BadgeLink,
+  DetailCard,
+  DetailCell,
+  Separator,
+  SplitDateTime,
+} from '@/shared/ui';
 
 type Props = { category: CategoryDetail };
 
 export function CategoryMetaGrid({ category }: Props) {
-  const { t, i18n } = useTranslation('translation', {
+  const { t } = useTranslation('translation', {
     keyPrefix: 'categoriesPage.detail',
   });
 
@@ -27,7 +32,7 @@ export function CategoryMetaGrid({ category }: Props) {
         </DetailCell>
         <DetailCell label={t('labelName')}>
           <span className="flex items-center gap-1.5">
-            <Folders className="text-muted-foreground size-4 shrink-0" />
+            <Folders className="text-muted-foreground size-3.5 shrink-0" />
             {category.name}
           </span>
         </DetailCell>
@@ -45,7 +50,7 @@ export function CategoryMetaGrid({ category }: Props) {
         </DetailCell>
         <DetailCell label={t('categoryType')}>
           <Badge
-            variant={isTopLevel ? 'default' : 'secondary'}
+            variant={isTopLevel ? 'success' : 'info'}
             className="mt-2 font-normal"
           >
             {isTopLevel ? t('topLevel') : t('childLevel')}
@@ -64,16 +69,20 @@ export function CategoryMetaGrid({ category }: Props) {
           )}
         </DetailCell>
         <DetailCell label={t('labelParentName')}>
-          <Badge asChild variant="secondary">
-            <Link to={`/dashboard/categories/${category.parent_id}`}>
-              <FolderTree className="text-muted-foreground size-4 shrink-0" />
-              {category.parent_name ?? (
-                <span className="text-muted-foreground font-normal">
-                  {t('noParent')}
-                </span>
-              )}
-            </Link>
-          </Badge>
+          {category.parent_name ? (
+            <BadgeLink
+              label={category.parent_name}
+              to={`/dashboard/categories/${category.parent_id}`}
+              icon={FolderTree}
+            />
+          ) : (
+            <Badge
+              variant="secondary"
+              className="text-muted-foreground font-normal"
+            >
+              {t('noParent')}
+            </Badge>
+          )}
         </DetailCell>
       </div>
 
@@ -81,16 +90,10 @@ export function CategoryMetaGrid({ category }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelCreatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <CalendarDays className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(category.created_at, i18n.language)}
-          </span>
+          <SplitDateTime date={category.created_at} icon={CalendarDays} />
         </DetailCell>
         <DetailCell label={t('labelUpdatedAt')}>
-          <span className="flex items-center gap-1.5 font-normal">
-            <RefreshCw className="text-muted-foreground size-3.5 shrink-0" />
-            {formatDate(category.updated_at, i18n.language)}
-          </span>
+          <SplitDateTime date={category.updated_at} icon={RefreshCw} />
         </DetailCell>
       </div>
     </DetailCard>

@@ -20,15 +20,9 @@ type Props = {
   items: OrderItem[];
   totalAmount: string;
   totalQuantity: string;
-  onMedicineClick?: (id: number) => void;
 };
 
-export function OrderItemsTable({
-  items,
-  totalAmount,
-  totalQuantity,
-  onMedicineClick,
-}: Props) {
+export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
   const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'ordersPage.detail',
   });
@@ -57,22 +51,20 @@ export function OrderItemsTable({
 
           <TableBody>
             {items.map((item, i) => (
-              <TableRow
-                key={`item-${item.medicine_id}-${i}`}
-                onClick={() => onMedicineClick?.(item.medicine_id)}
-                className={onMedicineClick ? 'cursor-pointer' : undefined}
-              >
+              <TableRow key={`item-${item.medicine_id}-${i}`}>
                 <TableCell className="text-muted-foreground text-xs">
                   {item.medicine_id}
                 </TableCell>
 
                 <TableCell className="font-medium">
-                  {item.medicine.name}
+                  {item.medicine.commercial_name}
                 </TableCell>
 
-                <TableCell className="tabular-nums">{item.quantity}</TableCell>
+                <TableCell className="text-muted-foreground tabular-nums">
+                  {item.quantity}
+                </TableCell>
 
-                <TableCell className="tabular-nums">
+                <TableCell className="text-muted-foreground tabular-nums">
                   {formatPrice(item.unit_price, i18n.language)}
                 </TableCell>
 

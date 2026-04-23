@@ -4,9 +4,9 @@ import { Info, List } from 'lucide-react';
 
 import { buttonVariants } from '../lib';
 
-type Props = { path: string };
+type Props = { path: string; isEdit?: boolean };
 
-export function QueryDisabled({ path }: Props) {
+export function QueryDisabled({ path, isEdit = false }: Props) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'queryDisabled.itemId',
   });
@@ -21,7 +21,7 @@ export function QueryDisabled({ path }: Props) {
         </div>
 
         <h2 className="text-foreground mb-1 text-xl font-semibold">
-          {t('title')}
+          {t(isEdit ? 'editTitle' : 'title')}
         </h2>
 
         <p className="text-muted-foreground mb-2 max-w-md text-sm leading-relaxed">

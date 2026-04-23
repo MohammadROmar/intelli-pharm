@@ -3,14 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
 
 import type { LaboratoryListItem } from '../model/laboratoryTypes';
-import { buttonVariants } from '@/shared/lib';
 import {
-  TableActions,
-  TableCell,
   TableRow,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
+  TableCell,
+  TableActions,
+  DropdownMenuItem,
 } from '@/shared/ui';
 
 type LaboratoryRowProps = {
@@ -25,7 +22,9 @@ export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{laboratory.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">
+        {laboratory.id}
+      </TableCell>
       <TableCell>{laboratory.name}</TableCell>
 
       <TableActions
@@ -46,21 +45,14 @@ type Props = { id: number; label: string };
 
 function EditLaboratoryButton({ id, label }: Props) {
   return (
-    <Tooltip disableHoverableContent>
-      <TooltipTrigger asChild>
-        <Link
-          to={`/dashboard/laboratories/${id}?active=edit`}
-          aria-label={label}
-          className={buttonVariants({
-            size: 'sm',
-            variant: 'ghost',
-            className: 'px-1!',
-          })}
-        >
-          <Pencil className="size-4" />
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>{label}</TooltipContent>
-    </Tooltip>
+    <DropdownMenuItem asChild>
+      <Link
+        to={`/dashboard/laboratories/${id}?active=edit`}
+        className="cursor-pointer"
+      >
+        <Pencil className="size-4" />
+        <span>{label}</span>
+      </Link>
+    </DropdownMenuItem>
   );
 }

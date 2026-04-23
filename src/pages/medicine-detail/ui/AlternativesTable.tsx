@@ -50,7 +50,7 @@ export function AlternativesTable({ alternatives, mode }: Props) {
           <TableBody>
             {alternatives.map((alt) => (
               <TableRow key={alt.id}>
-                <TableCell className="text-muted-foreground">
+                <TableCell className="text-muted-foreground text-xs">
                   {alt.id}
                 </TableCell>
                 <TableCell>{alt.commercial_name}</TableCell>

@@ -15,7 +15,9 @@ export function PharmacyRow({ pharmacy, onDelete }: PharmacyRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{pharmacy.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">
+        {pharmacy.id}
+      </TableCell>
       <TableCell>{pharmacy.name}</TableCell>
       <TableCell>{pharmacy.region}</TableCell>
       <TableCell>{pharmacy.pharmacist_name}</TableCell>
@@ -23,7 +25,7 @@ export function PharmacyRow({ pharmacy, onDelete }: PharmacyRowProps) {
         {pharmacy.pharmacist_phone}
       </TableCell>
       <TableCell>
-        <Badge variant={pharmacy.is_active ? 'default' : 'secondary'}>
+        <Badge variant={pharmacy.is_active ? 'success' : 'muted'}>
           {pharmacy.is_active ? t('active') : t('inactive')}
         </Badge>
       </TableCell>

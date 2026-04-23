@@ -57,7 +57,7 @@ export function RegionsTable({ data }: Props) {
               <TableRow>
                 <TableHead className="w-25">{t('id')}</TableHead>
                 <TableHead>{t('name')}</TableHead>
-                <TableHead>{t('cityId')}</TableHead>
+                <TableHead>{t('city')}</TableHead>
                 <TableHead>{t('actions')}</TableHead>
               </TableRow>
             </TableHeader>

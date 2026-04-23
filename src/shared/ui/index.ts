@@ -167,7 +167,7 @@ export {
 export { TableActions } from './TableActions';
 export { TableCard, TableCardHeader } from './TableCard';
 export { FormActions } from './FormActions';
-export { Badge } from './badge';
+export { Badge, BadgeLink } from './badge';
 export { Textarea } from './textarea';
 export { Switch, SwitchRow } from './switch';
 export { CardSectionHeader } from './CardSectionHeader';
@@ -196,3 +196,4 @@ export {
   SelectTrigger,
   SelectValue,
 } from './select';
+export { SplitDateTime } from './SplitDateTime';

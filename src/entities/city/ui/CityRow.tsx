@@ -3,13 +3,10 @@ import { Pencil } from 'lucide-react';
 
 import type { CityDetail } from '../model/cityTypes';
 import {
-  Button,
-  TableActions,
-  TableCell,
   TableRow,
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
+  TableCell,
+  TableActions,
+  DropdownMenuItem,
 } from '@/shared/ui';
 
 type CityRowProps = {
@@ -21,7 +18,7 @@ type CityRowProps = {
 export function CityRow({ city, onUpdate, onDelete }: CityRowProps) {
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground">{city.id}</TableCell>
+      <TableCell className="text-muted-foreground text-xs">{city.id}</TableCell>
       <TableCell>{city.name}</TableCell>
 
       <TableActions
@@ -45,19 +42,11 @@ function EditCityButton({ city, onUpdate }: Props) {
   });
 
   return (
-    <Tooltip disableHoverableContent>
-      <TooltipTrigger asChild>
-        <Button
-          aria-label={t('update')}
-          onClick={() => onUpdate(city)}
-          size="sm"
-          variant="ghost"
-          className="p-0!"
-        >
-          <Pencil className="size-4" />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>{t('update')}</TooltipContent>
-    </Tooltip>
+    <DropdownMenuItem asChild>
+      <button onClick={() => onUpdate(city)} className="w-full cursor-pointer">
+        <Pencil className="size-4" />
+        <span>{t('update')}</span>
+      </button>
+    </DropdownMenuItem>
   );
 }

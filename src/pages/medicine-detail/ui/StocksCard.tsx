@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Boxes } from 'lucide-react';
 
+import { STATUS_CONFIG } from '../lib/statusConfig';
 import type { MedicineStock } from '@/entities/medicine';
 import { formatDate } from '@/shared/lib';
 import {
@@ -17,7 +18,9 @@ import {
 const TODAY = new Date();
 const NINETY_DAYS = 1000 * 60 * 60 * 24 * 90;
 
-function expiryStatus(dateStr: string): 'expired' | 'expiring' | 'ok' {
+type ExpiryStatus = 'expired' | 'expiring' | 'ok';
+
+function getExpiryStatus(dateStr: string): ExpiryStatus {
   const expiry = new Date(dateStr);
   if (expiry < TODAY) return 'expired';
   if (expiry.getTime() - TODAY.getTime() < NINETY_DAYS) return 'expiring';
@@ -49,7 +52,8 @@ export function StocksCard({ stocks }: Props) {
         </TableHeader>
         <TableBody>
           {stocks.map((stock) => {
-            const status = expiryStatus(stock.expiry_date);
+            const status = getExpiryStatus(stock.expiry_date);
+            const config = STATUS_CONFIG[status];
 
             return (
               <TableRow key={stock.id}>
@@ -61,35 +65,14 @@ export function StocksCard({ stocks }: Props) {
                   {stock.quantity.toLocaleString()}
                 </TableCell>
 
-                <TableCell
-                  className={
-                    status === 'expired'
-                      ? 'text-destructive font-medium'
-                      : status === 'expiring'
-                        ? 'font-medium text-yellow-600 dark:text-yellow-400'
-                        : 'text-muted-foreground'
-                  }
-                >
+                <TableCell className={config.dateClassName}>
                   {formatDate(stock.expiry_date, i18n.language, false)}
                 </TableCell>
 
                 <TableCell>
-                  {status === 'expired' ? (
-                    <Badge variant="destructive" className="font-normal">
-                      {t('stockExpired')}
-                    </Badge>
-                  ) : status === 'expiring' ? (
-                    <Badge
-                      variant="outline"
-                      className="border-yellow-500 font-normal text-yellow-600 dark:text-yellow-400"
-                    >
-                      {t('stockExpiringSoon')}
-                    </Badge>
-                  ) : (
-                    <Badge variant="secondary" className="font-normal">
-                      {t('stockOk')}
-                    </Badge>
-                  )}
+                  <Badge variant={config.variant} className="font-normal">
+                    {t(config.translationKey)}
+                  </Badge>
                 </TableCell>
               </TableRow>
             );

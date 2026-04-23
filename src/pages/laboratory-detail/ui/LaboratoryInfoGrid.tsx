@@ -22,31 +22,26 @@ export function LaboratoryInfoGrid({ laboratory }: Props) {
       icon={FlaskConical}
       itemsCount={0}
     >
+      <DetailCell label={t('labelName')}>
+        <span className="flex items-center gap-1.5">
+          <FlaskConical className="text-muted-foreground size-3.5 shrink-0" />
+          {laboratory.name}
+        </span>
+      </DetailCell>
+
+      <Separator />
+
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('statTotal')}>
           <span className="flex items-center gap-1.5 font-normal">
-            <Pill className="text-muted-foreground size-4 shrink-0" />
+            <Pill className="text-muted-foreground size-3.5 shrink-0" />
             {laboratory.medicines.length}
           </span>
         </DetailCell>
         <DetailCell label={t('statActive')}>
           <span className="flex items-center gap-1.5 font-normal">
-            <ShieldCheck className="text-muted-foreground size-4 shrink-0" />
+            <ShieldCheck className="text-muted-foreground size-3.5 shrink-0" />
             {activeMedicines}
-          </span>
-        </DetailCell>
-      </div>
-
-      <Separator />
-
-      <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('labelId')}>
-          <span>{laboratory.id}</span>
-        </DetailCell>
-        <DetailCell label={t('labelName')}>
-          <span className="flex items-center gap-1.5">
-            <FlaskConical className="text-muted-foreground size-4 shrink-0" />
-            {laboratory.name}
           </span>
         </DetailCell>
       </div>

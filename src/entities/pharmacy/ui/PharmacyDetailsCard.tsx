@@ -95,7 +95,7 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
                 id="is_active"
                 label={t('labelActive')}
                 description={t('descriptionActive')}
-                checked={field.value}
+                checked={field.value ?? false}
                 onCheckedChange={field.onChange}
               />
             )}

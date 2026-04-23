@@ -8,7 +8,7 @@ export function LazyCategoryCreatePage() {
   return (
     <WithSuspense
       Component={CategoryCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 2 }]} />}
+      loader={<FormSkeleton cards={[{ rows: 3 }]} />}
     />
   );
 }

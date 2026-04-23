@@ -2,14 +2,24 @@ import { useTranslation } from 'react-i18next';
 
 import { PharmacyEditForm } from '@/features/pharmacy-edit';
 import { useGetPharmacy } from '@/entities/pharmacy';
-import { FormSkeleton, PageTitle, QueryError } from '@/shared/ui';
+import {
+  PageTitle,
+  QueryError,
+  FormSkeleton,
+  QueryDisabled,
+} from '@/shared/ui';
 
 export default function PharmacyEditPage() {
   const { t } = useTranslation('translation', {
     keyPrefix: 'pharmaciesPage.edit',
   });
 
-  const { data, isError, error, isLoading, refetch } = useGetPharmacy();
+  const { data, isError, error, isLoading, isEnabled, refetch } =
+    useGetPharmacy();
+
+  if (!isEnabled) {
+    return <QueryDisabled isEdit path="/dashboard/categories" />;
+  }
 
   if (isError) {
     return <QueryError error={error} onRetry={refetch} />;
