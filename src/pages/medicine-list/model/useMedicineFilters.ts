@@ -5,6 +5,7 @@ import { useFilters } from '@/shared/lib';
 
 const FILTER_KEYS: (keyof MedicineFilters)[] = [
   'name',
+  'scientific_name',
   'category',
   'min_price',
   'max_price',
@@ -19,6 +20,7 @@ export function useMedicineFilters() {
 
   const filters: MedicineFilters = {
     name: searchParams.get('name') ?? undefined,
+    scientific_name: searchParams.get('scientific_name') ?? undefined,
     category: searchParams.get('category') ?? undefined,
     min_price: searchParams.get('min_price') ?? undefined,
     max_price: searchParams.get('max_price') ?? undefined,

@@ -27,7 +27,11 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {medicine.id}
       </TableCell>
-      <TableCell>{medicine.commercial_name}</TableCell>
+      <TableCell>
+        <span className="max-w-[10ch] truncate">
+          {medicine.commercial_name}
+        </span>
+      </TableCell>
       <TableCell>
         <Badge variant={medicine.is_active ? 'success' : 'muted'}>
           {medicine.is_active ? t('active') : t('inactive')}

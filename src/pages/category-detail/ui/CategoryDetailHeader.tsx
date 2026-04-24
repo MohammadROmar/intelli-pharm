@@ -5,8 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteCategoryModal } from '@/features/category-delete';
 import type { CategoryDetail } from '@/entities/category';
-import { buttonVariants } from '@/shared/lib';
-import { Button } from '@/shared/ui';
+import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { category: CategoryDetail };
 
@@ -15,35 +14,21 @@ export function CategoryDetailHeader({ category }: Props) {
     keyPrefix: 'categoriesPage.detail',
   });
 
-  const pageTitle = `${category.name} · ${t('pageTitle')} - IntelliPharma`;
-
   return (
-    <>
-      <title>{pageTitle}</title>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">{category.name}</h1>
-
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <Link
-            to={`/dashboard/categories/${category.id}/edit`}
-            className={buttonVariants({
-              variant: 'default',
-              size: 'sm',
-              className: 'shrink-0',
-            })}
-          >
-            <Pencil className="size-4" />
-            {t('edit')}
-          </Link>
-          <DeleteCategoryBtn category={category} label={t('delete')} />
-        </div>
-      </div>
-    </>
+    <PageHeader
+      title={category.name}
+      pageTitle={`${category.name} · ${t('pageTitle')} - IntelliPharma`}
+    >
+      <CategoryActions category={category} />
+    </PageHeader>
   );
 }
 
-function DeleteCategoryBtn({ category, label }: Props & { label: string }) {
+function CategoryActions({ category }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'categoriesPage.detail',
+  });
+
   const [categoryToDelete, setCategoryToDelete] =
     useState<CategoryDetail | null>(null);
   const navigate = useNavigate();
@@ -56,14 +41,26 @@ function DeleteCategoryBtn({ category, label }: Props & { label: string }) {
         onDeleteSuccess={() => navigate('/dashboard/categories')}
       />
 
-      <Button
-        size="sm"
-        onClick={() => setCategoryToDelete(category)}
-        variant="destructive"
-      >
-        <Trash2 className="size-4" />
-        {label}
-      </Button>
+      <ActionsDropdown label={t('actions')}>
+        <DropdownMenuItem asChild>
+          <Link
+            to={`/dashboard/categories/${category.id}/edit`}
+            className="cursor-pointer"
+          >
+            <Pencil className="size-4" />
+            {t('edit')}
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          variant="destructive"
+          onClick={() => setCategoryToDelete(category)}
+          className="text-destructive hover:text-destructive hover:bg-destructive/20 w-full justify-start"
+        >
+          <Trash2 className="size-4" />
+          {t('delete')}
+        </DropdownMenuItem>
+      </ActionsDropdown>
     </>
   );
 }

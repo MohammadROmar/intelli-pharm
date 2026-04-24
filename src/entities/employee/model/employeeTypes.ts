@@ -47,4 +47,5 @@ export type EmployeeListResponse = {
 export type EmployeeFilters = {
   name?: string;
   email?: string;
+  phone?: string;
 };

@@ -1,0 +1,22 @@
+import { LaboratoryEditForm } from './LaboratoryEditForm';
+import { LaboratorySheet } from '@/entities/laboratory';
+
+type Props = {
+  id: number;
+  defaultName: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+};
+
+export function LaboratoryEditSheet({
+  id,
+  defaultName,
+  open,
+  onOpenChange,
+}: Props) {
+  return (
+    <LaboratorySheet open={open} onOpenChange={onOpenChange} isEdit>
+      <LaboratoryEditForm id={id} defaultName={defaultName} />
+    </LaboratorySheet>
+  );
+}

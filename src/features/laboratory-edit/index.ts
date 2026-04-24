@@ -1,1 +1,2 @@
-export { LaboratoryEditButton } from './ui/LaboratoryEditButton';
+export { LaboratoryEditSheet } from './ui/LaboratoryEditSheet';
+export { LaboratoryEditForm } from './ui/LaboratoryEditForm';

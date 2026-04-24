@@ -32,7 +32,8 @@
       "totalAmount": "الكمية الكلية",
       "totalQuantity": "السعر الكلي",
       "created": "تاريخ الإنشاء",
-      "actions": "الإجراءات"
+      "actions": "الإجراءات",
+      "changeStatus": "تغيير الحالة"
     },
     "detail": {
       "pageTitle": "تفاصيل الطلب",
@@ -89,6 +90,12 @@
         "processing": "جارٍ تجهيز الطلب.",
         "completed": "تم إكمال الطلب بنجاح.",
         "cancelled": "تم إلغاء الطلب."
+      },
+      "terminal": {
+        "title": "تحديث الحالة غير متاح",
+        "subtitle": "لقد بلغ هذا الطلب حالته النهائية ولا يمكن تعديله.",
+        "currentStatus": "حالة الطلب الحالية",
+        "close": "إغلاق"
       }
     },
 
@@ -146,7 +153,7 @@
       "pageTitle": "تفاصيل المختبر",
 
       "breadcrumb": "المختبرات",
-      "edit": "تعديل التفاصيل",
+      "edit": "تعديل",
       "delete": "حذف",
       "actions": "الإجراءات",
 
@@ -490,8 +497,8 @@
     "detail": {
       "pageTitle": "تفاصيل المنطقة",
 
-      "breadcrumb": "المناطق",
-      "edit": "تعديل التفاصيل",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
       "delete": "حذف",
 
       "cardTitle": "معلومات المنطقة",
@@ -585,7 +592,8 @@
     "detail": {
       "pageTitle": "تفاصيل الصيدلية",
 
-      "edit": "تعديل التفاصيل",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
       "delete": "حذف",
       "active": "نشط",
       "inactive": "غير نشط",
@@ -809,6 +817,9 @@
       "nameLabel": "الاسم",
       "namePlaceholder": "البحث باسم الدواء…",
 
+      "scientificNameLabel": "الاسم العلمي",
+      "scientificNamePlaceholder": "البحث باسم الدواء العلمي...",
+
       "minPriceLabel": "أقل سعر",
       "maxPriceLabel": "أعلى سعر",
 
@@ -864,8 +875,8 @@
     "detail": {
       "pageTitle": "تفاصيل الفئة",
 
-      "breadcrumb": "الفئات",
-      "edit": "تعديل التفاصيل",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
       "delete": "حذف",
       "topLevel": "فئة رئيسية",
       "childLevel": "فئة فرعية",
@@ -967,6 +978,9 @@
       "namePlaceholder": "البحث باسم الموظف",
       "emailLabel": "البريد الالكتروني",
       "emailPlaceholder": "البحث بالبريد الالكتروني...",
+      "phoneLabel": "رقم الهاتف",
+      "phonePlaceholder": "البحث برقم الهاتف...",
+      "phoneError": "يسمح بالأرقام فقط",
       "apply": "تطبيق الفلاتر",
       "clear": "مسح الفلاتر"
     }

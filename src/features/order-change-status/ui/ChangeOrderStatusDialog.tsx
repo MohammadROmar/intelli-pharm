@@ -107,6 +107,8 @@ export function ChangeOrderStatusDialog({
 
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
         <DialogContent className="sm:max-w-md">
+          <div tabIndex={0} aria-hidden className="sr-only" />
+
           {step === 'select' ? (
             <SelectionStep
               currentStatus={currentStatus}

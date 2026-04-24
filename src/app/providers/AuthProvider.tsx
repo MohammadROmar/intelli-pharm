@@ -43,7 +43,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-dvh items-center justify-center">
         <Logo withColors className="size-12" />
       </div>
     );

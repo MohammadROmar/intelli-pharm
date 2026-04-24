@@ -66,7 +66,6 @@ export function PharmacyFiltersModal({
             id="filter-name"
             placeholder={t('namePlaceholder')}
             autoComplete="off"
-            className="pl-9"
             icon={UserRound}
             {...register('name')}
           />

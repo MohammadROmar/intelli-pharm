@@ -5,8 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteRegionModal } from '@/features/region-delete';
 import type { RegionDetail } from '@/entities/region';
-import { buttonVariants } from '@/shared/lib';
-import { Button } from '@/shared/ui';
+import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { region: RegionDetail };
 
@@ -15,35 +14,21 @@ export function RegionDetailHeader({ region }: Props) {
     keyPrefix: 'regionsPage.detail',
   });
 
-  const pageTitle = `${region.name} · ${t('pageTitle')} - IntelliPharma`;
-
   return (
-    <>
-      <title>{pageTitle}</title>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">{region.name}</h1>
-
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <Link
-            to={`/dashboard/regions/${region.id}/edit`}
-            className={buttonVariants({
-              variant: 'default',
-              size: 'sm',
-              className: 'shrink-0',
-            })}
-          >
-            <Pencil className="size-4" />
-            {t('edit')}
-          </Link>
-          <DeleteRegionBtn region={region} label={t('delete')} />
-        </div>
-      </div>
-    </>
+    <PageHeader
+      title={region.name}
+      pageTitle={`${region.name} · ${t('pageTitle')} - IntelliPharma`}
+    >
+      <RegionActions region={region} />
+    </PageHeader>
   );
 }
 
-function DeleteRegionBtn({ region, label }: Props & { label: string }) {
+function RegionActions({ region }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'regionsPage.detail',
+  });
+
   const [regionToDelete, setRegionToDelete] = useState<RegionDetail | null>(
     null,
   );
@@ -57,14 +42,26 @@ function DeleteRegionBtn({ region, label }: Props & { label: string }) {
         onDeleteSuccess={() => navigate('/dashboard/region')}
       />
 
-      <Button
-        size="sm"
-        onClick={() => setRegionToDelete(region)}
-        variant="destructive"
-      >
-        <Trash2 className="size-4" />
-        {label}
-      </Button>
+      <ActionsDropdown label={t('actions')}>
+        <DropdownMenuItem asChild>
+          <Link
+            to={`/dashboard/regions/${region.id}/edit`}
+            className="cursor-pointer"
+          >
+            <Pencil className="size-4" />
+            {t('edit')}
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          variant="destructive"
+          onClick={() => setRegionToDelete(region)}
+          className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
+        >
+          <Trash2 className="size-4" />
+          {t('delete')}
+        </DropdownMenuItem>
+      </ActionsDropdown>
     </>
   );
 }

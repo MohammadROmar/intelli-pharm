@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import SidebarProvider from '../providers/SidebarProvider';
@@ -6,11 +6,7 @@ import { AppSidebar } from '@/widgets/sidebar';
 import { ThemeToggle } from '@/features/theme-toggle';
 import { LocaleToggle } from '@/features/locale-toggle';
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
+  BreadCrumbs,
   Separator,
   SidebarInset,
   SidebarTrigger,
@@ -32,11 +28,8 @@ export default function DashboardLayout() {
                 orientation="vertical"
                 className="md:h-4! ltr:mr-2 rtl:ml-2"
               />
-              <Breadcrumb className="hidden md:block">
-                <BreadcrumbList>
-                  <BreadCrumbsItems />
-                </BreadcrumbList>
-              </Breadcrumb>
+
+              <BreadCrumbs className="hidden md:block" />
             </div>
 
             <div className="flex items-center gap-2">
@@ -47,42 +40,10 @@ export default function DashboardLayout() {
         </header>
 
         <div className="m-auto flex w-full max-w-7xl flex-1 flex-col gap-4 p-4">
+          <BreadCrumbs className="md:hidden" />
           <Outlet />
         </div>
       </SidebarInset>
     </SidebarProvider>
-  );
-}
-
-function BreadCrumbsItems() {
-  const { pathname } = useLocation();
-  const { t } = useTranslation();
-
-  const segments = pathname.split('/').filter(Boolean);
-
-  return (
-    <>
-      {segments.map((segment, i) => {
-        const href = `/${segments.slice(0, i + 1).join('/')}`;
-
-        const isId = /^\d+$/.test(segment);
-
-        const label = isId
-          ? `#${segment}`
-          : t(`sidebar.labels.${segment}`, { defaultValue: segment });
-
-        return (
-          <BreadcrumbItem key={href}>
-            {i === segments.length - 1 ? (
-              <BreadcrumbPage>{label}</BreadcrumbPage>
-            ) : (
-              <BreadcrumbLink asChild href={href}>
-                <Link to={href}>{label}</Link>
-              </BreadcrumbLink>
-            )}
-          </BreadcrumbItem>
-        );
-      })}
-    </>
   );
 }

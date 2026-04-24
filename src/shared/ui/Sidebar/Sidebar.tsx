@@ -566,12 +566,14 @@ function SidebarMenuSubButton({
 
 type SidebarMenuLinkProps = LinkProps & {
   exact?: boolean;
+  label: string;
 } & React.PropsWithChildren;
 
 function SidebarMenuLink({
-  exact = true,
-  children,
   to,
+  exact = true,
+  label,
+  children,
   className,
 }: SidebarMenuLinkProps) {
   const { openMobile, setOpenMobile } = useSidebar();
@@ -582,20 +584,22 @@ function SidebarMenuLink({
     : pathname === to || pathname.startsWith(to + '/');
 
   return (
-    <Link
-      to={to}
-      data-active={isActive}
-      className={cn(
-        isActive &&
-          'bg-sidebar-accent text-sidebar-accent-foreground font-medium',
-        className,
-      )}
-      onClick={() => {
-        if (openMobile) setOpenMobile(false);
-      }}
-    >
-      {children}
-    </Link>
+    <SidebarMenuButton asChild tooltip={label}>
+      <Link
+        to={to}
+        data-active={isActive}
+        className={cn(
+          isActive &&
+            'bg-sidebar-accent text-sidebar-accent-foreground font-medium',
+          className,
+        )}
+        onClick={() => {
+          if (openMobile) setOpenMobile(false);
+        }}
+      >
+        {children}
+      </Link>
+    </SidebarMenuButton>
   );
 }
 

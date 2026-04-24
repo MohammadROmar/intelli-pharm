@@ -35,7 +35,7 @@ type NavLinkItemProps = { item: SidebarItem | NavSubItem; label: string };
 function NavLinkItem({ item, label }: NavLinkItemProps) {
   return (
     <SidebarMenuButton tooltip={label} asChild>
-      <SidebarMenuLink to={item.url}>
+      <SidebarMenuLink label={label} to={item.url}>
         {'icon' in item ? (
           <NavItemContent icon={item.icon} label={label} />
         ) : (

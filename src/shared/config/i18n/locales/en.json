@@ -102,6 +102,12 @@
 
         "minTotalLabel": "Min Total",
         "maxTotalLabel": "Max Total"
+      },
+      "terminal": {
+        "title": "Status Update Unavailable",
+        "subtitle": "This order has reached its final state and cannot be modified.",
+        "currentStatus": "Current order status",
+        "close": "Close"
       }
     },
 
@@ -145,7 +151,7 @@
       "pageTitle": "Laboratory Details",
 
       "breadcrumb": "Laboratories",
-      "edit": "Edit Details",
+      "edit": "Edit",
       "delete": "Delete",
       "actions": "Actions",
 
@@ -487,6 +493,7 @@
     "detail": {
       "pageTitle": "Region Details",
 
+      "actions": "Actions",
       "edit": "Edit Details",
       "delete": "Delete",
 
@@ -581,6 +588,7 @@
     "detail": {
       "pageTitle": "Pharmacy Details",
 
+      "actions": "Actions",
       "edit": "Edit Details",
       "delete": "Delete",
       "active": "Active",
@@ -803,6 +811,9 @@
       "nameLabel": "Name",
       "namePlaceholder": "Search by medicine name…",
 
+      "scientificNameLabel": "Scientific Name",
+      "scientificNamePlaceholder": "Search by scientific name...",
+
       "minPriceLabel": "Min Price",
       "maxPriceLabel": "Max Price",
 
@@ -856,8 +867,9 @@
     },
     "detail": {
       "pageTitle": "Category Details",
-      "breadcrumb": "Categories",
-      "edit": "Edit Details",
+
+      "actions": "Actions",
+      "edit": "Edit",
       "delete": "Delete",
       "topLevel": "Top Level",
       "childLevel": "Subcategory",
@@ -957,6 +969,9 @@
       "namePlaceholder": "Search by employee name…",
       "emailLabel": "Email",
       "emaiPlaceholder": "Search by employee email...",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Search by employeee phone...",
+      "phoneError": "Only numbers are allowed",
       "apply": "Apply Filters",
       "clear": "Clear Filters"
     }

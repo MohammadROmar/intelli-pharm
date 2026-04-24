@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Mail, UserRound } from 'lucide-react';
+import { Mail, Phone, UserRound } from 'lucide-react';
 
 import type { EmployeeFilters } from '@/entities/employee';
-import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
+import {
+  Input,
+  Field,
+  FieldLabel,
+  FiltersModal,
+  FieldError,
+} from '@/shared/ui';
 
 type Props = {
   open: boolean;
@@ -27,7 +33,12 @@ export function EmployeeFiltersModal({
     keyPrefix: 'employeesPage.filters',
   });
 
-  const { register, handleSubmit, reset } = useForm<EmployeeFilters>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<EmployeeFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
@@ -65,7 +76,6 @@ export function EmployeeFiltersModal({
             id="filter-name"
             placeholder={t('namePlaceholder')}
             autoComplete="off"
-            className="pl-9"
             icon={UserRound}
             {...register('name')}
           />
@@ -78,9 +88,25 @@ export function EmployeeFiltersModal({
             placeholder={t('emailPlaceholder')}
             autoComplete="off"
             icon={Mail}
-            className="pl-9"
             {...register('email')}
           />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="filter-phone">{t('phoneLabel')}</FieldLabel>
+          <Input
+            id="filter-phone"
+            placeholder={t('phonePlaceholder')}
+            autoComplete="off"
+            icon={Phone}
+            {...register('phone', {
+              pattern: {
+                value: /^[0-9]+$/,
+                message: t('phoneError'),
+              },
+            })}
+          />
+          {errors.phone && <FieldError>{errors.phone.message}</FieldError>}
         </Field>
       </form>
     </FiltersModal>

@@ -87,6 +87,7 @@ export type BooleanFilter = '1' | '0' | undefined;
 
 export type MedicineFilters = {
   name?: string;
+  scientific_name?: string;
   category?: string;
   min_price?: string;
   max_price?: string;

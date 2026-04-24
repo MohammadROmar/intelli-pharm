@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 
+import { LaboratoryEditSheet } from '@/features/laboratory-edit';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
-import { LaboratoryEditButton } from '@/features/laboratory-edit';
 import type { LaboratoryDetail } from '@/entities/laboratory';
-import { Button } from '@/shared/ui';
+import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { laboratory: LaboratoryDetail };
 
@@ -15,30 +15,28 @@ export function LaboratoryDetailHeader({ laboratory }: Props) {
     keyPrefix: 'laboratoriesPage.detail',
   });
 
-  const pageTitle = `${laboratory.name} · ${t('pageTitle')} - IntelliPharma`;
-
   return (
-    <>
-      <title>{pageTitle}</title>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">{laboratory.name}</h1>
-
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <LaboratoryEditButton
-            id={laboratory.id}
-            defaultName={laboratory.name}
-          />
-          <DeleteLaboratoryBtn laboratory={laboratory} label={t('delete')} />
-        </div>
-      </div>
-    </>
+    <PageHeader
+      title={laboratory.name}
+      pageTitle={`${laboratory.name} · ${t('pageTitle')} - IntelliPharma`}
+    >
+      <LaboratoryActions laboratory={laboratory} />
+    </PageHeader>
   );
 }
 
-function DeleteLaboratoryBtn({ laboratory, label }: Props & { label: string }) {
-  const [labToDelete, setLabToDelete] = useState<LaboratoryDetail | null>(null);
+export function LaboratoryActions({ laboratory }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'laboratoriesPage.detail',
+  });
   const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+  const [isEditOpen, setIsEditOpen] = useState(
+    () => searchParams.get('focus') === 'edit',
+  );
+
+  const [labToDelete, setLabToDelete] = useState<LaboratoryDetail | null>(null);
 
   return (
     <>
@@ -48,14 +46,31 @@ function DeleteLaboratoryBtn({ laboratory, label }: Props & { label: string }) {
         onDeleteSuccess={() => navigate('/dashboard/laboratories')}
       />
 
-      <Button
-        size="sm"
-        onClick={() => setLabToDelete(laboratory)}
-        variant="destructive"
-      >
-        <Trash2 className="size-4" />
-        {label}
-      </Button>
+      <LaboratoryEditSheet
+        id={laboratory.id}
+        defaultName={laboratory.name}
+        open={isEditOpen}
+        onOpenChange={setIsEditOpen}
+      />
+
+      <ActionsDropdown label={t('actions')}>
+        <DropdownMenuItem
+          onClick={() => setIsEditOpen(true)}
+          className="cursor-pointer"
+        >
+          <Pencil className="mr-2 size-4" />
+          {t('edit')}
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          variant="destructive"
+          onClick={() => setLabToDelete(laboratory)}
+          className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full cursor-pointer justify-start"
+        >
+          <Trash2 className="mr-2 size-4" />
+          {t('delete')}
+        </DropdownMenuItem>
+      </ActionsDropdown>
     </>
   );
 }

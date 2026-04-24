@@ -5,8 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
 import type { PharmacyDetail } from '@/entities/pharmacy';
-import { buttonVariants } from '@/shared/lib';
-import { Button } from '@/shared/ui';
+import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { pharmacy: PharmacyDetail };
 
@@ -15,38 +14,24 @@ export function PharmacyDetailHeader({ pharmacy }: Props) {
     keyPrefix: 'pharmaciesPage.detail',
   });
 
-  const pageTitle = `${pharmacy.name} · ${t('pageTitle')} - IntelliPharma`;
-
   return (
-    <>
-      <title>{pageTitle}</title>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">{pharmacy.name}</h1>
-
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
-          <Link
-            to={`/dashboard/pharmacies/${pharmacy.id}/edit`}
-            className={buttonVariants({
-              variant: 'default',
-              size: 'sm',
-              className: 'shrink-0',
-            })}
-          >
-            <Pencil className="size-4" />
-            {t('edit')}
-          </Link>
-          <DeletePharmacyBtn pharmacy={pharmacy} label={t('delete')} />
-        </div>
-      </div>
-    </>
+    <PageHeader
+      title={pharmacy.name}
+      pageTitle={`${pharmacy.name} · ${t('pageTitle')} - IntelliPharma`}
+    >
+      <PharmacyActions pharmacy={pharmacy} />
+    </PageHeader>
   );
 }
 
-function DeletePharmacyBtn({ pharmacy, label }: Props & { label: string }) {
+function PharmacyActions({ pharmacy }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'pharmaciesPage.detail',
+  });
+  const navigate = useNavigate();
+
   const [pharmacyToDelete, setPharmacyToDelete] =
     useState<PharmacyDetail | null>(null);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -56,14 +41,26 @@ function DeletePharmacyBtn({ pharmacy, label }: Props & { label: string }) {
         onDeleteSuccess={() => navigate('/dashboard/pharmacies')}
       />
 
-      <Button
-        size="sm"
-        onClick={() => setPharmacyToDelete(pharmacy)}
-        variant="destructive"
-      >
-        <Trash2 className="size-4" />
-        {label}
-      </Button>
+      <ActionsDropdown label={t('actions')}>
+        <DropdownMenuItem asChild>
+          <Link
+            to={`/dashboard/pharmacies/${pharmacy.id}/edit`}
+            className="cursor-pointer"
+          >
+            <Pencil className="size-4" />
+            {t('edit')}
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem
+          variant="destructive"
+          onClick={() => setPharmacyToDelete(pharmacy)}
+          className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full cursor-pointer justify-start"
+        >
+          <Trash2 className="size-4" />
+          {t('delete')}
+        </DropdownMenuItem>
+      </ActionsDropdown>
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { StatusCard } from './StatusCard';
+import { TerminalStateView } from './TerminalStateView';
 import { OrderStatusBadge, type OrderStatus } from '@/entities/order';
 import {
   Button,
@@ -32,6 +33,12 @@ export function SelectionStep({
     keyPrefix: 'ordersPage.changeStatus',
   });
 
+  if (!nextStatuses || nextStatuses.length === 0) {
+    return (
+      <TerminalStateView currentStatus={currentStatus} onClose={onCancel} />
+    );
+  }
+
   return (
     <>
       <DialogHeader>
@@ -39,8 +46,8 @@ export function SelectionStep({
         <DialogDescription>{t('subtitle')}</DialogDescription>
       </DialogHeader>
 
-      <div className="bg-muted/40 flex items-center gap-2 rounded-lg px-4 py-3">
-        <span className="text-muted-foreground text-xs">
+      <div className="bg-muted/40 flex items-center justify-between gap-2 rounded-lg px-4 py-3">
+        <span className="text-muted-foreground text-sm font-medium">
           {t('currentStatus')}
         </span>
         <OrderStatusBadge status={currentStatus} />
@@ -48,7 +55,7 @@ export function SelectionStep({
 
       <Separator />
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         {nextStatuses.map((status) => (
           <StatusCard
             key={status}

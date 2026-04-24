@@ -42,11 +42,12 @@ function EditCityButton({ city, onUpdate }: Props) {
   });
 
   return (
-    <DropdownMenuItem asChild>
-      <button onClick={() => onUpdate(city)} className="w-full cursor-pointer">
-        <Pencil className="size-4" />
-        <span>{t('update')}</span>
-      </button>
+    <DropdownMenuItem
+      onClick={() => onUpdate(city)}
+      className="w-full cursor-pointer"
+    >
+      <Pencil className="size-4" />
+      <span>{t('update')}</span>
     </DropdownMenuItem>
   );
 }

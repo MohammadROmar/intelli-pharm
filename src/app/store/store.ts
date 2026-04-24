@@ -21,6 +21,12 @@ apiClient.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  const language = localStorage.getItem('i18nextLng');
+  if (language) {
+    config.headers['Accept-Language'] = language;
+  }
+
   return config;
 });
 

@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MoreHorizontal, PackagePlus, Pencil, Trash2 } from 'lucide-react';
+import { PackagePlus, Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteMedicineModal } from '@/features/medicine-delete';
 import type { Medicine } from '@/entities/medicine';
 import {
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuTrigger,
+  PageHeader,
+  ActionsDropdown,
 } from '@/shared/ui';
 
 type Props = { medicine: Medicine };
@@ -22,66 +20,21 @@ export function MedicineDetailHeader({ medicine }: Props) {
     keyPrefix: 'medicinesPage.detail',
   });
 
-  const pageTitle = `${medicine.commercial_name} · ${t('pageTitle')} - IntelliPharma`;
-
   return (
-    <>
-      <title>{pageTitle}</title>
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">
-          {medicine.commercial_name}
-        </h1>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="not-dark:bg-card">
-              <MoreHorizontal />
-              {t('actions')}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-40" align="start">
-            <DropdownMenuGroup>
-              <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
-                {t('medicine')}
-              </DropdownMenuLabel>
-              <DropdownMenuItem asChild>
-                <Link
-                  to={`/dashboard/medicines/${medicine.id}/edit`}
-                  className="cursor-pointer"
-                >
-                  <Pencil className="size-4" />
-                  {t('edit')}
-                </Link>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild variant="destructive">
-                <DeleteMedicineBtn medicine={medicine} label={t('delete')} />
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-
-            <DropdownMenuGroup>
-              <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
-                {t('stock')}
-              </DropdownMenuLabel>
-              <DropdownMenuItem asChild>
-                <Link
-                  to={`/dashboard/medicines/${medicine.id}/restock`}
-                  className="cursor-pointer"
-                >
-                  <PackagePlus className="size-4" />
-                  {t('restock')}
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    </>
+    <PageHeader
+      title={medicine.commercial_name}
+      pageTitle={`${medicine.commercial_name} · ${t('pageTitle')} - IntelliPharma`}
+    >
+      <MedicineActions medicine={medicine} />
+    </PageHeader>
   );
 }
 
-function DeleteMedicineBtn({ medicine, label }: Props & { label: string }) {
+function MedicineActions({ medicine }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'medicinesPage.detail',
+  });
+
   const [medicineToDelete, setMedicineToDelete] = useState<Medicine | null>(
     null,
   );
@@ -95,15 +48,46 @@ function DeleteMedicineBtn({ medicine, label }: Props & { label: string }) {
         onDeleteSuccess={() => navigate('/dashboard/medicines')}
       />
 
-      <Button
-        size="sm"
-        onClick={() => setMedicineToDelete(medicine)}
-        variant="ghost"
-        className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
-      >
-        <Trash2 className="size-4" />
-        {label}
-      </Button>
+      <ActionsDropdown label={t('actions')}>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
+            {t('medicine')}
+          </DropdownMenuLabel>
+          <DropdownMenuItem asChild>
+            <Link
+              to={`/dashboard/medicines/${medicine.id}/edit`}
+              className="cursor-pointer"
+            >
+              <Pencil className="size-4" />
+              {t('edit')}
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            variant="destructive"
+            onClick={() => setMedicineToDelete(medicine)}
+            className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
+          >
+            <Trash2 className="size-4" />
+            {t('delete')}
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
+            {t('stock')}
+          </DropdownMenuLabel>
+          <DropdownMenuItem asChild>
+            <Link
+              to={`/dashboard/medicines/${medicine.id}/restock`}
+              className="cursor-pointer"
+            >
+              <PackagePlus className="size-4" />
+              {t('restock')}
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </ActionsDropdown>
     </>
   );
 }

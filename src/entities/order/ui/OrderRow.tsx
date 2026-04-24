@@ -1,13 +1,23 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { OrderListItem } from '../model/orderTypes';
-import { formatDate, formatPrice } from '@/shared/lib';
-import { TableCell, TableActions, TableRow } from '@/shared/ui';
+import { RefreshCw } from 'lucide-react';
+
 import { OrderStatusBadge } from './OrderStatusBadge';
+import type { OrderListItem, OrderStatus } from '../model/orderTypes';
+import { formatDate, formatPrice } from '@/shared/lib';
+import {
+  TableCell,
+  TableActions,
+  TableRow,
+  DropdownMenuItem,
+} from '@/shared/ui';
 
 type OrderRowProps = { order: OrderListItem };
 
 export function OrderRow({ order }: OrderRowProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation('translation', {
+    keyPrefix: 'ordersPage.list',
+  });
 
   return (
     <TableRow>
@@ -26,7 +36,27 @@ export function OrderRow({ order }: OrderRowProps) {
 
       <TableActions item={order} itemId={order.id} path="/dashboard/orders">
         <TableActions.Detail />
+        <ChangeStatus order={order} label={t('changeStatus')} />
       </TableActions>
     </TableRow>
+  );
+}
+
+type Props = OrderRowProps & { label: string };
+
+function ChangeStatus({ order, label }: Props) {
+  const terminals: OrderStatus[] = ['completed', 'cancelled'];
+  if (terminals.includes(order.status)) return null;
+
+  return (
+    <DropdownMenuItem asChild>
+      <Link
+        to={`/dashboard/orders/${order.id}?focus=change-status`}
+        className="cursor-pointer"
+      >
+        <RefreshCw className="size-4" />
+        <span>{label}</span>
+      </Link>
+    </DropdownMenuItem>
   );
 }

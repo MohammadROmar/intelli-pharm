@@ -23,9 +23,9 @@ export function StatusCard({ status, selected, onSelect }: StatusCardProps) {
       type="button"
       onClick={onSelect}
       className={cn(
-        'w-full rounded-lg border-2 p-4 text-start transition-all',
-        selected && !destructive && 'border-primary bg-primary/5',
-        selected && destructive && 'border-destructive bg-destructive/5',
+        'focus-visible:ring-muted-foreground w-full rounded-lg border-2 p-4 text-start transition-all focus-visible:ring',
+        selected && !destructive && 'border-primary! bg-primary/5',
+        selected && destructive && 'border-destructive! bg-destructive/5',
         !selected &&
           'border-border hover:border-muted-foreground/40 hover:bg-muted/40',
       )}

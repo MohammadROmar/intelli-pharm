@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { DollarSign, Pill, Tag } from 'lucide-react';
+import { Dna, DollarSign, Pill, Tag } from 'lucide-react';
 
 import { CategorySelector } from '@/entities/category';
 import { MedicineSelector, type MedicineFilters } from '@/entities/medicine';
@@ -84,8 +84,19 @@ export function MedicineFiltersModal({
                 placeholder={t('namePlaceholder')}
                 autoComplete="off"
                 icon={Pill}
-                className="pl-9"
                 {...register('name')}
+              />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="f-scientific-name">
+                {t('scientificNameLabel')}
+              </FieldLabel>
+              <Input
+                id="f-scientific-name"
+                placeholder={t('scientificNamePlaceholder')}
+                autoComplete="off"
+                icon={Dna}
+                {...register('scientific_name')}
               />
             </Field>
           </FieldGroup>
@@ -109,7 +120,6 @@ export function MedicineFiltersModal({
                 icon={DollarSign}
                 step="0.01"
                 placeholder="0.00"
-                className="pl-9"
                 {...register('min_price')}
               />
             </Field>
@@ -124,7 +134,6 @@ export function MedicineFiltersModal({
                 icon={DollarSign}
                 step="0.01"
                 placeholder="0.00"
-                className="pl-9"
                 {...register('max_price')}
               />
             </Field>

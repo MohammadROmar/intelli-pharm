@@ -47,7 +47,7 @@ function EditLaboratoryButton({ id, label }: Props) {
   return (
     <DropdownMenuItem asChild>
       <Link
-        to={`/dashboard/laboratories/${id}?active=edit`}
+        to={`/dashboard/laboratories/${id}?focus=edit`}
         className="cursor-pointer"
       >
         <Pencil className="size-4" />
