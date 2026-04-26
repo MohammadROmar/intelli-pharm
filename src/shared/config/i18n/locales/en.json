@@ -65,8 +65,8 @@
       "footerTotal": "Order Total"
     },
     "changeStatus": {
-      "trigger": "Change Status",
-      "title": "Change Order Status",
+      "trigger": "Update Status",
+      "title": "Update Order Status",
       "subtitle": "Select the next status for this order.",
 
       "currentStatus": "Current status",
@@ -340,50 +340,44 @@
       "actions": "Actions"
     },
     "changeStatus": {
-      "title": "Change Delivery Status",
-      "description": "Step {{step}} of 2",
-      "tooltipLabel": "Change Status",
-      "terminalDescription": "This delivery has reached a final state.",
-      "terminalCompleted": "This delivery has been completed and can no longer be modified.",
-      "terminalCancelled": "This delivery was cancelled and can no longer be modified.",
-      "optional": "optional",
-      "back": "Back",
+      "trigger": "Update Status",
+      "title": "Update Delivery Status",
+      "subtitle": "Record the delivery outcome, payment, and receiver details.",
+      "currentStatus": "Current status",
+      "currentPaymentStatus": "Payment status",
       "cancel": "Cancel",
-      "next": "Next",
-      "confirm": "Confirm Change",
-      "submitting": "Saving...",
-      "confirmPrompt": "Please review the changes before confirming.",
-      "successMessage": "Delivery status updated successfully",
-      "steps": {
-        "selectStatus": "Select Status",
-        "confirm": "Confirm"
+      "submit": "Save Update",
+      "submitting": "Saving…",
+      "noTransitions": "This delivery has reached a final state and cannot be updated.",
+      "optional": "optional",
+
+      "labelStatus": "Delivery Status",
+      "statusPlaceholder": "Select new status",
+      "labelPaymentStatus": "Payment Status",
+      "paymentStatusPlaceholder": "Select payment status",
+      "labelPaymentAmount": "Amount Collected",
+      "labelReceiverName": "Receiver Name",
+      "placeholderReceiverName": "e.g. Ahmad Saleh",
+      "hintReceiverName": "The person who received the delivery (optional for non-completed statuses).",
+      "hintReceiverNameRequired": "Required when marking the delivery as completed.",
+      "labelCheckNotes": "Check Notes",
+      "placeholderCheckNotes": "Any observations or issues during delivery…",
+
+      "status": {
+        "pending": "Pending",
+        "in_progress": "In Progress",
+        "completed": "Completed",
+        "cancelled": "Cancelled"
       },
-      "summary": {
-        "currentStatus": "Current Status",
-        "newStatus": "New Status",
-        "newPaymentStatus": "Payment Status"
+
+      "paymentStatus": {
+        "pending": "Pending",
+        "paid": "Paid",
+        "partial": "Partial"
       },
-      "fields": {
-        "status": {
-          "label": "New Status",
-          "placeholder": "Select new status"
-        },
-        "paymentStatus": {
-          "label": "Payment Status",
-          "placeholder": "Select payment status"
-        },
-        "receiverName": {
-          "label": "Receiver Name",
-          "placeholder": "Full name of the person who received the delivery"
-        },
-        "paymentAmount": {
-          "label": "Payment Amount Collected"
-        },
-        "checkNotes": {
-          "label": "Check Notes",
-          "placeholder": "Any observations at the time of delivery..."
-        }
-      }
+
+      "required": "This field is required.",
+      "validNum": "Must be a valid number"
     },
     "form": {
       "title": "Delivery Assignment",
@@ -412,7 +406,7 @@
     },
     "detail": {
       "pageTitle": "Delivery Details",
-      "changeStatus": "Change Status",
+      "changeStatus": "Update Status",
       "deliveryNo": "Delivery #{{id}}",
       "createdOn": "Created on {{date}}",
       "notCompleted": "Not completed yet",

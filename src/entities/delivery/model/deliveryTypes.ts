@@ -87,3 +87,19 @@ export const DELIVERY_STATUS_TRANSITIONS: Record<
   completed: [],
   cancelled: [],
 };
+
+export type ChangeDeliveryStatusPayload = {
+  status: DeliveryStatus;
+  payment_status: PaymentStatus;
+  check_notes: string | undefined;
+  payment_amount: number | undefined;
+  receiver_name: string;
+};
+
+export type ChangeDeliveryStatusValues = {
+  status: DeliveryStatus | '';
+  payment_status: PaymentStatus | '';
+  check_notes: string;
+  payment_amount: string;
+  receiver_name: string;
+};

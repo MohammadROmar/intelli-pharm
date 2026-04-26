@@ -59,11 +59,11 @@ function ChangeStatus({ id }: { id: number }) {
   return (
     <DropdownMenuItem asChild>
       <Link
-        to={`/dashboard/deliveries/${id}/change-status`}
+        to={`/dashboard/deliveries/${id}?focus=change-status`}
         className="cursor-pointer"
       >
         <RefreshCw className="size-4" />
-        <span>{t('tooltipLabel')}</span>
+        <span>{t('trigger')}</span>
       </Link>
     </DropdownMenuItem>
   );

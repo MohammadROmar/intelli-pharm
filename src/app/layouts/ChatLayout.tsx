@@ -8,7 +8,7 @@ export default function ChatLayout() {
   const { t } = useTranslation('translation', { keyPrefix: 'chat' });
 
   return (
-    <div className="flex h-svh flex-col">
+    <div className="flex h-dvh flex-col">
       <header className="bg-background/80 supports-backdrop-filter:bg-background/60 shrink-0 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4">
           <Link

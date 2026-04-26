@@ -19,8 +19,6 @@ export default function DeliveryListPage() {
     return <TableSkeleton />;
   }
 
-  console.log(data.data);
-
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />

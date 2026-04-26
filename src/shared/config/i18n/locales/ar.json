@@ -33,7 +33,7 @@
       "totalQuantity": "السعر الكلي",
       "created": "تاريخ الإنشاء",
       "actions": "الإجراءات",
-      "changeStatus": "تغيير الحالة"
+      "changeStatus": "تحديث الحالة"
     },
     "detail": {
       "pageTitle": "تفاصيل الطلب",
@@ -66,8 +66,8 @@
       "footerTotal": "إجمالي الطلب"
     },
     "changeStatus": {
-      "trigger": "تغيير الحالة",
-      "title": "تغيير حالة الطلب",
+      "trigger": "تحديث الحالة",
+      "title": "تحديث حالة الطلب",
       "subtitle": "اختر الحالة التالية لهذا الطلب.",
 
       "currentStatus": "الحالة الحالية",
@@ -321,7 +321,7 @@
       "pending": "قيد الانتظار",
       "in_progress": "جارٍ التنفيذ",
       "completed": "مكتمل",
-      "cancelled": "ملغي"
+      "cancelled": "ملغى"
     },
     "paymentStatus": {
       "pending": "قيد الانتظار",
@@ -343,51 +343,43 @@
       "actions": "الإجراءات"
     },
     "changeStatus": {
-      "title": "تغيير حالة التوصيل",
-      "description": "الخطوة {{step}} من 2",
-      "tooltipLabel": "تغيير الحالة",
-      "terminalDescription": "وصل هذا التوصيل إلى حالة نهائية.",
-      "terminalCompleted": "اكتمل هذا التوصيل ولا يمكن تعديله.",
-      "terminalCancelled": "تم إلغاء هذا التوصيل ولا يمكن تعديله.",
-      "optional": "اختياري",
-      "back": "رجوع",
+      "trigger": "تحديث الحالة",
+      "title": "تحديث حالة التسليم",
+      "subtitle": "سجّل نتيجة التسليم وتفاصيل الدفع والمستلم.",
+      "currentStatus": "الحالة الحالية",
+      "currentPaymentStatus": "حالة الدفع",
       "cancel": "إلغاء",
-      "next": "التالي",
-      "confirm": "تأكيد التغيير",
-      "submitting": "جارٍ الحفظ...",
-      "confirmPrompt": "يرجى مراجعة التغييرات قبل التأكيد.",
-      "successMessage": "تم تحديث حالة التوصيل بنجاح",
-      "steps": {
-        "selectStatus": "اختر الحالة",
-        "confirm": "تأكيد"
+      "submit": "حفظ التحديث",
+      "submitting": "جارٍ الحفظ…",
+      "noTransitions": "وصل هذا التسليم إلى حالة نهائية ولا يمكن تحديثه.",
+      "optional": "اختياري",
+
+      "labelStatus": "حالة التسليم",
+      "statusPlaceholder": "اختر الحالة الجديدة",
+      "labelPaymentStatus": "حالة الدفع",
+      "paymentStatusPlaceholder": "اختر حالة الدفع",
+      "labelPaymentAmount": "المبلغ المحصّل",
+      "labelReceiverName": "اسم المستلم",
+      "placeholderReceiverName": "مثال: أحمد صالح",
+      "hintReceiverName": "الشخص الذي استلم التسليم (اختياري للحالات غير المكتملة).",
+      "hintReceiverNameRequired": "مطلوب عند تعيين التسليم كمكتمل.",
+      "labelCheckNotes": "ملاحظات الفحص",
+      "placeholderCheckNotes": "أي ملاحظات أو مشكلات أثناء التسليم…",
+
+      "status": {
+        "pending": "قيد الانتظار",
+        "in_progress": "جارٍ التنفيذ",
+        "completed": "مكتمل",
+        "cancelled": "ملغى"
       },
-      "summary": {
-        "currentStatus": "الحالة الحالية",
-        "newStatus": "الحالة الجديدة",
-        "newPaymentStatus": "حالة الدفع"
+
+      "paymentStatus": {
+        "pending": "قيد الانتظار",
+        "paid": "مدفوع",
+        "partial": "جزئي"
       },
-      "fields": {
-        "status": {
-          "title": "الحالة",
-          "label": "الحالة الجديدة",
-          "placeholder": "اختر الحالة الجديدة"
-        },
-        "paymentStatus": {
-          "label": "حالة الدفع",
-          "placeholder": "اختر حالة الدفع"
-        },
-        "receiverName": {
-          "label": "اسم المستلم",
-          "placeholder": "الاسم الكامل للشخص الذي استلم التوصيل"
-        },
-        "paymentAmount": {
-          "label": "المبلغ المحصَّل"
-        },
-        "checkNotes": {
-          "label": "ملاحظات الفحص",
-          "placeholder": "أي ملاحظات عند التسليم..."
-        }
-      }
+      "required": "هذا الحقل مطلوب.",
+      "validNum": "يجب أن يحوي الحقل رقماً صحيحاً"
     },
     "form": {
       "title": "إسناد مهمة التوصيل",
@@ -416,7 +408,7 @@
     },
     "detail": {
       "pageTitle": "تفاصيل التوصيل",
-      "changeStatus": "تغيير الحالة",
+      "changeStatus": "تحديث الحالة",
       "deliveryNo": "التوصيل رقم {{id}}",
       "createdOn": "أُنشئ في {{date}}",
       "notCompleted": "لم يكتمل بعد",
