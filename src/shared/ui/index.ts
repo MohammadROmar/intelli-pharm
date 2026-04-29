@@ -165,7 +165,7 @@ export {
   DialogTrigger,
 } from './dialog';
 export { TableActions } from './TableActions';
-export { TableCard, TableCardHeader } from './TableCard';
+export { TableCard } from './TableCard';
 export { FormActions } from './FormActions';
 export { Badge, BadgeLink } from './badge';
 export { Textarea } from './textarea';
@@ -174,7 +174,6 @@ export { CardSectionHeader } from './CardSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
 export { QueryDisabled } from './QueryDisabled';
-export { SearchField } from './SearchField';
 export { Toaster } from './toaster';
 export { DeleteModal } from './DeleteModal';
 export { TableEmptyState, DetailEmptyState } from './EmptyState';

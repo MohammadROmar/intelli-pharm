@@ -18,9 +18,17 @@ export function PharmacyRow({ pharmacy, onDelete }: PharmacyRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {pharmacy.id}
       </TableCell>
-      <TableCell>{pharmacy.name}</TableCell>
-      <TableCell>{pharmacy.region}</TableCell>
-      <TableCell>{pharmacy.pharmacist_name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{pharmacy.name}</p>
+      </TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{pharmacy.region}</p>
+      </TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {pharmacy.pharmacist_name}
+        </p>
+      </TableCell>
       <TableCell className="text-muted-foreground tabular-nums">
         {pharmacy.pharmacist_phone}
       </TableCell>

@@ -36,8 +36,8 @@ export function CitySheet({
       {!isEdit && (
         <SheetTrigger asChild>
           <Button size="sm" className="flex items-center justify-center gap-2">
-            <CirclePlus />
-            <span>{t('action')}</span>
+            <CirclePlus className="size-4" />
+            <span className="sr-only sm:not-sr-only">{t('action')}</span>
           </Button>
         </SheetTrigger>
       )}

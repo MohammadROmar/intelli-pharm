@@ -38,8 +38,9 @@ export function CategoriesTable({ data }: Props) {
 
       <TableCard
         title={t('list.all')}
-        header={<CategoryFilters />}
-        headerClassName="flex-row"
+        toolbar={<CategoryFilters />}
+        addHref="/dashboard/categories/new"
+        addLabel={t('list.add')}
         currItemsCount={categories.length}
         basePath="/dashboard/categories"
         currentPage={data.meta.current_page}

@@ -18,7 +18,9 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {employee.id}
       </TableCell>
-      <TableCell>{employee.name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{employee.name}</p>
+      </TableCell>
       <TableCell>{employee.email}</TableCell>
       <TableCell>{t(`roles.${employee.roles[0]}`)}</TableCell>
       <TableCell>

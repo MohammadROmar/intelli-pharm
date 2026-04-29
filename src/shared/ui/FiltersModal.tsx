@@ -43,14 +43,9 @@ export function FiltersTrigger({
   );
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={onClick}
-      className={cn('relative gap-2', className)}
-    >
+    <Button variant="outline" size="sm" onClick={onClick} className={className}>
       <SlidersHorizontal className="size-4" />
-      <span>{t('trigger')}</span>
+      <span className="sr-only sm:not-sr-only">{t('trigger')}</span>
 
       {activeCount > 0 && (
         <Badge className="ml-1 flex size-4 items-center justify-center rounded-full p-0 text-[10px]">

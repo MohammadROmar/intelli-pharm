@@ -4,7 +4,6 @@ export {
   changeDelieryStatus,
 } from './api';
 
-export { DELIVERY_STATUS_TRANSITIONS } from './model/deliveryTypes';
 export type {
   DeliveryOrder,
   PaymentStatus,

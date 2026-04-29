@@ -7,14 +7,14 @@ export {
 export { useTheme } from './theme/useTheme';
 
 export {
-  SIDEBAR_COOKIE_MAX_AGE,
-  SIDEBAR_COOKIE_NAME,
-  SIDEBAR_KEYBOARD_SHORTCUT,
+  sidebarData,
   SIDEBAR_WIDTH,
   SIDEBAR_WIDTH_ICON,
+  SIDEBAR_COOKIE_NAME,
   SIDEBAR_WIDTH_MOBILE,
-  sidebarData,
+  SIDEBAR_COOKIE_MAX_AGE,
+  SIDEBAR_KEYBOARD_SHORTCUT,
 } from './sidebar/constants';
-export type { NavSubItem, SidebarItem } from './sidebar/constants';
+export type { NavSection, NavSubItem, SidebarItem } from './sidebar/constants';
 
 export { useAppDispatch, useAppSelector } from './store/typedStore';

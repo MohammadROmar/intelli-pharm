@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { OrderFiltersModal } from './OrderFiltersModal';
+import { useOrderFilters } from '../model/useOrderFilters';
 import { OrderRow, type OrderListResponse } from '@/entities/order';
 import {
   FiltersTrigger,
@@ -10,9 +13,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/ui';
-import { useState } from 'react';
-import { useOrderFilters } from '../model/useOrderFilters';
-import { OrderFiltersModal } from './OrderFiltersModal';
 
 type Props = { data: OrderListResponse };
 
@@ -25,8 +25,7 @@ export function OrdersTable({ data }: Props) {
     <TableCard
       title={t('all')}
       basePath="/dashboard/orders"
-      header={<OrderFilters />}
-      headerClassName="flex-row"
+      toolbar={<OrderFilters />}
       itemsPerPage={data.meta.per_page}
       currItemsCount={orders.length}
       currentPage={data.meta.current_page}

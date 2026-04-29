@@ -36,7 +36,7 @@ export function CategoryChildrenTable({ category }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-36">{t('colId')}</TableHead>
+              <TableHead className="w-25">{t('colId')}</TableHead>
               <TableHead>{t('colName')}</TableHead>
               <TableHead>{t('colActions')}</TableHead>
             </TableRow>
@@ -48,9 +48,9 @@ export function CategoryChildrenTable({ category }: Props) {
                   {child.id}
                 </TableCell>
                 <TableCell>
-                  <span className="flex items-center gap-2 font-medium">
+                  <p className="max-w-[20ch] truncate font-medium">
                     {child.name}
-                  </span>
+                  </p>
                 </TableCell>
                 <TableActions
                   item={child}

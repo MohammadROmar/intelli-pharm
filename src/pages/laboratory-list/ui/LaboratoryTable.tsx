@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import { LaboratoryFiltersModal } from './LaboratoryFiltersModal';
+import { useLaboratoryFilteres } from '../model/useLaboratoryFilters';
 import { AddLaboratoryButton } from '@/features/laboratory-create';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
 import {
@@ -10,7 +12,7 @@ import {
   type LaboratoryListItem,
 } from '@/entities/laboratory';
 import {
-  SearchField,
+  FiltersTrigger,
   TableBody,
   TableCard,
   TableEmptyState,
@@ -45,11 +47,11 @@ export function LaboratoryTable({ data }: Props) {
         itemsPerPage={data.meta.per_page}
         totalItems={data.meta.total}
         currentPage={data.meta.current_page}
-        header={
-          <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
-            <SearchField placeholder={t('list.searchPlaceholder')} />
+        toolbar={
+          <>
+            <LaboratoryFilters />
             <AddLaboratoryButton />
-          </div>
+          </>
         }
       >
         {laboratories.length > 0 ? (
@@ -88,5 +90,31 @@ function EmotyState() {
       variant={name ? 'search' : 'empty'}
       onClearSearch={() => setSearchParams({})}
     />
+  );
+}
+
+function LaboratoryFilters() {
+  const [open, setOpen] = useState(false);
+  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
+    useLaboratoryFilteres();
+
+  return (
+    <>
+      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
+      <LaboratoryFiltersModal
+        open={open}
+        onOpenChange={setOpen}
+        defaultValues={filters}
+        hasActiveFilters={hasActiveFilters}
+        onApply={(v) => {
+          applyFilters(v);
+          setOpen(false);
+        }}
+        onClear={() => {
+          clearFilters();
+          setOpen(false);
+        }}
+      />
+    </>
   );
 }

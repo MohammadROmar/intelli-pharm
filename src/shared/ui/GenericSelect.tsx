@@ -64,15 +64,29 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
 }: GenericSingleSelectProps<T>) {
   const [localSearch, setLocalSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const debouncedSearch = useDebounce(localSearch, 300);
-  const isFetchingNextPageRef = useRef<boolean | undefined>(isFetchingNextPage);
 
   const { t } = useTranslation('translation', { keyPrefix: 'asyncSelect' });
 
+  const hasNextPageRef = useRef(hasNextPage);
+  const isFetchingNextPageRef = useRef(isFetchingNextPage);
+  const isLoadingRef = useRef(isLoading);
+  const onLoadMoreRef = useRef(onLoadMore);
+
+  useEffect(() => {
+    hasNextPageRef.current = hasNextPage;
+  }, [hasNextPage]);
   useEffect(() => {
     isFetchingNextPageRef.current = isFetchingNextPage;
   }, [isFetchingNextPage]);
+  useEffect(() => {
+    isLoadingRef.current = isLoading;
+  }, [isLoading]);
+  useEffect(() => {
+    onLoadMoreRef.current = onLoadMore;
+  }, [onLoadMore]);
 
   useEffect(() => {
     if (onSearchChange && isOpen) {
@@ -81,64 +95,67 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   }, [debouncedSearch, onSearchChange, isOpen]);
 
   useEffect(() => {
-    if (!isOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setLocalSearch('');
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
+    let listenerCleanup: (() => void) | undefined;
+
+    const timerId = setTimeout(() => {
       const container = scrollRef.current;
       if (!container) return;
 
       const handleScroll = () => {
-        if (!hasNextPage || isFetchingNextPageRef.current || !onLoadMore)
+        if (
+          !hasNextPageRef.current ||
+          isFetchingNextPageRef.current ||
+          isLoadingRef.current ||
+          !onLoadMoreRef.current
+        )
           return;
 
         const { scrollTop, scrollHeight, clientHeight } = container;
-
-        const atBottom = scrollTop + clientHeight >= scrollHeight - 100;
-
-        if (atBottom && !isLoading && !isFetchingNextPageRef.current) {
-          onLoadMore();
-        }
+        const nearBottom = scrollTop + clientHeight >= scrollHeight - 100;
+        if (nearBottom) onLoadMoreRef.current();
       };
 
-      const preventRadixLock = (e: Event) => {
-        e.stopPropagation();
-      };
+      const stopPropagation = (e: Event) => e.stopPropagation();
 
       container.addEventListener('scroll', handleScroll, { passive: true });
-      container.addEventListener('wheel', preventRadixLock, { passive: true });
-      container.addEventListener('touchmove', preventRadixLock, {
+      container.addEventListener('wheel', stopPropagation, { passive: true });
+      container.addEventListener('touchmove', stopPropagation, {
         passive: true,
       });
 
-      return () => {
+      listenerCleanup = () => {
         container.removeEventListener('scroll', handleScroll);
-        container.removeEventListener('wheel', preventRadixLock);
-        container.removeEventListener('touchmove', preventRadixLock);
+        container.removeEventListener('wheel', stopPropagation);
+        container.removeEventListener('touchmove', stopPropagation);
       };
     }, 10);
 
-    return () => clearTimeout(timeout);
-  }, [isOpen, hasNextPage, isFetchingNextPage, onLoadMore, isLoading]);
+    return () => {
+      clearTimeout(timerId);
+      listenerCleanup?.();
+    };
+  }, [isOpen]);
 
-  const selectedOption = options.find((option) => option[valueKey] === value);
+  const selectedOption = options.find((opt) => opt[valueKey] === value) ?? null;
 
   const filteredOptions =
     onSearchChange || !debouncedSearch.trim()
       ? options
-      : options.filter((option) => {
-          const label = String(option[labelKey] ?? '');
-          const optionValue = String(option[valueKey] ?? '');
+      : options.filter((opt) => {
+          const label = String(opt[labelKey] ?? '').toLowerCase();
+          const key = String(opt[valueKey] ?? '').toLowerCase();
           const term = debouncedSearch.toLowerCase().trim();
-          return (
-            label.toLowerCase().includes(term) ||
-            optionValue.toLowerCase().includes(term)
-          );
+          return label.includes(term) || key.includes(term);
         });
+
+  const defaultLabel =
+    defaultValue?.[labelKey] != null ? String(defaultValue[labelKey]) : null;
+
+  const displayLabel = selectedOption
+    ? String(selectedOption[labelKey])
+    : defaultLabel;
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -156,32 +173,28 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
           )}
         >
           {Icon && <Icon className="input-icon" />}
-          {selectedOption ? (
-            <span className="truncate">{String(selectedOption[labelKey])}</span>
-          ) : defaultValue ? (
-            <span className="truncate">{String(defaultValue[labelKey])}</span>
+
+          {displayLabel ? (
+            <span className="truncate">{displayLabel}</span>
           ) : (
             <span className="text-muted-foreground">
               {placeholder ?? t('placeholder')}
             </span>
           )}
+
           <div className="flex gap-2 ltr:ml-2 rtl:mr-2">
-            {isFetchingNextPage && (
-              <div className="flex items-center justify-center">
-                <Loader2 className="size-4 animate-spin" />
-              </div>
-            )}
+            {isFetchingNextPage && <Loader2 className="size-4 animate-spin" />}
             <ChevronsUpDown className="size-4 shrink-0 opacity-50" />
           </div>
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-full p-0!">
         <Command shouldFilter={false}>
           <CommandInput
             placeholder={t('search')}
             value={localSearch}
             onValueChange={setLocalSearch}
-            className="pl-8"
           />
           <CommandList
             ref={scrollRef}
@@ -194,26 +207,24 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
               <CommandEmpty>{t('noResultsFound')}</CommandEmpty>
             ) : (
               <CommandGroup>
-                {filteredOptions.map((option) => {
-                  const isSelected = option[valueKey] === value;
+                {filteredOptions.map((opt) => {
+                  const isSelected = opt[valueKey] === value;
                   return (
                     <CommandItem
-                      key={String(option[valueKey])}
-                      value={String(option[valueKey])}
+                      key={String(opt[valueKey])}
+                      value={String(opt[valueKey])}
                       onSelect={() => {
-                        onValueChange(isSelected ? null : option[valueKey]);
+                        onValueChange(isSelected ? null : opt[valueKey]);
                         setIsOpen(false);
                       }}
                     >
                       <Check
                         className={cn(
-                          'mr-2 size-4',
+                          'size-4 ltr:mr-2 rtl:ml-2',
                           isSelected ? 'opacity-100' : 'opacity-0',
                         )}
                       />
-                      <span className="text-wrap">
-                        {String(option[labelKey])}
-                      </span>
+                      <span className="text-wrap">{String(opt[labelKey])}</span>
                     </CommandItem>
                   );
                 })}

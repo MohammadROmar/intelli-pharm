@@ -2,16 +2,16 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useFilters } from '@/shared/lib';
 
-type LaboratoriesFilteres = { name?: string };
+type LaboratoryFilteres = { name?: string };
 
-const FILTER_KEYS: (keyof LaboratoriesFilteres)[] = ['name'];
+const FILTER_KEYS: (keyof LaboratoryFilteres)[] = ['name'];
 
-export function useLaboratoriesFilteres() {
+export function useLaboratoryFilteres() {
   const [searchParams] = useSearchParams();
 
-  const filters: LaboratoriesFilteres = {
+  const filters: LaboratoryFilteres = {
     name: searchParams.get('name') ?? undefined,
   };
 
-  return useFilters<LaboratoriesFilteres>({ filters, filterKeys: FILTER_KEYS });
+  return useFilters<LaboratoryFilteres>({ filters, filterKeys: FILTER_KEYS });
 }

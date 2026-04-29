@@ -39,8 +39,9 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
 
       <TableCard
         title={t('list.all')}
-        header={<Filters />}
-        headerClassName="flex-row"
+        toolbar={<Filters />}
+        addHref="/dashboard/employees/new"
+        addLabel={t('list.add')}
         currItemsCount={employees.length}
         basePath="/dashboard/employees"
         itemsPerPage={data.meta.per_page}

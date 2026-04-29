@@ -78,16 +78,6 @@ export type DeliveryDetail = {
   updated_at: string;
 };
 
-export const DELIVERY_STATUS_TRANSITIONS: Record<
-  DeliveryStatus,
-  DeliveryStatus[]
-> = {
-  pending: ['in_progress', 'cancelled'],
-  in_progress: ['completed', 'cancelled'],
-  completed: [],
-  cancelled: [],
-};
-
 export type ChangeDeliveryStatusPayload = {
   status: DeliveryStatus;
   payment_status: PaymentStatus;

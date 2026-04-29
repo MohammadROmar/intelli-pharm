@@ -37,7 +37,7 @@ export function DetailedBreakdownTable({ metrics }: Props) {
         <TableBody>
           {metrics.map((metric) => (
             <TableRow key={metric.id}>
-              <TableCell className="">
+              <TableCell>
                 {t('medicine')} #{metric.medicine_id}
               </TableCell>
               <TableCell>

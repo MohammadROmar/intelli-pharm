@@ -17,8 +17,14 @@ export function CategoryRow({ category, onDelete }: CategoryRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {category.id}
       </TableCell>
-      <TableCell>{category.name}</TableCell>
-      <TableCell>{category.parent_name ?? '-'}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{category.name}</p>
+      </TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {category.parent_name ?? '-'}
+        </p>
+      </TableCell>
       <TableCell className="text-muted-foreground">
         {formatDate(category.created_at, i18n.language, false)}
       </TableCell>

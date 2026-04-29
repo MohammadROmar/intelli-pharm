@@ -1,54 +1,33 @@
 import type { TFunction } from 'i18next';
 
 import type {
+  PaymentStatus,
   DeliveryStatus,
   ChangeDeliveryStatusValues,
   ChangeDeliveryStatusPayload,
-  PaymentStatus,
 } from '@/entities/delivery';
 
-export function DELIVERY_TRANSITIONS(
-  t: TFunction,
-): Record<DeliveryStatus, { label: string; value: DeliveryStatus }[]> {
-  const createOption = (status: DeliveryStatus) => ({
+export function DELIVERY_TRANSITIONS(t: TFunction) {
+  const statuses: DeliveryStatus[] = [
+    'pending',
+    'in_progress',
+    'cancelled',
+    'completed',
+  ];
+
+  return statuses.map((status) => ({
     label: t(`status.${status}`),
     value: status,
-  });
-
-  return {
-    pending: [
-      createOption('pending'),
-      createOption('in_progress'),
-      createOption('cancelled'),
-      createOption('completed'),
-    ],
-    in_progress: [
-      createOption('in_progress'),
-      createOption('completed'),
-      createOption('cancelled'),
-    ],
-    completed: [createOption('completed')],
-    cancelled: [createOption('cancelled')],
-  };
+  }));
 }
 
-export function PAYMENT_TRANSITIONS(
-  t: TFunction,
-): Record<PaymentStatus, { label: string; value: PaymentStatus }[]> {
-  const createOption = (status: PaymentStatus) => ({
+export function PAYMENT_TRANSITIONS(t: TFunction) {
+  const statuses: PaymentStatus[] = ['pending', 'partial', 'paid'];
+
+  return statuses.map((status) => ({
     label: t(`paymentStatus.${status}`),
     value: status,
-  });
-
-  return {
-    pending: [
-      createOption('pending'),
-      createOption('partial'),
-      createOption('paid'),
-    ],
-    partial: [createOption('partial'), createOption('paid')],
-    paid: [createOption('paid')],
-  };
+  }));
 }
 
 export function toPayload(

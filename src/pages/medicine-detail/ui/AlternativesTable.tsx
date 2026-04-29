@@ -41,7 +41,7 @@ export function AlternativesTable({ alternatives, mode }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t('list.id')}</TableHead>
+              <TableHead className="w-25">{t('list.id')}</TableHead>
               <TableHead>{t('list.name')}</TableHead>
               <TableHead className="max-w-xs">{t('list.price')}</TableHead>
               <TableHead className="max-w-xs">{t('list.actions')}</TableHead>
@@ -53,7 +53,11 @@ export function AlternativesTable({ alternatives, mode }: Props) {
                 <TableCell className="text-muted-foreground text-xs">
                   {alt.id}
                 </TableCell>
-                <TableCell>{alt.commercial_name}</TableCell>
+                <TableCell>
+                  <p className="max-w-[20ch] truncate font-medium">
+                    {alt.commercial_name}
+                  </p>
+                </TableCell>
                 <TableCell className="tabular-nums">
                   {formatPrice(alt.price, i18n.language)}
                 </TableCell>

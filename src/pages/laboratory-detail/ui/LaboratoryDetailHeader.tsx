@@ -58,7 +58,7 @@ export function LaboratoryActions({ laboratory }: Props) {
           onClick={() => setIsEditOpen(true)}
           className="cursor-pointer"
         >
-          <Pencil className="mr-2 size-4" />
+          <Pencil className="size-4" />
           {t('edit')}
         </DropdownMenuItem>
 
@@ -67,7 +67,7 @@ export function LaboratoryActions({ laboratory }: Props) {
           onClick={() => setLabToDelete(laboratory)}
           className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full cursor-pointer justify-start"
         >
-          <Trash2 className="mr-2 size-4" />
+          <Trash2 className="size-4" />
           {t('delete')}
         </DropdownMenuItem>
       </ActionsDropdown>

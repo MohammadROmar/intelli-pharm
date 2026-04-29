@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import { CityFiltersModal } from './CityFiltersModal';
+import { useCityFilteres } from '../model/useCityFilters';
+import { CityEditButton } from '@/features/city-edit';
 import { AddCityButton } from '@/features/city-create';
 import { DeleteCityModal } from '@/features/city-delete';
-import { CityEditButton } from '@/features/city-edit';
 import { CityRow, type CitiesResponse, type CityDetail } from '@/entities/city';
 import {
-  SearchField,
+  FiltersTrigger,
   TableBody,
   TableCard,
   TableEmptyState,
@@ -28,12 +30,10 @@ export function CitiesTable({ data }: Props) {
         city={cityToDelete}
         onClose={() => setCityToDelete(null)}
       />
-
       <CityEditButton
         cityToUpdate={cityToUpdate}
         onClose={() => setCityToUpdate(null)}
       />
-
       <ItemsTable
         data={data}
         onUpdate={setCityToUpdate}
@@ -49,9 +49,7 @@ type ItemsTableProps = Props & {
 };
 
 function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'citiesPage',
-  });
+  const { t } = useTranslation('translation', { keyPrefix: 'citiesPage' });
 
   const cities = data.data!;
 
@@ -61,20 +59,22 @@ function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
       basePath="/dashboard/cities"
       itemsPerPage={data.meta.per_page}
       currItemsCount={cities.length}
-      header={
-        <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
-          <SearchField placeholder={t('list.searchPlaceholder')} />
-          <AddCityButton />
-        </div>
-      }
       currentPage={data.meta.current_page}
       totalItems={data.meta.total}
+      toolbar={
+        <>
+          <CityFilters />
+          <AddCityButton />
+        </>
+      }
     >
       {cities.length > 0 ? (
         <>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-25">{t('list.id')}</TableHead>
+              <TableHead className="hidden w-16 sm:table-cell">
+                {t('list.id')}
+              </TableHead>
               <TableHead>{t('list.name')}</TableHead>
               <TableHead>{t('list.actions')}</TableHead>
             </TableRow>
@@ -106,5 +106,31 @@ function EmptyState() {
       variant={name ? 'search' : 'empty'}
       onClearSearch={() => setSearchParams({})}
     />
+  );
+}
+
+function CityFilters() {
+  const [open, setOpen] = useState(false);
+  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
+    useCityFilteres();
+
+  return (
+    <>
+      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
+      <CityFiltersModal
+        open={open}
+        onOpenChange={setOpen}
+        defaultValues={filters}
+        hasActiveFilters={hasActiveFilters}
+        onApply={(v) => {
+          applyFilters(v);
+          setOpen(false);
+        }}
+        onClear={() => {
+          clearFilters();
+          setOpen(false);
+        }}
+      />
+    </>
   );
 }

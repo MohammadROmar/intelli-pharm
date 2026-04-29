@@ -53,7 +53,7 @@ export function ConfirmationStep({
         </DialogDescription>
       </DialogHeader>
 
-      <div className="bg-muted/40 flex items-center justify-center gap-4 rounded-lg py-6">
+      <div className="bg-muted/70 flex items-center justify-center gap-4 rounded-lg py-6">
         <OrderStatusBadge status={currentStatus} />
         <ArrowRight className="text-muted-foreground size-5 shrink-0 rtl:rotate-180" />
         <OrderStatusBadge status={selectedStatus} />

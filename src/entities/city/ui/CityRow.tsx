@@ -19,7 +19,9 @@ export function CityRow({ city, onUpdate, onDelete }: CityRowProps) {
   return (
     <TableRow>
       <TableCell className="text-muted-foreground text-xs">{city.id}</TableCell>
-      <TableCell>{city.name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{city.name}</p>
+      </TableCell>
 
       <TableActions
         item={city}

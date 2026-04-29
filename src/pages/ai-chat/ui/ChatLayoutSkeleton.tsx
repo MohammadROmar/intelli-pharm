@@ -37,22 +37,32 @@ export function ChatLayoutSkeleton() {
         <Separator />
       </header>
 
-      <main className="mx-auto w-full max-w-3xl flex-1">
-        <div className="space-y-4 overflow-y-hidden px-4 py-6">
-          <MessageSkeleton />
-          <MessageSkeleton reverse />
-          <MessageSkeleton />
-          <MessageSkeleton reverse />
-        </div>
+      <main className="h-full">
+        <ChatPageSkeleton />
       </main>
+    </div>
+  );
+}
 
-      <footer className="bg-background/80 border-border flex flex-col items-center justify-center border-t p-4">
+export function ChatPageSkeleton() {
+  return (
+    <div className="flex h-full flex-col justify-between">
+      <div className="mx-auto w-full max-w-3xl flex-1 space-y-4 overflow-y-hidden px-4 py-6">
+        <MessageSkeleton />
+        <MessageSkeleton reverse />
+        <MessageSkeleton />
+        <MessageSkeleton reverse />
+        <MessageSkeleton />
+        <MessageSkeleton reverse />
+      </div>
+
+      <div className="bg-background/80 border-border flex flex-col items-center justify-center border-t p-4">
         <div className="bg-muted/50 flex h-15.5 w-full max-w-3xl items-center gap-2 rounded-3xl p-2">
           <Skeleton className="h-11 w-full rounded-xl!" />
           <Skeleton className="aspect-square size-9 rounded-full!" />
         </div>
         <Skeleton className="mt-3 h-4 w-32" />
-      </footer>
+      </div>
     </div>
   );
 }

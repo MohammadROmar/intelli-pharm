@@ -1,11 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import {
   ChangeDeliveryStatusSheet,
   useChangeDeliveryStatus,
   ChangeDeliveryStatusForm,
-  DELIVERY_TRANSITIONS,
   toPayload,
 } from '@/features/delivery-change-status';
 import {
@@ -14,8 +14,6 @@ import {
   type DeliveryDetail,
   type ChangeDeliveryStatusValues,
 } from '@/entities/delivery';
-import { PAYMENT_TRANSITIONS } from '@/features/delivery-change-status/lib/utils';
-import { useSearchParams } from 'react-router-dom';
 
 type Props = { delivery: DeliveryDetail };
 
@@ -63,28 +61,11 @@ export function DeliveryDetailHeader({ delivery }: Props) {
 
 function ChangeDeliveryStatus({ delivery }: Props) {
   const [searchParams] = useSearchParams();
+  const [formKey, setFormKey] = useState(0);
   const [open, setOpen] = useState(
     () => searchParams.get('focus') === 'change-status',
   );
-
   const { mutate, isPending } = useChangeDeliveryStatus();
-
-  const [formKey, setFormKey] = useState(0);
-
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.changeStatus',
-  });
-
-  const availableStatuses = useMemo(
-    () => DELIVERY_TRANSITIONS(t)[delivery.status],
-    [t, delivery.status],
-  );
-  const paymentStatuses = useMemo(
-    () => PAYMENT_TRANSITIONS(t)[delivery.payment_status],
-    [t, delivery.payment_status],
-  );
-  const isTerminal =
-    availableStatuses.length === 1 && paymentStatuses.length === 1;
 
   function handleSuccess() {
     setOpen(false);
@@ -100,14 +81,11 @@ function ChangeDeliveryStatus({ delivery }: Props) {
     <ChangeDeliveryStatusSheet
       open={open}
       setOpen={setOpen}
-      disabled={isTerminal}
       currentStatus={delivery.status}
       currentPaymentStatus={delivery.payment_status}
     >
       <ChangeDeliveryStatusForm
         key={formKey}
-        availableStatuses={availableStatuses}
-        paymentStatuses={paymentStatuses}
         isPending={isPending}
         onSubmit={handleSubmit}
         onReset={() => setFormKey((prev) => prev + 1)}

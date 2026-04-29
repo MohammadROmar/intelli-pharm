@@ -25,7 +25,9 @@ export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {laboratory.id}
       </TableCell>
-      <TableCell>{laboratory.name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{laboratory.name}</p>
+      </TableCell>
 
       <TableActions
         item={laboratory}

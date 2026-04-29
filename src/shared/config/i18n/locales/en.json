@@ -131,6 +131,12 @@
       "createdAt": "Created",
       "actions": "Actions"
     },
+    "filters": {
+      "title": "Filter Laboratories",
+      "subtitle": "Narrow down the laboratories list using one or more filters.",
+      "nameLabel": "Laboratory Name",
+      "namePlaceholder": "Search by laboratory name…"
+    },
     "create": {
       "title": "Add New Laboratory",
       "subtitle": "Enter the name of the laboratory to add it to the system.",
@@ -195,6 +201,12 @@
       "id": "ID",
       "name": "Name",
       "actions": "Actions"
+    },
+    "filters": {
+      "title": "Filter Cities",
+      "subtitle": "Narrow down the cities list using one or more filters.",
+      "nameLabel": "City Name",
+      "namePlaceholder": "Search by city name…"
     },
     "create": {
       "title": "Add New City",
@@ -459,6 +471,7 @@
       "title": "Regions",
       "subtitle": "Manage, update, or remove region records in the table below.",
       "all": "All Regions",
+      "add": "Add Region",
       "id": "ID",
       "name": "Name",
       "city": "City",
@@ -521,6 +534,7 @@
       "title": "Pharmacies",
       "subtitle": "Manage, update, or remove pharmacy records in the table below.",
       "all": "All Pharmacies",
+      "add": "Add Pharmacy",
       "id": "ID",
       "name": "Name",
       "region": "Region",
@@ -637,6 +651,7 @@
     "list": {
       "title": "Medicine Inventory",
       "subtitle": "Manage, update, or remove medicine records in the table below.",
+      "add": "Add Medicine",
       "all": "All Medicines",
       "id": "ID",
       "name": "Name",
@@ -838,6 +853,7 @@
     "list": {
       "title": "Medicine Categories",
       "subtitle": "Manage and organize your medicine categories",
+      "add": "Add Category",
       "all": "All Categories",
       "searchPlaceholder": "Search Category...",
       "id": "ID",
@@ -916,13 +932,14 @@
     },
     "list": {
       "title": "Employees",
-      "createdAt": "Created",
       "subtitle": "Manage access roles and permissions for your warehouse staff.",
       "all": "All Employees",
+      "add": "Add Employee",
       "id": "ID",
       "name": "Name",
       "email": "Email",
       "status": "Status",
+      "createdAt": "Created",
       "active": "Active",
       "inactive": "Inactive",
       "role": "Role",
@@ -1068,60 +1085,53 @@
     "account": "Account",
     "notifications": "Notifications",
 
+    "sections": {
+      "sales": "Sales",
+      "catalog": "Catalog",
+      "logistics": "Logistics",
+      "reference": "Reference"
+    },
     "labels": {
       "dashboard": "Dashboard",
+      "chat": "Chat with AI",
       "orders": "Orders",
-      "laboratories": "Laboratories",
+      "pharmacies": "Pharmacies",
+      "promotions": "Promotions",
       "medicines": "Medicines",
       "categories": "Categories",
+      "laboratories": "Laboratories",
+      "deliveries": "Deliveries",
+      "metrics": "Metrics",
+      "regions": "Regions",
+      "cities": "Cities",
       "employees": "Employees",
       "new": "New",
       "edit": "Edit",
-      "cities": "Cities",
       "restock": "Restock",
-      "regions": "Regions",
-      "pharmacies": "Pharmacies",
       "scan": "Scan",
-      "chat": "Chat with AI",
-      "metrics": "Metrics",
       "seasonal": "Seasonal Metrics",
       "medicine": "Medicine Metrics",
       "area": "Area Metrics",
       "pharmacy": "Pharmacy Metrics",
-      "deliveries": "Deliveries",
       "assign": "Assign Delivery"
     },
-
-    "regions": {
-      "list": "All Regions",
-      "new": "Add Regions"
-    },
-    "pharmacies": {
-      "list": "All Pharmacies",
-      "new": "Add Pharmacies"
+    "promotions": {
+      "offers": "Offers",
+      "gifts": "Gifts"
     },
     "medicines": {
       "list": "All Medicines",
-      "scanMedicine": "Scan Medicine",
-      "new": "Add Medicine"
-    },
-    "categories": {
-      "list": "All Categories",
-      "new": "Add Category"
-    },
-    "employees": {
-      "list": "All Employees",
-      "new": "Add Employee"
-    },
-    "metrics": {
-      "seasonal": "Seasonal Metrics",
-      "medicine": "Medicine Metrics",
-      "area": "Area Metrics",
-      "pharmacy": "Pharmacy Metrics"
+      "scanMedicine": "Scan Medicine"
     },
     "deliveries": {
       "list": "All Deliveries",
-      "assign": "Assign Delivery"
+      "assign": "Assign Deliveries"
+    },
+    "metrics": {
+      "seasonal": "Seasonal",
+      "medicine": "By Medicine",
+      "area": "By Area",
+      "pharmacy": "By Pharmacy"
     }
   },
 

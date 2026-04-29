@@ -2,16 +2,16 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useFilters } from '@/shared/lib';
 
-type CitiesFilteres = { name?: string };
+type CityFilters = { name?: string };
 
-const FILTER_KEYS: (keyof CitiesFilteres)[] = ['name'];
+const FILTER_KEYS: (keyof CityFilters)[] = ['name'];
 
-export function useCitiesFilteres() {
+export function useCityFilteres() {
   const [searchParams] = useSearchParams();
 
-  const filters: CitiesFilteres = {
+  const filters: CityFilters = {
     name: searchParams.get('name') ?? undefined,
   };
 
-  return useFilters<CitiesFilteres>({ filters, filterKeys: FILTER_KEYS });
+  return useFilters<CityFilters>({ filters, filterKeys: FILTER_KEYS });
 }

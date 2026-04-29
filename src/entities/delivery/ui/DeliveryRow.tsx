@@ -23,8 +23,16 @@ export function DeliveryRow({ delivery }: DeliveryRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {delivery.id}
       </TableCell>
-      <TableCell>{delivery.pharmacy_name}</TableCell>
-      <TableCell>{delivery.distributor_name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {delivery.pharmacy_name}
+        </p>
+      </TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {delivery.distributor_name}
+        </p>
+      </TableCell>
       <TableCell className="text-muted-foreground">
         {formatDate(delivery.scheduled_at, i18n.language, false)}
       </TableCell>

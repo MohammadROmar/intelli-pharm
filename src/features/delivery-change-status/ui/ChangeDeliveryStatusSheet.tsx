@@ -24,7 +24,6 @@ type Props = PropsWithChildren<{
   setOpen: (open: boolean) => void;
   currentStatus: DeliveryStatus;
   currentPaymentStatus: PaymentStatus;
-  disabled?: boolean;
 }>;
 
 export function ChangeDeliveryStatusSheet({
@@ -32,7 +31,6 @@ export function ChangeDeliveryStatusSheet({
   setOpen,
   currentStatus,
   currentPaymentStatus,
-  disabled,
   children,
 }: Props) {
   const { t, i18n } = useTranslation('translation', {
@@ -44,12 +42,7 @@ export function ChangeDeliveryStatusSheet({
   return (
     <Sheet open={open} onOpenChange={(val) => setOpen(val)}>
       <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={disabled}
-          className="gap-2"
-        >
+        <Button variant="outline" size="sm" className="gap-2">
           <ClipboardCheck className="size-4" />
           {t('trigger')}
         </Button>

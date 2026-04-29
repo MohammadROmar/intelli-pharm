@@ -20,7 +20,6 @@ export function DeliveriesTable({ data }: Props) {
   return (
     <TableCard
       title={t('list.all')}
-      headerClassName="flex-row"
       currItemsCount={deliveries.length}
       basePath="/dashboard/deliveries"
       currentPage={data.meta.current_page}

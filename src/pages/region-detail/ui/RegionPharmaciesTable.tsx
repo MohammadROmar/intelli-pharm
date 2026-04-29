@@ -34,7 +34,7 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>{t('colId')}</TableHead>
+              <TableHead className="w-25">{t('colId')}</TableHead>
               <TableHead>{t('colName')}</TableHead>
               <TableHead>{t('colPhone')}</TableHead>
               <TableHead>{t('colActions')}</TableHead>
@@ -47,7 +47,11 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
                   {pharmacy.id}
                 </TableCell>
 
-                <TableCell>{pharmacy.name}</TableCell>
+                <TableCell>
+                  <p className="max-w-[20ch] truncate font-medium">
+                    {pharmacy.name}
+                  </p>
+                </TableCell>
 
                 <TableCell>
                   <span className="flex items-center gap-1.5 text-sm">

@@ -40,7 +40,7 @@ export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-36">{t('colMedicineId')}</TableHead>
+              <TableHead className="w-25">{t('colMedicineId')}</TableHead>
               <TableHead>{t('colMedicine')}</TableHead>
               <TableHead>{t('colQty')}</TableHead>
               <TableHead>{t('colUnitPrice')}</TableHead>
@@ -56,8 +56,10 @@ export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
                   {item.medicine_id}
                 </TableCell>
 
-                <TableCell className="font-medium">
-                  {item.medicine.commercial_name}
+                <TableCell>
+                  <p className="max-w-[20ch] truncate font-medium">
+                    {item.medicine.commercial_name}
+                  </p>
                 </TableCell>
 
                 <TableCell className="text-muted-foreground tabular-nums">

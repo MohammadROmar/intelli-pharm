@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { RefreshCw } from 'lucide-react';
 
 import { OrderStatusBadge } from './OrderStatusBadge';
-import type { OrderListItem, OrderStatus } from '../model/orderTypes';
+import type { OrderListItem } from '../model/orderTypes';
 import { formatDate, formatPrice } from '@/shared/lib';
 import {
   TableCell,
@@ -24,7 +24,11 @@ export function OrderRow({ order }: OrderRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {order.id}
       </TableCell>
-      <TableCell>{order.pharmacy.name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {order.pharmacy.name}
+        </p>
+      </TableCell>
       <TableCell>
         <OrderStatusBadge status={order.status} withIcon={false} />
       </TableCell>
@@ -45,9 +49,6 @@ export function OrderRow({ order }: OrderRowProps) {
 type Props = OrderRowProps & { label: string };
 
 function ChangeStatus({ order, label }: Props) {
-  const terminals: OrderStatus[] = ['completed', 'cancelled'];
-  if (terminals.includes(order.status)) return null;
-
   return (
     <DropdownMenuItem asChild>
       <Link

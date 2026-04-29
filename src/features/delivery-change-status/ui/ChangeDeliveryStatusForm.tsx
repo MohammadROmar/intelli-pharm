@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Controller,
@@ -12,11 +13,8 @@ import {
   User,
 } from 'lucide-react';
 
-import type {
-  DeliveryStatus,
-  PaymentStatus,
-  ChangeDeliveryStatusValues,
-} from '@/entities/delivery';
+import { DELIVERY_TRANSITIONS, PAYMENT_TRANSITIONS } from '../lib/utils';
+import type { ChangeDeliveryStatusValues } from '@/entities/delivery';
 import { required, positiveNumber } from '@/shared/form';
 import {
   Field,
@@ -30,11 +28,8 @@ import {
   Textarea,
 } from '@/shared/ui';
 
-type Status<T> = { label: string; value: T };
 type Props = {
   isPending?: boolean;
-  availableStatuses: Status<DeliveryStatus>[];
-  paymentStatuses: Status<PaymentStatus>[];
   onReset: () => void;
   onSubmit: SubmitHandler<ChangeDeliveryStatusValues>;
   defaultValues?: Partial<ChangeDeliveryStatusValues>;
@@ -44,13 +39,14 @@ export function ChangeDeliveryStatusForm({
   isPending,
   onSubmit,
   onReset,
-  paymentStatuses,
-  availableStatuses,
   defaultValues,
 }: Props) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'deliveriesPage.changeStatus',
   });
+
+  const statusOptions = useMemo(() => DELIVERY_TRANSITIONS(t), [t]);
+  const paymentOptions = useMemo(() => PAYMENT_TRANSITIONS(t), [t]);
 
   const {
     register,
@@ -85,7 +81,7 @@ export function ChangeDeliveryStatusForm({
                 </p>
               </FieldLabel>
               <GenericSingleSelect
-                options={availableStatuses}
+                options={statusOptions}
                 labelKey="label"
                 valueKey="value"
                 value={field.value}
@@ -112,7 +108,7 @@ export function ChangeDeliveryStatusForm({
                 <p>{t('labelPaymentStatus')}</p>
               </FieldLabel>
               <GenericSingleSelect
-                options={paymentStatuses}
+                options={paymentOptions}
                 labelKey="label"
                 valueKey="value"
                 value={field.value}

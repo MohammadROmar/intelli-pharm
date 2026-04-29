@@ -1,6 +1,7 @@
 import {
   Bot,
   Pill,
+  Tag,
   Cross,
   Truck,
   Users,
@@ -30,87 +31,102 @@ export type SidebarItem = {
   label: string;
   url: string;
   icon?: LucideIcon;
-  isActive?: boolean;
   items?: NavSubItem[];
+  exact?: boolean;
 };
 
-export const sidebarData: SidebarItem[] = [
-  { label: 'labels.dashboard', url: '/dashboard', icon: LayoutDashboard },
-  { label: 'labels.chat', url: '/chat', icon: Bot },
-  { label: 'labels.orders', url: '/dashboard/orders', icon: Package },
+export type NavSection = {
+  sectionLabel?: string;
+  items: SidebarItem[];
+};
+
+export const sidebarData: NavSection[] = [
   {
-    label: 'labels.laboratories',
-    url: '/dashboard/laboratories',
-    icon: FlaskConical,
-  },
-  { label: 'labels.cities', url: '/dashboard/cities', icon: Building2 },
-  {
-    label: 'labels.metrics',
-    url: '/dashboard/metrics',
-    icon: BarChart3,
     items: [
-      { label: 'metrics.seasonal', url: '/dashboard/metrics/seasonal' },
-      { label: 'metrics.medicine', url: '/dashboard/metrics/medicine' },
-      { label: 'metrics.area', url: '/dashboard/metrics/area' },
-      { label: 'metrics.pharmacy', url: '/dashboard/metrics/pharmacy' },
+      {
+        label: 'labels.dashboard',
+        url: '/dashboard',
+        icon: LayoutDashboard,
+        exact: true,
+      },
+      { label: 'labels.chat', url: '/chat', icon: Bot },
     ],
   },
+
   {
-    label: 'labels.deliveries',
-    url: '/dashboard/deliveries',
-    icon: Truck,
+    sectionLabel: 'sections.sales',
     items: [
-      { label: 'deliveries.list', url: '/dashboard/deliveries' },
-      { label: 'deliveries.assign', url: '/dashboard/deliveries/assign' },
+      { label: 'labels.orders', url: '/dashboard/orders', icon: Package },
+      { label: 'labels.pharmacies', url: '/dashboard/pharmacies', icon: Cross },
+      {
+        label: 'labels.promotions',
+        url: '/dashboard/promotions',
+        icon: Tag,
+        items: [
+          { label: 'promotions.offers', url: '/dashboard/promotions/offers' },
+          { label: 'promotions.gifts', url: '/dashboard/promotions/gifts' },
+        ],
+      },
     ],
   },
+
   {
-    label: 'labels.regions',
-    url: '/dashboard/regions',
-    icon: MapPin,
+    sectionLabel: 'sections.catalog',
     items: [
-      { label: 'regions.list', url: '/dashboard/regions' },
-      { label: 'regions.new', url: '/dashboard/regions/new' },
+      {
+        label: 'labels.medicines',
+        url: '/dashboard/medicines',
+        icon: Pill,
+        items: [
+          { label: 'medicines.list', url: '/dashboard/medicines' },
+          { label: 'medicines.scanMedicine', url: '/dashboard/medicines/scan' },
+        ],
+      },
+      {
+        label: 'labels.categories',
+        url: '/dashboard/categories',
+        icon: Folders,
+      },
+      {
+        label: 'labels.laboratories',
+        url: '/dashboard/laboratories',
+        icon: FlaskConical,
+      },
     ],
   },
+
   {
-    label: 'labels.pharmacies',
-    url: '/dashboard/pharmacies',
-    icon: Cross,
+    sectionLabel: 'sections.logistics',
     items: [
-      { label: 'pharmacies.list', url: '/dashboard/pharmacies' },
-      { label: 'pharmacies.new', url: '/dashboard/pharmacies/new' },
+      {
+        label: 'labels.deliveries',
+        url: '/dashboard/deliveries',
+        icon: Truck,
+        items: [
+          { label: 'deliveries.list', url: '/dashboard/deliveries' },
+          { label: 'deliveries.assign', url: '/dashboard/deliveries/assign' },
+        ],
+      },
+      {
+        label: 'labels.metrics',
+        url: '/dashboard/metrics',
+        icon: BarChart3,
+        items: [
+          { label: 'metrics.seasonal', url: '/dashboard/metrics/seasonal' },
+          { label: 'metrics.medicine', url: '/dashboard/metrics/medicine' },
+          { label: 'metrics.area', url: '/dashboard/metrics/area' },
+          { label: 'metrics.pharmacy', url: '/dashboard/metrics/pharmacy' },
+        ],
+      },
+      { label: 'labels.regions', url: '/dashboard/regions', icon: MapPin },
     ],
   },
+
   {
-    label: 'labels.medicines',
-    url: '/dashboard/medicines',
-    icon: Pill,
-    isActive: false,
+    sectionLabel: 'sections.reference',
     items: [
-      { label: 'medicines.list', url: '/dashboard/medicines' },
-      { label: 'medicines.scanMedicine', url: '/dashboard/medicines/scan' },
-      { label: 'medicines.new', url: '/dashboard/medicines/new' },
-    ],
-  },
-  {
-    label: 'labels.categories',
-    url: '/dashboard/categories',
-    icon: Folders,
-    isActive: false,
-    items: [
-      { label: 'categories.list', url: '/dashboard/categories' },
-      { label: 'categories.new', url: '/dashboard/categories/new' },
-    ],
-  },
-  {
-    label: 'labels.employees',
-    url: '/dashboard/employees',
-    icon: Users,
-    isActive: false,
-    items: [
-      { label: 'employees.list', url: '/dashboard/employees' },
-      { label: 'employees.new', url: '/dashboard/employees/new' },
+      { label: 'labels.cities', url: '/dashboard/cities', icon: Building2 },
+      { label: 'labels.employees', url: '/dashboard/employees', icon: Users },
     ],
   },
 ];

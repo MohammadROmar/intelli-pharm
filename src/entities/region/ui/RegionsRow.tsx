@@ -12,8 +12,12 @@ export function RegionRow({ region, onDelete }: RegionRowProps) {
       <TableCell className="text-muted-foreground text-xs">
         {region.id}
       </TableCell>
-      <TableCell>{region.name}</TableCell>
-      <TableCell>{region.city.name}</TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{region.name}</p>
+      </TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">{region.city.name}</p>
+      </TableCell>
 
       <TableActions
         item={region}

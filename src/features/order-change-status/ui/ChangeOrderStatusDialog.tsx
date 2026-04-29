@@ -2,25 +2,10 @@ import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshCw } from 'lucide-react';
 
-import { type OrderStatus } from '@/entities/order';
-import {
-  Button,
-  Dialog,
-  DialogContent,
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/shared/ui';
 import { SelectionStep } from './SelectionStep';
 import { ConfirmationStep } from './ConfirmationStep';
-
-const TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
-  pending: ['processing', 'completed', 'cancelled'],
-  processing: ['completed', 'cancelled'],
-  completed: [],
-  cancelled: [],
-};
+import { type OrderStatus } from '@/entities/order';
+import { Button, Dialog, DialogContent } from '@/shared/ui';
 
 type ChangeOrderStatusDialogProps = {
   currentStatus: OrderStatus;
@@ -45,9 +30,6 @@ export function ChangeOrderStatusDialog({
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | null>(
     null,
   );
-
-  const nextStatuses = TRANSITIONS[currentStatus] ?? [];
-  const hasTransitions = nextStatuses.length > 0;
 
   const handleOpenChange = useCallback(
     (open: boolean) => {
@@ -75,44 +57,23 @@ export function ChangeOrderStatusDialog({
 
   return (
     <>
-      <TooltipProvider delayDuration={300}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <span className="shrink-0">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleOpenChange(true)}
-                disabled={!hasTransitions}
-                className="bg-card! w-full gap-1.5"
-              >
-                <RefreshCw className="size-4" />
-                {t('changeStatus.trigger')}
-              </Button>
-            </span>
-          </TooltipTrigger>
-
-          {!hasTransitions && (
-            <TooltipContent
-              side="bottom"
-              className="max-w-56 text-center text-xs"
-            >
-              {t('changeStatus.terminalStatusTooltip', {
-                status: t(`status.${currentStatus}`),
-              })}
-            </TooltipContent>
-          )}
-        </Tooltip>
-      </TooltipProvider>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => handleOpenChange(true)}
+        className="bg-card! gap-1.5"
+      >
+        <RefreshCw className="size-4" />
+        {t('changeStatus.trigger')}
+      </Button>
 
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="thin-scrollbar max-h-screen sm:max-w-md">
           <div tabIndex={0} aria-hidden className="sr-only" />
 
           {step === 'select' ? (
             <SelectionStep
               currentStatus={currentStatus}
-              nextStatuses={nextStatuses}
               selectedStatus={selectedStatus}
               onSelect={setSelectedStatus}
               onCancel={() => handleOpenChange(false)}

@@ -36,7 +36,7 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-36">{t('colId')}</TableHead>
+              <TableHead className="w-25">{t('colId')}</TableHead>
               <TableHead>{t('colName')}</TableHead>
               <TableHead>{t('colStatus')}</TableHead>
               <TableHead>{t('colPrice')}</TableHead>
@@ -52,7 +52,9 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
                 </TableCell>
 
                 <TableCell className="font-medium">
-                  {medicine.commercial_name}
+                  <p className="max-w-[20ch] truncate font-medium">
+                    {medicine.commercial_name}
+                  </p>
                 </TableCell>
 
                 <TableCell>

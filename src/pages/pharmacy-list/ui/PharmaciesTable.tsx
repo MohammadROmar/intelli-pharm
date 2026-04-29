@@ -34,9 +34,10 @@ export function PharmaciesTable({ data }: Props) {
       />
       <TableCard
         title={t('list.all')}
-        header={<PharmacyFilters />}
+        toolbar={<PharmacyFilters />}
+        addHref="/dashboard/pharmacies/new"
+        addLabel={t('list.add')}
         currItemsCount={pharmacies.length}
-        headerClassName="flex-row"
         basePath="/dashboard/pharmacies"
         currentPage={data.meta.current_page}
         totalItems={data.meta.total}

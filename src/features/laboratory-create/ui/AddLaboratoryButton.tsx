@@ -3,7 +3,7 @@ import { LaboratorySheet } from '@/entities/laboratory';
 
 export function AddLaboratoryButton() {
   return (
-    <LaboratorySheet>
+    <LaboratorySheet hasTrigger>
       <CreateLaboratoryForm />
     </LaboratorySheet>
   );

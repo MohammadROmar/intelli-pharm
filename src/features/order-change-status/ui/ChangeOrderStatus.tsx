@@ -1,8 +1,9 @@
-import type { OrderDetail, OrderStatus } from '@/entities/order';
-import { ChangeOrderStatusDialog } from './ChangeOrderStatusDialog';
-import { useChangeOrderStatus } from '../model/useChangeOrderStatus';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
+import { ChangeOrderStatusDialog } from './ChangeOrderStatusDialog';
+import { useChangeOrderStatus } from '../model/useChangeOrderStatus';
+import type { OrderDetail, OrderStatus } from '@/entities/order';
 
 type Props = { order: OrderDetail };
 

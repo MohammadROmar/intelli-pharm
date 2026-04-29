@@ -4,22 +4,25 @@ import { Plus } from 'lucide-react';
 
 import { Table } from './table';
 import { Badge } from './badge';
-import { SearchField } from './SearchField';
 import { PerPageSelect } from './PerPageSelect';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './Card';
 import {
   DynamicPagination,
   type DynamicPaginationProps,
 } from './pagination/DynamicPagination';
-import { buttonVariants, cn } from '../lib';
+import { buttonVariants } from '../lib';
 
-type TableCardProps = Omit<DynamicPaginationProps, 'maxPages'> & {
-  title: string;
-  header?: ReactNode;
-  headerClassName?: string;
-  currItemsCount: number;
-  children: ReactNode;
-};
+type AddButtonProps =
+  | { addHref: string; addLabel: string }
+  | { addHref?: never; addLabel?: never };
+
+type TableCardProps = Omit<DynamicPaginationProps, 'maxPages' | 'extraParams'> &
+  AddButtonProps & {
+    title: string;
+    currItemsCount: number;
+    children: ReactNode;
+    toolbar?: ReactNode;
+  };
 
 const MAX_VISIBLE_PAGES = 5;
 
@@ -29,38 +32,48 @@ export function TableCard({
   currentPage,
   totalItems,
   itemsPerPage,
-  children,
-  header,
   currItemsCount,
-  headerClassName,
+  toolbar,
+  addHref,
+  addLabel,
+  children,
 }: TableCardProps) {
   const maxPages = Math.ceil(totalItems / itemsPerPage);
-  const hasNoItems = totalItems === 0 || currItemsCount === 0;
+
+  const isTotalEmpty = totalItems === 0;
+  const isFilterEmpty = !isTotalEmpty && currItemsCount === 0;
+  const hasNoRows = isTotalEmpty || isFilterEmpty;
 
   return (
     <Card>
       <CardHeader>
-        <div
-          className={cn(
-            'flex flex-col justify-between gap-4 lg:flex-row',
-            headerClassName,
-          )}
-        >
-          <CardTitle className="flex items-center gap-2">
-            <h2>{title}</h2>
-            <Badge variant="secondary" className="tabular-nums">
+        <div className="flex items-center justify-between gap-3 overflow-hidden">
+          <CardTitle className="flex min-w-0 items-center gap-2">
+            <span>{title}</span>
+            <Badge variant="secondary" className="shrink-0 tabular-nums">
               {totalItems}
             </Badge>
           </CardTitle>
-          {header}
+
+          {(toolbar || addHref) && (
+            <div className="flex shrink-0 items-center gap-2">
+              {toolbar}
+              {addHref && (
+                <Link to={addHref} className={buttonVariants({ size: 'sm' })}>
+                  <Plus className="size-4" aria-hidden="true" />
+                  <span className="sr-only sm:not-sr-only">{addLabel}</span>
+                </Link>
+              )}
+            </div>
+          )}
         </div>
       </CardHeader>
 
       <CardContent>
-        {hasNoItems ? children : <Table>{children}</Table>}
+        {hasNoRows ? children : <Table>{children}</Table>}
       </CardContent>
 
-      {totalItems > 0 && (
+      {!isTotalEmpty && (
         <CardFooter className="flex flex-col gap-4 sm:items-center sm:justify-between">
           <DynamicPagination
             itemsPerPage={itemsPerPage}
@@ -75,30 +88,5 @@ export function TableCard({
         </CardFooter>
       )}
     </Card>
-  );
-}
-
-type HeaderProps = {
-  placeholder: string;
-  createText: string;
-  basePath: string;
-};
-
-export function TableCardHeader({
-  placeholder,
-  createText,
-  basePath,
-}: HeaderProps) {
-  return (
-    <div className="flex w-full flex-col gap-2 lg:w-fit lg:flex-row lg:items-center">
-      <SearchField placeholder={placeholder} />
-      <Link
-        to={`${basePath}/new`}
-        className={buttonVariants({ size: 'sm', className: 'shrink-0' })}
-      >
-        <Plus className="mr-1.5 size-4" />
-        {createText}
-      </Link>
-    </div>
   );
 }

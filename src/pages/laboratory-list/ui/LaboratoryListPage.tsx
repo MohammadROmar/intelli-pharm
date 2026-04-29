@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { LaboratoryTable } from './LaboratoryList';
+import { LaboratoryTable } from './LaboratoryTable';
 import { useGetLaboratories } from '../model/useGetLaboratories';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
