@@ -12,10 +12,10 @@ import {
 type CityRowProps = {
   city: CityDetail;
   onDelete: (city: CityDetail) => void;
-  onUpdate: (city: CityDetail) => void;
+  onEdit: (city: CityDetail) => void;
 };
 
-export function CityRow({ city, onUpdate, onDelete }: CityRowProps) {
+export function CityRow({ city, onEdit, onDelete }: CityRowProps) {
   return (
     <TableRow>
       <TableCell className="text-muted-foreground text-xs">{city.id}</TableCell>
@@ -29,7 +29,7 @@ export function CityRow({ city, onUpdate, onDelete }: CityRowProps) {
         onDelete={onDelete}
         path="/dashboard/cities"
       >
-        <EditCityButton city={city} onUpdate={onUpdate} />
+        <EditCityButton city={city} onEdit={onEdit} />
         <TableActions.Delete />
       </TableActions>
     </TableRow>
@@ -38,14 +38,14 @@ export function CityRow({ city, onUpdate, onDelete }: CityRowProps) {
 
 type Props = Omit<CityRowProps, 'onDelete'>;
 
-function EditCityButton({ city, onUpdate }: Props) {
+function EditCityButton({ city, onEdit }: Props) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'tableActions',
   });
 
   return (
     <DropdownMenuItem
-      onClick={() => onUpdate(city)}
+      onClick={() => onEdit(city)}
       className="w-full cursor-pointer"
     >
       <Pencil className="size-4" />

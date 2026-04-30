@@ -232,7 +232,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
                       </p>
                     </FieldLabel>
                     <MedicineSelector
-                      altFor={medicine?.alternative_for[0]}
+                      defaultValue={medicine?.alternative_for[0]}
                       isLoading={isPending}
                       invalid={fieldState.invalid}
                       value={field.value}

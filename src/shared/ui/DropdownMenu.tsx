@@ -4,9 +4,16 @@ import { CheckIcon, ChevronRightIcon, CircleIcon } from 'lucide-react';
 import { cn } from '../lib';
 
 function DropdownMenu({
+  modal = false,
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
-  return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
+  return (
+    <DropdownMenuPrimitive.Root
+      data-slot="dropdown-menu"
+      modal={modal}
+      {...props}
+    />
+  );
 }
 
 function DropdownMenuPortal({
@@ -23,6 +30,13 @@ function DropdownMenuTrigger({
   return (
     <DropdownMenuPrimitive.Trigger
       data-slot="dropdown-menu-trigger"
+      onPointerDown={(e) => {
+        if (e.pointerType !== 'mouse' && e.buttons === 0) {
+          e.preventDefault();
+          return;
+        }
+        props.onPointerDown?.(e);
+      }}
       {...props}
     />
   );

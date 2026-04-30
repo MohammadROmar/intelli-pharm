@@ -1055,6 +1055,63 @@
     }
   },
 
+  "giftsPage": {
+    "gift": "الهدية",
+    "list": {
+      "title": "الهدايا",
+      "subtitle": "إدارة ومراقبة الهدايا.",
+      "all": "جميع الهدايا",
+      "add": "إضافة هدية",
+      "id": "المعرف",
+      "status": "الحالة",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "medicineName": "اسم الدواء",
+      "requiredQuantity": "الكمية المطلوبة",
+      "giftQuantity": "كمية الهدية",
+      "actions": "الإجراءات"
+    },
+    "form": {
+      "medicine": "الدواء",
+      "requiredQuantity": "الكمية المطلوبة",
+      "giftQuantity": "كمية الهدية",
+      "required": "هذا الحقل مطلوب.",
+      "validNum": "يجب أن يحوي الحقل رقماً صحيحاً"
+    },
+    "create": {
+      "title": "إضافة هدية جديدة",
+      "subtitle": "تسجيل هدية جديدة في النظام.",
+      "trigger": "إضافة هدية"
+    },
+    "edit": {
+      "title": "تعديل الهدية",
+      "subtitle": "قم بتغيير المعلومات ادناه لتعديلها."
+    },
+    "delete": {
+      "label": "هدية {{medicine}}"
+    },
+    "detail": {
+      "pageTitle": "تفاصيل الهدية",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "cardTitle": "تفاصيل الهدية",
+      "cardSubtitle": "تفاصيل قاعدة الترقية لهذه الهدية.",
+      "labelId": "رقم الهدية",
+      "labelStatus": "الحالة",
+      "labelMedicine": "الدواء",
+      "labelMedicineId": "رقم الدواء",
+      "labelRequiredQty": "الكمية المطلوبة",
+      "labelGiftQty": "كمية الهدية",
+      "labelCreatedAt": "تاريخ الإنشاء",
+      "labelUpdatedAt": "آخر تحديث",
+      "units": "وحدة",
+      "dealSummary": "يتم منح {{gift}} مجاناً لكل {{required}} عنصر من {{medicine}}"
+    }
+  },
+
   "dragNDrop": {
     "dnd": "اسحب وأفلت الصور أو",
     "browse": "تصفح",
@@ -1118,7 +1175,9 @@
       "medicine": "مقاييس الأدوية",
       "area": "مقاييس المناطق",
       "pharmacy": "مقاييس الصيدليات",
-      "assign": "تعيين توصيل"
+      "assign": "تعيين توصيل",
+      "gifts": "الهدايا",
+      "offers": "العروض"
     },
     "promotions": {
       "offers": "العروض",

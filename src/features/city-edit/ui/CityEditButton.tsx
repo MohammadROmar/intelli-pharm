@@ -1,14 +1,14 @@
 import { CityEditForm } from './CityEditForm';
 import { CitySheet, type CityDetail } from '@/entities/city';
 
-type Props = { cityToUpdate: CityDetail | null; onClose: () => void };
+type Props = { cityToEdit: CityDetail | null; onClose: () => void };
 
-export function CityEditButton({ cityToUpdate, onClose }: Props) {
+export function CityEditButton({ cityToEdit, onClose }: Props) {
   return (
-    <CitySheet open={!!cityToUpdate} onOpenChange={onClose} isEdit>
+    <CitySheet open={!!cityToEdit} onOpenChange={onClose} isEdit>
       <CityEditForm
-        id={cityToUpdate?.id ?? -1}
-        defaultName={cityToUpdate?.name ?? ''}
+        id={cityToEdit?.id ?? -1}
+        defaultName={cityToEdit?.name ?? ''}
       />
     </CitySheet>
   );

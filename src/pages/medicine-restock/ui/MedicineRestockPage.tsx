@@ -32,7 +32,7 @@ export default function MedicineRestockPage() {
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <MedicineRestock id={data.data!.id} />;
+      <MedicineRestock id={data.data!.id} />
     </>
   );
 }

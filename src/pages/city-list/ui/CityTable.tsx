@@ -22,7 +22,7 @@ type Props = { data: CitiesResponse };
 
 export function CitiesTable({ data }: Props) {
   const [cityToDelete, setCityToDelete] = useState<CityDetail | null>(null);
-  const [cityToUpdate, setCityToUpdate] = useState<CityDetail | null>(null);
+  const [cityToEdit, setCityToEdit] = useState<CityDetail | null>(null);
 
   return (
     <>
@@ -31,12 +31,12 @@ export function CitiesTable({ data }: Props) {
         onClose={() => setCityToDelete(null)}
       />
       <CityEditButton
-        cityToUpdate={cityToUpdate}
-        onClose={() => setCityToUpdate(null)}
+        cityToEdit={cityToEdit}
+        onClose={() => setCityToEdit(null)}
       />
       <ItemsTable
         data={data}
-        onUpdate={setCityToUpdate}
+        onEdit={setCityToEdit}
         onDelete={setCityToDelete}
       />
     </>
@@ -44,11 +44,11 @@ export function CitiesTable({ data }: Props) {
 }
 
 type ItemsTableProps = Props & {
-  onUpdate: (city: CityDetail) => void;
+  onEdit: (city: CityDetail) => void;
   onDelete: (city: CityDetail) => void;
 };
 
-function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
+function ItemsTable({ data, onDelete, onEdit }: ItemsTableProps) {
   const { t } = useTranslation('translation', { keyPrefix: 'citiesPage' });
 
   const cities = data.data!;
@@ -84,7 +84,7 @@ function ItemsTable({ data, onDelete, onUpdate }: ItemsTableProps) {
               <CityRow
                 key={city.id}
                 city={city}
-                onUpdate={onUpdate}
+                onEdit={onEdit}
                 onDelete={onDelete}
               />
             ))}

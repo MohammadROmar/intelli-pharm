@@ -53,6 +53,9 @@ import { LazyEmployeeListPage } from '@/pages/employee-list';
 import { LazyEmployeeCreatePage } from '@/pages/employee-create';
 import { LazyEmployeeEditPage } from '@/pages/employee-edit';
 
+import { LazyGiftListPage } from '@/pages/gift-list';
+import { LazyGiftDetailPage } from '@/pages/gift-detail';
+
 import { LazyChatPage } from '@/pages/ai-chat';
 
 const router = createBrowserRouter([
@@ -144,6 +147,7 @@ const router = createBrowserRouter([
                   },
                 ],
               },
+
               {
                 path: 'medicines',
                 children: [
@@ -167,6 +171,14 @@ const router = createBrowserRouter([
                       },
                     ],
                   },
+                ],
+              },
+
+              {
+                path: 'promotions/gifts',
+                children: [
+                  { index: true, element: <LazyGiftListPage /> },
+                  { path: ':id', element: <LazyGiftDetailPage /> },
                 ],
               },
 

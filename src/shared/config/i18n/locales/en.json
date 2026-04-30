@@ -648,6 +648,10 @@
       "title": "Add New Medicine",
       "subtitle": "Register a new medicine with stock and image details."
     },
+    "edit": {
+      "title": "Edit Medicine",
+      "subtitle": "Update the information below to modify it."
+    },
     "list": {
       "title": "Medicine Inventory",
       "subtitle": "Manage, update, or remove medicine records in the table below.",
@@ -1002,6 +1006,63 @@
     "sendButton": "Send"
   },
 
+  "giftsPage": {
+    "gift": "Gift",
+    "list": {
+      "title": "Gifts",
+      "subtitle": "Manage and monitor gifts.",
+      "all": "All gifts",
+      "add": "Add gift",
+      "id": "ID",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive",
+      "medicineName": "Medicine name",
+      "requiredQuantity": "Required quantity",
+      "giftQuantity": "Gift quantity",
+      "actions": "Actions"
+    },
+    "form": {
+      "medicine": "Medicine",
+      "requiredQuantity": "Required quantity",
+      "giftQuantity": "Gift quantity",
+      "required": "This field is required.",
+      "validNum": "Must be a valid number"
+    },
+    "create": {
+      "title": "Add New Gift",
+      "subtitle": "Register a new gift in the system.",
+      "trigger": "Add Gift"
+    },
+    "edit": {
+      "title": "Edit Gift",
+      "subtitle": "Update the information below to modify it."
+    },
+    "delete": {
+      "label": "{{medicine}} Gift"
+    },
+    "detail": {
+      "pageTitle": "Gift Detail",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "active": "Active",
+      "inactive": "Inactive",
+      "cardTitle": "Gift Details",
+      "cardSubtitle": "Promotion rule details for this gift.",
+      "labelId": "Gift ID",
+      "labelStatus": "Status",
+      "labelMedicine": "Medicine",
+      "labelMedicineId": "Medicine ID",
+      "labelRequiredQty": "Required Quantity",
+      "labelGiftQty": "Gift Quantity",
+      "labelCreatedAt": "Created At",
+      "labelUpdatedAt": "Last Updated",
+      "units": "units",
+      "dealSummary": "A free {{gift}} is granted for every {{required}} items of {{medicine}}."
+    }
+  },
+
   "notFoundPage": {
     "title": "Page Not Found",
     "subtitle": "Oops! The page you're trying to access doesn't exist.",
@@ -1113,7 +1174,9 @@
       "medicine": "Medicine Metrics",
       "area": "Area Metrics",
       "pharmacy": "Pharmacy Metrics",
-      "assign": "Assign Delivery"
+      "assign": "Assign Delivery",
+      "gifts": "Gifts",
+      "offers": "Offers"
     },
     "promotions": {
       "offers": "Offers",
