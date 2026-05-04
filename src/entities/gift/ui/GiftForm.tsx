@@ -87,7 +87,7 @@ export function GiftForm({
           type="number"
           autoComplete="off"
           icon={Gift}
-          // min="0"
+          min="0"
           placeholder="0.00"
           aria-invalid={!!errors.gift_quantity}
           {...register('gift_quantity', {

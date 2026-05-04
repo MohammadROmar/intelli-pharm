@@ -1063,6 +1063,99 @@
     }
   },
 
+  "offersPage": {
+    "offer": "offer",
+    "addOffer": "Add Offer",
+    "addPercentageOffer": "Percentage",
+    "addGiftOffer": "Gift",
+    "list": {
+      "title": "Offers",
+      "subtitle": "Manage, update, or remove offer records in the table below.",
+      "all": "All Offers",
+      "add": "Add Offer",
+      "id": "ID",
+      "name": "Type",
+      "requiredAmount": "Required Amount",
+      "benefit": "Benefit",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "types": {
+      "percentage": "Percentage",
+      "gifts": "Gifts"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "edit": {
+      "title": "Edit Offer",
+      "subtitle": "Update the details of the selected offer.",
+      "requiredQuantity": "Required Quantity",
+      "placeholderRequiredQuantity": "Enter required quantity",
+      "labelActive": "Active",
+      "descriptionActive": "Offer is live and available to qualifying orders.",
+      "errors": {
+        "required": "This field is required.",
+        "validNum": "Must be a valid positive number"
+      }
+    },
+    "detail": {
+      "actions": "Actions",
+      "edit": "Edit Offer",
+      "delete": "Delete",
+      "active": "Active",
+      "inactive": "Inactive",
+
+      "cardTitle": "Offer Details",
+      "cardSubtitle": "Promotion rule and eligibility details.",
+
+      "labelId": "Offer ID",
+      "labelStatus": "Status",
+      "labelType": "Offer Type",
+      "labelRequiredAmount": "Required Amount",
+      "labelPercentage": "Discount",
+      "labelMedicine": "Gift Medicine",
+      "labelGiftQuantity": "Gift Quantity",
+      "labelCreatedAt": "Created At",
+      "labelUpdatedAt": "Last Updated",
+      "units": "units"
+    },
+    "form": {
+      "errors": {
+        "maxPercentage": "Percentage cannot exceed 100%."
+      },
+
+      "percentage": {
+        "title": "Percentage Offer",
+        "subtitle": "Set the minimum order amount and the discount percentage.",
+        "cardTitle": "Offer Details",
+        "cardSubtitle": "Define eligibility and the discount rate.",
+
+        "labelRequiredAmount": "Required Amount",
+        "hintRequiredAmount": "Minimum order total to qualify for this offer.",
+        "labelPercentage": "Discount Percentage",
+        "hintPercentage": "Enter a value between 1 and 100.",
+        "labelActive": "Active",
+        "descriptionActive": "Offer is live and available to qualifying orders."
+      },
+
+      "gifts": {
+        "title": "Gift Offer",
+        "subtitle": "Set the minimum order amount and the gift medicine to award.",
+        "cardTitle": "Offer Details",
+        "cardSubtitle": "Define eligibility and the gift to be given.",
+
+        "labelRequiredAmount": "Required Amount",
+        "hintRequiredAmount": "Minimum order total to qualify for this offer.",
+        "labelMedicine": "Gift Medicine",
+        "labelQuantity": "Gift Quantity",
+        "hintQuantity": "Number of units to gift per qualifying order.",
+        "labelActive": "Active",
+        "descriptionActive": "Offer is live and available to qualifying orders."
+      }
+    }
+  },
   "notFoundPage": {
     "title": "Page Not Found",
     "subtitle": "Oops! The page you're trying to access doesn't exist.",
@@ -1176,7 +1269,9 @@
       "pharmacy": "Pharmacy Metrics",
       "assign": "Assign Delivery",
       "gifts": "Gifts",
-      "offers": "Offers"
+      "offers": "Offers",
+      "new-gifts": "Add Gifts",
+      "new-percentage": "Add Percentage"
     },
     "promotions": {
       "offers": "Offers",

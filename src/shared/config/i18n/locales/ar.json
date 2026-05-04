@@ -1112,6 +1112,103 @@
     }
   },
 
+  "offersPage": {
+    "offer": "العرض",
+    "addOffer": "إضافة عرض",
+    "addPercentageOffer": "نسبة مئوية",
+    "addGiftOffer": "هدية",
+    "list": {
+      "title": "العروض",
+      "subtitle": "إدارة سجلات العروض وتحديثها أو حذفها من الجدول أدناه.",
+      "all": "جميع العروض",
+      "add": "إضافة عرض",
+      "id": "المعرف",
+      "name": "النوع",
+      "requiredAmount": "المبلغ المطلوب",
+      "benefit": "الفائدة",
+      "status": "الحالة",
+      "actions": "الإجراءات"
+    },
+    "types": {
+      "percentage": "نسبة مئوية",
+      "gifts": "هدايا"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "edit": {
+      "title": "تعديل العرض",
+      "subtitle": "تحديث تفاصيل العرض المحدد.",
+      "requiredQuantity": "الكمية المطلوبة",
+      "placeholderRequiredQuantity": "أدخل الكمية المطلوبة",
+      "labelActive": "الحالة",
+      "descriptionActive": "العرض متاح للطلبات المؤهلة.",
+      "errors": {
+        "required": "هذا الحقل مطلوب.",
+        "validNum": "يجب أن يحوي الحقل رقماً موجباً صحيحاً"
+      }
+    },
+    "detail": {
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "active": "نشط",
+      "inactive": "غير نشط",
+
+      "cardTitle": "تفاصيل العرض",
+      "cardSubtitle": "قاعدة الترقية وشروط الأهلية.",
+
+      "labelId": "رقم العرض",
+      "labelStatus": "الحالة",
+      "labelType": "نوع العرض",
+      "labelRequiredAmount": "المبلغ المطلوب",
+      "labelPercentage": "نسبة الخصم",
+      "labelMedicine": "الدواء الهدية",
+      "labelGiftQuantity": "كمية الهدية",
+      "labelCreatedAt": "تاريخ الإنشاء",
+      "labelUpdatedAt": "آخر تحديث",
+      "units": "وحدة"
+    },
+    "form": {
+      "percentage": {
+        "title": "عرض بنسبة مئوية",
+        "subtitle": "حدد الحد الأدنى لمبلغ الطلب ونسبة الخصم.",
+        "cardTitle": "تفاصيل العرض",
+        "cardSubtitle": "حدد شروط الأهلية ونسبة الخصم.",
+
+        "labelRequiredAmount": "المبلغ المطلوب",
+        "hintRequiredAmount": "الحد الأدنى لإجمالي الطلب للتأهل لهذا العرض.",
+        "labelPercentage": "نسبة الخصم",
+        "hintPercentage": "أدخل قيمة بين 1 و 100.",
+        "labelActive": "نشط",
+        "descriptionActive": "العرض متاح للطلبات المؤهلة.",
+
+        "required": "هذا الحقل مطلوب.",
+        "validNum": "يجب أن يحوي الحقل رقماً موجباً صحيحاً",
+        "maxPercentage": "لا يمكن أن تتجاوز النسبة 100%."
+      },
+
+      "gifts": {
+        "title": "عرض هدية",
+        "subtitle": "حدد الحد الأدنى لمبلغ الطلب والدواء الهدية.",
+        "cardTitle": "تفاصيل العرض",
+        "cardSubtitle": "حدد شروط الأهلية والهدية المقدمة.",
+
+        "labelRequiredAmount": "المبلغ المطلوب",
+        "hintRequiredAmount": "الحد الأدنى لإجمالي الطلب للتأهل لهذا العرض.",
+        "labelMedicine": "الدواء الهدية",
+        "labelQuantity": "كمية الهدية",
+        "hintQuantity": "عدد الوحدات الموهوبة لكل طلب مؤهل.",
+        "labelActive": "نشط",
+        "descriptionActive": "العرض متاح للطلبات المؤهلة.",
+
+        "required": "هذا الحقل مطلوب.",
+        "validNum": "يجب أن يحوي الحقل رقماً موجباً صحيحاً"
+      }
+    }
+  },
+
   "dragNDrop": {
     "dnd": "اسحب وأفلت الصور أو",
     "browse": "تصفح",
@@ -1177,7 +1274,9 @@
       "pharmacy": "مقاييس الصيدليات",
       "assign": "تعيين توصيل",
       "gifts": "الهدايا",
-      "offers": "العروض"
+      "offers": "العروض",
+      "new-gifts": "إضافة هدايا",
+      "new-percentage": "إضافة نسبة"
     },
     "promotions": {
       "offers": "العروض",

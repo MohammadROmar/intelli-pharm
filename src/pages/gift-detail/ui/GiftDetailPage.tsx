@@ -1,6 +1,6 @@
 import { GiftInfoCard } from './GiftInfoCard';
-import { useGetGift } from '../model/useGetGift';
 import { GiftDetailHeader } from './GiftDetailHeader';
+import { useGetGift } from '../model/useGetGift';
 import { QueryError, QueryDisabled, DetailSkeleton } from '@/shared/ui';
 
 export default function GiftDetailPage() {
@@ -21,10 +21,9 @@ export default function GiftDetailPage() {
   const gift = data.data!;
 
   return (
-    <div className="space-y-6">
+    <>
       <GiftDetailHeader gift={gift} />
-
       <GiftInfoCard gift={gift} />
-    </div>
+    </>
   );
 }

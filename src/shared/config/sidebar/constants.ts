@@ -1,9 +1,9 @@
 import {
   Bot,
   Pill,
-  Tag,
   Cross,
   Truck,
+  Gift,
   Users,
   MapPin,
   Package,
@@ -61,7 +61,7 @@ export const sidebarData: NavSection[] = [
       {
         label: 'labels.promotions',
         url: '/dashboard/promotions',
-        icon: Tag,
+        icon: Gift,
         items: [
           { label: 'promotions.offers', url: '/dashboard/promotions/offers' },
           { label: 'promotions.gifts', url: '/dashboard/promotions/gifts' },

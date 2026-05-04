@@ -93,6 +93,7 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
             render={({ field }) => (
               <SwitchRow
                 id="is_active"
+                disabled={isPending}
                 label={t('labelActive')}
                 description={t('descriptionActive')}
                 checked={field.value ?? false}

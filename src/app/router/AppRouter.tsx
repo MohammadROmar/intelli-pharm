@@ -56,6 +56,11 @@ import { LazyEmployeeEditPage } from '@/pages/employee-edit';
 import { LazyGiftListPage } from '@/pages/gift-list';
 import { LazyGiftDetailPage } from '@/pages/gift-detail';
 
+import { LazyOfferListPage } from '@/pages/offer-list';
+import { LazyOfferDetailPage } from '@/pages/offer-detail';
+import { LazyOfferGiftCreatePage } from '@/pages/offer-gift-create';
+import { LazyOfferPercentageCreatePage } from '@/pages/offer-percentage-create';
+
 import { LazyChatPage } from '@/pages/ai-chat';
 
 const router = createBrowserRouter([
@@ -179,6 +184,19 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <LazyGiftListPage /> },
                   { path: ':id', element: <LazyGiftDetailPage /> },
+                ],
+              },
+
+              {
+                path: 'promotions/offers',
+                children: [
+                  { index: true, element: <LazyOfferListPage /> },
+                  { path: ':id', element: <LazyOfferDetailPage /> },
+                  {
+                    path: 'new-percentage',
+                    element: <LazyOfferPercentageCreatePage />,
+                  },
+                  { path: 'new-gifts', element: <LazyOfferGiftCreatePage /> },
                 ],
               },
 
