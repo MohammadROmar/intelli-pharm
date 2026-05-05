@@ -1,22 +1,23 @@
-import { CityForm, type City } from '@/entities/city';
-import { useEditCity } from '../model/useEditCity';
 import { useState } from 'react';
 
-type Props = { id: number; defaultName: string };
+import { useEditCity } from '../model/useEditCity';
+import { CityForm, type City, type CityDetail } from '@/entities/city';
 
-export function CityEditForm({ id }: Props) {
+type Props = { city: CityDetail | null };
+
+export function CityEditForm({ city }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useEditCity();
 
   function onSubmit(name: City) {
-    mutate({ id, name });
+    mutate({ id: city?.id ?? -1, name });
   }
 
   return (
     <CityForm
       key={formKey}
       onSubmit={onSubmit}
-      defaultValues={{}}
+      defaultValues={city ? { name: city.name } : undefined}
       isLoading={isPending}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

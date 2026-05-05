@@ -1,11 +1,7 @@
 import { useState } from 'react';
 
 import { useEditPharmacy } from '../model/useEditPharmacy';
-import {
-  PharmacyForm,
-  type Pharmacy,
-  type PharmacyDetail,
-} from '@/entities/pharmacy';
+import { PharmacyForm, type PharmacyDetail } from '@/entities/pharmacy';
 
 type Props = { pharmacy: PharmacyDetail };
 
@@ -14,7 +10,7 @@ export function PharmacyEditForm({ pharmacy }: Props) {
 
   const { mutate, isPending } = useEditPharmacy(pharmacy.id);
 
-  function handleSubmit(payload: Pharmacy) {
+  function handleSubmit(payload: PharmacyDetail) {
     mutate(payload, {
       onSuccess: () => setFormKey((prev) => prev + 1),
     });
@@ -25,7 +21,7 @@ export function PharmacyEditForm({ pharmacy }: Props) {
       key={formKey}
       isPending={isPending}
       onSubmit={handleSubmit}
-      defaultValues={{ ...pharmacy, name: { ar: '', en: '' } }}
+      defaultValues={pharmacy}
       onReset={() => setFormKey((prev) => prev + 1)}
     />
   );

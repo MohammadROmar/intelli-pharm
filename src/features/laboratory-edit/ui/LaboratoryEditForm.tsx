@@ -1,10 +1,12 @@
-import { LaboratoryForm, type Laboratory } from '@/entities/laboratory';
-import { useEditLaboratory } from '../model/useEditLaboratory';
 import { useState } from 'react';
 
-type Props = { id: number; defaultName: string };
+import { useEditLaboratory } from '../model/useEditLaboratory';
+import { LaboratoryForm, type Laboratory } from '@/entities/laboratory';
+import type { Localized } from '@/shared/lib';
 
-export function LaboratoryEditForm({ id }: Props) {
+type Props = { id: number; defaultName: Localized };
+
+export function LaboratoryEditForm({ id, defaultName }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useEditLaboratory();
 
@@ -16,7 +18,7 @@ export function LaboratoryEditForm({ id }: Props) {
     <LaboratoryForm
       key={formKey}
       onSubmit={onSubmit}
-      defaultValues={{}}
+      defaultValues={{ name: defaultName }}
       isLoading={isPending}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

@@ -1,5 +1,4 @@
 import type {
-  Employee,
   CreateEmployeeFormData,
   EditEmployeeFormData,
   EmployeeListResponse,
@@ -37,10 +36,6 @@ export async function editEmployee({
   };
 
   return apiClient.put(`/erp/v1/employees/${id}`, data);
-}
-
-export async function getEmployeeById(id: number) {
-  return apiClient.get<Employee>(`/erp/v1/employees/${id}`);
 }
 
 export async function getInfiniteEmployees(page_number: string, name?: string) {

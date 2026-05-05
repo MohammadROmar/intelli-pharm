@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { CategoryForm, type Category } from '@/entities/category';
+import { CategoryForm, type CategoryDto } from '@/entities/category';
 import { useCreateCategory } from '../model/useCreateCategory';
 
 export function CategoryCreateForm() {
@@ -8,7 +8,7 @@ export function CategoryCreateForm() {
 
   const { mutate, isPending } = useCreateCategory();
 
-  function handleSubmit(payload: Category) {
+  function handleSubmit(payload: CategoryDto) {
     mutate(payload, {
       onSuccess: () => setFormKey((prev) => prev + 1),
     });

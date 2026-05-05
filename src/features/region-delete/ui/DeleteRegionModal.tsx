@@ -3,12 +3,14 @@ import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 type DeleteRegionModalProps = {
+  label?: string;
   region: RegionDetail | RegionListItem | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
 };
 
 export function DeleteRegionModal({
+  label,
   region,
   onClose,
   onDeleteSuccess,
@@ -31,7 +33,7 @@ export function DeleteRegionModal({
   return (
     <DeleteModal
       hasItem={!!region}
-      label={region?.name}
+      label={label}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

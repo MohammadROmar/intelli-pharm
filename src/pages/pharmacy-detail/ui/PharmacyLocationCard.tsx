@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { MapPin, Navigation } from 'lucide-react';
 
 import type { PharmacyDetail } from '@/entities/pharmacy';
+import { getLocalized } from '@/shared/lib';
 import {
   Button,
   Skeleton,
@@ -20,7 +21,7 @@ const MapView = lazy(() =>
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacyLocationCard({ pharmacy }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'pharmaciesPage.detail',
   });
 
@@ -30,6 +31,8 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
     lat: Number(pharmacy.latitude),
     lng: Number(pharmacy.longitude),
   };
+
+  const name = getLocalized(pharmacy.name, i18n.language);
 
   return (
     <DetailCard
@@ -57,7 +60,7 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
       {mapVisible ? (
         <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
           <ErrorBoundary FallbackComponent={SectionErrorFallback}>
-            <MapView position={position} label={pharmacy.name} />
+            <MapView position={position} label={name} />
           </ErrorBoundary>
         </Suspense>
       ) : (

@@ -28,7 +28,7 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
     keyPrefix: 'employeesPage',
   });
 
-  const employees = data.data!;
+  const employees = data.data;
 
   return (
     <>

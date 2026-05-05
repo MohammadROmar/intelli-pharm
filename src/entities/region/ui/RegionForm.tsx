@@ -7,8 +7,10 @@ import {
 import { useTranslation } from 'react-i18next';
 import { MapPin } from 'lucide-react';
 
-import { CitySelector } from '@/entities/city';
 import type { Region } from '../model/regionTypes';
+import { CitySelector } from '@/entities/city';
+import type { Localized } from '@/shared/lib';
+import { BilingualNameFields } from '@/shared/form';
 import {
   Field,
   FieldError,
@@ -20,11 +22,10 @@ import {
   CardContent,
   CardFooter,
 } from '@/shared/ui';
-import { BilingualNameFields } from '@/shared/form';
 
 type RegionFormProps = {
   onSubmit: SubmitHandler<Region>;
-  defaultValues?: Partial<Region>;
+  name?: Localized;
   isLoading?: boolean;
   selected?: { id: number; name: string };
   onReset: () => void;
@@ -32,12 +33,12 @@ type RegionFormProps = {
 
 export function RegionForm({
   onSubmit,
-  defaultValues,
+  name,
   isLoading,
   selected,
   onReset,
 }: RegionFormProps) {
-  const methods = useForm<Region>({ defaultValues });
+  const methods = useForm<Region>({ defaultValues: { name } });
 
   const {
     control,
@@ -49,7 +50,7 @@ export function RegionForm({
     keyPrefix: 'regionsPage.form',
   });
 
-  const isEdit = !!defaultValues;
+  const isEdit = !!name;
 
   return (
     <Card>
@@ -104,7 +105,7 @@ export function RegionForm({
       <CardFooter>
         <FormActions
           form="regions-form"
-          isEdit={!!defaultValues}
+          isEdit={isEdit}
           isLoading={isLoading}
           onReset={onReset}
         />

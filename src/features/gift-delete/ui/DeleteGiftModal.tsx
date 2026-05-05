@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 import type { Gift } from '@/entities/gift';
+import { getLocalized } from '@/shared/lib';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
-import { useTranslation } from 'react-i18next';
 
 type DeleteGiftModalProps = {
   gift: Gift | null;
@@ -19,7 +21,7 @@ export function DeleteGiftModal({
     translationKey: 'giftsPage.gift',
   });
 
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'giftsPage.delete',
   });
 
@@ -34,10 +36,14 @@ export function DeleteGiftModal({
     });
   }
 
+  const name = gift
+    ? getLocalized(gift.medicine.commercial_name, i18n.language)
+    : '';
+
   return (
     <DeleteModal
       hasItem={!!gift}
-      label={t('label', { medicine: gift?.medicine.commercial_name.en || '' })}
+      label={t('label', { medicine: name })}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

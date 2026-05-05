@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
 import { Clock, Cross } from 'lucide-react';
 
-import type { Pharmacy } from '../model/pharmacyTypes';
+import type { PharmacyDetail } from '../model/pharmacyTypes';
 import { RegionSelector } from '@/entities/region';
 import { BilingualNameFields, fRequired, required } from '@/shared/form';
 import {
@@ -30,8 +30,8 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
     keyPrefix: 'pharmaciesPage.form',
   });
 
-  const { register, control, getValues } = useFormContext<Pharmacy>();
-  const { errors } = useFormState<Pharmacy>({
+  const { register, control, getValues } = useFormContext<PharmacyDetail>();
+  const { errors } = useFormState<PharmacyDetail>({
     name: [
       'name.ar',
       'name.en',

@@ -2,7 +2,7 @@ import { PackageSearch, Pill } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { LaboratoryMedicine } from '@/entities/laboratory';
-import { formatDate, formatPrice } from '@/shared/lib';
+import { formatDate, formatPrice, getLocalized } from '@/shared/lib';
 import {
   Badge,
   DetailCard,
@@ -53,7 +53,7 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
 
                 <TableCell className="font-medium">
                   <p className="max-w-[20ch] truncate font-medium">
-                    {medicine.commercial_name}
+                    {getLocalized(medicine.commercial_name, i18n.language)}
                   </p>
                 </TableCell>
 

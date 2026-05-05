@@ -1,20 +1,23 @@
-import type { CitiesResponse, City, CityDetail } from '../model/cityTypes';
-import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
+import type { City } from '../model/cityTypes';
+import {
+  apiClient,
+  ApiError,
+  statusToI18nKey,
+  type PaginatedResponse,
+} from '@/shared/api';
 
 export async function editCity({ id, name }: { id: number; name: City }) {
   return apiClient.put(`/erp/v1/cities/${id}`, name);
-}
-
-export async function getCityById(id: number) {
-  return apiClient.get<CityDetail>(`/erp/v1/cities/${id}`);
 }
 
 export async function createCity(payload: City) {
   return apiClient.post('/erp/v1/cities', payload);
 }
 
+type InfiniteCities = PaginatedResponse<{ id: number; name: string }>;
+
 export async function getInfiniteCities(page_number: string, name?: string) {
-  const response = await apiClient.get<CitiesResponse>('/erp/v1/cities', {
+  const response = await apiClient.get<InfiniteCities>('/erp/v1/cities', {
     params: { page_number, name },
   });
 
@@ -24,7 +27,7 @@ export async function getInfiniteCities(page_number: string, name?: string) {
   const { data } = response;
 
   return {
-    items: data.data!,
+    items: data.data,
     page: data.meta.current_page,
     pageSize: data.meta.per_page,
     totalPages: Math.max(data.meta.total / data.meta.per_page, 1),

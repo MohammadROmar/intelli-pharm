@@ -32,6 +32,7 @@ export function CategoriesTable({ data }: Props) {
   return (
     <>
       <DeleteCategoryModal
+        label={categoryToDelete?.name}
         category={categoryToDelete}
         onClose={() => setCategoryToDelete(null)}
       />

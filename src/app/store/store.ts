@@ -23,7 +23,7 @@ apiClient.interceptors.request.use((config) => {
   }
 
   const language = localStorage.getItem('i18nextLng');
-  if (language) {
+  if (language && !config.headers['Accept-Language']) {
     config.headers['Accept-Language'] = language;
   }
 

@@ -37,6 +37,7 @@ export function RegionsTable({ data }: Props) {
   return (
     <>
       <DeleteRegionModal
+        label={regionToDelete?.name}
         region={regionToDelete}
         onClose={() => setRegionToDelete(null)}
       />

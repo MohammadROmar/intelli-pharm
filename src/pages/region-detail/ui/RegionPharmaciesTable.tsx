@@ -13,11 +13,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/ui';
+import { getLocalized } from '@/shared/lib';
 
 type Props = { pharmacies: RegionPharmacy[] };
 
 export function RegionPharmaciesTable({ pharmacies }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'regionsPage.detail',
   });
 
@@ -49,7 +50,7 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
 
                 <TableCell>
                   <p className="max-w-[20ch] truncate font-medium">
-                    {pharmacy.name}
+                    {getLocalized(pharmacy.name, i18n.language)}
                   </p>
                 </TableCell>
 

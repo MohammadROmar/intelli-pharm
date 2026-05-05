@@ -1,8 +1,8 @@
-import { createCategory, type Category } from '@/entities/category';
+import { createCategory, type CategoryDto } from '@/entities/category';
 import { useCreateEntity } from '@/shared/model';
 
 export function useCreateCategory() {
-  return useCreateEntity<Category>({
+  return useCreateEntity<CategoryDto>({
     queryKey: 'categories',
     mutationFn: createCategory,
     translationKey: 'categoriesPage.category',

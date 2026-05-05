@@ -1,5 +1,7 @@
 export { cn, getNextPageParam } from './utils';
 
+export { getLocalized } from './getLocalized';
+export type { Localized, SupportedLocales } from './getLocalized';
 export { formatDate } from './formatDate';
 export { formatTime, formatTime12h } from './formatTime';
 export { formatPrice } from './formatPrice';

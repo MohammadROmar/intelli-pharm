@@ -1,3 +1,5 @@
+import type { PaginatedResponse } from '@/shared/api';
+
 type Role = 'distributor' | 'rep' | 'admin';
 
 export type Employee = {
@@ -34,15 +36,7 @@ export type EmployeeInternalFormData = BaseEmployeeFormData & {
   password?: string;
 };
 
-export type EmployeeListResponse = {
-  data?: Employee[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+export type EmployeeListResponse = PaginatedResponse<Employee>;
 
 export type EmployeeFilters = {
   name?: string;

@@ -1,3 +1,5 @@
+import type { PaginatedResponse } from '@/shared/api';
+
 type BaseOffer = {
   id: number;
   required_amount: string;
@@ -41,15 +43,7 @@ export type CreateGiftsOfferDto = {
 
 export type CreateOfferDto = CreatePercentageOfferDto | CreateGiftsOfferDto;
 
-export type OfferResponse = {
-  data: Offer[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+export type OfferResponse = PaginatedResponse<Offer>;
 
 export type EditOfferDto = {
   required_amount: string;

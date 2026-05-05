@@ -1,14 +1,19 @@
-import type { LaboratoryListItem } from '@/entities/laboratory';
+import type {
+  LaboratoryDetail,
+  LaboratoryListItem,
+} from '@/entities/laboratory';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 type DeleteLaboratoryModalProps = {
-  laboratory: LaboratoryListItem | null;
+  label?: string;
+  laboratory: LaboratoryListItem | LaboratoryDetail | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
 };
 
 export function DeleteLaboratoryModal({
+  label,
   laboratory,
   onClose,
   onDeleteSuccess,
@@ -31,7 +36,7 @@ export function DeleteLaboratoryModal({
   return (
     <DeleteModal
       hasItem={!!laboratory}
-      label={laboratory?.name}
+      label={label}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

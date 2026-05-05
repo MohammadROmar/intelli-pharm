@@ -2,18 +2,21 @@ import { Pill, FlaskConical, ShieldCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { LaboratoryDetail } from '@/entities/laboratory';
+import { getLocalized } from '@/shared/lib';
 import { DetailCard, DetailCell, Separator } from '@/shared/ui';
 
 type Props = { laboratory: LaboratoryDetail };
 
 export function LaboratoryInfoGrid({ laboratory }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'laboratoriesPage.detail',
   });
 
   const activeMedicines = laboratory.medicines.filter(
     (m) => m.is_active,
   ).length;
+
+  const name = getLocalized(laboratory.name, i18n.language);
 
   return (
     <DetailCard
@@ -25,7 +28,7 @@ export function LaboratoryInfoGrid({ laboratory }: Props) {
       <DetailCell label={t('labelName')}>
         <span className="flex items-center gap-1.5">
           <FlaskConical className="text-muted-foreground size-3.5 shrink-0" />
-          {laboratory.name}
+          {name}
         </span>
       </DetailCell>
 

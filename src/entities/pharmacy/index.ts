@@ -1,7 +1,6 @@
 export {
   editPharmacy,
   createPharmacy,
-  getPharmacyById,
   getInfinitePharmacies,
 } from './api/index';
 

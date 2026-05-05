@@ -1,8 +1,8 @@
-import { useGetCategory } from '@/entities/category';
 import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 import { CategoryDetailHeader } from './CategoryDetailHeader';
 import { CategoryMetaGrid } from './CategoryMetaGrid';
 import { CategoryChildrenTable } from './CategoryChildrenTable';
+import { useGetCategory } from '@/entities/category';
 
 export default function CategoryDetailPage() {
   const { data, isLoading, isEnabled, isError, error, refetch } =

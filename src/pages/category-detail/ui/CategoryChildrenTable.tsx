@@ -13,6 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/ui';
+import { getLocalized } from '@/shared/lib';
+import i18n from '@/shared/config/i18n';
 
 type Props = { category: CategoryDetail };
 
@@ -49,7 +51,7 @@ export function CategoryChildrenTable({ category }: Props) {
                 </TableCell>
                 <TableCell>
                   <p className="max-w-[20ch] truncate font-medium">
-                    {child.name}
+                    {getLocalized(child.name, i18n.language)}
                   </p>
                 </TableCell>
                 <TableActions

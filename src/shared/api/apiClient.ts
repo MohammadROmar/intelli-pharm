@@ -12,6 +12,16 @@ export type ApiResponse<T> = {
   statusCode: number;
 };
 
+export type PaginatedResponse<T> = {
+  data: T[];
+  meta: {
+    current_page: number;
+    per_page: number;
+    to: number;
+    total: number;
+  };
+};
+
 export class ApiError extends Error {
   public readonly i18nKey: string;
   public readonly status?: number;

@@ -1,9 +1,10 @@
 import { LaboratoryEditForm } from './LaboratoryEditForm';
 import { LaboratorySheet } from '@/entities/laboratory';
+import type { Localized } from '@/shared/lib';
 
 type Props = {
   id: number;
-  defaultName: string;
+  defaultName: Localized;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 };

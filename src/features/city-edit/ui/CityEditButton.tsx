@@ -6,10 +6,7 @@ type Props = { cityToEdit: CityDetail | null; onClose: () => void };
 export function CityEditButton({ cityToEdit, onClose }: Props) {
   return (
     <CitySheet open={!!cityToEdit} onOpenChange={onClose} isEdit>
-      <CityEditForm
-        id={cityToEdit?.id ?? -1}
-        defaultName={cityToEdit?.name ?? ''}
-      />
+      <CityEditForm city={cityToEdit} />
     </CitySheet>
   );
 }

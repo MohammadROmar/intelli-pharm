@@ -1,7 +1,6 @@
 import type {
-  LaboratoriesResponse,
   Laboratory,
-  LaboratoryDetail,
+  LaboratoriesResponse,
 } from '../model/laboratoryTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
@@ -23,10 +22,6 @@ export async function editLaboratory({
   return apiClient.put(`/erp/v1/laboratories/${id}`, name);
 }
 
-export async function getLaboratoryById(id: number) {
-  return apiClient.get<LaboratoryDetail>(`/erp/v1/laboratories/${id}`);
-}
-
 export async function createLaboratory(payload: Laboratory) {
   return apiClient.post('/erp/v1/laboratories', payload);
 }
@@ -46,7 +41,7 @@ export async function getInfiniteLaboratories(
   const { data } = response;
 
   return {
-    items: data.data!,
+    items: data.data,
     page: data.meta.current_page,
     pageSize: data.meta.per_page,
     totalPages: Math.max(data.meta.total / data.meta.per_page, 1),

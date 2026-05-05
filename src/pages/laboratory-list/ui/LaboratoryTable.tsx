@@ -31,11 +31,12 @@ export function LaboratoryTable({ data }: Props) {
   const [laboratoryToDelete, setLaboratoryToDelete] =
     useState<LaboratoryListItem | null>(null);
 
-  const laboratories = data.data!;
+  const laboratories = data.data;
 
   return (
     <>
       <DeleteLaboratoryModal
+        label={laboratoryToDelete?.name}
         laboratory={laboratoryToDelete}
         onClose={() => setLaboratoryToDelete(null)}
       />

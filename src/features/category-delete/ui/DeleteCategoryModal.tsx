@@ -3,12 +3,14 @@ import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 type DeleteCategoryModalProps = {
+  label?: string;
   category: CategoryDetail | CategoryListItem | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
 };
 
 export function DeleteCategoryModal({
+  label,
   category,
   onClose,
   onDeleteSuccess,
@@ -31,7 +33,7 @@ export function DeleteCategoryModal({
   return (
     <DeleteModal
       hasItem={!!category}
-      label={category?.name}
+      label={label}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

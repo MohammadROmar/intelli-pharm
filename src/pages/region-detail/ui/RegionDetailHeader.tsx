@@ -6,25 +6,28 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { DeleteRegionModal } from '@/features/region-delete';
 import type { RegionDetail } from '@/entities/region';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
+import { getLocalized } from '@/shared/lib';
 
 type Props = { region: RegionDetail };
 
 export function RegionDetailHeader({ region }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'regionsPage.detail',
   });
 
+  const name = getLocalized(region.name, i18n.language);
+
   return (
     <PageHeader
-      title={region.name}
-      pageTitle={`${region.name} · ${t('pageTitle')} - IntelliPharma`}
+      title={name}
+      pageTitle={`${name} · ${t('pageTitle')} - IntelliPharma`}
     >
-      <RegionActions region={region} />
+      <RegionActions region={region} name={name} />
     </PageHeader>
   );
 }
 
-function RegionActions({ region }: Props) {
+function RegionActions({ region, name }: Props & { name: string }) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'regionsPage.detail',
   });
@@ -37,6 +40,7 @@ function RegionActions({ region }: Props) {
   return (
     <>
       <DeleteRegionModal
+        label={name}
         region={regionToDelete}
         onClose={() => setRegionToDelete(null)}
         onDeleteSuccess={() => navigate('/dashboard/region')}

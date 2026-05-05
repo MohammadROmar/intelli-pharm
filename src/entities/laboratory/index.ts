@@ -1,9 +1,4 @@
-export {
-  getLaboratories,
-  createLaboratory,
-  editLaboratory,
-  getLaboratoryById,
-} from './api';
+export { getLaboratories, createLaboratory, editLaboratory } from './api';
 
 export type {
   Laboratory,

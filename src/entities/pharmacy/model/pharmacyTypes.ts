@@ -1,9 +1,10 @@
-export type Pharmacy = {
-  name: { ar: string; en: string };
+import type { PaginatedResponse } from '@/shared/api';
+import type { Localized } from '@/shared/lib';
+
+type BasePharmacy = {
   latitude: number;
   longitude: number;
   region_id: number;
-  region: string;
   is_active: boolean;
   opening_time: string;
   closing_time: string;
@@ -12,6 +13,14 @@ export type Pharmacy = {
   pharmacist_alt_phone?: string;
 };
 
+type BasePharmacyDetail = BasePharmacy & {
+  id: number;
+  region: string;
+  history_notes: HistoryNote[];
+};
+
+export type Pharmacy = BasePharmacyDetail & { name: string };
+
 export type HistoryNote = {
   id: number;
   notes: string;
@@ -19,11 +28,8 @@ export type HistoryNote = {
   visited_at: string;
 };
 
-export type PharmacyDetail = Omit<Pharmacy, 'name'> & {
-  id: number;
-  name: string;
-  region: string;
-  history_notes: HistoryNote[];
+export type PharmacyDetail = BasePharmacyDetail & {
+  name: Localized;
 };
 
 export type PharmacyFilters = {
@@ -34,12 +40,4 @@ export type PharmacyFilters = {
   pharmacist_alt_phone?: string | null;
 };
 
-export type PharmaciesResponse = {
-  data?: PharmacyDetail[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+export type PharmaciesResponse = PaginatedResponse<Pharmacy>;

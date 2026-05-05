@@ -3,12 +3,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { PharmacyDetailsCard } from './PharmacyDetailsCard';
 import { LocationPickerCard } from './LocationPickerCard';
 import { PharmacistInformationCard } from './PharmacistInformationCard';
-import type { Pharmacy } from '../model/pharmacyTypes';
+import type { PharmacyDetail } from '../model/pharmacyTypes';
 import { FormActions } from '@/shared/ui';
 
 type PharmacyFormProps = {
-  onSubmit: (payload: Pharmacy) => void;
-  defaultValues?: Pharmacy;
+  onSubmit: (payload: PharmacyDetail) => void;
+  defaultValues?: PharmacyDetail;
   isPending?: boolean;
   onReset: () => void;
 };
@@ -19,7 +19,7 @@ export function PharmacyForm({
   isPending,
   onReset,
 }: PharmacyFormProps) {
-  const methods = useForm<Pharmacy>({
+  const methods = useForm<PharmacyDetail>({
     defaultValues: {
       is_active: true,
       pharmacist_alt_phone: '',

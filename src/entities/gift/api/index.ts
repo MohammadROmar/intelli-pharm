@@ -1,9 +1,5 @@
-import type { Gift, GiftPayload } from '../model/giftTypes';
+import type { GiftPayload } from '../model/giftTypes';
 import { apiClient } from '@/shared/api';
-
-export async function getGiftById(id: number) {
-  return apiClient.get<Gift>(`/erp/v1/gifts/${id}`);
-}
 
 export async function createGift(payload: GiftPayload) {
   return apiClient.post('/erp/v1/gifts', payload);

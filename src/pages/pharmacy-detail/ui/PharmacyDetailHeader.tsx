@@ -5,26 +5,29 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
 import type { PharmacyDetail } from '@/entities/pharmacy';
+import { getLocalized } from '@/shared/lib';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacyDetailHeader({ pharmacy }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'pharmaciesPage.detail',
   });
 
+  const name = getLocalized(pharmacy.name, i18n.language);
+
   return (
     <PageHeader
-      title={pharmacy.name}
-      pageTitle={`${pharmacy.name} · ${t('pageTitle')} - IntelliPharma`}
+      title={name}
+      pageTitle={`${name} · ${t('pageTitle')} - IntelliPharma`}
     >
-      <PharmacyActions pharmacy={pharmacy} />
+      <PharmacyActions pharmacy={pharmacy} name={name} />
     </PageHeader>
   );
 }
 
-function PharmacyActions({ pharmacy }: Props) {
+function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'pharmaciesPage.detail',
   });
@@ -36,6 +39,7 @@ function PharmacyActions({ pharmacy }: Props) {
   return (
     <>
       <DeletePharmacyModal
+        label={name}
         pharmacy={pharmacyToDelete}
         onClose={() => setPharmacyToDelete(null)}
         onDeleteSuccess={() => navigate('/dashboard/pharmacies')}

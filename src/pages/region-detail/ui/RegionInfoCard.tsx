@@ -3,13 +3,16 @@ import { Cross, Building2, Map } from 'lucide-react';
 
 import type { RegionDetail } from '@/entities/region';
 import { DetailCard, DetailCell } from '@/shared/ui';
+import { getLocalized } from '@/shared/lib';
 
 type Props = { region: RegionDetail };
 
 export function RegionInfoCard({ region }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'regionsPage.detail',
   });
+
+  const cityName = getLocalized(region.city.name, i18n.language);
 
   return (
     <DetailCard title={t('cardTitle')} subtitle={t('cardSubtitle')} icon={Map}>
@@ -17,7 +20,7 @@ export function RegionInfoCard({ region }: Props) {
         <DetailCell label={t('labelCity')}>
           <span className="flex items-center gap-1.5">
             <Building2 className="text-muted-foreground size-3.5 shrink-0" />
-            {region.city.name}
+            {cityName}
           </span>
         </DetailCell>
         <DetailCell label={t('labelPharmaciesCount')}>

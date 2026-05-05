@@ -2,7 +2,6 @@ export {
   editMedicine,
   getMedicines,
   createMedicine,
-  getMedicineById,
   getMedicineByBarcode,
   getInfiniteMedicines,
 } from './api';
@@ -13,6 +12,7 @@ export type {
   StockEntry,
   BooleanFilter,
   MedicineStock,
+  MedicineDetail,
   MedicineFilters,
   MedicineCategory,
   MedicineResponse,

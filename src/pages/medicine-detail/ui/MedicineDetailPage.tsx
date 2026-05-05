@@ -30,10 +30,7 @@ export default function MedicineDetailPage() {
       <MedicineDetailHeader medicine={medicine} />
 
       <div className="grid max-w-full grid-cols-1 gap-6 lg:grid-cols-3">
-        <MedicineImageGallery
-          images={medicine.images}
-          medicineName={medicine.commercial_name}
-        />
+        <MedicineImageGallery images={medicine.images} />
         <MedicineInfoGrid medicine={medicine} />
       </div>
 

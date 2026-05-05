@@ -1,18 +1,7 @@
-export type City = {
-  name: {
-    ar: string;
-    en: string;
-  };
-};
+import type { PaginatedResponse } from '@/shared/api';
 
-export type CityDetail = { id: number; name: string };
+export type City = { name: { ar: string; en: string } };
 
-export type CitiesResponse = {
-  data?: CityDetail[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+export type CityDetail = City & { id: number };
+
+export type CitiesResponse = PaginatedResponse<CityDetail>;

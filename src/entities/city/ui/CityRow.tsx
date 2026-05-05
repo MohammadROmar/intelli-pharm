@@ -8,6 +8,7 @@ import {
   TableActions,
   DropdownMenuItem,
 } from '@/shared/ui';
+import { getLocalized } from '@/shared/lib';
 
 type CityRowProps = {
   city: CityDetail;
@@ -16,11 +17,14 @@ type CityRowProps = {
 };
 
 export function CityRow({ city, onEdit, onDelete }: CityRowProps) {
+  const { i18n } = useTranslation();
+  const name = getLocalized(city.name, i18n.language);
+
   return (
     <TableRow>
       <TableCell className="text-muted-foreground text-xs">{city.id}</TableCell>
       <TableCell>
-        <p className="max-w-[20ch] truncate font-medium">{city.name}</p>
+        <p className="max-w-[20ch] truncate font-medium">{name}</p>
       </TableCell>
 
       <TableActions

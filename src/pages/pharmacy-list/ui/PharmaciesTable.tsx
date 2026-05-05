@@ -5,7 +5,7 @@ import { PharmacyFiltersModal } from './PharmacyFiltersModal';
 import { usePharmacyFilters } from '../model/usePharmacyFilters';
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
 import { PharmacyRow } from '@/entities/pharmacy';
-import type { PharmaciesResponse, PharmacyDetail } from '@/entities/pharmacy';
+import type { PharmaciesResponse, Pharmacy } from '@/entities/pharmacy';
 import {
   TableBody,
   TableHead,
@@ -21,14 +21,16 @@ type Props = { data: PharmaciesResponse };
 export function PharmaciesTable({ data }: Props) {
   const { t } = useTranslation('translation', { keyPrefix: 'pharmaciesPage' });
 
-  const [pharmacyToDelete, setPharmacyToDelete] =
-    useState<PharmacyDetail | null>(null);
+  const [pharmacyToDelete, setPharmacyToDelete] = useState<Pharmacy | null>(
+    null,
+  );
 
-  const pharmacies = data.data!;
+  const pharmacies = data.data;
 
   return (
     <>
       <DeletePharmacyModal
+        label={pharmacyToDelete?.name}
         pharmacy={pharmacyToDelete}
         onClose={() => setPharmacyToDelete(null)}
       />

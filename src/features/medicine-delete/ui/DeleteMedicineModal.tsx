@@ -1,14 +1,16 @@
-import type { Medicine } from '@/entities/medicine';
+import type { Medicine, MedicineDetail } from '@/entities/medicine';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
 
 type DeleteMedicineModalProps = {
-  medicine: Medicine | null;
+  label: string;
+  medicine: Medicine | MedicineDetail | null;
   onClose: () => void;
   onDeleteSuccess?: () => void;
 };
 
 export function DeleteMedicineModal({
+  label,
   medicine,
   onClose,
   onDeleteSuccess,
@@ -32,7 +34,7 @@ export function DeleteMedicineModal({
   return (
     <DeleteModal
       hasItem={!!medicine}
-      label={medicine?.commercial_name}
+      label={label}
       isPending={isPending}
       onClose={onClose}
       onConfirm={handleConfirm}

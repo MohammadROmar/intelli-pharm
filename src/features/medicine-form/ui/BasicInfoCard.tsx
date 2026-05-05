@@ -8,11 +8,8 @@ import { Dna, DollarSign, Pill, StickyNote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
-import {
-  MedicineSelector,
-  type Medicine,
-  type MedicineFormData,
-} from '@/entities/medicine';
+import { MedicineSelector } from '@/entities/medicine';
+import type { MedicineDetail, MedicineFormData } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
 import { LaboratorySelector } from '@/entities/laboratory';
 import { useFieldError } from '@/shared/lib';
@@ -39,7 +36,7 @@ import {
   Textarea,
 } from '@/shared/ui';
 
-type Props = { medicine?: Medicine; isPending?: boolean };
+type Props = { medicine?: MedicineDetail; isPending?: boolean };
 
 export function BasicInfoCard({ medicine, isPending }: Props) {
   'use no memo';

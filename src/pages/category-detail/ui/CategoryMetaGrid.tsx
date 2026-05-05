@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { CalendarDays, Folders, FolderTree, RefreshCw } from 'lucide-react';
 
 import type { CategoryDetail } from '@/entities/category';
+import { getLocalized } from '@/shared/lib';
 import {
   Badge,
   BadgeLink,
@@ -14,11 +15,13 @@ import {
 type Props = { category: CategoryDetail };
 
 export function CategoryMetaGrid({ category }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'categoriesPage.detail',
   });
 
   const isTopLevel = category.parent_id === null;
+
+  const name = getLocalized(category.name, i18n.language);
 
   return (
     <DetailCard
@@ -33,7 +36,7 @@ export function CategoryMetaGrid({ category }: Props) {
         <DetailCell label={t('labelName')}>
           <span className="flex items-center gap-1.5">
             <Folders className="text-muted-foreground size-3.5 shrink-0" />
-            {category.name}
+            {name}
           </span>
         </DetailCell>
       </div>

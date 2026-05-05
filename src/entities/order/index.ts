@@ -1,4 +1,4 @@
-export { getOrders, getOrderById, changeOrderStatus } from './api';
+export { getOrders, changeOrderStatus } from './api';
 
 export type {
   OrderItem,

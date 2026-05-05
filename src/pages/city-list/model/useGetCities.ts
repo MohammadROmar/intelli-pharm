@@ -10,6 +10,7 @@ export function useGetCities() {
 
   return useGetEntities<CitiesResponse, CityDetail>({
     queryKey: 'cities',
+    withDualLanguage: true,
     filters: { name },
   });
 }

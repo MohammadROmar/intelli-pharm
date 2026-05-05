@@ -1,8 +1,7 @@
 import { pharmacyToPayload } from '../lib/utils';
 import type {
-  PharmaciesResponse,
-  Pharmacy,
   PharmacyDetail,
+  PharmaciesResponse,
 } from '../model/pharmacyTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
@@ -11,17 +10,13 @@ export async function editPharmacy({
   pharmacy,
 }: {
   id: number;
-  pharmacy: Pharmacy;
+  pharmacy: PharmacyDetail;
 }) {
   const payload = pharmacyToPayload(pharmacy);
   return apiClient.put(`/erp/v1/pharmacies/${id}`, payload);
 }
 
-export async function getPharmacyById(id: number) {
-  return apiClient.get<PharmacyDetail>(`/erp/v1/pharmacies/${id}`);
-}
-
-export async function createPharmacy(pharmacy: Pharmacy) {
+export async function createPharmacy(pharmacy: PharmacyDetail) {
   const payload = pharmacyToPayload(pharmacy);
   return apiClient.post('/erp/v1/pharmacies', payload);
 }
@@ -42,7 +37,7 @@ export async function getInfinitePharmacies(
   const { data } = response;
 
   return {
-    items: data.data!,
+    items: data.data,
     page: data.meta.current_page,
     pageSize: data.meta.per_page,
     totalPages: Math.max(data.meta.total / data.meta.per_page, 1),

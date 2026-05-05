@@ -1,18 +1,16 @@
-export type Laboratory = {
-  name: { ar: string; en: string };
-};
+import type { PaginatedResponse } from '@/shared/api';
+import type { Localized } from '@/shared/lib';
+
+export type Laboratory = { name: { ar: string; en: string } };
 
 export type LaboratoryListItem = { id: number; name: string };
 
-export type LaboratoriesResponse = {
-  data?: LaboratoryListItem[];
-  meta: { current_page: number; per_page: number; to: number; total: number };
-};
+export type LaboratoriesResponse = PaginatedResponse<LaboratoryListItem>;
 
 export type LaboratoryMedicine = {
   id: number;
   category_id: number;
-  commercial_name: string;
+  commercial_name: Localized;
   price: string;
   is_imported: number;
   is_active: number;
@@ -23,7 +21,7 @@ export type LaboratoryMedicine = {
 
 export type LaboratoryDetail = {
   id: number;
-  name: string;
+  name: Localized;
   created_at: string;
   updated_at: string;
   medicines: LaboratoryMedicine[];

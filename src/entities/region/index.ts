@@ -1,4 +1,4 @@
-export { createRegion, editRegion, getRegionById } from './api';
+export { createRegion, editRegion } from './api';
 
 export type {
   Region,

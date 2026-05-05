@@ -6,26 +6,32 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { LaboratoryEditSheet } from '@/features/laboratory-edit';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
 import type { LaboratoryDetail } from '@/entities/laboratory';
+import { getLocalized } from '@/shared/lib';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { laboratory: LaboratoryDetail };
 
 export function LaboratoryDetailHeader({ laboratory }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'laboratoriesPage.detail',
   });
 
+  const name = getLocalized(laboratory.name, i18n.language);
+
   return (
     <PageHeader
-      title={laboratory.name}
-      pageTitle={`${laboratory.name} · ${t('pageTitle')} - IntelliPharma`}
+      title={name}
+      pageTitle={`${name} · ${t('pageTitle')} - IntelliPharma`}
     >
-      <LaboratoryActions laboratory={laboratory} />
+      <LaboratoryActions laboratory={laboratory} name={name} />
     </PageHeader>
   );
 }
 
-export function LaboratoryActions({ laboratory }: Props) {
+export function LaboratoryActions({
+  name,
+  laboratory,
+}: Props & { name: string }) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'laboratoriesPage.detail',
   });
@@ -41,6 +47,7 @@ export function LaboratoryActions({ laboratory }: Props) {
   return (
     <>
       <DeleteLaboratoryModal
+        label={name}
         laboratory={labToDelete}
         onClose={() => setLabToDelete(null)}
         onDeleteSuccess={() => navigate('/dashboard/laboratories')}

@@ -19,7 +19,7 @@ type Props = { data: OrderListResponse };
 export function OrdersTable({ data }: Props) {
   const { t } = useTranslation('translation', { keyPrefix: 'ordersPage.list' });
 
-  const orders = data.data!;
+  const orders = data.data;
 
   return (
     <TableCard

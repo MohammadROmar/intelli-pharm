@@ -1,8 +1,4 @@
-export {
-  getDeliveryById,
-  assignDeliveryTask,
-  changeDelieryStatus,
-} from './api';
+export { assignDeliveryTask, changeDelieryStatus } from './api';
 
 export type {
   DeliveryOrder,

@@ -1,3 +1,5 @@
+import type { PaginatedResponse } from '@/shared/api';
+
 export type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
 
 type Item = { id: number; commercial_name: string };
@@ -34,12 +36,4 @@ export type OrderFilters = {
   max_total?: string | null;
 };
 
-export type OrderListResponse = {
-  data?: OrderListItem[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+export type OrderListResponse = PaginatedResponse<OrderListItem>;

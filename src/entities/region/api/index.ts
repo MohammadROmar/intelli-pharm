@@ -1,13 +1,5 @@
-import type {
-  Region,
-  RegionDetail,
-  RegionsListResponse,
-} from '../model/regionTypes';
+import type { Region, RegionsListResponse } from '../model/regionTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
-
-export async function getRegionById(id: number) {
-  return apiClient.get<RegionDetail>(`/erp/v1/regions/${id}`);
-}
 
 export async function createRegion(payload: Region) {
   return apiClient.post('/erp/v1/regions', payload);

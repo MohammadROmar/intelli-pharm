@@ -1,4 +1,4 @@
-export { editOffer, getOfferById, createOffer } from './api';
+export { editOffer, createOffer } from './api';
 
 export type {
   EditOfferDto,

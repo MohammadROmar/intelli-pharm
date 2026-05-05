@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { PackagePlus, Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteMedicineModal } from '@/features/medicine-delete';
-import type { Medicine } from '@/entities/medicine';
+import type { MedicineDetail } from '@/entities/medicine';
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -12,37 +12,40 @@ import {
   PageHeader,
   ActionsDropdown,
 } from '@/shared/ui';
+import { getLocalized } from '@/shared/lib';
 
-type Props = { medicine: Medicine };
+type Props = { medicine: MedicineDetail };
 
 export function MedicineDetailHeader({ medicine }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.detail',
   });
 
+  const name = getLocalized(medicine.commercial_name, i18n.language);
+
   return (
     <PageHeader
-      title={medicine.commercial_name}
-      pageTitle={`${medicine.commercial_name} · ${t('pageTitle')} - IntelliPharma`}
+      title={name}
+      pageTitle={`${name} · ${t('pageTitle')} - IntelliPharma`}
     >
-      <MedicineActions medicine={medicine} />
+      <MedicineActions medicine={medicine} name={name} />
     </PageHeader>
   );
 }
 
-function MedicineActions({ medicine }: Props) {
+function MedicineActions({ medicine, name }: Props & { name: string }) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.detail',
   });
 
-  const [medicineToDelete, setMedicineToDelete] = useState<Medicine | null>(
-    null,
-  );
+  const [medicineToDelete, setMedicineToDelete] =
+    useState<MedicineDetail | null>(null);
   const navigate = useNavigate();
 
   return (
     <>
       <DeleteMedicineModal
+        label={name}
         medicine={medicineToDelete}
         onClose={() => setMedicineToDelete(null)}
         onDeleteSuccess={() => navigate('/dashboard/medicines')}

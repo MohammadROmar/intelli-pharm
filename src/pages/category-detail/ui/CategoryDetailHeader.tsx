@@ -5,26 +5,29 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteCategoryModal } from '@/features/category-delete';
 import type { CategoryDetail } from '@/entities/category';
+import { getLocalized } from '@/shared/lib';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { category: CategoryDetail };
 
 export function CategoryDetailHeader({ category }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'categoriesPage.detail',
   });
 
+  const name = getLocalized(category.name, i18n.language);
+
   return (
     <PageHeader
-      title={category.name}
-      pageTitle={`${category.name} · ${t('pageTitle')} - IntelliPharma`}
+      title={name}
+      pageTitle={`${name} · ${t('pageTitle')} - IntelliPharma`}
     >
-      <CategoryActions category={category} />
+      <CategoryActions category={category} name={name} />
     </PageHeader>
   );
 }
 
-function CategoryActions({ category }: Props) {
+function CategoryActions({ category, name }: Props & { name: string }) {
   const { t } = useTranslation('translation', {
     keyPrefix: 'categoriesPage.detail',
   });
@@ -36,6 +39,7 @@ function CategoryActions({ category }: Props) {
   return (
     <>
       <DeleteCategoryModal
+        label={name}
         category={categoryToDelete}
         onClose={() => setCategoryToDelete(null)}
         onDeleteSuccess={() => navigate('/dashboard/categories')}

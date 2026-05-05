@@ -1,10 +1,10 @@
-import { getMedicineById } from '../api';
-import type { Medicine } from '../model/medicineTypes';
+import type { MedicineDetail } from './medicineTypes';
 import { useGetEntityById } from '@/shared/model';
 
 export function useGetMedicine() {
-  return useGetEntityById<Medicine>({
+  return useGetEntityById<MedicineDetail>({
     queryKey: 'medicines',
-    fetchFn: getMedicineById,
+    endpoint: '/erp/v1/medicines',
+    withDualLanguage: true,
   });
 }

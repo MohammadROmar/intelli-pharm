@@ -1,3 +1,6 @@
+import type { PaginatedResponse } from '@/shared/api';
+import type { Localized } from '@/shared/lib';
+
 export type Region = { name: { ar: string; en: string }; city_id: number };
 
 export type RegionListItem = {
@@ -11,28 +14,18 @@ type City = { id: number; name: string };
 
 export type RegionPharmacy = {
   id: number;
-  name: string;
+  name: Localized;
   region: string;
   pharmacist_phone: string;
 };
 
-export type RegionDetail = {
+export type RegionDetail = Omit<RegionListItem, 'name'> & {
+  name: Localized;
   pharmacies: RegionPharmacy[];
   city_id: number;
-  city: City;
-} & RegionListItem;
-
-export type RegionsListResponse = {
-  data: RegionListItem[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
+  city: { id: number; name: Localized };
 };
 
-export type RegionFilters = {
-  name?: string | null;
-  city?: string | null;
-};
+export type RegionsListResponse = PaginatedResponse<RegionListItem>;
+
+export type RegionFilters = { name?: string | null; city?: string | null };

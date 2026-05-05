@@ -4,12 +4,9 @@ import { ImageOff } from 'lucide-react';
 
 import { cn } from '@/shared/lib';
 
-type Props = {
-  images?: string[];
-  medicineName: string;
-};
+type Props = { images?: string[] };
 
-export function MedicineImageGallery({ images, medicineName }: Props) {
+export function MedicineImageGallery({ images }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { t } = useTranslation('translation', {
@@ -26,7 +23,7 @@ export function MedicineImageGallery({ images, medicineName }: Props) {
             <img
               key={activeIndex}
               src={images![activeIndex]}
-              alt={`${medicineName} — ${t('imageAlt')} ${activeIndex + 1}`}
+              alt={`${t('imageAlt')} ${activeIndex + 1}`}
               className="h-full w-full object-cover transition-opacity duration-200"
             />
           </>
@@ -54,7 +51,7 @@ export function MedicineImageGallery({ images, medicineName }: Props) {
             >
               <img
                 src={src}
-                alt={`${medicineName} ${t('thumbnail')} ${i + 1}`}
+                alt={`${t('thumbnail')} ${i + 1}`}
                 className="h-full w-full object-cover"
               />
             </button>

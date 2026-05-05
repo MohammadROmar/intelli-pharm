@@ -11,7 +11,7 @@ import {
   Dna,
 } from 'lucide-react';
 
-import type { Medicine } from '@/entities/medicine';
+import type { MedicineDetail } from '@/entities/medicine';
 import { formatPrice } from '@/shared/lib';
 import {
   Badge,
@@ -22,7 +22,7 @@ import {
   SplitDateTime,
 } from '@/shared/ui';
 
-type Props = { medicine: Medicine };
+type Props = { medicine: MedicineDetail };
 
 export function MedicineInfoGrid({ medicine }: Props) {
   const { t, i18n } = useTranslation('translation', {

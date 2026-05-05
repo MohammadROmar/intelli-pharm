@@ -1,12 +1,7 @@
-export {
-  editCategory,
-  createCategory,
-  getCategoryById,
-  getInfiniteCategories,
-} from './api';
+export { editCategory, createCategory, getInfiniteCategories } from './api';
 
 export type {
-  Category,
+  CategoryDto,
   CategoryChild,
   CategoryDetail,
   CategoryFilters,

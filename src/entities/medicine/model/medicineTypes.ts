@@ -1,3 +1,6 @@
+import type { PaginatedResponse } from '@/shared/api';
+import type { Localized } from '@/shared/lib';
+
 export type StockEntry = {
   warehouse_id: string;
   quantity: string;
@@ -5,7 +8,7 @@ export type StockEntry = {
 };
 
 export type FormValues = {
-  name: { ar: string; en: string };
+  name: Localized;
   category_id: number;
   scientific_name: string;
   price: string;
@@ -49,10 +52,9 @@ export type AlternativeMedicine = {
   images: string[];
 };
 
-export type Medicine = {
+type BaseMedicine = {
   id: number;
   category_id: number;
-  commercial_name: string;
   price: string;
   is_imported: boolean;
   is_active: boolean;
@@ -71,15 +73,10 @@ export type Medicine = {
   alternative_for: AlternativeMedicine[];
 };
 
-export type MedicineResponse = {
-  data: Medicine[];
-  meta: {
-    current_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+export type Medicine = BaseMedicine & { commercial_name: string };
+export type MedicineDetail = BaseMedicine & { commercial_name: Localized };
+
+export type MedicineResponse = PaginatedResponse<Medicine>;
 
 export type MedicineFormData = { values: FormValues; images: ImageFile[] };
 

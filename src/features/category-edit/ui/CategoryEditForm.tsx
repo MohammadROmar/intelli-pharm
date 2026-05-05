@@ -3,18 +3,18 @@ import { useState } from 'react';
 import { useEditCategory } from '../model/useEditCategory';
 import {
   CategoryForm,
-  type Category,
-  type CategoryListItem,
+  type CategoryDetail,
+  type CategoryDto,
 } from '@/entities/category';
 
-type Props = { category: CategoryListItem };
+type Props = { category: CategoryDetail };
 
 export function CategoryEditForm({ category }: Props) {
   const [formKey, setFormKey] = useState(0);
 
   const { mutate, isPending } = useEditCategory(category.id);
 
-  function handleSubmit(payload: Category) {
+  function handleSubmit(payload: CategoryDto) {
     mutate(payload, {
       onSuccess: () => setFormKey((prev) => prev + 1),
     });
@@ -30,7 +30,7 @@ export function CategoryEditForm({ category }: Props) {
       key={formKey}
       isLoading={isPending}
       onSubmit={handleSubmit}
-      defaultValues={{ ...category, name: { ar: '', en: '' } }}
+      defaultValues={category}
       parentData={parentData}
       onReset={() => setFormKey((prev) => prev + 1)}
     />

@@ -4,16 +4,16 @@ import { BasicInfoCard } from './BasicInfoCard';
 import { StockEntriesCard } from './StockEntriesCard';
 import { ImagesCard } from './ImagesCard';
 import { medicineToFromData } from '../lib/utils';
-import {
-  useMedicineImages,
-  type MedicineFormData,
-  type ImageFile,
-  type Medicine,
+import { useMedicineImages } from '@/entities/medicine';
+import type {
+  ImageFile,
+  MedicineDetail,
+  MedicineFormData,
 } from '@/entities/medicine';
 import { FormActions } from '@/shared/ui';
 
 type MedicineFormProps = {
-  medicine?: Medicine;
+  medicine?: MedicineDetail;
   isPending?: boolean;
   onSubmit: (payload: {
     values: MedicineFormData;

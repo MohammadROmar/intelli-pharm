@@ -1,4 +1,4 @@
-export { getGiftById, createGift, deleteGift, editGift } from './api';
+export { createGift, deleteGift, editGift } from './api';
 
 export type { Gift, GiftPayload, GiftResponse } from './model/giftTypes';
 

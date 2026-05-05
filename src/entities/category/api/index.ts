@@ -1,15 +1,7 @@
-import type {
-  Category,
-  CategoryListResponse,
-  CategoryDetail,
-} from '../model/categoryTypes';
+import type { CategoryListResponse, CategoryDto } from '../model/categoryTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-export function getCategoryById(id: number) {
-  return apiClient.get<CategoryDetail>(`/erp/v1/categories/${id}`);
-}
-
-export async function createCategory(payload: Category) {
+export async function createCategory(payload: CategoryDto) {
   return apiClient.post('/erp/v1/categories', payload);
 }
 
@@ -18,7 +10,7 @@ export async function editCategory({
   payload,
 }: {
   id: number;
-  payload: Partial<Category>;
+  payload: CategoryDto;
 }) {
   return apiClient.put(`/erp/v1/categories/${id}`, payload);
 }

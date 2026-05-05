@@ -1,8 +1,8 @@
-import { editCategory, type Category } from '@/entities/category';
+import { editCategory, type CategoryDto } from '@/entities/category';
 import { useEditEntity } from '@/shared/model';
 
 export function useEditCategory(id: number) {
-  return useEditEntity<Category>({
+  return useEditEntity<CategoryDto>({
     queryKey: 'categories',
     mutationFn: (payload) => editCategory({ id, payload }),
     translationKey: 'categoriesPage.category',

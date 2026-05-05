@@ -30,6 +30,7 @@ export function MedicinesTable({ data }: Props) {
   return (
     <>
       <DeleteMedicineModal
+        label={medicineToDelete?.commercial_name || t('medicine')}
         medicine={medicineToDelete}
         onClose={() => setMedicineToDelete(null)}
       />

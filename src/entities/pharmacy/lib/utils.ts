@@ -1,6 +1,6 @@
-import type { Pharmacy } from '../model/pharmacyTypes';
+import type { PharmacyDetail } from '../model/pharmacyTypes';
 
-export function pharmacyToPayload(pharmacy: Pharmacy): Pharmacy {
+export function pharmacyToPayload(pharmacy: PharmacyDetail): PharmacyDetail {
   return {
     ...pharmacy,
     is_active: pharmacy.is_active ?? false,

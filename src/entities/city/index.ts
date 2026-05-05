@@ -1,4 +1,4 @@
-export { createCity, editCity, getCityById, getInfiniteCities } from './api';
+export { createCity, editCity, getInfiniteCities } from './api';
 
 export { useInfiniteCities } from './model/useInfiniteCities';
 export type { CitiesResponse, City, CityDetail } from './model/cityTypes';

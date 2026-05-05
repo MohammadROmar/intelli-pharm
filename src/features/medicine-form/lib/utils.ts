@@ -1,10 +1,10 @@
 import {
-  type Medicine,
+  type MedicineDetail,
   type MedicineFormData,
   type StockEntry,
 } from '@/entities/medicine';
 
-export function medicineToFromData(medicine: Medicine): MedicineFormData {
+export function medicineToFromData(medicine: MedicineDetail): MedicineFormData {
   const is_alternative = medicine.alternative_for.length > 0;
 
   const stocks: StockEntry[] = medicine.stocks.map(
@@ -17,7 +17,7 @@ export function medicineToFromData(medicine: Medicine): MedicineFormData {
 
   return {
     ...medicine,
-    name: { ar: '', en: '' },
+    name: { ar: medicine.commercial_name.ar, en: medicine.commercial_name.en },
     stocks,
     is_alternative,
     note: medicine.note ?? '',

@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
-import type { PharmacyDetail } from '../model/pharmacyTypes';
+import type { Pharmacy } from '../model/pharmacyTypes';
 import { TableCell, TableActions, TableRow, Badge } from '@/shared/ui';
 
 type PharmacyRowProps = {
-  pharmacy: PharmacyDetail;
-  onDelete: (pharmacy: PharmacyDetail) => void;
+  pharmacy: Pharmacy;
+  onDelete: (pharmacy: Pharmacy) => void;
 };
 
 export function PharmacyRow({ pharmacy, onDelete }: PharmacyRowProps) {

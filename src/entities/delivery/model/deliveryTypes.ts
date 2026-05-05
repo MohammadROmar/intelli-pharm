@@ -1,3 +1,5 @@
+import type { PaginatedResponse } from '@/shared/api';
+
 export type DeliveryStatus =
   | 'pending'
   | 'in_progress'
@@ -53,10 +55,7 @@ export type DeliveryListItem = {
   distributor_name: string;
 };
 
-export type DeliveryListResponse = {
-  data: DeliveryListItem[];
-  meta: { current_page: number; per_page: number; to: number; total: number };
-};
+export type DeliveryListResponse = PaginatedResponse<DeliveryListItem>;
 
 export type DeliveryDetail = {
   id: number;

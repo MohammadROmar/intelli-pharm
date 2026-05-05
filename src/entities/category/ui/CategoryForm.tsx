@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Folder, Folders } from 'lucide-react';
 
 import { CategorySelector } from './CategorySelector';
-import type { Category } from '../model/categoryTypes';
+import type { CategoryDto } from '../model/categoryTypes';
 import {
   Field,
   FieldLabel,
@@ -22,8 +22,8 @@ import {
 import { BilingualNameFields } from '@/shared/form';
 
 type CategoryFormProps = {
-  onSubmit: SubmitHandler<Category>;
-  defaultValues?: Partial<Category>;
+  onSubmit: SubmitHandler<CategoryDto>;
+  defaultValues?: Partial<CategoryDto>;
   isLoading?: boolean;
   parentData?: { id: number; name: string };
   onReset: () => void;
@@ -36,7 +36,7 @@ export function CategoryForm({
   parentData,
   onReset,
 }: CategoryFormProps) {
-  const methods = useForm<Category>({ defaultValues });
+  const methods = useForm<CategoryDto>({ defaultValues });
   const {
     control,
     handleSubmit,

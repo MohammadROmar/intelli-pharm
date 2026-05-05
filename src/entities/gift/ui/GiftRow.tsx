@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
 
 import type { Gift } from '../model/giftTypes';
+import { getLocalized } from '@/shared/lib';
 import {
   Badge,
   TableRow,
@@ -17,19 +18,19 @@ type GiftRowProps = {
 };
 
 export function GiftRow({ gift, onEdit, onDelete }: GiftRowProps) {
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'giftsPage.list',
   });
 
   const isActive = gift.active === 1;
 
+  const name = getLocalized(gift.medicine.commercial_name, i18n.language);
+
   return (
     <TableRow>
       <TableCell className="text-muted-foreground text-xs">{gift.id}</TableCell>
       <TableCell>
-        <p className="max-w-[20ch] truncate font-medium">
-          {gift.medicine.commercial_name.en}
-        </p>
+        <p className="max-w-[20ch] truncate font-medium">{name}</p>
       </TableCell>
       <TableCell>
         <Badge variant={isActive ? 'success' : 'muted'}>

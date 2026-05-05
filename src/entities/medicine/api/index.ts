@@ -1,9 +1,8 @@
 import { medicineToFormData } from '../lib/utils';
 import type {
-  BarcodeScanResult,
-  Medicine,
   MedicineFormData,
   MedicineResponse,
+  BarcodeScanResult,
 } from '../model/medicineTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
@@ -19,10 +18,6 @@ export async function editMedicine(id: number, data: MedicineFormData) {
   return apiClient.post(`/erp/v1/medicines/${id}`, fd, {
     headers: { 'Content-Type': undefined },
   });
-}
-
-export async function getMedicineById(id: number) {
-  return apiClient.get<Medicine>(`/erp/v1/medicines/${id}`);
 }
 
 export async function getMedicines(

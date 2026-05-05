@@ -4,11 +4,11 @@ import { useEditMedicine } from '../model/useEditMedicine';
 import { MedicineForm } from '@/features/medicine-form';
 import type {
   ImageFile,
-  Medicine,
+  MedicineDetail,
   MedicineFormData,
 } from '@/entities/medicine';
 
-type Props = { id: number; medicine: Medicine };
+type Props = { id: number; medicine: MedicineDetail };
 
 export function MedicineEditForm({ id, medicine }: Props) {
   const [formKey, setFormKey] = useState(0);
