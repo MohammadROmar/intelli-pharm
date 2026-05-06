@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { AlertTriangle, RefreshCcw, RefreshCw } from 'lucide-react';
 
 import { Button } from './Button';
 import { Separator } from './Separator';
-import type { ErrorBoundaryFallbackProps } from './ErrorBoundary';
+import type { ErrorBoundaryFallbackProps } from '../lib';
 
 export function PageErrorFallback({
   error,
@@ -14,32 +14,45 @@ export function PageErrorFallback({
   });
 
   return (
-    <div className="flex min-h-[60vh] w-full flex-col items-center justify-center px-4 text-center">
-      <div className="bg-muted text-muted-foreground mb-6 flex size-16 items-center justify-center rounded-2xl">
-        <AlertTriangle className="size-8" />
+    <div className="grid h-full items-center justify-center">
+      <div className="flex min-h-[60vh] w-full flex-col items-center justify-center px-4 text-center">
+        <div className="bg-muted text-muted-foreground mb-6 flex size-16 items-center justify-center rounded-2xl">
+          <AlertTriangle className="size-8" />
+        </div>
+
+        <h2 className="text-foreground mb-2 text-xl font-semibold">
+          {t('title')}
+        </h2>
+
+        <p className="text-muted-foreground mb-8 max-w-sm text-sm leading-relaxed">
+          {t('description')}
+        </p>
+
+        <div className="flex items-center gap-4">
+          <Button size="sm" variant="outline" onClick={reset} className="gap-2">
+            <RefreshCcw className="size-4" />
+            {t('tryAgain')}
+          </Button>
+
+          <Button
+            size="sm"
+            onClick={() => window.location.reload()}
+            className="gap-2"
+          >
+            <RefreshCw className="size-4" />
+            {t('reload')}
+          </Button>
+        </div>
+
+        {import.meta.env.DEV && (
+          <>
+            <Separator className="my-8 max-w-xs" />
+            <p className="text-muted-foreground/50 max-w-sm font-mono text-xs break-all">
+              {error.message}
+            </p>
+          </>
+        )}
       </div>
-
-      <h2 className="text-foreground mb-2 text-xl font-semibold">
-        {t('title')}
-      </h2>
-
-      <p className="text-muted-foreground mb-8 max-w-sm text-sm leading-relaxed">
-        {t('description')}
-      </p>
-
-      <Button variant="outline" onClick={reset} className="gap-2">
-        <RefreshCw className="size-4" />
-        {t('tryAgain')}
-      </Button>
-
-      {import.meta.env.DEV && (
-        <>
-          <Separator className="my-8 max-w-xs" />
-          <p className="text-muted-foreground/50 max-w-sm font-mono text-xs break-all">
-            {error.message}
-          </p>
-        </>
-      )}
     </div>
   );
 }
@@ -65,5 +78,3 @@ export function SectionErrorFallback({ reset }: ErrorBoundaryFallbackProps) {
     </div>
   );
 }
-
-export const DefaultErrorFallback = PageErrorFallback;

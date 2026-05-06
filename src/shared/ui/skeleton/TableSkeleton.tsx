@@ -14,7 +14,7 @@ export function TableSkeleton() {
     <div className="space-y-4 overflow-y-hidden">
       <div className="space-y-2">
         <Skeleton className="h-10 w-40" />
-        <Skeleton className="h-5 w-56" style={{ animationDelay: '0.25s' }} />
+        <Skeleton className="h-5 w-56" />
       </div>
 
       <Card>
@@ -30,17 +30,11 @@ export function TableSkeleton() {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-25">
-                  <Skeleton
-                    className="h-6"
-                    style={{ animationDelay: '0.5s' }}
-                  />
+                  <Skeleton className="h-6" />
                 </TableHead>
                 {Array.from({ length: 3 }).map((_, i) => (
                   <TableHead key={`table-skeleton-head-${i}`}>
-                    <Skeleton
-                      className="h-6"
-                      style={{ animationDelay: '0.5s' }}
-                    />
+                    <Skeleton className="h-6" />
                   </TableHead>
                 ))}
               </TableRow>
@@ -53,10 +47,7 @@ export function TableSkeleton() {
                       key={`table-skeleton-row-cell-${i}`}
                       className="py-3"
                     >
-                      <Skeleton
-                        className="h-6"
-                        style={{ animationDelay: '0.75s' }}
-                      />
+                      <Skeleton className="h-6" />
                     </TableCell>
                   ))}
                 </TableRow>

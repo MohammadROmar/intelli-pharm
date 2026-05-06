@@ -3,7 +3,8 @@ import { ScanBarcode } from 'lucide-react';
 
 import Barcode from 'react-barcode';
 
-import { DetailCard, DetailCell } from '@/shared/ui';
+import { ErrorBoundary } from '@/shared/lib';
+import { DetailCard, DetailCell, SectionErrorFallback } from '@/shared/ui';
 
 type Props = {
   barcode?: string | null;
@@ -20,20 +21,22 @@ export function MedicineBarcodeCard({ barcode }: Props) {
       subtitle={t('barcodeCardSubtitle')}
       icon={ScanBarcode}
     >
-      <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('labelBarcode')}>
-          {barcode ? (
-            <Barcode
-              value={barcode}
-              background="var(--card)"
-              lineColor="currentColor"
-              font="var(--font-cairo)"
-            />
-          ) : (
-            <span>-</span>
-          )}
-        </DetailCell>
-      </div>
+      <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+        <div className="grid grid-cols-2 gap-6">
+          <DetailCell label={t('labelBarcode')}>
+            {barcode ? (
+              <Barcode
+                value={barcode}
+                background="var(--card)"
+                lineColor="currentColor"
+                font="var(--font-cairo)"
+              />
+            ) : (
+              <span>-</span>
+            )}
+          </DetailCell>
+        </div>
+      </ErrorBoundary>
     </DetailCard>
   );
 }

@@ -181,8 +181,7 @@ export { FiltersModal, FiltersTrigger } from './FiltersModal';
 export { DetailCell } from './DetailCell';
 export { DetailCard } from './DetailCard';
 export { Kbd, KbdGroup } from './kbd';
-export { ErrorBoundary } from './ErrorBoundary';
-export { SectionErrorFallback } from './ErrorFallback';
+export { SectionErrorFallback, PageErrorFallback } from './ErrorFallback';
 export {
   Select,
   SelectContent,

@@ -21,7 +21,7 @@ export function MetricsSkeleton({ charts = 1 }: Props) {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-2">
           <Skeleton className="h-10 w-40" />
-          <Skeleton className="h-5 w-56" style={{ animationDelay: '0.25s' }} />
+          <Skeleton className="h-5 w-56" />
         </div>
 
         <Skeleton className="h-9 w-36" />

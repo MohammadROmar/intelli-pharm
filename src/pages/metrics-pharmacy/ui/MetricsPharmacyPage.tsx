@@ -6,7 +6,14 @@ import { DetailedBreakdownTable } from './DetailedBreakdownTable';
 import { PharmacyMetricsSelector } from './PharmacyMetricsSelector';
 import { useGetPharmacyMetrics } from '../model/useGetPharmacyMetrics';
 import { MetricsEmptyState } from '@/entities/metrics';
-import { MetricsSkeleton, PageTitle, QueryError, Skeleton } from '@/shared/ui';
+import { ErrorBoundary } from '@/shared/lib';
+import {
+  Skeleton,
+  PageTitle,
+  QueryError,
+  MetricsSkeleton,
+  SectionErrorFallback,
+} from '@/shared/ui';
 
 const ScoreChart = lazy(() => import('./ScoreChart'));
 
@@ -38,9 +45,11 @@ export default function MetricsPharmacyPage() {
       {metrics.length > 0 ? (
         <>
           <PharmacyMetricsCards metrics={metrics} />
-          <Suspense fallback={<Skeleton className="h-94 w-full" />}>
-            <ScoreChart metrics={metrics} />
-          </Suspense>
+          <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+            <Suspense fallback={<Skeleton className="h-94 w-full" />}>
+              <ScoreChart metrics={metrics} />
+            </Suspense>
+          </ErrorBoundary>
           <DetailedBreakdownTable metrics={metrics} />
         </>
       ) : (

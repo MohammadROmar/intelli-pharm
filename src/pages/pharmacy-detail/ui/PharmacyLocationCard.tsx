@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { MapPin, Navigation } from 'lucide-react';
 
 import type { PharmacyDetail } from '@/entities/pharmacy';
-import { getLocalized } from '@/shared/lib';
+import { getLocalized, ErrorBoundary } from '@/shared/lib';
 import {
   Button,
   Skeleton,
   Separator,
   DetailCard,
   DetailCell,
-  ErrorBoundary,
   SectionErrorFallback,
 } from '@/shared/ui';
 
@@ -58,11 +57,11 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
       <Separator />
 
       {mapVisible ? (
-        <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
-          <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+        <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+          <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
             <MapView position={position} label={name} />
-          </ErrorBoundary>
-        </Suspense>
+          </Suspense>
+        </ErrorBoundary>
       ) : (
         <Button
           type="button"

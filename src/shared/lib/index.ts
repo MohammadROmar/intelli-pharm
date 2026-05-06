@@ -21,3 +21,9 @@ export { useFieldError } from './hooks/useFieldError';
 export { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
 export { useDocumentDirection } from './hooks/useDocumentDirection';
 export { useGeolocation, type LatLng } from './hooks/useGeolocation';
+
+export {
+  ErrorBoundary,
+  type ErrorBoundaryFallbackProps,
+  type ErrorBoundaryProps,
+} from './ErrorBoundary';

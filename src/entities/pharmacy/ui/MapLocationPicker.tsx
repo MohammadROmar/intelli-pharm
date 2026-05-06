@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { Marker, useMapEvents, useMap } from 'react-leaflet';
 
+import { ErrorBoundary } from '@/shared/lib';
 import { createIcon, MapView } from '@/shared/map';
+import { SectionErrorFallback } from '@/shared/ui';
 
 type LatLng = { lat: number; lng: number };
 
@@ -51,12 +53,14 @@ export function MapLocationPicker({
   centerOn?: LatLng | null;
 }) {
   return (
-    <MapView center={[position.lat, position.lng]}>
-      <MapController
-        position={position}
-        centerOn={centerOn}
-        onChange={onChange}
-      />
-    </MapView>
+    <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+      <MapView center={[position.lat, position.lng]}>
+        <MapController
+          position={position}
+          centerOn={centerOn}
+          onChange={onChange}
+        />
+      </MapView>
+    </ErrorBoundary>
   );
 }

@@ -3,8 +3,14 @@ import { lazy, Suspense } from 'react';
 import { MedicineMetricsCards } from './MedicineMetricsCards';
 import { MedicineMetricsHeader } from './MedicineMetricsHeader';
 import { useGetMedicineMetrics } from '../model/useGetMedicineMetrics';
-import { QueryError, MetricsSkeleton, Skeleton } from '@/shared/ui';
 import { DetailedBreakdownTable } from './DetailedBreakdownTable';
+import { ErrorBoundary } from '@/shared/lib';
+import {
+  Skeleton,
+  QueryError,
+  MetricsSkeleton,
+  SectionErrorFallback,
+} from '@/shared/ui';
 
 const MedicineCharts = lazy(() => import('./MedicineCharts'));
 
@@ -34,9 +40,11 @@ export default function MetricsMedicinePage() {
     <>
       <MedicineMetricsHeader />
       <MedicineMetricsCards metrics={metrics} />
-      <Suspense fallback={<Loader />}>
-        <MedicineCharts metrics={metrics} />
-      </Suspense>
+      <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+        <Suspense fallback={<Loader />}>
+          <MedicineCharts metrics={metrics} />
+        </Suspense>
+      </ErrorBoundary>
       <DetailedBreakdownTable metrics={metrics} />
     </>
   );

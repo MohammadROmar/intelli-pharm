@@ -2,14 +2,15 @@ import { Provider } from 'react-redux';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { DirectionProvider } from '@radix-ui/react-direction';
 
+import { RootErrorFallback } from './error/RootErrorFallback';
 import ThemeProvider from './providers/ThemeProvider';
 import AppRouter from './router/AppRouter';
 import { AuthLoader } from './providers/AuthProvider';
 import { store } from './store/store';
-import { useDocumentDirection } from '@/shared/lib';
+import { ErrorBoundary, useDocumentDirection } from '@/shared/lib';
 import { queryClient } from '@/shared/api';
 
-function App() {
+function AppInner() {
   const { dir } = useDocumentDirection();
 
   return (
@@ -24,6 +25,14 @@ function App() {
         </ThemeProvider>
       </QueryClientProvider>
     </Provider>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary FallbackComponent={RootErrorFallback}>
+      <AppInner />
+    </ErrorBoundary>
   );
 }
 

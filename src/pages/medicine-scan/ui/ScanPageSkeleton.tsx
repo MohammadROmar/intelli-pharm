@@ -11,7 +11,7 @@ export function ScanPageSkeleton() {
     <div className="space-y-4 overflow-y-hidden">
       <div className="space-y-2">
         <Skeleton className="h-10 w-40" />
-        <Skeleton className="h-5 w-56" style={{ animationDelay: '0.25s' }} />
+        <Skeleton className="h-5 w-56" />
       </div>
 
       <Card>

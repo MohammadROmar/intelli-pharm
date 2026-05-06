@@ -5,8 +5,10 @@ import SidebarProvider from '../providers/SidebarProvider';
 import { AppSidebar } from '@/widgets/sidebar';
 import { ThemeToggle } from '@/features/theme-toggle';
 import { LocaleToggle } from '@/features/locale-toggle';
+import { ErrorBoundary } from '@/shared/lib';
 import {
   BreadCrumbs,
+  PageErrorFallback,
   Separator,
   SidebarInset,
   SidebarTrigger,
@@ -41,7 +43,10 @@ export default function DashboardLayout() {
 
         <div className="m-auto flex w-full max-w-7xl flex-1 flex-col gap-4 p-4">
           <BreadCrumbs className="md:hidden" />
-          <Outlet />
+
+          <ErrorBoundary FallbackComponent={PageErrorFallback}>
+            <Outlet />
+          </ErrorBoundary>
         </div>
       </SidebarInset>
     </SidebarProvider>

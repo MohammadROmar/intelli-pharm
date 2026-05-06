@@ -9,14 +9,13 @@ import {
 } from 'lucide-react';
 
 import { useLocationPickerForm } from '../model/useLocationPickerForm';
-import { useGeolocation, type LatLng } from '@/shared/lib';
+import { ErrorBoundary, useGeolocation, type LatLng } from '@/shared/lib';
 import {
   Card,
   Button,
   Skeleton,
   CardHeader,
   CardContent,
-  ErrorBoundary,
   CardSectionHeader,
   SectionErrorFallback,
 } from '@/shared/ui';
@@ -144,15 +143,15 @@ export function LocationPickerCard({ isPending }: Props) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
-          <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+        <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+          <Suspense fallback={<Skeleton className="h-64 w-full rounded-lg" />}>
             <MapLocationPicker
               position={position}
               onChange={setPosition}
               centerOn={centerOn}
             />
-          </ErrorBoundary>
-        </Suspense>
+          </Suspense>
+        </ErrorBoundary>
 
         <CoordinateDisplay position={position} />
 

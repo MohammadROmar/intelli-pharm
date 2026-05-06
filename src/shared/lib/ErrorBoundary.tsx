@@ -1,19 +1,13 @@
 import { Component } from 'react';
 import type { ComponentType, ErrorInfo, ReactNode } from 'react';
 
-import { DefaultErrorFallback } from './ErrorFallback';
-
-export type ErrorBoundaryFallbackProps = {
-  error: Error;
-  reset: () => void;
-};
+export type ErrorBoundaryFallbackProps = { error: Error; reset: () => void };
 
 type FallbackRender = (props: ErrorBoundaryFallbackProps) => ReactNode;
 
-type ErrorBoundaryProps = {
+export type ErrorBoundaryProps = {
   children: ReactNode;
   onError?: (error: Error, info: ErrorInfo) => void;
-
   resetKeys?: unknown[];
 } & (
   | {
@@ -30,29 +24,30 @@ type ErrorBoundaryProps = {
   | { fallback?: never; FallbackComponent?: never; fallbackRender?: never }
 );
 
-type ErrorBoundaryState =
+type State =
   | { didCatch: false; error: null }
   | { didCatch: true; error: Error };
 
-const INITIAL_STATE: ErrorBoundaryState = { didCatch: false, error: null };
+const INITIAL_STATE: State = { didCatch: false, error: null };
 
-export class ErrorBoundary extends Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
-  state: ErrorBoundaryState = INITIAL_STATE;
+export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
+  state: State = INITIAL_STATE;
 
-  static getDerivedStateFromError(error: unknown): ErrorBoundaryState {
+  static getDerivedStateFromError(error: unknown): State {
     const normalized =
       error instanceof Error
         ? error
         : new Error(String(error ?? 'Unknown error'));
-
     return { didCatch: true, error: normalized };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
     this.props.onError?.(error, info);
+
+    if (import.meta.env.DEV) {
+      console.error('[ErrorBoundary]', error);
+      console.error('[ErrorBoundary] Stack:', info.componentStack);
+    }
   }
 
   componentDidUpdate(prevProps: ErrorBoundaryProps): void {
@@ -76,15 +71,31 @@ export class ErrorBoundary extends Component<
 
     if (!didCatch) return children;
 
-    const fallbackProps: ErrorBoundaryFallbackProps = {
+    const props: ErrorBoundaryFallbackProps = {
       error: error!,
       reset: this.reset,
     };
 
-    if (fallbackRender) return fallbackRender(fallbackProps);
-    if (FallbackComponent) return <FallbackComponent {...fallbackProps} />;
+    if (fallbackRender) return fallbackRender(props);
+    if (FallbackComponent) return <FallbackComponent {...props} />;
     if (fallback !== undefined) return fallback;
 
-    return <DefaultErrorFallback {...fallbackProps} />;
+    return (
+      <div
+        style={{
+          padding: '2rem',
+          textAlign: 'center',
+          fontFamily: 'system-ui',
+        }}
+      >
+        <p style={{ fontWeight: 600 }}>Something went wrong</p>
+        <button
+          onClick={this.reset}
+          style={{ marginTop: '1rem', cursor: 'pointer' }}
+        >
+          Try again
+        </button>
+      </div>
+    );
   }
 }

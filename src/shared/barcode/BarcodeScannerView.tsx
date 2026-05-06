@@ -2,7 +2,8 @@ import { lazy, Suspense, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AlertCircle } from 'lucide-react';
 
-import { Skeleton } from '../ui';
+import { ErrorBoundary } from '../lib';
+import { SectionErrorFallback, Skeleton } from '../ui';
 
 const CameraScanner = lazy(() =>
   import('./CameraScanner').then((m) => ({ default: m.CameraScanner })),
@@ -18,7 +19,7 @@ export function BarcodeScannerView({ onScan }: Props) {
   const [cameraError, setCameraError] = useState<string | null>(null);
 
   function handleCameraError(error: Error) {
-    const isDenied = error.name === 'NotAllowedError';
+    const isDenied = error.message.includes('NotAllowedError');
     setCameraError(isDenied ? 'errorCameraDenied' : 'errorCameraUnavailable');
   }
 
@@ -33,17 +34,19 @@ export function BarcodeScannerView({ onScan }: Props) {
 
   return (
     <div className="overflow-hidden rounded-xl">
-      <Suspense
-        fallback={
-          <Skeleton className="aspect-square max-h-64 w-full rounded-xl" />
-        }
-      >
-        <CameraScanner
-          hintText={t('scanHint')}
-          onScan={onScan}
-          onError={handleCameraError}
-        />
-      </Suspense>
+      <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+        <Suspense
+          fallback={
+            <Skeleton className="aspect-square max-h-64 w-full rounded-xl" />
+          }
+        >
+          <CameraScanner
+            hintText={t('scanHint')}
+            onScan={onScan}
+            onError={handleCameraError}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 }
