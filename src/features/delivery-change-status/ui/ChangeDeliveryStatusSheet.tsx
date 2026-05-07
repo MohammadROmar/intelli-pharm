@@ -42,7 +42,7 @@ export function ChangeDeliveryStatusSheet({
   return (
     <Sheet open={open} onOpenChange={(val) => setOpen(val)}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        <Button variant="outline" size="sm" className="bg-card! gap-2">
           <ClipboardCheck className="size-4" />
           {t('trigger')}
         </Button>

@@ -1,4 +1,4 @@
-import type { Employee } from '@/entities/employee';
+import type { Employee } from './employeeTypes';
 import { useGetEntityById } from '@/shared/model';
 
 export function useGetEmployee() {

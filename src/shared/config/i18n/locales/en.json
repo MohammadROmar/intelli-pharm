@@ -989,6 +989,66 @@
       "phoneError": "Only numbers are allowed",
       "apply": "Apply Filters",
       "clear": "Clear Filters"
+    },
+    "detail": {
+      "edit": "Edit Employee",
+      "active": "Active",
+      "inactive": "Inactive",
+
+      "infoCardTitle": "Employee Details",
+      "infoCardSubtitle": "Identity, contact, and working hours.",
+
+      "labelId": "Employee ID",
+      "labelStatus": "Status",
+      "labelName": "Full Name",
+      "labelRole": "Role",
+      "labelVehicleCapacity": "Vehicle Capacity",
+      "labelEmail": "Email",
+      "labelPhone": "Phone",
+      "labelWorkingStart": "Shift Start",
+      "labelWorkingEnd": "Shift End",
+
+      "permissionsCardTitle": "Permissions",
+      "permissionsCardSubtitle": "Access rights granted to this employee across all modules.",
+      "noPermissions": "No permissions have been assigned to this employee.",
+
+      "modules": {
+        "erp": "ERP",
+        "crm": "CRM",
+        "planner": "Planner"
+      },
+      "actions": {
+        "view": "View",
+        "create": "Create",
+        "complete": "Complete",
+        "update": "Update",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "manage": "Manage",
+        "generate": "Generate",
+        "check": "Check",
+        "deactivate": "Deactivate",
+        "assign_distributor": "Assign Distributor",
+        "view_live": "View Live",
+        "view_all": "View All"
+      },
+      "resources": {
+        "categories": "Categories",
+        "medicines": "Medicines",
+        "alternatives": "Alternatives",
+        "pharmacies": "Pharmacies",
+        "orders": "Orders",
+        "stock": "Stock",
+        "employees": "Employees",
+        "leaves": "Leaves",
+        "tracking": "Tracking",
+        "analytics": "Analytics",
+        "rep": "Rep",
+        "plan": "Plan",
+        "distributor": "Distributor",
+        "visits": "Visits",
+        "deliveries": "Deliveries"
+      }
     }
   },
 

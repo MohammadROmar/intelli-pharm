@@ -33,7 +33,7 @@ export function EmployeeForm(props: EmployeeFormProps) {
   const isEdit = mode === 'edit';
 
   const methods = useForm<EmployeeInternalFormData>({
-    defaultValues: isEdit ? props.defaultValues : undefined,
+    defaultValues: isEdit ? props.defaultValues : { is_active: true },
     mode: 'onTouched',
     reValidateMode: 'onChange',
   });

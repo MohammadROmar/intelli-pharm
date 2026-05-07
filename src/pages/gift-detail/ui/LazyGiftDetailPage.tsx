@@ -8,7 +8,7 @@ export function LazyGiftDetailPage() {
   return (
     <WithSuspense
       Component={GiftDetailPage}
-      loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={0} />}
+      loader={<DetailSkeleton cards={[{ rows: 3 }]} tables={0} />}
     />
   );
 }

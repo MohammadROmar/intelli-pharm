@@ -15,7 +15,7 @@ export default function GiftDetailPage() {
   }
 
   if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={0} />;
+    return <DetailSkeleton cards={[{ rows: 3 }]} tables={0} />;
   }
 
   const gift = data.data!;

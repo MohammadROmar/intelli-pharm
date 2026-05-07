@@ -6,11 +6,13 @@ import { DeleteModal } from '@/shared/ui';
 export type DeleteEmployeeModalProps = {
   employee: Employee | null;
   onClose: () => void;
+  onDeleteSuccess?: () => void;
 };
 
 export function DeleteEmployeeModal({
   employee,
   onClose,
+  onDeleteSuccess,
 }: DeleteEmployeeModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'employees',
@@ -20,7 +22,10 @@ export function DeleteEmployeeModal({
   function handleConfirm() {
     if (!employee) return;
     mutate(employee.id, {
-      onSuccess: () => onClose(),
+      onSuccess: () => {
+        onClose();
+        onDeleteSuccess?.();
+      },
     });
   }
 

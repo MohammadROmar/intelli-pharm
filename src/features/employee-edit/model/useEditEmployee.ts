@@ -4,14 +4,14 @@ import { toast } from 'sonner';
 import { editEmployee, type EditEmployeeFormData } from '@/entities/employee';
 import { useEditEntity } from '@/shared/model';
 
-export function useEditEmployee() {
+export function useEditEmployee(id: number) {
   const { t } = useTranslation();
 
-  return useEditEntity<{ id: number; payload: EditEmployeeFormData }>({
+  return useEditEntity<EditEmployeeFormData>({
     queryKey: 'employees',
-    mutationFn: editEmployee,
+    mutationFn: (payload) => editEmployee({ id, payload }),
     translationKey: 'employeesPage.employee',
-    redirectTo: '/dashboard/employees',
+    redirectTo: `/dashboard/employees/${id}`,
 
     onError: ({ status, i18nKey }) => {
       toast.error(t(`common.toasts.edit.error`), {

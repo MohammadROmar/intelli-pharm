@@ -33,6 +33,7 @@ export function ChatLayoutSkeleton() {
             <Skeleton className="size-7" />
             <Skeleton className="h-5 w-22" />
           </div>
+          <div aria-hidden className="hidden w-24 sm:block" />
         </div>
         <Separator />
       </header>

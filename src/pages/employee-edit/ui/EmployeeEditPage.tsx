@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 import { AdminEditRestricted } from './AdminEditRestricted';
-import { useGetEmployee } from '../model/useGetEmployee';
 import { EditEmployeeForm } from '@/features/employee-edit';
+import { useGetEmployee } from '@/entities/employee';
 import {
   PageTitle,
   QueryError,

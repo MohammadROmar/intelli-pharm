@@ -129,7 +129,6 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             autoComplete="off"
             icon={Clock}
             aria-invalid={!!errors.working_start}
-            className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
             {...register('working_start', {
               required: true,
               disabled: isLoading,
@@ -150,7 +149,6 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             autoComplete="off"
             icon={Clock}
             aria-invalid={!!errors.working_end}
-            className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
             {...register('working_end', {
               required: 'form.errors.required',
               validate: (value) => {

@@ -11,15 +11,10 @@ type Props = { employee: Employee };
 
 export function EditEmployeeForm({ employee }: Props) {
   const [formKey, setFormKey] = useState(0);
-  const { mutate, isPending } = useEditEmployee();
+  const { mutate, isPending } = useEditEmployee(employee.id);
 
   function onSubmit(payload: EditEmployeeFormData) {
-    mutate(
-      { id: employee.id, payload },
-      {
-        onSuccess: () => setFormKey((prev) => prev + 1),
-      },
-    );
+    mutate(payload, { onSuccess: () => setFormKey((prev) => prev + 1) });
   }
 
   return (
@@ -31,6 +26,7 @@ export function EditEmployeeForm({ employee }: Props) {
       isLoading={isPending}
       defaultValues={{
         ...employee,
+        phone_number: employee.phone_number || '',
         role: employee.roles[0],
       }}
     />

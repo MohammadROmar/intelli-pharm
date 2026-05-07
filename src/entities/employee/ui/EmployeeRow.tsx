@@ -21,7 +21,7 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
       <TableCell>
         <p className="max-w-[20ch] truncate font-medium">{employee.name}</p>
       </TableCell>
-      <TableCell>{employee.email}</TableCell>
+      <TableCell className="font-mono">{employee.email}</TableCell>
       <TableCell>{t(`roles.${employee.roles[0]}`)}</TableCell>
       <TableCell>
         <Badge variant={employee.is_active ? 'success' : 'muted'}>

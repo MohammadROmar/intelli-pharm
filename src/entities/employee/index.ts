@@ -9,6 +9,7 @@ export type {
   CreateEmployeeFormData,
   EmployeeInternalFormData,
 } from './model/employeeTypes';
+export { useGetEmployee } from './model/useGetEmployee';
 
 export { EmployeeRow } from './ui/EmployeeRow';
 export { EmployeeForm } from './ui/EmployeeForm';

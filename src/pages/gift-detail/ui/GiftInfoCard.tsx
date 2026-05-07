@@ -22,21 +22,6 @@ export function GiftInfoCard({ gift }: { gift: GiftType }) {
   return (
     <DetailCard title={t('cardTitle')} subtitle={t('cardSubtitle')} icon={Gift}>
       <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('labelId')}>
-          <span className="font-mono">
-            GFT-{String(gift.id).padStart(6, '0')}
-          </span>
-        </DetailCell>
-        <DetailCell label={t('labelStatus')}>
-          <Badge variant={gift.active ? 'success' : 'muted'}>
-            {gift.active ? t('active') : t('inactive')}
-          </Badge>
-        </DetailCell>
-      </div>
-
-      <Separator />
-
-      <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelMedicine')}>
           <BadgeLink
             to={`/dashboard/medicines/${gift.medicine_id}`}
@@ -44,10 +29,10 @@ export function GiftInfoCard({ gift }: { gift: GiftType }) {
             icon={Pill}
           />
         </DetailCell>
-        <DetailCell label={t('labelMedicineId')}>
-          <span className="font-mono text-sm">
-            MED-{String(gift.medicine_id).padStart(6, '0')}
-          </span>
+        <DetailCell label={t('labelStatus')}>
+          <Badge variant={gift.active ? 'success' : 'muted'}>
+            {gift.active ? t('active') : t('inactive')}
+          </Badge>
         </DetailCell>
       </div>
 

@@ -12,7 +12,7 @@ export type Employee = {
   working_end: string;
   vehicle_capacity?: number;
   is_active: boolean;
-  phone_number: string;
+  phone_number: string | null;
 };
 
 export type BaseEmployeeFormData = {

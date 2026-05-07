@@ -52,6 +52,7 @@ import { LazyCategoryEditPage } from '@/pages/category-edit';
 import { LazyEmployeeListPage } from '@/pages/employee-list';
 import { LazyEmployeeCreatePage } from '@/pages/employee-create';
 import { LazyEmployeeEditPage } from '@/pages/employee-edit';
+import { LazyEmployeeDetailPage } from '@/pages/employee-detail';
 
 import { LazyGiftListPage } from '@/pages/gift-list';
 import { LazyGiftDetailPage } from '@/pages/gift-detail';
@@ -222,7 +223,7 @@ const router = createBrowserRouter([
                   {
                     path: ':id',
                     children: [
-                      { index: true, element: <p>EmployeeDetails</p> },
+                      { index: true, element: <LazyEmployeeDetailPage /> },
                       { path: 'edit', element: <LazyEmployeeEditPage /> },
                     ],
                   },

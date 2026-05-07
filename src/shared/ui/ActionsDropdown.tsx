@@ -17,7 +17,7 @@ export function ActionsDropdown({ label, children }: ActionsDropdownProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="not-dark:bg-card">
+        <Button variant="outline" className="bg-card!">
           <MoreHorizontal />
           {label}
         </Button>

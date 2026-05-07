@@ -47,7 +47,7 @@ function DetailSkeleton({ cards, tables, hasImage }: Props) {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <Skeleton className="h-9 w-56" />
-        <Skeleton className="h-8 w-full shrink-0 rounded-md sm:w-28" />
+        <Skeleton className="h-8 w-11 shrink-0 rounded-md sm:w-28" />
       </div>
 
       <div
