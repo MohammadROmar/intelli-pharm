@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { GripVertical, ImagePlus, X } from 'lucide-react';
+import { ImagePlus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import { Badge } from './badge';
@@ -111,10 +111,7 @@ export function ImageDropzone({
               >
                 <X className="size-3.5" />
               </button>
-              <div className="absolute bottom-1.5 left-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-                <GripVertical className="size-4 text-white/80" />
-              </div>
-              <Badge className="absolute right-1.5 bottom-1.5 h-5 rounded-sm bg-black/60 px-1.5 text-[10px] text-white opacity-0 transition-opacity group-hover:opacity-100">
+              <Badge className="absolute right-1.5 bottom-1.5 h-5 rounded-sm bg-black/60! px-1.5 text-[10px] text-white! opacity-0 transition-opacity group-hover:opacity-100">
                 {i + 1}
               </Badge>
             </div>

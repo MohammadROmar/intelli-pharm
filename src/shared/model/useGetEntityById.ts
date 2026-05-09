@@ -50,6 +50,11 @@ export function useGetEntityById<TData>({
       return apiClient.get<TData>(url, config);
     },
 
+    placeholderData: (prev) => {
+      const data = prev?.data;
+      return data ? prev : undefined;
+    },
+
     ...queryOptions,
   });
 }

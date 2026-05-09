@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
-import { ShoppingCart } from 'lucide-react';
+import { Gift, ShoppingCart, Tag } from 'lucide-react';
 
-import type { DeliveryDetail } from '@/entities/delivery';
+import type { DeliveryDetail, DeliveryOrderItem } from '@/entities/delivery';
 import { formatPrice } from '@/shared/lib';
 import {
+  Badge,
+  BadgeLink,
   DetailCard,
   Table,
   TableActions,
@@ -22,17 +24,21 @@ export function OrderItems({ delivery }: Props) {
     keyPrefix: 'deliveriesPage.detail',
   });
 
+  const { order } = delivery;
+
   return (
     <DetailCard
       title={t('sections.items')}
       subtitle={t('sections.itemsSubtitle')}
       icon={ShoppingCart}
+      itemsCount={order.items.length}
     >
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead className="w-25">{t('table.medicineId')}</TableHead>
             <TableHead>{t('table.medicine')}</TableHead>
+            <TableHead>{t('table.type')}</TableHead>
             <TableHead>{t('table.quantity')}</TableHead>
             <TableHead>{t('table.unitPrice')}</TableHead>
             <TableHead>{t('table.total')}</TableHead>
@@ -41,39 +47,19 @@ export function OrderItems({ delivery }: Props) {
         </TableHeader>
 
         <TableBody>
-          {delivery.order.items.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell className="text-muted-foreground text-xs">
-                {item.medicine.id}
-              </TableCell>
-              <TableCell className="font-medium">
-                <p className="max-w-[20ch] truncate font-medium">
-                  {item.medicine.commercial_name}
-                </p>
-              </TableCell>
-              <TableCell className="text-muted-foreground">
-                ×{item.quantity}
-              </TableCell>
-              <TableCell className="text-muted-foreground tabular-nums">
-                {formatPrice(item.total_price / item.quantity, i18n.language)}
-              </TableCell>
-              <TableCell className="font-semibold tabular-nums">
-                {formatPrice(item.total_price, i18n.language)}
-              </TableCell>
-              <TableActions
-                item={item.medicine}
-                itemId={item.medicine.id}
-                path="/dashboard/medicines"
-              >
-                <TableActions.Detail />
-              </TableActions>
-            </TableRow>
+          {order.items.map((item) => (
+            <OrderItemRow
+              key={item.id}
+              item={item}
+              lang={i18n.language}
+              t={t}
+            />
           ))}
         </TableBody>
 
         <TableFooter>
           <TableRow>
-            <TableCell colSpan={2} className="text-muted-foreground text-sm">
+            <TableCell colSpan={3} className="text-muted-foreground text-sm">
               {t('table.totalItems')}
             </TableCell>
             <TableCell className="font-semibold tabular-nums">
@@ -88,5 +74,96 @@ export function OrderItems({ delivery }: Props) {
         </TableFooter>
       </Table>
     </DetailCard>
+  );
+}
+
+function OrderItemRow({
+  item,
+  lang,
+  t,
+}: {
+  item: DeliveryOrderItem;
+  lang: string;
+  t: ReturnType<typeof useTranslation>['t'];
+}) {
+  const isGift = item.is_gift === 1;
+
+  return (
+    <TableRow className={isGift ? 'bg-muted/30' : undefined}>
+      <TableCell className="text-muted-foreground text-xs">
+        {item.medicine.id}
+      </TableCell>
+
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {item.medicine.commercial_name}
+        </p>
+      </TableCell>
+
+      <TableCell>
+        {isGift ? (
+          <div className="flex flex-col gap-0.5">
+            <Badge
+              variant="secondary"
+              className="w-fit gap-1 border-emerald-200 bg-emerald-50 px-1.5 text-emerald-600 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400"
+            >
+              <Gift className="size-3" />
+              {t('table.gift')}
+            </Badge>
+            {item.gift_id !== null && (
+              <BadgeLink
+                label={`${t('table.gift')} #${item.gift_id}`}
+                to={`/dashboard/promotions/gifts/${item.gift_id}`}
+                icon={Tag}
+              />
+            )}
+
+            {item.offer_id !== null && (
+              <BadgeLink
+                label={`${t('table.offer')} #${item.offer_id}`}
+                to={`/dashboard/promotions/offers/${item.offer_id}`}
+                icon={Tag}
+              />
+            )}
+          </div>
+        ) : (
+          <span className="text-muted-foreground text-xs">
+            {t('table.regular')}
+          </span>
+        )}
+      </TableCell>
+
+      <TableCell className="text-muted-foreground tabular-nums">
+        ×{item.quantity}
+      </TableCell>
+
+      <TableCell className="text-muted-foreground tabular-nums">
+        {isGift ? (
+          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            {t('table.free')}
+          </span>
+        ) : (
+          formatPrice(item.unit_price, lang)
+        )}
+      </TableCell>
+
+      <TableCell className="font-semibold tabular-nums">
+        {isGift ? (
+          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+            {t('table.free')}
+          </span>
+        ) : (
+          formatPrice(item.total_price, lang)
+        )}
+      </TableCell>
+
+      <TableActions
+        item={item.medicine}
+        itemId={item.medicine.id}
+        path="/dashboard/medicines"
+      >
+        <TableActions.Detail />
+      </TableActions>
+    </TableRow>
   );
 }

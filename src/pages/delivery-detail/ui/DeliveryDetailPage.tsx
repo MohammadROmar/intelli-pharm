@@ -1,16 +1,17 @@
 import { OrderItems } from './OrderItems';
 import { Confirmations } from './Confirmations';
 import { RelatedRecords } from './RelatedRecords';
+import { FinancialSummary } from './FinancialSummary';
+import { DeliveryOrderCard } from './DeliveryOrderCard';
 import { DeliveryInformation } from './DeliveryInformation';
 import { DeliveryDetailHeader } from './DeliveryDetailHeader';
 import { useGetDelivery } from '../model/useGetDelivery';
 import {
-  DetailSkeleton,
-  QueryDisabled,
-  QueryError,
   Separator,
+  QueryError,
+  QueryDisabled,
+  DetailSkeleton,
 } from '@/shared/ui';
-import { FinancialSummary } from './FinancialSummary';
 
 export default function DeliveryDetailPage() {
   const { data, isLoading, isEnabled, isError, error, refetch } =
@@ -41,15 +42,15 @@ export default function DeliveryDetailPage() {
           <div className="space-y-6 lg:col-span-2">
             <DeliveryInformation delivery={delivery} />
             <OrderItems delivery={delivery} />
+            <Confirmations confirmations={delivery.confirmations} />
           </div>
 
           <div className="space-y-6">
             <FinancialSummary delivery={delivery} />
+            <DeliveryOrderCard order={delivery.order} />
             <RelatedRecords delivery={delivery} />
           </div>
         </div>
-
-        <Confirmations confirmations={delivery.confirmations} />
       </div>
     </>
   );

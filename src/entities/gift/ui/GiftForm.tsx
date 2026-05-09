@@ -20,6 +20,7 @@ export function GiftForm({
   isPending,
   onSubmit,
   onReset,
+  selectedMedicine,
   defaultValues,
   MedicineSelector,
 }: Props) {
@@ -46,6 +47,7 @@ export function GiftForm({
             <MedicineSelector
               isLoading={isPending}
               invalid={fieldState.invalid}
+              defaultValue={selectedMedicine}
               value={field.value}
               onValueChange={field.onChange}
             />

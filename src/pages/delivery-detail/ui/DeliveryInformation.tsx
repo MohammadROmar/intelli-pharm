@@ -53,9 +53,7 @@ export function DeliveryInformation({ delivery }: Props) {
 
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('fields.notes')} className="col-span-2">
-          <p className="text-sm leading-relaxed font-medium whitespace-pre-wrap">
-            {delivery.notes || '-'}
-          </p>
+          <p className="text-sm leading-relaxed">{delivery.notes || '-'}</p>
         </DetailCell>
       </div>
     </DetailCard>

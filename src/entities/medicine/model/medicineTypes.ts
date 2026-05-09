@@ -74,7 +74,10 @@ type BaseMedicine = {
 };
 
 export type Medicine = BaseMedicine & { commercial_name: string };
-export type MedicineDetail = BaseMedicine & { commercial_name: Localized };
+export type MedicineDetail = BaseMedicine & {
+  commercial_name: Localized;
+  gift: { gift_quantity: number; required_quantity: number };
+};
 
 export type MedicineResponse = PaginatedResponse<Medicine>;
 

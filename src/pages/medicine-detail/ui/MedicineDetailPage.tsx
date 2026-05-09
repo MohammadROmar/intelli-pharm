@@ -1,3 +1,4 @@
+import { GiftCard } from './GiftCard';
 import { StocksCard } from './StocksCard';
 import { MedicineInfoGrid } from './MedicineInfoGrid';
 import { AlternativesTable } from './AlternativesTable';
@@ -25,6 +26,9 @@ export default function MedicineDetailPage() {
 
   const medicine = data.data!;
 
+  const hasGift =
+    medicine.gift.gift_quantity !== 0 && medicine.gift.required_quantity !== 0;
+
   return (
     <div className="space-y-6">
       <MedicineDetailHeader medicine={medicine} />
@@ -33,6 +37,8 @@ export default function MedicineDetailPage() {
         <MedicineImageGallery images={medicine.images} />
         <MedicineInfoGrid medicine={medicine} />
       </div>
+
+      {hasGift && <GiftCard medicine={medicine} />}
 
       <MedicineBarcodeCard barcode={medicine.barcode} />
 

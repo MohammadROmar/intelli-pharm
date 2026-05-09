@@ -35,11 +35,11 @@ export function OrdersTable({ data }: Props) {
         <>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-25">{t('id')}</TableHead>
+              <TableHead className="w-30">{t('id')}</TableHead>
               <TableHead>{t('pharmacyName')}</TableHead>
               <TableHead>{t('status')}</TableHead>
-              <TableHead>{t('totalAmount')}</TableHead>
               <TableHead>{t('totalQuantity')}</TableHead>
+              <TableHead>{t('totalAmount')}</TableHead>
               <TableHead>{t('created')}</TableHead>
               <TableHead>{t('actions')}</TableHead>
             </TableRow>

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Cross, Network, Package, User } from 'lucide-react';
+import { Cross, Network, User } from 'lucide-react';
 
 import type { DeliveryDetail } from '@/entities/delivery';
 import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
@@ -36,16 +36,6 @@ export function RelatedRecords({ delivery }: Props) {
           />
         </DetailCell>
       </div>
-
-      <Separator />
-
-      <DetailCell label={t('fields.order')}>
-        <BadgeLink
-          label={delivery.order_id}
-          to={`/dashboard/orders/${delivery.order_id}`}
-          icon={Package}
-        />
-      </DetailCell>
     </DetailCard>
   );
 }

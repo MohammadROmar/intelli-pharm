@@ -35,7 +35,7 @@ export default function OrderDetailPage() {
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-3xl font-bold tracking-tight">
-            {t('orderNo', { order: order.id })}
+            ORD-{String(order.id).padStart(6, '0')}
           </h1>
           <ChangeOrderStatus order={order} />
         </div>

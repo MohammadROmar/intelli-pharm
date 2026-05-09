@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { EditOffer } from '@/features/offer-edit';
 import { DeleteOfferModal } from '@/features/offer-delete';
 import { AddOfferButton, OfferRow } from '@/entities/offer';
 import type { Offer, OfferResponse } from '@/entities/offer';
@@ -12,7 +13,6 @@ import {
   TableCard,
   TableEmptyState,
 } from '@/shared/ui';
-import { EditOffer } from '@/features/offer-edit';
 
 type Props = { data: OfferResponse };
 
