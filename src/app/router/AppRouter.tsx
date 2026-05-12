@@ -62,6 +62,10 @@ import { LazyOfferDetailPage } from '@/pages/offer-detail';
 import { LazyOfferGiftCreatePage } from '@/pages/offer-gift-create';
 import { LazyOfferPercentageCreatePage } from '@/pages/offer-percentage-create';
 
+import { LazyTargetListPage } from '@/pages/target-list';
+import { LazyTargetDetailPage } from '@/pages/target-detail';
+import { LazyTargetAchievementListPage } from '@/pages/target-achievement';
+
 import { LazyChatPage } from '@/pages/ai-chat';
 
 const router = createBrowserRouter([
@@ -213,6 +217,23 @@ const router = createBrowserRouter([
                     ],
                   },
                   { path: 'new', element: <LazyCategoryCreatePage /> },
+                ],
+              },
+
+              {
+                path: 'targets',
+                children: [
+                  { index: true, element: <LazyTargetListPage /> },
+                  {
+                    path: ':id',
+                    children: [
+                      { index: true, element: <LazyTargetDetailPage /> },
+                      {
+                        path: 'achievements',
+                        element: <LazyTargetAchievementListPage />,
+                      },
+                    ],
+                  },
                 ],
               },
 

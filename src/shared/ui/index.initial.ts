@@ -14,6 +14,7 @@ export {
   DetailSkeleton,
   MetricsSkeleton,
   DetailRowSkeleton,
+  PaginationSkeleton,
   DetailCellSkeleton,
   DetailTableSkeleton,
   DetailHeaderSkeleton,

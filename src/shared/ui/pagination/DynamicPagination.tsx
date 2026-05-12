@@ -11,7 +11,7 @@ import {
   PaginationPrevious,
 } from './pagination';
 import { buildUrl } from '../../lib/buildUrl';
-import { cn } from '@/shared/lib';
+import { cn } from '../../lib/utils';
 
 export type DynamicPaginationProps = {
   maxPages: number;

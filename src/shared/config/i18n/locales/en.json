@@ -951,6 +951,126 @@
     }
   },
 
+  "targetsPage": {
+    "target": "target",
+
+    "pageTitle": "Sales Targets",
+    "pageSubtitle": "Manage monthly and quarterly performance targets.",
+    "create": "New Target",
+    "active": "Active",
+    "all": "All Targets",
+    "inactive": "Inactive",
+    "labelValue": "Target Value",
+    "viewDetails": "View Details",
+    "emptyTitle": "No targets defined",
+    "editButton": "Edit",
+    "achievementsButton": "Achievement History",
+    "statusAchieved": "Achieved",
+    "statusPending": "Pending",
+    "emptySubtitle": "Create your first sales target to get started.",
+
+    "type": {
+      "monthly": "Monthly",
+      "quarterly": "Quarterly"
+    },
+
+    "detail": {
+      "actions": "Actions",
+      "edit": "Edit",
+      "achievementsButton": "Achievement History",
+      "active": "Active",
+      "inactive": "Inactive",
+
+      "cardTitle": "Target Details",
+      "cardSubtitle": "Full details of this sales performance target.",
+
+      "labelId": "Target ID",
+      "labelStatus": "Status",
+      "labelType": "Type",
+      "labelValue": "Target Value",
+      "labelName": "Name",
+      "labelDescription": "Description",
+      "labelCreatedAt": "Created At",
+      "labelUpdatedAt": "Last Updated",
+
+      "type": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly"
+      }
+    },
+
+    "filters": {
+      "title": "Filter Targets",
+      "subtitle": "Narrow down targets by type or status.",
+      "typeLabel": "Type",
+      "isActiveLabel": "Active only",
+      "isActiveDescription": "Show only currently active targets.",
+
+      "type": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly"
+      }
+    },
+
+    "achievementFilters": {
+      "title": "Filter Achievements",
+      "subtitle": "Filter achievement history by date, year, month, or quarter.",
+
+      "achievedAtLabel": "Achieved On",
+      "yearLabel": "Year",
+      "monthLabel": "Month",
+      "quarterLabel": "Quarter",
+      "yearRequiredHint": "Year is required when filtering by month or quarter.",
+      "mutuallyExclusive": "(disabled)",
+      "mutualExclusionHint": "Month and quarter cannot be used together.",
+
+      "errors": {
+        "yearRequired": "Year is required when month or quarter is selected."
+      },
+
+      "months": {
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
+      }
+    },
+
+    "edit": {
+      "title": "Edit Sales Target",
+      "subtitle": "Update the details, performance value, and active status for this target.",
+      "name": "Name",
+      "value": "Value",
+      "labelActive": "Active",
+      "descriptionActive": "When active, this target can be used in the system.",
+      "placeholders": {
+        "name": "e.g. May Sales Calls"
+      },
+      "errors": {
+        "required": "This field is required",
+        "positiveNumber": "Must be a positive number"
+      }
+    },
+
+    "achievements": {
+      "title": "Achievements",
+      "subtitle": "Track target achievements",
+      "all": "All achievements",
+      "achievedAt": "Achieved at",
+      "achievedValue": "Achieved value",
+      "repName": "Sales rep name",
+      "repId": "Sales rep ID"
+    }
+  },
+
   "employeesPage": {
     "employee": "Employee",
     "namePlaceholder": "e.g. John Smith",
@@ -1357,7 +1477,9 @@
       "gifts": "Gifts",
       "offers": "Offers",
       "new-gifts": "Add Gifts",
-      "new-percentage": "Add Percentage"
+      "new-percentage": "Add Percentage",
+      "targets": "Targets",
+      "achievements": "Achievements"
     },
     "promotions": {
       "offers": "Offers",

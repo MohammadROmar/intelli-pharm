@@ -1,6 +1,6 @@
 export { Skeleton } from './Skeleton';
 export { FormSkeleton } from './FormSkeleton';
-export { TableSkeleton } from './TableSkeleton';
+export { TableSkeleton, PaginationSkeleton } from './TableSkeleton';
 export { CardsSkeleton } from './CardsSkeleton';
 export { MetricsSkeleton, MetricsCardsSkeleton } from './MetricsSkeleton';
 export {

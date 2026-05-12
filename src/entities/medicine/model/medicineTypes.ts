@@ -44,7 +44,7 @@ export type MedicineStock = {
 export type AlternativeMedicine = {
   id: number;
   category_id: number | null;
-  commercial_name: string;
+  commercial_name: { ar: string; en: string };
   price: string;
   is_imported: boolean;
   is_active: boolean;

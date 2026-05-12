@@ -13,6 +13,7 @@ import {
   FlaskConical,
   LayoutDashboard,
   type LucideIcon,
+  Target,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -67,6 +68,7 @@ export const sidebarData: NavSection[] = [
           { label: 'promotions.gifts', url: '/dashboard/promotions/gifts' },
         ],
       },
+      { label: 'labels.targets', url: '/dashboard/targets', icon: Target },
     ],
   },
 

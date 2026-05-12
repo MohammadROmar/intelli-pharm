@@ -2,7 +2,7 @@ import { PackageSearch, Repeat2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { AlternativeMedicine } from '@/entities/medicine';
-import { formatPrice } from '@/shared/lib';
+import { formatPrice, getLocalized } from '@/shared/lib';
 import {
   Table,
   TableBody,
@@ -55,7 +55,7 @@ export function AlternativesTable({ alternatives, mode }: Props) {
                 </TableCell>
                 <TableCell>
                   <p className="max-w-[20ch] truncate font-medium">
-                    {alt.commercial_name}
+                    {getLocalized(alt.commercial_name, i18n.language)}
                   </p>
                 </TableCell>
                 <TableCell className="tabular-nums">

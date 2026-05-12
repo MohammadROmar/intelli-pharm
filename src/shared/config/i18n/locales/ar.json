@@ -954,6 +954,125 @@
     }
   },
 
+  "targetsPage": {
+    "target": "الهدف",
+    "editButton": "تعديل",
+    "pageTitle": "أهداف المبيعات",
+    "pageSubtitle": "إدارة أهداف الأداء الشهرية والفصلية.",
+    "create": "هدف جديد",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "all": "جميع الأهداف",
+    "labelValue": "قيمة الهدف",
+    "viewDetails": "عرض التفاصيل",
+    "achievementsButton": "سجل الإنجازات",
+    "statusAchieved": "مُنجز",
+    "statusPending": "معلق",
+    "emptyTitle": "لا توجد أهداف محددة",
+    "emptySubtitle": "أنشئ هدف مبيعاتك الأول للبدء.",
+
+    "type": {
+      "monthly": "شهري",
+      "quarterly": "ربع سنوي"
+    },
+
+    "detail": {
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "achievementsButton": "سجل الإنجازات",
+      "active": "نشط",
+      "inactive": "غير نشط",
+
+      "cardTitle": "تفاصيل الهدف",
+      "cardSubtitle": "التفاصيل الكاملة لهدف الأداء البيعي.",
+
+      "labelId": "رقم الهدف",
+      "labelStatus": "الحالة",
+      "labelType": "النوع",
+      "labelValue": "قيمة الهدف",
+      "labelName": "الاسم",
+      "labelDescription": "الوصف",
+      "labelCreatedAt": "تاريخ الإنشاء",
+      "labelUpdatedAt": "آخر تحديث",
+
+      "type": {
+        "monthly": "شهري",
+        "quarterly": "ربع سنوي"
+      }
+    },
+
+    "filters": {
+      "title": "تصفية الأهداف",
+      "subtitle": "ضيّق النتائج حسب النوع أو الحالة.",
+      "typeLabel": "النوع",
+      "isActiveLabel": "النشطة فقط",
+      "isActiveDescription": "عرض الأهداف النشطة فقط.",
+
+      "type": {
+        "monthly": "شهري",
+        "quarterly": "ربع سنوي"
+      }
+    },
+
+    "achievementFilters": {
+      "title": "تصفية الإنجازات",
+      "subtitle": "تصفية سجل الإنجازات حسب التاريخ أو السنة أو الشهر أو الربع.",
+
+      "achievedAtLabel": "تاريخ الإنجاز",
+      "yearLabel": "السنة",
+      "monthLabel": "الشهر",
+      "quarterLabel": "الربع",
+      "yearRequiredHint": "السنة مطلوبة عند التصفية حسب الشهر أو الربع.",
+      "mutuallyExclusive": "(غير متاح)",
+      "mutualExclusionHint": "لا يمكن استخدام الشهر والربع معاً.",
+
+      "errors": {
+        "yearRequired": "السنة مطلوبة عند اختيار الشهر أو الربع."
+      },
+
+      "months": {
+        "january": "يناير",
+        "february": "فبراير",
+        "march": "مارس",
+        "april": "أبريل",
+        "may": "مايو",
+        "june": "يونيو",
+        "july": "يوليو",
+        "august": "أغسطس",
+        "september": "سبتمبر",
+        "october": "أكتوبر",
+        "november": "نوفمبر",
+        "december": "ديسمبر"
+      }
+    },
+
+    "edit": {
+      "title": "تعديل هدف المبيعات",
+      "subtitle": "قم بتحديث التفاصيل، وقيمة الأداء، وحالة التفعيل لهذا الهدف.",
+      "name": "الاسم",
+      "value": "القيمة",
+      "labelActive": "نشط",
+      "descriptionActive": "عند التفعيل، يمكن استخدام هذا الهدف في النظام.",
+      "placeholders": {
+        "name": "مثال: مكالمات مبيعات مايو"
+      },
+      "errors": {
+        "required": "هذا الحقل مطلوب",
+        "positiveNumber": "يجب أن تكون قيمة موجبة"
+      }
+    },
+
+    "achievements": {
+      "title": "الإنجازات",
+      "subtitle": "عرض إنجازات الأهداف",
+      "all": "جميع الإنجازات",
+      "achievedAt": "تاريخ الإنجاز",
+      "achievedValue": "قيمة الإنجاز",
+      "repName": "اسم المندوب",
+      "repId": "رقم المندوب"
+    }
+  },
+
   "employeesPage": {
     "employee": "الموظف",
     "namePlaceholder": "مثال. أحمد محمد",
@@ -1362,7 +1481,9 @@
       "gifts": "الهدايا",
       "offers": "العروض",
       "new-gifts": "إضافة هدايا",
-      "new-percentage": "إضافة نسبة"
+      "new-percentage": "إضافة نسبة",
+      "targets": "الأهداف",
+      "achievements": "الإنجازات"
     },
     "promotions": {
       "offers": "العروض",

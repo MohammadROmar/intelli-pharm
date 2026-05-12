@@ -23,7 +23,7 @@ export function TableSkeleton() {
             <Skeleton className="h-5 w-32" />
             <Skeleton className="h-4 w-6" />
           </div>
-          <Skeleton className="h-8 w-20" />
+          <Skeleton className="h-8 w-9.25 md:w-20 lg:w-39" />
         </CardHeader>
         <CardContent>
           <Table className="h-full">
@@ -55,11 +55,17 @@ export function TableSkeleton() {
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter className="flex w-full flex-col items-center justify-center gap-3 lg:flex-row lg:justify-between">
-          <Skeleton className="h-5 w-[70%] lg:w-36" />
-          <Skeleton className="h-9 w-[80%] lg:w-80" />
-        </CardFooter>
+        <PaginationSkeleton />
       </Card>
     </div>
+  );
+}
+
+export function PaginationSkeleton() {
+  return (
+    <CardFooter className="flex w-full flex-col items-center justify-center gap-3 lg:flex-row lg:justify-between">
+      <Skeleton className="h-5 w-[70%] lg:w-36" />
+      <Skeleton className="h-9 w-[80%] lg:w-80" />
+    </CardFooter>
   );
 }

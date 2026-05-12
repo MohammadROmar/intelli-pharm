@@ -12,7 +12,7 @@ import { MedicineSelector } from '@/entities/medicine';
 import type { MedicineDetail, MedicineFormData } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
 import { LaboratorySelector } from '@/entities/laboratory';
-import { useFieldError } from '@/shared/lib';
+import { getLocalized, useFieldError } from '@/shared/lib';
 import {
   required,
   fRequired,
@@ -35,6 +35,7 @@ import {
   SwitchRow,
   Textarea,
 } from '@/shared/ui';
+import { useMemo } from 'react';
 
 type Props = { medicine?: MedicineDetail; isPending?: boolean };
 
@@ -56,11 +57,25 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
 
   const isAlternative = useWatch({ control, name: 'is_alternative' });
 
-  const { t } = useTranslation('translation', {
+  const { t, i18n } = useTranslation('translation', {
     keyPrefix: 'medicinesPage.form',
   });
 
   const { te } = useFieldError('medicinesPage.form');
+
+  const defaultAltMedicine = useMemo(
+    () =>
+      medicine && medicine.alternative_for[0]
+        ? {
+            id: medicine.alternative_for[0].id,
+            commercial_name: getLocalized(
+              medicine.alternative_for[0].commercial_name,
+              i18n.language,
+            ),
+          }
+        : undefined,
+    [medicine, i18n],
+  );
 
   return (
     <Card>
@@ -229,7 +244,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
                       </p>
                     </FieldLabel>
                     <MedicineSelector
-                      defaultValue={medicine?.alternative_for[0]}
+                      defaultValue={defaultAltMedicine}
                       isLoading={isPending}
                       invalid={fieldState.invalid}
                       value={field.value}

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tag } from 'lucide-react';
+import { Target } from 'lucide-react';
 
 import {
   CardSectionHeader,
@@ -13,8 +13,10 @@ import {
 
 type Props = PropsWithChildren<{ open: boolean; onClose: () => void }>;
 
-export function EditOfferModal({ open, onClose, children }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage.edit' });
+export function EditTargetModal({ open, onClose, children }: Props) {
+  const { t } = useTranslation('translation', {
+    keyPrefix: 'targetsPage.edit',
+  });
 
   return (
     <Dialog
@@ -29,7 +31,7 @@ export function EditOfferModal({ open, onClose, children }: Props) {
             <CardSectionHeader
               title={t('title')}
               description={t('subtitle')}
-              icon={Tag}
+              icon={Target}
             />
           </div>
           <DialogTitle className="sr-only">{t('title')}</DialogTitle>

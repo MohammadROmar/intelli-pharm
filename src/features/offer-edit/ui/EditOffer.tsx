@@ -2,13 +2,10 @@ import { useState } from 'react';
 
 import { EditOfferForm } from './EditOfferForm';
 import { EditOfferModal } from './EditOfferModal';
-import type { Offer } from '@/entities/offer';
 import { useEditOffer } from '../model/useEditOffer';
+import type { Offer } from '@/entities/offer';
 
-type EditOfferProps = {
-  offer: Offer | null;
-  onClose: () => void;
-};
+type EditOfferProps = { offer: Offer | null; onClose: () => void };
 
 export function EditOffer({ offer, onClose }: EditOfferProps) {
   const [formKey, setFormKey] = useState(0);
