@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 
 import type { TargetAchievementFilters } from '@/entities/target';
-import { useFilters } from '@/shared/lib';
+import { useFilters, parseFilters } from '@/shared/lib';
 
 const FILTER_KEYS: (keyof TargetAchievementFilters)[] = [
   'achieved_at',
@@ -13,12 +13,7 @@ const FILTER_KEYS: (keyof TargetAchievementFilters)[] = [
 export function useTargetAchievementFilters() {
   const [searchParams] = useSearchParams();
 
-  const filters: TargetAchievementFilters = {
-    achieved_at: searchParams.get('achieved_at') ?? undefined,
-    month: searchParams.get('month') ?? undefined,
-    quarter: searchParams.get('quarter') ?? undefined,
-    year: searchParams.get('year') ?? undefined,
-  };
+  const filters = parseFilters<TargetAchievementFilters>(searchParams);
 
   return useFilters<TargetAchievementFilters>({
     filters,

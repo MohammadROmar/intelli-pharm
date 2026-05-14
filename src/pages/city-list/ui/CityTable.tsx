@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { CityFiltersModal } from './CityFiltersModal';
-import { useCityFilteres } from '../model/useCityFilters';
+import { useCityFilters } from '../model/useCityFilters';
 import { CityEditButton } from '@/features/city-edit';
 import { AddCityButton } from '@/features/city-create';
 import { DeleteCityModal } from '@/features/city-delete';
@@ -112,7 +112,7 @@ function EmptyState() {
 function CityFilters() {
   const [open, setOpen] = useState(false);
   const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useCityFilteres();
+    useCityFilters();
 
   return (
     <>

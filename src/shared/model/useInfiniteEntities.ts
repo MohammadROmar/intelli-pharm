@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getNextPageParam } from '@/shared/lib';
+import { createDomainQueryKeys } from './queryKeys';
 
 type InfiniteQueryResponse<T> = {
   items: T[];
@@ -24,8 +25,10 @@ export function useInfiniteEntities<T>({
   queryFn,
   searchTerm,
 }: Props<T>) {
+  const queryKeys = createDomainQueryKeys(queryKey);
+
   const queryResult = useInfiniteQuery({
-    queryKey: [queryKey, { searchTerm }],
+    queryKey: queryKeys.infinite({ searchTerm }),
     initialPageParam: 1,
     getNextPageParam,
     queryFn: async ({ pageParam = 1 }) =>

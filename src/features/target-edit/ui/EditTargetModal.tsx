@@ -26,7 +26,7 @@ export function EditTargetModal({ open, onClose, children }: Props) {
       }}
     >
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="text-start">
           <div aria-hidden>
             <CardSectionHeader
               title={t('title')}

@@ -22,6 +22,14 @@ export type PaginatedResponse<T> = {
   };
 };
 
+export type PaginatedResult<T> = {
+  items: T[];
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  totalCount: number;
+};
+
 export class ApiError extends Error {
   public readonly i18nKey: string;
   public readonly status?: number;
@@ -63,6 +71,39 @@ export const statusToI18nKey = (status?: number): string => {
       return 'errors.unknown';
   }
 };
+
+function assertSuccessfulResponse<T>(response: ApiResponse<T>): T {
+  if (!response.isSuccess || response.data === null) {
+    throw new ApiError(
+      statusToI18nKey(response.statusCode),
+      response.statusCode,
+    );
+  }
+
+  return response.data;
+}
+
+export function unwrapApiResponse<T>(response: ApiResponse<T>): T {
+  return assertSuccessfulResponse(response);
+}
+
+export function unwrapPaginatedApiResponse<T>(
+  response: ApiResponse<PaginatedResponse<T>>,
+): PaginatedResult<T> {
+  const data = assertSuccessfulResponse(response);
+  const totalPages = Math.max(
+    Math.ceil(data.meta.total / data.meta.per_page),
+    1,
+  );
+
+  return {
+    items: data.data,
+    page: data.meta.current_page,
+    pageSize: data.meta.per_page,
+    totalPages,
+    totalCount: data.meta.total,
+  };
+}
 
 interface ApiInstance extends Omit<
   AxiosInstance,

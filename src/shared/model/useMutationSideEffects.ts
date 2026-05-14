@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import type { ApiError } from '../api';
+import { createDomainQueryKeys } from './queryKeys';
 
 type ActionType = 'create' | 'delete' | 'edit';
 
@@ -19,6 +20,7 @@ export function useMutationSideEffects({
 }: UseMutationSideEffectsProps) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const queryKeys = createDomainQueryKeys(queryKey);
 
   const onSuccess = () => {
     toast.success(t(`common.toasts.${action}.title`), {
@@ -27,7 +29,7 @@ export function useMutationSideEffects({
       }),
     });
 
-    queryClient.invalidateQueries({ queryKey: [queryKey] });
+    queryClient.invalidateQueries({ queryKey: queryKeys.all });
   };
 
   const onError = (error: ApiError) => {

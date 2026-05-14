@@ -1,21 +1,16 @@
 import { useSearchParams } from 'react-router-dom';
 
-import type {
-  TypeFilters,
-  BooleanFilter,
-  TargetFilters,
-} from '@/entities/target';
-import { useFilters } from '@/shared/lib';
+import type { TargetFilters } from '@/entities/target';
+import { useFilters, parseFilters } from '@/shared/lib';
 
 const FILTER_KEYS: (keyof TargetFilters)[] = ['is_active', 'type'];
 
 export function useTargetFilters() {
   const [searchParams] = useSearchParams();
 
-  const filters: TargetFilters = {
-    type: (searchParams.get('type') ?? undefined) as TypeFilters,
-    is_active: (searchParams.get('is_active') ?? undefined) as BooleanFilter,
-  };
+  const filters = parseFilters<TargetFilters>(searchParams, {
+    is_active: 'boolean',
+  });
 
   return useFilters<TargetFilters>({ filters, filterKeys: FILTER_KEYS });
 }

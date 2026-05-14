@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import type { LoginParams, LoginResponse } from './loginTypes';
 import { login } from '../api';
 import { setCredentials } from '@/entities/session';
-import type { ApiResponse, ApiError } from '@/shared/api';
+import type { ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';
 
 export function useLogin() {
@@ -15,19 +15,19 @@ export function useLogin() {
 
   const { t } = useTranslation();
 
-  return useMutation<ApiResponse<LoginResponse>, ApiError, LoginParams>({
+  return useMutation<LoginResponse, ApiError, LoginParams>({
     mutationFn: login,
 
     onSuccess: (data) => {
-      const role = data.data?.roles[0];
+      const role = data.roles[0];
 
       if (role && role === 'admin') {
         dispatch(
           setCredentials({
-            accessToken: data.data!.access_token,
-            refreshToken: data.data!.refresh_token,
-            roles: data.data!.roles,
-            user: { email: data.data!.email, name: data.data!.name },
+            accessToken: data.access_token,
+            refreshToken: data.refresh_token,
+            roles: data.roles,
+            user: { email: data.email, name: data.name },
           }),
         );
 

@@ -4,7 +4,7 @@ import type {
   MedicineResponse,
   BarcodeScanResult,
 } from '../model/medicineTypes';
-import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
+import { apiClient, unwrapPaginatedApiResponse } from '@/shared/api';
 
 export async function createMedicine(data: MedicineFormData) {
   const fd = medicineToFormData(data);
@@ -35,17 +35,5 @@ export async function getMedicineByBarcode(barcode: string) {
 export async function getInfiniteMedicines(page_number: string, name?: string) {
   const response = await getMedicines({ page_number, name });
 
-  if (!response.isSuccess || !response.data) {
-    throw new ApiError(statusToI18nKey(response.statusCode));
-  }
-
-  const { data, meta } = response.data;
-
-  return {
-    items: data,
-    page: meta.current_page,
-    pageSize: meta.per_page,
-    totalPages: Math.max(meta.total / meta.per_page, 1),
-    totalCount: meta.total,
-  };
+  return unwrapPaginatedApiResponse(response);
 }

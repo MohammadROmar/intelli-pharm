@@ -1,6 +1,11 @@
 import type { LoginResponse, LoginParams } from '../model/loginTypes';
-import { apiClient } from '@/shared/api';
+import { apiClient, unwrapApiResponse } from '@/shared/api';
 
 export async function login(credentials: LoginParams) {
-  return apiClient.post<LoginResponse>('/auth/v1/login', credentials);
+  const response = await apiClient.post<LoginResponse>(
+    '/auth/v1/login',
+    credentials,
+  );
+
+  return unwrapApiResponse(response);
 }

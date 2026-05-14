@@ -5,15 +5,17 @@ import { toast } from 'sonner';
 
 import type { RestockPayload } from './restockTypes';
 import { restockMedicine } from '../api';
-import type { ApiError, ApiResponse } from '@/shared/api';
+import type { ApiError } from '@/shared/api';
+import { createDomainQueryKeys } from '@/shared/model';
 
 export function useRestockMedicine(id: number) {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const queryKeys = createDomainQueryKeys('medicines');
 
   const { t } = useTranslation();
 
-  return useMutation<ApiResponse<unknown>, ApiError, RestockPayload>({
+  return useMutation<void, ApiError, RestockPayload>({
     mutationFn: (payload) => restockMedicine(id, payload),
 
     onSuccess: () => {
@@ -21,7 +23,7 @@ export function useRestockMedicine(id: number) {
         description: t('common.toasts.restock.description'),
       });
 
-      queryClient.invalidateQueries({ queryKey: ['medicines'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.all });
       navigate(`/dashboard/medicines/${id}`);
     },
 

@@ -3,7 +3,7 @@ import type {
   PharmacyDetail,
   PharmaciesResponse,
 } from '../model/pharmacyTypes';
-import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
+import { apiClient, unwrapPaginatedApiResponse } from '@/shared/api';
 
 export async function editPharmacy({
   id,
@@ -30,17 +30,5 @@ export async function getInfinitePharmacies(
     { params: { page_number, name } },
   );
 
-  if (!response.isSuccess || !response.data) {
-    throw new ApiError(statusToI18nKey(response.statusCode));
-  }
-
-  const { data } = response;
-
-  return {
-    items: data.data,
-    page: data.meta.current_page,
-    pageSize: data.meta.per_page,
-    totalPages: Math.max(data.meta.total / data.meta.per_page, 1),
-    totalCount: data.meta.total,
-  };
+  return unwrapPaginatedApiResponse(response);
 }

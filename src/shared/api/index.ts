@@ -1,3 +1,13 @@
 export { queryClient } from './queryClient';
-export { apiClient, ApiError, statusToI18nKey } from './apiClient';
-export type { ApiResponse, PaginatedResponse } from './apiClient';
+export {
+  apiClient,
+  ApiError,
+  statusToI18nKey,
+  unwrapApiResponse,
+  unwrapPaginatedApiResponse,
+} from './apiClient';
+export type {
+  ApiResponse,
+  PaginatedResponse,
+  PaginatedResult,
+} from './apiClient';

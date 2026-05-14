@@ -3,12 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 
 import { apiClient, type ApiError, type ApiResponse } from '@/shared/api';
-import { getPage, getPerPage } from '@/shared/lib';
+import {
+  canonicalizeFilters,
+  getPage,
+  getPerPage,
+  normalizeApiParams,
+} from '@/shared/lib';
+import { createDomainQueryKeys } from './queryKeys';
 
 type Props = {
   module?: string;
   queryKey: string;
-  filters?: Record<string, string | null | undefined>;
+  filters?: Record<string, unknown>;
   withDualLanguage?: boolean;
 };
 
@@ -25,15 +31,18 @@ export function useGetEntities<T extends { data?: Y[] }, Y>({
   const page_number = getPage(searchParams);
   const per_page = getPerPage(searchParams);
 
-  const params = { ...filters, page_number, per_page };
+  const params = normalizeApiParams(filters, page_number, per_page);
+  const queryKeys = createDomainQueryKeys(queryKey);
+  const canonicalFilters = canonicalizeFilters(filters);
 
   return useQuery<ApiResponse<T>, ApiError>({
-    queryKey: [
-      queryKey,
-      { page_number, per_page, filters },
+    queryKey: queryKeys.list({
+      page_number,
+      per_page,
+      filters: canonicalFilters,
       currentLang,
       withDualLanguage,
-    ],
+    }),
 
     queryFn: () => {
       const config: Record<string, unknown> = { params };

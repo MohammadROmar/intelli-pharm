@@ -7,6 +7,12 @@ export { formatTime, formatTime12h } from './formatTime';
 export { formatPrice } from './formatPrice';
 export { buttonVariants } from './buttonVariants';
 export { getPerPage, getPage } from './searchParamsUtils';
+export {
+  canonicalizeFilters,
+  normalizeApiParams,
+  parseFilters,
+  serializeFilters,
+} from './filters';
 
 export { useIsMobile } from './hooks/useMobile';
 export { useFilters } from './hooks/useFilters';

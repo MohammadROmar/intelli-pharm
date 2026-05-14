@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Pencil, Trophy } from 'lucide-react';
 
+import { EditTarget } from '@/features/target-edit';
 import type { Target } from '@/entities/target';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
@@ -27,17 +29,19 @@ function TargetActions({ target }: Props) {
     keyPrefix: 'targetsPage.detail',
   });
 
+  const [editingTarget, setEditingTarget] = useState<Target | null>(null);
+
   return (
     <>
+      <EditTarget
+        target={editingTarget}
+        onClose={() => setEditingTarget(null)}
+      />
+
       <ActionsDropdown label={t('actions')}>
-        <DropdownMenuItem asChild>
-          <Link
-            to={`/dashboard/targets/${target.id}/edit`}
-            className="cursor-pointer"
-          >
-            <Pencil className="size-4" />
-            {t('edit')}
-          </Link>
+        <DropdownMenuItem onClick={() => setEditingTarget(target)}>
+          <Pencil className="size-4" />
+          {t('edit')}
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild className="cursor-pointer">

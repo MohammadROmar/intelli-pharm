@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { useFilters } from '@/shared/lib';
+import { useFilters, parseFilters } from '@/shared/lib';
 import type { MedicineMetricsFilters } from './medicineMetricsTypes';
 
 const FILTER_KEYS: (keyof MedicineMetricsFilters)[] = [
@@ -12,11 +12,7 @@ const FILTER_KEYS: (keyof MedicineMetricsFilters)[] = [
 export function useMedicineMetricsFilters() {
   const [searchParams] = useSearchParams();
 
-  const filters: MedicineMetricsFilters = {
-    medicine_id: searchParams.get('medicine_id'),
-    quarter: searchParams.get('quarter'),
-    year: searchParams.get('year'),
-  };
+  const filters = parseFilters<MedicineMetricsFilters>(searchParams);
 
   return useFilters<MedicineMetricsFilters>({
     filters,

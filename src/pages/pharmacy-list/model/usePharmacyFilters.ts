@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 
 import type { PharmacyFilters } from '@/entities/pharmacy';
-import { useFilters } from '@/shared/lib';
+import { useFilters, parseFilters } from '@/shared/lib';
 
 const FILTER_KEYS: (keyof PharmacyFilters)[] = [
   'name',
@@ -14,13 +14,7 @@ const FILTER_KEYS: (keyof PharmacyFilters)[] = [
 export function usePharmacyFilters() {
   const [searchParams] = useSearchParams();
 
-  const filters: PharmacyFilters = {
-    name: searchParams.get('name') ?? undefined,
-    region: searchParams.get('region') ?? undefined,
-    pharmacist_name: searchParams.get('pharmacist_name') ?? undefined,
-    pharmacist_phone: searchParams.get('pharmacist_phone') ?? undefined,
-    pharmacist_alt_phone: searchParams.get('pharmacist_alt_phone') ?? undefined,
-  };
+  const filters = parseFilters<PharmacyFilters>(searchParams);
 
   return useFilters<PharmacyFilters>({ filters, filterKeys: FILTER_KEYS });
 }

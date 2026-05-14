@@ -1,5 +1,5 @@
 import type { OrderFilters } from '@/entities/order';
-import { useFilters } from '@/shared/lib';
+import { useFilters, parseFilters } from '@/shared/lib';
 import { useSearchParams } from 'react-router-dom';
 
 const FILTER_KEYS: (keyof OrderFilters)[] = [
@@ -14,14 +14,7 @@ const FILTER_KEYS: (keyof OrderFilters)[] = [
 export function useOrderFilters() {
   const [searchParams] = useSearchParams();
 
-  const filters: OrderFilters = {
-    date_from: searchParams.get('date_from') ?? undefined,
-    date_to: searchParams.get('date_to') ?? undefined,
-    max_total: searchParams.get('max_total') ?? undefined,
-    min_total: searchParams.get('min_total') ?? undefined,
-    pharmacy: searchParams.get('pharmacy') ?? undefined,
-    status: searchParams.get('status') ?? undefined,
-  };
+  const filters = parseFilters<OrderFilters>(searchParams);
 
   return useFilters<OrderFilters>({ filters, filterKeys: FILTER_KEYS });
 }

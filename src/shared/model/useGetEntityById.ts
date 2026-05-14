@@ -3,6 +3,7 @@ import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 
 import { apiClient, type ApiError, type ApiResponse } from '../api';
+import { createDomainQueryKeys } from './queryKeys';
 
 type UseGetEntityOptions<TData> = {
   queryKey: string;
@@ -27,14 +28,15 @@ export function useGetEntityById<TData>({
 
   const numericId = Number(rawId);
   const isValidId = rawId !== undefined && !isNaN(numericId);
+  const queryKeys = createDomainQueryKeys(queryKey);
 
   return useQuery<ApiResponse<TData>, ApiError>({
-    queryKey: [
-      queryKey,
-      `${paramName}-${rawId}`,
+    queryKey: queryKeys.detail({
+      paramName,
+      rawId,
       currentLang,
       withDualLanguage,
-    ],
+    }),
     enabled: isValidId && enabled,
 
     queryFn: async () => {

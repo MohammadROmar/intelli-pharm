@@ -92,6 +92,7 @@ export function TargetFiltersModal({
                 icon={
                   field.value === 'quarterly' ? CalendarRange : CalendarDays
                 }
+                hasMoreLabel={false}
               />
             </Field>
           )}

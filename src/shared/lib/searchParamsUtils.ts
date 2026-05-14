@@ -7,7 +7,7 @@ function clampSearchParamInt(
   min: number,
   max: number,
   fallback: number = min,
-): number {
+) {
   const raw = searchParams.get(key);
   const parsed = Number(raw);
 
@@ -23,7 +23,7 @@ function clampSearchParamInt(
   return value;
 }
 
-export function getPerPage(searchParams: URLSearchParams): number {
+export function getPerPage(searchParams: URLSearchParams) {
   return clampSearchParamInt(
     searchParams,
     'per_page',
@@ -33,7 +33,7 @@ export function getPerPage(searchParams: URLSearchParams): number {
   );
 }
 
-export function getPage(searchParams: URLSearchParams): number {
+export function getPage(searchParams: URLSearchParams) {
   return clampSearchParamInt(
     searchParams,
     'page',

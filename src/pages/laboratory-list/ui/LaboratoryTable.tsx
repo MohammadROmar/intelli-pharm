@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { LaboratoryFiltersModal } from './LaboratoryFiltersModal';
-import { useLaboratoryFilteres } from '../model/useLaboratoryFilters';
+import { useLaboratoryFilters } from '../model/useLaboratoryFilters';
 import { AddLaboratoryButton } from '@/features/laboratory-create';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
 import {
@@ -97,7 +97,7 @@ function EmotyState() {
 function LaboratoryFilters() {
   const [open, setOpen] = useState(false);
   const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useLaboratoryFilteres();
+    useLaboratoryFilters();
 
   return (
     <>

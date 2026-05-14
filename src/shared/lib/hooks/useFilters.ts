@@ -1,8 +1,10 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { serializeFilters } from '../filters';
+
 type Params<T> = {
-  filters: Record<string, string | null | undefined>;
+  filters: Record<string, unknown>;
   filterKeys: (keyof T)[];
 };
 
@@ -14,10 +16,17 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev);
+          const serializedFilters = serializeFilters(
+            Object.fromEntries(
+              filterKeys.map((key) => [key.toString(), newFilters[key]]),
+            ),
+          );
+
           filterKeys.forEach((key) => {
-            const value = newFilters[key];
-            if (value !== undefined && value !== null && value !== '') {
-              next.set(key.toString(), String(value));
+            const value = serializedFilters[key.toString()];
+
+            if (value !== undefined && value !== '') {
+              next.set(key.toString(), value);
             } else {
               next.delete(key.toString());
             }
@@ -43,8 +52,13 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
     );
   }, [setSearchParams, filterKeys]);
 
-  const activeCount = Object.values(filters).filter(
-    (v) => v !== undefined && v !== null && v !== '',
+  const activeCount = Object.entries(filters).filter(
+    ([k, v]) =>
+      k !== 'page' &&
+      k !== 'per_page' &&
+      v !== undefined &&
+      v !== null &&
+      v !== '',
   ).length;
 
   const hasActiveFilters = activeCount !== 0;

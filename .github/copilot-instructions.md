@@ -2,7 +2,7 @@
 
 ## Overview
 
-This file helps AI coding assistants generate changes that match the observed IntelliPharma codebase. It is based only on actual patterns in the repository: feature-sliced folder structure, React Router layouts, Redux session state, React Query data hooks, shared UI primitives, i18n, theming, barcode scanning, mapping, and pharmacy ERP workflows.
+This file helps AI coding assistants generate changes that match the observed IntelliPharma codebase. It is based only on actual patterns in the repository: feature-sliced folder structure, React Router layouts, Redux session state, React Query data hooks, shared UI primitives, i18n, theming, barcode scanning, mapping, shared filter utilities, query key factories, and pharmacy ERP workflows.
 
 ## File Category Reference
 
@@ -90,6 +90,8 @@ Example shape for a new workflow feature:
 ## Integration Rules
 
 - All HTTP access goes through `src/shared/api/apiClient.ts` and React Query hooks.
+- Use the shared filter helpers in `src/shared/lib` for URL parsing, serialization, canonicalization, and API params instead of hand-rolling `searchParams.get(...)` logic.
+- Prefer `createDomainQueryKeys` and canonicalized filter objects for stable React Query cache keys.
 - 401 handling should keep using the refresh-token retry flow in `src/app/store/store.ts`.
 - Session state must continue to live in `src/entities/session`.
 - Public and authenticated areas should stay split between `PublicOnlyRoute` and `ProtectedRoute`.
