@@ -5,7 +5,7 @@ export function useEditCategory(id: number) {
   return useEditEntity<CategoryDto>({
     queryKey: 'categories',
     mutationFn: (payload) => editCategory({ id, payload }),
-    translationKey: 'categoriesPage.category',
+    translationKey: 'category',
     redirectTo: `/dashboard/categories/${id}`,
   });
 }

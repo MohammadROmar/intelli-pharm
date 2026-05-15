@@ -8,8 +8,8 @@ import { DetailCard, DetailCell } from '@/shared/ui';
 type Props = { medicine: MedicineDetail };
 
 export function GiftCard({ medicine }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   const { gift } = medicine;

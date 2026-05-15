@@ -9,9 +9,7 @@ type EmployeeRowProps = {
 };
 
 export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage',
-  });
+  const { t } = useTranslation('employees');
 
   return (
     <TableRow>

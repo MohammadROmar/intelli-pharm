@@ -5,7 +5,7 @@ export function useEditRegion(id: number) {
   return useEditEntity<Region>({
     queryKey: 'regions',
     mutationFn: (payload) => editRegion({ id, ...payload }),
-    translationKey: 'regionsPage.region',
+    translationKey: 'region',
     redirectTo: `/dashboard/regions/${id}`,
   });
 }

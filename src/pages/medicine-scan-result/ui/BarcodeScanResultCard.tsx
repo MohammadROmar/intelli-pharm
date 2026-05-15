@@ -16,9 +16,7 @@ import {
 type Props = { result: BarcodeScanResult };
 
 export function BarcodeScanResultCard({ result }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.scan',
-  });
+  const { t, i18n } = useTranslation('medicines', { keyPrefix: 'scan' });
 
   return (
     <div className="grid h-full">
@@ -32,7 +30,7 @@ export function BarcodeScanResultCard({ result }: Props) {
               </span>
             </div>
             <Link
-              to={`/dahboard/medicines/${result.id}`}
+              to="/dashboard/medicines/scan"
               className="text-muted-foreground hover:text-foreground text-xs transition-colors"
             >
               {t('scanAgain')}
@@ -98,10 +96,12 @@ export function BarcodeScanResultCard({ result }: Props) {
             <CardFooter className="pt-4 pb-5">
               <Link
                 to={`/dashboard/medicines/${result.id}`}
-                className={buttonVariants({ className: 'w-full gap-2' })}
+                className={buttonVariants({ className: 'group w-full gap-2' })}
               >
-                {t('viewFullDetails')}
-                <ArrowRight className="size-4" />
+                {t('viewFullDetails')}{' '}
+                <div className="rtl:rotate-180">
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </div>
               </Link>
             </CardFooter>
           </Card>

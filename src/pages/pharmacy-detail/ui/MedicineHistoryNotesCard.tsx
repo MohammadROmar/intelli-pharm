@@ -15,8 +15,8 @@ import type { HistoryNote } from '@/entities/pharmacy';
 type NoteItemProps = { note: HistoryNote; isLast: boolean };
 
 function NoteItem({ note, isLast }: NoteItemProps) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
   const [expanded, setExpanded] = useState(false);
 
@@ -82,8 +82,8 @@ function NoteItem({ note, isLast }: NoteItemProps) {
 type Props = { notes: HistoryNote[] };
 
 export function MedicineHistoryNotesCard({ notes }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.detail',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'detail',
   });
 
   return (

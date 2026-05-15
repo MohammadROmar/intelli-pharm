@@ -8,6 +8,6 @@ export function useAssignDelivery() {
   return useCreateEntity<AssignDeliveryPayload>({
     queryKey: 'deliveries',
     mutationFn: assignDeliveryTask,
-    translationKey: 'deliveriesPage.delivery',
+    translationKey: 'delivery',
   });
 }

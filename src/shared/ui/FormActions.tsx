@@ -21,7 +21,7 @@ export function FormActions({
   form,
   classNames,
 }: FormActionsProps) {
-  const { t } = useTranslation('translation', { keyPrefix: 'form.actions' });
+  const { t } = useTranslation('common', { keyPrefix: 'form.actions' });
 
   return (
     <Field>

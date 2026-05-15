@@ -28,7 +28,7 @@ export function LaboratoryForm({
             <BilingualNameFields
               icon={FlaskConical}
               disabled={isLoading}
-              i18nPrefix="laboratoriesPage.form"
+              placeholderNamespace="laboratories"
             />
           </div>
 

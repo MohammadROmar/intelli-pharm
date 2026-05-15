@@ -45,9 +45,7 @@ export function CreatePercentageOfferForm({
   isPending,
   onReset,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.form.percentage',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'form.percentage' });
 
   const {
     register,

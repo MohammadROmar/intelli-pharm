@@ -68,7 +68,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   const scrollRef = useRef<HTMLDivElement>(null);
   const debouncedSearch = useDebounce(localSearch, 300);
 
-  const { t } = useTranslation('translation', { keyPrefix: 'asyncSelect' });
+  const { t } = useTranslation('common', { keyPrefix: 'asyncSelect' });
 
   const hasNextPageRef = useRef(hasNextPage);
   const isFetchingNextPageRef = useRef(isFetchingNextPage);

@@ -1,0 +1,72 @@
+{
+  "categoryInfo": "Category Information",
+  "categoryInfoDescription": "Name and optional parent category",
+  "list": {
+    "title": "Medicine Categories",
+    "subtitle": "Manage and organize your medicine categories",
+    "add": "Add Category",
+    "all": "All Categories",
+    "searchPlaceholder": "Search Category...",
+    "id": "ID",
+    "name": "Name",
+    "actions": "Actions",
+    "parentName": "Parent Name",
+    "createdAt": "Created"
+  },
+  "create": {
+    "title": "Add New Category",
+    "subtitle": "Organize your inventory by adding a new category.",
+    "create": "Create Category"
+  },
+  "form": {
+    "info": {
+      "title": "Category Information",
+      "description": "Name and optional parent category"
+    },
+    "placeholderNameEn": "e.g. Antibiotics",
+    "placeholderNameAr": "e.g. مضادات حيوية",
+    "categoryParent": "Parent Category",
+    "optional": "optional"
+  },
+  "edit": {
+    "title": "Edit Category",
+    "subtitle": "Update category information."
+  },
+  "detail": {
+    "pageTitle": "Category Details",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "topLevel": "Top Level",
+    "childLevel": "Subcategory",
+    "categoryType": "Type",
+    "infoTitle": "Category Information",
+    "infoSubtitle": "Detailed information about the selected category.",
+    "labelId": "Category ID",
+    "labelName": "Name",
+    "labelParent": "Parent",
+    "labelParentId": "Parent ID",
+    "labelParentName": "Parent Name",
+    "labelChildren": "Subcategories",
+    "labelCreatedAt": "Created",
+    "labelUpdatedAt": "Last Updated",
+    "noParent": "None (top-level)",
+    "noChildren": "No subcategories",
+    "childrenCount": "{{count}} subcategories",
+    "childrenTitle": "Subcategories",
+    "childrenSubtitle": "Categories nested under this one.",
+    "colId": "ID",
+    "colName": "Name",
+    "colActions": "Actions"
+  },
+  "filters": {
+    "trigger": "Filters",
+    "title": "Filter Categories",
+    "subtitle": "Narrow down the categories list using one or more filters.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Search by category name…",
+    "parentLabel": "Parent Category",
+    "apply": "Apply Filters",
+    "clear": "Clear Filters"
+  }
+}

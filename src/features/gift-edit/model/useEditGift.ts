@@ -5,6 +5,6 @@ export function useEditGift(id: number) {
   return useEditEntity<GiftPayload>({
     queryKey: 'gifts',
     mutationFn: (payload) => editGift(id, payload),
-    translationKey: 'giftsPage.gift',
+    translationKey: 'gift',
   });
 }

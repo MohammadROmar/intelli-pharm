@@ -14,7 +14,7 @@ type Props = {
 };
 
 export function BarcodeScannerView({ onScan }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'barcode' });
+  const { t } = useTranslation('common', { keyPrefix: 'barcode' });
 
   const [cameraError, setCameraError] = useState<string | null>(null);
 

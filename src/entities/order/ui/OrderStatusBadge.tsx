@@ -14,8 +14,8 @@ const STATUS_VARIANT = {
 type Props = { status: OrderStatus; withIcon?: boolean };
 
 export function OrderStatusBadge({ status, withIcon = true }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.status',
+  const { t } = useTranslation('orders', {
+    keyPrefix: 'status',
   });
 
   return (

@@ -11,9 +11,7 @@ import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 type Props = { offer: Offer };
 
 export function OfferDetailHeader({ offer }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.detail',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'detail' });
 
   const offerTitle = `OFF-${String(offer.id).padStart(6, '0')}`;
 
@@ -28,9 +26,7 @@ export function OfferDetailHeader({ offer }: Props) {
 }
 
 function OfferActions({ offer }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.detail',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'detail' });
 
   const [offerToDelete, setOfferToDelete] = useState<Offer | null>(null);
   const [offerToEdit, setOfferToEdit] = useState<Offer | null>(null);

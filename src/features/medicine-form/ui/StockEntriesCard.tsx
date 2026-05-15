@@ -9,7 +9,7 @@ import { Boxes, Calendar, Package, Plus, Trash2 } from 'lucide-react';
 
 import type { MedicineFormData } from '@/entities/medicine';
 import { useFieldError } from '@/shared/lib';
-import { required, fRequired, positiveNumber } from '@/shared/form';
+import { required, positiveNumber } from '@/shared/form';
 import {
   Badge,
   Button,
@@ -33,11 +33,9 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
     name: 'stocks',
   });
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.form',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'form' });
 
-  const { te } = useFieldError('medicinesPage.form');
+  const { te } = useFieldError();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -156,7 +154,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
                     {...register(`stocks.${index}.quantity`, {
                       disabled: isPending,
                       validate: {
-                        required: fRequired(),
+                        required: required(),
                         positive: positiveNumber(),
                       },
                     })}

@@ -18,7 +18,7 @@ import {
 } from '../ui';
 
 function ScannedValuePreview({ value }: { value: string }) {
-  const { t } = useTranslation('translation', { keyPrefix: 'barcode' });
+  const { t } = useTranslation('common', { keyPrefix: 'barcode' });
 
   return (
     <div className="bg-muted/40 flex items-center justify-between gap-3 rounded-lg px-4 py-3">
@@ -40,7 +40,7 @@ type Props = {
 };
 
 export function BarcodeScanner({ open, onOpenChange, onScan }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'barcode' });
+  const { t } = useTranslation('common', { keyPrefix: 'barcode' });
 
   const [lastScanned, setLastScanned] = useState<string | null>(null);
 

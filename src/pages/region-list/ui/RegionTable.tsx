@@ -24,8 +24,8 @@ type Props = {
 };
 
 export function RegionsTable({ data }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.list',
+  const { t } = useTranslation('regions', {
+    keyPrefix: 'list',
   });
 
   const [regionToDelete, setRegionToDelete] = useState<RegionListItem | null>(

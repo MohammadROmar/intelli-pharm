@@ -9,9 +9,7 @@ export default function OfferGiftCreatePage() {
 
   const { mutate, isPending } = useCreateOffer();
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.form.gifts',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'form.gifts' });
 
   return (
     <>

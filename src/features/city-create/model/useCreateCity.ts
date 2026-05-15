@@ -5,6 +5,6 @@ export function useCreateCity() {
   return useCreateEntity<City>({
     queryKey: 'cities',
     mutationFn: createCity,
-    translationKey: 'citiesPage.city',
+    translationKey: 'city',
   });
 }

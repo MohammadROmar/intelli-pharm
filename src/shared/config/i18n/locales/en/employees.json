@@ -1,0 +1,134 @@
+{
+  "vehicleCapacityPlaceholder": "Enter vehicle capacity",
+  "roles": {
+    "admin": "Administrator",
+    "distributor": "Distributor",
+    "rep": "Representative"
+  },
+  "list": {
+    "title": "Employees",
+    "subtitle": "Manage access roles and permissions for your warehouse staff.",
+    "all": "All Employees",
+    "add": "Add Employee",
+    "id": "ID",
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
+    "createdAt": "Created",
+    "active": "Active",
+    "inactive": "Inactive",
+    "role": "Role",
+    "actions": "Actions",
+    "searchPlaceholder": "Search Employee..."
+  },
+  "create": {
+    "title": "Create Employee",
+    "subtitle": "Add a new employee to your warehouse team.",
+    "create": "Create Employee"
+  },
+  "form": {
+    "personalInfoTitle": "Personal Information",
+    "personalInfoSubtitle": "Name, email, phone number and password.",
+    "title": "Work Information",
+    "employmentInfoTitle": "Employment Information",
+    "employmentInfoSubtitle": "Role, working hours, and status.",
+    "activeDescription": "Determine whether this employee can access the system.",
+
+    "fields": {
+      "name": "Name",
+      "namePlaceholder": "e.g. John Smith",
+      "email": "Email",
+      "password": "Password",
+      "role": "Role",
+      "phoneNumber": "Phone Number",
+      "workingStart": "Start time",
+      "workingEnd": "End time",
+      "active": "Active",
+      "vehicleCapacity": "Vehicle capacity"
+    }
+  },
+  "update": {
+    "title": "Edit Details",
+    "subtitle": "Manage employee details and access."
+  },
+  "editRestricted": {
+    "title": "Admin accounts cannot be edited here",
+    "message": "For security reasons, admin account details can only be updated from the Edit Profile page.",
+    "cta": "Go to Edit Profile"
+  },
+  "deleteRestricted": {
+    "title": "Admin accounts cannot be deleted",
+    "message": "For security reasons, admin accounts cannot be deleted.",
+    "action": "Ok"
+  },
+  "filters": {
+    "title": "Filter Employees",
+    "subtitle": "Narrow down the employees list using one or more filters.",
+    "trigger": "Filters",
+    "nameLabel": "Name",
+    "namePlaceholder": "Search by employee name…",
+    "emailLabel": "Email",
+    "emaiPlaceholder": "Search by employee email...",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "Search by employeee phone...",
+    "phoneError": "Only numbers are allowed",
+    "apply": "Apply Filters",
+    "clear": "Clear Filters"
+  },
+  "detail": {
+    "edit": "Edit Employee",
+    "active": "Active",
+    "inactive": "Inactive",
+    "infoCardTitle": "Employee Details",
+    "infoCardSubtitle": "Identity, contact, and working hours.",
+    "labelId": "Employee ID",
+    "labelStatus": "Status",
+    "labelName": "Full Name",
+    "labelRole": "Role",
+    "labelVehicleCapacity": "Vehicle Capacity",
+    "labelEmail": "Email",
+    "labelPhone": "Phone",
+    "labelWorkingStart": "Shift Start",
+    "labelWorkingEnd": "Shift End",
+    "permissionsCardTitle": "Permissions",
+    "permissionsCardSubtitle": "Access rights granted to this employee across all modules.",
+    "noPermissions": "No permissions have been assigned to this employee.",
+    "modules": {
+      "erp": "ERP",
+      "crm": "CRM",
+      "planner": "Planner"
+    },
+    "actions": {
+      "view": "View",
+      "create": "Create",
+      "complete": "Complete",
+      "update": "Update",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "manage": "Manage",
+      "generate": "Generate",
+      "check": "Check",
+      "deactivate": "Deactivate",
+      "assign_distributor": "Assign Distributor",
+      "view_live": "View Live",
+      "view_all": "View All"
+    },
+    "resources": {
+      "categories": "Categories",
+      "medicines": "Medicines",
+      "alternatives": "Alternatives",
+      "pharmacies": "Pharmacies",
+      "orders": "Orders",
+      "stock": "Stock",
+      "employees": "Employees",
+      "leaves": "Leaves",
+      "tracking": "Tracking",
+      "analytics": "Analytics",
+      "rep": "Rep",
+      "plan": "Plan",
+      "distributor": "Distributor",
+      "visits": "Visits",
+      "deliveries": "Deliveries"
+    }
+  }
+}

@@ -26,8 +26,8 @@ export function EditTargetForm({
   defaultValues,
   onSubmit,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.edit',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'edit',
   });
 
   const {

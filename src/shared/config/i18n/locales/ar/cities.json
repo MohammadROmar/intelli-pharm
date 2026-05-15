@@ -1,0 +1,32 @@
+{
+  "cityNamePlaceholder": "مثال. دمشق",
+  "list": {
+    "title": "المدن",
+    "subtitle": "إدارة ومراقبة المدن.",
+    "all": "جميع المدن",
+    "searchPlaceholder": "البحث عن مدينة...",
+    "id": "المعرف",
+    "name": "الاسم",
+    "actions": "الإجراءات"
+  },
+  "filters": {
+    "title": "فلاتر المدن",
+    "subtitle": "ضيّق نتائج قائمة المدن باستخدام فلتر واحد أو أكثر.",
+    "nameLabel": "اسم المدينة",
+    "namePlaceholder": "البحث باسم المدينة..."
+  },
+  "form": {
+    "placeholderNameEn": "مثال: Damascus",
+    "placeholderNameAr": "مثال: دمشق"
+  },
+  "create": {
+    "title": "إضافة مدينة جديدة",
+    "subtitle": "أدخل اسم المدينة لإضافتها إلى النظام.",
+    "action": "إضافة مدينة"
+  },
+  "edit": {
+    "title": "تعديل مدينة",
+    "subtitle": "قم بتغيير الاسم لتعديله.",
+    "action": "تعديل التفاصيل"
+  }
+}

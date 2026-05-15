@@ -1,0 +1,10 @@
+{
+  "pageTitle": "Chat with AI",
+  "backToDashboard": "Dashboard",
+  "headerTitle": "IntelliPharma AI",
+  "emptyTitle": "How can I help you today?",
+  "emptySubtitle": "Type a question below to get started.",
+  "inputPlaceholder": "Type your question here...",
+  "inputHint": "Write your question and press Enter or tap Send.",
+  "sendButton": "Send"
+}

@@ -6,8 +6,8 @@ import { useMedicineMetricsFilters } from '../model/useMedicineMetricsFilters';
 import { FiltersTrigger, PageTitle } from '@/shared/ui';
 
 export function MedicineMetricsHeader() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.medicine',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'medicine',
   });
 
   const [open, setOpen] = useState(false);

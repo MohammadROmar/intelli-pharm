@@ -35,8 +35,8 @@ export function MedicineFiltersModal({
   onClear,
   hasActiveFilters,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.filters',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'filters',
   });
 
   const { register, control, handleSubmit, reset } = useForm<MedicineFilters>({

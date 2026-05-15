@@ -24,7 +24,7 @@ export function GiftForm({
   defaultValues,
   MedicineSelector,
 }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'giftsPage.form' });
+  const { t } = useTranslation('gifts', { keyPrefix: 'form' });
 
   const {
     register,

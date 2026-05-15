@@ -5,9 +5,7 @@ import { useGetOffers } from '../model/useGetOffers';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
 export default function OfferListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.list',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'list' });
 
   const { data, isLoading, error, isError, refetch } = useGetOffers();
 

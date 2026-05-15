@@ -5,6 +5,6 @@ export function useEditOffer(id: number) {
   return useEditEntity<EditOfferDto>({
     queryKey: 'offers',
     mutationFn: (payload) => editOffer(id, payload),
-    translationKey: 'offersPage.offer',
+    translationKey: 'offer',
   });
 }

@@ -18,8 +18,8 @@ import {
 const ScoreChart = lazy(() => import('./ScoreChart'));
 
 export default function MetricsPharmacyPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.pharmacy',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'pharmacy',
   });
 
   const { data, isLoading, isError, error, refetch } = useGetPharmacyMetrics();

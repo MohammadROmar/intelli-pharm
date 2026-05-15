@@ -28,8 +28,8 @@ export function FiltersTrigger({
   activeCount = 0,
   className,
 }: TriggerProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'common.filters',
+  const { t } = useTranslation('common', {
+    keyPrefix: 'filters',
   });
 
   useKeyboardShortcut(
@@ -84,8 +84,8 @@ export function FiltersModal({
   form,
   children,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'common.filters',
+  const { t } = useTranslation('common', {
+    keyPrefix: 'filters',
   });
 
   return (

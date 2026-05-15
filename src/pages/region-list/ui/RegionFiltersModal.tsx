@@ -24,8 +24,8 @@ export function RegionFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.filters',
+  const { t } = useTranslation('regions', {
+    keyPrefix: 'filters',
   });
 
   const { register, control, handleSubmit, reset } = useForm<RegionFilters>({

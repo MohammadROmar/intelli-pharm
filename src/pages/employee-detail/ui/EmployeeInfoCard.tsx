@@ -8,9 +8,7 @@ import { formatTime } from '@/shared/lib';
 type Props = { employee: Employee };
 
 export function EmployeeInfoCard({ employee }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'employeesPage',
-  });
+  const { t, i18n } = useTranslation('employees');
 
   const role = employee.roles[0] ?? '—';
 

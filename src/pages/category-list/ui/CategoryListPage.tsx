@@ -5,8 +5,8 @@ import { useGetCategories } from '../model/useGetCategories';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
 export default function CategoryListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.list',
+  const { t } = useTranslation('categories', {
+    keyPrefix: 'list',
   });
 
   const { data, isError, error, isLoading, refetch } = useGetCategories();

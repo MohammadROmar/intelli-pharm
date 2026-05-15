@@ -9,8 +9,8 @@ type PharmacyRowProps = {
 };
 
 export function PharmacyRow({ pharmacy, onDelete }: PharmacyRowProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.list',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'list',
   });
 
   return (

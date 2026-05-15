@@ -18,8 +18,8 @@ import {
 type Props = { delivery: DeliveryDetail };
 
 export function DeliveryDetailHeader({ delivery }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   const pageTitle = `#${delivery.id} · ${t('pageTitle')} - IntelliPharma`;

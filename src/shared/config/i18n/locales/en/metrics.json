@@ -1,0 +1,89 @@
+{
+  "emptyTitle": "No data found",
+  "emptySubtitle": "Try adjusting the filters to see results.",
+  "clearSearch": "Clear search",
+  "medicine": {
+    "title": "Medicine Metrics",
+    "subtitle": "Alternative usage analytics and order trends per medicine",
+    "cards": {
+      "ordersTitle": "Total Orders",
+      "ordersSubtitle": "Across selected medicines",
+      "acceptanceRateTitle": "Avg Acceptance Rate",
+      "acceptanceRateSubtitle": "Alternative acceptance",
+      "altsUsedTitle": "Alternatives Used",
+      "altsUsedSubtitle": "Total substitutions",
+      "medicines": "Medicines",
+      "record": "record(s)"
+    },
+    "ordersByMedsChart": {
+      "title": "Orders by Medicine",
+      "subtitle": "Order distribution across different medicines",
+      "totalOrders": "Total Orders"
+    },
+    "altAcceptanceRateChart": {
+      "title": "Alternative Acceptance Rate",
+      "subtitle": "Trends of alternative medicine acceptance over time",
+      "acceptanceRate": "Acceptance Rate"
+    },
+    "detailedBreakdown": {
+      "title": "Detailed Breakdown",
+      "subtitle": "Comprehensive data and metrics for each medicine",
+      "medicine": "Medicine",
+      "colMedicine": "Medicine",
+      "colPeriod": "Period",
+      "colTotalOrders": "Total Orders",
+      "colAcceptanceRate": "Acceptance Rate",
+      "colAlternativesUsed": "Alternatives Used",
+      "colActions": "Actions"
+    },
+    "filters": {
+      "title": "Medicine Metrics Filters",
+      "subtitle": "Narrow down the results using one or more filters",
+      "medicine": "Medicine",
+      "period": "Period"
+    }
+  },
+  "pharmacy": {
+    "title": "Pharmacy Metrics",
+    "subtitle": "Performance overview and analytics for all pharmacies.",
+    "selectorPlaceholder": "Select a pharmacy",
+    "cards": {
+      "avgScore": "Average Score",
+      "selectedPharmacies": "Across selected pharmacies",
+      "totalOrders": "Total orders",
+      "completed": "completed",
+      "completionRate": "Completion Rate",
+      "ordersFulfilled": "Orders fulfilled",
+      "totalItems": "Total items",
+      "pharmacies": "pharmacy (pharmacies)"
+    },
+    "scoreChart": {
+      "title": "Score distribution",
+      "subtitle": "Evaluating completion rates and recent order activity",
+      "score": "Score",
+      "recency": "Recency"
+    },
+    "detailedBreakdown": {
+      "title": "Detailed Breakdown",
+      "subtitle": "A granular look at individual pharmacy performance and fulfillment metrics.",
+      "pharmacy": "Pharmacy",
+      "avg": "avg",
+      "colPharmacy": "Pharmacy",
+      "colScore": "Score",
+      "colRecencyScore": "Recency Score",
+      "colOrders": "Orders",
+      "colCompletion": "Completion",
+      "colItems": "Items",
+      "colCalculatedAt": "Calculated",
+      "colActions": "Actions"
+    }
+  },
+  "yearQuarterPicker": {
+    "yearPlaceholder": "Year",
+    "allYears": "All years",
+    "quarterPlaceholder": "Quarter",
+    "allQuarters": "All quarters",
+    "quarterRequiresYear": "Select a year first to filter by quarter.",
+    "quarterRequiresYearShort": "Select a year first"
+  }
+}

@@ -19,8 +19,8 @@ import {
 type Props = { medicines: LaboratoryMedicine[] };
 
 export function LaboratoryMedicinesTable({ medicines }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage.detail',
+  const { t, i18n } = useTranslation('laboratories', {
+    keyPrefix: 'detail',
   });
 
   return (

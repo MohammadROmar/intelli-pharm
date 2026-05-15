@@ -33,8 +33,8 @@ export function ChangeDeliveryStatusSheet({
   currentPaymentStatus,
   children,
 }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.changeStatus',
+  const { t, i18n } = useTranslation('deliveries', {
+    keyPrefix: 'changeStatus',
   });
 
   const isRtl = i18n.dir() === 'rtl';

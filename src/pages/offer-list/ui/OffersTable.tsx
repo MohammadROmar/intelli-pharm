@@ -17,7 +17,7 @@ import {
 type Props = { data: OfferResponse };
 
 export function OffersTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage.list' });
+  const { t } = useTranslation('offers', { keyPrefix: 'list' });
 
   const [offerToDelete, setOfferToDelete] = useState<Offer | null>(null);
   const [offerToEdit, setOfferToEdit] = useState<Offer | null>(null);

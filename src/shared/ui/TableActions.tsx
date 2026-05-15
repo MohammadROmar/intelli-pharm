@@ -51,7 +51,7 @@ function TableActionsRoot<T>({
   onDelete,
   children,
 }: TableActionsProps<T>) {
-  const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
+  const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
   return (
     <TableActionsContext.Provider
@@ -78,7 +78,7 @@ function TableActionsRoot<T>({
 
 function Detail() {
   const { path, itemId } = useTableActions();
-  const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
+  const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
   return (
     <DropdownMenuItem asChild>
@@ -92,13 +92,13 @@ function Detail() {
 
 function Update() {
   const { path, itemId } = useTableActions();
-  const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
+  const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
   return (
     <DropdownMenuItem asChild>
       <Link to={`${path}/${itemId}/edit`} className="cursor-pointer">
         <Pencil className="size-4" />
-        <span>{t('update')}</span>
+        <span>{t('edit')}</span>
       </Link>
     </DropdownMenuItem>
   );
@@ -106,7 +106,7 @@ function Update() {
 
 function Delete<T>() {
   const { item, onDelete } = useTableActions<T>();
-  const { t } = useTranslation('translation', { keyPrefix: 'tableActions' });
+  const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
   return (
     <DropdownMenuItem

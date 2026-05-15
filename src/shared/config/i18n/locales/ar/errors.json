@@ -1,0 +1,28 @@
+{
+  "unauthorizedTitle": "غير مسجّل الدخول",
+  "unauthorized": "أنت غير مسجّل الدخول.",
+  "forbiddenTitle": "غير مصرح بالوصول",
+  "forbidden": "ليس لديك صلاحية للقيام بذلك.",
+  "notFoundTitle": "غير موجود",
+  "notFound": "المورد المطلوب غير موجود.",
+  "validationFailedTitle": "خطأ في البيانات",
+  "validationFailed": "بعض الحقول غير صحيحة.",
+  "tooManyRequestsTitle": "طلبات كثيرة",
+  "tooManyRequests": "طلبات كثيرة جداً. يرجى التباطؤ.",
+  "serverErrorTitle": "خطأ في الخادم",
+  "serverError": "حدث خطأ من طرفنا.",
+  "unknownTitle": "حدث خطأ ما",
+  "unknown": "حدث خطأ غير متوقع.",
+  "retry": "إعادة المحاولة",
+  "emailAlreadyTaken": "البريد الإلكتروني مستخدم بالفعل.",
+  "invalidCredentials": "يرجى التأكد من البريد الاكتروني وكلمة المرور.",
+  "badRequest": {
+    "title": "طلب غير صالح",
+    "message": "طلب غير صالح. يرجى التحقق من المدخلات."
+  },
+
+  "login": {
+    "error": "فشل تسجيل الدخول",
+    "onlyAdmin": "يمكن فقط للمسؤولين تسجيل الدخول."
+  }
+}

@@ -53,8 +53,8 @@ export function YearQuarterPicker({
   onChange,
   disabled = false,
 }: YearQuarterPickerProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.yearQuarterPicker',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'yearQuarterPicker',
   });
 
   const yearOptions = useMemo(() => getYearOptions(t('allYears')), [t]);

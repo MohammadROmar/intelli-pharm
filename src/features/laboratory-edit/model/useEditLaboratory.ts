@@ -5,7 +5,6 @@ export function useEditLaboratory() {
   return useEditEntity<{ id: number; name: Laboratory }>({
     queryKey: 'laboratories',
     mutationFn: editLaboratory,
-    translationKey: 'laboratoriesPage.laboratory',
-    redirectTo: '/dashboard/laboratories',
+    translationKey: 'laboratory',
   });
 }

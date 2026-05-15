@@ -18,8 +18,8 @@ import {
 type Props = { metrics: PharmacyMetrics[] };
 
 export function DetailedBreakdownTable({ metrics }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.pharmacy.detailedBreakdown',
+  const { t, i18n } = useTranslation('metrics', {
+    keyPrefix: 'pharmacy.detailedBreakdown',
   });
 
   return (

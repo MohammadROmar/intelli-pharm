@@ -7,8 +7,8 @@ import { DetailCard, DetailCell, Separator } from '@/shared/ui';
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacistCard({ pharmacy }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.detail',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'detail',
   });
 
   return (

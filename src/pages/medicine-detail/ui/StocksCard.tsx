@@ -30,8 +30,8 @@ function getExpiryStatus(dateStr: string): ExpiryStatus {
 type Props = { stocks: MedicineStock[] };
 
 export function StocksCard({ stocks }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   return (

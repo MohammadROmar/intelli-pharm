@@ -20,12 +20,14 @@ export function useMutationSideEffects({
 }: UseMutationSideEffectsProps) {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const { t: tErrors } = useTranslation('errors');
+
   const queryKeys = createDomainQueryKeys(queryKey);
 
   const onSuccess = () => {
-    toast.success(t(`common.toasts.${action}.title`), {
-      description: t(`common.toasts.${action}.description`, {
-        item: t(translationKey),
+    toast.success(t(`toasts.${action}.title`), {
+      description: t(`toasts.${action}.description`, {
+        item: t(`entities.${translationKey}`),
       }),
     });
 
@@ -33,8 +35,8 @@ export function useMutationSideEffects({
   };
 
   const onError = (error: ApiError) => {
-    toast.error(t(`common.toasts.${action}.error`), {
-      description: t(error.i18nKey),
+    toast.error(t(`toasts.${action}.error`), {
+      description: tErrors(error.i18nKey),
     });
   };
 

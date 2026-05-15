@@ -54,21 +54,21 @@ export class ApiError extends Error {
 export const statusToI18nKey = (status?: number): string => {
   switch (status) {
     case 400:
-      return 'errors.badRequest';
+      return 'badRequest.message';
     case 401:
-      return 'errors.unauthorized';
+      return 'unauthorized';
     case 403:
-      return 'errors.forbidden';
+      return 'forbidden';
     case 404:
-      return 'errors.notFound';
+      return 'notFound';
     case 422:
-      return 'errors.validationFailed';
+      return 'validationFailed';
     case 429:
-      return 'errors.tooManyRequests';
+      return 'tooManyRequests';
     case 500:
-      return 'errors.serverError';
+      return 'serverError';
     default:
-      return 'errors.unknown';
+      return 'unknown';
   }
 };
 

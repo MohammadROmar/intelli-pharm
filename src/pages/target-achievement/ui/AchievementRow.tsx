@@ -9,9 +9,7 @@ import { ExternalLink } from 'lucide-react';
 type Props = { target: TargetAchievement };
 
 export function AchievementRow({ target }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'targetsPage',
-  });
+  const { t, i18n } = useTranslation('targets');
 
   return (
     <TableRow>

@@ -14,7 +14,7 @@ import {
 type Props = PropsWithChildren<{ open: boolean; onClose: () => void }>;
 
 export function EditOfferModal({ open, onClose, children }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage.edit' });
+  const { t } = useTranslation('offers', { keyPrefix: 'edit' });
 
   return (
     <Dialog

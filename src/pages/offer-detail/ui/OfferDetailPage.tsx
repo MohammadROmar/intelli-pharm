@@ -7,7 +7,7 @@ export default function OfferDetailPage() {
   const { isLoading, data, isEnabled, isError, error, refetch } = useGetOffer();
 
   if (!isEnabled) {
-    return <QueryDisabled path="/dashboard/medicines" />;
+    return <QueryDisabled path="/dashboard/offers" />;
   }
 
   if (isError) {

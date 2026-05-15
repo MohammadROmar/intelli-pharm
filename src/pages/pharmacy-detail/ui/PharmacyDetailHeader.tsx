@@ -11,8 +11,8 @@ import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacyDetailHeader({ pharmacy }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.detail',
+  const { t, i18n } = useTranslation('pharmacies', {
+    keyPrefix: 'detail',
   });
 
   const name = getLocalized(pharmacy.name, i18n.language);
@@ -28,8 +28,8 @@ export function PharmacyDetailHeader({ pharmacy }: Props) {
 }
 
 function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.detail',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'detail',
   });
   const navigate = useNavigate();
 

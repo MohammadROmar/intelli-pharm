@@ -6,7 +6,7 @@ import { useTargetFilters } from '../model/useTargetFilters';
 import { Badge, FiltersTrigger, PageTitle } from '@/shared/ui';
 
 export function TargetListHeader({ targets }: { targets: number }) {
-  const { t } = useTranslation('translation', { keyPrefix: 'targetsPage' });
+  const { t } = useTranslation('targets');
 
   return (
     <div className="space-y-4">

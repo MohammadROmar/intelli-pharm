@@ -16,17 +16,9 @@ export const isValidPhone = () => (v: string) =>
   /^09\d{8}$/.test(v.trim()) || 'invalidPhone';
 
 export function englishOnly(v: string) {
-  return (
-    !v?.trim() ||
-    ENGLISH_ONLY.test(v.trim()) ||
-    'laboratoriesPage.form.errors.englishOnly'
-  );
+  return !v?.trim() || ENGLISH_ONLY.test(v.trim()) || 'form.errors.englishOnly';
 }
 
 export function arabicOnly(v: string) {
-  return (
-    !v?.trim() ||
-    ARABIC_ONLY.test(v.trim()) ||
-    'laboratoriesPage.form.errors.arabicOnly'
-  );
+  return !v?.trim() || ARABIC_ONLY.test(v.trim()) || 'form.errors.arabicOnly';
 }

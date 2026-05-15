@@ -9,6 +9,6 @@ export function useCreateMedicine() {
   return useCreateEntity<{ values: MedicineFormData; images: ImageFile[] }>({
     queryKey: 'medicines',
     mutationFn: createMedicine,
-    translationKey: 'medicinesPage.medicine',
+    translationKey: 'medicine',
   });
 }

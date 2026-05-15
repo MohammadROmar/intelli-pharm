@@ -17,7 +17,11 @@ export function LaboratoryEditSheet({
 }: Props) {
   return (
     <LaboratorySheet open={open} onOpenChange={onOpenChange} isEdit>
-      <LaboratoryEditForm id={id} defaultName={defaultName} />
+      <LaboratoryEditForm
+        id={id}
+        defaultName={defaultName}
+        onSuccess={() => onOpenChange(false)}
+      />
     </LaboratorySheet>
   );
 }

@@ -10,9 +10,7 @@ import {
 } from '@/shared/ui';
 
 export default function MedicineRestockPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.restock',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'restock' });
 
   const { data, isLoading, isEnabled, isError, error, refetch } =
     useGetMedicine();

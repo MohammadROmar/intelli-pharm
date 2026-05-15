@@ -1,0 +1,61 @@
+{
+  "sidebar": {
+    "toggle": "Toggle sidebar",
+    "account": "Account",
+    "notifications": "Notifications",
+    "sections": {
+      "sales": "Sales",
+      "catalog": "Catalog",
+      "logistics": "Logistics",
+      "reference": "Reference"
+    },
+    "labels": {
+      "dashboard": "Dashboard",
+      "chat": "Chat with AI",
+      "orders": "Orders",
+      "pharmacies": "Pharmacies",
+      "promotions": "Promotions",
+      "medicines": "Medicines",
+      "categories": "Categories",
+      "laboratories": "Laboratories",
+      "deliveries": "Deliveries",
+      "metrics": "Metrics",
+      "regions": "Regions",
+      "cities": "Cities",
+      "employees": "Employees",
+      "new": "New",
+      "edit": "Edit",
+      "restock": "Restock",
+      "scan": "Scan",
+      "seasonal": "Seasonal Metrics",
+      "medicine": "Medicine Metrics",
+      "area": "Area Metrics",
+      "pharmacy": "Pharmacy Metrics",
+      "assign": "Assign Delivery",
+      "gifts": "Gifts",
+      "offers": "Offers",
+      "new-gifts": "Add Gifts",
+      "new-percentage": "Add Percentage",
+      "targets": "Targets",
+      "achievements": "Achievements"
+    },
+    "promotions": {
+      "offers": "Offers",
+      "gifts": "Gifts"
+    },
+    "medicines": {
+      "list": "All Medicines",
+      "scanMedicine": "Scan Medicine"
+    },
+    "deliveries": {
+      "list": "All Deliveries",
+      "assign": "Assign Deliveries"
+    },
+    "metrics": {
+      "seasonal": "Seasonal",
+      "medicine": "By Medicine",
+      "area": "By Area",
+      "pharmacy": "By Pharmacy"
+    }
+  }
+}

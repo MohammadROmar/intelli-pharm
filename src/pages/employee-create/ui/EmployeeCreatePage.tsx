@@ -4,8 +4,8 @@ import { CreateEmployeeForm } from '@/features/employee-create';
 import { PageTitle } from '@/shared/ui';
 
 export default function EmployeeCreatePage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.create',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'create',
   });
 
   return (

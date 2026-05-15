@@ -13,8 +13,8 @@ import { DetailCard, DetailCell, Separator, SplitDateTime } from '@/shared/ui';
 type Props = { delivery: DeliveryDetail };
 
 export function DeliveryInformation({ delivery }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   return (

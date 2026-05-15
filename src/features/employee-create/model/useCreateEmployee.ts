@@ -13,10 +13,10 @@ export function useCreateEmployee() {
   return useCreateEntity<CreateEmployeeFormData>({
     queryKey: 'employees',
     mutationFn: createEmployee,
-    translationKey: 'employeesPage.employee',
+    translationKey: 'employee',
 
     onError: ({ status, i18nKey }) => {
-      toast.error(t(`common.toasts.edit.error`), {
+      toast.error(t(`toasts.edit.error`), {
         description: t(status === 422 ? 'errors.emailAlreadyTaken' : i18nKey),
       });
     },

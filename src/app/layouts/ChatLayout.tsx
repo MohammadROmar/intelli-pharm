@@ -5,7 +5,7 @@ import { ArrowLeft, Bot } from 'lucide-react';
 import { Separator } from '@/shared/ui/index.initial';
 
 export default function ChatLayout() {
-  const { t } = useTranslation('translation', { keyPrefix: 'chat' });
+  const { t } = useTranslation('chat');
 
   return (
     <div className="flex h-dvh flex-col">

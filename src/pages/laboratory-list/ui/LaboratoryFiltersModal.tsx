@@ -23,8 +23,8 @@ export function LaboratoryFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage.filters',
+  const { t } = useTranslation('laboratories', {
+    keyPrefix: 'filters',
   });
 
   const { register, handleSubmit, reset } = useForm<LaboratoryFilters>({

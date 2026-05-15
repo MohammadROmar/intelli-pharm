@@ -17,8 +17,8 @@ import { getLocalized } from '@/shared/lib';
 type Props = { medicine: MedicineDetail };
 
 export function MedicineDetailHeader({ medicine }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   const name = getLocalized(medicine.commercial_name, i18n.language);
@@ -34,8 +34,8 @@ export function MedicineDetailHeader({ medicine }: Props) {
 }
 
 function MedicineActions({ medicine, name }: Props & { name: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   const [medicineToDelete, setMedicineToDelete] =

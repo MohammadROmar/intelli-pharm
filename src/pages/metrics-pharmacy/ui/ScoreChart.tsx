@@ -60,8 +60,8 @@ function CustomTooltip({ active, payload, label, t }: CustomTooltipProps) {
 }
 
 function ScoreChart({ metrics }: ScoreChartProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.pharmacy.scoreChart',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'pharmacy.scoreChart',
   });
 
   const chartData: ChartData[] = useMemo(

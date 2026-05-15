@@ -7,8 +7,8 @@ import { ChangeOrderStatus } from '@/features/order-change-status';
 import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
 
 export default function OrderDetailPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.detail',
+  const { t } = useTranslation('orders', {
+    keyPrefix: 'detail',
   });
 
   const { data, isLoading, isEnabled, isError, error, refetch } = useGetOrder();

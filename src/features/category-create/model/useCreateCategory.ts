@@ -5,6 +5,6 @@ export function useCreateCategory() {
   return useCreateEntity<CategoryDto>({
     queryKey: 'categories',
     mutationFn: createCategory,
-    translationKey: 'categoriesPage.category',
+    translationKey: 'category',
   });
 }

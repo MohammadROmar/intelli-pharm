@@ -8,6 +8,6 @@ export function useChangeDeliveryStatus() {
   return useEditEntity<{ id: number; payload: ChangeDeliveryStatusPayload }>({
     queryKey: 'deliveries',
     mutationFn: changeDelieryStatus,
-    translationKey: 'deliveriesPage.delivery',
+    translationKey: 'delivery',
   });
 }

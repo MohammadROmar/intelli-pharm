@@ -19,7 +19,7 @@ import {
 type Props = { data: MedicineResponse };
 
 export function MedicinesTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'medicinesPage' });
+  const { t } = useTranslation('medicines');
 
   const [medicineToDelete, setMedicineToDelete] = useState<Medicine | null>(
     null,

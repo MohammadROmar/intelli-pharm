@@ -15,7 +15,7 @@ import {
 } from '@/shared/ui';
 
 export default function LoginPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('login');
 
   return (
     <main className="relative flex min-h-svh w-full items-center justify-center overflow-x-hidden p-6 md:p-10">
@@ -31,8 +31,8 @@ export default function LoginPage() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>{t('loginPage.title')}</CardTitle>
-              <CardDescription>{t('loginPage.subtitle')}</CardDescription>
+              <CardTitle>{t('title')}</CardTitle>
+              <CardDescription>{t('subtitle')}</CardDescription>
             </CardHeader>
             <CardContent>
               <LoginForm />

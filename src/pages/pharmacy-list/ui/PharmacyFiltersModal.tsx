@@ -24,8 +24,8 @@ export function PharmacyFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.filters',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'filters',
   });
 
   const { register, handleSubmit, control, reset } = useForm<PharmacyFilters>({

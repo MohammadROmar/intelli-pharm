@@ -52,8 +52,8 @@ function getMinDatetime() {
 }
 
 function AssignmentCard({ isPending }: { isPending?: boolean }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.form',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'form',
   });
   const { control } = useFormContext<AssignDeliveryFormValues>();
 
@@ -128,8 +128,8 @@ function AssignmentCard({ isPending }: { isPending?: boolean }) {
 function ScheduleCard({ isPending }: { isPending?: boolean }) {
   'use no memo';
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.form',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'form',
   });
   const { register } = useFormContext<AssignDeliveryFormValues>();
   const { errors } = useFormState<AssignDeliveryFormValues>({

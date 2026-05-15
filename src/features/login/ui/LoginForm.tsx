@@ -15,7 +15,7 @@ import {
 type FormFields = { email: string; password: string };
 
 export function LoginForm() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('login', { keyPrefix: 'form' });
 
   const { mutate: login, isPending } = useLogin();
 
@@ -33,7 +33,7 @@ export function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
         <Field data-invalid={!!errors.email}>
-          <FieldLabel htmlFor="email">{t('form.fields.email')}</FieldLabel>
+          <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
           <Input
             id="email"
             type="email"
@@ -50,16 +50,14 @@ export function LoginForm() {
 
           {errors.email && (
             <FieldError>
-              {t('form.errors.invalidField', {
-                field: t('form.fields.email'),
+              {t('errors.invalidField', {
+                field: t('email'),
               })}
             </FieldError>
           )}
         </Field>
         <Field data-invalid={!!errors.password}>
-          <FieldLabel htmlFor="password">
-            {t('form.fields.password')}
-          </FieldLabel>
+          <FieldLabel htmlFor="password">{t('password')}</FieldLabel>
           <Input
             id="password"
             icon={Lock}
@@ -75,12 +73,12 @@ export function LoginForm() {
             type="password"
           />
           {errors.password && (
-            <FieldError>{t('form.errors.minLength', { min: 8 })}</FieldError>
+            <FieldError>{t('errors.minLength', { min: 8 })}</FieldError>
           )}
         </Field>
         <Field>
           <Button disabled={isPending} isLoading={isPending} type="submit">
-            {t('loginPage.login')}
+            {t('submit')}
           </Button>
         </Field>
       </FieldGroup>

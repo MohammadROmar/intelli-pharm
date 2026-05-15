@@ -6,9 +6,7 @@ import { MedicineSelector } from '@/entities/medicine';
 import { GiftForm, GiftModal, type GiftPayload } from '@/entities/gift';
 
 export function CreateGiftForm() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.create',
-  });
+  const { t } = useTranslation('gifts', { keyPrefix: 'create' });
 
   return (
     <GiftModal

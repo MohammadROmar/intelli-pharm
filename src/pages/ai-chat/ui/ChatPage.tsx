@@ -5,7 +5,7 @@ import { ChatInput } from './ChatInput';
 import { useChat } from '../model/useChat';
 
 export default function ChatPage() {
-  const { t } = useTranslation('translation', { keyPrefix: 'chat' });
+  const { t } = useTranslation('chat');
 
   const { messages, isLoading, error, send } = useChat();
 

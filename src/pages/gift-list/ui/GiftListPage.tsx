@@ -5,9 +5,7 @@ import { useGetGifts } from '../model/useGetGifts';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
 export default function GiftListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.list',
-  });
+  const { t } = useTranslation('gifts', { keyPrefix: 'list' });
 
   const { data, isLoading, error, isError, refetch } = useGetGifts();
 

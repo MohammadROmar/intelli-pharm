@@ -18,8 +18,8 @@ type MedicineRowProps = {
 };
 
 export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.list',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'list',
   });
 
   return (
@@ -58,8 +58,8 @@ export function MedicineRow({ medicine, onDelete }: MedicineRowProps) {
 }
 
 function Restock({ id }: { id: number }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.restock',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'restock',
   });
 
   return (

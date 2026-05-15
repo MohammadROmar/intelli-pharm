@@ -29,9 +29,7 @@ export function MedicineRestockForm({
   onSubmit,
   onReset,
 }: MedicineRestockFormProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.restock',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'restock' });
 
   const methods = useForm<RestockFormValues>({
     defaultValues: { stocks: [DEFAULT_ROW] },

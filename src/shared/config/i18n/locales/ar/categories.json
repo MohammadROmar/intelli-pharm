@@ -1,0 +1,74 @@
+{
+  "categoryInfo": "معلومات الفئة",
+  "categoryInfoDescription": "الاسم وفئة اصلية اختيارية.",
+  "categoryNamePlaceholder": "مثال. مضادات حيوية",
+  "list": {
+    "title": "فئات الأدوية",
+    "subtitle": "إدارة وتنظيم فئات الأدوية",
+    "all": "جميع الفئات",
+    "add": "إضافة فئة",
+    "searchPlaceholder": "البحث عن فئة...",
+    "id": "المعرف",
+    "name": "الاسم",
+    "actions": "الخيارات",
+    "parentName": "الفئة الأصلية",
+    "createdAt": "تاريخ الانشاء"
+  },
+  "form": {
+    "info": {
+      "title": "معلومات الفئة",
+      "description": "الاسم وفئة اصلية اختيارية."
+    },
+    "placeholderNameEn": "مثال: Antibiotics",
+    "placeholderNameAr": "مثال: مضادات حيوية",
+    "categoryParent": "الفئة الأصلية",
+    "optional": "اختياري"
+  },
+  "create": {
+    "title": "إضافة فئة جديدة",
+    "subtitle": "قم بتنظيم المستودع من خلال إضافة فئة جديدة.",
+    "create": "إنشاء فئة"
+  },
+  "edit": {
+    "title": "تعديل الفئة",
+    "subtitle": "تحديث معلومات الفئة."
+  },
+  "detail": {
+    "pageTitle": "تفاصيل الفئة",
+    "actions": "الإجراءات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "topLevel": "فئة رئيسية",
+    "childLevel": "فئة فرعية",
+    "categoryType": "النوع",
+    "infoTitle": "معلومات الفئة",
+    "infoSubtitle": "معلومات مفصلة عن الفئة المحددة.",
+    "labelId": "رقم الفئة",
+    "labelName": "الاسم",
+    "labelParent": "الفئة الأم",
+    "labelParentId": "رقم الفئة الأم",
+    "labelParentName": "اسم الفئة الأم",
+    "labelChildren": "الفئات الفرعية",
+    "labelCreatedAt": "تاريخ الإنشاء",
+    "labelUpdatedAt": "آخر تحديث",
+    "noParent": "لا يوجد (فئة رئيسية)",
+    "noChildren": "لا توجد فئات فرعية",
+    "childrenCount": "{{count}} فئة فرعية",
+    "childrenTitle": "الفئات الفرعية",
+    "childrenSubtitle": "الفئات المدرجة تحت هذه الفئة.",
+    "addChild": "إضافة فئة فرعية",
+    "colId": "الرقم",
+    "colName": "الاسم",
+    "colActions": "الإجراءات"
+  },
+  "filters": {
+    "trigger": "الفلاتر",
+    "title": "فلاتر الفئات",
+    "subtitle": "ضيّق نتائج قائمة الفئات باستخدام فلتر واحد أو أكثر.",
+    "nameLabel": "الاسم",
+    "namePlaceholder": "البحث باسم الفئة",
+    "parentLabel": "الفئة الأصلية",
+    "apply": "تطبيق الفلاتر",
+    "clear": "مسح الفلاتر"
+  }
+}

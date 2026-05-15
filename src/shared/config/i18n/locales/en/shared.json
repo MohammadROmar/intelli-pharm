@@ -1,0 +1,19 @@
+{
+  "form": {
+    "bilingualName": {
+      "labels": {
+        "nameEn": "Name (English)",
+        "nameAr": "Name (Arabic)"
+      },
+      "hints": {
+        "nameEn": "English letters, numbers, and special characters (* $ @ & ...).",
+        "nameAr": "Arabic letters and numbers only. Special characters are not allowed."
+      },
+      "errors": {
+        "required": "This field is required.",
+        "englishOnly": "Only English letters, digits, and special characters are allowed.",
+        "arabicOnly": "Only Arabic letters and digits are allowed. Special characters are not permitted."
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "list": {
+    "title": "Cities",
+    "subtitle": "Manage and monitor laboratories.",
+    "all": "All Cities",
+    "searchPlaceholder": "Search City...",
+    "id": "ID",
+    "name": "Name",
+    "actions": "Actions"
+  },
+  "filters": {
+    "title": "Filter Cities",
+    "subtitle": "Narrow down the cities list using one or more filters.",
+    "nameLabel": "City Name",
+    "namePlaceholder": "Search by city name…"
+  },
+  "create": {
+    "title": "Add New City",
+    "subtitle": "Enter the name of the city to add it to the system.",
+    "action": "Add City"
+  },
+  "form": {
+    "placeholderNameEn": "e.g. Damascus",
+    "placeholderNameAr": "e.g. دمشق"
+  },
+  "edit": {
+    "title": "Edit City",
+    "subtitle": "Change the name to edit it.",
+    "action": "Edit Details"
+  }
+}

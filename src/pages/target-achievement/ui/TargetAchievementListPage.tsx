@@ -10,8 +10,8 @@ import {
 } from '@/shared/ui';
 
 export default function MedicineListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.achievements',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'achievements',
   });
 
   const { id, queryData } = useGetTargetAchievements();

@@ -27,7 +27,7 @@ export function ImageDropzone({
   hasError,
   onRemove,
 }: ImageDropzoneProps) {
-  const { t } = useTranslation('translation', { keyPrefix: 'dragNDrop' });
+  const { t } = useTranslation('common', { keyPrefix: 'dragNDrop' });
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {

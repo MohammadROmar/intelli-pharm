@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 export function MetricsEmptyState() {
   const [, setSearchParams] = useSearchParams();
 
-  const { t } = useTranslation('translation', { keyPrefix: 'metricsPage' });
+  const { t } = useTranslation('metrics');
 
   return (
     <div className="grid h-full">

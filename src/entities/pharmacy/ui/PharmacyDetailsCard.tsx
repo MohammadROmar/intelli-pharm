@@ -26,8 +26,8 @@ type Props = {
 };
 
 export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.form',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'form',
   });
 
   const { register, control, getValues } = useFormContext<PharmacyDetail>();
@@ -59,7 +59,7 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
           <BilingualNameFields
             icon={Cross}
             disabled={isPending}
-            i18nPrefix="pharmaciesPage.form"
+            placeholderNamespace="pharmacies"
           />
         </div>
 

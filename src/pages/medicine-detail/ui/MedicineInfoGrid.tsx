@@ -25,8 +25,8 @@ import {
 type Props = { medicine: MedicineDetail };
 
 export function MedicineInfoGrid({ medicine }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   return (

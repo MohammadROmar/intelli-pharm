@@ -16,7 +16,7 @@ export function DeleteEmployeeModal({
 }: DeleteEmployeeModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'employees',
-    translationKey: 'employeesPage.employee',
+    translationKey: 'employee',
   });
 
   function handleConfirm() {

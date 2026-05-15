@@ -18,8 +18,8 @@ import {
 type Props = { targetId: number; data: TargetAchievementResponse };
 
 export function TargetAchievementTable({ targetId, data }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.achievements',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'achievements',
   });
 
   const acheivements = data.data;

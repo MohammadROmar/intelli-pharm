@@ -107,7 +107,7 @@ function NavMenuItem({ item, t }: NavMenuItemProps) {
 }
 
 export function NavMain({ sections }: NavMainProps) {
-  const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
+  const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
 
   return (
     <>

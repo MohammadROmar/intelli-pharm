@@ -13,8 +13,8 @@ const paymentStatusStyles = {
 } as const;
 
 export const DeliveryPaymentStatusBadge = ({ status, className }: Props) => {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.paymentStatus',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'paymentStatus',
   });
 
   return (

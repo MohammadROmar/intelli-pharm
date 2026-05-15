@@ -4,8 +4,8 @@ import { MedicineCreateForm } from './MedicineCreateForm';
 import { PageTitle } from '@/shared/ui';
 
 export default function MedicineCreatePage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.create',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'create',
   });
 
   return (

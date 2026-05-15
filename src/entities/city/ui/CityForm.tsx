@@ -28,7 +28,7 @@ export function CityForm({
             <BilingualNameFields
               icon={Building2}
               disabled={isLoading}
-              i18nPrefix="citiesPage.form"
+              placeholderNamespace="cities"
             />
           </div>
           <FormActions

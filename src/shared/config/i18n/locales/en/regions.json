@@ -1,0 +1,56 @@
+{
+  "list": {
+    "title": "Regions",
+    "subtitle": "Manage, update, or remove region records in the table below.",
+    "all": "All Regions",
+    "add": "Add Region",
+    "id": "ID",
+    "name": "Name",
+    "city": "City",
+    "actions": "Actions"
+  },
+  "create": {
+    "title": "Add New Region",
+    "subtitle": "Register a new region in the system."
+  },
+  "edit": {
+    "title": "Edit Region",
+    "subtitle": "Change the information below to edit it."
+  },
+  "form": {
+    "title": "Region Details",
+    "subtitle": "Enter the region details below.",
+    "info": "Region Information",
+    "infoDescription": "The region name and the city it belongs to.",
+    "city": "City",
+    "placeholderNameEn": "e.g. Al Mazzeh",
+    "placeholderNameAr": "e.g. المزة",
+    "errors": {
+      "required": "This field is required."
+    }
+  },
+  "detail": {
+    "pageTitle": "Region Details",
+    "actions": "Actions",
+    "edit": "Edit Details",
+    "delete": "Delete",
+    "cardTitle": "Region Information",
+    "cardSubtitle": "Detailed information about this region.",
+    "labelCity": "City",
+    "labelPharmaciesCount": "Total Pharmacies",
+    "pharmaciesTitle": "Registered Pharmacies",
+    "pharmaciesSubtitle": "All pharmacies operating in this region.",
+    "noPharmacies": "No pharmacies registered in this region.",
+    "colId": "ID",
+    "colName": "Name",
+    "colPhone": "Phone",
+    "colActions": "Actions"
+  },
+  "filters": {
+    "title": "Filter Medicines",
+    "subtitle": "Narrow down the region list using one or more filters",
+    "nameLabel": "Name",
+    "namePlaceholder": "Search by region name…",
+    "cityLabel": "City"
+  }
+}

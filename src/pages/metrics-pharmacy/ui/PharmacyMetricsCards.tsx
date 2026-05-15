@@ -9,8 +9,8 @@ import { StatCard } from '@/entities/metrics';
 type Props = { metrics: PharmacyMetrics[] };
 
 export function PharmacyMetricsCards({ metrics }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.pharmacy.cards',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'pharmacy.cards',
   });
 
   const {

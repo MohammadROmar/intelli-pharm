@@ -4,9 +4,7 @@ import { PharmacyCreateForm } from '@/features/pharmacy-create';
 import { PageTitle } from '@/shared/ui';
 
 export default function PharmacyCreatePage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage',
-  });
+  const { t } = useTranslation('pharmacies');
 
   return (
     <>

@@ -18,9 +18,7 @@ type GiftRowProps = {
 };
 
 export function GiftRow({ gift, onEdit, onDelete }: GiftRowProps) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.list',
-  });
+  const { t, i18n } = useTranslation('gifts', { keyPrefix: 'list' });
 
   const isActive = gift.active === 1;
 
@@ -55,7 +53,7 @@ export function GiftRow({ gift, onEdit, onDelete }: GiftRowProps) {
 }
 
 function EditCityButton({ gift, onEdit }: Omit<GiftRowProps, 'onDelete'>) {
-  const { t } = useTranslation('translation', {
+  const { t } = useTranslation('common', {
     keyPrefix: 'tableActions',
   });
 
@@ -65,7 +63,7 @@ function EditCityButton({ gift, onEdit }: Omit<GiftRowProps, 'onDelete'>) {
       className="w-full cursor-pointer"
     >
       <Pencil className="size-4" />
-      <span>{t('update')}</span>
+      <span>{t('edit')}</span>
     </DropdownMenuItem>
   );
 }

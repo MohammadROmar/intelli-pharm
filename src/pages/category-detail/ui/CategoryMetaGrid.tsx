@@ -15,8 +15,8 @@ import {
 type Props = { category: CategoryDetail };
 
 export function CategoryMetaGrid({ category }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.detail',
+  const { t, i18n } = useTranslation('categories', {
+    keyPrefix: 'detail',
   });
 
   const isTopLevel = category.parent_id === null;

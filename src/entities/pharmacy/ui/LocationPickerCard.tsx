@@ -25,8 +25,8 @@ const MapLocationPicker = lazy(() =>
 );
 
 function CoordinateDisplay({ position }: { position: LatLng }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.form',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'form',
   });
   return (
     <div className="bg-muted/40 flex items-center justify-between gap-4 rounded-lg px-4 py-2.5">
@@ -56,9 +56,9 @@ function CoordinateDisplay({ position }: { position: LatLng }) {
 type GeoErrorStatus = 'denied' | 'unavailable' | 'timeout';
 
 const GEO_ERROR_I18N: Record<GeoErrorStatus, string> = {
-  denied: 'pharmaciesPage.form.geoErrorDenied',
-  unavailable: 'pharmaciesPage.form.geoErrorUnavailable',
-  timeout: 'pharmaciesPage.form.geoErrorTimeout',
+  denied: 'form.geoErrorDenied',
+  unavailable: 'form.geoErrorUnavailable',
+  timeout: 'form.geoErrorTimeout',
 };
 
 type CurrentLocationButtonProps = {
@@ -72,7 +72,7 @@ function CurrentLocationButton({
   onRequest,
   geoStatus,
 }: CurrentLocationButtonProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('pharmacies', { keyPrefix: 'form' });
 
   const isLoading = geoStatus === 'loading';
   const isError =
@@ -95,7 +95,7 @@ function CurrentLocationButton({
         ) : (
           <Crosshair className="size-4" />
         )}
-        {t('pharmaciesPage.form.useCurrentLocation')}
+        {t('useCurrentLocation')}
       </Button>
 
       {isError && (
@@ -111,8 +111,8 @@ function CurrentLocationButton({
 type Props = { isPending?: boolean };
 
 export function LocationPickerCard({ isPending }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.form',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'form',
   });
 
   const { position, setPosition } = useLocationPickerForm();

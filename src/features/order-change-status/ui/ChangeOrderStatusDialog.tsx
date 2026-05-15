@@ -22,9 +22,7 @@ export function ChangeOrderStatusDialog({
   isOpen,
   setIsOpen,
 }: ChangeOrderStatusDialogProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage',
-  });
+  const { t } = useTranslation('orders');
 
   const [step, setStep] = useState<'select' | 'confirm'>('select');
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | null>(

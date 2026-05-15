@@ -10,8 +10,8 @@ import {
 } from '@/shared/ui';
 
 export default function MedicineEditPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.edit',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'edit',
   });
 
   const { data, isLoading, isEnabled, isError, error, refetch } =

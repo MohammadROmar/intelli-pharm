@@ -16,10 +16,10 @@ export function DeleteOfferModal({
 }: DeleteOfferModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'offers',
-    translationKey: 'offersPage.offer',
+    translationKey: 'offer',
   });
 
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage' });
+  const { t } = useTranslation('offers');
 
   function handleConfirm() {
     if (!offer) return;

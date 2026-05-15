@@ -17,7 +17,7 @@ export function DeleteRegionModal({
 }: DeleteRegionModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'regions',
-    translationKey: 'regionsPage.region',
+    translationKey: 'region',
   });
 
   function handleConfirm() {

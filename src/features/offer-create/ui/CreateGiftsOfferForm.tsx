@@ -44,9 +44,7 @@ type Props = {
 };
 
 export function CreateGiftsOfferForm({ onSubmit, isPending, onReset }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.form.gifts',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'form.gifts' });
 
   const {
     register,

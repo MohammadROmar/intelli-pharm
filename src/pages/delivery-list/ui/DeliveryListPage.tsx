@@ -5,8 +5,8 @@ import { useGetDeliveries } from '../model/useGetDeliveries';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
 export default function DeliveryListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.list',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'list',
   });
 
   const { data, isError, error, isLoading, refetch } = useGetDeliveries();

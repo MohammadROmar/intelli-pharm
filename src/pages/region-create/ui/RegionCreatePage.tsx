@@ -4,9 +4,7 @@ import { CreateRegionForm } from '@/features/region-create';
 import { PageTitle } from '@/shared/ui';
 
 export default function RegionCreatePage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage',
-  });
+  const { t } = useTranslation('regions');
 
   return (
     <>

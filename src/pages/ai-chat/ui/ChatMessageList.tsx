@@ -28,7 +28,7 @@ function TypingIndicator() {
 }
 
 function EmptyState() {
-  const { t } = useTranslation('translation', { keyPrefix: 'chat' });
+  const { t } = useTranslation('chat');
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">

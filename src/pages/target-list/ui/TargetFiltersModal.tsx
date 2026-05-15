@@ -37,8 +37,8 @@ export function TargetFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.filters',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'filters',
   });
 
   const { control, handleSubmit, reset } = useForm<TargetFilters>({

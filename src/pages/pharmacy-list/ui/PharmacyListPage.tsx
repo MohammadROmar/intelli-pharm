@@ -5,8 +5,8 @@ import { useGetPharmacies } from '../model/useGetPharmacies';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
 export default function PharmaciesListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.list',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'list',
   });
 
   const { data, isLoading, error, isError, refetch } = useGetPharmacies();

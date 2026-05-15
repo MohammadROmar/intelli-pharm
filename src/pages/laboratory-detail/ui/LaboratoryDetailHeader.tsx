@@ -12,8 +12,8 @@ import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 type Props = { laboratory: LaboratoryDetail };
 
 export function LaboratoryDetailHeader({ laboratory }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage.detail',
+  const { t, i18n } = useTranslation('laboratories', {
+    keyPrefix: 'detail',
   });
 
   const name = getLocalized(laboratory.name, i18n.language);
@@ -32,8 +32,8 @@ export function LaboratoryActions({
   name,
   laboratory,
 }: Props & { name: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage.detail',
+  const { t } = useTranslation('laboratories', {
+    keyPrefix: 'detail',
   });
   const navigate = useNavigate();
 

@@ -20,8 +20,8 @@ import {
 type Props = { target: TTarget };
 
 export function TargetInfoCard({ target }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.detail',
+  const { t, i18n } = useTranslation('targets', {
+    keyPrefix: 'detail',
   });
   const isMonthly = target.type === 'monthly';
   const TypeIcon = isMonthly ? CalendarDays : CalendarRange;

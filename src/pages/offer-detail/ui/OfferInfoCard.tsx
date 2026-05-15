@@ -22,9 +22,7 @@ import {
 type Props = { offer: Offer };
 
 export function OfferInfoCard({ offer }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'offersPage.detail',
-  });
+  const { t, i18n } = useTranslation('offers', { keyPrefix: 'detail' });
 
   return (
     <DetailCard title={t('cardTitle')} subtitle={t('cardSubtitle')} icon={Tag}>

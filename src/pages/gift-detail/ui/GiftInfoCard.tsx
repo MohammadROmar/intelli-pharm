@@ -13,9 +13,7 @@ import {
 } from '@/shared/ui';
 
 export function GiftInfoCard({ gift }: { gift: GiftType }) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.detail',
-  });
+  const { t, i18n } = useTranslation('gifts', { keyPrefix: 'detail' });
 
   const name = getLocalized(gift.medicine.commercial_name, i18n.language);
 

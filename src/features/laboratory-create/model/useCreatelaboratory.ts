@@ -5,6 +5,6 @@ export function useCreateLaboratory() {
   return useCreateEntity<Laboratory>({
     queryKey: 'laboratories',
     mutationFn: createLaboratory,
-    translationKey: 'laboratoriesPage.laboratory',
+    translationKey: 'laboratory',
   });
 }

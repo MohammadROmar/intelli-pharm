@@ -5,6 +5,6 @@ export function useCreateOffer() {
   return useCreateEntity<CreateOfferDto>({
     queryKey: 'offers',
     mutationFn: createOffer,
-    translationKey: 'offersPage.offer',
+    translationKey: 'offer',
   });
 }

@@ -24,9 +24,7 @@ import {
 type Props = { data: LaboratoriesResponse };
 
 export function LaboratoryTable({ data }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage',
-  });
+  const { t } = useTranslation('laboratories');
 
   const [laboratoryToDelete, setLaboratoryToDelete] =
     useState<LaboratoryListItem | null>(null);

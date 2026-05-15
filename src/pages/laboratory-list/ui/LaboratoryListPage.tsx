@@ -5,9 +5,7 @@ import { useGetLaboratories } from '../model/useGetLaboratories';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
 export default function LaboratoryListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage',
-  });
+  const { t } = useTranslation('laboratories');
 
   const { data, isLoading, isError, error, refetch } = useGetLaboratories();
 

@@ -23,8 +23,8 @@ export function CategoryFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.filters',
+  const { t } = useTranslation('categories', {
+    keyPrefix: 'filters',
   });
 
   const { register, control, handleSubmit, reset } = useForm<CategoryFilters>({

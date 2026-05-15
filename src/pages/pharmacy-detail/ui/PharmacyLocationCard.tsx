@@ -20,8 +20,8 @@ const MapView = lazy(() =>
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacyLocationCard({ pharmacy }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.detail',
+  const { t, i18n } = useTranslation('pharmacies', {
+    keyPrefix: 'detail',
   });
 
   const [mapVisible, setMapVisible] = useState(false);

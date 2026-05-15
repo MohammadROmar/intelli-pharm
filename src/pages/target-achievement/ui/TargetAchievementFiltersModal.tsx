@@ -49,8 +49,8 @@ export function TargetAchievementFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.achievementFilters',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'achievementFilters',
   });
 
   const MONTH_OPTIONS = useMemo(
@@ -153,7 +153,7 @@ export function TargetAchievementFiltersModal({
                 const hasPeriod =
                   (!!month && month !== '') || (!!quarter && quarter !== '');
                 if (hasPeriod && (!v || v === '')) {
-                  return 'targetsPage.achievementFilters.errors.yearRequired';
+                  return 'achievementFilters.errors.yearRequired';
                 }
                 return true;
               },

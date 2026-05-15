@@ -5,8 +5,8 @@ import { useGetRegions } from '../model/useGetRegions';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
 export default function RegionListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.list',
+  const { t } = useTranslation('regions', {
+    keyPrefix: 'list',
   });
 
   const { data, isError, error, isLoading, refetch } = useGetRegions();

@@ -19,8 +19,8 @@ import i18n from '@/shared/config/i18n';
 type Props = { category: CategoryDetail };
 
 export function CategoryChildrenTable({ category }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.detail',
+  const { t } = useTranslation('categories', {
+    keyPrefix: 'detail',
   });
 
   const { children } = category;

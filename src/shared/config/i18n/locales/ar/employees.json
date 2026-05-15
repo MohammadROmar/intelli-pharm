@@ -1,0 +1,133 @@
+{
+  "vehicleCapacityPlaceholder": "أدخل سعة المركبة",
+  "roles": {
+    "admin": "مسؤول",
+    "distributor": "موزع",
+    "rep": "مندوب"
+  },
+  "list": {
+    "title": "الموظفون",
+    "subtitle": "إدارة أدوار الوصول والصلاحيات لموظفي المستودع.",
+    "all": "جميع الموظفين",
+    "add": "إضافة موظف",
+    "id": "المعرف",
+    "name": "الاسم",
+    "status": "الحالة",
+    "active": "نشط",
+    "createdAt": "تاريخ الانشاء",
+    "inactive": "غير نشط",
+    "email": "البريد الإلكتروني",
+    "role": "الدور",
+    "actions": "الخيارات",
+    "searchPlaceholder": "البحث عن موظف..."
+  },
+  "create": {
+    "title": "إضافة موظف",
+    "subtitle": "أضف موظفًا جديدًا إلى فريق المستودع.",
+    "create": "إنشاء موظف"
+  },
+  "form": {
+    "personalInfoTitle": "المعلومات الشخصية",
+    "personalInfoSubtitle": "الاسم، البريد الإلكتروني، ؤقم الهاتف وكلمة المرور.",
+    "employmentInfoTitle": "معلومات العمل",
+    "employmentInfoSubtitle": "الدور، ساعات العمل، والحالة.",
+    "activeDescription": "تحديد ما إذا كان بإمكان هذا الموظف الوصول إلى النظام.",
+
+    "fields": {
+      "name": "الاسم",
+      "namePlaceholder": "مثال. أحمد محمد",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "role": "الدور",
+      "phoneNumber": "رقم الهاتف",
+      "workingStart": "وقت البدء",
+      "workingEnd": "وقت الانتهاء",
+      "active": "نشط",
+      "vehicleCapacity": "سعة المركبة"
+    }
+  },
+  "update": {
+    "title": "تعديل الموظف",
+    "subtitle": "إدارة بيانات الموظف وصلاحياته."
+  },
+  "editRestricted": {
+    "title": "لا يمكن تعديل حسابات المسؤولين من هنا",
+    "message": "لأسباب أمنية، لا يمكن تعديل بيانات حساب المسؤول إلا من صفحة تعديل الملف الشخصي.",
+    "cta": "الذهاب إلى تعديل الملف الشخصي"
+  },
+  "deleteRestricted": {
+    "title": "لا يمكن حذف حسابات المسؤولين",
+    "message": "لأسباب أمنية، لا يمكن حذف بيانات حساب المسؤول.",
+    "action": "حسناً"
+  },
+  "filters": {
+    "title": "فلاتر الموظفين",
+    "subtitle": "ضيّق نتائج قائمة الموظفين باستخدام فلتر واحد أو أكثر.",
+    "trigger": "الفلاتر",
+    "nameLabel": "الاسم",
+    "namePlaceholder": "البحث باسم الموظف",
+    "emailLabel": "البريد الالكتروني",
+    "emailPlaceholder": "البحث بالبريد الالكتروني...",
+    "phoneLabel": "رقم الهاتف",
+    "phonePlaceholder": "البحث برقم الهاتف...",
+    "phoneError": "يسمح بالأرقام فقط",
+    "apply": "تطبيق الفلاتر",
+    "clear": "مسح الفلاتر"
+  },
+  "detail": {
+    "edit": "تعديل الموظف",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "infoCardTitle": "بيانات الموظف",
+    "infoCardSubtitle": "الهوية ومعلومات التواصل وساعات العمل.",
+    "labelId": "رقم الموظف",
+    "labelStatus": "الحالة",
+    "labelName": "الاسم الكامل",
+    "labelRole": "الدور",
+    "labelVehicleCapacity": "سعة المركبة",
+    "labelEmail": "البريد الإلكتروني",
+    "labelPhone": "الهاتف",
+    "labelWorkingStart": "بداية الدوام",
+    "labelWorkingEnd": "نهاية الدوام",
+    "permissionsCardTitle": "الصلاحيات",
+    "permissionsCardSubtitle": "حقوق الوصول الممنوحة لهذا الموظف عبر جميع الوحدات.",
+    "noPermissions": "لم يتم تعيين أي صلاحيات لهذا الموظف.",
+    "modules": {
+      "erp": "تخطيط الموارد",
+      "crm": "إدارة علاقات العملاء",
+      "planner": "المخطط"
+    },
+    "actions": {
+      "view": "عرض",
+      "create": "إنشاء",
+      "complete": "إكمال",
+      "update": "تحديث",
+      "delete": "حذف",
+      "cancel": "إلغاء",
+      "manage": "إدارة",
+      "generate": "توليد",
+      "check": "تحقق",
+      "deactivate": "تعطيل",
+      "assign_distributor": "تعيين موزع",
+      "view_live": "عرض مباشر",
+      "view_all": "عرض الكل"
+    },
+    "resources": {
+      "categories": "الفئات",
+      "medicines": "الأدوية",
+      "alternatives": "البدائل",
+      "pharmacies": "الصيدليات",
+      "orders": "الطلبات",
+      "stock": "المخزون",
+      "employees": "الموظفين",
+      "leaves": "الإجازات",
+      "tracking": "التتبع",
+      "analytics": "التحليلات",
+      "rep": "المندوب",
+      "plan": "الخطة",
+      "distributor": "الموزع",
+      "visits": "الزيارات",
+      "deliveries": "التسليمات"
+    }
+  }
+}

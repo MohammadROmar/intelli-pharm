@@ -19,7 +19,7 @@ type Props = {
 };
 
 export function OfferRow({ offer, onEdit, onDelete }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage' });
+  const { t, i18n } = useTranslation('offers');
 
   return (
     <TableRow>
@@ -29,7 +29,7 @@ export function OfferRow({ offer, onEdit, onDelete }: Props) {
       <TableCell>
         <OfferTypeBadge type={offer.type} />
       </TableCell>
-      <TableCell>{formatPrice(offer.required_amount)}</TableCell>
+      <TableCell>{formatPrice(offer.required_amount, i18n.language)}</TableCell>
       <TableCell>
         <OfferBenefitCell offer={offer} />
       </TableCell>
@@ -75,7 +75,7 @@ function OfferBenefitCell({ offer }: { offer: Offer }) {
 type EditOfferButtonProps = Omit<Props, 'onDelete'>;
 
 function EditOfferButton({ offer, onEdit }: EditOfferButtonProps) {
-  const { t } = useTranslation('translation', {
+  const { t } = useTranslation('common', {
     keyPrefix: 'tableActions',
   });
 
@@ -85,7 +85,7 @@ function EditOfferButton({ offer, onEdit }: EditOfferButtonProps) {
       className="w-full cursor-pointer"
     >
       <PencilIcon className="size-4" />
-      <span>{t('update')}</span>
+      <span>{t('edit')}</span>
     </DropdownMenuItem>
   );
 }

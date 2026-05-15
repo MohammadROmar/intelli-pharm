@@ -17,7 +17,7 @@ export function DeleteCategoryModal({
 }: DeleteCategoryModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'categories',
-    translationKey: 'categoriesPage.category',
+    translationKey: 'category',
   });
 
   function handleConfirm() {

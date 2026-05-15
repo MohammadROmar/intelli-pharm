@@ -12,7 +12,7 @@ import {
 
 export function BreadCrumbs({ className }: { className?: string }) {
   const { pathname } = useLocation();
-  const { t } = useTranslation('translation', { keyPrefix: 'sidebar.labels' });
+  const { t } = useTranslation('layout', { keyPrefix: 'sidebar.labels' });
 
   const segments = pathname.split('/').filter(Boolean);
 

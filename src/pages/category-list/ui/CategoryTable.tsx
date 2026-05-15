@@ -22,7 +22,7 @@ import {
 type Props = { data: CategoryListResponse };
 
 export function CategoriesTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'categoriesPage' });
+  const { t } = useTranslation('categories');
 
   const [categoryToDelete, setCategoryToDelete] =
     useState<CategoryListItem | null>(null);

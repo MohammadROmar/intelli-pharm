@@ -8,9 +8,7 @@ import { useGetMedicineByBarcode } from '../model/useGetMedicineByBarcode';
 import { QueryError } from '@/shared/ui';
 
 function BarcodeNotFound({ barcode }: { barcode: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.scan',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'scan' });
 
   return (
     <div className="grid h-full">

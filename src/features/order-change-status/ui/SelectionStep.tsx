@@ -33,8 +33,8 @@ export function SelectionStep({
   onCancel,
   onNext,
 }: SelectionStepProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.changeStatus',
+  const { t } = useTranslation('orders', {
+    keyPrefix: 'changeStatus',
   });
 
   return (

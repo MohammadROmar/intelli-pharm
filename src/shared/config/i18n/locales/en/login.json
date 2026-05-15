@@ -1,0 +1,15 @@
+{
+  "title": "Login to your account",
+  "subtitle": "Enter your email below to login to your account",
+  "login": "Login",
+
+  "form": {
+    "email": "Email",
+    "password": "Password",
+    "errors": {
+      "invalidField": "Please enter a valid {{field}}.",
+      "minLength": "Must be at least {{min}} characters."
+    },
+    "submit": "Login"
+  }
+}

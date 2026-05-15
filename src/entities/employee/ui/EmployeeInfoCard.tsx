@@ -34,7 +34,8 @@ export function EmployeeInfoCard({ isLoading }: Props) {
 
   const isDistributor = useWatch({ control, name: 'role' }) === 'distributor';
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('employees');
+  const { t: tCommon } = useTranslation('common', { keyPrefix: 'form' });
 
   const roles = useMemo(() => getRoles(t), [t]);
 
@@ -43,8 +44,8 @@ export function EmployeeInfoCard({ isLoading }: Props) {
       <CardHeader>
         <CardSectionHeader
           icon={Briefcase}
-          title={t('employeesPage.form.employmentInfoTitle')}
-          description={t('employeesPage.form.employmentInfoSubtitle')}
+          title={t('form.employmentInfoTitle')}
+          description={t('form.employmentInfoSubtitle')}
         />
       </CardHeader>
 
@@ -57,7 +58,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
               id="active"
               disabled={isLoading}
               label={t('form.fields.active')}
-              description={t('employeesPage.form.activeDescription')}
+              description={t('form.activeDescription')}
               checked={field.value ?? false}
               onCheckedChange={field.onChange}
             />
@@ -88,7 +89,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
           />
           {errors.role && (
             <FieldError data-invalid={!!errors.working_start}>
-              {t('form.errors.required')}
+              {tCommon('errors.required')}
             </FieldError>
           )}
         </Field>
@@ -114,7 +115,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
               })}
             />
             {errors.vehicle_capacity && (
-              <FieldError>{t('form.errors.required')}</FieldError>
+              <FieldError>{tCommon('errors.required')}</FieldError>
             )}
           </Field>
         )}
@@ -135,7 +136,7 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             })}
           />
           {errors.working_start && (
-            <FieldError>{t('form.errors.required')}</FieldError>
+            <FieldError>{tCommon('errors.required')}</FieldError>
           )}
         </Field>
 
@@ -150,16 +151,16 @@ export function EmployeeInfoCard({ isLoading }: Props) {
             icon={Clock}
             aria-invalid={!!errors.working_end}
             {...register('working_end', {
-              required: 'form.errors.required',
+              required: 'errors.required',
               validate: (value) => {
                 const start = getValues('working_start');
-                return value > start || 'form.errors.endAfterStart';
+                return value > start || 'errors.endAfterStart';
               },
               disabled: isLoading,
             })}
           />
           {errors.working_end?.message && (
-            <FieldError>{t(errors.working_end.message)}</FieldError>
+            <FieldError>{tCommon(errors.working_end.message)}</FieldError>
           )}
         </Field>
       </CardContent>

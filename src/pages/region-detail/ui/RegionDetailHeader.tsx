@@ -11,8 +11,8 @@ import { getLocalized } from '@/shared/lib';
 type Props = { region: RegionDetail };
 
 export function RegionDetailHeader({ region }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.detail',
+  const { t, i18n } = useTranslation('regions', {
+    keyPrefix: 'detail',
   });
 
   const name = getLocalized(region.name, i18n.language);
@@ -28,8 +28,8 @@ export function RegionDetailHeader({ region }: Props) {
 }
 
 function RegionActions({ region, name }: Props & { name: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.detail',
+  const { t } = useTranslation('regions', {
+    keyPrefix: 'detail',
   });
 
   const [regionToDelete, setRegionToDelete] = useState<RegionDetail | null>(

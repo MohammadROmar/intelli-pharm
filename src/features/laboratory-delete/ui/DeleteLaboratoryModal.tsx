@@ -20,7 +20,7 @@ export function DeleteLaboratoryModal({
 }: DeleteLaboratoryModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'laboratories',
-    translationKey: 'laboratoriesPage.laboratory',
+    translationKey: 'laboratory',
   });
 
   function handleConfirm() {

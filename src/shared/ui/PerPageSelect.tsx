@@ -16,7 +16,7 @@ export function PerPageSelect() {
   return (
     <div className="flex items-center gap-2 lg:w-full lg:justify-end">
       <span className="text-muted-foreground shrink-0 text-sm">
-        {t('common.rowsPerPage')}
+        {t('rowsPerPage')}
       </span>
       <Select
         value={String(perPage)}

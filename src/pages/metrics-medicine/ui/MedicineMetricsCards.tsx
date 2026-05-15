@@ -10,8 +10,8 @@ import { MetricsCardsSkeleton } from '@/shared/ui';
 type Props = { metrics: MedicineMetric[] };
 
 export function MedicineMetricsCards({ metrics }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.medicine.cards',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'medicine.cards',
   });
 
   const { summary, isCalculating, calculate } = useMedicineMetricsWorker();

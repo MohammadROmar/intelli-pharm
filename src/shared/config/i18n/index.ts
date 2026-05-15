@@ -1,19 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import languageDetector from 'i18next-browser-languagedetector';
-
-import arLocale from './locales/ar.json';
-import enLocale from './locales/en.json';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import resourcesToBackend from 'i18next-resources-to-backend';
 
 i18n
+  .use(
+    resourcesToBackend(
+      (lng: string, ns: string) => import(`./locales/${lng}/${ns}.json`),
+    ),
+  )
+  .use(LanguageDetector)
   .use(initReactI18next)
-  .use(languageDetector)
   .init({
-    resources: {
-      ar: { translation: arLocale },
-      en: { translation: enLocale },
-    },
     fallbackLng: 'en',
+    supportedLngs: ['en', 'ar'],
+    defaultNS: 'common',
+    ns: ['common'],
     returnObjects: true,
     interpolation: { escapeValue: false },
   });

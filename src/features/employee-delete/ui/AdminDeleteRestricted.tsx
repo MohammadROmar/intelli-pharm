@@ -15,8 +15,8 @@ export function AdminDeleteRestricted({
   employee,
   onClose,
 }: DeleteEmployeeModalProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.deleteRestricted',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'deleteRestricted',
   });
 
   return (

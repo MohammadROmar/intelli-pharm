@@ -18,7 +18,7 @@ export function DeleteCityModal({
 }: DeleteCityModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'cities',
-    translationKey: 'citiesPage.city',
+    translationKey: 'city',
   });
 
   const { i18n } = useTranslation();

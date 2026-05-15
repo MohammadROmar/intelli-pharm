@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 type TranslatedError = { message: string; type: string };
 
-export function useFieldError(keyPrefix: string) {
-  const { t } = useTranslation('translation', { keyPrefix });
+export function useFieldError() {
+  const { t } = useTranslation('common', { keyPrefix: 'form.errors' });
 
   function te(
     error: FieldError | undefined,

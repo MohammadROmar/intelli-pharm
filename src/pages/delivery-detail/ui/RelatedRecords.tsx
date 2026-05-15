@@ -7,8 +7,8 @@ import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
 type Props = { delivery: DeliveryDetail };
 
 export function RelatedRecords({ delivery }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   return (

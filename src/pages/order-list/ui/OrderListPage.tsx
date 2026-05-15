@@ -5,8 +5,8 @@ import { useGetOrders } from '../model/useGetOrders';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
 export default function OrderListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.list',
+  const { t } = useTranslation('orders', {
+    keyPrefix: 'list',
   });
 
   const { data, isError, error, isLoading, refetch } = useGetOrders();

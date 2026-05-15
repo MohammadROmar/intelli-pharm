@@ -46,8 +46,8 @@ export function RegionForm({
     formState: { errors },
   } = methods;
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.form',
+  const { t } = useTranslation('regions', {
+    keyPrefix: 'form',
   });
 
   const isEdit = !!name;
@@ -72,7 +72,7 @@ export function RegionForm({
               <BilingualNameFields
                 icon={MapPin}
                 disabled={isLoading}
-                i18nPrefix="regionsPage.form"
+                placeholderNamespace="regions"
               />
             </div>
             {!isEdit && (

@@ -14,8 +14,8 @@ import {
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacyInfoCard({ pharmacy }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.detail',
+  const { t, i18n } = useTranslation('pharmacies', {
+    keyPrefix: 'detail',
   });
 
   return (

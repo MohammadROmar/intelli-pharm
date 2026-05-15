@@ -11,9 +11,7 @@ import { getLocalized } from '@/shared/lib';
 type Props = { gift: Gift | null; onClose: () => void };
 
 export function EditGiftForm({ gift, onClose }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.edit',
-  });
+  const { t, i18n } = useTranslation('gifts', { keyPrefix: 'edit' });
 
   return (
     <GiftModal

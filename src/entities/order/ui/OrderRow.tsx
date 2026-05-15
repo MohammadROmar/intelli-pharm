@@ -15,8 +15,8 @@ import {
 type OrderRowProps = { order: OrderListItem };
 
 export function OrderRow({ order }: OrderRowProps) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.list',
+  const { t, i18n } = useTranslation('orders', {
+    keyPrefix: 'list',
   });
 
   const hasDiscount = order.offer_id !== null && parseFloat(order.discount) > 0;

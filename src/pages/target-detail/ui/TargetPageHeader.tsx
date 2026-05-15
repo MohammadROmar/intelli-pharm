@@ -10,8 +10,8 @@ import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 type Props = { target: Target };
 
 export function TargetDetailHeader({ target }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.detail',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'detail',
   });
 
   return (
@@ -25,8 +25,8 @@ export function TargetDetailHeader({ target }: Props) {
 }
 
 function TargetActions({ target }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.detail',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'detail',
   });
 
   const [editingTarget, setEditingTarget] = useState<Target | null>(null);

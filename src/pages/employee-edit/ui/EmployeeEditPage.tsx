@@ -11,8 +11,8 @@ import {
 } from '@/shared/ui';
 
 export default function EmployeeEditPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.update',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'update',
   });
 
   const { data, isLoading, isEnabled, isError, error, refetch } =

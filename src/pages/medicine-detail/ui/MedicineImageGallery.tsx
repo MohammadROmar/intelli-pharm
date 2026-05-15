@@ -9,8 +9,8 @@ type Props = { images?: string[] };
 export function MedicineImageGallery({ images }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   const hasImages = images ? images.length > 0 : 0;

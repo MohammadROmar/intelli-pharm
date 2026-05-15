@@ -11,7 +11,7 @@ type ChatInputProps = {
 };
 
 export function ChatInput({ onSend, isLoading }: ChatInputProps) {
-  const { t } = useTranslation('translation', { keyPrefix: 'chat' });
+  const { t } = useTranslation('chat');
   const [value, setValue] = useState('');
 
   const handleSend = useCallback(() => {

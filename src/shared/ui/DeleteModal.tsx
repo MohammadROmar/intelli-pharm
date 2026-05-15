@@ -26,7 +26,7 @@ export function DeleteModal({
   onConfirm,
   isPending,
 }: DeleteModalProps) {
-  const { t } = useTranslation('translation', { keyPrefix: 'dialog.delete' });
+  const { t } = useTranslation('common', { keyPrefix: 'dialog.delete' });
 
   const [stableLabel, setStableLabel] = useState(label);
 

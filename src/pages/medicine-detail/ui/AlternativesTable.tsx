@@ -21,9 +21,7 @@ type Props = {
 };
 
 export function AlternativesTable({ alternatives, mode }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage',
-  });
+  const { t, i18n } = useTranslation('medicines');
 
   return (
     <DetailCard

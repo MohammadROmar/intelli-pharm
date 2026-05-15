@@ -6,8 +6,8 @@ import { Card, CardContent } from '@/shared/ui';
 import { buttonVariants } from '@/shared/lib';
 
 export function AdminEditRestricted() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.editRestricted',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'editRestricted',
   });
 
   return (

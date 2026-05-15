@@ -18,7 +18,7 @@ import { EditGiftForm } from '@/features/gift-edit';
 type Props = { data: GiftResponse };
 
 export function GiftsTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'giftsPage' });
+  const { t } = useTranslation('gifts');
 
   const [giftToDelete, setGiftToDelete] = useState<Gift | null>(null);
   const [giftToEdit, setGiftToEdit] = useState<Gift | null>(null);

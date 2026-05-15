@@ -5,8 +5,8 @@ import { useGetEmployees } from '../model/useGetEmployees';
 import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
 
 export default function EmployeeListPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.list',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'list',
   });
 
   const { data, isError, error, isLoading, refetch } = useGetEmployees();

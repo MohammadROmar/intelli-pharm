@@ -16,7 +16,7 @@ type LaboratoryRowProps = {
 };
 
 export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
-  const { t } = useTranslation('translation', {
+  const { t } = useTranslation('common', {
     keyPrefix: 'tableActions',
   });
 
@@ -36,7 +36,7 @@ export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
         path="/dashboard/laboratories"
       >
         <TableActions.Detail />
-        <EditLaboratoryButton id={laboratory.id} label={t('update')} />
+        <EditLaboratoryButton id={laboratory.id} label={t('edit')} />
         <TableActions.Delete />
       </TableActions>
     </TableRow>

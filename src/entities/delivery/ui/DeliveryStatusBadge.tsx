@@ -17,8 +17,8 @@ const statusStyles = {
 } as const;
 
 export const DeliveryStatusBadge = ({ status, className }: Props) => {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.status',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'status',
   });
 
   return (

@@ -26,9 +26,7 @@ export function ConfirmationStep({
   onBack,
   onConfirm,
 }: ConfirmationStepProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage',
-  });
+  const { t } = useTranslation('orders');
 
   const isDestructive = STATUS_META[selectedStatus]?.destructive;
 

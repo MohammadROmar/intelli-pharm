@@ -29,8 +29,8 @@ export function EmployeeFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.filters',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'filters',
   });
 
   const {

@@ -7,8 +7,8 @@ import {
   WifiOff,
 } from 'lucide-react';
 
-import type { ApiError } from '../api';
 import { Button } from './Button';
+import type { ApiError } from '../api';
 
 function getIcon(error: ApiError) {
   if (!error.status) return <WifiOff className="size-8" />;
@@ -18,19 +18,16 @@ function getIcon(error: ApiError) {
   return <AlertTriangle className="size-8" />;
 }
 
-function toTitleKey(i18nKey: string): string {
-  const parts = (i18nKey ?? 'errors.unknown').split('.');
+function toTitleKey(i18nKey: string) {
+  const parts = (i18nKey ?? 'unknown').split('.');
   parts[parts.length - 1] += 'Title';
   return parts.join('.');
 }
 
-type Props = {
-  error: ApiError;
-  onRetry?: () => void;
-};
+type Props = { error: ApiError; onRetry?: () => void };
 
 export function QueryError({ error, onRetry }: Props) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('errors');
   const icon = getIcon(error);
 
   return (
@@ -51,7 +48,7 @@ export function QueryError({ error, onRetry }: Props) {
         {onRetry && (
           <Button onClick={onRetry} className="group">
             <RefreshCw className="size-4 transition-transform duration-300 group-hover:rotate-180" />
-            {t('errors.retry')}
+            {t('retry')}
           </Button>
         )}
       </div>

@@ -8,8 +8,8 @@ import { DetailCard, DetailCell, SplitDateTime } from '@/shared/ui';
 type Props = { confirmations: DeliveryConfirmation[] };
 
 export function Confirmations({ confirmations }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t, i18n } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   if (confirmations.length === 0) return null;

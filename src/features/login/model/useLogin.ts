@@ -13,7 +13,7 @@ export function useLogin() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('errors');
 
   return useMutation<LoginResponse, ApiError, LoginParams>({
     mutationFn: login,
@@ -33,8 +33,8 @@ export function useLogin() {
 
         navigate('/dashboard', { replace: true });
       } else {
-        toast.error(t('loginPage.error'), {
-          description: t('loginPage.onlyAdmin'),
+        toast.error(t('login.error'), {
+          description: t('login.onlyAdmin'),
         });
       }
     },
@@ -45,7 +45,7 @@ export function useLogin() {
         ? 'errors.invalidCredentials'
         : error.i18nKey;
 
-      toast.error(t('loginPage.error'), {
+      toast.error(t('login.error'), {
         description: t(toastDescription),
       });
     },

@@ -45,9 +45,8 @@ type Props = {
 };
 
 export function TargetCard({ target, setEditingTarget }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'targetsPage',
-  });
+  const { t, i18n } = useTranslation('targets');
+
   const { Icon, accentClass, badgeClass } = TYPE_CONFIG[target.type];
 
   return (

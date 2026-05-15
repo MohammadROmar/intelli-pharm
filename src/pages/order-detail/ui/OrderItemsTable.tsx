@@ -26,8 +26,8 @@ type Props = {
 };
 
 export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.detail',
+  const { t, i18n } = useTranslation('orders', {
+    keyPrefix: 'detail',
   });
 
   return (

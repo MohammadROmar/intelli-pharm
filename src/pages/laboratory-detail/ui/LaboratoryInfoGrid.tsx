@@ -8,8 +8,8 @@ import { DetailCard, DetailCell, Separator } from '@/shared/ui';
 type Props = { laboratory: LaboratoryDetail };
 
 export function LaboratoryInfoGrid({ laboratory }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'laboratoriesPage.detail',
+  const { t, i18n } = useTranslation('laboratories', {
+    keyPrefix: 'detail',
   });
 
   const activeMedicines = laboratory.medicines.filter(
@@ -20,7 +20,7 @@ export function LaboratoryInfoGrid({ laboratory }: Props) {
 
   return (
     <DetailCard
-      title={t('infoCardTilte')}
+      title={t('infoCard.title')}
       subtitle={t('infoCardSubtilte')}
       icon={FlaskConical}
       itemsCount={0}
@@ -35,7 +35,7 @@ export function LaboratoryInfoGrid({ laboratory }: Props) {
       <Separator />
 
       <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('statTotal')}>
+        <DetailCell label={t('stats.total')}>
           <span className="flex items-center gap-1.5 font-normal">
             <Pill className="text-muted-foreground size-3.5 shrink-0" />
             {laboratory.medicines.length}

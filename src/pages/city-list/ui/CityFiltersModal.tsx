@@ -23,8 +23,8 @@ export function CityFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'citiesPage.filters',
+  const { t } = useTranslation('cities', {
+    keyPrefix: 'filters',
   });
 
   const { register, handleSubmit, reset } = useForm<CityFilters>({

@@ -9,7 +9,7 @@ export function useEditMedicine(id: number) {
   return useEditEntity<{ values: MedicineFormData; images: ImageFile[] }>({
     queryKey: 'medicines',
     mutationFn: (payload) => editMedicine(id, payload),
-    translationKey: 'medicinesPage.medicine',
+    translationKey: 'medicine',
     redirectTo: `/dashboard/medicines/${id}`,
   });
 }

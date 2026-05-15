@@ -17,7 +17,7 @@ import {
 type Props = { data: OrderListResponse };
 
 export function OrdersTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'ordersPage.list' });
+  const { t } = useTranslation('orders', { keyPrefix: 'list' });
 
   const orders = data.data;
 

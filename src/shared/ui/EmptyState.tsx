@@ -18,9 +18,7 @@ export function TableEmptyState({
   onClearSearch,
   onAdd,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'common.noResults',
-  });
+  const { t } = useTranslation('common', { keyPrefix: 'noResults' });
 
   const [searchParams] = useSearchParams();
   const page = searchParams.get('page');

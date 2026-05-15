@@ -7,7 +7,7 @@ import { buttonVariants } from '@/shared/lib';
 import { BackgroundPattern, Logo } from '@/shared/ui';
 
 export default function NotFoundPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('notFound');
 
   const { isAuthenticated } = useAppSelector((state) => state.session);
 
@@ -26,8 +26,8 @@ export default function NotFoundPage() {
           404
         </p>
 
-        <h1 className="mb-2 text-4xl font-bold">{t('notFoundPage.title')}</h1>
-        <p className="text-muted-foreground">{t('notFoundPage.subtitle')}</p>
+        <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('subtitle')}</p>
         <Link
           to={isAuthenticated ? '/dashboard' : ''}
           className={buttonVariants({
@@ -35,7 +35,7 @@ export default function NotFoundPage() {
           })}
         >
           <ArrowLeft className="size-4 rtl:rotate-180" />
-          <span>{t('notFoundPage.action')}</span>
+          <span>{t('action')}</span>
         </Link>
       </div>
     </main>

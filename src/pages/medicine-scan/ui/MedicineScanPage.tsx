@@ -19,8 +19,8 @@ import {
 export default function MedicineScanPage() {
   const navigate = useNavigate();
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.scan',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'scan',
   });
 
   const handleScan = useCallback(

@@ -43,7 +43,7 @@ export function CityRow({ city, onEdit, onDelete }: CityRowProps) {
 type Props = Omit<CityRowProps, 'onDelete'>;
 
 function EditCityButton({ city, onEdit }: Props) {
-  const { t } = useTranslation('translation', {
+  const { t } = useTranslation('common', {
     keyPrefix: 'tableActions',
   });
 
@@ -53,7 +53,7 @@ function EditCityButton({ city, onEdit }: Props) {
       className="w-full cursor-pointer"
     >
       <Pencil className="size-4" />
-      <span>{t('update')}</span>
+      <span>{t('edit')}</span>
     </DropdownMenuItem>
   );
 }

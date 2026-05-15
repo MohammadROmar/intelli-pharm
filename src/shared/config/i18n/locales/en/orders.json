@@ -1,0 +1,93 @@
+{
+  "list": {
+    "title": "Orders",
+    "subtitle": "View and manage pharmacy orders received by the warehouse.",
+    "all": "All Orders",
+    "id": "ID",
+    "pharmacyName": "Pharmacy Name",
+    "status": "status",
+    "totalAmount": "Total Amount",
+    "totalQuantity": "Total Price",
+    "created": "Created",
+    "actions": "Actions"
+  },
+  "detail": {
+    "cardTitle": "Order Information",
+    "cardSubtitle": "General details about this order",
+    "itemsTitle": "Order Items",
+    "itemsSubtitle": "Medicines included in this order",
+    "labelId": "Order ID",
+    "labelStatus": "Status",
+    "labelPharmacy": "Pharmacy",
+    "labelWarehouse": "Warehouse",
+    "labelCreatedBy": "Created By",
+    "labelOffer": "Applied Offer",
+    "labelTotalAmount": "Total Amount",
+    "labelSubtotal": "Subtotal",
+    "labelDiscount": "Discount",
+    "labelFinalTotal": "Final Total",
+    "labelTotalQuantity": "Total Quantity",
+    "labelCreatedAt": "Created At",
+    "labelUpdatedAt": "Updated At",
+    "labelNotes": "Notes",
+    "units": "units",
+    "noItems": "No items in this order",
+    "colMedicineId": "Med. ID",
+    "colMedicine": "Medicine",
+    "colType": "Type",
+    "colQty": "Qty",
+    "colUnitPrice": "Unit Price",
+    "colTotalPrice": "Total Price",
+    "colActions": "Actions",
+    "tagGift": "Gift",
+    "tagRegular": "Regular",
+    "free": "Free",
+    "giftSourceRule": "Gift",
+    "giftSourceOffer": "Offer",
+    "footerTotal": "Total"
+  },
+  "changeStatus": {
+    "trigger": "Update Status",
+    "title": "Update Order Status",
+    "subtitle": "Select the next status for this order.",
+    "currentStatus": "Current status",
+    "next": "Next",
+    "cancel": "Cancel",
+    "back": "Back",
+    "confirm": "Confirm",
+    "confirming": "Updating…",
+    "confirmTitle": "Are you sure?",
+    "confirmMessage": "You are about to mark this order as {{status}}.",
+    "confirmDestructiveMessage": "You are about to cancel this order. This action cannot be undone.",
+    "terminalStatusTooltip": "`{{status}}` is a final status. No further changes can be made.",
+    "error": "Something went wrong. Please try again.",
+    "statusDescription": {
+      "pending": "The order has been submitted and is waiting for confirmation.",
+      "processing": "The order is being prepared.",
+      "completed": "The order has been completed successfully.",
+      "cancelled": "The order has been cancelled."
+    },
+    "filters": {
+      "title": "Filter Orders",
+      "subtitle": "Narrow down orders by pharmacy, status, date or total.",
+      "pharmacyLabel": "Pharmacy",
+      "statusLabel": "Status",
+      "dateFromLabel": "From",
+      "dateToLabel": "To",
+      "minTotalLabel": "Min Total",
+      "maxTotalLabel": "Max Total"
+    },
+    "terminal": {
+      "title": "Status Update Unavailable",
+      "subtitle": "This order has reached its final state and cannot be modified.",
+      "currentStatus": "Current order status",
+      "close": "Close"
+    }
+  },
+  "status": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  }
+}

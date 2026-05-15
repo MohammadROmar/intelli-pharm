@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { ScanBarcode } from 'lucide-react';
 
 export function UsbHint() {
-  const { t } = useTranslation('translation', { keyPrefix: 'barcode' });
+  const { t } = useTranslation('common', { keyPrefix: 'barcode' });
 
   return (
     <div className="border-primary flex items-start gap-3 rounded-lg border border-dashed px-4 py-3">

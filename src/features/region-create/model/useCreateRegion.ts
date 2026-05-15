@@ -5,6 +5,6 @@ export function useCreateRegion() {
   return useCreateEntity<Region>({
     queryKey: 'regions',
     mutationFn: createRegion,
-    translationKey: 'regionsPage.region',
+    translationKey: 'region',
   });
 }

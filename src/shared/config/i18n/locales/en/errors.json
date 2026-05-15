@@ -1,0 +1,28 @@
+{
+  "unauthorizedTitle": "Not Logged In",
+  "unauthorized": "You are not logged in.",
+  "forbiddenTitle": "Access Denied",
+  "forbidden": "You don't have permission to do this.",
+  "notFoundTitle": "Not Found",
+  "notFound": "The requested resource was not found.",
+  "validationFailedTitle": "Validation Error",
+  "validationFailed": "Some fields are invalid.",
+  "tooManyRequestsTitle": "Slow Down",
+  "tooManyRequests": "Too many requests. Please slow down.",
+  "serverErrorTitle": "Server Error",
+  "serverError": "Something went wrong on our end.",
+  "unknownTitle": "Something Went Wrong",
+  "unknown": "An unexpected error occurred.",
+  "retry": "Retry",
+  "emailAlreadyTaken": "The email has already been taken.",
+  "invalidCredentials": "Please check your email and password.",
+  "badRequest": {
+    "title": "Bad Request",
+    "message": "Invalid request. Please check your input."
+  },
+
+  "login": {
+    "error": "Login failed",
+    "onlyAdmin": "Only admins can login."
+  }
+}

@@ -10,8 +10,8 @@ import { ActionsDropdown, DropdownMenuItem, PageHeader } from '@/shared/ui';
 type Props = { employee: Employee };
 
 export function EmployeeDetailHeader({ employee }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(

@@ -56,8 +56,8 @@ const ACTION_STYLES: Record<string, string> = {
 };
 
 function ActionBadge({ action }: { action: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.detail',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'detail',
   });
   const style = ACTION_STYLES[action] ?? 'bg-muted text-muted-foreground';
   const fallbackText = action.replace(/_/g, ' ');
@@ -80,8 +80,8 @@ const MODULE_LABELS: Record<string, string> = {
 type Props = { permissions: string[] };
 
 export function EmployeePermissionsCard({ permissions }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'employeesPage.detail',
+  const { t } = useTranslation('employees', {
+    keyPrefix: 'detail',
   });
 
   if (!permissions.length) {

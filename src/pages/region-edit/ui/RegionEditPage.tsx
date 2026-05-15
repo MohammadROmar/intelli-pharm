@@ -10,9 +10,7 @@ import {
 } from '@/shared/ui';
 
 export default function RegionEditPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'regionsPage',
-  });
+  const { t } = useTranslation('regions');
 
   const { data, isError, error, isLoading, isEnabled, refetch } =
     useGetRegion();

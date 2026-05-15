@@ -17,8 +17,8 @@ type Props = {
 };
 
 export function MedicineBarcodeCard({ barcode }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.detail',
+  const { t } = useTranslation('medicines', {
+    keyPrefix: 'detail',
   });
 
   return (

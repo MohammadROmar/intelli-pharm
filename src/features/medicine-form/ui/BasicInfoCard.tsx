@@ -13,12 +13,7 @@ import type { MedicineDetail, MedicineFormData } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
 import { LaboratorySelector } from '@/entities/laboratory';
 import { getLocalized, useFieldError } from '@/shared/lib';
-import {
-  required,
-  fRequired,
-  positiveNumber,
-  BilingualNameFields,
-} from '@/shared/form';
+import { required, positiveNumber, BilingualNameFields } from '@/shared/form';
 import {
   Card,
   CardContent,
@@ -57,11 +52,11 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
 
   const isAlternative = useWatch({ control, name: 'is_alternative' });
 
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.form',
+  const { t, i18n } = useTranslation('medicines', {
+    keyPrefix: 'form',
   });
 
-  const { te } = useFieldError('medicinesPage.form');
+  const { te } = useFieldError();
 
   const defaultAltMedicine = useMemo(
     () =>
@@ -92,7 +87,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
           <BilingualNameFields
             icon={Pill}
             disabled={isPending}
-            i18nPrefix="medicinesPage.form"
+            placeholderNamespace="medicines"
           />
         </div>
 
@@ -140,7 +135,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
           <Controller
             name="category_id"
             control={control}
-            rules={{ validate: fRequired() }}
+            rules={{ validate: required() }}
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel asChild>

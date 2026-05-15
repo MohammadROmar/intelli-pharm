@@ -11,9 +11,7 @@ import { EditGiftForm } from '@/features/gift-edit';
 type Props = { gift: Gift };
 
 export function GiftDetailHeader({ gift }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.detail',
-  });
+  const { t } = useTranslation('gifts', { keyPrefix: 'detail' });
 
   const giftTitle = `GFT-${String(gift.id).padStart(6, '0')}`;
 
@@ -28,9 +26,7 @@ export function GiftDetailHeader({ gift }: Props) {
 }
 
 function GiftActions({ gift }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.detail',
-  });
+  const { t } = useTranslation('gifts', { keyPrefix: 'detail' });
 
   const [giftToDelete, setGiftToDelete] = useState<Gift | null>(null);
   const [giftToEdit, setGiftToEdit] = useState<Gift | null>(null);

@@ -10,11 +10,11 @@ export function useEditEmployee(id: number) {
   return useEditEntity<EditEmployeeFormData>({
     queryKey: 'employees',
     mutationFn: (payload) => editEmployee({ id, payload }),
-    translationKey: 'employeesPage.employee',
+    translationKey: 'employee',
     redirectTo: `/dashboard/employees/${id}`,
 
     onError: ({ status, i18nKey }) => {
-      toast.error(t(`common.toasts.edit.error`), {
+      toast.error(t(`toasts.edit.error`), {
         description: t(status === 422 ? 'errors.emailAlreadyTaken' : i18nKey),
       });
     },

@@ -60,8 +60,8 @@ export function DeliveryRow({ delivery }: DeliveryRowProps) {
 }
 
 function ChangeStatus({ id }: { id: number }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.changeStatus',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'changeStatus',
   });
 
   return (

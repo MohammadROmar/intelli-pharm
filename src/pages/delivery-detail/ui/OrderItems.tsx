@@ -20,8 +20,8 @@ import {
 type Props = { delivery: DeliveryDetail };
 
 export function OrderItems({ delivery }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t, i18n } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   const { order } = delivery;

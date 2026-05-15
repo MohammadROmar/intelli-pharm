@@ -5,9 +5,7 @@ import { useGetCities } from '../model/useGetCities';
 import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
 
 export default function CitiesPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'citiesPage',
-  });
+  const { t } = useTranslation('cities');
 
   const { data, isLoading, isError, error, refetch } = useGetCities();
 

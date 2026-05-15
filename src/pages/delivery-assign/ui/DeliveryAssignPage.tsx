@@ -12,8 +12,8 @@ export default function DeliveryAssignPage() {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useAssignDelivery();
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.form',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'form',
   });
 
   function handleSubmit(payload: AssignDeliveryPayload) {

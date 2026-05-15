@@ -12,13 +12,11 @@ export function MedicineBarcodeScanner() {
   const { register, setValue } = useFormContext<MedicineFormData>();
   const { errors } = useFormState<MedicineFormData>({ name: ['barcode'] });
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.form',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'form' });
 
   const [scanOpen, setScanOpen] = useState(false);
 
-  const { te } = useFieldError('medicinesPage.form');
+  const { te } = useFieldError();
 
   return (
     <>

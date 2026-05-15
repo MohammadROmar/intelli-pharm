@@ -8,8 +8,8 @@ import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
 type Props = { order: DeliveryOrder };
 
 export function DeliveryOrderCard({ order }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t, i18n } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   const hasDiscount = order.offer_id !== null && parseFloat(order.discount) > 0;

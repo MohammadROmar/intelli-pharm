@@ -18,8 +18,8 @@ import { getLocalized } from '@/shared/lib';
 type Props = { pharmacies: RegionPharmacy[] };
 
 export function RegionPharmaciesTable({ pharmacies }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.detail',
+  const { t, i18n } = useTranslation('regions', {
+    keyPrefix: 'detail',
   });
 
   return (

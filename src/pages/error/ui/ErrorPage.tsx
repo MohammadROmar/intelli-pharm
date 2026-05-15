@@ -7,7 +7,7 @@ import { buttonVariants } from '@/shared/lib';
 import { BackgroundPattern, Logo } from '@/shared/ui';
 
 export default function ErrorPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('error');
   const error = useRouteError() as Error;
 
   const { isAuthenticated } = useAppSelector((state) => state.session);
@@ -23,8 +23,8 @@ export default function ErrorPage() {
       </div>
 
       <div className="mt-8 flex flex-1 flex-col items-center justify-center text-center">
-        <h1 className="mb-2 text-4xl font-bold">{t('errorPage.title')}</h1>
-        <p className="text-muted-foreground">{t('errorPage.subtitle')}</p>
+        <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('subtitle')}</p>
         {error && error.message && (
           <p className="text-muted-foreground mt-2">{error.message}</p>
         )}
@@ -35,7 +35,7 @@ export default function ErrorPage() {
           })}
         >
           <ArrowLeft className="size-4 rtl:rotate-180" />
-          <span>{t('errorPage.action')}</span>
+          <span>{t('action')}</span>
         </Link>
       </div>
     </main>

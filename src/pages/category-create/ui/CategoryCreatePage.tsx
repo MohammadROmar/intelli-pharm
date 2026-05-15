@@ -4,8 +4,8 @@ import { CategoryCreateForm } from '@/features/category-create';
 import { PageTitle } from '@/shared/ui';
 
 export default function CategoryCreatePage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.create',
+  const { t } = useTranslation('categories', {
+    keyPrefix: 'create',
   });
 
   return (

@@ -91,8 +91,8 @@ function OrdersTooltip({ active, payload, label, t }: OrdersTooltipProps) {
 }
 
 function OrdersByMedicineChart({ data }: { data: AggregatedData[] }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.medicine.ordersByMedsChart',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'medicine.ordersByMedsChart',
   });
 
   return (
@@ -165,8 +165,8 @@ function RateTooltip({ active, payload, label, t }: RateTooltipProps) {
 }
 
 function AltAcceptanceRateChart({ data }: { data: AggregatedData[] }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.medicine.altAcceptanceRateChart',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'medicine.altAcceptanceRateChart',
   });
 
   return (

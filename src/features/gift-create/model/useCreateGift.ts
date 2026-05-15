@@ -5,6 +5,6 @@ export function useCreateGift() {
   return useCreateEntity<GiftPayload>({
     queryKey: 'gifts',
     mutationFn: createGift,
-    translationKey: 'giftsPage.gift',
+    translationKey: 'gift',
   });
 }

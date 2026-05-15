@@ -13,7 +13,7 @@ import {
 type Props = { data: DeliveryListResponse };
 
 export function DeliveriesTable({ data }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'deliveriesPage' });
+  const { t } = useTranslation('deliveries');
 
   const deliveries = data.data;
 

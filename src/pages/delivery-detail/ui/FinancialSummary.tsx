@@ -8,8 +8,8 @@ import { DetailCard, Separator } from '@/shared/ui';
 type Props = { delivery: DeliveryDetail };
 
 export function FinancialSummary({ delivery }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.detail',
+  const { t, i18n } = useTranslation('deliveries', {
+    keyPrefix: 'detail',
   });
 
   return (

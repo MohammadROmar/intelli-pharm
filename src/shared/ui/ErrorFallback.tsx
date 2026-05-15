@@ -9,9 +9,7 @@ export function PageErrorFallback({
   error,
   reset,
 }: ErrorBoundaryFallbackProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'common.errorBoundary',
-  });
+  const { t } = useTranslation('common', { keyPrefix: 'errorBoundary' });
 
   return (
     <div className="grid h-full items-center justify-center">
@@ -58,9 +56,7 @@ export function PageErrorFallback({
 }
 
 export function SectionErrorFallback({ reset }: ErrorBoundaryFallbackProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'common.errorBoundary',
-  });
+  const { t } = useTranslation('common', { keyPrefix: 'errorBoundary' });
 
   return (
     <div className="flex w-full flex-col items-center justify-center py-12 text-center">

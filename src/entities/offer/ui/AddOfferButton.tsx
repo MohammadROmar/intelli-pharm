@@ -11,7 +11,7 @@ import {
 } from '@/shared/ui';
 
 export function AddOfferButton() {
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage' });
+  const { t } = useTranslation('offers');
 
   return (
     <DropdownMenu>

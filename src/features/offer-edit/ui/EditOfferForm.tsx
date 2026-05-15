@@ -26,7 +26,7 @@ export function EditOfferForm({
   defaultValues,
   onSubmit,
 }: Props) {
-  const { t } = useTranslation('translation', { keyPrefix: 'offersPage.edit' });
+  const { t } = useTranslation('offers', { keyPrefix: 'edit' });
 
   const {
     register,

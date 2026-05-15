@@ -19,8 +19,8 @@ export function useRestockMedicine(id: number) {
     mutationFn: (payload) => restockMedicine(id, payload),
 
     onSuccess: () => {
-      toast.success(t('common.toasts.restock.title'), {
-        description: t('common.toasts.restock.description'),
+      toast.success(t('toasts.restock.title'), {
+        description: t('toasts.restock.description'),
       });
 
       queryClient.invalidateQueries({ queryKey: queryKeys.all });
@@ -28,7 +28,7 @@ export function useRestockMedicine(id: number) {
     },
 
     onError: (error) => {
-      toast.error(t('common.toasts.restock.error'), {
+      toast.error(t('toasts.restock.error'), {
         description: t(error.i18nKey),
       });
     },

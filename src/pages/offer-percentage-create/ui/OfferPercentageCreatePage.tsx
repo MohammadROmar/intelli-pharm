@@ -12,9 +12,7 @@ export default function OfferPercentageCreatePage() {
 
   const { mutate, isPending } = useCreateOffer();
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.form.percentage',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'form.percentage' });
 
   return (
     <>

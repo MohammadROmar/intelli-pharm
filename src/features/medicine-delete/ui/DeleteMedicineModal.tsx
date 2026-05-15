@@ -17,7 +17,7 @@ export function DeleteMedicineModal({
 }: DeleteMedicineModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'medicines',
-    translationKey: 'medicinesPage.medicine',
+    translationKey: 'medicine',
   });
 
   function handleConfirm() {

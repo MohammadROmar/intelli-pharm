@@ -8,8 +8,8 @@ import { getLocalized } from '@/shared/lib';
 type Props = { region: RegionDetail };
 
 export function RegionInfoCard({ region }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'regionsPage.detail',
+  const { t, i18n } = useTranslation('regions', {
+    keyPrefix: 'detail',
   });
 
   const cityName = getLocalized(region.city.name, i18n.language);

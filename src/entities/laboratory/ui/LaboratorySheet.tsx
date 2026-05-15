@@ -27,8 +27,8 @@ export function LaboratorySheet({
   hasTrigger = false,
   children,
 }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: `laboratoriesPage.${isEdit ? 'edit' : 'create'}`,
+  const { t, i18n } = useTranslation('laboratories', {
+    keyPrefix: `${isEdit ? 'edit' : 'create'}`,
   });
 
   const isRtl = i18n.dir() === 'rtl';

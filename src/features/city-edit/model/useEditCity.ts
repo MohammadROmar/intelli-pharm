@@ -5,7 +5,7 @@ export function useEditCity() {
   return useEditEntity<{ id: number; name: City }>({
     queryKey: 'cities',
     mutationFn: editCity,
-    translationKey: 'citiesPage.city',
+    translationKey: 'city',
     redirectTo: '/dashboard/cities',
   });
 }

@@ -26,11 +26,9 @@ export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
   const { errors, isSubmitted } = useFormState<MedicineFormData>({
     name: ['imagesCount'],
   });
-  const { te } = useFieldError('medicinesPage.form');
+  const { te } = useFieldError();
 
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'medicinesPage.form',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'form' });
 
   useEffect(() => {
     setValue('imagesCount', images.length, {

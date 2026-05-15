@@ -18,7 +18,7 @@ import {
 export function LogoutButton() {
   const dispatch = useAppDispatch();
 
-  const { t } = useTranslation('translation', { keyPrefix: 'logout' });
+  const { t } = useTranslation('common', { keyPrefix: 'logout' });
 
   return (
     <Dialog>

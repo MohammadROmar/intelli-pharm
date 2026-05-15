@@ -23,8 +23,8 @@ export function MedicineMetricsFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'metricsPage.medicine.filters',
+  const { t } = useTranslation('metrics', {
+    keyPrefix: 'medicine.filters',
   });
 
   const { control, handleSubmit } = useForm<MedicineMetricsFilters>({

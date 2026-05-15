@@ -5,6 +5,6 @@ export function useChangeOrderStatus() {
   return useEditEntity<{ id: number; status: OrderStatus }>({
     queryKey: 'orders',
     mutationFn: changeOrderStatus,
-    translationKey: 'ordersPage.order',
+    translationKey: 'order',
   });
 }

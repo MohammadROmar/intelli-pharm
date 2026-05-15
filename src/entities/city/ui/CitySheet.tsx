@@ -25,8 +25,8 @@ export function CitySheet({
   isEdit = false,
   children,
 }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: `citiesPage.${isEdit ? 'edit' : 'create'}`,
+  const { t, i18n } = useTranslation('cities', {
+    keyPrefix: `${isEdit ? 'edit' : 'create'}`,
   });
 
   const isRtl = i18n.dir() === 'rtl';

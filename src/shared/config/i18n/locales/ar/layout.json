@@ -1,0 +1,61 @@
+{
+  "sidebar": {
+    "toggle": "تبديل حالة الشريط الجانبي",
+    "account": "الحساب",
+    "notifications": "الإشعارات",
+    "sections": {
+      "sales": "المبيعات",
+      "catalog": "الكتالوج",
+      "logistics": "اللوجستيات",
+      "reference": "البيانات الأساسية"
+    },
+    "labels": {
+      "dashboard": "لوحة التحكم",
+      "chat": "المحادثة مع الذكاء الاصطناعي",
+      "orders": "الطلبات",
+      "pharmacies": "الصيدليات",
+      "promotions": "العروض والهدايا",
+      "medicines": "الأدوية",
+      "categories": "الفئات",
+      "laboratories": "المختبرات",
+      "deliveries": "التوصيلات",
+      "metrics": "المقاييس",
+      "regions": "المناطق",
+      "cities": "المدن",
+      "employees": "الموظفون",
+      "new": "الإضافة",
+      "edit": "التعديل",
+      "restock": "إعادة التخزين",
+      "scan": "المسح",
+      "seasonal": "المقاييس الموسمية",
+      "medicine": "مقاييس الأدوية",
+      "area": "مقاييس المناطق",
+      "pharmacy": "مقاييس الصيدليات",
+      "assign": "تعيين توصيل",
+      "gifts": "الهدايا",
+      "offers": "العروض",
+      "new-gifts": "إضافة هدايا",
+      "new-percentage": "إضافة نسبة",
+      "targets": "الأهداف",
+      "achievements": "الإنجازات"
+    },
+    "promotions": {
+      "offers": "العروض",
+      "gifts": "الهدايا"
+    },
+    "medicines": {
+      "list": "جميع الأدوية",
+      "scanMedicine": "مسح الدواء"
+    },
+    "deliveries": {
+      "list": "جميع التوصيلات",
+      "assign": "تعيين توصيلات"
+    },
+    "metrics": {
+      "seasonal": "الموسمية",
+      "medicine": "حسب الدواء",
+      "area": "حسب المنطقة",
+      "pharmacy": "حسب الصيدلية"
+    }
+  }
+}

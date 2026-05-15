@@ -21,8 +21,8 @@ import {
 } from '@/shared/ui';
 
 export function OrderInfoCard({ order }: { order: OrderDetail }) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.detail',
+  const { t, i18n } = useTranslation('orders', {
+    keyPrefix: 'detail',
   });
 
   const hasDiscount = order.offer_id !== null && parseFloat(order.discount) > 0;

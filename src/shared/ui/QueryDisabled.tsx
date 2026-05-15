@@ -7,9 +7,7 @@ import { buttonVariants } from '../lib';
 type Props = { path: string; isEdit?: boolean };
 
 export function QueryDisabled({ path, isEdit = false }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'queryDisabled.itemId',
-  });
+  const { t } = useTranslation('common', { keyPrefix: 'queryDisabled' });
 
   const { id } = useParams<{ id: string }>();
 

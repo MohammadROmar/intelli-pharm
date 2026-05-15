@@ -18,8 +18,8 @@ import {
 type Props = { isPending?: boolean };
 
 export function PharmacistInformationCard({ isPending }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'pharmaciesPage.form',
+  const { t } = useTranslation('pharmacies', {
+    keyPrefix: 'form',
   });
 
   const { register } = useFormContext<Pharmacy>();

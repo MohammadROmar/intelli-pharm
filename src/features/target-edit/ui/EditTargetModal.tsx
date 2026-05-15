@@ -14,8 +14,8 @@ import {
 type Props = PropsWithChildren<{ open: boolean; onClose: () => void }>;
 
 export function EditTargetModal({ open, onClose, children }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'targetsPage.edit',
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'edit',
   });
 
   return (

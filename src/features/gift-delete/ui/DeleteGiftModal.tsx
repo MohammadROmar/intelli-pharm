@@ -18,12 +18,10 @@ export function DeleteGiftModal({
 }: DeleteGiftModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'gifts',
-    translationKey: 'giftsPage.gift',
+    translationKey: 'gift',
   });
 
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'giftsPage.delete',
-  });
+  const { t, i18n } = useTranslation('gifts', { keyPrefix: 'delete' });
 
   function handleConfirm() {
     if (!gift) return;

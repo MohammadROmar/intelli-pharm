@@ -11,8 +11,8 @@ import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 type Props = { category: CategoryDetail };
 
 export function CategoryDetailHeader({ category }: Props) {
-  const { t, i18n } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.detail',
+  const { t, i18n } = useTranslation('categories', {
+    keyPrefix: 'detail',
   });
 
   const name = getLocalized(category.name, i18n.language);
@@ -28,8 +28,8 @@ export function CategoryDetailHeader({ category }: Props) {
 }
 
 function CategoryActions({ category, name }: Props & { name: string }) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.detail',
+  const { t } = useTranslation('categories', {
+    keyPrefix: 'detail',
   });
 
   const [categoryToDelete, setCategoryToDelete] =

@@ -12,8 +12,8 @@ type StatusCardProps = {
 };
 
 export function StatusCard({ status, selected, onSelect }: StatusCardProps) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage.changeStatus',
+  const { t } = useTranslation('orders', {
+    keyPrefix: 'changeStatus',
   });
 
   const { icon: Icon, destructive } = STATUS_META[status];

@@ -1,0 +1,62 @@
+{
+  "labNamePlaceholder": "مثال. الفارس",
+  "list": {
+    "title": "المختبرات",
+    "subtitle": "إدارة ومراقبة المختبرات.",
+    "all": "جميع المختبرات",
+    "searchPlaceholder": "البحث عن مختبر...",
+    "id": "المعرف",
+    "name": "الاسم",
+    "createdAt": "تاريخ الإنشاء",
+    "actions": "الإجراءات"
+  },
+  "filters": {
+    "title": "فلاتر المختبرات",
+    "subtitle": "ضيّق نتائج قائمة المختبرات باستخدام فلتر واحد أو أكثر.",
+    "nameLabel": "اسم المختبر",
+    "namePlaceholder": "البحث باسم المختبر..."
+  },
+  "create": {
+    "title": "إضافة مختبر جديد",
+    "subtitle": "أدخل اسم المختبر لإضافته إلى النظام.",
+    "action": "إضافة مختبر"
+  },
+  "edit": {
+    "title": "تعديل مختبر",
+    "subtitle": "قم بتغيير الاسم لتعديله.",
+    "action": "تعديل التفاصيل"
+  },
+  "form": {
+    "placeholderNameEn": "مثال: Damascus Central Laboratory",
+    "placeholderNameAr": "مثال: مختبر دمشق المركزي"
+  },
+  "detail": {
+    "pageTitle": "تفاصيل المختبر",
+    "breadcrumb": "المختبرات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "actions": "الإجراءات",
+    "infoCardTilte": "معلومات المختبر",
+    "infoCardSubtilte": "معلومات مفصلة عن المختبر.",
+    "identitySubtitle": "مختبر صيدلاني",
+    "statTotal": "إجمالي الأدوية",
+    "statActive": "نشط",
+    "statInactive": "{{count}} غير نشط",
+    "labelId": "رقم المختبر",
+    "labelName": "الاسم",
+    "labelCreatedAt": "تاريخ الإنشاء",
+    "labelUpdatedAt": "آخر تحديث",
+    "medicinesTitle": "الأدوية المسجلة",
+    "medicinesSubtitle": "جميع الأدوية المنتجة من هذا المختبر.",
+    "noMedicines": "لا توجد أدوية مسجلة لهذا المختبر.",
+    "colId": "المعرف",
+    "colName": "الاسم",
+    "colPrice": "السعر",
+    "colStatus": "الحالة",
+    "colImported": "المصدر",
+    "colCreatedAt": "تاريخ الإنشاء",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "imported": "مستورد"
+  }
+}

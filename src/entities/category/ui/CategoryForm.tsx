@@ -43,15 +43,15 @@ export function CategoryForm({
     formState: { errors },
   } = methods;
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('categories', { keyPrefix: 'form' });
 
   return (
     <Card>
       <CardHeader>
         <CardSectionHeader
           icon={Folders}
-          title={t('categoriesPage.categoryInfo')}
-          description={t('categoriesPage.categoryInfoDescription')}
+          title={t('info.title')}
+          description={t('info.description')}
         />
       </CardHeader>
 
@@ -65,14 +65,14 @@ export function CategoryForm({
             <BilingualNameFields
               icon={Folder}
               disabled={isLoading}
-              i18nPrefix="categoriesPage.form"
+              placeholderNamespace="categories"
             />
             <Field data-invalid={!!errors.parent_id}>
               <FieldLabel asChild>
                 <p>
-                  {t('form.fields.categoryParent')}{' '}
+                  {t('categoryParent')}{' '}
                   <span className="text-muted-foreground text-xs font-normal">
-                    ({t('form.fields.optional')})
+                    ({t('optional')})
                   </span>
                 </p>
               </FieldLabel>

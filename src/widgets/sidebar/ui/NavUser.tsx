@@ -19,7 +19,7 @@ import { UserInfo } from './UserInfo';
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { t } = useTranslation('translation', { keyPrefix: 'sidebar' });
+  const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
 
   return (
     <SidebarMenu>

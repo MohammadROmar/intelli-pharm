@@ -31,9 +31,7 @@ export function OrderFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'ordersPage',
-  });
+  const { t } = useTranslation('orders');
 
   const { register, control, handleSubmit, reset } = useForm<OrderFilters>({
     defaultValues,

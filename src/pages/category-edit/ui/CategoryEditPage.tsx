@@ -10,8 +10,8 @@ import {
 } from '@/shared/ui';
 
 export default function CategoryEditPage() {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'categoriesPage.edit',
+  const { t } = useTranslation('categories', {
+    keyPrefix: 'edit',
   });
 
   const { data, isError, error, isLoading, isEnabled, refetch } =

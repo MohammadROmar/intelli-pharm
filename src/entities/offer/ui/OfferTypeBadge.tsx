@@ -6,9 +6,7 @@ import { useTranslation } from 'react-i18next';
 type Props = { type: Offer['type'] };
 
 export function OfferTypeBadge({ type }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'offersPage.types',
-  });
+  const { t } = useTranslation('offers', { keyPrefix: 'types' });
 
   const isPercentage = type === 'percentage';
 

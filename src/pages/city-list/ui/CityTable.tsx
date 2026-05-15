@@ -49,7 +49,7 @@ type ItemsTableProps = Props & {
 };
 
 function ItemsTable({ data, onDelete, onEdit }: ItemsTableProps) {
-  const { t } = useTranslation('translation', { keyPrefix: 'citiesPage' });
+  const { t } = useTranslation('cities');
 
   const cities = data.data;
 

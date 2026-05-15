@@ -5,6 +5,6 @@ export function useCreatePharmacy() {
   return useCreateEntity<PharmacyDetail>({
     queryKey: 'pharmacies',
     mutationFn: createPharmacy,
-    translationKey: 'pharmaciesPage.pharmacy',
+    translationKey: 'pharmacy',
   });
 }

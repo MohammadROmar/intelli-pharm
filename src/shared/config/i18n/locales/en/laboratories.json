@@ -1,0 +1,61 @@
+{
+  "list": {
+    "title": "Laboratories",
+    "subtitle": "Manage and monitor laboratories.",
+    "all": "All Laboratories",
+    "searchPlaceholder": "Search Laboratory...",
+    "id": "ID",
+    "name": "Name",
+    "createdAt": "Created",
+    "actions": "Actions"
+  },
+  "filters": {
+    "title": "Filter Laboratories",
+    "subtitle": "Narrow down the laboratories list using one or more filters.",
+    "nameLabel": "Laboratory Name",
+    "namePlaceholder": "Search by laboratory name…"
+  },
+  "create": {
+    "title": "Add New Laboratory",
+    "subtitle": "Enter the name of the laboratory to add it to the system.",
+    "action": "Add Laboratory"
+  },
+  "edit": {
+    "title": "Edit Laboratory",
+    "subtitle": "Change the name to edit it.",
+    "action": "Edit Details"
+  },
+  "form": {
+    "placeholderNameEn": "e.g. Damascus Central Laboratory",
+    "placeholderNameAr": "e.g. مختبر دمشق المركزي"
+  },
+  "detail": {
+    "pageTitle": "Laboratory Details",
+    "breadcrumb": "Laboratories",
+    "edit": "Edit",
+    "delete": "Delete",
+    "actions": "Actions",
+    "infoCardTilte": "Laboratory Information",
+    "infoCardSubtilte": "Detailed information about the laboratory.",
+    "identitySubtitle": "Pharmaceutical Laboratory",
+    "statTotal": "Total Medicines",
+    "statActive": "Active",
+    "statInactive": "{{count}} inactive",
+    "labelId": "Laboratory ID",
+    "labelName": "Name",
+    "labelCreatedAt": "Created",
+    "labelUpdatedAt": "Last Updated",
+    "medicinesTitle": "Registered Medicines",
+    "medicinesSubtitle": "All medicines produced by this laboratory.",
+    "noMedicines": "No medicines registered for this laboratory.",
+    "colId": "ID",
+    "colName": "Name",
+    "colPrice": "Price",
+    "colStatus": "Status",
+    "colImported": "Origin",
+    "colCreatedAt": "Created",
+    "active": "Active",
+    "inactive": "Inactive",
+    "imported": "Imported"
+  }
+}

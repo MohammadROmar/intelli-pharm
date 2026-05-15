@@ -5,7 +5,7 @@ export function useEditPharmacy(id: number) {
   return useEditEntity<PharmacyDetail>({
     queryKey: 'pharmacies',
     mutationFn: (pharmacy) => editPharmacy({ id, pharmacy }),
-    translationKey: 'pharmaciesPage.pharmacy',
+    translationKey: 'pharmacy',
     redirectTo: `/dashboard/pharmacies/${id}`,
   });
 }

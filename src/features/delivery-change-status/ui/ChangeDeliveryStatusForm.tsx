@@ -41,8 +41,8 @@ export function ChangeDeliveryStatusForm({
   onReset,
   defaultValues,
 }: Props) {
-  const { t } = useTranslation('translation', {
-    keyPrefix: 'deliveriesPage.changeStatus',
+  const { t } = useTranslation('deliveries', {
+    keyPrefix: 'changeStatus',
   });
 
   const statusOptions = useMemo(() => DELIVERY_TRANSITIONS(t), [t]);
