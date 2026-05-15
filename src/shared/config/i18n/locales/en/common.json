@@ -140,5 +140,10 @@
     "tryAgain": "Try Again",
     "reload": "Reload page"
   },
+  "roles": {
+    "admin": "Administrator",
+    "distributor": "Distributor",
+    "rep": "Representative"
+  },
   "rowsPerPage": "Rows per page"
 }

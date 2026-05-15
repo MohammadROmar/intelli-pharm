@@ -41,9 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 }
 
 function SidebarBrand() {
-  const { t } = useTranslation('employees', {
-    keyPrefix: 'roles',
-  });
+  const { t } = useTranslation('common', { keyPrefix: 'roles' });
   const roles = useAppSelector((state) => state.session.roles);
 
   return (

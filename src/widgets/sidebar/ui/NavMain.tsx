@@ -92,7 +92,6 @@ function NavMenuItem({ item, t }: NavMenuItemProps) {
               const subLabel = t(subItem.label);
               return (
                 <SidebarMenuSubItem key={subItem.label}>
-                  {/* Sub-items are always exact matches */}
                   <SidebarMenuLink label={subLabel} to={subItem.url}>
                     <span>{subLabel}</span>
                   </SidebarMenuLink>
