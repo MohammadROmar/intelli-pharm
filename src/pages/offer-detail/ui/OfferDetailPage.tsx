@@ -1,22 +1,29 @@
+import { useParams } from 'react-router-dom';
+
 import { OfferDetailHeader } from './OfferDetailHeader';
 import { OfferInfoCard } from './OfferInfoCard';
-import { useGetOffer } from '../model/useGetOffer';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useGetOfferSuspense } from '../model/useGetOfferSuspense';
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function OfferDetailPage() {
-  const { isLoading, data, isEnabled, isError, error, refetch } = useGetOffer();
+  const { id } = useParams<{ id: string }>();
+  const offerId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(offerId)) {
     return <QueryDisabled path="/dashboard/offers" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <OfferDetailContent offerId={offerId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={0} />;
-  }
+type OfferDetailContentProps = { offerId: number };
+
+function OfferDetailContent({ offerId }: OfferDetailContentProps) {
+  const { data } = useGetOfferSuspense(offerId);
 
   const offer = data.data!;
 

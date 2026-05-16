@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { GiftCard } from './GiftCard';
 import { StocksCard } from './StocksCard';
 import { MedicineInfoGrid } from './MedicineInfoGrid';
@@ -5,24 +7,28 @@ import { AlternativesTable } from './AlternativesTable';
 import { MedicineBarcodeCard } from './MedicineBarcodeCard';
 import { MedicineImageGallery } from './MedicineImageGallery';
 import { MedicineDetailHeader } from './MedicineDetailHeader';
-import { useGetMedicine } from '@/entities/medicine';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useGetMedicineSuspense } from '@/entities/medicine';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function MedicineDetailPage() {
-  const { isLoading, data, isEnabled, isError, error, refetch } =
-    useGetMedicine();
+  const { id } = useParams<{ id: string }>();
+  const medicineId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(medicineId)) {
     return <QueryDisabled path="/dashboard/medicines" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <MedicineDetailContent medicineId={medicineId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={3} hasImage />;
-  }
+type MedicineDetailContentProps = { medicineId: number };
+
+function MedicineDetailContent({ medicineId }: MedicineDetailContentProps) {
+  const { data } = useGetMedicineSuspense(medicineId);
 
   const medicine = data.data!;
 

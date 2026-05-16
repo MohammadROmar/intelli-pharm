@@ -1,24 +1,30 @@
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useParams } from 'react-router-dom';
+
+import { CategoryChildrenTable } from './CategoryChildrenTable';
 import { CategoryDetailHeader } from './CategoryDetailHeader';
 import { CategoryMetaGrid } from './CategoryMetaGrid';
-import { CategoryChildrenTable } from './CategoryChildrenTable';
-import { useGetCategory } from '@/entities/category';
+import { useGetCategorySuspense } from '@/entities/category';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function CategoryDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetCategory();
+  const { id } = useParams<{ id: string }>();
+  const categoryId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(categoryId)) {
     return <QueryDisabled path="/dashboard/categories" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <CategoryDetailContent categoryId={categoryId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={1} />;
-  }
+type CategoryDetailContentProps = { categoryId: number };
+
+function CategoryDetailContent({ categoryId }: CategoryDetailContentProps) {
+  const { data } = useGetCategorySuspense(categoryId);
 
   const category = data.data!;
 

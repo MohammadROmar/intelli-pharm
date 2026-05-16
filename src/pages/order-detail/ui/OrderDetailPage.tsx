@@ -1,29 +1,33 @@
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { OrderInfoCard } from './OrderInfoCard';
 import { OrderItemsTable } from './OrderItemsTable';
-import { useGetOrder } from '../model/useGetOrder';
+import { useGetOrderSuspense } from '../model/useGetOrderSuspense';
 import { ChangeOrderStatus } from '@/features/order-change-status';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function OrderDetailPage() {
-  const { t } = useTranslation('orders', {
-    keyPrefix: 'detail',
-  });
+  const { t } = useTranslation('orders', { keyPrefix: 'detail' });
 
-  const { data, isLoading, isEnabled, isError, error, refetch } = useGetOrder();
+  const { id } = useParams<{ id: string }>();
+  const orderId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(orderId)) {
     return <QueryDisabled path="/dashboard/orders" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <OrderDetailContent orderId={orderId} t={t} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={1} />;
-  }
+type OrderDetailContentProps = { orderId: number; t: (s: string) => string };
+
+function OrderDetailContent({ orderId, t }: OrderDetailContentProps) {
+  const { data } = useGetOrderSuspense(orderId);
 
   const order = data.data!;
   const pageTitle = `#${order.id} · ${t('pageTitle')} - IntelliPharma`;

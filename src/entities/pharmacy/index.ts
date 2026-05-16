@@ -12,6 +12,7 @@ export type {
   PharmaciesResponse,
 } from './model/pharmacyTypes';
 export { useGetPharmacy } from './model/useGetPharmacy';
+export { useGetPharmacySuspense } from './model/useGetPharmacySuspense';
 
 export { PharmacyForm } from './ui/PharmacyForm';
 export { PharmacyRow } from './ui/PharmacyRow';

@@ -1,23 +1,29 @@
+import { useParams } from 'react-router-dom';
+
 import { TargetInfoCard } from './TargetInfoCard';
 import { TargetDetailHeader } from './TargetPageHeader';
-import { useGetTarget } from '../model/useGetTarget';
-import { QueryError, QueryDisabled, DetailSkeleton } from '@/shared/ui';
+import { useGetTargetSuspense } from '../model/useGetTargetSuspense';
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function TargetDetailPage() {
-  const { isLoading, data, isEnabled, isError, error, refetch } =
-    useGetTarget();
+  const { id } = useParams<{ id: string }>();
+  const targetId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(targetId)) {
     return <QueryDisabled path="/dashboard/medicines" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <TargetDetailContent targetId={targetId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={0} />;
-  }
+type TargetDetailContentProps = { targetId: number };
+
+function TargetDetailContent({ targetId }: TargetDetailContentProps) {
+  const { data } = useGetTargetSuspense(targetId);
 
   const target = data.data!;
 

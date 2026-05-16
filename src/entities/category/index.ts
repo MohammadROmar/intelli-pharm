@@ -9,6 +9,7 @@ export type {
   CategoryListResponse,
 } from './model/categoryTypes';
 export { useGetCategory } from './model/useGetCategory';
+export { useGetCategorySuspense } from './model/useGetCategorySuspense';
 
 export { CategoryRow } from './ui/CategoryRow';
 export { CategoryForm } from './ui/CategoryForm';

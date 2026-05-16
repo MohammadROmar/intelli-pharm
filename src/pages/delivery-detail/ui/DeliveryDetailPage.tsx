@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom';
+
 import { OrderItems } from './OrderItems';
 import { Confirmations } from './Confirmations';
 import { RelatedRecords } from './RelatedRecords';
@@ -5,29 +7,28 @@ import { FinancialSummary } from './FinancialSummary';
 import { DeliveryOrderCard } from './DeliveryOrderCard';
 import { DeliveryInformation } from './DeliveryInformation';
 import { DeliveryDetailHeader } from './DeliveryDetailHeader';
-import { useGetDelivery } from '../model/useGetDelivery';
-import {
-  Separator,
-  QueryError,
-  QueryDisabled,
-  DetailSkeleton,
-} from '@/shared/ui';
+import { useGetDeliverySuspense } from '../model/useGetDeliverySuspense';
+import { Separator, QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function DeliveryDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetDelivery();
+  const { id } = useParams<{ id: string }>();
+  const deliveryId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(deliveryId)) {
     return <QueryDisabled path="/dashboard/categories" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <DeliveryDetailContent deliveryId={deliveryId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 4 }]} tables={1} />;
-  }
+type DeliveryDetailContentProps = { deliveryId: number };
+
+function DeliveryDetailContent({ deliveryId }: DeliveryDetailContentProps) {
+  const { data } = useGetDeliverySuspense(deliveryId);
 
   const delivery = data.data!;
 

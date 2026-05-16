@@ -1,33 +1,33 @@
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import { PharmacyEditForm } from '@/features/pharmacy-edit';
-import { useGetPharmacy } from '@/entities/pharmacy';
-import {
-  PageTitle,
-  QueryError,
-  FormSkeleton,
-  QueryDisabled,
-} from '@/shared/ui';
+import { useGetPharmacySuspense } from '@/entities/pharmacy';
+import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function PharmacyEditPage() {
+  const { id } = useParams<{ id: string }>();
+  const pharmacyId = Number(id);
+
+  if (!id || Number.isNaN(pharmacyId)) {
+    return <QueryDisabled isEdit path="/dashboard/pharmacies" />;
+  }
+
+  return (
+    <QueryErrorBoundary>
+      <PharmacyEditPageContent pharmacyId={pharmacyId} />
+    </QueryErrorBoundary>
+  );
+}
+
+type PharmacyEditPageContentProps = { pharmacyId: number };
+
+function PharmacyEditPageContent({ pharmacyId }: PharmacyEditPageContentProps) {
   const { t } = useTranslation('pharmacies', {
     keyPrefix: 'edit',
   });
 
-  const { data, isError, error, isLoading, isEnabled, refetch } =
-    useGetPharmacy();
-
-  if (!isEnabled) {
-    return <QueryDisabled isEdit path="/dashboard/categories" />;
-  }
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <FormSkeleton cards={[{ rows: 3 }, { rows: 2 }]} />;
-  }
+  const { data } = useGetPharmacySuspense(pharmacyId);
 
   return (
     <>

@@ -1,33 +1,33 @@
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import { CategoryEditForm } from '@/features/category-edit';
-import { useGetCategory } from '@/entities/category';
-import {
-  PageTitle,
-  QueryError,
-  FormSkeleton,
-  QueryDisabled,
-} from '@/shared/ui';
+import { useGetCategorySuspense } from '@/entities/category';
+import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function CategoryEditPage() {
+  const { id } = useParams<{ id: string }>();
+  const categoryId = Number(id);
+
+  if (!id || Number.isNaN(categoryId)) {
+    return <QueryDisabled isEdit path="/dashboard/categories" />;
+  }
+
+  return (
+    <QueryErrorBoundary>
+      <CategoryEditPageContent categoryId={categoryId} />
+    </QueryErrorBoundary>
+  );
+}
+
+type CategoryEditPageContentProps = { categoryId: number };
+
+function CategoryEditPageContent({ categoryId }: CategoryEditPageContentProps) {
   const { t } = useTranslation('categories', {
     keyPrefix: 'edit',
   });
 
-  const { data, isError, error, isLoading, isEnabled, refetch } =
-    useGetCategory();
-
-  if (!isEnabled) {
-    return <QueryDisabled isEdit path="/dashboard/categories" />;
-  }
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <FormSkeleton cards={[{ rows: 3 }]} />;
-  }
+  const { data } = useGetCategorySuspense(categoryId);
 
   return (
     <>

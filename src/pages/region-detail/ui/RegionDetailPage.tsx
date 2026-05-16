@@ -1,24 +1,30 @@
+import { useParams } from 'react-router-dom';
+
 import { RegionInfoCard } from './RegionInfoCard';
 import { RegionDetailHeader } from './RegionDetailHeader';
 import { RegionPharmaciesTable } from './RegionPharmaciesTable';
-import { useGetRegion } from '@/entities/region';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useGetRegionSuspense } from '@/entities/region';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function RegionDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetRegion();
+  const { id } = useParams<{ id: string }>();
+  const regionId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(regionId)) {
     return <QueryDisabled path="/dashboard/regions" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <RegionDetailContent regionId={regionId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 1 }]} tables={1} />;
-  }
+type RegionDetailContentProps = { regionId: number };
+
+function RegionDetailContent({ regionId }: RegionDetailContentProps) {
+  const { data } = useGetRegionSuspense(regionId);
 
   const region = data.data!;
 

@@ -1,25 +1,33 @@
+import { useParams } from 'react-router-dom';
+
 import { LaboratoryInfoGrid } from './LaboratoryInfoGrid';
 import { LaboratoryDetailHeader } from './LaboratoryDetailHeader';
 import { LaboratoryMedicinesTable } from './LaboratoryMedicinesTable';
 
-import { useGetLaboratory } from '@/entities/laboratory';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useGetLaboratorySuspense } from '@/entities/laboratory';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function LaboratoryDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetLaboratory();
+  const { id } = useParams<{ id: string }>();
+  const laboratoryId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(laboratoryId)) {
     return <QueryDisabled path="/dashboard/laboratories" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <LaboratoryDetailContent laboratoryId={laboratoryId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 3 }]} tables={1} />;
-  }
+type LaboratoryDetailContentProps = { laboratoryId: number };
+
+function LaboratoryDetailContent({
+  laboratoryId,
+}: LaboratoryDetailContentProps) {
+  const { data } = useGetLaboratorySuspense(laboratoryId);
 
   const laboratory = data.data!;
 

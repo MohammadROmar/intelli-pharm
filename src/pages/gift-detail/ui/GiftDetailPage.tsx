@@ -1,22 +1,29 @@
+import { useParams } from 'react-router-dom';
+
 import { GiftInfoCard } from './GiftInfoCard';
 import { GiftDetailHeader } from './GiftDetailHeader';
-import { useGetGift } from '../model/useGetGift';
-import { QueryError, QueryDisabled, DetailSkeleton } from '@/shared/ui';
+import { useGetGiftSuspense } from '../model/useGetGiftSuspense';
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function GiftDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } = useGetGift();
+  const { id } = useParams<{ id: string }>();
+  const giftId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(giftId)) {
     return <QueryDisabled path="/dashboard/categories" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <GiftDetailContent giftId={giftId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return <DetailSkeleton cards={[{ rows: 3 }]} tables={0} />;
-  }
+type GiftDetailContentProps = { giftId: number };
+
+function GiftDetailContent({ giftId }: GiftDetailContentProps) {
+  const { data } = useGetGiftSuspense(giftId);
 
   const gift = data.data!;
 

@@ -1,33 +1,33 @@
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import { MedicineEditForm } from './MedicineEditForm';
-import { useGetMedicine } from '@/entities/medicine';
-import {
-  PageTitle,
-  QueryError,
-  FormSkeleton,
-  QueryDisabled,
-} from '@/shared/ui';
+import { useGetMedicineSuspense } from '@/entities/medicine';
+import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function MedicineEditPage() {
+  const { id } = useParams<{ id: string }>();
+  const medicineId = Number(id);
+
+  if (!id || Number.isNaN(medicineId)) {
+    return <QueryDisabled isEdit path="/dashboard/medicines" />;
+  }
+
+  return (
+    <QueryErrorBoundary>
+      <MedicineEditPageContent medicineId={medicineId} />
+    </QueryErrorBoundary>
+  );
+}
+
+type MedicineEditPageContentProps = { medicineId: number };
+
+function MedicineEditPageContent({ medicineId }: MedicineEditPageContentProps) {
   const { t } = useTranslation('medicines', {
     keyPrefix: 'edit',
   });
 
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetMedicine();
-
-  if (!isEnabled) {
-    return <QueryDisabled isEdit path="/dashboard/categories" />;
-  }
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <FormSkeleton cards={[{ rows: 7 }, { rows: 2 }]} />;
-  }
+  const { data } = useGetMedicineSuspense(medicineId);
 
   const medicine = data.data!;
 

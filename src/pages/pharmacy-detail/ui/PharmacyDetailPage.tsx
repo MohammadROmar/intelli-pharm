@@ -1,31 +1,32 @@
+import { useParams } from 'react-router-dom';
+
 import { PharmacistCard } from './PharmacistCard';
 import { PharmacyInfoCard } from './PharmacyInfoCard';
 import { PharmacyDetailHeader } from './PharmacyDetailHeader';
 import { PharmacyLocationCard } from './PharmacyLocationCard';
 import { MedicineHistoryNotesCard } from './MedicineHistoryNotesCard';
-import { useGetPharmacy } from '@/entities/pharmacy';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useGetPharmacySuspense } from '@/entities/pharmacy';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function PharmacyDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetPharmacy();
+  const { id } = useParams<{ id: string }>();
+  const pharmacyId = Number(id);
 
-  if (!isEnabled) {
+  if (!id || Number.isNaN(pharmacyId)) {
     return <QueryDisabled path="/dashboard/pharmacies" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <PharmacyDetailContent pharmacyId={pharmacyId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isLoading || !data) {
-    return (
-      <DetailSkeleton
-        cards={[{ rows: 2 }, { rows: 2 }, { rows: 1 }]}
-        tables={0}
-      />
-    );
-  }
+type PharmacyDetailContentProps = { pharmacyId: number };
+
+function PharmacyDetailContent({ pharmacyId }: PharmacyDetailContentProps) {
+  const { data } = useGetPharmacySuspense(pharmacyId);
 
   const pharmacy = data.data!;
 

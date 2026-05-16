@@ -1,24 +1,30 @@
+import { useParams } from 'react-router-dom';
+
 import { EmployeeInfoCard } from './EmployeeInfoCard';
 import { EmployeeDetailHeader } from './EmployeeDetailHeader';
 import { EmployeePermissionsCard } from './EmployeePermissionsCard';
-import { useGetEmployee } from '@/entities/employee';
-import { DetailSkeleton, QueryDisabled, QueryError } from '@/shared/ui';
+import { useGetEmployeeSuspense } from '@/entities/employee';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function EmployeeDetailPage() {
-  const { data, isLoading, isEnabled, isError, error, refetch } =
-    useGetEmployee();
+  const { id } = useParams<{ id: string }>();
+  const employeeId = Number(id);
 
-  if (!isEnabled) {
-    return <QueryDisabled isEdit path="/dashboard/categories" />;
+  if (!id || Number.isNaN(employeeId)) {
+    return <QueryDisabled isEdit path="/dashboard/employees" />;
   }
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
+  return (
+    <QueryErrorBoundary>
+      <EmployeeDetailContent employeeId={employeeId} />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (!data || isLoading) {
-    return <DetailSkeleton cards={[{ rows: 4 }, { rows: 2 }]} tables={0} />;
-  }
+type EmployeeDetailContentProps = { employeeId: number };
+
+function EmployeeDetailContent({ employeeId }: EmployeeDetailContentProps) {
+  const { data } = useGetEmployeeSuspense(employeeId);
 
   const employee = data.data!;
 

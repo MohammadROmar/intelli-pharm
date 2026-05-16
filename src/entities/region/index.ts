@@ -9,6 +9,7 @@ export type {
   RegionsListResponse,
 } from './model/regionTypes';
 export { useGetRegion } from './model/useGetRegion';
+export { useGetRegionSuspense } from './model/useGetRegionSuspense';
 
 export { RegionRow } from './ui/RegionsRow';
 export { RegionForm } from './ui/RegionForm';

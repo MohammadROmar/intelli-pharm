@@ -174,6 +174,7 @@ export { CardSectionHeader } from './CardSectionHeader';
 export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
 export { QueryDisabled } from './QueryDisabled';
+export { QueryErrorBoundary } from './QueryErrorBoundary';
 export { Toaster } from './toaster';
 export { DeleteModal } from './DeleteModal';
 export { TableEmptyState, DetailEmptyState } from './EmptyState';

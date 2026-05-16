@@ -3,5 +3,7 @@ export { useGetEntities } from './useGetEntities';
 export { useCreateEntity } from './useCreateEntity';
 export { useDeleteEntity } from './useDeleteEntity';
 export { useGetEntityById } from './useGetEntityById';
+export { useSuspenseGetEntities } from './useSuspenseGetEntities';
+export { useSuspenseGetEntityById } from './useSuspenseGetEntityById';
 export { useInfiniteEntities } from './useInfiniteEntities';
 export { createDomainQueryKeys } from './queryKeys';

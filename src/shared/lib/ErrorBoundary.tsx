@@ -8,6 +8,7 @@ type FallbackRender = (props: ErrorBoundaryFallbackProps) => ReactNode;
 export type ErrorBoundaryProps = {
   children: ReactNode;
   onError?: (error: Error, info: ErrorInfo) => void;
+  onReset?: () => void;
   resetKeys?: unknown[];
 } & (
   | {
@@ -61,6 +62,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   }
 
   reset = (): void => {
+    this.props.onReset?.();
     this.setState(INITIAL_STATE);
   };
 
