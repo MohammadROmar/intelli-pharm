@@ -1,21 +1,20 @@
 import { useTranslation } from 'react-i18next';
 
 import { LaboratoryTable } from './LaboratoryTable';
-import { useGetLaboratories } from '../model/useGetLaboratories';
-import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
+import { useGetLaboratoriesSuspense } from '../model/useGetLaboratoriesSuspense';
+import { QueryErrorBoundary, PageTitle } from '@/shared/ui';
 
 export default function LaboratoryListPage() {
+  return (
+    <QueryErrorBoundary>
+      <LaboratoryListContent />
+    </QueryErrorBoundary>
+  );
+}
+
+function LaboratoryListContent() {
   const { t } = useTranslation('laboratories');
-
-  const { data, isLoading, isError, error, refetch } = useGetLaboratories();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+  const { data } = useGetLaboratoriesSuspense();
 
   return (
     <>

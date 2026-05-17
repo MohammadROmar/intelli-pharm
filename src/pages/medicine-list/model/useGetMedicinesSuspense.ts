@@ -1,11 +1,11 @@
 import { useMedicineFilters } from './useMedicineFilters';
 import type { Medicine, MedicineResponse } from '@/entities/medicine';
-import { useGetEntities } from '@/shared/model';
+import { useSuspenseGetEntities } from '@/shared/model';
 
-export function useGetMedicines() {
+export function useGetMedicinesSuspense() {
   const { filters } = useMedicineFilters();
 
-  return useGetEntities<MedicineResponse, Medicine>({
+  return useSuspenseGetEntities<MedicineResponse, Medicine>({
     queryKey: 'medicines',
     filters,
   });

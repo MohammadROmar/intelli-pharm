@@ -1,16 +1,16 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { useGetEntities } from '@/shared/model';
 import type {
   LaboratoriesResponse,
   LaboratoryListItem,
 } from '@/entities/laboratory';
+import { useSuspenseGetEntities } from '@/shared/model';
 
-export function useGetLaboratories() {
+export function useGetLaboratoriesSuspense() {
   const [searchParams] = useSearchParams();
   const name = searchParams.get('name');
 
-  return useGetEntities<LaboratoriesResponse, LaboratoryListItem>({
+  return useSuspenseGetEntities<LaboratoriesResponse, LaboratoryListItem>({
     queryKey: 'laboratories',
     filters: { name },
   });

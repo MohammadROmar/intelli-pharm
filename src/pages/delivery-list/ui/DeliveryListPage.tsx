@@ -1,28 +1,25 @@
 import { useTranslation } from 'react-i18next';
 
 import { DeliveriesTable } from './DeliveryTable';
-import { useGetDeliveries } from '../model/useGetDeliveries';
-import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
+import { useGetDeliveriesSuspense } from '../model/useGetDeliveriesSuspense';
+import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 export default function DeliveryListPage() {
-  const { t } = useTranslation('deliveries', {
-    keyPrefix: 'list',
-  });
+  return (
+    <QueryErrorBoundary>
+      <DeliveryListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  const { data, isError, error, isLoading, refetch } = useGetDeliveries();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+function DeliveryListContent() {
+  const { t } = useTranslation('deliveries', { keyPrefix: 'list' });
+  const { data } = useGetDeliveriesSuspense();
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <DeliveriesTable data={data.data!} />
+      <DeliveriesTable data={data!.data!} />
     </>
   );
 }

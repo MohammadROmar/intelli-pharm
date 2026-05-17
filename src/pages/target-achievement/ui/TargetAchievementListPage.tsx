@@ -1,30 +1,35 @@
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { TargetAchievementTable } from './TargetAchievementTable';
-import { useGetTargetAchievements } from '../model/useGetTargetAchievements';
-import {
-  PageTitle,
-  QueryDisabled,
-  QueryError,
-  TableSkeleton,
-} from '@/shared/ui';
+import { useGetTargetAchievementsSuspense } from '../model/useGetTargetAchievementsSuspense';
+import { PageTitle, QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
-export default function MedicineListPage() {
-  const { t } = useTranslation('targets', {
-    keyPrefix: 'achievements',
-  });
+export default function TargetAchievementListPage() {
+  const { id: rawId } = useParams<{ id: string }>();
+  const numericId = Number(rawId);
 
-  const { id, queryData } = useGetTargetAchievements();
-  const { data, isLoading, error, isEnabled, isError, refetch } = queryData;
+  if (!rawId || Number.isNaN(numericId)) {
+    return <QueryDisabled path="/dashboard/targets" />;
+  }
 
-  if (!isEnabled) return <QueryDisabled path="/dashboard/targets" />;
-  if (isError) return <QueryError error={error} onRetry={refetch} />;
-  if (isLoading || !data) return <TableSkeleton />;
+  return (
+    <QueryErrorBoundary>
+      <TargetAchievementListContent targetId={numericId} />
+    </QueryErrorBoundary>
+  );
+}
+
+type Props = { targetId: number };
+
+function TargetAchievementListContent({ targetId }: Props) {
+  const { t } = useTranslation('targets', { keyPrefix: 'achievements' });
+  const { data } = useGetTargetAchievementsSuspense(targetId);
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <TargetAchievementTable targetId={id} data={data.data!} />
+      <TargetAchievementTable targetId={targetId} data={data.data!} />
     </>
   );
 }

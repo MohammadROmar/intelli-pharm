@@ -1,10 +1,13 @@
+import type { ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { PackageSearch, ScanBarcode } from 'lucide-react';
 
 import { BarcodeScanResultCard } from './BarcodeScanResultCard';
-import { ScanResultCardSkeleton } from './ScanResultCardSkeleton';
-import { useGetMedicineByBarcode } from '../model/useGetMedicineByBarcode';
+import { useGetMedicineByBarcodeSuspense } from '../model/useGetMedicineByBarcodeSuspense';
+import type { ApiError } from '@/shared/api';
+import { ErrorBoundary } from '@/shared/lib';
 import { QueryError } from '@/shared/ui';
 
 function BarcodeNotFound({ barcode }: { barcode: string }) {
@@ -26,7 +29,7 @@ function BarcodeNotFound({ barcode }: { barcode: string }) {
           {barcode}
         </p>
         <Link
-          to={'/dashboard/medicines/scan'}
+          to="/dashboard/medicines/scan"
           className="flex items-center gap-2"
         >
           <ScanBarcode className="size-4" />
@@ -37,24 +40,51 @@ function BarcodeNotFound({ barcode }: { barcode: string }) {
   );
 }
 
+type ScanErrorBoundaryProps = {
+  decodedBarcode: string;
+  children: ReactNode;
+};
+
+function ScanResultErrorBoundary({
+  decodedBarcode,
+  children,
+}: ScanErrorBoundaryProps) {
+  const { reset } = useQueryErrorResetBoundary();
+
+  return (
+    <ErrorBoundary
+      onReset={reset}
+      fallbackRender={({ error, reset: resetBoundary }) => {
+        const apiError = error as ApiError;
+
+        if (apiError?.status === 404) {
+          return <BarcodeNotFound barcode={decodedBarcode} />;
+        }
+
+        return <QueryError error={apiError} onRetry={resetBoundary} />;
+      }}
+    >
+      {children}
+    </ErrorBoundary>
+  );
+}
+
+type ScanResultContentProps = { barcode: string };
+
+function MedicineScanResultContent({ barcode }: ScanResultContentProps) {
+  const { data } = useGetMedicineByBarcodeSuspense(barcode);
+  return <BarcodeScanResultCard result={data.data!} />;
+}
+
 export default function MedicineScanResultPage() {
   const { barcode } = useParams<{ barcode: string }>();
-
   const decodedBarcode = decodeURIComponent(barcode ?? '');
 
-  const { data, isLoading, isError, error, refetch } =
-    useGetMedicineByBarcode();
+  if (!barcode) return <BarcodeNotFound barcode="" />;
 
-  if (isLoading) return <ScanResultCardSkeleton />;
-
-  if (isError) {
-    const isNotFound = error?.status === 404;
-    if (isNotFound) return <BarcodeNotFound barcode={decodedBarcode} />;
-
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (!data) return null;
-
-  return <BarcodeScanResultCard result={data.data!} />;
+  return (
+    <ScanResultErrorBoundary decodedBarcode={decodedBarcode}>
+      <MedicineScanResultContent barcode={barcode} />
+    </ScanResultErrorBoundary>
+  );
 }

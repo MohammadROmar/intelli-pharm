@@ -1,28 +1,25 @@
 import { useTranslation } from 'react-i18next';
 
 import { PharmaciesTable } from './PharmaciesTable';
-import { useGetPharmacies } from '../model/useGetPharmacies';
-import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
+import { useGetPharmaciesSuspense } from '../model/useGetPharmaciesSuspense';
+import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 export default function PharmaciesListPage() {
-  const { t } = useTranslation('pharmacies', {
-    keyPrefix: 'list',
-  });
+  return (
+    <QueryErrorBoundary>
+      <PharmacyListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  const { data, isLoading, error, isError, refetch } = useGetPharmacies();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+function PharmacyListContent() {
+  const { t } = useTranslation('pharmacies', { keyPrefix: 'list' });
+  const { data } = useGetPharmaciesSuspense();
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <PharmaciesTable data={data.data!} />
+      <PharmaciesTable data={data!.data!} />
     </>
   );
 }

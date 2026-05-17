@@ -1,11 +1,11 @@
 import type { OrderListItem, OrderListResponse } from '@/entities/order';
 import { useOrderFilters } from './useOrderFilters';
-import { useGetEntities } from '@/shared/model';
+import { useSuspenseGetEntities } from '@/shared/model';
 
-export function useGetOrders() {
+export function useGetOrdersSuspense() {
   const { filters } = useOrderFilters();
 
-  return useGetEntities<OrderListResponse, OrderListItem>({
+  return useSuspenseGetEntities<OrderListResponse, OrderListItem>({
     queryKey: 'orders',
     filters,
   });

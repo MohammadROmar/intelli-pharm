@@ -1,13 +1,12 @@
-import { useSearchParams } from 'react-router-dom';
-
 import type {
   CategoryFilters,
   CategoryListItem,
   CategoryListResponse,
 } from '@/entities/category';
-import { useGetEntities } from '@/shared/model';
+import { useSearchParams } from 'react-router-dom';
+import { useSuspenseGetEntities } from '@/shared/model';
 
-export function useGetCategories() {
+export function useGetCategoriesSuspense() {
   const [searchParams] = useSearchParams();
 
   const name = searchParams.get('name');
@@ -15,7 +14,7 @@ export function useGetCategories() {
 
   const filters: CategoryFilters = { name, parent_id: parentId };
 
-  return useGetEntities<CategoryListResponse, CategoryListItem>({
+  return useSuspenseGetEntities<CategoryListResponse, CategoryListItem>({
     queryKey: 'categories',
     filters,
   });

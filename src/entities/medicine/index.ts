@@ -20,7 +20,6 @@ export type {
   AlternativeMedicine,
   FormValues as MedicineFormData,
 } from './model/medicineTypes';
-export { useGetMedicine } from './model/useGetMedicine';
 export { useGetMedicineSuspense } from './model/useGetMedicineSuspense';
 export { useMedicineImages } from './model/useMedicineImages';
 

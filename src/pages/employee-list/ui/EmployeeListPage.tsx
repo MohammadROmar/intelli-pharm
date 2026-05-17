@@ -1,28 +1,25 @@
 import { useTranslation } from 'react-i18next';
 
 import { EmployeeTable } from './EmployeeTable';
-import { useGetEmployees } from '../model/useGetEmployees';
-import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
+import { useGetEmployeesSuspense } from '../model/useGetEmployeesSuspense';
+import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 export default function EmployeeListPage() {
-  const { t } = useTranslation('employees', {
-    keyPrefix: 'list',
-  });
+  return (
+    <QueryErrorBoundary>
+      <EmployeeListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  const { data, isError, error, isLoading, refetch } = useGetEmployees();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+function EmployeeListContent() {
+  const { t } = useTranslation('employees', { keyPrefix: 'list' });
+  const { data } = useGetEmployeesSuspense();
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <EmployeeTable data={data.data!} />
+      <EmployeeTable data={data!.data!} />
     </>
   );
 }

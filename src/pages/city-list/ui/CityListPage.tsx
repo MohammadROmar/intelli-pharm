@@ -1,26 +1,25 @@
 import { useTranslation } from 'react-i18next';
 
-import { CitiesTable } from './CityTable';
-import { useGetCities } from '../model/useGetCities';
-import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
+import { CityTable } from './CityTable';
+import { useGetCitiesSuspense } from '../model/useGetCitiesSuspense';
+import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
-export default function CitiesPage() {
-  const { t } = useTranslation('cities');
+export default function MedicineListPage() {
+  return (
+    <QueryErrorBoundary>
+      <CityListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  const { data, isLoading, isError, error, refetch } = useGetCities();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+function CityListContent() {
+  const { t } = useTranslation('cities', { keyPrefix: 'list' });
+  const { data } = useGetCitiesSuspense();
 
   return (
     <>
-      <PageTitle title={t('list.title')} subtitle={t('list.subtitle')} />
-      <CitiesTable data={data.data!} />
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <CityTable data={data!.data!} />
     </>
   );
 }

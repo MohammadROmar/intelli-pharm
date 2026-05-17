@@ -1,31 +1,30 @@
 import { useState } from 'react';
 
 import { TargetListHeader } from './TargetListHeader';
-import { TargetListSkeleton } from './TargetListSkeleton';
-import { useGetTargets } from '../model/useGetTargets';
 import { useTargetFilters } from '../model/useTargetFilters';
+import { useGetTargetsSuspense } from '../model/useGetTargetsSuspense';
 import { EditTarget } from '@/features/target-edit';
 import { TargetCard, type Target } from '@/entities/target';
 import type { PaginatedResponse } from '@/shared/api';
 import {
-  QueryError,
   PerPageSelect,
   TableEmptyState,
   DynamicPagination,
+  QueryErrorBoundary,
 } from '@/shared/ui';
 
 const MAX_VISIBLE_PAGES = 5;
 
 export default function TargetListPage() {
-  const { data, isLoading, error, isError, refetch } = useGetTargets();
+  return (
+    <QueryErrorBoundary>
+      <TargetListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TargetListSkeleton />;
-  }
+function TargetListContent() {
+  const { data } = useGetTargetsSuspense();
 
   const { meta, data: targets } = data.data!;
 

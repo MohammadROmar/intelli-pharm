@@ -47,6 +47,7 @@
   --sidebar-ring: oklch(0.56 0.12 185 / 25%);
 
   --skeleton: oklch(0.91 0 0);
+  --skeleton-shine: oklch(0.97 0 0);
 
   --badge-success-bg: #ecfdf5;
   --badge-success-text: #059669;
@@ -67,6 +68,15 @@
   --badge-muted-bg: #f8fafc;
   --badge-muted-text: #475569;
   --badge-muted-border: #94a3b8;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 @theme inline {
@@ -105,6 +115,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   --color-skeleton: var(--skeleton);
+  --color-skeleton-shine: var(--skeleton-shine);
 
   --color-badge-success-bg: var(--badge-success-bg);
   --color-badge-success-text: var(--badge-success-text);
@@ -125,6 +136,8 @@
   --color-badge-muted-bg: var(--badge-muted-bg);
   --color-badge-muted-text: var(--badge-muted-text);
   --color-badge-muted-border: var(--badge-muted-border);
+
+  --animate-skeleton: skeleton-shimmer 1.6s ease-in-out infinite;
 }
 
 .dark {
@@ -167,6 +180,7 @@
   --sidebar-ring: oklch(0.56 0.12 185 / 40%);
 
   --skeleton: oklch(0.24 0.02 260);
+  --skeleton-shine: oklch(0.32 0.02 260);
 
   --badge-success-bg: rgba(16, 185, 129, 0.1);
   --badge-success-text: #34d399;
@@ -249,6 +263,21 @@
 
 @utility thin-scrollbar {
   @apply [&::-webkit-scrollbar-thumb]:bg-border hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground overflow-y-auto [scrollbar-color:var(--border)_transparent] [scrollbar-width:thin] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-lg [&::-webkit-scrollbar-track]:bg-transparent;
+}
+
+@utility shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--skeleton) 25%,
+    var(--skeleton-shine) 37%,
+    var(--skeleton) 63%
+  );
+  background-size: 400% 100%;
+  animation: var(--animate-skeleton);
+
+  [dir='rtl'] & {
+    animation-direction: reverse;
+  }
 }
 
 #qr-shaded-region,

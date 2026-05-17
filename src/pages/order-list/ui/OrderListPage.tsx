@@ -1,28 +1,25 @@
 import { useTranslation } from 'react-i18next';
 
 import { OrdersTable } from './OrdersTable';
-import { useGetOrders } from '../model/useGetOrders';
-import { TableSkeleton, QueryError, PageTitle } from '@/shared/ui';
+import { useGetOrdersSuspense } from '../model/useGetOrdersSuspense';
+import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 export default function OrderListPage() {
-  const { t } = useTranslation('orders', {
-    keyPrefix: 'list',
-  });
+  return (
+    <QueryErrorBoundary>
+      <OrderListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  const { data, isError, error, isLoading, refetch } = useGetOrders();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+function OrderListContent() {
+  const { t } = useTranslation('orders', { keyPrefix: 'list' });
+  const { data } = useGetOrdersSuspense();
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <OrdersTable data={data.data!} />
+      <OrdersTable data={data!.data!} />
     </>
   );
 }

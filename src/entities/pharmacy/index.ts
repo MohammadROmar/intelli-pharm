@@ -11,7 +11,6 @@ export type {
   PharmacyFilters,
   PharmaciesResponse,
 } from './model/pharmacyTypes';
-export { useGetPharmacy } from './model/useGetPharmacy';
 export { useGetPharmacySuspense } from './model/useGetPharmacySuspense';
 
 export { PharmacyForm } from './ui/PharmacyForm';

@@ -7,7 +7,6 @@ export type {
   LaboratoryDetail,
   LaboratoryMedicine,
 } from './model/laboratoryTypes';
-export { useGetLaboratory } from './model/useGetLaboratory';
 export { useGetLaboratorySuspense } from './model/useGetLaboratorySuspense';
 
 export { LaboratoryRow } from './ui/LaboratoryRow';

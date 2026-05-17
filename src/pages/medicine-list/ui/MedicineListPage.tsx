@@ -1,28 +1,25 @@
 import { useTranslation } from 'react-i18next';
 
 import { MedicinesTable } from './MedicinesTable';
-import { useGetMedicines } from '../model/useGetMedicines';
-import { PageTitle, QueryError, TableSkeleton } from '@/shared/ui';
+import { useGetMedicinesSuspense } from '../model/useGetMedicinesSuspense';
+import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 export default function MedicineListPage() {
-  const { t } = useTranslation('medicines', {
-    keyPrefix: 'list',
-  });
+  return (
+    <QueryErrorBoundary>
+      <MedicineListContent />
+    </QueryErrorBoundary>
+  );
+}
 
-  const { data, isLoading, error, isError, refetch } = useGetMedicines();
-
-  if (isError) {
-    return <QueryError error={error} onRetry={refetch} />;
-  }
-
-  if (isLoading || !data) {
-    return <TableSkeleton />;
-  }
+function MedicineListContent() {
+  const { t } = useTranslation('medicines', { keyPrefix: 'list' });
+  const { data } = useGetMedicinesSuspense();
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <MedicinesTable data={data.data!} />
+      <MedicinesTable data={data!.data!} />
     </>
   );
 }

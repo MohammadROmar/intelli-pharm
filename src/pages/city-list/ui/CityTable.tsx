@@ -20,7 +20,7 @@ import {
 
 type Props = { data: CitiesResponse };
 
-export function CitiesTable({ data }: Props) {
+export function CityTable({ data }: Props) {
   const [cityToDelete, setCityToDelete] = useState<CityDetail | null>(null);
   const [cityToEdit, setCityToEdit] = useState<CityDetail | null>(null);
 
