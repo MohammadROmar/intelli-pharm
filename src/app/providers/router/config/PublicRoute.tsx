@@ -2,14 +2,14 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { useAppSelector } from '@/shared/config';
 
-export function ProtectedRoute() {
+export function PublicRoute() {
   const isAuthenticated = useAppSelector(
     (state) => state.session.isAuthenticated,
   );
 
   if (isAuthenticated) {
-    return <Outlet />;
+    return <Navigate to="/dashboard" replace />;
   }
 
-  return <Navigate to="/" replace />;
+  return <Outlet />;
 }

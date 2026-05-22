@@ -2,9 +2,9 @@ import { lazy } from 'react';
 
 import { Logo, WithSuspense } from '@/shared/ui/index.initial';
 
-const DashboardLayout = lazy(() => import('../layouts/DashboardLayout'));
+const DashboardLayout = lazy(() => import('../../../layouts/DashboardLayout'));
 
-export default function DashboardRoute() {
+export function DashboardRoute() {
   return (
     <WithSuspense
       Component={DashboardLayout}

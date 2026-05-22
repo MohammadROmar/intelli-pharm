@@ -32,11 +32,10 @@
   },
   "detail": {
     "pageTitle": "تفاصيل المختبر",
-    "breadcrumb": "المختبرات",
     "edit": "تعديل",
     "delete": "حذف",
     "actions": "الإجراءات",
-    "infoCardTilte": "معلومات المختبر",
+    "infoCardTitle": "معلومات المختبر",
     "infoCardSubtilte": "معلومات مفصلة عن المختبر.",
     "identitySubtitle": "مختبر صيدلاني",
     "statTotal": "إجمالي الأدوية",

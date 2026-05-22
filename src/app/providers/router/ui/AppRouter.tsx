@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { ProtectedRoute } from '@/features/auth/index.initial';
-import PublicOnlyRoute from './PublicOnlyRoute';
-import DashboardRoute from './DashboardRoute';
-import ChatRoute from './ChatRoute';
+import { ChatRoute } from '../config/ChatRoute';
+import { PublicRoute } from '../config/PublicRoute';
+import { ProtectedRoute } from '../config/ProtectedRoute';
+import { DashboardRoute } from '../config/DashboardRoute';
 
-import { LazyRootLayout } from '../layouts/LazyRootLayout';
+import { LazyRootLayout } from '../../../layouts/LazyRootLayout';
+
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
 
@@ -68,6 +69,8 @@ import { LazyTargetAchievementListPage } from '@/pages/target-achievement';
 
 import { LazyChatPage } from '@/pages/ai-chat';
 
+import { LazyNotificationsPage } from '@/pages/notifications';
+
 const router = createBrowserRouter([
   {
     element: <LazyRootLayout />,
@@ -75,7 +78,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <PublicOnlyRoute />,
+        element: <PublicRoute />,
         children: [
           {
             index: true,
@@ -251,6 +254,8 @@ const router = createBrowserRouter([
                   { path: 'new', element: <LazyEmployeeCreatePage /> },
                 ],
               },
+
+              { path: 'notifications', element: <LazyNotificationsPage /> },
             ],
           },
 

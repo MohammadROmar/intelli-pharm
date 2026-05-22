@@ -24,5 +24,11 @@
   "login": {
     "error": "Login failed",
     "onlyAdmin": "Only admins can login."
+  },
+
+  "notifications": {
+    "sync_failed_title": "Notification Sync Failed",
+    "sync_failed_desc": "We couldn't update your device token. You might miss some real-time updates.",
+    "retry_action": "Try Again"
   }
 }

@@ -30,7 +30,7 @@ export function BilingualNameFields({
     name: ['name.en', 'name.ar'],
   });
 
-  const { t: tShared } = useTranslation('shared', {
+  const { t: tShared } = useTranslation('common', {
     keyPrefix: 'form.bilingualName',
   });
   const { t: tPlaceholder } = useTranslation(placeholderNamespace, {

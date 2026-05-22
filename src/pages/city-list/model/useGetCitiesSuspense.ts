@@ -8,5 +8,6 @@ export function useGetCitiesSuspense() {
   return useSuspenseGetEntities<CitiesResponse, CityDetail>({
     queryKey: 'cities',
     filters,
+    withDualLanguage: true,
   });
 }

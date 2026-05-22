@@ -5,7 +5,7 @@ import { DirectionProvider } from '@radix-ui/react-direction';
 
 import { RootErrorFallback } from './error/RootErrorFallback';
 import ThemeProvider from './providers/ThemeProvider';
-import AppRouter from './router/AppRouter';
+import AppRouter from './providers/router/ui/AppRouter';
 import { AuthLoader } from './providers/AuthProvider';
 import { store } from './store/store';
 import { ErrorBoundary, useDocumentDirection } from '@/shared/lib';

@@ -16,9 +16,10 @@ import {
   SidebarMenuItem,
 } from '@/shared/ui';
 import { UserInfo } from './UserInfo';
+import { Link } from 'react-router-dom';
 
 export function NavUser() {
-  const { isMobile } = useSidebar();
+  const { isMobile, openMobile, setOpenMobile } = useSidebar();
   const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
 
   return (
@@ -51,9 +52,16 @@ export function NavUser() {
                 <UserCircle />
                 {t('account')}
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                {t('notifications')}
+              <DropdownMenuItem asChild className="cursor-pointer">
+                <Link
+                  to="notifications"
+                  onClick={() => {
+                    if (openMobile) setOpenMobile(false);
+                  }}
+                >
+                  <Bell />
+                  {t('notifications')}
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

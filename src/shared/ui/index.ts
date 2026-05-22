@@ -200,3 +200,4 @@ export { PageHeader } from './PageHeader';
 export { ActionsDropdown } from './ActionsDropdown';
 export { BreadCrumbs } from './Breadcrumbs';
 export { PerPageSelect } from './PerPageSelect';
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';

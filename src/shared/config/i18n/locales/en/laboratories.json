@@ -31,11 +31,10 @@
   },
   "detail": {
     "pageTitle": "Laboratory Details",
-    "breadcrumb": "Laboratories",
     "edit": "Edit",
     "delete": "Delete",
     "actions": "Actions",
-    "infoCardTilte": "Laboratory Information",
+    "infoCardTitle": "Laboratory Information",
     "infoCardSubtilte": "Detailed information about the laboratory.",
     "identitySubtitle": "Pharmaceutical Laboratory",
     "statTotal": "Total Medicines",

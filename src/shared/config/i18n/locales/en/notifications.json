@@ -1,0 +1,58 @@
+{
+  "page": {
+    "title": "Notifications",
+    "description": "Stay up to date with important activity.",
+    "all": "All Notifications"
+  },
+  "tabs": {
+    "all": "All",
+    "unread": "Unread",
+    "read": "Read"
+  },
+  "actions": {
+    "markAsRead": "Mark as read",
+    "markAllAsRead": "Mark all as read"
+  },
+  "item": {
+    "types": {
+      "test": "Test",
+      "erpStockLow": "Low Stock",
+      "erpStockExpiry": "Expiring Stock",
+      "unknown": "Notification"
+    }
+  },
+  "empty": {
+    "all": {
+      "title": "No notifications yet",
+      "description": "When you receive notifications, they will appear here."
+    },
+    "unread": {
+      "title": "You're all caught up!",
+      "description": "There are no unread notifications right now."
+    },
+    "read": {
+      "title": "No read notifications",
+      "description": "Notifications you have already read will appear here."
+    }
+  },
+
+  "toast": {
+    "newNotification": "New Notification",
+    "view": "View",
+
+    "markAsRead": {
+      "success": {
+        "title": "Marked as read",
+        "description": "The selected notification has been marked as read."
+      },
+      "error": { "title": "Failed to mark notification as read" }
+    },
+    "markAllAsRead": {
+      "success": {
+        "title": "Marked all as read",
+        "description": "All notifications have been marked as read."
+      },
+      "error": { "title": "Failed to mark notifications as read" }
+    }
+  }
+}
