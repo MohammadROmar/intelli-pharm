@@ -1,8 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { LogOut } from 'lucide-react';
 
-import { logout } from '@/entities/session';
-import { useAppDispatch } from '@/shared/config';
 import {
   Button,
   Dialog,
@@ -15,9 +13,10 @@ import {
   DialogTrigger,
 } from '@/shared/ui';
 
-export function LogoutButton() {
-  const dispatch = useAppDispatch();
+import { useLogout } from '../model/useLogout';
 
+export function LogoutButton() {
+  const logout = useLogout();
   const { t } = useTranslation('common', { keyPrefix: 'logout' });
 
   return (
@@ -41,7 +40,7 @@ export function LogoutButton() {
           <DialogClose asChild>
             <Button variant="outline">{t('cancel')}</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={() => dispatch(logout())}>
+          <Button variant="destructive" onClick={logout}>
             {t('confirm')}
           </Button>
         </DialogFooter>

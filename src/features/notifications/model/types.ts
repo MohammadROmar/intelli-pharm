@@ -15,3 +15,9 @@ export type FCMNotificationData = {
 };
 
 export type BroadcastNotificationMessage = { data: FCMNotificationData };
+
+export type NotificationsParams = {
+  page: number;
+  per_page: number;
+  read_status?: 'read' | 'unread';
+};

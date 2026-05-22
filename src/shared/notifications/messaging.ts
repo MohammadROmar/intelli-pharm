@@ -8,7 +8,7 @@ export const FCM_BROADCAST_CHANNEL = 'fcm-notifications';
 let messagingInstance: Messaging | null = null;
 let swRegistrationInstance: ServiceWorkerRegistration | null = null;
 
-async function getMessagingInstance() {
+export async function getMessagingInstance() {
   if (messagingInstance) return messagingInstance;
   const { getMessaging } = await import('firebase/messaging');
   const app = await getFirebaseApp();

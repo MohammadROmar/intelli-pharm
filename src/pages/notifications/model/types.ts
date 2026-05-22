@@ -16,10 +16,4 @@ export type Notification = {
   created_at: string;
 };
 
-export type NotificationsParams = {
-  page: number;
-  per_page: number;
-  read_status?: 'read' | 'unread';
-};
-
 export type NotificationsResponse = PaginatedResponse<Notification>;

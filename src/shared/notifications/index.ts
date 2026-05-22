@@ -8,3 +8,4 @@ export {
   readToken,
   writeToken,
 } from './messaging';
+export { revokeFCMToken } from './revokeFCMToken';

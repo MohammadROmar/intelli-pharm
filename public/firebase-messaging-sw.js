@@ -16,45 +16,32 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
+const NOTIFICATIONS_PATH = '/dashboard/notifications';
+
 messaging.onBackgroundMessage((payload) => {
   const { data, notification } = payload;
 
   const title = notification?.title ?? data?.title ?? 'New Notification';
   const body = notification?.body ?? data?.body ?? '';
 
-  self.registration.showNotification(title, {
+  const channel = new BroadcastChannel('fcm-notifications');
+  channel.postMessage({ data });
+  channel.close();
+
+  return self.registration.showNotification(title, {
     body,
     icon: '/icons/icon-192.png',
     badge: '/icons/badge-72.png',
     tag: data?.type ?? 'default',
     renotify: false,
-    data: data,
+    data,
   });
-
-  const channel = new BroadcastChannel('fcm-notifications');
-  channel.postMessage({ data });
-  channel.close();
 });
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  const notifData = event.notification.data ?? {};
-
   event.waitUntil(
-    clients
-      .matchAll({ type: 'window', includeUncontrolled: true })
-      .then((clientList) => {
-        for (const client of clientList) {
-          if (
-            client.url.startsWith(self.location.origin) &&
-            'focus' in client
-          ) {
-            client.postMessage({ type: 'NOTIFICATION_CLICK', data: notifData });
-            return client.focus();
-          }
-        }
-        return clients.openWindow(targetUrl);
-      }),
+    clients.openWindow(self.location.origin + NOTIFICATIONS_PATH),
   );
 });

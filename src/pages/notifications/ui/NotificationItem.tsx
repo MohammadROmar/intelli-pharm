@@ -11,11 +11,16 @@ import {
 } from '../model/notificationTypeConfig';
 
 type Props = {
+  isMarking: boolean;
   notification: Notification;
   onMarkAsRead: (notification: Notification) => void;
 };
 
-export function NotificationItem({ notification, onMarkAsRead }: Props) {
+export function NotificationItem({
+  notification,
+  isMarking,
+  onMarkAsRead,
+}: Props) {
   const { t, i18n } = useTranslation('notifications');
 
   const isRead = notification.read_at !== null;
@@ -30,7 +35,7 @@ export function NotificationItem({ notification, onMarkAsRead }: Props) {
     <button
       type="button"
       onClick={() => onMarkAsRead(notification)}
-      disabled={isRead}
+      disabled={isRead || isMarking}
       aria-label={
         isRead
           ? notification.title

@@ -3,15 +3,16 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CheckCheck } from 'lucide-react';
 
+import type { NotificationsParams } from '@/features/notifications';
 import { Badge, Button, CardContent, CardFooter } from '@/shared/ui';
 import { DynamicPagination, PerPageSelect } from '@/shared/ui';
 
-import { useMarkNotificationAsRead } from '../model/useMarkNotificationAsRead';
-import { useMarkAllNotificationsAsRead } from '../model/useMarkAllNotificationsAsRead';
-import { useGetNotifications } from '../model/useGetNotifications';
-import type { Notification, NotificationsParams } from '../model/types';
 import { NotificationItem } from './NotificationItem';
 import { NotificationsEmptyState } from './NotificationsEmptyState';
+import type { Notification } from '../model/types';
+import { useGetNotifications } from '../model/useGetNotifications';
+import { useMarkNotificationAsRead } from '../model/useMarkNotificationAsRead';
+import { useMarkAllNotificationsAsRead } from '../model/useMarkAllNotificationsAsRead';
 
 const MAX_VISIBLE_PAGES = 7;
 const DEFAULT_PAGE = 1;
@@ -36,7 +37,8 @@ export function NotificationsContent() {
   };
 
   const { data } = useGetNotifications(params);
-  const { mutate: markAsRead } = useMarkNotificationAsRead();
+  const { mutate: markAsRead, isPending: isMarking } =
+    useMarkNotificationAsRead();
   const { mutate: markAllAsRead, isPending: isMarkingAll } =
     useMarkAllNotificationsAsRead();
 
@@ -95,6 +97,7 @@ export function NotificationsContent() {
         <CardContent className="divide-y p-0!">
           {notifications.map((notification) => (
             <NotificationItem
+              isMarking={isMarking}
               key={notification.id}
               notification={notification}
               onMarkAsRead={handleMarkAsRead}

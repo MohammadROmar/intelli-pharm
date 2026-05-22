@@ -4,9 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import { BellRing } from 'lucide-react';
+import type { MessagePayload } from 'firebase/messaging';
 
 import type { FCMNotificationData } from './types';
-import { onForegroundMessage } from '@/shared/notifications';
+import { notificationsKeys } from './notificationsKeys';
+import {
+  onForegroundMessage,
+  FCM_BROADCAST_CHANNEL,
+} from '@/shared/notifications';
 
 let isRegistered = false;
 
@@ -15,27 +20,14 @@ export function useNotificationListener() {
   const navigate = useNavigate();
   const { t } = useTranslation('notifications', { keyPrefix: 'toast' });
 
-  const queryClientRef = useRef(queryClient);
-  const navigateRef = useRef(navigate);
-  const tRef = useRef(t);
+  const handlerRef = useRef<(payload: MessagePayload) => void>(() => {});
 
   useEffect(() => {
-    queryClientRef.current = queryClient;
-    navigateRef.current = navigate;
-    tRef.current = t;
-  }, [queryClient, navigate, t]);
-
-  useEffect(() => {
-    if (isRegistered) return;
-    isRegistered = true;
-
-    onForegroundMessage((payload) => {
+    handlerRef.current = (payload) => {
       const data = payload.data as FCMNotificationData | undefined;
 
       const title =
-        data?.title ??
-        payload.notification?.title ??
-        tRef.current('newNotification');
+        data?.title ?? payload.notification?.title ?? t('newNotification');
       const description = data?.body ?? payload.notification?.body;
 
       toast(title, {
@@ -46,18 +38,43 @@ export function useNotificationListener() {
             'bg-primary! text-primary-foreground! hover:bg-primary/90! font-medium! transition-colors!',
         },
         action: {
-          actionButtonStyle: { backgroundColor: 'red !important' },
-          label: tRef.current('view'),
-          onClick: () => {
-            navigateRef.current('/dashboard/notifications');
-          },
+          label: t('view'),
+          onClick: () => navigate('/dashboard/notifications'),
         },
       });
 
-      queryClientRef.current.invalidateQueries({ queryKey: ['notifications'] });
-    }).catch((err) => {
-      console.error('[FCM] foreground listener failed:', err);
+      void queryClient.invalidateQueries({ queryKey: notificationsKeys.all });
+    };
+  }, [queryClient, navigate, t]);
+
+  useEffect(() => {
+    if (isRegistered) return;
+    isRegistered = true;
+
+    let unsubscribe: (() => void) | undefined;
+
+    onForegroundMessage((payload) => handlerRef.current(payload))
+      .then((unsub) => {
+        unsubscribe = unsub;
+      })
+      .catch((err) => {
+        console.error('[FCM] foreground listener failed:', err);
+        isRegistered = false;
+      });
+
+    return () => {
+      unsubscribe?.();
       isRegistered = false;
-    });
+    };
   }, []);
+
+  useEffect(() => {
+    const channel = new BroadcastChannel(FCM_BROADCAST_CHANNEL);
+
+    channel.onmessage = () => {
+      void queryClient.invalidateQueries({ queryKey: notificationsKeys.all });
+    };
+
+    return () => channel.close();
+  }, [queryClient]);
 }
