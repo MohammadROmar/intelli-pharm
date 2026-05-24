@@ -28,6 +28,10 @@ export function Step3Assignment() {
   });
 
   function onNext(values: AssignmentSlice) {
+    if (values.region_id !== state.assignment.region_id) {
+      dispatch({ type: 'UPDATE_PHARMACIES', payload: { pharmacy_ids: [] } });
+    }
+
     dispatch({ type: 'UPDATE_ASSIGNMENT', payload: values });
     dispatch({ type: 'SET_STEP', payload: 4 });
   }

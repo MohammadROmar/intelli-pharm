@@ -8,7 +8,7 @@ function InitiatePlanPageSkeleton() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
       <div className="space-y-1">
-        <Skeleton className="h-9.3 w-36 md:h-11.25" />
+        <Skeleton className="h-9.5 w-36 md:h-11.25" />
         <Skeleton className="h-5 w-64" />
       </div>
 

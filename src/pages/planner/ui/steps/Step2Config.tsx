@@ -169,7 +169,7 @@ export function Step2Config() {
             )}
           />
 
-          <Field data-invalid={errors.reason_details}>
+          <Field data-invalid={!!errors.reason_details}>
             <FieldLabel htmlFor="reason_details">
               {t('config.reasonDetailsLabel')}
             </FieldLabel>
@@ -179,6 +179,7 @@ export function Step2Config() {
               placeholder={t('config.reasonDetailsPlaceholder')}
               className="resize-none"
               icon={StickyNote}
+              aria-invalid={!!errors.reason_details}
               {...register('reason_details', {
                 required: true,
                 validate: required(),

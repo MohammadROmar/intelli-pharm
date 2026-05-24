@@ -12,8 +12,9 @@ import {
   BarChart3,
   FlaskConical,
   LayoutDashboard,
-  type LucideIcon,
   Target,
+  Waypoints,
+  type LucideIcon,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -58,7 +59,7 @@ export const sidebarData: NavSection[] = [
     sectionLabel: 'sections.sales',
     items: [
       { label: 'labels.orders', url: '/dashboard/orders', icon: Package },
-      { label: 'labels.planner', url: '/dashboard/planner', icon: Package },
+      { label: 'labels.planner', url: '/dashboard/planner', icon: Waypoints },
       { label: 'labels.pharmacies', url: '/dashboard/pharmacies', icon: Cross },
       {
         label: 'labels.promotions',
