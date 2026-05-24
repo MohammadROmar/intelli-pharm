@@ -19,7 +19,7 @@
     "inactive": "Inactive",
     "role": "Role",
     "actions": "Actions",
-    "searchPlaceholder": "Search Employee..."
+    "searchPlaceholder": "Search Employee…"
   },
   "create": {
     "title": "Create Employee",
@@ -68,9 +68,9 @@
     "nameLabel": "Name",
     "namePlaceholder": "Search by employee name…",
     "emailLabel": "Email",
-    "emaiPlaceholder": "Search by employee email...",
+    "emaiPlaceholder": "Search by employee email…",
     "phoneLabel": "Phone Number",
-    "phonePlaceholder": "Search by employeee phone...",
+    "phonePlaceholder": "Search by employeee phone…",
     "phoneError": "Only numbers are allowed",
     "apply": "Apply Filters",
     "clear": "Clear Filters"

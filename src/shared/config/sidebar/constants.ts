@@ -58,6 +58,7 @@ export const sidebarData: NavSection[] = [
     sectionLabel: 'sections.sales',
     items: [
       { label: 'labels.orders', url: '/dashboard/orders', icon: Package },
+      { label: 'labels.planner', url: '/dashboard/planner', icon: Package },
       { label: 'labels.pharmacies', url: '/dashboard/pharmacies', icon: Cross },
       {
         label: 'labels.promotions',

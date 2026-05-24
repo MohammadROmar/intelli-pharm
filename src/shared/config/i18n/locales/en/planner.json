@@ -1,0 +1,80 @@
+{
+  "pageTitle": "Initiate Plan",
+  "pageSubtitle": "Set up your daily distribution route in 4 steps.",
+  "stepProgress": "Step {{current}} of {{total}}",
+  "steps": {
+    "location": "Location",
+    "config": "Configuration",
+    "assignment": "Assignment",
+    "pharmacies": "Pharmacies"
+  },
+  "nav": {
+    "back": "Back",
+    "next": "Next",
+    "submit": "Generate Plan",
+    "generating": "Generating…"
+  },
+  "location": {
+    "cardTitle": "Current Location",
+    "cardSubtitle": "Set your starting point for today's route.",
+    "lat": "Lat",
+    "lng": "Lng",
+    "useCurrentLocation": "Use Current Location",
+    "errorDenied": "Location access was denied. Allow it in browser settings.",
+    "errorUnavailable": "Could not determine your location. Try again.",
+    "errorTimeout": "Location request timed out. Try again."
+  },
+  "config": {
+    "cardTitle": "Plan Configuration",
+    "cardSubtitle": "Choose how the route should be optimised.",
+    "travelModeLabel": "Travel Mode",
+    "reasonDetailsRequired": "Trip notes are required.",
+    "modeDriving": "Driving",
+    "modeWalking": "Walking",
+    "profileLabel": "Optimisation Profile",
+    "profiles": {
+      "allFactors": "All Factors",
+      "balanced": "Balanced",
+      "fastest": "Fastest Route",
+      "cheapest": "Least Fuel / Distance",
+      "vipFirst": "VIP First",
+      "timeWindowFirst": "Time Window First",
+      "pedestrianLight": "Light Pedestrian"
+    },
+    "profileHints": {
+      "all_factors": "Considers all available factors when building the route.",
+      "balanced": "A balanced mix of speed, cost and priorities.",
+      "fastest": "Minimises total distance between pharmacies.",
+      "cheapest": "Minimises fuel consumption when driving, distance when walking.",
+      "vip_first": "Pharmacies with higher VIP scores are visited first.",
+      "time_window_first": "Respects pharmacy opening and closing hours.",
+      "pedestrian_light": "Optimised for light walking routes.",
+      "null": "The fastest path will be selected automatically."
+    },
+    "reasonDetailsLabel": "Trip Notes",
+    "reasonDetailsPlaceholder": "e.g. starting today's morning round…",
+    "optional": "optional"
+  },
+  "assignment": {
+    "cardTitle": "Assignment",
+    "cardSubtitle": "Assign a representative and define the target region.",
+    "repLabel": "Sales Representative",
+    "repHint": "Leave empty to assign to yourself.",
+    "regionLabel": "Region",
+    "errors": {
+      "regionRequired": "Region is required to generate a plan.",
+      "repRequired": "Employee is required to generate a plan."
+    }
+  },
+  "pharmacies": {
+    "cardTitle": "Select Pharmacies",
+    "cardSubtitle": "Choose which pharmacies to include in this route.",
+    "searchPlaceholder": "Search by pharmacy name…",
+    "noResults": "No pharmacies match your search.",
+    "loadMore": "Load more",
+    "loadingMore": "Loading More…",
+    "selectedCount": "{{count}} selected",
+    "selected": "Selected",
+    "clearAll": "Clear all"
+  }
+}

@@ -71,6 +71,8 @@ import { LazyChatPage } from '@/pages/ai-chat';
 
 import { LazyNotificationsPage } from '@/pages/notifications';
 
+import { LazyInitiatePlanPage } from '@/pages/planner';
+
 const router = createBrowserRouter([
   {
     element: <LazyRootLayout />,
@@ -256,6 +258,8 @@ const router = createBrowserRouter([
               },
 
               { path: 'notifications', element: <LazyNotificationsPage /> },
+
+              { path: 'planner', element: <LazyInitiatePlanPage /> },
             ],
           },
 

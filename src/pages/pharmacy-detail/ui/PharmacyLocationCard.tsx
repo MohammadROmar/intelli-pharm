@@ -1,15 +1,15 @@
 import { lazy, Suspense, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Navigation } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 import type { PharmacyDetail } from '@/entities/pharmacy';
 import { getLocalized, ErrorBoundary } from '@/shared/lib';
+import { CoordinateDisplay } from '@/shared/map';
 import {
   Button,
   Skeleton,
   Separator,
   DetailCard,
-  DetailCell,
   SectionErrorFallback,
 } from '@/shared/ui';
 
@@ -20,9 +20,7 @@ const MapView = lazy(() =>
 type Props = { pharmacy: PharmacyDetail };
 
 export function PharmacyLocationCard({ pharmacy }: Props) {
-  const { t, i18n } = useTranslation('pharmacies', {
-    keyPrefix: 'detail',
-  });
+  const { t, i18n } = useTranslation('pharmacies', { keyPrefix: 'detail' });
 
   const [mapVisible, setMapVisible] = useState(false);
 
@@ -39,20 +37,7 @@ export function PharmacyLocationCard({ pharmacy }: Props) {
       subtitle={t('locationCardSubtitle')}
       icon={MapPin}
     >
-      <div className="grid grid-cols-2 gap-6">
-        <DetailCell label={t('labelLatitude')}>
-          <span className="flex items-center gap-1.5">
-            <Navigation className="text-muted-foreground size-3.5 shrink-0" />
-            <span className="font-mono tabular-nums">{pharmacy.latitude}</span>
-          </span>
-        </DetailCell>
-        <DetailCell label={t('labelLongitude')}>
-          <span className="flex items-center gap-1.5">
-            <Navigation className="text-muted-foreground size-3.5 shrink-0 -rotate-90" />
-            <span className="font-mono tabular-nums">{pharmacy.longitude}</span>
-          </span>
-        </DetailCell>
-      </div>
+      <CoordinateDisplay position={position} />
 
       <Separator />
 

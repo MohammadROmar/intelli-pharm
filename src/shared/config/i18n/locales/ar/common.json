@@ -18,7 +18,8 @@
     "delivery": "مهمة التوصيل",
     "region": "المنطقة",
     "city": "المدينة",
-    "employee": "الموظف"
+    "employee": "الموظف",
+    "plan": "الخطة"
   },
   "logout": {
     "title": "تسجيل الخروج",
@@ -37,9 +38,9 @@
     "placeholder": "اختر خيارًا",
     "noResultsFound": "لم يتم العثور على نتائج",
     "noMoreResults": "لا يوجد المزيد من النتائج",
-    "search": "بحث...",
+    "search": "بحث…",
     "scrollToLoad": "قم بالتمرير لتحميل المزيد",
-    "loadingMore": "جارٍ التحميل..."
+    "loadingMore": "جارٍ التحميل…"
   },
   "dragNDrop": {
     "dnd": "اسحب وأفلت الصور أو",

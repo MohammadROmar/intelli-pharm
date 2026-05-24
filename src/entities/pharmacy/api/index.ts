@@ -24,10 +24,11 @@ export async function createPharmacy(pharmacy: PharmacyDetail) {
 export async function getInfinitePharmacies(
   page_number: string,
   name?: string,
+  params?: Record<string, unknown>,
 ) {
   const response = await apiClient.get<PharmaciesResponse>(
     '/erp/v1/pharmacies',
-    { params: { page_number, name } },
+    { params: { page_number, name, ...params } },
   );
 
   return unwrapPaginatedApiResponse(response);

@@ -1,0 +1,80 @@
+{
+  "pageTitle": "إنشاء خطة",
+  "pageSubtitle": "أعدّ مسار التوزيع اليومي في 4 خطوات.",
+  "stepProgress": "الخطوة {{current}} من {{total}}",
+  "steps": {
+    "location": "الموقع",
+    "config": "الإعدادات",
+    "assignment": "التعيين",
+    "pharmacies": "الصيدليات"
+  },
+  "nav": {
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إنشاء الخطة",
+    "generating": "جارٍ الإنشاء…"
+  },
+  "location": {
+    "cardTitle": "الموقع الحالي",
+    "cardSubtitle": "حدد نقطة انطلاقك لمسار اليوم.",
+    "lat": "خط العرض",
+    "lng": "خط الطول",
+    "useCurrentLocation": "استخدام الموقع الحالي",
+    "errorDenied": "تم رفض الوصول إلى الموقع. اسمح به في إعدادات المتصفح.",
+    "errorUnavailable": "تعذر تحديد موقعك. حاول مجدداً.",
+    "errorTimeout": "انتهت مهلة طلب الموقع. حاول مجدداً."
+  },
+  "config": {
+    "cardTitle": "إعدادات الخطة",
+    "cardSubtitle": "اختر طريقة تحسين المسار.",
+    "travelModeLabel": "وسيلة التنقل",
+    "modeDriving": "قيادة",
+    "reasonDetailsRequired": "ملاحظات الرحلة مطلوبة.",
+    "modeWalking": "مشياً",
+    "profileLabel": "ملف التحسين",
+    "profiles": {
+      "allFactors": "جميع العوامل",
+      "balanced": "متوازن",
+      "fastest": "أسرع مسار",
+      "cheapest": "أقل استهلاكاً للوقود / المسافة",
+      "vipFirst": "VIP أولاً",
+      "timeWindowFirst": "نافذة الوقت أولاً",
+      "pedestrianLight": "مشي خفيف"
+    },
+    "profileHints": {
+      "all_factors": "يأخذ بعين الاعتبار جميع العوامل المتاحة عند بناء المسار.",
+      "balanced": "مزيج متوازن من السرعة والتكلفة والأولويات.",
+      "fastest": "يقلّص المسافة الكلية بين الصيدليات.",
+      "cheapest": "يقلّل استهلاك الوقود عند القيادة، والمسافة عند المشي.",
+      "vip_first": "تُزار الصيدليات ذات الدرجة VIP الأعلى أولاً.",
+      "time_window_first": "يراعي أوقات فتح وإغلاق الصيدليات.",
+      "pedestrian_light": "مُحسَّن لمسارات المشي الخفيفة.",
+      "null": "سيتم اختيار أسرع مسار بشكل تلقائي."
+    },
+    "reasonDetailsLabel": "ملاحظات الرحلة",
+    "reasonDetailsPlaceholder": "مثال: بدء الجولة الصباحية لليوم…",
+    "optional": "اختياري"
+  },
+  "assignment": {
+    "cardTitle": "التعيين",
+    "cardSubtitle": "عيّن مندوباً وحدد المنطقة المستهدفة.",
+    "repLabel": "المندوب",
+    "repHint": "اتركه فارغاً للتعيين لنفسك.",
+    "regionLabel": "المنطقة",
+    "errors": {
+      "regionRequired": "المنطقة مطلوبة لإنشاء خطة.",
+      "repRequired": "الموظف مطلوب لإنشاء خطة."
+    }
+  },
+  "pharmacies": {
+    "cardTitle": "اختر الصيدليات",
+    "cardSubtitle": "اختر الصيدليات التي ستُدرج في هذا المسار.",
+    "searchPlaceholder": "ابحث باسم الصيدلية…",
+    "noResults": "لا توجد صيدليات تطابق بحثك.",
+    "loadMore": "تحميل المزيد",
+    "loadingMore": "يتم التحميل…",
+    "selectedCount": "{{count}} محددة",
+    "selected": "المحددة",
+    "clearAll": "إلغاء الكل"
+  }
+}

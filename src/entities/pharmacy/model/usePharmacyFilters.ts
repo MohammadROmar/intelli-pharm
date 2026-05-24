@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import type { PharmacyFilters } from '@/entities/pharmacy';
+import type { PharmacyFilters } from './pharmacyTypes';
 import { useFilters, parseFilters } from '@/shared/lib';
 
 const FILTER_KEYS: (keyof PharmacyFilters)[] = [

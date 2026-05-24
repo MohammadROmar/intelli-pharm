@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PharmacyFiltersModal } from './PharmacyFiltersModal';
-import { usePharmacyFilters } from '../model/usePharmacyFilters';
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
-import { PharmacyRow } from '@/entities/pharmacy';
+import { PharmacyRow, usePharmacyFilters } from '@/entities/pharmacy';
 import type { PharmaciesResponse, Pharmacy } from '@/entities/pharmacy';
 import {
   TableBody,

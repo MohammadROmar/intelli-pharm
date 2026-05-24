@@ -19,7 +19,7 @@
     "email": "البريد الإلكتروني",
     "role": "الدور",
     "actions": "الخيارات",
-    "searchPlaceholder": "البحث عن موظف..."
+    "searchPlaceholder": "البحث عن موظف…"
   },
   "create": {
     "title": "إضافة موظف",
@@ -67,9 +67,9 @@
     "nameLabel": "الاسم",
     "namePlaceholder": "البحث باسم الموظف",
     "emailLabel": "البريد الالكتروني",
-    "emailPlaceholder": "البحث بالبريد الالكتروني...",
+    "emailPlaceholder": "البحث بالبريد الالكتروني…",
     "phoneLabel": "رقم الهاتف",
-    "phonePlaceholder": "البحث برقم الهاتف...",
+    "phonePlaceholder": "البحث برقم الهاتف…",
     "phoneError": "يسمح بالأرقام فقط",
     "apply": "تطبيق الفلاتر",
     "clear": "مسح الفلاتر"

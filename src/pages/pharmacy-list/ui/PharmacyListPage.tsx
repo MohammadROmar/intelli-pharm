@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { PharmaciesTable } from './PharmaciesTable';
-import { useGetPharmaciesSuspense } from '../model/useGetPharmaciesSuspense';
+import { useGetPharmaciesSuspense } from '@/entities/pharmacy';
 import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 export default function PharmaciesListPage() {

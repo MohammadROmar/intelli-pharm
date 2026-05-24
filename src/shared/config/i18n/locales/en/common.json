@@ -18,7 +18,8 @@
     "delivery": "Delivery task",
     "region": "Region",
     "city": "City",
-    "employee": "Employee"
+    "employee": "Employee",
+    "plan": "Plan"
   },
   "logout": {
     "title": "Logout",
@@ -37,14 +38,14 @@
     "placeholder": "Select an option",
     "noResultsFound": "No results found",
     "noMoreResults": "No more results",
-    "search": "Search...",
+    "search": "Search…",
     "scrollToLoad": "Scroll to load more",
-    "loadingMore": "Loading more..."
+    "loadingMore": "Loading more…"
   },
   "dragNDrop": {
     "dnd": "Drag & drop images or",
     "browse": "Browse",
-    "dropHere": "Drop images here..."
+    "dropHere": "Drop images here…"
   },
   "dialog": {
     "delete": {
@@ -84,7 +85,7 @@
   "form": {
     "fields": { "nameEn": "Name (English)", "nameAr": "Name (Arabic)" },
     "hints": {
-      "nameEn": "English letters, numbers, and special characters (* $ @ & ...).",
+      "nameEn": "English letters, numbers, and special characters (* $ @ & …).",
       "nameAr": "Arabic letters and numbers only. Special characters are not allowed."
     },
     "errors": {
@@ -104,7 +105,7 @@
         "nameAr": "Name (Arabic)"
       },
       "hints": {
-        "nameEn": "English letters, numbers, and special characters (* $ @ & ...).",
+        "nameEn": "English letters, numbers, and special characters (* $ @ & …).",
         "nameAr": "Arabic letters and numbers only. Special characters are not allowed."
       },
       "errors": {

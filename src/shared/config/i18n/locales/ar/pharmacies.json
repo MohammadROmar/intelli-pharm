@@ -89,10 +89,10 @@
     "title": "فلاتر الصيدليات",
     "subtitle": "ضيّق نتائج قائمة الصيدليات باستخدام فلتر واحد أو أكثر.",
     "nameLabel": "اسم الصيدلية",
-    "namePlaceholder": "البحث باسم الصيدلية...",
+    "namePlaceholder": "البحث باسم الصيدلية…",
     "labelRegion": "المنطقة",
     "labelPharmacistName": "اسم الصيدلاني",
-    "placeholderPharmacistName": "البحث باسم الصيدلاني...",
+    "placeholderPharmacistName": "البحث باسم الصيدلاني…",
     "labelPhone": "الهاتف",
     "labelAltPhone": "هاتف بديل"
   }

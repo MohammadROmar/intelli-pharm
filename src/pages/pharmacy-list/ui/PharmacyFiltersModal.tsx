@@ -3,9 +3,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Phone, User, UserRound } from 'lucide-react';
 
-import { type PharmacyFilters } from '@/entities/pharmacy';
-import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
 import { RegionSelector } from '@/entities/region';
+import type { PharmacyFilters } from '@/entities/pharmacy';
+import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
 
 type Props = {
   open: boolean;
