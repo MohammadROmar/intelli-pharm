@@ -1,83 +1,134 @@
 {
-  "emptyTitle": "No data found",
-  "emptySubtitle": "Try adjusting the filters to see results.",
-  "clearSearch": "Clear search",
+  "summary": {
+    "period": "Period"
+  },
+
+  "seasonal": {
+    "title": "Seasonal Metrics",
+    "subtitle": "Category performance by quarter and year",
+    "empty": "No seasonal metrics found for the selected filters",
+    "summary": {
+      "orderCount": "Total Orders",
+      "totalUnits": "Total Units",
+      "totalRevenue": "Total Revenue",
+      "avgOrderValue": "Avg. Order Value"
+    },
+    "columns": {
+      "pharmacy": "Pharmacy",
+      "category": "Category",
+      "orders": "Orders",
+      "units": "Units",
+      "revenue": "Revenue",
+      "avgOrder": "Avg. Order",
+      "computedAt": "Computed At"
+    },
+    "filtersRequired": {
+      "title": "Select a Period to Continue",
+      "description": "To view seasonal metrics, you need to choose both a year and a quarter. Clear the search to get started.",
+      "clearFilters": "Clear Search"
+    }
+  },
+
   "medicine": {
     "title": "Medicine Metrics",
-    "subtitle": "Alternative usage analytics and order trends per medicine",
-    "cards": {
-      "ordersTitle": "Total Orders",
-      "ordersSubtitle": "Across selected medicines",
-      "acceptanceRateTitle": "Avg Acceptance Rate",
-      "acceptanceRateSubtitle": "Alternative acceptance",
-      "altsUsedTitle": "Alternatives Used",
-      "altsUsedSubtitle": "Total substitutions",
-      "medicines": "Medicines",
-      "record": "record(s)"
+    "subtitle": "Alternative usage and acceptance rates by medicine",
+    "empty": "No medicine metrics found for the selected filters",
+    "summary": {
+      "totalOrders": "Total Orders",
+      "avgAcceptanceRate": "Avg. Acceptance Rate",
+      "alternativesUsed": "Alternatives Used"
     },
-    "ordersByMedsChart": {
-      "title": "Orders by Medicine",
-      "subtitle": "Order distribution across different medicines",
-      "totalOrders": "Total Orders"
-    },
-    "altAcceptanceRateChart": {
-      "title": "Alternative Acceptance Rate",
-      "subtitle": "Trends of alternative medicine acceptance over time",
-      "acceptanceRate": "Acceptance Rate"
-    },
-    "detailedBreakdown": {
-      "title": "Detailed Breakdown",
-      "subtitle": "Comprehensive data and metrics for each medicine",
+    "columns": {
       "medicine": "Medicine",
-      "colMedicine": "Medicine",
-      "colPeriod": "Period",
-      "colTotalOrders": "Total Orders",
-      "colAcceptanceRate": "Acceptance Rate",
-      "colAlternativesUsed": "Alternatives Used",
-      "colActions": "Actions"
-    },
-    "filters": {
-      "title": "Medicine Metrics Filters",
-      "subtitle": "Narrow down the results using one or more filters",
-      "medicine": "Medicine",
-      "period": "Period"
+      "orders": "Orders",
+      "alternativesUsed": "Alternatives Used",
+      "acceptanceRate": "Acceptance Rate",
+      "quarter": "Quarter"
     }
   },
+
+  "area": {
+    "title": "Area Metrics",
+    "subtitle": "Regional order and sales performance by quarter",
+    "empty": "No area metrics found for the selected filters",
+    "summary": {
+      "totalOrders": "Total Orders",
+      "completedOrders": "Completed",
+      "cancelledOrders": "Cancelled",
+      "totalUnitsSold": "Units Sold"
+    },
+    "columns": {
+      "region": "Region",
+      "category": "Category",
+      "orders": "Orders",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "unitsSold": "Units Sold"
+    }
+  },
+
   "pharmacy": {
     "title": "Pharmacy Metrics",
-    "subtitle": "Performance overview and analytics for all pharmacies.",
-    "selectorPlaceholder": "Select a pharmacy",
-    "cards": {
-      "avgScore": "Average Score",
-      "selectedPharmacies": "Across selected pharmacies",
-      "totalOrders": "Total orders",
-      "completed": "completed",
-      "completionRate": "Completion Rate",
-      "ordersFulfilled": "Orders fulfilled",
-      "totalItems": "Total items",
-      "pharmacies": "pharmacy (pharmacies)"
+    "subtitle": "Pharmacy scoring, tiers, and order completion",
+    "empty": "No pharmacy metrics found for the selected filters",
+    "summary": {
+      "totalOrders": "Total Orders",
+      "completedOrders": "Completed",
+      "totalItems": "Total Items",
+      "avgCompletionRate": "Avg. Completion",
+      "avgItemsPerOrder": "Avg. Items/Order",
+      "avgScore": "Avg. Score",
+      "avgRecencyScore": "Avg. Recency Score"
     },
-    "scoreChart": {
-      "title": "Score distribution",
-      "subtitle": "Evaluating completion rates and recent order activity",
-      "score": "Score",
-      "recency": "Recency"
-    },
-    "detailedBreakdown": {
-      "title": "Detailed Breakdown",
-      "subtitle": "A granular look at individual pharmacy performance and fulfillment metrics.",
+    "columns": {
       "pharmacy": "Pharmacy",
-      "avg": "avg",
-      "colPharmacy": "Pharmacy",
-      "colScore": "Score",
-      "colRecencyScore": "Recency Score",
-      "colOrders": "Orders",
-      "colCompletion": "Completion",
-      "colItems": "Items",
-      "colCalculatedAt": "Calculated",
-      "colActions": "Actions"
+      "tier": "Tier",
+      "score": "Score",
+      "orders": "Orders",
+      "completed": "Completed",
+      "completionRate": "Completion",
+      "avgItems": "Avg. Items",
+      "lastOrder": "Last Order",
+      "recencyScore": "Recency Score"
+    },
+    "tiers": {
+      "Gold": "Gold",
+      "Silver": "Silver",
+      "Bronze": "Bronze"
     }
   },
+
+  "filters": {
+    "seasonal": {
+      "title": "Filter Seasonal Metrics",
+      "subtitle": "Narrow results by period, pharmacy, or category",
+      "periodLabel": "Quarter & Year",
+      "pharmacyLabel": "Pharmacy",
+      "categoryLabel": "Category",
+      "validation": {
+        "quarterRequired": "You must specify a quarter when selecting a year."
+      }
+    },
+    "medicine": {
+      "title": "Filter Medicine Metrics",
+      "subtitle": "Narrow results by period or specific medicine",
+      "periodLabel": "Quarter & Year",
+      "medicineLabel": "Medicine"
+    },
+    "area": {
+      "title": "Filter Area Metrics",
+      "subtitle": "Narrow results by period, region, or category",
+      "periodLabel": "Quarter & Year",
+      "regionLabel": "Region",
+      "categoryLabel": "Category"
+    },
+    "pharmacy": {
+      "title": "Filter Pharmacy Metrics",
+      "subtitle": "Narrow results by pharmacy",
+      "pharmacyLabel": "Pharmacy"
+    }
+  },
+
   "yearQuarterPicker": {
     "yearPlaceholder": "Year",
     "allYears": "All years",

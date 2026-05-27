@@ -20,9 +20,6 @@ import { LazyLaboratoryDetailPage } from '@/pages/laboratory-detail';
 
 import { LazyCityListPage } from '@/pages/city-list';
 
-import { LazyMetricsPharmacyPage } from '@/pages/metrics-pharmacy';
-import { LazyMetricsMedicinePage } from '@/pages/metrics-medicine';
-
 import { LazyDeliveryListPage } from '@/pages/delivery-list';
 import { LazyDeliveryDetailPage } from '@/pages/delivery-detail';
 import { LazyDeliveryAssignPage } from '@/pages/delivery-assign';
@@ -73,6 +70,8 @@ import { LazyNotificationsPage } from '@/pages/notifications';
 
 import { LazyInitiatePlanPage } from '@/pages/planner';
 
+import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
+
 const router = createBrowserRouter([
   {
     element: <LazyRootLayout />,
@@ -119,8 +118,7 @@ const router = createBrowserRouter([
               {
                 path: 'metrics',
                 children: [
-                  { path: 'pharmacy', element: <LazyMetricsPharmacyPage /> },
-                  { path: 'medicine', element: <LazyMetricsMedicinePage /> },
+                  { path: 'seasonal', element: <LazySeasonalMetricsPage /> },
                 ],
               },
 

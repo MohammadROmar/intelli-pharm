@@ -23,16 +23,16 @@ type SelectOption = {
 function getYearOptions(allLabel: string): SelectOption[] {
   const current = new Date().getFullYear();
   const years = Array.from({ length: 7 }, (_, i) => {
-    const yearString = String(current + 1 - i);
+    const yearString = String(current - i);
     return { value: yearString, label: yearString };
   });
 
   return [{ value: ALL_SELECTION, label: allLabel }, ...years];
 }
 
-function getQuarterOptions(allLabel: string): SelectOption[] {
+function getQuarterOptions(): SelectOption[] {
   const quarters = QUARTERS.map((q) => ({ value: q, label: q }));
-  return [{ value: ALL_SELECTION, label: allLabel }, ...quarters];
+  return quarters;
 }
 
 export type YearQuarterValue = {
@@ -58,10 +58,7 @@ export function YearQuarterPicker({
   });
 
   const yearOptions = useMemo(() => getYearOptions(t('allYears')), [t]);
-  const quarterOptions = useMemo(
-    () => getQuarterOptions(t('allQuarters')),
-    [t],
-  );
+  const quarterOptions = useMemo(() => getQuarterOptions(), []);
 
   const isQuarterDisabled = disabled || !year;
 

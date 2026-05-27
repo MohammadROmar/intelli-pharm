@@ -1,83 +1,135 @@
 {
-  "emptyTitle": "لا توجد بيانات",
-  "emptySubtitle": "جرّب تعديل الفلاتر لعرض النتائج.",
-  "clearSearch": "مسح البحث",
+  "summary": {
+    "period": "الفترة"
+  },
+
+  "seasonal": {
+    "title": "المقاييس الموسمية",
+    "subtitle": "أداء الفئات حسب الربع والسنة",
+    "empty": "لم يتم العثور على مقاييس موسمية للفلاتر المحددة",
+    "summary": {
+      "orderCount": "إجمالي الطلبات",
+      "totalUnits": "إجمالي الوحدات",
+      "totalRevenue": "إجمالي الإيرادات",
+      "avgOrderValue": "متوسط قيمة الطلب"
+    },
+    "columns": {
+      "pharmacy": "الصيدلية",
+      "category": "الفئة",
+      "orders": "الطلبات",
+      "units": "الوحدات",
+      "revenue": "الإيرادات",
+      "avgOrder": "متوسط الطلب",
+      "computedAt": "تاريخ الحساب"
+    },
+
+    "filtersRequired": {
+      "title": "اختر فترة زمنية للمتابعة",
+      "description": "لعرض المقاييس الموسمية، يجب عليك تحديد السنة والربع معاً. امسح البحث للبدء.",
+      "clearFilters": "مسح البحث"
+    }
+  },
+
   "medicine": {
     "title": "مقاييس الأدوية",
-    "subtitle": "تحليلات استخدام البدائل واتجاهات الطلب لكل دواء",
-    "cards": {
-      "ordersTitle": "إجمالي الطلبات",
-      "ordersSubtitle": "عبر الأدوية المحددة",
-      "acceptanceRateTitle": "متوسط معدل القبول",
-      "acceptanceRateSubtitle": "قبول البدائل",
-      "altsUsedTitle": "البدائل المستخدمة",
-      "altsUsedSubtitle": "إجمالي الاستبدالات",
-      "medicines": "الأدوية",
-      "record": "سجل (سجلات)"
+    "subtitle": "معدلات استخدام البدائل وقبولها حسب الدواء",
+    "empty": "لم يتم العثور على مقاييس أدوية للفلاتر المحددة",
+    "summary": {
+      "totalOrders": "إجمالي الطلبات",
+      "avgAcceptanceRate": "متوسط معدل القبول",
+      "alternativesUsed": "البدائل المستخدمة"
     },
-    "ordersByMedsChart": {
-      "title": "الطلبات حسب الدواء",
-      "subtitle": "توزيع الطلبات عبر الأدوية المختلفة",
-      "totalOrders": "إجمالي الطلبات"
-    },
-    "altAcceptanceRateChart": {
-      "title": "معدل قبول البدائل",
-      "subtitle": "اتجاهات قبول الأدوية البديلة بمرور الوقت",
-      "acceptanceRate": "معدل القبول"
-    },
-    "detailedBreakdown": {
-      "title": "تحليل تفصيلي",
-      "subtitle": "بيانات ومقاييس شاملة لكل دواء",
+    "columns": {
       "medicine": "الدواء",
-      "colMedicine": "الدواء",
-      "colPeriod": "الفترة",
-      "colTotalOrders": "إجمالي الطلبات",
-      "colAcceptanceRate": "معدل القبول",
-      "colAlternativesUsed": "البدائل المستخدمة",
-      "colActions": "الإجراءات"
-    },
-    "filters": {
-      "title": "فلاتر مقاييس الأدوية",
-      "subtitle": "ضيّق قائمة النتائج باستخدام فلتر واحد أو أكثر.",
-      "medicine": "الدواء",
-      "period": "الفترة"
+      "orders": "الطلبات",
+      "alternativesUsed": "البدائل المستخدمة",
+      "acceptanceRate": "معدل القبول",
+      "quarter": "الربع"
     }
   },
+
+  "area": {
+    "title": "مقاييس المناطق",
+    "subtitle": "أداء الطلبات والمبيعات الإقليمية حسب الربع",
+    "empty": "لم يتم العثور على مقاييس مناطق للفلاتر المحددة",
+    "summary": {
+      "totalOrders": "إجمالي الطلبات",
+      "completedOrders": "المكتملة",
+      "cancelledOrders": "الملغاة",
+      "totalUnitsSold": "الوحدات المباعة"
+    },
+    "columns": {
+      "region": "المنطقة",
+      "category": "الفئة",
+      "orders": "الطلبات",
+      "completed": "مكتملة",
+      "cancelled": "ملغاة",
+      "unitsSold": "الوحدات المباعة"
+    }
+  },
+
   "pharmacy": {
     "title": "مقاييس الصيدليات",
-    "subtitle": "نظرة عامة على الأداء وتحليلات لجميع الصيدليات.",
-    "selectorPlaceholder": "اختر صيدلية",
-    "cards": {
-      "avgScore": "متوسط الدرجات",
-      "selectedPharmacies": "عبر الصيدليات المختارة",
+    "subtitle": "تقييم الصيدليات والمستويات وإتمام الطلبات",
+    "empty": "لم يتم العثور على مقاييس صيدليات للفلاتر المحددة",
+    "summary": {
       "totalOrders": "إجمالي الطلبات",
-      "completed": "مكتمل",
-      "completionRate": "معدل الإكمال",
-      "ordersFulfilled": "من الطلبات منفذ",
+      "completedOrders": "المكتملة",
       "totalItems": "إجمالي العناصر",
-      "pharmacies": "صيدلية (صيدليات)"
+      "avgCompletionRate": "متوسط الإتمام",
+      "avgItemsPerOrder": "متوسط العناصر/طلب",
+      "avgScore": "متوسط النقاط",
+      "avgRecencyScore": "متوسط نقاط الحداثة"
     },
-    "scoreChart": {
-      "title": "توزيع الدرجات",
-      "subtitle": "تقييم معدلات الإنجاز ونشاط الطلبات الأخيرة",
-      "score": "الدرجة",
-      "recency": "الحداثة"
-    },
-    "detailedBreakdown": {
-      "title": "تحليل تفصيلي",
-      "subtitle": "عرض تفصيلي لأداء الصيدليات الفردية ومقاييس التنفيذ.",
+    "columns": {
       "pharmacy": "الصيدلية",
-      "avg": "بمتوسط",
-      "colPharmacy": "الصيدلية",
-      "colScore": "الدرجة",
-      "colRecencyScore": "درجة الحداثة",
-      "colOrders": "الطلبات",
-      "colCompletion": "الإكمال",
-      "colItems": "العناصر",
-      "colCalculatedAt": "تاريخ الحساب",
-      "colActions": "إجراءات"
+      "tier": "المستوى",
+      "score": "النقاط",
+      "orders": "الطلبات",
+      "completed": "مكتملة",
+      "completionRate": "نسبة الإتمام",
+      "avgItems": "متوسط العناصر",
+      "lastOrder": "آخر طلب",
+      "recencyScore": "نقاط الحداثة"
+    },
+    "tiers": {
+      "Gold": "ذهبي",
+      "Silver": "فضي",
+      "Bronze": "برونزي"
     }
   },
+
+  "filters": {
+    "seasonal": {
+      "title": "تصفية المقاييس الموسمية",
+      "subtitle": "تضييق النتائج حسب الفترة أو الصيدلية أو الفئة",
+      "periodLabel": "الربع والسنة",
+      "pharmacyLabel": "الصيدلية",
+      "categoryLabel": "الفئة",
+      "validation": {
+        "quarterRequired": "يجب تحديد ربع عند اختيار سنة"
+      }
+    },
+    "medicine": {
+      "title": "تصفية مقاييس الأدوية",
+      "subtitle": "تضييق النتائج حسب الفترة أو الدواء",
+      "periodLabel": "الربع والسنة",
+      "medicineLabel": "الدواء"
+    },
+    "area": {
+      "title": "تصفية مقاييس المناطق",
+      "subtitle": "تضييق النتائج حسب الفترة أو المنطقة أو الفئة",
+      "periodLabel": "الربع والسنة",
+      "regionLabel": "المنطقة",
+      "categoryLabel": "الفئة"
+    },
+    "pharmacy": {
+      "title": "تصفية مقاييس الصيدليات",
+      "subtitle": "تضييق النتائج حسب الصيدلية",
+      "pharmacyLabel": "الصيدلية"
+    }
+  },
+
   "yearQuarterPicker": {
     "yearPlaceholder": "السنة",
     "allYears": "جميع السنوات",

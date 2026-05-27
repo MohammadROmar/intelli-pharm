@@ -8,7 +8,7 @@ import {
 
 type Options = { onTokenRotated: (newToken: string) => void };
 
-export const useTokenRotationSync = ({ onTokenRotated }: Options) => {
+export function useTokenRotationSync({ onTokenRotated }: Options) {
   const callbackRef = useRef(onTokenRotated);
 
   useEffect(() => {
@@ -37,4 +37,4 @@ export const useTokenRotationSync = ({ onTokenRotated }: Options) => {
     return () =>
       document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
-};
+}

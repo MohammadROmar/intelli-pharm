@@ -16,23 +16,29 @@ export function StatCard({
   value,
 }: StatCardProps) {
   return (
-    <Card className="group relative overflow-hidden transition-transform duration-300 hover:-translate-y-0.5">
-      <CardContent className="flex items-start justify-between gap-4 font-medium">
-        <div className="min-w-0">
-          <p className="text-muted-foreground text-sm font-medium uppercase">
+    <Card className="group bg-card hover:shadow-primary/10 hover:border-primary/20 relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div className="from-primary/25 dark:from-primary/15 pointer-events-none absolute -inset-px rounded-xl bg-linear-to-br via-transparent to-transparent" />
+      <CardContent className="relative flex items-start justify-between gap-3 p-5">
+        <div className="min-w-0 flex-1">
+          <p className="text-muted-foreground/70 mb-1 truncate text-xs font-semibold tracking-widest uppercase">
             {title}
           </p>
-          <p className="text-foreground truncate text-2xl font-bold tabular-nums md:text-3xl">
+          <p className="text-foreground text-xl leading-tight font-bold tracking-tight wrap-break-word md:text-2xl">
             {value}
           </p>
-          <p className="text-muted-foreground text-xs">{subtitle}</p>
+          <p className="text-muted-foreground mt-1 truncate text-xs">
+            {subtitle}
+          </p>
         </div>
-        <div className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-110">
-          <Icon className="size-5" />
+
+        <div className="relative mt-0.5 shrink-0">
+          <div className="bg-primary/20 absolute inset-0 rounded-xl blur-md duration-300" />
+          <div className="bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary relative flex size-11 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110">
+            <Icon className="size-5" />
+          </div>
         </div>
       </CardContent>
-
-      <div className="from-primary/20 absolute bottom-0 left-0 h-1 w-full to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 ltr:bg-linear-to-r rtl:bg-linear-to-l" />
+      <div className="from-primary via-primary/60 absolute bottom-0 h-0.5 w-0 to-transparent opacity-0 transition-all duration-500 group-hover:w-full group-hover:opacity-100 ltr:left-0 ltr:bg-linear-to-r rtl:right-0 rtl:bg-linear-to-l" />{' '}
     </Card>
   );
 }
