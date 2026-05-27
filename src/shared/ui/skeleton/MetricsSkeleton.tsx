@@ -4,10 +4,10 @@ import { TableCardSkeleton } from './TableSkeleton';
 export function MetricsCardsSkeleton() {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-      <Skeleton className="h-36 w-full" />
-      <Skeleton className="h-36 w-full" />
-      <Skeleton className="h-36 w-full" />
-      <Skeleton className="h-36 w-full" />
+      <Skeleton className="h-28 w-full" />
+      <Skeleton className="h-28 w-full" />
+      <Skeleton className="h-28 w-full" />
+      <Skeleton className="h-28 w-full" />
     </div>
   );
 }

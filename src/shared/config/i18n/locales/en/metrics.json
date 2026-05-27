@@ -21,11 +21,6 @@
       "revenue": "Revenue",
       "avgOrder": "Avg. Order",
       "computedAt": "Computed At"
-    },
-    "filtersRequired": {
-      "title": "Select a Period to Continue",
-      "description": "To view seasonal metrics, you need to choose both a year and a quarter. Clear the search to get started.",
-      "clearFilters": "Clear Search"
     }
   },
 
@@ -102,23 +97,17 @@
     "seasonal": {
       "title": "Filter Seasonal Metrics",
       "subtitle": "Narrow results by period, pharmacy, or category",
-      "periodLabel": "Quarter & Year",
       "pharmacyLabel": "Pharmacy",
-      "categoryLabel": "Category",
-      "validation": {
-        "quarterRequired": "You must specify a quarter when selecting a year."
-      }
+      "categoryLabel": "Category"
     },
     "medicine": {
       "title": "Filter Medicine Metrics",
       "subtitle": "Narrow results by period or specific medicine",
-      "periodLabel": "Quarter & Year",
       "medicineLabel": "Medicine"
     },
     "area": {
       "title": "Filter Area Metrics",
       "subtitle": "Narrow results by period, region, or category",
-      "periodLabel": "Quarter & Year",
       "regionLabel": "Region",
       "categoryLabel": "Category"
     },
@@ -126,6 +115,12 @@
       "title": "Filter Pharmacy Metrics",
       "subtitle": "Narrow results by pharmacy",
       "pharmacyLabel": "Pharmacy"
+    },
+    "shared": {
+      "periodLabel": "Quarter & Year",
+      "validation": {
+        "quarterRequired": "You must specify a quarter when selecting a year."
+      }
     }
   },
 
@@ -136,5 +131,11 @@
     "allQuarters": "All quarters",
     "quarterRequiresYear": "Select a year first to filter by quarter.",
     "quarterRequiresYearShort": "Select a year first"
+  },
+
+  "filtersRequired": {
+    "title": "Select a Period to Continue",
+    "description": "To view the metrics, you need to choose both a year and a quarter. Clear the search to get started.",
+    "clearFilters": "Clear Search"
   }
 }

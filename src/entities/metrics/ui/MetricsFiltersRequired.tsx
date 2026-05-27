@@ -5,10 +5,8 @@ import { Button } from '@/shared/ui';
 
 type Props = { clearFilters: () => void };
 
-export function SeasonalMetricsFiltersRequired({ clearFilters }: Props) {
-  const { t } = useTranslation('metrics', {
-    keyPrefix: 'seasonal.filtersRequired',
-  });
+export function MetricsFiltersRequired({ clearFilters }: Props) {
+  const { t } = useTranslation('metrics', { keyPrefix: 'filtersRequired' });
 
   return (
     <div className="grid h-full">

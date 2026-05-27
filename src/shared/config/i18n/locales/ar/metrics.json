@@ -21,12 +21,6 @@
       "revenue": "الإيرادات",
       "avgOrder": "متوسط الطلب",
       "computedAt": "تاريخ الحساب"
-    },
-
-    "filtersRequired": {
-      "title": "اختر فترة زمنية للمتابعة",
-      "description": "لعرض المقاييس الموسمية، يجب عليك تحديد السنة والربع معاً. امسح البحث للبدء.",
-      "clearFilters": "مسح البحث"
     }
   },
 
@@ -103,23 +97,17 @@
     "seasonal": {
       "title": "تصفية المقاييس الموسمية",
       "subtitle": "تضييق النتائج حسب الفترة أو الصيدلية أو الفئة",
-      "periodLabel": "الربع والسنة",
       "pharmacyLabel": "الصيدلية",
-      "categoryLabel": "الفئة",
-      "validation": {
-        "quarterRequired": "يجب تحديد ربع عند اختيار سنة"
-      }
+      "categoryLabel": "الفئة"
     },
     "medicine": {
       "title": "تصفية مقاييس الأدوية",
       "subtitle": "تضييق النتائج حسب الفترة أو الدواء",
-      "periodLabel": "الربع والسنة",
       "medicineLabel": "الدواء"
     },
     "area": {
       "title": "تصفية مقاييس المناطق",
       "subtitle": "تضييق النتائج حسب الفترة أو المنطقة أو الفئة",
-      "periodLabel": "الربع والسنة",
       "regionLabel": "المنطقة",
       "categoryLabel": "الفئة"
     },
@@ -127,6 +115,12 @@
       "title": "تصفية مقاييس الصيدليات",
       "subtitle": "تضييق النتائج حسب الصيدلية",
       "pharmacyLabel": "الصيدلية"
+    },
+    "shared": {
+      "periodLabel": "الربع والسنة",
+      "validation": {
+        "quarterRequired": "يجب تحديد ربع عند اختيار سنة"
+      }
     }
   },
 
@@ -137,5 +131,11 @@
     "allQuarters": "جميع الأرباع",
     "quarterRequiresYear": "اختر سنة أولاً لتصفية النتائج حسب الربع.",
     "quarterRequiresYearShort": "اختر سنة أولاً"
+  },
+
+  "filtersRequired": {
+    "title": "اختر فترة زمنية للمتابعة",
+    "description": "لعرض المقاييس، يجب عليك تحديد السنة والربع معاً. امسح البحث للبدء.",
+    "clearFilters": "مسح البحث"
   }
 }

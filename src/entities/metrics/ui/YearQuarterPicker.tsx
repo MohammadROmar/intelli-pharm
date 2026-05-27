@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarDays } from 'lucide-react';
 
@@ -22,7 +22,7 @@ type SelectOption = {
 
 function getYearOptions(allLabel: string): SelectOption[] {
   const current = new Date().getFullYear();
-  const years = Array.from({ length: 7 }, (_, i) => {
+  const years = Array.from({ length: 5 }, (_, i) => {
     const yearString = String(current - i);
     return { value: yearString, label: yearString };
   });
@@ -62,24 +62,30 @@ export function YearQuarterPicker({
 
   const isQuarterDisabled = disabled || !year;
 
-  const handleYearChange = (value: string | null) => {
-    const isClearing = !value || value === ALL_SELECTION;
-    const newYear = isClearing ? undefined : value;
+  const handleYearChange = useCallback(
+    (value: string | null) => {
+      const isClearing = !value || value === ALL_SELECTION;
+      const newYear = isClearing ? undefined : value;
 
-    onChange({
-      year: newYear,
-      quarter: newYear ? (quarter as Quarter) : undefined,
-    });
-  };
+      onChange({
+        year: newYear,
+        quarter: undefined,
+      });
+    },
+    [onChange],
+  );
 
-  const handleQuarterChange = (value: string | null) => {
-    const isClearing = !value || value === ALL_SELECTION;
+  const handleQuarterChange = useCallback(
+    (value: string | null) => {
+      const isClearing = !value || value === ALL_SELECTION;
 
-    onChange({
-      year,
-      quarter: isClearing ? undefined : (value as Quarter),
-    });
-  };
+      onChange({
+        year,
+        quarter: isClearing ? undefined : (value as Quarter),
+      });
+    },
+    [onChange, year],
+  );
 
   return (
     <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">

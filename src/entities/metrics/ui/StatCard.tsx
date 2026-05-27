@@ -16,8 +16,8 @@ export function StatCard({
   value,
 }: StatCardProps) {
   return (
-    <Card className="group bg-card hover:shadow-primary/10 hover:border-primary/20 relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-      <div className="from-primary/25 dark:from-primary/15 pointer-events-none absolute -inset-px rounded-xl bg-linear-to-br via-transparent to-transparent" />
+    <Card className="group hover:shadow-primary/10 hover:border-primary/20 relative overflow-hidden py-2! transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+      <div className="from-primary/25 dark:from-primary/15 pointer-events-none absolute -inset-px rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
       <CardContent className="relative flex items-start justify-between gap-3 p-5">
         <div className="min-w-0 flex-1">
           <p className="text-muted-foreground/70 mb-1 truncate text-xs font-semibold tracking-widest uppercase">

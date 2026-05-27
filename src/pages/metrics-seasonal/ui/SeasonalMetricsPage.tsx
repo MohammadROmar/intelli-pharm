@@ -6,8 +6,9 @@ import {
 } from '@/features/metrics-seasonal';
 import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
+import { MetricsFiltersRequired } from '@/entities/metrics';
+
 import { SeasonalMetricsTable } from './SeasonalMetricsTable';
-import { SeasonalMetricsFiltersRequired } from './SeasonalMetricsFiltersRequired';
 
 export default function SeasonalMetricsPage() {
   const { filters, clearFilters } = useSeasonalFilters();
@@ -15,7 +16,7 @@ export default function SeasonalMetricsPage() {
   const isMissingPair = !!filters.quarter !== !!filters.year;
 
   if (isMissingPair)
-    return <SeasonalMetricsFiltersRequired clearFilters={clearFilters} />;
+    return <MetricsFiltersRequired clearFilters={clearFilters} />;
 
   return (
     <QueryErrorBoundary>

@@ -71,6 +71,7 @@ import { LazyNotificationsPage } from '@/pages/notifications';
 import { LazyInitiatePlanPage } from '@/pages/planner';
 
 import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
+import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
 
 const router = createBrowserRouter([
   {
@@ -119,6 +120,7 @@ const router = createBrowserRouter([
                 path: 'metrics',
                 children: [
                   { path: 'seasonal', element: <LazySeasonalMetricsPage /> },
+                  { path: 'medicine', element: <LazyMedicineMetricsPage /> },
                 ],
               },
 

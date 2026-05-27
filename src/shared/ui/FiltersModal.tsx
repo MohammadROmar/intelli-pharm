@@ -84,13 +84,12 @@ export function FiltersModal({
   form,
   children,
 }: Props) {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'filters',
-  });
+  const { t } = useTranslation('common', { keyPrefix: 'filters' });
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn('p-0! sm:max-w-md', className)}>
+        <div className="from-primary/30 dark:from-primary/20 pointer-events-none absolute -inset-px -z-10 rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
         <DialogHeader className="relative p-6! pb-0! text-start">
           <div aria-hidden>
             <CardSectionHeader
@@ -102,14 +101,11 @@ export function FiltersModal({
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <DialogDescription className="sr-only">{subtitle}</DialogDescription>
         </DialogHeader>
-
         <Separator />
-
         <div className="thin-scrollbar mx-2 max-h-[60vh] overflow-y-auto px-4">
           {children}
         </div>
         <Separator />
-
         <DialogFooter className="flex-row justify-end! gap-2 p-6 pt-0">
           <Button
             type="button"

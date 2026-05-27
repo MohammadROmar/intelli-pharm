@@ -1,33 +1,31 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { PharmacySelector } from '@/entities/pharmacy';
-import { CategorySelector } from '@/entities/category';
+import { MedicineSelector } from '@/entities/medicine';
 import { FiltersModal, Field, FieldLabel } from '@/shared/ui';
-import { YearQuarterField, type SeasonalFilters } from '@/entities/metrics';
-
-const DEFAULT_FILTERS: SeasonalFilters = {};
+import { YearQuarterField, type MedicineFilters } from '@/entities/metrics';
 
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  defaultValues?: SeasonalFilters;
-  onApply: (filters: SeasonalFilters) => void;
+  defaultValues?: MedicineFilters;
+  onApply: (filters: MedicineFilters) => void;
   hasActiveFilters?: boolean;
   onClear: () => void;
 };
 
-export function SeasonalFiltersModal({
+export function MedicineFiltersModal({
   open,
   onOpenChange,
-  defaultValues = DEFAULT_FILTERS,
+  defaultValues = {},
   hasActiveFilters,
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('metrics', { keyPrefix: 'filters.seasonal' });
+  'use no memo';
+  const { t } = useTranslation('metrics', { keyPrefix: 'filters.medicine' });
 
-  const { control, handleSubmit, reset } = useForm<SeasonalFilters>({
+  const { control, handleSubmit, reset } = useForm<MedicineFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
@@ -37,10 +35,10 @@ export function SeasonalFiltersModal({
     onOpenChange(nextOpen);
   }
 
-  function onSubmit(values: SeasonalFilters) {
+  function onSubmit(values: MedicineFilters) {
     const cleaned = Object.fromEntries(
       Object.entries(values).filter(([, v]) => v !== '' && v !== undefined),
-    ) as SeasonalFilters;
+    ) as MedicineFilters;
     onApply(cleaned);
   }
 
@@ -50,12 +48,12 @@ export function SeasonalFiltersModal({
       onOpenChange={handleOpenChange}
       title={t('title')}
       subtitle={t('subtitle')}
-      form="seasonal-filters-form"
+      form="medicine-filters-form"
       hasActiveFilters={hasActiveFilters}
       onClear={onClear}
     >
       <form
-        id="seasonal-filters-form"
+        id="medicine-filters-form"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
         className="space-y-4 py-2"
@@ -63,30 +61,14 @@ export function SeasonalFiltersModal({
         <YearQuarterField control={control} />
 
         <Controller
-          name="pharmacy_id"
+          name="medicine_id"
           control={control}
           render={({ field }) => (
             <Field>
               <FieldLabel asChild>
-                <p>{t('pharmacyLabel')}</p>
+                <p>{t('medicineLabel')}</p>
               </FieldLabel>
-              <PharmacySelector
-                value={field.value}
-                onValueChange={field.onChange}
-              />
-            </Field>
-          )}
-        />
-
-        <Controller
-          name="category_id"
-          control={control}
-          render={({ field }) => (
-            <Field>
-              <FieldLabel asChild>
-                <p>{t('categoryLabel')}</p>
-              </FieldLabel>
-              <CategorySelector
+              <MedicineSelector
                 value={field.value}
                 onValueChange={field.onChange}
               />

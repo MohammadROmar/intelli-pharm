@@ -55,7 +55,7 @@ export type MedicineMetric = {
   medicine_id: number;
   medicine_name: string;
   quarter: string;
-  year: number;
+  year: string;
   total_orders: number;
   alternative_used_count: number;
   alternative_acceptance_rate: number;
@@ -77,7 +77,7 @@ export type MedicineMetricsData = {
 
 export type MedicineFilters = {
   quarter?: string;
-  year?: number;
+  year?: string;
   medicine_id?: number;
 };
 
@@ -88,7 +88,7 @@ export type AreaMetric = {
   category_id: number;
   category_name: string;
   quarter: string;
-  year: number;
+  year: string;
   total_orders: number;
   total_completed_orders: number;
   total_cancelled_orders: number;
@@ -112,7 +112,7 @@ export type AreaMetricsData = {
 
 export type AreaFilters = {
   quarter?: string;
-  year?: number;
+  year?: string;
   region_id?: number;
   category_id?: number;
 };
