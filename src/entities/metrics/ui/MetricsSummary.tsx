@@ -21,11 +21,11 @@ type Props = {
   className?: string;
 };
 
-export function MetricsSummaryCard({ items, season, className }: Props) {
+export function MetricsSummary({ items, season, className }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'summary' });
 
   return (
-    <div className={cn('space-y-3', className)}>
+    <div className="space-y-3">
       {season ? (
         <div className="flex items-center gap-2">
           <CalendarDays className="text-muted-foreground size-3.5" />
@@ -38,7 +38,12 @@ export function MetricsSummaryCard({ items, season, className }: Props) {
         </div>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div
+        className={cn(
+          'grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4',
+          className,
+        )}
+      >
         {items.map((item) => (
           <StatCard
             key={item.label}

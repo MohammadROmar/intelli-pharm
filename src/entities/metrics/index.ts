@@ -27,10 +27,7 @@ export type {
   SeasonalSummary,
 } from './model/metricsTypes';
 
-export {
-  MetricsSummaryCard,
-  type SummaryStatItem,
-} from './ui/MetricsSummaryCard';
+export { MetricsSummary, type SummaryStatItem } from './ui/MetricsSummary';
 export { YearQuarterField } from './ui/YearQuarterField';
 export { YearQuarterPicker } from './ui/YearQuarterPicker';
 export { MetricsFiltersRequired } from './ui/MetricsFiltersRequired';

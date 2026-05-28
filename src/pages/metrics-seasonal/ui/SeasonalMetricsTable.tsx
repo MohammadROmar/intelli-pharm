@@ -1,22 +1,13 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  ShoppingCart,
-  Package,
-  Banknote,
-  TrendingUp,
-  ExternalLink,
-} from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { ShoppingCart, Package, Banknote, TrendingUp } from 'lucide-react';
 
 import {
   SeasonalFiltersModal,
   useSeasonalFilters,
 } from '@/features/metrics-seasonal';
-import {
-  MetricsSummaryCard,
-  type SeasonalMetricsData,
-} from '@/entities/metrics';
+import { MetricsSummary, type SeasonalMetricsData } from '@/entities/metrics';
 import { formatDate, formatPrice, unwrapMetricsPaginated } from '@/shared/lib';
 import {
   FiltersTrigger,
@@ -27,6 +18,7 @@ import {
   TableRow,
   TableCard,
   TableEmptyState,
+  LabeledLink,
 } from '@/shared/ui';
 
 type Props = { data: SeasonalMetricsData };
@@ -67,7 +59,7 @@ export function SeasonalMetricsTable({ data }: Props) {
 
   return (
     <>
-      <MetricsSummaryCard items={summaryItems} season={season} />
+      <MetricsSummary items={summaryItems} season={season} />
 
       <TableCard
         title={t('title')}
@@ -94,19 +86,17 @@ export function SeasonalMetricsTable({ data }: Props) {
             <TableBody>
               {items.map((metric) => (
                 <TableRow key={metric.id}>
-                  <TableCell className="font-medium">
-                    <Link
+                  <TableCell>
+                    <LabeledLink
                       to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
-                      className="hover:text-primary group flex items-center gap-1 text-sm font-medium transition-colors hover:underline"
-                    >
-                      <span className="max-w-[20ch] truncate">
-                        {metric.pharmacy_name}
-                      </span>
-                      <ExternalLink className="text-muted-foreground size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
-                    </Link>
+                      label={metric.pharmacy_name}
+                    />
                   </TableCell>
                   <TableCell className="text-muted-foreground">
-                    {metric.category_name}
+                    <LabeledLink
+                      to={`/dashboard/categories/${metric.category_id}`}
+                      label={metric.category_name}
+                    />
                   </TableCell>
                   <TableCell className="tabular-nums">
                     {metric.order_count}

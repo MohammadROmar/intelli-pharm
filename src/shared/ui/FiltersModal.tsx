@@ -88,8 +88,10 @@ export function FiltersModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={cn('p-0! sm:max-w-md', className)}>
-        <div className="from-primary/30 dark:from-primary/20 pointer-events-none absolute -inset-px -z-10 rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
+      <DialogContent
+        className={cn('overflow-hidden p-0! sm:max-w-md', className)}
+      >
+        <div className="from-primary/30 dark:from-primary/20 pointer-events-none absolute -inset-px -top-0.5 -left-0.5 -z-10 rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
         <DialogHeader className="relative p-6! pb-0! text-start">
           <div aria-hidden>
             <CardSectionHeader

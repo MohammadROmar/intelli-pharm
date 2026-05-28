@@ -12,7 +12,9 @@ export function MetricsCardsSkeleton() {
   );
 }
 
-export function MetricsSkeleton() {
+type Props = { withSeason?: boolean };
+
+export function MetricsSkeleton({ withSeason = true }: Props) {
   return (
     <>
       <div className="space-y-2">
@@ -20,7 +22,11 @@ export function MetricsSkeleton() {
         <Skeleton className="h-5 w-56" />
       </div>
 
-      <MetricsCardsSkeleton />
+      <div className="space-y-3">
+        {withSeason && <Skeleton className="h-5.25 w-30" />}
+        <MetricsCardsSkeleton />
+      </div>
+
       <TableCardSkeleton />
     </>
   );

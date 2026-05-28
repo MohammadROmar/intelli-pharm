@@ -57,6 +57,7 @@
       "category": "Category",
       "orders": "Orders",
       "completed": "Completed",
+      "completionRate": "Completion",
       "cancelled": "Cancelled",
       "unitsSold": "Units Sold"
     }

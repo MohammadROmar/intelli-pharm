@@ -56,6 +56,7 @@
       "region": "المنطقة",
       "category": "الفئة",
       "orders": "الطلبات",
+      "completionRate": "نسبة الإتمام",
       "completed": "مكتملة",
       "cancelled": "ملغاة",
       "unitsSold": "الوحدات المباعة"

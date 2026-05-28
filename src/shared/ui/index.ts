@@ -201,3 +201,4 @@ export { ActionsDropdown } from './ActionsDropdown';
 export { BreadCrumbs } from './Breadcrumbs';
 export { PerPageSelect } from './PerPageSelect';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
+export { LabeledLink } from './LabeledLink';

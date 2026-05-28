@@ -1,14 +1,11 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { ShoppingCart, Repeat2, Percent } from 'lucide-react';
+import { ShoppingCart, CheckCircle, XCircle, Package } from 'lucide-react';
 
-import {
-  useMedicineFilters,
-  MedicineFiltersModal,
-} from '@/features/metrics-medicine';
+import { useAreaFilters, AreaFiltersModal } from '@/features/metrics-area';
+import type { AreaMetricsData } from '@/entities/metrics';
 import { MetricsSummary, AcceptanceRateBar } from '@/entities/metrics';
-import type { MedicineMetricsData } from '@/entities/metrics';
 import { unwrapMetricsPaginated } from '@/shared/lib';
 import {
   FiltersTrigger,
@@ -22,10 +19,10 @@ import {
   LabeledLink,
 } from '@/shared/ui';
 
-type Props = { data: MedicineMetricsData };
+type Props = { data: AreaMetricsData };
 
-export function MedicineMetricsTable({ data }: Props) {
-  const { t } = useTranslation('metrics', { keyPrefix: 'medicine' });
+export function AreaMetricsTable({ data }: Props) {
+  const { t } = useTranslation('metrics', { keyPrefix: 'area' });
   const { pathname } = useLocation();
 
   const { metrics: metricsWrapper, summary, season } = data;
@@ -40,14 +37,19 @@ export function MedicineMetricsTable({ data }: Props) {
         icon: ShoppingCart,
       },
       {
-        label: t('summary.alternativesUsed'),
-        value: summary.alternatives_used_count,
-        icon: Repeat2,
+        label: t('summary.completedOrders'),
+        value: summary.total_completed_orders,
+        icon: CheckCircle,
       },
       {
-        label: t('summary.avgAcceptanceRate'),
-        value: `${(summary.avg_acceptance_rate > 1 ? summary.avg_acceptance_rate : summary.avg_acceptance_rate * 100).toFixed(1)}%`,
-        icon: Percent,
+        label: t('summary.cancelledOrders'),
+        value: summary.total_cancelled_orders,
+        icon: XCircle,
+      },
+      {
+        label: t('summary.totalUnitsSold'),
+        value: summary.total_units_sold,
+        icon: Package,
       },
     ],
     [summary, t],
@@ -55,15 +57,11 @@ export function MedicineMetricsTable({ data }: Props) {
 
   return (
     <>
-      <MetricsSummary
-        items={summaryItems}
-        season={season}
-        className="xl:grid-cols-3!"
-      />
+      <MetricsSummary items={summaryItems} season={season} />
 
       <TableCard
         title={t('title')}
-        toolbar={<MedicineFilters />}
+        toolbar={<AreaFilters />}
         currItemsCount={items.length}
         basePath={pathname}
         currentPage={page}
@@ -74,39 +72,58 @@ export function MedicineMetricsTable({ data }: Props) {
           <>
             <TableHeader>
               <TableRow>
-                <TableHead>{t('columns.medicine')}</TableHead>
+                <TableHead>{t('columns.region')}</TableHead>
+                <TableHead>{t('columns.category')}</TableHead>
                 <TableHead className="text-right">
                   {t('columns.orders')}
                 </TableHead>
                 <TableHead className="text-right">
-                  {t('columns.alternativesUsed')}
+                  {t('columns.completed')}
                 </TableHead>
-                <TableHead>{t('columns.acceptanceRate')}</TableHead>
+                <TableHead className="text-right">
+                  {t('columns.cancelled')}
+                </TableHead>
+                <TableHead>{t('columns.completionRate')}</TableHead>
+                <TableHead className="text-right">
+                  {t('columns.unitsSold')}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {items.map((metric) => {
-                const rate =
-                  metric.alternative_acceptance_rate > 1
-                    ? metric.alternative_acceptance_rate / 100
-                    : metric.alternative_acceptance_rate;
+                const completionRate =
+                  metric.total_orders > 0
+                    ? metric.total_completed_orders / metric.total_orders
+                    : 0;
 
                 return (
                   <TableRow key={metric.id}>
-                    <TableCell>
+                    <TableCell className="font-medium">
                       <LabeledLink
-                        to={`/dashboard/medicines/${metric.medicine_id}`}
-                        label={metric.medicine_name}
+                        to={`/dashboard/regions/${metric.region_id}`}
+                        label={metric.region_name}
+                      />
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      <LabeledLink
+                        to={`/dashboard/categories/${metric.category_id}`}
+                        label={metric.category_name}
                       />
                     </TableCell>
                     <TableCell className="text-right tabular-nums">
                       {metric.total_orders}
                     </TableCell>
                     <TableCell className="text-right tabular-nums">
-                      {metric.alternative_used_count}
+                      {metric.total_completed_orders}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {metric.total_cancelled_orders}
                     </TableCell>
                     <TableCell>
-                      <AcceptanceRateBar rate={rate} />
+                      <AcceptanceRateBar rate={completionRate} />
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      {metric.total_units_sold}
                     </TableCell>
                   </TableRow>
                 );
@@ -121,15 +138,17 @@ export function MedicineMetricsTable({ data }: Props) {
   );
 }
 
-function MedicineFilters() {
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function AreaFilters() {
   const [open, setOpen] = useState(false);
   const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useMedicineFilters();
+    useAreaFilters();
 
   return (
     <>
       <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <MedicineFiltersModal
+      <AreaFiltersModal
         open={open}
         onOpenChange={setOpen}
         defaultValues={filters}
@@ -148,7 +167,7 @@ function MedicineFilters() {
 }
 
 function EmptyState() {
-  const { hasActiveFilters, clearFilters } = useMedicineFilters();
+  const { hasActiveFilters, clearFilters } = useAreaFilters();
 
   return (
     <TableEmptyState
