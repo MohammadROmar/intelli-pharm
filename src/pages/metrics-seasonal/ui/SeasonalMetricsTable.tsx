@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 import { ShoppingCart, Package, Banknote, TrendingUp } from 'lucide-react';
 
 import {
@@ -8,7 +7,7 @@ import {
   useSeasonalFilters,
 } from '@/features/metrics-seasonal';
 import { MetricsSummary, type SeasonalMetricsData } from '@/entities/metrics';
-import { formatDate, formatPrice, unwrapMetricsPaginated } from '@/shared/lib';
+import { formatDate, formatPrice } from '@/shared/lib';
 import {
   FiltersTrigger,
   TableBody,
@@ -25,11 +24,8 @@ type Props = { data: SeasonalMetricsData };
 
 export function SeasonalMetricsTable({ data }: Props) {
   const { t, i18n } = useTranslation('metrics', { keyPrefix: 'seasonal' });
-  const { pathname } = useLocation();
 
-  const { metrics: metricsWrapper, summary, season } = data;
-  const { items, page, pageSize, totalCount } =
-    unwrapMetricsPaginated(metricsWrapper);
+  const { metrics, summary, season, pagination } = data;
 
   const summaryItems = useMemo(
     () => [
@@ -64,13 +60,13 @@ export function SeasonalMetricsTable({ data }: Props) {
       <TableCard
         title={t('title')}
         toolbar={<SeasonalFilters />}
-        currItemsCount={items.length}
-        basePath={pathname}
-        currentPage={page}
-        totalItems={totalCount}
-        itemsPerPage={pageSize}
+        currItemsCount={metrics.length}
+        basePath="/dashboard/metrics/seasonal"
+        currentPage={pagination.current_page}
+        totalItems={pagination.total}
+        itemsPerPage={pagination.per_page}
       >
-        {items.length > 0 ? (
+        {metrics.length > 0 ? (
           <>
             <TableHeader>
               <TableRow>
@@ -84,7 +80,7 @@ export function SeasonalMetricsTable({ data }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {items.map((metric) => (
+              {metrics.map((metric) => (
                 <TableRow key={metric.id}>
                   <TableCell>
                     <LabeledLink

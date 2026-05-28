@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { createDomainQueryKeys } from '@/shared/model';
-import { type ApiError, type ApiResponse } from '@/shared/api';
+import type { ApiError, ApiResponse } from '@/shared/api';
 import {
   getPage,
   getPerPage,

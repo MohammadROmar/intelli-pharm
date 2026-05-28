@@ -14,7 +14,6 @@ export type {
   MedicineMetric,
   MedicineMetricsData,
   MedicineSummary,
-  MetricsPaginatedWrapper,
   MetricsSeason,
   PharmacyFilters,
   PharmacyMetric,

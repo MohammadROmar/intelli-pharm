@@ -1,12 +1,10 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 import { ShoppingCart, CheckCircle, XCircle, Package } from 'lucide-react';
 
 import { useAreaFilters, AreaFiltersModal } from '@/features/metrics-area';
 import type { AreaMetricsData } from '@/entities/metrics';
 import { MetricsSummary, AcceptanceRateBar } from '@/entities/metrics';
-import { unwrapMetricsPaginated } from '@/shared/lib';
 import {
   FiltersTrigger,
   TableBody,
@@ -23,11 +21,8 @@ type Props = { data: AreaMetricsData };
 
 export function AreaMetricsTable({ data }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'area' });
-  const { pathname } = useLocation();
 
-  const { metrics: metricsWrapper, summary, season } = data;
-  const { items, page, pageSize, totalCount } =
-    unwrapMetricsPaginated(metricsWrapper);
+  const { metrics, summary, season, pagination } = data;
 
   const summaryItems = useMemo(
     () => [
@@ -62,13 +57,13 @@ export function AreaMetricsTable({ data }: Props) {
       <TableCard
         title={t('title')}
         toolbar={<AreaFilters />}
-        currItemsCount={items.length}
-        basePath={pathname}
-        currentPage={page}
-        totalItems={totalCount}
-        itemsPerPage={pageSize}
+        currItemsCount={metrics.length}
+        basePath="/dashboard/metrics/area"
+        currentPage={pagination.current_page}
+        totalItems={pagination.total}
+        itemsPerPage={pagination.per_page}
       >
-        {items.length > 0 ? (
+        {metrics.length > 0 ? (
           <>
             <TableHeader>
               <TableRow>
@@ -90,7 +85,7 @@ export function AreaMetricsTable({ data }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {items.map((metric) => {
+              {metrics.map((metric) => {
                 const completionRate =
                   metric.total_orders > 0
                     ? metric.total_completed_orders / metric.total_orders
@@ -137,8 +132,6 @@ export function AreaMetricsTable({ data }: Props) {
     </>
   );
 }
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
 
 function AreaFilters() {
   const [open, setOpen] = useState(false);

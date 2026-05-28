@@ -1,6 +1,5 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 import { ShoppingCart, Repeat2, Percent } from 'lucide-react';
 
 import {
@@ -9,7 +8,6 @@ import {
 } from '@/features/metrics-medicine';
 import { MetricsSummary, AcceptanceRateBar } from '@/entities/metrics';
 import type { MedicineMetricsData } from '@/entities/metrics';
-import { unwrapMetricsPaginated } from '@/shared/lib';
 import {
   FiltersTrigger,
   TableBody,
@@ -26,11 +24,8 @@ type Props = { data: MedicineMetricsData };
 
 export function MedicineMetricsTable({ data }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'medicine' });
-  const { pathname } = useLocation();
 
-  const { metrics: metricsWrapper, summary, season } = data;
-  const { items, page, pageSize, totalCount } =
-    unwrapMetricsPaginated(metricsWrapper);
+  const { metrics, summary, season, pagination } = data;
 
   const summaryItems = useMemo(
     () => [
@@ -64,13 +59,13 @@ export function MedicineMetricsTable({ data }: Props) {
       <TableCard
         title={t('title')}
         toolbar={<MedicineFilters />}
-        currItemsCount={items.length}
-        basePath={pathname}
-        currentPage={page}
-        totalItems={totalCount}
-        itemsPerPage={pageSize}
+        currItemsCount={metrics.length}
+        basePath="/dashboard/metrics/medicine"
+        currentPage={pagination.current_page}
+        totalItems={pagination.total}
+        itemsPerPage={pagination.per_page}
       >
-        {items.length > 0 ? (
+        {metrics.length > 0 ? (
           <>
             <TableHeader>
               <TableRow>
@@ -85,7 +80,7 @@ export function MedicineMetricsTable({ data }: Props) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {items.map((metric) => {
+              {metrics.map((metric) => {
                 const rate =
                   metric.alternative_acceptance_rate > 1
                     ? metric.alternative_acceptance_rate / 100

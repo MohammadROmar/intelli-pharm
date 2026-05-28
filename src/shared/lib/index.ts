@@ -13,10 +13,6 @@ export {
   parseFilters,
   serializeFilters,
 } from './filters';
-export {
-  unwrapMetricsPaginated,
-  type UnwrappedMetricsPage,
-} from './unwrapMetricsPaginated';
 
 export { useIsMobile } from './hooks/useMobile';
 export { useFilters } from './hooks/useFilters';

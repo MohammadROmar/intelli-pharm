@@ -73,6 +73,7 @@ import { LazyInitiatePlanPage } from '@/pages/planner';
 import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
 import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
 import { LazyAreaMetricsPage } from '@/pages/metrics-area';
+import { LazyPharmacyMetricsPage } from '@/pages/metrics-pharmacy';
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,7 @@ const router = createBrowserRouter([
                   { path: 'seasonal', element: <LazySeasonalMetricsPage /> },
                   { path: 'medicine', element: <LazyMedicineMetricsPage /> },
                   { path: 'area', element: <LazyAreaMetricsPage /> },
+                  { path: 'pharmacy', element: <LazyPharmacyMetricsPage /> },
                 ],
               },
 

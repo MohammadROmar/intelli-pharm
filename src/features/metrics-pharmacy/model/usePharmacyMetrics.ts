@@ -2,8 +2,6 @@ import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { getAreaMetrics } from '@/entities/metrics';
-import type { AreaFilters, AreaMetricsData } from '@/entities/metrics';
 import type { ApiError, ApiResponse } from '@/shared/api';
 import { createDomainQueryKeys } from '@/shared/model';
 import {
@@ -13,9 +11,12 @@ import {
   canonicalizeFilters,
 } from '@/shared/lib';
 
-const queryKeys = createDomainQueryKeys('metrics/area');
+import { getPharmacyMetrics } from '@/entities/metrics';
+import type { PharmacyFilters, PharmacyMetricsData } from '@/entities/metrics';
 
-export function useAreaMetrics(filters: AreaFilters) {
+const queryKeys = createDomainQueryKeys('metrics/pharmacy');
+
+export function usePharmacyMetrics(filters: PharmacyFilters) {
   const [searchParams] = useSearchParams();
   const { i18n } = useTranslation();
 
@@ -24,13 +25,11 @@ export function useAreaMetrics(filters: AreaFilters) {
   const params = normalizeApiParams(filters, page_number, per_page);
   const canonicalFilters = canonicalizeFilters(filters);
 
-  return useSuspenseQuery<ApiResponse<AreaMetricsData>, ApiError>({
+  return useSuspenseQuery<ApiResponse<PharmacyMetricsData>, ApiError>({
     queryKey: queryKeys.list({
-      page_number,
-      per_page,
       filters: canonicalFilters,
       lang: i18n.language,
     }),
-    queryFn: () => getAreaMetrics(params),
+    queryFn: () => getPharmacyMetrics(params),
   });
 }

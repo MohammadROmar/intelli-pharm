@@ -1,16 +1,16 @@
-export type MetricsSeason = {
-  quarter: string;
-  year: number;
+export type MetricsSeason = { quarter: string; year: number };
+
+export type Pagination = {
+  total: number;
+  per_page: number;
+  current_page: number;
+  last_page: number;
 };
 
-export type MetricsPaginatedWrapper<T> = {
-  current_page: number;
-  data: T[];
-  last_page: number;
-  per_page: number;
-  from: number;
-  to: number;
-  total: number;
+export type MetricsData<TMetric, TSummary> = {
+  metrics: TMetric[];
+  pagination: Pagination;
+  summary: TSummary;
 };
 
 export type SeasonalMetric = {
@@ -37,10 +37,11 @@ export type SeasonalSummary = {
   avg_order_value: number;
 };
 
-export type SeasonalMetricsData = {
+export type SeasonalMetricsData = MetricsData<
+  SeasonalMetric,
+  SeasonalSummary
+> & {
   season: MetricsSeason;
-  metrics: MetricsPaginatedWrapper<SeasonalMetric>;
-  summary: SeasonalSummary;
 };
 
 export type SeasonalFilters = {
@@ -69,10 +70,11 @@ export type MedicineSummary = {
   alternatives_used_count: number;
 };
 
-export type MedicineMetricsData = {
+export type MedicineMetricsData = MetricsData<
+  MedicineMetric,
+  MedicineSummary
+> & {
   season: MetricsSeason;
-  metrics: MetricsPaginatedWrapper<MedicineMetric>;
-  summary: MedicineSummary;
 };
 
 export type MedicineFilters = {
@@ -104,10 +106,8 @@ export type AreaSummary = {
   total_units_sold: number;
 };
 
-export type AreaMetricsData = {
+export type AreaMetricsData = MetricsData<AreaMetric, AreaSummary> & {
   season: MetricsSeason;
-  metrics: MetricsPaginatedWrapper<AreaMetric>;
-  summary: AreaSummary;
 };
 
 export type AreaFilters = {
@@ -147,11 +147,8 @@ export type PharmacySummary = {
   avg_recency_score: number;
 };
 
-export type PharmacyMetricsData = {
-  metrics: PharmacyMetric[];
-  summary: PharmacySummary;
-};
+export type PharmacyMetricsData = MetricsData<PharmacyMetric, PharmacySummary>;
 
 export type PharmacyFilters = {
-  pharmacy_id?: number;
+  pharmacy_id?: string;
 };

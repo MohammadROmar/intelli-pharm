@@ -54,7 +54,6 @@ function TableRowSkeleton() {
 export function SeasonalMetricsSkeleton() {
   return (
     <div className="rounded-xl border">
-      {/* Header */}
       <div className="flex items-center justify-between p-6">
         <div className="space-y-1.5">
           <Skeleton className="h-5 w-40" />
@@ -65,7 +64,6 @@ export function SeasonalMetricsSkeleton() {
 
       <SummaryCardSkeleton />
 
-      {/* Table */}
       <div className="w-full overflow-auto">
         <table className="w-full">
           <thead>
@@ -85,7 +83,6 @@ export function SeasonalMetricsSkeleton() {
         </table>
       </div>
 
-      {/* Footer */}
       <div className="flex flex-col items-center justify-between gap-4 p-4 sm:flex-row">
         <Skeleton className="h-8 w-64" />
         <Skeleton className="h-8 w-24" />
