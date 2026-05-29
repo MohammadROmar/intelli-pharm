@@ -6,6 +6,11 @@ import { CheckCheck } from 'lucide-react';
 import type { NotificationsParams } from '@/features/notifications';
 import { Badge, Button, CardContent, CardFooter } from '@/shared/ui';
 import { DynamicPagination, PerPageSelect } from '@/shared/ui';
+import { useAppDispatch } from '@/shared/config';
+import {
+  setUnreadNotifications,
+  decrementUnreadNotifications,
+} from '@/entities/session';
 
 import { NotificationItem } from './NotificationItem';
 import { NotificationsEmptyState } from './NotificationsEmptyState';
@@ -14,7 +19,7 @@ import { useGetNotifications } from '../model/useGetNotifications';
 import { useMarkNotificationAsRead } from '../model/useMarkNotificationAsRead';
 import { useMarkAllNotificationsAsRead } from '../model/useMarkAllNotificationsAsRead';
 
-const MAX_VISIBLE_PAGES = 7;
+const MAX_VISIBLE_PAGES = 5;
 const DEFAULT_PAGE = 1;
 const DEFAULT_PER_PAGE = 10;
 
@@ -22,6 +27,7 @@ export function NotificationsContent() {
   const { t } = useTranslation('notifications');
   const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
+  const dispatch = useAppDispatch();
 
   const page = Number(searchParams.get('page') ?? DEFAULT_PAGE);
   const perPage = Number(searchParams.get('per_page') ?? DEFAULT_PER_PAGE);
@@ -52,14 +58,18 @@ export function NotificationsContent() {
   const handleMarkAsRead = useCallback(
     (notification: Notification) => {
       if (!notification || notification.read_at !== null) return;
-      markAsRead(notification.id);
+      markAsRead(notification.id, {
+        onSuccess: () => dispatch(decrementUnreadNotifications()),
+      });
     },
-    [markAsRead],
+    [markAsRead, dispatch],
   );
 
   const handleMarkAllAsRead = useCallback(() => {
-    markAllAsRead(null);
-  }, [markAllAsRead]);
+    markAllAsRead(null, {
+      onSuccess: () => dispatch(setUnreadNotifications(0)),
+    });
+  }, [markAllAsRead, dispatch]);
 
   const maxPages = Math.ceil(meta.total / meta.per_page);
   const extraParams =

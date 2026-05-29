@@ -14,6 +14,7 @@ type SessionState = {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  unreadNotifications: number | null;
 };
 
 const initialState: SessionState = {
@@ -23,6 +24,7 @@ const initialState: SessionState = {
   user: null,
   isAuthenticated: false,
   isLoading: true,
+  unreadNotifications: null,
 };
 
 export const sessionSlice = createSlice({
@@ -36,6 +38,7 @@ export const sessionSlice = createSlice({
         refreshToken: string;
         roles: string[];
         user: User;
+        unread_notifications_count: number;
       }>,
     ) => {
       state.accessToken = action.payload.accessToken;
@@ -44,9 +47,25 @@ export const sessionSlice = createSlice({
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.isLoading = false;
+      state.unreadNotifications = action.payload.unread_notifications_count;
 
       setRefreshToken(action.payload.refreshToken);
     },
+
+    incrementUnreadNotifications: (state) => {
+      state.unreadNotifications = (state.unreadNotifications ?? 0) + 1;
+    },
+
+    decrementUnreadNotifications: (state) => {
+      if (state.unreadNotifications !== null && state.unreadNotifications > 0) {
+        state.unreadNotifications -= 1;
+      }
+    },
+
+    setUnreadNotifications: (state, action: PayloadAction<number>) => {
+      state.unreadNotifications = action.payload;
+    },
+
     logout: (state) => {
       state.accessToken = null;
       state.refreshToken = null;
@@ -54,14 +73,23 @@ export const sessionSlice = createSlice({
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
+      state.unreadNotifications = null;
 
       clearRefreshToken();
     },
+
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
   },
 });
 
-export const { setCredentials, logout, setLoading } = sessionSlice.actions;
+export const {
+  setCredentials,
+  logout,
+  setLoading,
+  setUnreadNotifications,
+  incrementUnreadNotifications,
+  decrementUnreadNotifications,
+} = sessionSlice.actions;
 export default sessionSlice.reducer;

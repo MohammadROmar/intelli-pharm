@@ -28,6 +28,7 @@ export function useLogin() {
             refreshToken: data.refresh_token,
             roles: data.roles,
             user: { email: data.email, name: data.name },
+            unread_notifications_count: data.unread_notifications_count,
           }),
         );
 

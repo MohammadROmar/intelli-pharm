@@ -10,5 +10,8 @@ export {
   setLoading,
   sessionSlice,
   setCredentials,
+  setUnreadNotifications,
+  incrementUnreadNotifications,
+  decrementUnreadNotifications,
   default as sessionReducer,
 } from './model/slice';

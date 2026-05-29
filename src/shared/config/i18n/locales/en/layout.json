@@ -1,5 +1,8 @@
 {
   "sidebar": {
+    "openUserMenuWithNotifications_zero": "Open user menu",
+    "openUserMenuWithNotifications_one": "Open user menu, {{count}} unread notification",
+    "openUserMenuWithNotifications_other": "Open user menu, {{count}} unread notifications",
     "toggle": "Toggle sidebar",
     "account": "Account",
     "notifications": "Notifications",

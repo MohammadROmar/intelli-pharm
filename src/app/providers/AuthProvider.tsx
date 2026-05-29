@@ -5,7 +5,7 @@ import { setCredentials, logout, setLoading } from '@/entities/session';
 import { useAppDispatch, useAppSelector } from '@/shared/config';
 import { Logo } from '@/shared/ui/index.initial';
 
-export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
+export function AuthLoader({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();
   const { isLoading, refreshToken } = useAppSelector((state) => state.session);
 
@@ -29,6 +29,7 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
             accessToken: data.access_token,
             roles: data.roles,
             user: { name: data.name, email: data.email },
+            unread_notifications_count: data.unread_notifications_count,
           }),
         );
       } catch {
@@ -50,4 +51,4 @@ export const AuthLoader = ({ children }: { children: React.ReactNode }) => {
   }
 
   return <>{children}</>;
-};
+}

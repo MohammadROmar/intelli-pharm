@@ -15,6 +15,7 @@ import {
 
 import type { ReadStatusFilter } from '../model/types';
 import { NotificationsContent } from './NotificationsContent';
+import { NotificationPermissionBanner } from './NotificationPermissionBanner';
 
 const TAB_OPTIONS: ReadStatusFilter[] = ['all', 'read', 'unread'];
 
@@ -78,6 +79,8 @@ export function NotificationsPageContent() {
               </TabsList>
             </Tabs>
           </CardHeader>
+
+          <NotificationPermissionBanner className="mx-6" />
 
           <Separator />
 

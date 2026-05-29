@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Bell, ChevronsUpDown, UserCircle } from 'lucide-react';
 
 import { LogoutButton } from '@/features/auth';
+import { useAppSelector } from '@/shared/config';
+import { useRequiredUser } from '@/shared/model';
 import {
   useSidebar,
   DropdownMenu,
@@ -15,12 +18,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/shared/ui';
+
 import { UserInfo } from './UserInfo';
-import { Link } from 'react-router-dom';
+import { NotificationBadge } from './NotificationBadge';
 
 export function NavUser() {
-  const { isMobile, openMobile, setOpenMobile } = useSidebar();
   const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
+  const { isMobile, openMobile, setOpenMobile } = useSidebar();
+
+  const user = useRequiredUser();
+  const unreadNotifications = useAppSelector(
+    (state) => state.session.unreadNotifications ?? 0,
+  );
 
   return (
     <SidebarMenu>
@@ -29,12 +38,28 @@ export function NavUser() {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
+              aria-label={
+                unreadNotifications > 0
+                  ? t('openUserMenuWithNotifications', {
+                      count: unreadNotifications,
+                    })
+                  : undefined
+              }
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <UserInfo />
-              <ChevronsUpDown className="ml-auto size-4" />
+              <UserInfo
+                user={user}
+                badge={
+                  <NotificationBadge
+                    count={unreadNotifications}
+                    className="absolute -end-1 -top-1"
+                  />
+                }
+              />
+              <ChevronsUpDown className="size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent
             className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
             side={isMobile ? 'bottom' : 'right'}
@@ -43,15 +68,18 @@ export function NavUser() {
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-sm">
-                <UserInfo />
+                <UserInfo user={user} />
               </div>
             </DropdownMenuLabel>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <UserCircle />
                 {t('account')}
               </DropdownMenuItem>
+
               <DropdownMenuItem asChild className="cursor-pointer">
                 <Link
                   to="notifications"
@@ -61,10 +89,17 @@ export function NavUser() {
                 >
                   <Bell />
                   {t('notifications')}
+
+                  <NotificationBadge
+                    count={unreadNotifications}
+                    className="ms-auto"
+                  />
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuItem asChild>
               <LogoutButton />
             </DropdownMenuItem>

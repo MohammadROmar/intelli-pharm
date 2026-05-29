@@ -54,5 +54,28 @@
       },
       "error": { "title": "Failed to mark notifications as read" }
     }
+  },
+
+  "permission": {
+    "default": {
+      "title": "Stay in the loop",
+      "description": "Enable notifications to get real-time alerts for orders, stock updates, and important events.",
+      "action": "Enable Notifications"
+    },
+    "denied": {
+      "title": "Notifications are blocked",
+      "description": "Your browser is blocking notifications for this site. Follow these steps to re-enable them:",
+      "stepsLabel": "Steps to re-enable notifications",
+      "steps": {
+        "0": "Click the lock icon (🔒) in the address bar",
+        "1": "Find \"Notifications\" in the permissions list",
+        "2": "Change the setting from \"Block\" to \"Allow\"",
+        "3": "Refresh the page to apply the changes"
+      },
+      "refresh": "Refresh page"
+    },
+    "unsupported": {
+      "description": "Your browser doesn't support push notifications. Consider switching to Chrome, Firefox, or Edge for the full experience."
+    }
   }
 }

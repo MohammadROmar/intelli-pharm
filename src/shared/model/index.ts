@@ -5,3 +5,4 @@ export { useSuspenseGetEntities } from './useSuspenseGetEntities';
 export { useSuspenseGetEntityById } from './useSuspenseGetEntityById';
 export { useInfiniteEntities } from './useInfiniteEntities';
 export { createDomainQueryKeys } from './queryKeys';
+export { useRequiredUser } from './useRequiredUser';

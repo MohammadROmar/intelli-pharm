@@ -1,5 +1,11 @@
 {
   "sidebar": {
+    "openUserMenuWithNotifications_zero": "فتح قائمة المستخدم",
+    "openUserMenuWithNotifications_one": "فتح قائمة المستخدم، إشعار واحد غير مقروء",
+    "openUserMenuWithNotifications_two": "فتح قائمة المستخدم، إشعاران غير مقروءان",
+    "openUserMenuWithNotifications_few": "فتح قائمة المستخدم، {{count}} إشعارات غير مقروءة",
+    "openUserMenuWithNotifications_many": "فتح قائمة المستخدم، {{count}} إشعاراً غير مقروءاً",
+    "openUserMenuWithNotifications_other": "فتح قائمة المستخدم، {{count}} إشعار غير مقروء",
     "toggle": "تبديل حالة الشريط الجانبي",
     "account": "الحساب",
     "notifications": "الإشعارات",

@@ -24,7 +24,7 @@ export function LogoutButton() {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="flex h-fit! w-full items-center justify-start gap-2 px-2! py-1.5!"
+          className="text-destructive flex h-fit! w-full items-center justify-start gap-2 px-2! py-1.5!"
         >
           <LogOut />
           {t('title')}

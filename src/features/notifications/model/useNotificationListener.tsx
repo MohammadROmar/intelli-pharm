@@ -6,16 +6,20 @@ import { toast } from 'sonner';
 import { BellRing } from 'lucide-react';
 import type { MessagePayload } from 'firebase/messaging';
 
-import type { FCMNotificationData } from './types';
-import { notificationsKeys } from './notificationsKeys';
+import { incrementUnreadNotifications } from '@/entities/session';
 import {
   onForegroundMessage,
   FCM_BROADCAST_CHANNEL,
 } from '@/shared/notifications';
+import { useAppDispatch } from '@/shared/config';
+
+import type { FCMNotificationData } from './types';
+import { notificationsKeys } from './notificationsKeys';
 
 let isRegistered = false;
 
 export function useNotificationListener() {
+  const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { t } = useTranslation('notifications', { keyPrefix: 'toast' });
@@ -43,9 +47,10 @@ export function useNotificationListener() {
         },
       });
 
+      dispatch(incrementUnreadNotifications());
       void queryClient.invalidateQueries({ queryKey: notificationsKeys.all });
     };
-  }, [queryClient, navigate, t]);
+  }, [dispatch, queryClient, navigate, t]);
 
   useEffect(() => {
     if (isRegistered) return;
@@ -72,9 +77,10 @@ export function useNotificationListener() {
     const channel = new BroadcastChannel(FCM_BROADCAST_CHANNEL);
 
     channel.onmessage = () => {
+      dispatch(incrementUnreadNotifications());
       void queryClient.invalidateQueries({ queryKey: notificationsKeys.all });
     };
 
     return () => channel.close();
-  }, [queryClient]);
+  }, [dispatch, queryClient]);
 }

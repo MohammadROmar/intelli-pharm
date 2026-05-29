@@ -9,6 +9,7 @@ export type LoginResponse = {
   expires_in: number;
   roles: Role[];
   permissions: string[];
+  unread_notifications_count: number;
 };
 
 export type LoginParams = {

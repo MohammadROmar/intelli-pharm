@@ -113,6 +113,7 @@ export function DynamicPagination({
           <PaginationItem>
             <PaginationPrevious
               label={t('pagination.prev')}
+              aria-label={t('pagination.prev')}
               to={
                 isFirst
                   ? '#'
@@ -145,7 +146,7 @@ export function DynamicPagination({
                 <PaginationLink
                   to={buildUrl(basePath, item, searchParams, extraParams)}
                   isActive={isActive}
-                  className="text-xs md:text-sm"
+                  className="text-xs! md:text-sm!"
                   aria-current={isActive ? 'page' : undefined}
                 >
                   {item}
@@ -157,6 +158,7 @@ export function DynamicPagination({
           <PaginationItem>
             <PaginationNext
               label={t('pagination.next')}
+              aria-label={t('pagination.next')}
               to={
                 isLast
                   ? '#'
