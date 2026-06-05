@@ -10,7 +10,7 @@ export function LazyPharmacyDetailPage() {
       Component={PharmacyDetailPage}
       loader={
         <DetailSkeleton
-          cards={[{ rows: 2 }, { rows: 2 }, { rows: 1 }]}
+          cards={[{ rows: 2 }, { rows: 2 }, { rows: 1 }, { rows: 1 }]}
           tables={0}
         />
       }

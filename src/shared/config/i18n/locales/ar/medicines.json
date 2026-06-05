@@ -90,7 +90,7 @@
     "labelLaboratories": "المختبر",
     "labelRequiredQty": "الكمية المطلوبة",
     "labelGiftQty": "كمية الهدية",
-    "dealSummary": "يتم منح {{gift}} مجاناً لكل {{required}} عنصر من {{medicine}}",
+    "dealSummary": "يتم منح {{gift}} مجاناً لكل {{required}} عناصر مشتراة.",
     "labelCreatedAt": "تاريخ الإنشاء",
     "labelUpdatedAt": "آخر تحديث",
     "primaryImage": "رئيسية",

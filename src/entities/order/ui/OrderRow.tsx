@@ -37,8 +37,6 @@ export function OrderRow({ order }: OrderRowProps) {
         <OrderStatusBadge status={order.status} withIcon={false} />
       </TableCell>
 
-      <TableCell className="tabular-nums">{order.total_quantity}</TableCell>
-
       <TableCell>
         {hasDiscount ? (
           <div className="flex flex-col gap-0.5">
@@ -62,6 +60,10 @@ export function OrderRow({ order }: OrderRowProps) {
             {formatPrice(order.total_amount, i18n.language)}
           </span>
         )}
+      </TableCell>
+
+      <TableCell className="tabular-nums">
+        {order.total_quantity ?? 0}
       </TableCell>
 
       <TableCell className="text-muted-foreground">

@@ -96,7 +96,8 @@
     "modules": {
       "erp": "ERP",
       "crm": "CRM",
-      "planner": "Planner"
+      "planner": "Planner",
+      "auth": "Auth"
     },
     "actions": {
       "view": "View",
@@ -111,7 +112,8 @@
       "deactivate": "Deactivate",
       "assign_distributor": "Assign Distributor",
       "view_live": "View Live",
-      "view_all": "View All"
+      "view_all": "View All",
+      "get": "Get"
     },
     "resources": {
       "categories": "Categories",
@@ -124,11 +126,13 @@
       "leaves": "Leaves",
       "tracking": "Tracking",
       "analytics": "Analytics",
+      "notifications": "Notifications",
       "rep": "Rep",
       "plan": "Plan",
       "distributor": "Distributor",
       "visits": "Visits",
-      "deliveries": "Deliveries"
+      "deliveries": "Deliveries",
+      "roles": "Roles"
     }
   }
 }

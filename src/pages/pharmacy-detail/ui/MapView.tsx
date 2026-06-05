@@ -9,7 +9,7 @@ type Props = { position: Position; label: string };
 export function MapView({ position, label }: Props) {
   return (
     <LeafletMapView center={[position.lat, position.lng]}>
-      <Marker position={position} icon={createIcon('pharmacy')}>
+      <Marker position={position} icon={createIcon('simple')}>
         <Popup className="font-cairo">{label}</Popup>
       </Marker>
     </LeafletMapView>

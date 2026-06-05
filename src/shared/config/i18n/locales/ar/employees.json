@@ -95,7 +95,8 @@
     "modules": {
       "erp": "تخطيط الموارد",
       "crm": "إدارة علاقات العملاء",
-      "planner": "المخطط"
+      "planner": "المخطط",
+      "auth": "المصادقة"
     },
     "actions": {
       "view": "عرض",
@@ -110,7 +111,8 @@
       "deactivate": "تعطيل",
       "assign_distributor": "تعيين موزع",
       "view_live": "عرض مباشر",
-      "view_all": "عرض الكل"
+      "view_all": "عرض الكل",
+      "get": "الاستلام"
     },
     "resources": {
       "categories": "الفئات",
@@ -123,11 +125,13 @@
       "leaves": "الإجازات",
       "tracking": "التتبع",
       "analytics": "التحليلات",
+      "notifications": "الإشعارات",
       "rep": "المندوب",
       "plan": "الخطة",
       "distributor": "الموزع",
       "visits": "الزيارات",
-      "deliveries": "التسليمات"
+      "deliveries": "التسليمات",
+      "roles": "الأدوار"
     }
   }
 }

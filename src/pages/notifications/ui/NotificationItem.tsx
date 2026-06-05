@@ -82,7 +82,7 @@ export function NotificationItem({
           </time>
         </div>
 
-        <p className="text-muted-foreground mt-0.5 line-clamp-1 text-xs">
+        <p className="text-muted-foreground mt-0.5 text-xs">
           {notification.body}
         </p>
 

@@ -15,6 +15,7 @@ import {
 
 import type { ReadStatusFilter } from '../model/types';
 import { NotificationsContent } from './NotificationsContent';
+import { NotificationDeviceStatus } from './NotificationDeviceStatus';
 import { NotificationPermissionBanner } from './NotificationPermissionBanner';
 
 const TAB_OPTIONS: ReadStatusFilter[] = ['all', 'read', 'unread'];
@@ -56,7 +57,7 @@ export function NotificationsPageContent() {
     <>
       <title>{pageTitle}</title>
 
-      <div className="container mx-auto max-w-3xl">
+      <div className="container mx-auto w-full max-w-3xl">
         <Card className="gap-4!">
           <CardHeader className="space-y-2">
             <CardSectionHeader
@@ -81,6 +82,7 @@ export function NotificationsPageContent() {
           </CardHeader>
 
           <NotificationPermissionBanner className="mx-6" />
+          <NotificationDeviceStatus className="mx-6" />
 
           <Separator />
 

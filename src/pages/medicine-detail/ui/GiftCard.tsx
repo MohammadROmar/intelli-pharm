@@ -2,19 +2,16 @@ import { useTranslation } from 'react-i18next';
 import { Gift, Package } from 'lucide-react';
 
 import type { MedicineDetail } from '@/entities/medicine';
-import { getLocalized } from '@/shared/lib';
 import { DetailCard, DetailCell } from '@/shared/ui';
 
 type Props = { medicine: MedicineDetail };
 
 export function GiftCard({ medicine }: Props) {
-  const { t, i18n } = useTranslation('medicines', {
+  const { t } = useTranslation('medicines', {
     keyPrefix: 'detail',
   });
 
   const { gift } = medicine;
-
-  const name = getLocalized(medicine.commercial_name, i18n.language);
 
   return (
     <DetailCard
@@ -59,7 +56,6 @@ export function GiftCard({ medicine }: Props) {
             {t('dealSummary', {
               required: gift.required_quantity,
               gift: gift.gift_quantity,
-              medicine: name,
             })}
           </p>
         </div>

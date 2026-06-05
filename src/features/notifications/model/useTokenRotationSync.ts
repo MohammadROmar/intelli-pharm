@@ -16,22 +16,25 @@ export function useTokenRotationSync({ onTokenRotated }: Options) {
   }, [onTokenRotated]);
 
   useEffect(() => {
-    const syncToken = async () => {
+    async function syncToken() {
       const freshToken = await getFreshTokenSilently();
       if (!freshToken) return;
 
       const storedToken = readToken();
+
+      if (!storedToken) return;
+
       if (freshToken !== storedToken) {
         writeToken(freshToken);
         callbackRef.current(freshToken);
       }
-    };
+    }
 
     syncToken();
 
-    const handleVisibility = () => {
+    function handleVisibility() {
       if (document.visibilityState === 'visible') syncToken();
-    };
+    }
 
     document.addEventListener('visibilitychange', handleVisibility);
     return () =>

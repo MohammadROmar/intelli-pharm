@@ -75,6 +75,7 @@
     "loadingMore": "Loading More…",
     "selectedCount": "{{count}} selected",
     "selected": "Selected",
-    "clearAll": "Clear all"
+    "clearAll": "Clear all",
+    "maxLimitReached": "You can only select a maximum of 19 pharmacies."
   }
 }

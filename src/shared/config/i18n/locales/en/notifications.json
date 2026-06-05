@@ -77,5 +77,19 @@
     "unsupported": {
       "description": "Your browser doesn't support push notifications. Consider switching to Chrome, Firefox, or Edge for the full experience."
     }
+  },
+
+  "deviceStatus": {
+    "unregistered": {
+      "title": "Device not connected",
+      "description": "Notifications are allowed but this device hasn't been set up to receive them yet.",
+      "action": "Set Up Notifications"
+    },
+    "registering": "Setting up...",
+    "error": {
+      "title": "Setup failed",
+      "description": "Couldn't connect this device. Your notification settings are fine — just tap retry.",
+      "action": "Retry"
+    }
   }
 }

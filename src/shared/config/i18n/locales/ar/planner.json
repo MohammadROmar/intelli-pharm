@@ -75,6 +75,7 @@
     "loadingMore": "يتم التحميل…",
     "selectedCount": "{{count}} محددة",
     "selected": "المحددة",
-    "clearAll": "إلغاء الكل"
+    "clearAll": "إلغاء الكل",
+    "maxLimitReached": "يمكنك اختيار 19 صيدلية كحد أقصى فقط."
   }
 }

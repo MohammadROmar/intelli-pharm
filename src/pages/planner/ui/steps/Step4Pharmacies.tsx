@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import {
   Cross,
   Check,
@@ -185,14 +186,25 @@ export function Step4Pharmacies({ onSubmit, isPending }: Props) {
 
   const togglePharmacy = useCallback(
     (id: number) => {
-      const next = selectedIds.includes(id)
-        ? selectedIds.filter((x) => x !== id)
-        : [...selectedIds, id];
+      if (selectedIds.includes(id)) {
+        const next = selectedIds.filter((x) => x !== id);
+        dispatch({
+          type: 'UPDATE_PHARMACIES',
+          payload: { pharmacy_ids: next },
+        });
+        return;
+      }
+
+      if (selectedIds.length >= 19) {
+        toast.warning(t('pharmacies.maxLimitReached'));
+        return;
+      }
+
+      const next = [...selectedIds, id];
       dispatch({ type: 'UPDATE_PHARMACIES', payload: { pharmacy_ids: next } });
     },
-    [selectedIds, dispatch],
+    [selectedIds, dispatch, t],
   );
-
   return (
     <div className="space-y-6">
       <Card>

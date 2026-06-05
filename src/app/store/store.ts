@@ -5,9 +5,7 @@ import type { LoginResponse } from '@/features/login/index.initial';
 import { sessionReducer, logout, setCredentials } from '@/entities/session';
 import { apiClient } from '@/shared/api';
 
-export const store = configureStore({
-  reducer: { session: sessionReducer },
-});
+export const store = configureStore({ reducer: { session: sessionReducer } });
 
 declare global {
   type RootState = ReturnType<typeof store.getState>;
@@ -18,14 +16,11 @@ apiClient.interceptors.request.use((config) => {
   const state = store.getState();
   const token = state.session.accessToken;
 
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+  if (token) config.headers.Authorization = `Bearer ${token}`;
 
   const language = localStorage.getItem('i18nextLng');
-  if (language && !config.headers['Accept-Language']) {
+  if (language && !config.headers['Accept-Language'])
     config.headers['Accept-Language'] = language;
-  }
 
   return config;
 });

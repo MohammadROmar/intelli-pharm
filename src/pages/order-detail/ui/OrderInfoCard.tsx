@@ -90,7 +90,7 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
         <DetailCell label={t('labelTotalQuantity')}>
           <span className="flex items-center gap-1.5">
             <Package className="text-muted-foreground size-3.5 shrink-0" />
-            <span className="tabular-nums">{order.total_quantity}</span>
+            <span className="tabular-nums">{order.total_quantity ?? 0}</span>
             <span className="text-muted-foreground text-xs font-normal">
               {t('units')}
             </span>
@@ -150,7 +150,9 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
         <>
           <Separator />
           <DetailCell label={t('labelNotes')}>
-            <p className="text-sm leading-relaxed">{order.notes}</p>
+            <p className="text-sm leading-relaxed whitespace-break-spaces">
+              {order.notes}
+            </p>
           </DetailCell>
         </>
       )}

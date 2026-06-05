@@ -137,7 +137,7 @@
   --color-badge-muted-text: var(--badge-muted-text);
   --color-badge-muted-border: var(--badge-muted-border);
 
-  --animate-skeleton: skeleton-shimmer 1.6s ease-in-out infinite;
+  --animate-skeleton: skeleton-shimmer 2s ease-in-out infinite;
 }
 
 .dark {
@@ -217,7 +217,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-cairo selection:bg-primary relative grid min-h-screen overflow-x-hidden selection:text-white;
+    @apply bg-background text-foreground font-cairo selection:bg-primary relative grid min-h-svh overflow-x-hidden selection:text-white;
   }
 
   ::-webkit-scrollbar {

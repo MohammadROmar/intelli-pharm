@@ -80,9 +80,7 @@ const MODULE_LABELS: Record<string, string> = {
 type Props = { permissions: string[] };
 
 export function EmployeePermissionsCard({ permissions }: Props) {
-  const { t } = useTranslation('employees', {
-    keyPrefix: 'detail',
-  });
+  const { t } = useTranslation('employees', { keyPrefix: 'detail' });
 
   if (!permissions.length) {
     return (

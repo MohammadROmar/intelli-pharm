@@ -90,7 +90,7 @@
     "labelLaboratories": "Laboratory",
     "labelRequiredQty": "Required Quantity",
     "labelGiftQty": "Gift Quantity",
-    "dealSummary": "A free {{gift}} is granted for every {{required}} items of {{medicine}}.",
+    "dealSummary": "{{gift}} is given for free for every {{required}} items purchased.",
     "labelCreatedAt": "Created",
     "labelUpdatedAt": "Last Updated",
     "primaryImage": "Primary",
