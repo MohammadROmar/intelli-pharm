@@ -1,0 +1,141 @@
+import { lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
+import { MapPin, Map, Route } from 'lucide-react';
+
+import { PlanVisitItem } from './PlanVisitItem';
+
+import { useFormatDistance, useFormatDuration } from '@/entities/plan';
+import type { PlanDetail, PlanReason } from '@/entities/plan';
+import { cn, formatDate, ErrorBoundary } from '@/shared/lib';
+import {
+  Badge,
+  BadgeLink,
+  DetailCard,
+  DetailCell,
+  SectionErrorFallback,
+  Separator,
+  Skeleton,
+} from '@/shared/ui';
+
+const PlanRouteMap = lazy(() => import('./PlanRouteMap'));
+
+const formatPlanId = (id: number) => `PLN-${String(id).padStart(6, '0')}`;
+
+const REASON_VARIANT: Record<PlanReason, 'muted' | 'info'> = {
+  initiated: 'muted',
+  replanning: 'info',
+};
+
+export function PlanDetail({ plan }: { plan: PlanDetail }) {
+  const { t, i18n } = useTranslation('plan', { keyPrefix: 'detail' });
+
+  const formatDistance = useFormatDistance();
+  const formatDuration = useFormatDuration();
+
+  const planLabel = formatPlanId(plan.id);
+  const visitedCount = plan.visits.filter((v) => v.visited === 1).length;
+  const reasonVariant = REASON_VARIANT[plan.reason];
+
+  return (
+    <>
+      <div className="flex items-center gap-2">
+        <h1 className="text-xl leading-tight font-bold">{planLabel}</h1>
+        <Badge variant={reasonVariant} className="capitalize">
+          {t(`reason.${plan.reason}`, { defaultValue: plan.reason })}
+        </Badge>
+      </div>
+
+      <DetailCard
+        title={t('overview.title')}
+        subtitle={t('overview.subtitle')}
+        icon={Route}
+      >
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          <DetailCell label={t('overview.user')}>
+            <BadgeLink
+              label={plan.user_name}
+              to={`/dashboard/employees/${plan.user_id}`}
+            />
+          </DetailCell>
+
+          <DetailCell label={t('overview.createdAt')}>
+            <span className="flex items-center gap-1.5 text-sm">
+              {formatDate(plan.created_at, i18n.language)}
+            </span>
+          </DetailCell>
+
+          <DetailCell label={t('overview.totalDistance')}>
+            <span className="flex items-center gap-1.5 text-sm">
+              {formatDistance(plan.total_distance_m ?? 0)}
+            </span>
+          </DetailCell>
+
+          <DetailCell label={t('overview.totalDuration')}>
+            <span className="flex items-center gap-1.5 text-sm">
+              {formatDuration(plan.total_duration_sec ?? 0)}
+            </span>
+          </DetailCell>
+        </div>
+
+        <Separator />
+
+        <div className="grid grid-cols-1">
+          <DetailCell label={t('overview.reasonDetails')}>
+            <p
+              className={cn(
+                'text-sm leading-relaxed',
+                !plan.reason_details && 'text-muted-foreground italic',
+              )}
+            >
+              {plan.reason_details || t('overview.noDetails')}
+            </p>
+          </DetailCell>
+        </div>
+      </DetailCard>
+
+      <DetailCard
+        title={t('map.title')}
+        subtitle={t('map.subtitle')}
+        icon={Map}
+      >
+        <div className="text-muted-foreground mb-3 flex flex-wrap items-center gap-4 text-xs">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block size-3 rounded-full bg-blue-500" />
+            {t('map.legend.start')}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block size-3 rounded-full bg-green-500" />
+            {t('map.legend.visited')}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block size-3 rounded-full bg-orange-400" />
+            {t('map.legend.notVisited')}
+          </span>
+        </div>
+
+        <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+          <Suspense fallback={<Skeleton className="h-105 w-full rounded-lg" />}>
+            <PlanRouteMap paths={plan.paths} visits={plan.visits} />
+          </Suspense>
+        </ErrorBoundary>
+      </DetailCard>
+
+      <DetailCard
+        title={t('visits.title', { total: plan.visits.length })}
+        subtitle={t('visits.subtitle', {
+          visited: visitedCount,
+          total: plan.visits.length,
+        })}
+        icon={MapPin}
+      >
+        {plan.visits.map((visit, i) => (
+          <PlanVisitItem
+            key={visit.id}
+            visit={visit}
+            isLast={i === plan.visits.length - 1}
+          />
+        ))}
+      </DetailCard>
+    </>
+  );
+}

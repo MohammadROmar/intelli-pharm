@@ -55,13 +55,13 @@ function Badge({
   );
 }
 
-type Props = { icon: ElementType; label: string | number; to: string };
+type Props = { icon?: ElementType; label: string | number; to: string };
 
 function BadgeLink({ icon: Icon, label, to }: Props) {
   return (
     <Badge asChild variant="secondary">
       <Link to={to}>
-        <Icon className="text-muted-foreground shrink-0" />
+        {Icon && <Icon className="text-muted-foreground shrink-0" />}
         <span className="max-w-[20ch] truncate">{label}</span>
         <ExternalLink className="text-muted-foreground size-3 shrink-0" />
       </Link>

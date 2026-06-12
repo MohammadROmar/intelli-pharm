@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import { Logo, WithSuspense } from '@/shared/ui/index.initial';
+import { AetherSpinner, WithSuspense } from '@/shared/ui/index.initial';
 
 const DashboardLayout = lazy(() => import('../../../layouts/DashboardLayout'));
 
@@ -10,7 +10,7 @@ export function DashboardRoute() {
       Component={DashboardLayout}
       loader={
         <div className="flex h-dvh items-center justify-center">
-          <Logo withColors className="size-12" />
+          <AetherSpinner />
         </div>
       }
     />

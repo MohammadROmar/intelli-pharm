@@ -45,7 +45,8 @@
       "targets": "الأهداف",
       "achievements": "الإنجازات",
       "notifications": "الإشعارات",
-      "planner": "إنشاء خطة"
+      "plans": "الخطط",
+      "initiate": "إنشاء خطة"
     },
     "promotions": {
       "offers": "العروض",

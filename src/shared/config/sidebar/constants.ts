@@ -13,7 +13,7 @@ import {
   FlaskConical,
   LayoutDashboard,
   Target,
-  Waypoints,
+  Route,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -59,7 +59,11 @@ export const sidebarData: NavSection[] = [
     sectionLabel: 'sections.sales',
     items: [
       { label: 'labels.orders', url: '/dashboard/orders', icon: Package },
-      { label: 'labels.planner', url: '/dashboard/planner', icon: Waypoints },
+      {
+        label: 'labels.plans',
+        url: '/dashboard/plans',
+        icon: Route,
+      },
       { label: 'labels.pharmacies', url: '/dashboard/pharmacies', icon: Cross },
       {
         label: 'labels.promotions',

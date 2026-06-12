@@ -1,6 +1,7 @@
 {
   "pageTitle": "إنشاء خطة",
   "pageSubtitle": "أعدّ مسار التوزيع اليومي في 4 خطوات.",
+  "reset": "إعادة تعيين",
   "stepProgress": "الخطوة {{current}} من {{total}}",
   "steps": {
     "location": "الموقع",

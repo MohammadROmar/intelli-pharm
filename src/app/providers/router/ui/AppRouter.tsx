@@ -68,6 +68,8 @@ import { LazyChatPage } from '@/pages/ai-chat';
 
 import { LazyNotificationsPage } from '@/pages/notifications';
 
+import { LazyPlanListPage } from '@/pages/plan-list';
+import { LazyPlanDetailPage } from '@/pages/plan-detail';
 import { LazyInitiatePlanPage } from '@/pages/planner';
 
 import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
@@ -263,7 +265,14 @@ const router = createBrowserRouter([
 
               { path: 'notifications', element: <LazyNotificationsPage /> },
 
-              { path: 'planner', element: <LazyInitiatePlanPage /> },
+              {
+                path: 'plans',
+                children: [
+                  { index: true, element: <LazyPlanListPage /> },
+                  { path: 'initiate', element: <LazyInitiatePlanPage /> },
+                  { path: ':id', element: <LazyPlanDetailPage /> },
+                ],
+              },
             ],
           },
 

@@ -42,7 +42,8 @@
       "targets": "Targets",
       "achievements": "Achievements",
       "notifications": "Notifications",
-      "planner": "Initiate Plan"
+      "plans": "Plans",
+      "initiate": "Initiate Plan"
     },
     "promotions": {
       "offers": "Offers",

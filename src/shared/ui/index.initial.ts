@@ -19,3 +19,5 @@ export {
   DetailTableSkeleton,
   DetailHeaderSkeleton,
 } from './skeleton';
+
+export { AetherSpinner } from './AetherSpinner';

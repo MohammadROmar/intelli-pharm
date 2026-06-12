@@ -1,6 +1,7 @@
 {
   "pageTitle": "Initiate Plan",
   "pageSubtitle": "Set up your daily distribution route in 4 steps.",
+  "reset": "Reset",
   "stepProgress": "Step {{current}} of {{total}}",
   "steps": {
     "location": "Location",

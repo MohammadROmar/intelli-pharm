@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Check } from 'lucide-react';
 
 import { cn, ErrorBoundary } from '@/shared/lib';
-import { PageTitle, SectionErrorFallback, Skeleton } from '@/shared/ui';
+import { Button, PageTitle, SectionErrorFallback, Skeleton } from '@/shared/ui';
 
 import type { WizardStep } from '../model/plannerWizardTypes';
 import { usePlannerWizard } from '../model/PlannerWizardContext';
@@ -100,12 +100,17 @@ function SkeletonFallback() {
 }
 
 export function PlannerWizard({ onSubmit, isPending }: Props) {
-  const { state } = usePlannerWizard();
+  const { state, reset } = usePlannerWizard();
   const { t } = useTranslation('planner');
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8">
-      <PageTitle title={t('pageTitle')} subtitle={t('pageSubtitle')} />
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <PageTitle title={t('pageTitle')} subtitle={t('pageSubtitle')} />
+        <Button variant="outline" onClick={reset}>
+          {t('reset')}
+        </Button>
+      </div>
 
       <StepIndicator currentStep={state.step} />
       <ErrorBoundary FallbackComponent={SectionErrorFallback}>

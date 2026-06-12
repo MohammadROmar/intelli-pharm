@@ -1,0 +1,103 @@
+{
+  "list": {
+    "title": "الخطط",
+    "subtitle": "تصفية ومراجعة الخطط حسب الموظف أو التاريخ أو حالة الإنجاز",
+    "initiate": "إنشاء",
+    "table": {
+      "id": "المعرف",
+      "userName": "الموظف",
+      "createdAt": "تاريخ الإنشاء",
+      "reason": "السبب",
+      "distance": "المسافة",
+      "duration": "المدة",
+      "actions": "الإجراءات"
+    },
+    "filters": {
+      "title": "تصفية الخطط",
+      "subtitle": "تضييق قائمة الخطط حسب الموظف أو التاريخ أو حالة الإنجاز",
+      "userLabel": "الموظف",
+      "dateLabel": "التاريخ",
+      "finishedLabel": "منجز",
+      "finishedOptions": {
+        "finished": "منجز",
+        "notFinished": "غير منجز"
+      }
+    },
+    "reason": {
+      "initiated": "مُبدأة",
+      "replanning": "إعادة تخطيط"
+    },
+    "reasonFilter": {
+      "all": "جميع الأسباب",
+      "initiated": "مُبدأة",
+      "replanning": "إعادة تخطيط"
+    }
+  },
+  "detail": {
+    "reason": {
+      "initiated": "مُبدأة",
+      "replanning": "إعادة تخطيط"
+    },
+    "overview": {
+      "title": "نظرة عامة على الخطة",
+      "subtitle": "المسافة والمدة والملاحظات في مكان واحد",
+      "user": "الموظف",
+      "createdAt": "تاريخ الإنشاء",
+      "totalDistance": "المسافة الإجمالية",
+      "totalDuration": "المدة الإجمالية",
+      "reasonDetails": "تفاصيل السبب",
+      "noDetails": "لا توجد تفاصيل"
+    },
+    "map": {
+      "title": "خريطة المسار",
+      "subtitle": "نظرة سريعة على نقاط التوقف وتقدم المسار",
+      "startPoint": "نقطة الانطلاق",
+      "stop": "محطة",
+      "legend": {
+        "start": "نقطة الانطلاق",
+        "visited": "تمت الزيارة",
+        "notVisited": "لم تُزَر"
+      }
+    },
+    "visits": {
+      "title": "الزيارات ({{total}})",
+      "subtitle": "{{visited}} من {{total}} مكتملة",
+      "stop": "محطة",
+      "visited": "تمت الزيارة",
+      "notVisited": "لم تُزَر",
+      "useful": "مفيدة",
+      "noteType": {
+        "general": "ملاحظة عامة",
+        "tip": "نصيحة",
+        "warning": "تحذير"
+      }
+    }
+  },
+  "distance": {
+    "meters": "{{value}} م",
+    "kilometers": "{{value}} كم"
+  },
+  "duration": {
+    "lessThanMinute": "أقل من دقيقة",
+    "minutes_zero": "{{count}} دقيقة",
+    "minutes_one": "دقيقة",
+    "minutes_two": "دقيقتان",
+    "minutes_few": "{{count}} دقائق",
+    "minutes_many": "{{count}} دقيقة",
+    "minutes_other": "{{count}} دقيقة",
+    "hours_zero": "{{count}} ساعة",
+    "hours_one": "ساعة",
+    "hours_two": "ساعتان",
+    "hours_few": "{{count}} ساعات",
+    "hours_many": "{{count}} ساعة",
+    "hours_other": "{{count}} ساعة",
+    "days_zero": "{{count}} يوم",
+    "days_one": "يوم",
+    "days_two": "يومان",
+    "days_few": "{{count}} أيام",
+    "days_many": "{{count}} يوماً",
+    "days_other": "{{count}} يوم",
+    "hoursAndMinutes": "{{hours}} و{{minutes}}",
+    "daysAndHours": "{{days}} و{{hours}}"
+  }
+}
