@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UserRound } from 'lucide-react';
@@ -27,14 +26,10 @@ export function CityFiltersModal({
     keyPrefix: 'filters',
   });
 
-  const { register, handleSubmit, reset } = useForm<CityFilters>({
+  const { register, handleSubmit } = useForm<CityFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: CityFilters) {
     const cleaned: CityFilters = Object.fromEntries(

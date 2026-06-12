@@ -10,11 +10,11 @@ export function LabeledLink({ to, label, className }: LabeledLinkProps) {
     <Link
       to={to}
       className={cn(
-        'hover:text-primary group flex items-center gap-1 text-sm font-medium transition-colors hover:underline',
+        'hover:text-primary group flex min-w-0 items-center gap-1 text-sm font-medium transition-colors hover:underline',
         className,
       )}
     >
-      <span className="max-w-[20ch] truncate">{label}</span>
+      <span className="max-w-[20ch] min-w-0 truncate">{label}</span>
       <ExternalLink className="text-muted-foreground size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
     </Link>
   );

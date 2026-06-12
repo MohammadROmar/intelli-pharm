@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UserRound } from 'lucide-react';
@@ -28,14 +27,10 @@ export function RegionFiltersModal({
     keyPrefix: 'filters',
   });
 
-  const { register, control, handleSubmit, reset } = useForm<RegionFilters>({
+  const { register, control, handleSubmit } = useForm<RegionFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: RegionFilters) {
     const cleaned: RegionFilters = Object.fromEntries(

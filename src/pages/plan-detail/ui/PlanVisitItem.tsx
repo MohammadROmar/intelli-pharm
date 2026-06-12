@@ -41,7 +41,7 @@ export function PlanVisitItem({ visit, isLast }: Props) {
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-2">
-          <div className="flex items-start justify-between gap-3">
+          <div className="flex flex-col items-start justify-between gap-3 sm:flex-row">
             <div className="min-w-0">
               <LabeledLink
                 to={`/dashboard/pharmacies/${visit.pharmacy.id}`}

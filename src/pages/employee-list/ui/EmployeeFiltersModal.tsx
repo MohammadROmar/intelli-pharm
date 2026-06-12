@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Mail, Phone, UserRound } from 'lucide-react';
@@ -36,16 +35,11 @@ export function EmployeeFiltersModal({
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<EmployeeFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: EmployeeFilters) {
     const cleaned: EmployeeFilters = Object.fromEntries(

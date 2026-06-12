@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { UserRound } from 'lucide-react';
@@ -27,14 +26,10 @@ export function CategoryFiltersModal({
     keyPrefix: 'filters',
   });
 
-  const { register, control, handleSubmit, reset } = useForm<CategoryFilters>({
+  const { register, control, handleSubmit } = useForm<CategoryFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: CategoryFilters) {
     const cleaned: CategoryFilters = Object.fromEntries(

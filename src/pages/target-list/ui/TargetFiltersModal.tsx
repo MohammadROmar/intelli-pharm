@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { CalendarDays, CalendarRange } from 'lucide-react';
@@ -41,14 +41,10 @@ export function TargetFiltersModal({
     keyPrefix: 'filters',
   });
 
-  const { control, handleSubmit, reset } = useForm<TargetFilters>({
+  const { control, handleSubmit } = useForm<TargetFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: TargetFilters) {
     const cleaned: TargetFilters = Object.fromEntries(

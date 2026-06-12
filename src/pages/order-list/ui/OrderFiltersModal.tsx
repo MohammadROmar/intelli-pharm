@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { Activity, Calendar, DollarSign } from 'lucide-react';
@@ -33,16 +33,12 @@ export function OrderFiltersModal({
 }: Props) {
   const { t } = useTranslation('orders');
 
-  const { register, control, handleSubmit, reset } = useForm<OrderFilters>({
+  const { register, control, handleSubmit } = useForm<OrderFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
 
   const statuses = useMemo(() => getStatusesCodes(t), [t]);
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: OrderFilters) {
     const cleaned: OrderFilters = Object.fromEntries(

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Phone, User, UserRound } from 'lucide-react';
@@ -28,14 +27,10 @@ export function PharmacyFiltersModal({
     keyPrefix: 'filters',
   });
 
-  const { register, handleSubmit, control, reset } = useForm<PharmacyFilters>({
+  const { register, handleSubmit, control } = useForm<PharmacyFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: PharmacyFilters) {
     const cleaned: PharmacyFilters = Object.fromEntries(

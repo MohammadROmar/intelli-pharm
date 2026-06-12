@@ -3,6 +3,7 @@ import type { ElementType, PropsWithChildren } from 'react';
 import { Badge } from './badge';
 import { Card, CardContent, CardHeader } from './Card';
 import { CardSectionHeader } from './CardSectionHeader';
+import { cn } from '../lib';
 
 type Props = {
   title: string;
@@ -21,7 +22,7 @@ export function DetailCard({
   children,
 }: Props) {
   return (
-    <Card className={className}>
+    <Card className={cn(className, 'overflow-x-hidden')}>
       <CardHeader>
         <div className="flex items-center justify-between gap-2">
           <CardSectionHeader title={title} description={subtitle} icon={icon} />

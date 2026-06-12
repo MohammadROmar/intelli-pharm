@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Dna, DollarSign, Pill, Tag } from 'lucide-react';
@@ -39,14 +38,10 @@ export function MedicineFiltersModal({
     keyPrefix: 'filters',
   });
 
-  const { register, control, handleSubmit, reset } = useForm<MedicineFilters>({
+  const { register, control, handleSubmit } = useForm<MedicineFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    if (open) reset(defaultValues);
-  }, [defaultValues, reset, open]);
 
   function onSubmit(values: MedicineFilters) {
     const cleaned = Object.fromEntries(
