@@ -16,6 +16,7 @@ import { useFormatDistance, useFormatDuration } from '@/entities/plan';
 import type { PlanPath, PlanVisit } from '@/entities/plan';
 import { decodePolyline } from '@/shared/map';
 import { LabeledLink } from '@/shared/ui';
+import { Clock, Route } from 'lucide-react';
 
 // ─── Icon factories ──────────────────────────────────────────────────────────
 // Defined at module level to avoid re-creating Leaflet objects on every render
@@ -93,7 +94,10 @@ export default function PlanRouteMap({ paths, visits }: Props) {
     return decodedPaths[firstPathIdx]?.[0];
   }, [paths, decodedPaths]);
 
-  // Each pharmacy position = last decoded point of path arriving at that stop
+  /**
+   * Each pharmacy marker includes the PATH that leads TO it.
+   * distance_m / duration_sec live on the path, not the visit.
+   */
   const pharmacyMarkers = useMemo(
     () =>
       paths.flatMap((p, i) => {
@@ -104,7 +108,7 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           | undefined;
         const visit = visitByOrder.get(p.to_sequence);
         if (!position || !visit) return [];
-        return [{ position, visit }] as const;
+        return [{ position, visit, path: p }] as const;
       }),
     [paths, decodedPaths, visitByOrder],
   );
@@ -160,8 +164,8 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           </Marker>
         )}
 
-        {/* Pharmacy stop markers */}
-        {pharmacyMarkers.map(({ position, visit }) => (
+        {/* Pharmacy stop markers — distance/duration sourced from path, not visit */}
+        {pharmacyMarkers.map(({ position, visit, path }) => (
           <Marker
             key={visit.id}
             position={position}
@@ -169,11 +173,13 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           >
             <Popup className="font-cairo">
               <div className="min-w-45 space-y-0.5!">
-                <LabeledLink
-                  to={`/dashboard/pharmacies/${visit.pharmacy.id}`}
-                  label={visit.pharmacy.name}
-                  className="text-card-foreground! hover:text-primary! text-left! text-sm leading-snug font-semibold"
-                />
+                <div className="w-fit">
+                  <LabeledLink
+                    to={`/dashboard/pharmacies/${visit.pharmacy.id}`}
+                    label={visit.pharmacy.name}
+                    className="text-card-foreground! hover:text-primary! text-left! text-sm leading-snug font-semibold"
+                  />
+                </div>
 
                 <p className="text-muted-foreground text-xs">
                   {visit.pharmacy.info}
@@ -181,10 +187,16 @@ export default function PlanRouteMap({ paths, visits }: Props) {
                 <p className="text-muted-foreground mt-2! pt-1 text-xs leading-none">
                   {t('stop')} #{visit.visit_order}
                 </p>
-                <p className="text-muted-foreground mt-0! pt-1 text-xs leading-none">
-                  {formatDistance(visit.distance_m)} ·{' '}
-                  {formatDuration(visit.duration_sec)}
-                </p>
+                <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-xs">
+                  <span className="flex items-center gap-1">
+                    <Route className="size-3" />
+                    {formatDistance(path.distance_m)}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="size-3" />
+                    {formatDuration(path.duration_sec)}
+                  </span>
+                </div>
               </div>
             </Popup>
           </Marker>

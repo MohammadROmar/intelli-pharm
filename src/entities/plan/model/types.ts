@@ -34,10 +34,6 @@ export type PlanVisit = {
   id: number;
   pharmacy: PlanPharmacy;
   plan_id: number;
-  duration_hours: string;
-  duration_sec: number;
-  distance_km: string;
-  distance_m: number;
   visit_order: number;
   created_at: string;
   visited: 0 | 1;
@@ -51,8 +47,10 @@ export type PlanPath = {
   plan_id: number;
   from_sequence: number;
   to_sequence: number;
-  distance_km: number;
-  duration_hours: number;
+  duration_hours: string;
+  duration_sec: number;
+  distance_km: string;
+  distance_m: number;
   geometry: string;
   created_at: string;
 };

@@ -5,8 +5,10 @@ export function useFormatDistance() {
   const { t } = useTranslation('plan');
 
   return useCallback(
-    (meters: number | string) => {
+    (meters: number | string | null | undefined) => {
       const m = typeof meters === 'string' ? parseFloat(meters) : meters;
+
+      if (m == null || Number.isNaN(m)) return t('distance.notAvailable');
 
       if (m < 1000) {
         return t('distance.meters', { value: Math.round(m) });

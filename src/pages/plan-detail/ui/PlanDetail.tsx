@@ -1,6 +1,6 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Map, Route } from 'lucide-react';
+import { MapPin, Map as MapIcon, Route } from 'lucide-react';
 
 import { PlanVisitItem } from './PlanVisitItem';
 
@@ -36,6 +36,11 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
   const visitedCount = plan.visits.filter((v) => v.visited === 1).length;
   const reasonVariant = REASON_VARIANT[plan.reason];
 
+  const pathByVisitOrder = useMemo(
+    () => new Map(plan.paths.map((p) => [p.to_sequence, p])),
+    [plan.paths],
+  );
+
   return (
     <>
       <div className="flex items-center gap-2">
@@ -66,13 +71,13 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
 
           <DetailCell label={t('overview.totalDistance')}>
             <span className="flex items-center gap-1.5 text-sm">
-              {formatDistance(plan.total_distance_m ?? 0)}
+              {formatDistance(plan.total_distance_m)}
             </span>
           </DetailCell>
 
           <DetailCell label={t('overview.totalDuration')}>
             <span className="flex items-center gap-1.5 text-sm">
-              {formatDuration(plan.total_duration_sec ?? 0)}
+              {formatDuration(plan.total_duration_sec)}
             </span>
           </DetailCell>
         </div>
@@ -96,7 +101,7 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
       <DetailCard
         title={t('map.title')}
         subtitle={t('map.subtitle')}
-        icon={Map}
+        icon={MapIcon}
       >
         <div className="text-muted-foreground mb-3 flex flex-wrap items-center gap-4 text-xs">
           <span className="flex items-center gap-1.5">
@@ -132,6 +137,7 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
           <PlanVisitItem
             key={visit.id}
             visit={visit}
+            path={pathByVisitOrder.get(visit.visit_order)}
             isLast={i === plan.visits.length - 1}
           />
         ))}

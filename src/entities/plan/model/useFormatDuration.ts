@@ -5,10 +5,15 @@ export function useFormatDuration() {
   const { t } = useTranslation('plan');
 
   return useCallback(
-    (seconds: number | string) => {
-      const totalSec =
+    (seconds: number | string | null | undefined) => {
+      const totalSecRaw =
         typeof seconds === 'string' ? parseFloat(seconds) : seconds;
-      const totalMin = Math.round(totalSec / 60);
+
+      if (totalSecRaw == null || Number.isNaN(totalSecRaw)) {
+        return t('duration.notAvailable');
+      }
+
+      const totalMin = Math.round(totalSecRaw / 60);
 
       if (totalMin < 1) return t('duration.lessThanMinute');
 

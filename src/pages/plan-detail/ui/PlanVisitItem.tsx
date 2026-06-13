@@ -8,14 +8,14 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { useFormatDistance, useFormatDuration } from '@/entities/plan';
-import type { PlanVisit } from '@/entities/plan';
+import type { PlanPath, PlanVisit } from '@/entities/plan';
 import { cn } from '@/shared/lib';
 import { Badge, LabeledLink, Separator } from '@/shared/ui';
 import { getNoteTypeStyle } from '../lib/getNoteTypeStyle';
 
-type Props = { visit: PlanVisit; isLast: boolean };
+type Props = { visit: PlanVisit; path?: PlanPath; isLast: boolean };
 
-export function PlanVisitItem({ visit, isLast }: Props) {
+export function PlanVisitItem({ visit, path, isLast }: Props) {
   const { t } = useTranslation('plan', { keyPrefix: 'detail.visits' });
 
   const formatDistance = useFormatDistance();
@@ -76,15 +76,19 @@ export function PlanVisitItem({ visit, isLast }: Props) {
           </div>
 
           <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-xs">
-            <span className="flex flex-wrap items-center gap-1">
-              <Route className="size-3" />
-              {formatDistance(visit.distance_m)}
-            </span>
+            {path && (
+              <>
+                <span className="flex items-center gap-1">
+                  <Route className="size-3" />
+                  {formatDistance(Number(path.distance_m))}
+                </span>
 
-            <span className="flex items-center gap-1">
-              <Clock className="size-3" />
-              {formatDuration(visit.duration_sec)}
-            </span>
+                <span className="flex items-center gap-1">
+                  <Clock className="size-3" />
+                  {formatDuration(Number(path.duration_sec))}
+                </span>
+              </>
+            )}
 
             {visit.notes && (
               <span

@@ -75,9 +75,11 @@
   },
   "distance": {
     "meters": "{{value}} م",
-    "kilometers": "{{value}} كم"
+    "kilometers": "{{value}} كم",
+    "notAvailable": "—"
   },
   "duration": {
+    "notAvailable": "—",
     "lessThanMinute": "أقل من دقيقة",
     "minutes_zero": "{{count}} دقيقة",
     "minutes_one": "دقيقة",

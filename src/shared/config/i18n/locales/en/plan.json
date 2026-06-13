@@ -75,9 +75,11 @@
   },
   "distance": {
     "meters": "{{value}} m",
-    "kilometers": "{{value}} km"
+    "kilometers": "{{value}} km",
+    "notAvailable": "—"
   },
   "duration": {
+    "notAvailable": "—",
     "lessThanMinute": "less than a minute",
     "minutes_one": "{{count}} min",
     "minutes_other": "{{count}} min",
