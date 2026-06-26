@@ -24,9 +24,9 @@ function toTitleKey(i18nKey: string) {
   return parts.join('.');
 }
 
-type Props = { error: ApiError; onRetry?: () => void };
+type Props = { error: ApiError; onRetry?: () => void; isRetrying?: boolean };
 
-export function QueryError({ error, onRetry }: Props) {
+export function QueryError({ error, onRetry, isRetrying = false }: Props) {
   const { t } = useTranslation('errors');
   const icon = getIcon(error);
 
@@ -46,8 +46,12 @@ export function QueryError({ error, onRetry }: Props) {
         </p>
 
         {onRetry && (
-          <Button onClick={onRetry} className="group">
-            <RefreshCw className="size-4 transition-transform duration-300 group-hover:rotate-180" />
+          <Button onClick={onRetry} disabled={isRetrying}>
+            <RefreshCw
+              className={`size-4 transition-transform duration-300 ${
+                isRetrying ? 'animate-spin' : ''
+              }`}
+            />
             {t('retry')}
           </Button>
         )}

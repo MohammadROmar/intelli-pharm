@@ -28,8 +28,8 @@ export function useEditEntity<TVariables, TData = ApiResponse<unknown>>({
 
   return useMutation<TData, ApiError, TVariables>({
     mutationFn,
-    onSuccess: () => {
-      onSuccess();
+    onSuccess: (response?: unknown) => {
+      onSuccess(response);
 
       if (redirectTo) {
         navigate(redirectTo);

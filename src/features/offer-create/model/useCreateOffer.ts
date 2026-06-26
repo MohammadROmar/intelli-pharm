@@ -6,5 +6,6 @@ export function useCreateOffer() {
     queryKey: 'offers',
     mutationFn: createOffer,
     translationKey: 'offer',
+    navigatePath: '/dashboard/promotions/offers',
   });
 }

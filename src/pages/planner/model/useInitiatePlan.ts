@@ -14,5 +14,6 @@ export function useInitiatePlan() {
     queryKey: 'plans',
     mutationFn: initiatePlan,
     translationKey: 'plan',
+    navigatePath: '/dashboard/plans',
   });
 }

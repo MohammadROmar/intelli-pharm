@@ -37,10 +37,6 @@ export function useNotificationListener() {
       toast(title, {
         description,
         icon: <BellRing className="text-primary size-4" />,
-        classNames: {
-          actionButton:
-            'bg-primary! text-primary-foreground! hover:bg-primary/90! font-medium! transition-colors!',
-        },
         action: {
           label: t('view'),
           onClick: () => navigate('/dashboard/notifications'),

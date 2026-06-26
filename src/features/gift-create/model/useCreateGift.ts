@@ -6,5 +6,6 @@ export function useCreateGift() {
     queryKey: 'gifts',
     mutationFn: createGift,
     translationKey: 'gift',
+    navigatePath: '/dashboard/promotions/gifts',
   });
 }

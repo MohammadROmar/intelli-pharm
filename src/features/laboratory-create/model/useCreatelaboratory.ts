@@ -6,5 +6,6 @@ export function useCreateLaboratory() {
     queryKey: 'laboratories',
     mutationFn: createLaboratory,
     translationKey: 'laboratory',
+    navigatePath: '/dashboard/laboratories',
   });
 }

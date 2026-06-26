@@ -6,5 +6,6 @@ export function useCreateCategory() {
     queryKey: 'categories',
     mutationFn: createCategory,
     translationKey: 'category',
+    navigatePath: '/dashboard/categories',
   });
 }

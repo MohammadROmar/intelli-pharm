@@ -14,6 +14,7 @@ export function useCreateEmployee() {
     queryKey: 'employees',
     mutationFn: createEmployee,
     translationKey: 'employee',
+    navigatePath: '/dashboard/employees',
 
     onError: ({ status, i18nKey }) => {
       toast.error(t(`toasts.edit.error`), {

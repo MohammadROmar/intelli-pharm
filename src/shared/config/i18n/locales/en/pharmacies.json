@@ -81,7 +81,7 @@
     "showOnMap": "Show on Map",
     "historyNotesTitle": "Visit History",
     "historyNotesSubtitle": "Notes logged by sales representatives during pharmacy visits.",
-    "historyNotesEmpty": "No visit notes have been recorded for this medicine.",
+    "historyNotesEmpty": "No visit notes have been recorded for this pharmacy.",
     "historyNoteExpand": "Show more",
     "historyNoteCollapse": "Show less"
   },

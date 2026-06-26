@@ -6,5 +6,6 @@ export function useCreatePharmacy() {
     queryKey: 'pharmacies',
     mutationFn: createPharmacy,
     translationKey: 'pharmacy',
+    navigatePath: '/dashboard/pharmacies',
   });
 }

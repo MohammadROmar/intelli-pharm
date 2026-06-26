@@ -1,13 +1,16 @@
 import { useState } from 'react';
+
 import { useCreateLaboratory } from '../model/useCreatelaboratory';
 import { LaboratoryForm, type Laboratory } from '@/entities/laboratory';
 
-export function CreateLaboratoryForm() {
+type Props = { onSuccess?: () => void };
+
+export function CreateLaboratoryForm({ onSuccess }: Props) {
   const [formKey, setFormKey] = useState(0);
   const { mutate, isPending } = useCreateLaboratory();
 
   function onSubmit(payload: Laboratory) {
-    mutate(payload, { onSuccess: () => setFormKey((prev) => prev + 1) });
+    mutate(payload, { onSuccess });
   }
 
   return (

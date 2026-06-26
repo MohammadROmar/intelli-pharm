@@ -11,5 +11,5 @@ export { useGetLaboratorySuspense } from './model/useGetLaboratorySuspense';
 
 export { LaboratoryRow } from './ui/LaboratoryRow';
 export { LaboratoryForm } from './ui/LaboratoryForm';
-export { LaboratorySheet } from './ui/LaboratorySheet';
+export { LaboratorySheetTrigger, LaboratorySheet } from './ui/LaboratorySheet';
 export { LaboratorySelector } from './ui/LaboratorySelector';

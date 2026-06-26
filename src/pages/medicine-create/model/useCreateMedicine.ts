@@ -10,5 +10,6 @@ export function useCreateMedicine() {
     queryKey: 'medicines',
     mutationFn: createMedicine,
     translationKey: 'medicine',
+    navigatePath: '/dashboard/medicines',
   });
 }

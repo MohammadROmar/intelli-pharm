@@ -9,5 +9,6 @@ export function useAssignDelivery() {
     queryKey: 'deliveries',
     mutationFn: assignDeliveryTask,
     translationKey: 'delivery',
+    navigatePath: '/dashboard/deliveries',
   });
 }

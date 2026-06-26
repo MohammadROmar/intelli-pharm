@@ -31,7 +31,13 @@ export function Toaster() {
         } as React.CSSProperties
       }
       position="top-center"
-      toastOptions={{ descriptionClassName: 'text-muted-foreground!' }}
+      toastOptions={{
+        descriptionClassName: 'text-muted-foreground!',
+        classNames: {
+          actionButton:
+            'bg-primary! text-primary-foreground! hover:bg-primary/90! font-medium! transition-colors!',
+        },
+      }}
       className="toaster group font-cairo!"
     />
   );

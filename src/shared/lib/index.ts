@@ -33,3 +33,4 @@ export {
   type ErrorBoundaryFallbackProps,
   type ErrorBoundaryProps,
 } from './ErrorBoundary';
+export { getBackoffDelay } from './getBackoffDelay';

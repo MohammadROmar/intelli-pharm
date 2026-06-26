@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlaskConical, Plus } from 'lucide-react';
 
@@ -18,13 +18,30 @@ type Props = {
   onOpenChange?: (v: boolean) => void;
   hasTrigger?: boolean;
   isEdit?: boolean;
+  trigger?: ReactNode;
 } & PropsWithChildren;
+
+export function LaboratorySheetTrigger({ isEdit }: { isEdit?: boolean }) {
+  const { t } = useTranslation('laboratories', {
+    keyPrefix: `${isEdit ? 'edit' : 'create'}`,
+  });
+
+  return (
+    <SheetTrigger asChild>
+      <Button size="sm" className="flex items-center justify-center gap-2">
+        <Plus className="size-4" />
+        <span>{t('action')}</span>
+      </Button>
+    </SheetTrigger>
+  );
+}
 
 export function LaboratorySheet({
   open,
   onOpenChange,
   isEdit = false,
   hasTrigger = false,
+  trigger,
   children,
 }: Props) {
   const { t, i18n } = useTranslation('laboratories', {
@@ -35,14 +52,8 @@ export function LaboratorySheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      {hasTrigger && (
-        <SheetTrigger asChild>
-          <Button size="sm" className="flex items-center justify-center gap-2">
-            <Plus className="size-4" />
-            <span>{t('action')}</span>
-          </Button>
-        </SheetTrigger>
-      )}
+      {hasTrigger && <LaboratorySheetTrigger />}
+      {!hasTrigger && trigger}
 
       <SheetContent side={isRtl ? 'left' : 'right'}>
         <SheetHeader>

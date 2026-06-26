@@ -7,8 +7,8 @@ export default function RootLayout() {
   return (
     <>
       <ScrollRestoration />
-      <Toaster />
       <Outlet />
+      <Toaster />
     </>
   );
 }

@@ -124,6 +124,7 @@
     "addFirstItem": "إضافة عنصر"
   },
   "toasts": {
+    "show": "عرض",
     "create": {
       "title": "تم الإنشاء بنجاح",
       "description": "تم إنشاء {{item}} بنجاح.",

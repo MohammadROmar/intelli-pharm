@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { Gift, Plus } from 'lucide-react';
 
 import {
@@ -17,10 +17,26 @@ type Props = PropsWithChildren<
     title: string;
     description: string;
   } & (
-    | { hasTrigger: true; triggerLabel: string }
-    | { hasTrigger?: false; open: boolean; setOpen: (open: boolean) => void }
+    | { hasTrigger: true; triggerLabel?: string }
+    | {
+        hasTrigger?: false;
+        trigger?: ReactNode;
+        open: boolean;
+        setOpen: (open: boolean) => void;
+      }
   )
 >;
+
+export function GiftModalTrigger({ label }: { label?: string }) {
+  return (
+    <DialogTrigger asChild>
+      <Button size="sm">
+        <Plus className="size-4 shrink-0" />
+        {label}
+      </Button>
+    </DialogTrigger>
+  );
+}
 
 export function GiftModal(props: Props) {
   return (
@@ -28,14 +44,9 @@ export function GiftModal(props: Props) {
       open={props.hasTrigger ? undefined : props.open}
       onOpenChange={props.hasTrigger ? undefined : props.setOpen}
     >
-      {props.hasTrigger && (
-        <DialogTrigger asChild>
-          <Button size="sm">
-            <Plus className="size-4 shrink-0" />
-            {props.triggerLabel}
-          </Button>
-        </DialogTrigger>
-      )}
+      {!props.hasTrigger && props.trigger}
+
+      {props.hasTrigger && <GiftModalTrigger label={props.triggerLabel} />}
 
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>

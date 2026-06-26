@@ -124,6 +124,7 @@
     "addFirstItem": "Add Category"
   },
   "toasts": {
+    "show": "Show",
     "create": {
       "title": "Created successfully",
       "description": "{{item}} has been created successfully.",

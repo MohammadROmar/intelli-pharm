@@ -6,5 +6,6 @@ export function useCreateRegion() {
     queryKey: 'regions',
     mutationFn: createRegion,
     translationKey: 'region',
+    navigatePath: '/dashboard/regions',
   });
 }
