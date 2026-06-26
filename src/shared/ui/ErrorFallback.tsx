@@ -17,8 +17,8 @@ type LocaleConfig = {
   readonly dir: 'ltr' | 'rtl';
   readonly title: string;
   readonly description: string;
-  readonly updateTitle: string;
-  readonly updateDescription: string;
+  readonly chunkTitle: string;
+  readonly chunkDescription: string;
   readonly offlineTitle: string;
   readonly offlineDescription: string;
   readonly tryAgain: string;
@@ -38,12 +38,12 @@ const FALLBACK_CONFIG = {
     title: 'حدث خطأ ما',
     description:
       'حدث خطأ غير متوقع. حاول مرة أخرى — إذا استمرت المشكلة، قم بإعادة تحميل الصفحة.',
-    updateTitle: 'تحديث جديد متاح',
-    updateDescription:
-      'تم إصدار نسخة جديدة من النظام. يرجى إعادة تحميل الصفحة لتطبيق التحديثات.',
+    chunkTitle: 'فشل تحميل الصفحة',
+    chunkDescription:
+      'تعذّر تحميل أجزاء من التطبيق. أعد تحميل الصفحة للمحاولة مرة أخرى.',
     offlineTitle: 'لا يوجد اتصال بالإنترنت',
     offlineDescription:
-      'يبدو أنك فقدت الاتصال بالإنترنت. يرجى التحقق من الشبكة والمحاولة مرة أخرى.',
+      'يبدو أنك غير متصل بالإنترنت. استعد الاتصال ثم أعد تحميل الصفحة.',
     tryAgain: 'إعادة المحاولة',
     reload: 'إعادة تحميل الصفحة',
   },
@@ -52,16 +52,21 @@ const FALLBACK_CONFIG = {
     title: 'Something went wrong',
     description:
       'An unexpected error occurred. Try again — if the problem persists, reload the page.',
-    updateTitle: 'Update Available',
-    updateDescription:
-      'A new version of the application has been deployed. Please reload to apply changes.',
+    chunkTitle: 'Failed to load page',
+    chunkDescription:
+      'Part of the app could not be loaded. Reload the page to try again.',
     offlineTitle: 'No Internet Connection',
     offlineDescription:
-      'It seems you are offline. Please check your network connection and try again.',
+      'You appear to be offline. Restore your connection, then reload.',
     tryAgain: 'Try Again',
     reload: 'Reload page',
   },
 } satisfies Record<'ar' | 'en', LocaleConfig>;
+
+const CHUNK_LOAD_ERROR_PATTERNS = [
+  'dynamically imported module',
+  'module script failed',
+] as const;
 
 function getLocaleConfig(): LocaleConfig {
   try {
@@ -79,10 +84,7 @@ function getLocaleConfig(): LocaleConfig {
 function classifyError(error: Error | null | undefined): ErrorType {
   if (!navigator.onLine) return 'offline';
   const msg = error?.message?.toLowerCase() ?? '';
-  if (
-    msg.includes('dynamically imported module') ||
-    msg.includes('importing a dynamic module')
-  ) {
+  if (CHUNK_LOAD_ERROR_PATTERNS.some((pattern) => msg.includes(pattern))) {
     return 'chunk-load';
   }
   return 'generic';
@@ -98,12 +100,12 @@ function resolveErrorDisplay(
         title: config.offlineTitle,
         description: config.offlineDescription,
         Icon: WifiOff,
-        canTryAgain: true,
+        canTryAgain: false,
       };
     case 'chunk-load':
       return {
-        title: config.updateTitle,
-        description: config.updateDescription,
+        title: config.chunkTitle,
+        description: config.chunkDescription,
         Icon: CloudCog,
         canTryAgain: false,
       };
@@ -128,6 +130,9 @@ export function PageErrorFallback({
     config,
   );
 
+  const handleTryAgain =
+    errorType === 'generic' ? reset : () => window.location.reload();
+
   return (
     <div className="grid h-full items-center justify-center" dir={config.dir}>
       <div className="flex min-h-[60vh] w-full flex-col items-center justify-center px-4 text-center">
@@ -146,7 +151,7 @@ export function PageErrorFallback({
             <Button
               size="sm"
               variant="outline"
-              onClick={reset}
+              onClick={handleTryAgain}
               className="gap-2"
             >
               <RefreshCcw className="size-4" />
@@ -188,6 +193,9 @@ export function SectionErrorFallback({
     config,
   );
 
+  const isGenericRetry = canTryAgain && errorType === 'generic';
+  const handleAction = isGenericRetry ? reset : () => window.location.reload();
+
   return (
     <div
       className="flex w-full flex-col items-center justify-center py-12 text-center"
@@ -206,11 +214,11 @@ export function SectionErrorFallback({
       <Button
         variant="outline"
         size="sm"
-        onClick={canTryAgain ? reset : () => window.location.reload()}
+        onClick={handleAction}
         className="gap-1.5"
       >
         <RefreshCw className="size-3.5" />
-        {canTryAgain ? config.tryAgain : config.reload}
+        {isGenericRetry ? config.tryAgain : config.reload}
       </Button>
     </div>
   );
