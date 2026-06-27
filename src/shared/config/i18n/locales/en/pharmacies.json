@@ -53,7 +53,41 @@
       "required": "This field is required.",
       "endAfterStart": "The pharmacy's closing time must be after its opening time.",
       "invalidPhone": "Phone number is invalid."
+    },
+    "labelHolidays": "Holidays",
+    "holidaysPlaceholder": "Select closed days...",
+    "holidaysSelectedCount": "{{count}} days selected",
+    "noDaysFound": "No days found.",
+    "notes": {
+      "title": "Notes",
+      "subtitle": "Add additional information or special instructions.",
+      "add": "Add Note",
+      "remove": "Remove note",
+      "noteItem": "Note",
+      "empty": "No notes yet. Click \"Add Note\" to get started.",
+      "placeholder": "Enter note...",
+      "label": {
+        "noteType": "Note Type",
+        "note": "Note Content"
+      },
+      "type": {
+        "general": "General",
+        "tip": "Tip",
+        "warning": "Warning"
+      },
+      "validation": {
+        "required": "Note text is required"
+      }
     }
+  },
+  "days": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   },
   "detail": {
     "pageTitle": "Pharmacy Details",
@@ -62,13 +96,15 @@
     "delete": "Delete",
     "active": "Active",
     "inactive": "Inactive",
-    "pharmacistCardTitle": "Pharmacy Details",
-    "pharmacistCardSubtitle": "Identifier and pharmacist contact information.",
-    "pharmacyStateCardTitle": "State & Hours",
-    "pharmacyStateCardSubtitle": "Pharmacy state & working hours details.",
+    "pharmacyInfoCardTitle": "Pharmacy Details",
+    "pharmacyInfoCardSubtitle": "Identifier and pharmacist contact information.",
+    "pharmacyScheduleCardTitle": "State & Hours",
+    "pharmacyScheduleCardSubtitle": "Pharmacy state & working hours details.",
     "locationCardTitle": "Location",
     "locationCardSubtitle": "Pharmcay's GPS coordinates and Map View.",
     "labelId": "Pharmacy ID",
+    "labelHolidays": "Holidays",
+    "addNote": "Add Note",
     "labelPharmacistName": "Pharmacist",
     "labelPhone": "Phone",
     "labelAltPhone": "Alt. Phone",
@@ -79,11 +115,14 @@
     "labelLatitude": "Latitude",
     "labelLongitude": "Longitude",
     "showOnMap": "Show on Map",
-    "historyNotesTitle": "Visit History",
-    "historyNotesSubtitle": "Notes logged by sales representatives during pharmacy visits.",
-    "historyNotesEmpty": "No visit notes have been recorded for this pharmacy.",
+    "historyNotesTitle": "Visit Notes",
+    "historyNotesSubtitle": "Notes recorded by sales representatives",
+    "historyNotesEmpty": "No notes recorded yet",
     "historyNoteExpand": "Show more",
-    "historyNoteCollapse": "Show less"
+    "historyNoteCollapse": "Show less",
+    "noteTypeGeneral": "General",
+    "noteTypeTip": "Tip",
+    "noteTypeWarning": "Warning"
   },
   "filters": {
     "title": "Filter Pharmacies",
@@ -95,5 +134,33 @@
     "placeholderPharmacistName": "Search by pharmacist name…",
     "labelPhone": "Phone",
     "labelAltPhone": "Alternative Phone"
+  },
+  "notes": {
+    "dialog": {
+      "title": "Add Pharmacy Note",
+      "description": "Add a note to keep track of important details about this pharmacy."
+    },
+    "form": {
+      "fields": {
+        "noteType": "Note Type",
+        "note": "Note"
+      },
+      "placeholders": {
+        "noteType": "Select a note type",
+        "note": "Enter note content..."
+      },
+      "noteTypes": {
+        "general": "General",
+        "tip": "Tip",
+        "warning": "Warning"
+      },
+      "errors": {
+        "noteTypeRequired": "Please select a note type",
+        "noteRequired": "Note content is required",
+        "noteMinLength": "Note must be at least 5 characters",
+        "noteMaxLength": "Note must not exceed 500 characters"
+      },
+      "submit": "Add Note"
+    }
   }
 }

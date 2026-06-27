@@ -53,7 +53,41 @@
       "required": "هذا الحقل مطلوب.",
       "endAfterStart": "ساعة اغلاق الصيدلية يجب أن تكون بعد فتحها.",
       "invalidPhone": "رقم هاتف غير صحيح."
+    },
+    "labelHolidays": "أيام العطل",
+    "holidaysPlaceholder": "اختر أيام الإغلاق...",
+    "holidaysSelectedCount": "تم تحديد {{count}} أيام",
+    "noDaysFound": "لم يتم العثور على أيام.",
+    "notes": {
+      "title": "الملاحظات",
+      "subtitle": "أضف معلومات إضافية أو تعليمات خاصة.",
+      "add": "إضافة ملاحظة",
+      "remove": "حذف الملاحظة",
+      "noteItem": "الملاحظة",
+      "empty": "لا توجد ملاحظات بعد. انقر على «إضافة ملاحظة» للبدء.",
+      "placeholder": "أدخل الملاحظة...",
+      "label": {
+        "noteType": "نوع الملاحظة",
+        "note": "محتوى الملاحظة"
+      },
+      "type": {
+        "general": "عامة",
+        "tip": "تلميح",
+        "warning": "تحذير"
+      },
+      "validation": {
+        "required": "نص الملاحظة مطلوب"
+      }
     }
+  },
+  "days": {
+    "monday": "الإثنين",
+    "tuesday": "الثلاثاء",
+    "wednesday": "الأربعاء",
+    "thursday": "الخميس",
+    "friday": "الجمعة",
+    "saturday": "السبت",
+    "sunday": "الأحد"
   },
   "detail": {
     "pageTitle": "تفاصيل الصيدلية",
@@ -62,11 +96,13 @@
     "delete": "حذف",
     "active": "نشط",
     "inactive": "غير نشط",
-    "pharmacistCardTitle": "تفاصيل الصيدلية",
-    "pharmacistCardSubtitle": "المعرف ومعلومات التواصل مع الصيدلاني.",
-    "pharmacyStateCardTitle": "الحالة وساعات العمل",
-    "pharmacyStateCardSubtitle": "تفاصيل حالة الصيدلية وساعات العمل.",
+    "pharmacyInfoCardTitle": "تفاصيل الصيدلية",
+    "pharmacyInfoCardSubtitle": "المعرف ومعلومات التواصل مع الصيدلاني.",
+    "pharmacyScheduleCardTitle": "الحالة وساعات العمل",
+    "pharmacyScheduleCardSubtitle": "تفاصيل حالة الصيدلية وساعات العمل.",
     "locationCardTitle": "الموقع",
+    "labelHolidays": "أيام العطل",
+    "addNote": "إضافة ملاحظة",
     "locationCardSubtitle": "إحداثيات GPS للصيدلية وعرض الخريطة.",
     "labelId": "رقم الصيدلية",
     "labelPharmacistName": "الصيدلاني",
@@ -79,11 +115,14 @@
     "labelLatitude": "خط العرض",
     "labelLongitude": "خط الطول",
     "showOnMap": "عرض على الخريطة",
-    "historyNotesTitle": "سجل الزيارات",
-    "historyNotesSubtitle": "ملاحظات سُجِّلت من قِبَل مندوبي المبيعات خلال زيارات الصيدليات.",
-    "historyNotesEmpty": "لم يتم تسجيل أي ملاحظات زيارة لهذه الصيدلية.",
+    "historyNotesTitle": "ملاحظات الزيارات",
+    "historyNotesSubtitle": "ملاحظات مسجّلة من قِبَل المناديب",
+    "historyNotesEmpty": "لا توجد ملاحظات مسجّلة بعد",
     "historyNoteExpand": "عرض المزيد",
-    "historyNoteCollapse": "عرض أقل"
+    "historyNoteCollapse": "عرض أقل",
+    "noteTypeGeneral": "عام",
+    "noteTypeTip": "نصيحة",
+    "noteTypeWarning": "تحذير"
   },
   "filters": {
     "title": "فلاتر الصيدليات",
@@ -95,5 +134,33 @@
     "placeholderPharmacistName": "البحث باسم الصيدلاني…",
     "labelPhone": "الهاتف",
     "labelAltPhone": "هاتف بديل"
+  },
+  "notes": {
+    "dialog": {
+      "title": "إضافة ملاحظة للصيدلية",
+      "description": "أضف ملاحظة لتتبع التفاصيل المهمة حول هذه الصيدلية."
+    },
+    "form": {
+      "fields": {
+        "noteType": "نوع الملاحظة",
+        "note": "الملاحظة"
+      },
+      "placeholders": {
+        "noteType": "اختر نوع الملاحظة",
+        "note": "أدخل محتوى الملاحظة..."
+      },
+      "noteTypes": {
+        "general": "عام",
+        "tip": "نصيحة",
+        "warning": "تحذير"
+      },
+      "errors": {
+        "noteTypeRequired": "يرجى اختيار نوع الملاحظة",
+        "noteRequired": "محتوى الملاحظة مطلوب",
+        "noteMinLength": "يجب أن تحتوي الملاحظة على 5 أحرف على الأقل",
+        "noteMaxLength": "يجب ألا تتجاوز الملاحظة 500 حرف"
+      },
+      "submit": "إضافة ملاحظة"
+    }
   }
 }

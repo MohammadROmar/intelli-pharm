@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 
-import { PharmacistCard } from './PharmacistCard';
 import { PharmacyInfoCard } from './PharmacyInfoCard';
+import { PharmacyScheduleCard } from './PharmacyScheduleCard';
 import { PharmacyDetailHeader } from './PharmacyDetailHeader';
 import { PharmacyLocationCard } from './PharmacyLocationCard';
-import { MedicineHistoryNotesCard } from './MedicineHistoryNotesCard';
+import { PharmacyHistoryNotesCard } from './PharmacyHistoryNotesCard';
 import { useGetPharmacySuspense } from '@/entities/pharmacy';
 import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
@@ -33,9 +33,9 @@ function PharmacyDetailContent({ pharmacyId }: PharmacyDetailContentProps) {
   return (
     <div className="space-y-6">
       <PharmacyDetailHeader pharmacy={pharmacy} />
-      <PharmacistCard pharmacy={pharmacy} />
       <PharmacyInfoCard pharmacy={pharmacy} />
-      <MedicineHistoryNotesCard notes={pharmacy.history_notes} />
+      <PharmacyScheduleCard pharmacy={pharmacy} />
+      <PharmacyHistoryNotesCard notes={pharmacy.history_notes} />
       <PharmacyLocationCard pharmacy={pharmacy} />
     </div>
   );

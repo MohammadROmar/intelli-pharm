@@ -202,3 +202,4 @@ export { BreadCrumbs } from './Breadcrumbs';
 export { PerPageSelect } from './PerPageSelect';
 export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 export { LabeledLink } from './LabeledLink';
+export { MultiSelect, type MultiSelectOption } from './MultiSelect';

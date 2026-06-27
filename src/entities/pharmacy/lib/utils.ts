@@ -1,4 +1,23 @@
+import type { TFunction } from 'i18next';
+
 import type { PharmacyDetail } from '../model/pharmacyTypes';
+
+export function getWeekDays(t: TFunction) {
+  const WEEK_DAYS = [
+    'sunday',
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+  ] as const;
+
+  return WEEK_DAYS.map((day) => ({
+    label: t(`days.${day}`),
+    value: day,
+  }));
+}
 
 export function pharmacyToPayload(pharmacy: PharmacyDetail): PharmacyDetail {
   return {

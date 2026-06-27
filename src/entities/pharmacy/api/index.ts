@@ -2,6 +2,7 @@ import { pharmacyToPayload } from '../lib/utils';
 import type {
   PharmacyDetail,
   PharmaciesResponse,
+  CreatePharmacyNoteDto,
 } from '../model/pharmacyTypes';
 import { apiClient, unwrapPaginatedApiResponse } from '@/shared/api';
 
@@ -32,4 +33,8 @@ export async function getInfinitePharmacies(
   );
 
   return unwrapPaginatedApiResponse(response);
+}
+
+export function createPharmacyNote(id: number, dto: CreatePharmacyNoteDto) {
+  return apiClient.post(`/erp/v1/pharmacies/${id}/notes`, dto);
 }

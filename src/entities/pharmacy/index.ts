@@ -1,15 +1,18 @@
 export {
   editPharmacy,
   createPharmacy,
+  createPharmacyNote,
   getInfinitePharmacies,
 } from './api/index';
 
 export type {
   Pharmacy,
+  NoteType,
   HistoryNote,
   PharmacyDetail,
   PharmacyFilters,
   PharmaciesResponse,
+  CreatePharmacyNoteDto,
 } from './model/pharmacyTypes';
 export { usePharmacyFilters } from './model/usePharmacyFilters';
 export { useGetPharmacySuspense } from './model/useGetPharmacySuspense';

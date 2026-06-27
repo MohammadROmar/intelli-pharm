@@ -1,8 +1,11 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
 import { Clock, Cross } from 'lucide-react';
 
+import { getWeekDays } from '../lib/utils';
 import type { PharmacyDetail } from '../model/pharmacyTypes';
+
 import { RegionSelector } from '@/entities/region';
 import { BilingualNameFields, fRequired, required } from '@/shared/form';
 import {
@@ -18,6 +21,7 @@ import {
   Input,
   Separator,
   SwitchRow,
+  MultiSelect,
 } from '@/shared/ui';
 
 type Props = {
@@ -26,9 +30,9 @@ type Props = {
 };
 
 export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
-  const { t } = useTranslation('pharmacies', {
-    keyPrefix: 'form',
-  });
+  const { t } = useTranslation('pharmacies');
+
+  const holidayOptions = useMemo(() => getWeekDays(t), [t]);
 
   const { register, control, getValues } = useFormContext<PharmacyDetail>();
   const { errors } = useFormState<PharmacyDetail>({
@@ -41,6 +45,7 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
       'longitude',
       'opening_time',
       'closing_time',
+      'holidays',
     ],
   });
 
@@ -49,8 +54,8 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
       <CardHeader>
         <CardSectionHeader
           icon={Cross}
-          title={t('pharmacyDetailsTitle')}
-          description={t('pharmacyDetailsSubtitle')}
+          title={t('form.pharmacyDetailsTitle')}
+          description={t('form.pharmacyDetailsSubtitle')}
         />
       </CardHeader>
 
@@ -71,7 +76,7 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel asChild>
-                  <p>{t('labelRegion')}</p>
+                  <p>{t('form.labelRegion')}</p>
                 </FieldLabel>
                 <RegionSelector
                   isLoading={isPending}
@@ -81,7 +86,7 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
                   onValueChange={field.onChange}
                 />
                 {fieldState.invalid && (
-                  <FieldError>{t('errors.required')}</FieldError>
+                  <FieldError>{t('form.errors.required')}</FieldError>
                 )}
               </Field>
             )}
@@ -94,8 +99,8 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
               <SwitchRow
                 id="is_active"
                 disabled={isPending}
-                label={t('labelActive')}
-                description={t('descriptionActive')}
+                label={t('form.labelActive')}
+                description={t('form.descriptionActive')}
                 checked={field.value ?? false}
                 onCheckedChange={field.onChange}
               />
@@ -107,13 +112,13 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
 
         <FieldSet>
           <FieldLegend className="text-muted-foreground mb-3 text-xs font-medium tracking-wider uppercase">
-            {t('workingHours')}
+            {t('form.workingHours')}
           </FieldLegend>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field data-invalid={!!errors.opening_time}>
               <FieldLabel htmlFor="opening_time">
-                {t('labelOpeningTime')}
+                {t('form.labelOpeningTime')}
               </FieldLabel>
               <Input
                 id="opening_time"
@@ -126,13 +131,13 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
                 })}
               />
               {errors.opening_time && (
-                <FieldError>{t('errors.required')}</FieldError>
+                <FieldError>{t('form.errors.required')}</FieldError>
               )}
             </Field>
 
             <Field data-invalid={!!errors.closing_time}>
               <FieldLabel htmlFor="closing_time">
-                {t('labelClosingTime')}
+                {t('form.labelClosingTime')}
               </FieldLabel>
               <Input
                 id="closing_time"
@@ -152,6 +157,35 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
                 <FieldError>{t(errors.closing_time.message)}</FieldError>
               )}
             </Field>
+
+            <div className="sm:col-span-2">
+              <Controller
+                name="holidays"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel>{t('form.labelHolidays')}</FieldLabel>
+                    <MultiSelect
+                      options={holidayOptions}
+                      value={field.value || []}
+                      onValueChange={field.onChange}
+                      disabled={isPending}
+                      invalid={fieldState.invalid}
+                      placeholder={t('form.holidaysPlaceholder')}
+                      emptyText={t('form.noDaysFound')}
+                      renderValue={(selected) =>
+                        t('form.holidaysSelectedCount', {
+                          count: selected.length,
+                        })
+                      }
+                    />
+                    {fieldState.error && (
+                      <FieldError>{t(fieldState.error.message!)}</FieldError>
+                    )}
+                  </Field>
+                )}
+              />
+            </div>
           </div>
         </FieldSet>
       </CardContent>

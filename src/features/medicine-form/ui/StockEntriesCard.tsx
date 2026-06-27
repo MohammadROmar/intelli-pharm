@@ -5,7 +5,7 @@ import {
   useFormState,
 } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Boxes, Calendar, Package, Plus, Trash2 } from 'lucide-react';
+import { Boxes, Calendar, Package, PlusCircle, Trash2 } from 'lucide-react';
 
 import type { MedicineFormData } from '@/entities/medicine';
 import { useFieldError } from '@/shared/lib';
@@ -65,7 +65,7 @@ export function StockEntriesCard({ isPending }: { isPending?: boolean }) {
               )
             }
           >
-            <Plus className="size-4" />
+            <PlusCircle className="size-4" />
             {t('addStock')}
           </Button>
         </div>
