@@ -27,6 +27,7 @@ export { useFieldError } from './hooks/useFieldError';
 export { useKeyboardShortcut } from './hooks/useKeyboardShortcut';
 export { useDocumentDirection } from './hooks/useDocumentDirection';
 export { useGeolocation, type LatLng } from './hooks/useGeolocation';
+export { useIsClamped } from './hooks/useIsClamped';
 
 export {
   ErrorBoundary,

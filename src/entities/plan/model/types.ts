@@ -8,6 +8,8 @@ export type PlanSummary = {
   user_name: string;
   total_distance_km: string;
   total_distance_m: number;
+  region_id: number;
+  region_name: string;
   total_duration_sec: number;
   total_duration_hours: string;
   created_at: string;
@@ -59,6 +61,8 @@ export type PlanDetail = {
   id: number;
   user_id: number;
   user_name: string;
+  region_id: number;
+  region_name: string;
   total_distance_km: string;
   total_distance_m: number | null;
   total_duration_sec: number | null;

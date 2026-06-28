@@ -18,10 +18,6 @@ import { decodePolyline } from '@/shared/map';
 import { LabeledLink } from '@/shared/ui';
 import { Clock, Route } from 'lucide-react';
 
-// ─── Icon factories ──────────────────────────────────────────────────────────
-// Defined at module level to avoid re-creating Leaflet objects on every render
-// (per rerender-hoist-jsx / rendering-hoist-jsx principles).
-
 const ICON_BASE_STYLE =
   'border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;';
 
@@ -44,9 +40,6 @@ const START_ICON = L.divIcon({
   popupAnchor: [0, -24],
 });
 
-// ─── MapBoundsController ──────────────────────────────────────────────────────
-// Inner component that calls useMap() — must be rendered inside <MapContainer>.
-
 type MapBoundsControllerProps = { allPoints: LatLngTuple[] };
 
 function MapBoundsController({ allPoints }: MapBoundsControllerProps) {
@@ -60,12 +53,7 @@ function MapBoundsController({ allPoints }: MapBoundsControllerProps) {
   return null;
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
-
-type Props = {
-  paths: PlanPath[];
-  visits: PlanVisit[];
-};
+type Props = { paths: PlanPath[]; visits: PlanVisit[] };
 
 export default function PlanRouteMap({ paths, visits }: Props) {
   const { t } = useTranslation('plan', { keyPrefix: 'detail.map' });
@@ -73,31 +61,23 @@ export default function PlanRouteMap({ paths, visits }: Props) {
   const formatDistance = useFormatDistance();
   const formatDuration = useFormatDuration();
 
-  // O(1) lookup: visit_order → visit
   const visitByOrder = useMemo(
     () => new Map(visits.map((v) => [v.visit_order, v])),
     [visits],
   );
 
-  // Decode all geometries once — expensive string parsing
   const decodedPaths = useMemo(
     () => paths.map((p) => decodePolyline(p.geometry) as LatLngTuple[]),
     [paths],
   );
 
-  // Flat array used by MapBoundsController
   const allPoints = useMemo(() => decodedPaths.flat(), [decodedPaths]);
 
-  // Rep's starting point = first decoded point of path with from_sequence === 0
   const startPoint = useMemo<LatLngTuple | undefined>(() => {
     const firstPathIdx = paths.findIndex((p) => p.from_sequence === 0);
     return decodedPaths[firstPathIdx]?.[0];
   }, [paths, decodedPaths]);
 
-  /**
-   * Each pharmacy marker includes the PATH that leads TO it.
-   * distance_m / duration_sec live on the path, not the visit.
-   */
   const pharmacyMarkers = useMemo(
     () =>
       paths.flatMap((p, i) => {
@@ -116,17 +96,16 @@ export default function PlanRouteMap({ paths, visits }: Props) {
   const getPathColor = useCallback(
     (path: PlanPath): string => {
       const visit = visitByOrder.get(path.to_sequence);
-      if (!visit) return '#94a3b8'; // slate — starting segment has no visit
+      if (!visit) return '#94a3b8';
       return visit.visited === 1 ? '#22c55e' : '#f97316';
     },
     [visitByOrder],
   );
 
   return (
-    // Wrapper div controls dimensions — more reliable than passing className to MapContainer
-    <div className="h-105 w-full overflow-hidden rounded-lg">
+    <div className="relative z-0 h-105 w-full overflow-hidden rounded-lg">
       <MapContainer
-        center={[33.5138, 36.2765]} // Damascus fallback — overridden by MapBoundsController
+        center={[33.5138, 36.2765]}
         zoom={13}
         style={{ height: '100%', width: '100%' }}
         scrollWheelZoom
@@ -136,7 +115,6 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Route segments — colored by destination visit status */}
         {paths.map((path, i) => {
           const decoded = decodedPaths[i];
           if (!decoded || decoded.length < 2) return null;
@@ -155,7 +133,6 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           );
         })}
 
-        {/* Starting point marker */}
         {startPoint && (
           <Marker position={startPoint} icon={START_ICON}>
             <Popup className="font-cairo">
@@ -164,7 +141,6 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           </Marker>
         )}
 
-        {/* Pharmacy stop markers — distance/duration sourced from path, not visit */}
         {pharmacyMarkers.map(({ position, visit, path }) => (
           <Marker
             key={visit.id}

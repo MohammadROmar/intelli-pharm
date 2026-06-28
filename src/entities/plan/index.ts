@@ -11,3 +11,4 @@ export type {
 } from './model/types';
 export { useFormatDuration } from './model/useFormatDuration';
 export { useFormatDistance } from './model/useFormatDistance';
+export { getNoteTypeStyle } from './lib/getNoteTypeStyle';

@@ -54,6 +54,7 @@ export function PlansTable({ data }: { data: PlanListApiResponse }) {
             <TableRow>
               <TableHead className="w-32">{t('table.id')}</TableHead>
               <TableHead>{t('table.userName')}</TableHead>
+              <TableHead>{t('table.region')}</TableHead>
               <TableHead>{t('table.createdAt')}</TableHead>
               <TableHead>{t('table.reason')}</TableHead>
               <TableHead>{t('table.distance')}</TableHead>

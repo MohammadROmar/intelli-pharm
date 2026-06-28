@@ -32,6 +32,7 @@ export function PlanRow({ plan }: Props) {
       </TableCell>
 
       <TableCell className="font-medium">{plan.user_name}</TableCell>
+      <TableCell>{plan.region_name}</TableCell>
 
       <TableCell>{formatDate(plan.created_at, i18n.language, false)}</TableCell>
 

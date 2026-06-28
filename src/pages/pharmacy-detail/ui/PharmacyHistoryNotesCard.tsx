@@ -1,22 +1,16 @@
-import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, ChevronUp, ClipboardList } from 'lucide-react';
+import { ClipboardList } from 'lucide-react';
 
 import type { HistoryNote } from '@/entities/pharmacy';
 import { cn } from '@/shared/lib';
-import { Button, DetailCard, Separator } from '@/shared/ui';
+import { ClampedText, DetailCard, Separator } from '@/shared/ui';
 
-import { useIsClamped } from '../lib/useIsClamped';
 import { NOTE_TYPE_CONFIG } from '../config/noteTypeConfig';
 
 type NoteItemProps = { note: HistoryNote; isLast: boolean };
 
 function NoteItem({ note, isLast }: NoteItemProps) {
   const { t } = useTranslation('pharmacies', { keyPrefix: 'detail' });
-  const [expanded, setExpanded] = useState(false);
-  const textRef = useRef<HTMLParagraphElement>(null);
-
-  const isClamped = useIsClamped(textRef, expanded);
 
   const config = NOTE_TYPE_CONFIG[note.note_type];
   const TypeIcon = config.icon;
@@ -50,37 +44,13 @@ function NoteItem({ note, isLast }: NoteItemProps) {
           </span>
         </div>
 
-        <p
-          ref={textRef}
-          className={cn(
-            'text-foreground/75 mt-1.5 text-sm leading-relaxed',
-            !expanded && 'line-clamp-2',
-          )}
+        <ClampedText
+          className="text-foreground/75 mt-1.5 text-sm leading-relaxed"
+          expandLabel={t('historyNoteExpand')}
+          collapseLabel={t('historyNoteCollapse')}
         >
           {note.notes}
-        </p>
-
-        {isClamped && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            onClick={() => setExpanded((prev) => !prev)}
-            className="text-muted-foreground hover:text-foreground mt-1 h-auto gap-1! px-0! py-0.5! text-xs"
-          >
-            {expanded ? (
-              <>
-                <ChevronUp className="size-3" />
-                {t('historyNoteCollapse')}
-              </>
-            ) : (
-              <>
-                <ChevronDown className="size-3" />
-                {t('historyNoteExpand')}
-              </>
-            )}
-          </Button>
-        )}
+        </ClampedText>
       </div>
     </div>
   );

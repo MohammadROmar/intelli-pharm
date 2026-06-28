@@ -1,9 +1,10 @@
-import { lazy, Suspense, useMemo } from 'react';
+import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Map as MapIcon, Route } from 'lucide-react';
 
 import { PlanVisitItem } from './PlanVisitItem';
 
+import { VisitDetail } from '@/features/plan-visit-detail';
 import { useFormatDistance, useFormatDuration } from '@/entities/plan';
 import type { PlanDetail, PlanReason } from '@/entities/plan';
 import { cn, formatDate, ErrorBoundary } from '@/shared/lib';
@@ -29,17 +30,31 @@ const REASON_VARIANT: Record<PlanReason, 'muted' | 'info'> = {
 export function PlanDetail({ plan }: { plan: PlanDetail }) {
   const { t, i18n } = useTranslation('plan', { keyPrefix: 'detail' });
 
+  const [selectedVisitId, setSelectedVisitId] = useState<number | null>(null);
+
   const formatDistance = useFormatDistance();
   const formatDuration = useFormatDuration();
 
   const planLabel = formatPlanId(plan.id);
-  const visitedCount = plan.visits.filter((v) => v.visited === 1).length;
   const reasonVariant = REASON_VARIANT[plan.reason];
+
+  const visitedCount = useMemo(
+    () => plan.visits.filter((v) => v.visited === 1).length,
+    [plan.visits],
+  );
 
   const pathByVisitOrder = useMemo(
     () => new Map(plan.paths.map((p) => [p.to_sequence, p])),
     [plan.paths],
   );
+
+  const handleVisitSelect = useCallback((id: number) => {
+    setSelectedVisitId(id);
+  }, []);
+
+  const handleVisitClose = useCallback(() => {
+    setSelectedVisitId(null);
+  }, []);
 
   return (
     <>
@@ -55,11 +70,18 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
         subtitle={t('overview.subtitle')}
         icon={Route}
       >
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-3">
           <DetailCell label={t('overview.user')}>
             <BadgeLink
               label={plan.user_name}
               to={`/dashboard/employees/${plan.user_id}`}
+            />
+          </DetailCell>
+
+          <DetailCell label={t('overview.region')}>
+            <BadgeLink
+              label={plan.region_name}
+              to={`/dashboard/regions/${plan.region_id}`}
             />
           </DetailCell>
 
@@ -68,7 +90,11 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
               {formatDate(plan.created_at, i18n.language)}
             </span>
           </DetailCell>
+        </div>
 
+        <Separator />
+
+        <div className="grid grid-cols-2 gap-6">
           <DetailCell label={t('overview.totalDistance')}>
             <span className="flex items-center gap-1.5 text-sm">
               {formatDistance(plan.total_distance_m)}
@@ -133,15 +159,20 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
         })}
         icon={MapPin}
       >
-        {plan.visits.map((visit, i) => (
-          <PlanVisitItem
-            key={visit.id}
-            visit={visit}
-            path={pathByVisitOrder.get(visit.visit_order)}
-            isLast={i === plan.visits.length - 1}
-          />
-        ))}
+        <ul>
+          {plan.visits.map((visit, i) => (
+            <PlanVisitItem
+              key={visit.id}
+              visit={visit}
+              path={pathByVisitOrder.get(visit.visit_order)}
+              isLast={i === plan.visits.length - 1}
+              onClick={handleVisitSelect}
+            />
+          ))}
+        </ul>
       </DetailCard>
+
+      <VisitDetail id={selectedVisitId} onClose={handleVisitClose} />
     </>
   );
 }

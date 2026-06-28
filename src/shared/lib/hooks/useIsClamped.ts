@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function useIsClamped(
-  ref: React.RefObject<HTMLParagraphElement | null>,
+  ref: React.RefObject<HTMLElement | null>,
   skip: boolean,
 ) {
   const [isClamped, setIsClamped] = useState(false);
