@@ -1,28 +1,29 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { CityFiltersModal } from './CityFiltersModal';
-import { useCityFilters } from '../model/useCityFilters';
 import { CityEditButton } from '@/features/city-edit';
 import { AddCityButton } from '@/features/city-create';
 import { DeleteCityModal } from '@/features/city-delete';
 import { CityRow, type CitiesResponse, type CityDetail } from '@/entities/city';
 import {
-  FiltersTrigger,
-  TableBody,
-  TableCard,
-  TableEmptyState,
   TableHead,
-  TableHeader,
-  TableRow,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
+
+import { CityFiltersModal } from './CityFiltersModal';
+import { useCityFilters } from '../model/useCityFilters';
 
 type Props = { data: CitiesResponse };
 
 export function CityTable({ data }: Props) {
+  const { t } = useTranslation('cities');
+
   const [cityToDelete, setCityToDelete] = useState<CityDetail | null>(null);
   const [cityToEdit, setCityToEdit] = useState<CityDetail | null>(null);
+
+  const filtersState = useCityFilters();
 
   return (
     <>
@@ -34,102 +35,43 @@ export function CityTable({ data }: Props) {
         cityToEdit={cityToEdit}
         onClose={() => setCityToEdit(null)}
       />
-      <ItemsTable
+
+      <EntityListTable
         data={data}
-        onEdit={setCityToEdit}
-        onDelete={setCityToDelete}
-      />
-    </>
-  );
-}
-
-type ItemsTableProps = Props & {
-  onEdit: (city: CityDetail) => void;
-  onDelete: (city: CityDetail) => void;
-};
-
-function ItemsTable({ data, onDelete, onEdit }: ItemsTableProps) {
-  const { t } = useTranslation('cities');
-
-  const cities = data.data;
-
-  return (
-    <TableCard
-      title={t('list.all')}
-      basePath="/dashboard/cities"
-      itemsPerPage={data.meta.per_page}
-      currItemsCount={cities.length}
-      currentPage={data.meta.current_page}
-      totalItems={data.meta.total}
-      toolbar={
-        <>
-          <CityFilters />
-          <AddCityButton />
-        </>
-      }
-    >
-      {cities.length > 0 ? (
-        <>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="hidden w-16 sm:table-cell">
-                {t('list.id')}
-              </TableHead>
-              <TableHead>{t('list.name')}</TableHead>
-              <TableHead>{t('list.actions')}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {cities.map((city) => (
-              <CityRow
-                key={city.id}
-                city={city}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            ))}
-          </TableBody>
-        </>
-      ) : (
-        <EmptyState />
-      )}
-    </TableCard>
-  );
-}
-
-function EmptyState() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const name = searchParams.get('name');
-
-  return (
-    <TableEmptyState
-      variant={name ? 'search' : 'empty'}
-      onClearSearch={() => setSearchParams({})}
-    />
-  );
-}
-
-function CityFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useCityFilters();
-
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <CityFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
-        }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        title={t('list.all')}
+        basePath="/dashboard/cities"
+        toolbar={
+          <>
+            <EntityFiltersToolbar
+              filtersState={filtersState}
+              FiltersModal={CityFiltersModal}
+            />
+            <AddCityButton />
+          </>
+        }
+        columns={
+          <>
+            <TableHead className="hidden w-16 sm:table-cell">
+              {t('list.id')}
+            </TableHead>
+            <TableHead>{t('list.name')}</TableHead>
+            <TableHead>{t('list.actions')}</TableHead>
+          </>
+        }
+        renderRow={(city) => (
+          <CityRow
+            key={city.id}
+            city={city}
+            onEdit={setCityToEdit}
+            onDelete={setCityToDelete}
+          />
+        )}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
   );

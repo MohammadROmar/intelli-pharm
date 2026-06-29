@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ShoppingCart,
@@ -19,23 +19,21 @@ import type { PharmacyMetricsData } from '@/entities/metrics';
 import { AcceptanceRateBar, MetricsSummary } from '@/entities/metrics';
 import { formatDate } from '@/shared/lib';
 import {
-  FiltersTrigger,
-  TableBody,
-  TableCell,
   TableHead,
-  TableHeader,
+  TableCell,
   TableRow,
-  TableCard,
-  TableEmptyState,
   LabeledLink,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
 
 type Props = { data: PharmacyMetricsData };
 
 export function PharmacyMetricsTable({ data }: Props) {
   const { t, i18n } = useTranslation('metrics', { keyPrefix: 'pharmacy' });
-
-  const { metrics: items, pagination, summary } = data;
+  const { metrics, pagination, summary } = data;
+  const filtersState = usePharmacyFilters();
 
   const summaryItems = useMemo(
     () => [
@@ -78,129 +76,99 @@ export function PharmacyMetricsTable({ data }: Props) {
     [summary, t],
   );
 
+  const paginatedData = useMemo(
+    () => ({
+      data: metrics,
+      meta: {
+        current_page: pagination.current_page,
+        per_page: pagination.per_page,
+        total: pagination.total,
+      },
+    }),
+    [metrics, pagination],
+  );
+
   return (
     <>
       <MetricsSummary items={summaryItems} />
 
-      <TableCard
+      <EntityListTable
+        data={paginatedData}
         title={t('title')}
-        toolbar={<PharmacyFilters />}
-        currItemsCount={items.length}
         basePath="/dashboard/metrics/pharmacy"
-        currentPage={pagination.current_page}
-        totalItems={pagination.total}
-        itemsPerPage={pagination.per_page}
-      >
-        {items.length > 0 ? (
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={PharmacyFiltersModal}
+          />
+        }
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t('columns.pharmacy')}</TableHead>
-                <TableHead>{t('columns.tier')}</TableHead>
-                <TableHead className="text-right">
-                  {t('columns.score')}
-                </TableHead>
-                <TableHead className="text-right">
-                  {t('columns.orders')}
-                </TableHead>
-                <TableHead className="text-right">
-                  {t('columns.completed')}
-                </TableHead>
-                <TableHead>{t('columns.completionRate')}</TableHead>
-                <TableHead className="text-right">
-                  {t('columns.avgItems')}
-                </TableHead>
-                <TableHead>{t('columns.lastOrder')}</TableHead>
-                <TableHead className="text-right">
-                  {t('columns.recencyScore')}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {items.map((metric) => {
-                const completionRate =
-                  metric.completion_rate > 1
-                    ? metric.completion_rate / 100
-                    : metric.completion_rate;
-
-                return (
-                  <TableRow key={metric.id}>
-                    <TableCell className="font-medium">
-                      <LabeledLink
-                        to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
-                        label={metric.pharmacy_name}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <TierBadge tier={metric.tier} />
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.score.toFixed(1)}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.total_orders}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.completed_orders}
-                    </TableCell>
-                    <TableCell>
-                      <AcceptanceRateBar rate={completionRate} />
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.avg_items_per_order.toFixed(1)}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {formatDate(metric.last_order_at, i18n.language)}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.recency_score.toFixed(1)}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
+            <TableHead>{t('columns.pharmacy')}</TableHead>
+            <TableHead>{t('columns.tier')}</TableHead>
+            <TableHead className="text-right">{t('columns.score')}</TableHead>
+            <TableHead className="text-right">{t('columns.orders')}</TableHead>
+            <TableHead className="text-right">
+              {t('columns.completed')}
+            </TableHead>
+            <TableHead>{t('columns.completionRate')}</TableHead>
+            <TableHead className="text-right">
+              {t('columns.avgItems')}
+            </TableHead>
+            <TableHead>{t('columns.lastOrder')}</TableHead>
+            <TableHead className="text-right">
+              {t('columns.recencyScore')}
+            </TableHead>
           </>
-        ) : (
-          <EmptyState />
-        )}
-      </TableCard>
-    </>
-  );
-}
+        }
+        renderRow={(metric) => {
+          const completionRate =
+            metric.completion_rate > 1
+              ? metric.completion_rate / 100
+              : metric.completion_rate;
 
-function PharmacyFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    usePharmacyFilters();
-
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <PharmacyFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
+          return (
+            <TableRow key={metric.id}>
+              <TableCell className="font-medium">
+                <LabeledLink
+                  to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
+                  label={metric.pharmacy_name}
+                />
+              </TableCell>
+              <TableCell>
+                <TierBadge tier={metric.tier} />
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.score.toFixed(1)}
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.total_orders}
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.completed_orders}
+              </TableCell>
+              <TableCell>
+                <AcceptanceRateBar rate={completionRate} />
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.avg_items_per_order.toFixed(1)}
+              </TableCell>
+              <TableCell className="text-muted-foreground">
+                {formatDate(metric.last_order_at, i18n.language)}
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.recency_score.toFixed(1)}
+              </TableCell>
+            </TableRow>
+          );
         }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
-  );
-}
-
-function EmptyState() {
-  const { hasActiveFilters, clearFilters } = usePharmacyFilters();
-
-  return (
-    <TableEmptyState
-      variant={hasActiveFilters ? 'search' : 'empty'}
-      onClearSearch={clearFilters}
-    />
   );
 }

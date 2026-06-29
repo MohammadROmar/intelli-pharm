@@ -24,7 +24,7 @@ import { NotificationBadge } from './NotificationBadge';
 
 export function NavUser() {
   const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
-  const { isMobile, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, setOpenMobile } = useSidebar();
 
   const user = useRequiredUser();
   const unreadNotifications = useAppSelector(
@@ -81,12 +81,7 @@ export function NavUser() {
               </DropdownMenuItem>
 
               <DropdownMenuItem asChild className="cursor-pointer">
-                <Link
-                  to="notifications"
-                  onClick={() => {
-                    if (openMobile) setOpenMobile(false);
-                  }}
-                >
+                <Link to="notifications" onClick={() => setOpenMobile(false)}>
                   <Bell />
                   {t('notifications')}
 

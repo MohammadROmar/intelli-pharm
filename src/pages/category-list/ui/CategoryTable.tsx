@@ -10,13 +10,10 @@ import {
   type CategoryListResponse,
 } from '@/entities/category';
 import {
-  TableBody,
   TableHead,
-  TableHeader,
-  TableRow,
-  TableCard,
-  TableEmptyState,
-  FiltersTrigger,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
 
 type Props = { data: CategoryListResponse };
@@ -27,7 +24,7 @@ export function CategoriesTable({ data }: Props) {
   const [categoryToDelete, setCategoryToDelete] =
     useState<CategoryListItem | null>(null);
 
-  const categories = data.data;
+  const filtersState = useCategoryFilters();
 
   return (
     <>
@@ -37,79 +34,41 @@ export function CategoriesTable({ data }: Props) {
         onClose={() => setCategoryToDelete(null)}
       />
 
-      <TableCard
+      <EntityListTable
+        data={data}
         title={t('list.all')}
-        toolbar={<CategoryFilters />}
         addHref="/dashboard/categories/new"
         addLabel={t('list.add')}
-        currItemsCount={categories.length}
         basePath="/dashboard/categories"
-        currentPage={data.meta.current_page}
-        totalItems={data.meta.total}
-        itemsPerPage={data.meta.per_page}
-      >
-        {categories.length > 0 ? (
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={CategoryFiltersModal}
+          />
+        }
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-25">{t('list.id')}</TableHead>
-                <TableHead>{t('list.name')}</TableHead>
-                <TableHead>{t('list.parentName')}</TableHead>
-                <TableHead>{t('list.createdAt')}</TableHead>
-                <TableHead>{t('list.actions')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {categories.map((category) => (
-                <CategoryRow
-                  key={category.id}
-                  category={category}
-                  onDelete={setCategoryToDelete}
-                />
-              ))}
-            </TableBody>
+            <TableHead className="w-25">{t('list.id')}</TableHead>
+            <TableHead>{t('list.name')}</TableHead>
+            <TableHead>{t('list.parentName')}</TableHead>
+            <TableHead>{t('list.createdAt')}</TableHead>
+            <TableHead>{t('list.actions')}</TableHead>
           </>
-        ) : (
-          <EmptyState />
+        }
+        renderRow={(category) => (
+          <CategoryRow
+            key={category.id}
+            category={category}
+            onDelete={setCategoryToDelete}
+          />
         )}
-      </TableCard>
-    </>
-  );
-}
-
-function CategoryFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useCategoryFilters();
-
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <CategoryFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
-        }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
-  );
-}
-
-function EmptyState() {
-  const { hasActiveFilters, clearFilters } = useCategoryFilters();
-
-  return (
-    <TableEmptyState
-      variant={hasActiveFilters ? 'search' : 'empty'}
-      onClearSearch={clearFilters}
-    />
   );
 }

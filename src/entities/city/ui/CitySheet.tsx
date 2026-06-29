@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Building2, CirclePlus } from 'lucide-react';
+import { Building2, Plus } from 'lucide-react';
 
 import {
   Button,
@@ -36,7 +36,7 @@ export function CitySheet({
       {!isEdit && (
         <SheetTrigger asChild>
           <Button size="sm" className="flex items-center justify-center gap-2">
-            <CirclePlus className="size-4" />
+            <Plus className="size-4" />
             <span className="sr-only sm:not-sr-only">{t('action')}</span>
           </Button>
         </SheetTrigger>

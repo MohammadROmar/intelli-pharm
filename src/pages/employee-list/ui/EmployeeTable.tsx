@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { EmployeeFiltersModal } from './EmployeeFiltersModal';
-import { useEmployeeFilters } from '../model/useEmployeeFilters';
 import { DeleteEmployeeModal } from '@/features/employee-delete';
 import {
   EmployeeRow,
@@ -10,23 +8,23 @@ import {
   type EmployeeListResponse,
 } from '@/entities/employee';
 import {
-  TableBody,
   TableHead,
-  TableHeader,
-  TableRow,
-  TableCard,
-  FiltersTrigger,
-  TableEmptyState,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
 
+import { EmployeeFiltersModal } from './EmployeeFiltersModal';
+import { useEmployeeFilters } from '../model/useEmployeeFilters';
+
 export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
+  const { t } = useTranslation('employees');
+
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
     null,
   );
 
-  const { t } = useTranslation('employees');
-
-  const employees = data.data;
+  const filtersState = useEmployeeFilters();
 
   return (
     <>
@@ -35,84 +33,42 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
         onClose={() => setEmployeeToDelete(null)}
       />
 
-      <TableCard
+      <EntityListTable
+        data={data}
         title={t('list.all')}
-        toolbar={<Filters />}
         addHref="/dashboard/employees/new"
         addLabel={t('list.add')}
-        currItemsCount={employees.length}
         basePath="/dashboard/employees"
-        itemsPerPage={data.meta.per_page}
-        currentPage={data.meta.current_page}
-        totalItems={data.meta.total}
-      >
-        {employees.length > 0 ? (
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={EmployeeFiltersModal}
+          />
+        }
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-25">{t('list.id')}</TableHead>
-                <TableHead>{t('list.name')}</TableHead>
-                <TableHead>{t('list.email')}</TableHead>
-                <TableHead>{t('list.role')}</TableHead>
-                <TableHead>{t('list.status')}</TableHead>
-                <TableHead>{t('list.actions')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {employees.map((employee) => (
-                <EmployeeRow
-                  key={employee.id}
-                  employee={employee}
-                  onDelete={setEmployeeToDelete}
-                />
-              ))}
-            </TableBody>
+            <TableHead className="w-25">{t('list.id')}</TableHead>
+            <TableHead>{t('list.name')}</TableHead>
+            <TableHead>{t('list.email')}</TableHead>
+            <TableHead>{t('list.role')}</TableHead>
+            <TableHead>{t('list.status')}</TableHead>
+            <TableHead>{t('list.actions')}</TableHead>
           </>
-        ) : (
-          <EmptyState />
+        }
+        renderRow={(employee) => (
+          <EmployeeRow
+            key={employee.id}
+            employee={employee}
+            onDelete={setEmployeeToDelete}
+          />
         )}
-      </TableCard>
-    </>
-  );
-}
-
-function Filters() {
-  const [filtersOpen, setFiltersOpen] = useState(false);
-
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useEmployeeFilters();
-
-  return (
-    <>
-      <FiltersTrigger
-        onClick={() => setFiltersOpen(true)}
-        activeCount={activeCount}
-      />
-      <EmployeeFiltersModal
-        open={filtersOpen}
-        onOpenChange={setFiltersOpen}
-        hasActiveFilters={hasActiveFilters}
-        defaultValues={filters}
-        onApply={(values) => {
-          applyFilters(values);
-          setFiltersOpen(false);
-        }}
-        onClear={() => {
-          clearFilters();
-          setFiltersOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
-  );
-}
-
-function EmptyState() {
-  const { hasActiveFilters, clearFilters } = useEmployeeFilters();
-
-  return (
-    <TableEmptyState
-      variant={hasActiveFilters ? 'search' : 'empty'}
-      onClearSearch={clearFilters}
-    />
   );
 }

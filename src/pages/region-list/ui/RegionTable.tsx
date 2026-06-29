@@ -2,37 +2,31 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DeleteRegionModal } from '@/features/region-delete';
-import { RegionFiltersModal } from './RegionFiltersModal';
-import { useRegionFilters } from '../model/useRegionFilters';
 import {
   RegionRow,
   type RegionListItem,
   type RegionsListResponse,
 } from '@/entities/region';
 import {
-  TableBody,
   TableHead,
-  TableHeader,
-  TableRow,
-  TableCard,
-  TableEmptyState,
-  FiltersTrigger,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
 
-type Props = {
-  data: RegionsListResponse;
-};
+import { RegionFiltersModal } from './RegionFiltersModal';
+import { useRegionFilters } from '../model/useRegionFilters';
+
+type Props = { data: RegionsListResponse };
 
 export function RegionsTable({ data }: Props) {
-  const { t } = useTranslation('regions', {
-    keyPrefix: 'list',
-  });
+  const { t } = useTranslation('regions', { keyPrefix: 'list' });
 
   const [regionToDelete, setRegionToDelete] = useState<RegionListItem | null>(
     null,
   );
 
-  const regions = data.data;
+  const filtersState = useRegionFilters();
 
   return (
     <>
@@ -42,78 +36,40 @@ export function RegionsTable({ data }: Props) {
         onClose={() => setRegionToDelete(null)}
       />
 
-      <TableCard
+      <EntityListTable
+        data={data}
         title={t('all')}
-        toolbar={<RegionFilters />}
         addHref="/dashboard/regions/new"
         addLabel={t('add')}
-        currItemsCount={regions.length}
         basePath="/dashboard/regions"
-        currentPage={data.meta.current_page}
-        totalItems={data.meta.total}
-        itemsPerPage={data.meta.per_page}
-      >
-        {regions.length > 0 ? (
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={RegionFiltersModal}
+          />
+        }
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-25">{t('id')}</TableHead>
-                <TableHead>{t('name')}</TableHead>
-                <TableHead>{t('city')}</TableHead>
-                <TableHead>{t('actions')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {regions.map((region) => (
-                <RegionRow
-                  key={region.id}
-                  region={region}
-                  onDelete={setRegionToDelete}
-                />
-              ))}
-            </TableBody>
+            <TableHead className="w-25">{t('id')}</TableHead>
+            <TableHead>{t('name')}</TableHead>
+            <TableHead>{t('city')}</TableHead>
+            <TableHead>{t('actions')}</TableHead>
           </>
-        ) : (
-          <EmptyState />
+        }
+        renderRow={(region) => (
+          <RegionRow
+            key={region.id}
+            region={region}
+            onDelete={setRegionToDelete}
+          />
         )}
-      </TableCard>
-    </>
-  );
-}
-
-function RegionFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useRegionFilters();
-
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <RegionFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
-        }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
-  );
-}
-
-function EmptyState() {
-  const { hasActiveFilters, clearFilters } = useRegionFilters();
-
-  return (
-    <TableEmptyState
-      variant={hasActiveFilters ? 'search' : 'empty'}
-      onClearSearch={clearFilters}
-    />
   );
 }

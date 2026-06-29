@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShoppingCart, Package, Banknote, TrendingUp } from 'lucide-react';
 
@@ -9,23 +9,21 @@ import {
 import { MetricsSummary, type SeasonalMetricsData } from '@/entities/metrics';
 import { formatDate, formatPrice } from '@/shared/lib';
 import {
-  FiltersTrigger,
-  TableBody,
-  TableCell,
   TableHead,
-  TableHeader,
   TableRow,
-  TableCard,
-  TableEmptyState,
+  TableCell,
   LabeledLink,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
 
 type Props = { data: SeasonalMetricsData };
 
 export function SeasonalMetricsTable({ data }: Props) {
   const { t, i18n } = useTranslation('metrics', { keyPrefix: 'seasonal' });
-
   const { metrics, summary, season, pagination } = data;
+  const filtersState = useSeasonalFilters();
 
   const summaryItems = useMemo(
     () => [
@@ -53,106 +51,77 @@ export function SeasonalMetricsTable({ data }: Props) {
     [summary, t, i18n.language],
   );
 
+  const paginatedData = useMemo(
+    () => ({
+      data: metrics,
+      meta: {
+        current_page: pagination.current_page,
+        per_page: pagination.per_page,
+        total: pagination.total,
+      },
+    }),
+    [metrics, pagination],
+  );
+
   return (
     <>
       <MetricsSummary items={summaryItems} season={season} />
 
-      <TableCard
+      <EntityListTable
+        data={paginatedData}
         title={t('title')}
-        toolbar={<SeasonalFilters />}
-        currItemsCount={metrics.length}
         basePath="/dashboard/metrics/seasonal"
-        currentPage={pagination.current_page}
-        totalItems={pagination.total}
-        itemsPerPage={pagination.per_page}
-      >
-        {metrics.length > 0 ? (
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={SeasonalFiltersModal}
+          />
+        }
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t('columns.pharmacy')}</TableHead>
-                <TableHead>{t('columns.category')}</TableHead>
-                <TableHead>{t('columns.orders')}</TableHead>
-                <TableHead>{t('columns.units')}</TableHead>
-                <TableHead>{t('columns.revenue')}</TableHead>
-                <TableHead>{t('columns.avgOrder')}</TableHead>
-                <TableHead>{t('columns.computedAt')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {metrics.map((metric) => (
-                <TableRow key={metric.id}>
-                  <TableCell>
-                    <LabeledLink
-                      to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
-                      label={metric.pharmacy_name}
-                    />
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    <LabeledLink
-                      to={`/dashboard/categories/${metric.category_id}`}
-                      label={metric.category_name}
-                    />
-                  </TableCell>
-                  <TableCell className="tabular-nums">
-                    {metric.order_count}
-                  </TableCell>
-                  <TableCell className="tabular-nums">
-                    {metric.total_units}
-                  </TableCell>
-                  <TableCell className="tabular-nums">
-                    {formatPrice(metric.total_revenue, i18n.language)}
-                  </TableCell>
-                  <TableCell className="tabular-nums">
-                    {formatPrice(metric.avg_order_value, i18n.language)}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {formatDate(metric.computed_at, i18n.language)}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+            <TableHead>{t('columns.pharmacy')}</TableHead>
+            <TableHead>{t('columns.category')}</TableHead>
+            <TableHead>{t('columns.orders')}</TableHead>
+            <TableHead>{t('columns.units')}</TableHead>
+            <TableHead>{t('columns.revenue')}</TableHead>
+            <TableHead>{t('columns.avgOrder')}</TableHead>
+            <TableHead>{t('columns.computedAt')}</TableHead>
           </>
-        ) : (
-          <EmptyState />
+        }
+        renderRow={(metric) => (
+          <TableRow key={metric.id}>
+            <TableCell>
+              <LabeledLink
+                to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
+                label={metric.pharmacy_name}
+              />
+            </TableCell>
+            <TableCell className="text-muted-foreground">
+              <LabeledLink
+                to={`/dashboard/categories/${metric.category_id}`}
+                label={metric.category_name}
+              />
+            </TableCell>
+            <TableCell className="tabular-nums">{metric.order_count}</TableCell>
+            <TableCell className="tabular-nums">{metric.total_units}</TableCell>
+            <TableCell className="tabular-nums">
+              {formatPrice(metric.total_revenue, i18n.language)}
+            </TableCell>
+            <TableCell className="tabular-nums">
+              {formatPrice(metric.avg_order_value, i18n.language)}
+            </TableCell>
+            <TableCell className="text-muted-foreground">
+              {formatDate(metric.computed_at, i18n.language)}
+            </TableCell>
+          </TableRow>
         )}
-      </TableCard>
-    </>
-  );
-}
-
-function SeasonalFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useSeasonalFilters();
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <SeasonalFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
-        }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
-  );
-}
-
-function EmptyState() {
-  const { hasActiveFilters, clearFilters } = useSeasonalFilters();
-
-  return (
-    <TableEmptyState
-      variant={hasActiveFilters ? 'search' : 'empty'}
-      onClearSearch={clearFilters}
-    />
   );
 }

@@ -12,7 +12,7 @@ import {
 } from './pagination/DynamicPagination';
 import { buttonVariants } from '../lib';
 
-type AddButtonProps =
+export type AddButtonProps =
   | { addHref: string; addLabel: string; icon?: ElementType }
   | { addHref?: never; addLabel?: never; icon?: never };
 

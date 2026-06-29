@@ -2,58 +2,38 @@ import { useTranslation } from 'react-i18next';
 import { TruckElectric } from 'lucide-react';
 
 import { DeliveryRow, type DeliveryListResponse } from '@/entities/delivery';
-import {
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCard,
-  TableEmptyState,
-} from '@/shared/ui';
+import { TableHead, TableEmptyState, EntityListTable } from '@/shared/ui';
 
 type Props = { data: DeliveryListResponse };
 
 export function DeliveriesTable({ data }: Props) {
   const { t } = useTranslation('deliveries');
 
-  const deliveries = data.data;
-
   return (
-    <TableCard
+    <EntityListTable
+      data={data}
       title={t('list.all')}
-      currItemsCount={deliveries.length}
-      basePath="/dashboard/deliveries"
-      currentPage={data.meta.current_page}
-      totalItems={data.meta.total}
-      addLabel={t('list.assign')}
       icon={TruckElectric}
       addHref="/dashboard/deliveries/assign"
-      itemsPerPage={data.meta.per_page}
-    >
-      {deliveries.length > 0 ? (
+      addLabel={t('list.assign')}
+      basePath="/dashboard/deliveries"
+      columns={
         <>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-25">{t('list.id')}</TableHead>
-              <TableHead>{t('list.pharmacyName')}</TableHead>
-              <TableHead>{t('list.distributorName')}</TableHead>
-              <TableHead>{t('list.scheduledAt')}</TableHead>
-              <TableHead>{t('list.status')}</TableHead>
-              <TableHead>{t('list.paymentStatus')}</TableHead>
-              <TableHead>{t('list.paymentAmount')}</TableHead>
-              <TableHead>{t('list.totalItems')}</TableHead>
-              <TableHead>{t('list.actions')}</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {deliveries.map((delivery) => (
-              <DeliveryRow key={delivery.id} delivery={delivery} />
-            ))}
-          </TableBody>
+          <TableHead className="w-25">{t('list.id')}</TableHead>
+          <TableHead>{t('list.pharmacyName')}</TableHead>
+          <TableHead>{t('list.distributorName')}</TableHead>
+          <TableHead>{t('list.scheduledAt')}</TableHead>
+          <TableHead>{t('list.status')}</TableHead>
+          <TableHead>{t('list.paymentStatus')}</TableHead>
+          <TableHead>{t('list.paymentAmount')}</TableHead>
+          <TableHead>{t('list.totalItems')}</TableHead>
+          <TableHead>{t('list.actions')}</TableHead>
         </>
-      ) : (
-        <TableEmptyState variant="empty" />
+      }
+      renderRow={(delivery) => (
+        <DeliveryRow key={delivery.id} delivery={delivery} />
       )}
-    </TableCard>
+      emptyState={<TableEmptyState variant="empty" />}
+    />
   );
 }

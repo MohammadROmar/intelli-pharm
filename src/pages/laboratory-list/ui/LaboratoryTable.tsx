@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { LaboratoryFiltersModal } from './LaboratoryFiltersModal';
@@ -12,13 +11,10 @@ import {
   type LaboratoryListItem,
 } from '@/entities/laboratory';
 import {
-  FiltersTrigger,
-  TableBody,
-  TableCard,
-  TableEmptyState,
+  EntityEmptyState,
+  EntityFiltersToolbar,
+  EntityListTable,
   TableHead,
-  TableHeader,
-  TableRow,
 } from '@/shared/ui';
 
 type Props = { data: LaboratoriesResponse };
@@ -28,8 +24,7 @@ export function LaboratoryTable({ data }: Props) {
 
   const [laboratoryToDelete, setLaboratoryToDelete] =
     useState<LaboratoryListItem | null>(null);
-
-  const laboratories = data.data;
+  const filtersState = useLaboratoryFilters();
 
   return (
     <>
@@ -39,80 +34,39 @@ export function LaboratoryTable({ data }: Props) {
         onClose={() => setLaboratoryToDelete(null)}
       />
 
-      <TableCard
+      <EntityListTable
+        data={data}
         title={t('list.all')}
         basePath="/dashboard/laboratories"
-        currItemsCount={laboratories.length}
-        itemsPerPage={data.meta.per_page}
-        totalItems={data.meta.total}
-        currentPage={data.meta.current_page}
         toolbar={
           <>
-            <LaboratoryFilters />
+            <EntityFiltersToolbar
+              filtersState={filtersState}
+              FiltersModal={LaboratoryFiltersModal}
+            />
             <AddLaboratoryButton />
           </>
         }
-      >
-        {laboratories.length > 0 ? (
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-25">{t('list.id')}</TableHead>
-                <TableHead>{t('list.name')}</TableHead>
-                <TableHead>{t('list.actions')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {laboratories.map((lab) => (
-                <LaboratoryRow
-                  key={lab.id}
-                  laboratory={lab}
-                  onDelete={setLaboratoryToDelete}
-                />
-              ))}
-            </TableBody>
+            <TableHead className="w-25">{t('list.id')}</TableHead>
+            <TableHead>{t('list.name')}</TableHead>
+            <TableHead>{t('list.actions')}</TableHead>
           </>
-        ) : (
-          <EmotyState />
+        }
+        renderRow={(lab) => (
+          <LaboratoryRow
+            key={lab.id}
+            laboratory={lab}
+            onDelete={setLaboratoryToDelete}
+          />
         )}
-      </TableCard>
-    </>
-  );
-}
-
-function EmotyState() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const name = searchParams.get('name');
-
-  return (
-    <TableEmptyState
-      variant={name ? 'search' : 'empty'}
-      onClearSearch={() => setSearchParams({})}
-    />
-  );
-}
-
-function LaboratoryFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useLaboratoryFilters();
-
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <LaboratoryFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
-        }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShoppingCart, CheckCircle, XCircle, Package } from 'lucide-react';
 
@@ -6,23 +6,21 @@ import { useAreaFilters, AreaFiltersModal } from '@/features/metrics-area';
 import type { AreaMetricsData } from '@/entities/metrics';
 import { MetricsSummary, AcceptanceRateBar } from '@/entities/metrics';
 import {
-  FiltersTrigger,
-  TableBody,
-  TableCell,
   TableHead,
-  TableHeader,
+  TableCell,
   TableRow,
-  TableCard,
-  TableEmptyState,
   LabeledLink,
+  EntityListTable,
+  EntityFiltersToolbar,
+  EntityEmptyState,
 } from '@/shared/ui';
 
 type Props = { data: AreaMetricsData };
 
 export function AreaMetricsTable({ data }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'area' });
-
   const { metrics, summary, season, pagination } = data;
+  const filtersState = useAreaFilters();
 
   const summaryItems = useMemo(
     () => [
@@ -50,122 +48,94 @@ export function AreaMetricsTable({ data }: Props) {
     [summary, t],
   );
 
+  const paginatedData = useMemo(
+    () => ({
+      data: metrics,
+      meta: {
+        current_page: pagination.current_page,
+        per_page: pagination.per_page,
+        total: pagination.total,
+      },
+    }),
+    [metrics, pagination],
+  );
+
   return (
     <>
       <MetricsSummary items={summaryItems} season={season} />
 
-      <TableCard
+      <EntityListTable
+        data={paginatedData}
         title={t('title')}
-        toolbar={<AreaFilters />}
-        currItemsCount={metrics.length}
         basePath="/dashboard/metrics/area"
-        currentPage={pagination.current_page}
-        totalItems={pagination.total}
-        itemsPerPage={pagination.per_page}
-      >
-        {metrics.length > 0 ? (
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={AreaFiltersModal}
+          />
+        }
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead>{t('columns.region')}</TableHead>
-                <TableHead>{t('columns.category')}</TableHead>
-                <TableHead className="text-right">
-                  {t('columns.orders')}
-                </TableHead>
-                <TableHead className="text-right">
-                  {t('columns.completed')}
-                </TableHead>
-                <TableHead className="text-right">
-                  {t('columns.cancelled')}
-                </TableHead>
-                <TableHead>{t('columns.completionRate')}</TableHead>
-                <TableHead className="text-right">
-                  {t('columns.unitsSold')}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {metrics.map((metric) => {
-                const completionRate =
-                  metric.total_orders > 0
-                    ? metric.total_completed_orders / metric.total_orders
-                    : 0;
-
-                return (
-                  <TableRow key={metric.id}>
-                    <TableCell className="font-medium">
-                      <LabeledLink
-                        to={`/dashboard/regions/${metric.region_id}`}
-                        label={metric.region_name}
-                      />
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      <LabeledLink
-                        to={`/dashboard/categories/${metric.category_id}`}
-                        label={metric.category_name}
-                      />
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.total_orders}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.total_completed_orders}
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.total_cancelled_orders}
-                    </TableCell>
-                    <TableCell>
-                      <AcceptanceRateBar rate={completionRate} />
-                    </TableCell>
-                    <TableCell className="text-right tabular-nums">
-                      {metric.total_units_sold}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
+            <TableHead>{t('columns.region')}</TableHead>
+            <TableHead>{t('columns.category')}</TableHead>
+            <TableHead className="text-right">{t('columns.orders')}</TableHead>
+            <TableHead className="text-right">
+              {t('columns.completed')}
+            </TableHead>
+            <TableHead className="text-right">
+              {t('columns.cancelled')}
+            </TableHead>
+            <TableHead>{t('columns.completionRate')}</TableHead>
+            <TableHead className="text-right">
+              {t('columns.unitsSold')}
+            </TableHead>
           </>
-        ) : (
-          <EmptyState />
-        )}
-      </TableCard>
-    </>
-  );
-}
+        }
+        renderRow={(metric) => {
+          const completionRate =
+            metric.total_orders > 0
+              ? metric.total_completed_orders / metric.total_orders
+              : 0;
 
-function AreaFilters() {
-  const [open, setOpen] = useState(false);
-  const { filters, applyFilters, clearFilters, activeCount, hasActiveFilters } =
-    useAreaFilters();
-
-  return (
-    <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
-      <AreaFiltersModal
-        open={open}
-        onOpenChange={setOpen}
-        defaultValues={filters}
-        hasActiveFilters={hasActiveFilters}
-        onApply={(v) => {
-          applyFilters(v);
-          setOpen(false);
+          return (
+            <TableRow key={metric.id}>
+              <TableCell className="font-medium">
+                <LabeledLink
+                  to={`/dashboard/regions/${metric.region_id}`}
+                  label={metric.region_name}
+                />
+              </TableCell>
+              <TableCell className="text-muted-foreground">
+                <LabeledLink
+                  to={`/dashboard/categories/${metric.category_id}`}
+                  label={metric.category_name}
+                />
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.total_orders}
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.total_completed_orders}
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.total_cancelled_orders}
+              </TableCell>
+              <TableCell>
+                <AcceptanceRateBar rate={completionRate} />
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {metric.total_units_sold}
+              </TableCell>
+            </TableRow>
+          );
         }}
-        onClear={() => {
-          clearFilters();
-          setOpen(false);
-        }}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
-  );
-}
-
-function EmptyState() {
-  const { hasActiveFilters, clearFilters } = useAreaFilters();
-
-  return (
-    <TableEmptyState
-      variant={hasActiveFilters ? 'search' : 'empty'}
-      onClearSearch={clearFilters}
-    />
   );
 }

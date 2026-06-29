@@ -5,14 +5,7 @@ import { CreateGiftForm } from '@/features/gift-create';
 import { DeleteGiftModal } from '@/features/gift-delete';
 import { GiftRow } from '@/entities/gift';
 import type { Gift, GiftResponse } from '@/entities/gift';
-import {
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCard,
-  TableEmptyState,
-} from '@/shared/ui';
+import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
 import { EditGiftForm } from '@/features/gift-edit';
 
 type Props = { data: GiftResponse };
@@ -24,6 +17,14 @@ export function GiftsTable({ data }: Props) {
   const [giftToEdit, setGiftToEdit] = useState<Gift | null>(null);
 
   const gifts = data.data;
+  const tableData = {
+    data: gifts,
+    meta: {
+      current_page: data.current_page,
+      total: data.total,
+      per_page: data.per_page,
+    },
+  };
 
   return (
     <>
@@ -34,42 +35,33 @@ export function GiftsTable({ data }: Props) {
 
       <EditGiftForm gift={giftToEdit} onClose={() => setGiftToEdit(null)} />
 
-      <TableCard
+      <EntityListTable
+        data={tableData}
         title={t('list.all')}
-        currItemsCount={gifts.length}
         toolbar={<CreateGiftForm />}
         basePath="/dashboard/promotions/gifts"
-        currentPage={data.current_page}
-        totalItems={data.total}
-        itemsPerPage={data.per_page}
-      >
-        {gifts.length > 0 ? (
+        addHref={undefined}
+        addLabel={undefined}
+        columns={
           <>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-25">{t('list.id')}</TableHead>
-                <TableHead>{t('list.medicineName')}</TableHead>
-                <TableHead>{t('list.status')}</TableHead>
-                <TableHead>{t('list.requiredQuantity')}</TableHead>
-                <TableHead>{t('list.giftQuantity')}</TableHead>
-                <TableHead>{t('list.actions')}</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {gifts.map((gift) => (
-                <GiftRow
-                  key={gift.id}
-                  gift={gift}
-                  onDelete={setGiftToDelete}
-                  onEdit={setGiftToEdit}
-                />
-              ))}
-            </TableBody>
+            <TableHead className="w-25">{t('list.id')}</TableHead>
+            <TableHead>{t('list.medicineName')}</TableHead>
+            <TableHead>{t('list.status')}</TableHead>
+            <TableHead>{t('list.requiredQuantity')}</TableHead>
+            <TableHead>{t('list.giftQuantity')}</TableHead>
+            <TableHead>{t('list.actions')}</TableHead>
           </>
-        ) : (
-          <TableEmptyState variant="empty" />
+        }
+        renderRow={(gift) => (
+          <GiftRow
+            key={gift.id}
+            gift={gift}
+            onDelete={setGiftToDelete}
+            onEdit={setGiftToEdit}
+          />
         )}
-      </TableCard>
+        emptyState={<TableEmptyState variant="empty" />}
+      />
     </>
   );
 }
