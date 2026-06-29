@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ElementType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Plus } from 'lucide-react';
 
@@ -13,8 +13,8 @@ import {
 import { buttonVariants } from '../lib';
 
 type AddButtonProps =
-  | { addHref: string; addLabel: string }
-  | { addHref?: never; addLabel?: never };
+  | { addHref: string; addLabel: string; icon?: ElementType }
+  | { addHref?: never; addLabel?: never; icon?: never };
 
 type TableCardProps = Omit<DynamicPaginationProps, 'maxPages' | 'extraParams'> &
   AddButtonProps & {
@@ -36,6 +36,7 @@ export function TableCard({
   toolbar,
   addHref,
   addLabel,
+  icon,
   children,
 }: TableCardProps) {
   const maxPages = Math.ceil(totalItems / itemsPerPage);
@@ -43,6 +44,8 @@ export function TableCard({
   const isTotalEmpty = totalItems === 0;
   const isFilterEmpty = !isTotalEmpty && currItemsCount === 0;
   const hasNoRows = isTotalEmpty || isFilterEmpty;
+
+  const Icon = icon ? icon : Plus;
 
   return (
     <Card>
@@ -60,7 +63,7 @@ export function TableCard({
               {toolbar}
               {addHref && (
                 <Link to={addHref} className={buttonVariants({ size: 'sm' })}>
-                  <Plus className="size-4" aria-hidden="true" />
+                  <Icon className="size-4" aria-hidden />
                   <span className="sr-only sm:not-sr-only">{addLabel}</span>
                 </Link>
               )}

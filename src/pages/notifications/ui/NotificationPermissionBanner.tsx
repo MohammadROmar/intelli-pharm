@@ -103,7 +103,7 @@ export const NotificationPermissionBanner = memo(
                     config.iconWrapperClass,
                     config.titleClass,
                   )}
-                  aria-hidden="true"
+                  aria-hidden
                 >
                   {index + 1}
                 </span>
@@ -181,9 +181,9 @@ export const NotificationPermissionBanner = memo(
           className="w-full gap-1.5 sm:w-auto"
         >
           {isRequesting ? (
-            <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
+            <Loader2 className="size-3.5 animate-spin" aria-hidden />
           ) : (
-            <Bell className="size-3.5" aria-hidden="true" />
+            <Bell className="size-3.5" aria-hidden />
           )}
           {t('default.action')}
         </Button>

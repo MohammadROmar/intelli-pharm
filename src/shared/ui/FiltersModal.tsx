@@ -93,13 +93,12 @@ export function FiltersModal({
       >
         <div className="from-primary/30 dark:from-primary/20 pointer-events-none absolute -inset-px -top-0.5 -left-0.5 -z-10 rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
         <DialogHeader className="relative p-6! pb-0! text-start">
-          <div aria-hidden>
-            <CardSectionHeader
-              title={title}
-              description={subtitle}
-              icon={SlidersHorizontal}
-            />
-          </div>
+          <CardSectionHeader
+            title={title}
+            description={subtitle}
+            icon={SlidersHorizontal}
+            aria-hidden
+          />
           <DialogTitle className="sr-only">{title}</DialogTitle>
           <DialogDescription className="sr-only">{subtitle}</DialogDescription>
         </DialogHeader>

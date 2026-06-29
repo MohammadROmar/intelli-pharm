@@ -7,6 +7,8 @@ const MedicineScanPage = lazy(() => import('./MedicineScanPage'));
 
 export function LazyMedicineScanPage() {
   return (
-    <WithSuspense Component={MedicineScanPage} loader={<ScanPageSkeleton />} />
+    <WithSuspense loader={<ScanPageSkeleton />}>
+      <MedicineScanPage />
+    </WithSuspense>
   );
 }

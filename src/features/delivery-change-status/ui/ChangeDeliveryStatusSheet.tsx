@@ -54,13 +54,12 @@ export function ChangeDeliveryStatusSheet({
           <SheetDescription className="sr-only">
             {t('subtitle')}
           </SheetDescription>
-          <div aria-hidden>
-            <CardSectionHeader
-              title={t('title')}
-              description={t('subtitle')}
-              icon={ClipboardCheck}
-            />
-          </div>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={ClipboardCheck}
+            aria-hidden
+          />
         </SheetHeader>
 
         <div className="thin-scrollbar space-y-4 p-4 pt-0">

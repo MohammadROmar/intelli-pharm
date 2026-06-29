@@ -27,13 +27,12 @@ export function EditTargetModal({ open, onClose, children }: Props) {
     >
       <DialogContent>
         <DialogHeader className="text-start">
-          <div aria-hidden>
-            <CardSectionHeader
-              title={t('title')}
-              description={t('subtitle')}
-              icon={Target}
-            />
-          </div>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={Target}
+            aria-hidden
+          />
           <DialogTitle className="sr-only">{t('title')}</DialogTitle>
           <DialogDescription className="sr-only">
             {t('subtitle')}

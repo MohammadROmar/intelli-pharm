@@ -6,9 +6,8 @@ const SeasonalMetricsPage = lazy(() => import('./SeasonalMetricsPage'));
 
 export function LazySeasonalMetricsPage() {
   return (
-    <WithSuspense
-      Component={SeasonalMetricsPage}
-      loader={<MetricsSkeleton />}
-    />
+    <WithSuspense loader={<MetricsSkeleton />}>
+      <SeasonalMetricsPage />
+    </WithSuspense>
   );
 }

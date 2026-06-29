@@ -1,34 +1,48 @@
 {
-  "unauthorizedTitle": "Not Logged In",
-  "unauthorized": "You are not logged in.",
-  "forbiddenTitle": "Access Denied",
-  "forbidden": "You don't have permission to do this.",
-  "notFoundTitle": "Not Found",
-  "notFound": "The requested resource was not found.",
-  "validationFailedTitle": "Validation Error",
-  "validationFailed": "Some fields are invalid.",
-  "tooManyRequestsTitle": "Slow Down",
-  "tooManyRequests": "Too many requests. Please slow down.",
-  "serverErrorTitle": "Server Error",
-  "serverError": "Something went wrong on our end.",
-  "unknownTitle": "Something Went Wrong",
-  "unknown": "An unexpected error occurred.",
-  "retry": "Retry",
-  "emailAlreadyTaken": "The email has already been taken.",
-  "invalidCredentials": "Please check your email and password.",
+  "networkBadge": "Network Error",
+  "authBadge": "Authentication Required",
+  "notFoundBadge": "Not Found",
+  "serverBadge": "Server Error",
+
+  "unauthorizedTitle": "You're not signed in",
+  "unauthorized": "Please sign in to access this page.",
+
+  "forbiddenTitle": "Access denied",
+  "forbidden": "You don't have permission to do that.",
+
+  "notFoundTitle": "Resource not found",
+  "notFound": "The resource you requested doesn't exist.",
+
+  "validationFailedTitle": "Invalid data",
+  "validationFailed": "Some fields contain errors. Please check your input.",
+
+  "tooManyRequestsTitle": "Too many requests",
+  "tooManyRequests": "You're sending too many requests. Please slow down and try again.",
+
+  "serverErrorTitle": "Something went wrong",
+  "serverError": "An error occurred on our end. We're working on it.",
+
+  "unknownTitle": "An error occurred",
+  "unknown": "An unexpected error occurred. Please try again.",
+
+  "emailAlreadyTaken": "That email address is already in use.",
+  "invalidCredentials": "Incorrect email or password. Please try again.",
+
   "badRequest": {
-    "title": "Bad Request",
-    "message": "Invalid request. Please check your input."
+    "title": "Invalid request",
+    "message": "The request was invalid. Please check your input and try again."
   },
 
   "login": {
-    "error": "Login failed",
-    "onlyAdmin": "Only admins can login."
+    "error": "Sign-in failed",
+    "onlyAdmin": "Only administrators can sign in here."
   },
 
   "notifications": {
-    "sync_failed_title": "Notification Sync Failed",
-    "sync_failed_desc": "We couldn't update your device token. You might miss some real-time updates.",
-    "retry_action": "Try Again"
-  }
+    "sync_failed_title": "Notification sync failed",
+    "sync_failed_desc": "We couldn't update your device token. You may miss some live updates.",
+    "retry_action": "Try again"
+  },
+
+  "retry": "Try again"
 }

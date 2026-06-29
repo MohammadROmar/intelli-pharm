@@ -6,9 +6,8 @@ const GiftDetailPage = lazy(() => import('./GiftDetailPage'));
 
 export function LazyGiftDetailPage() {
   return (
-    <WithSuspense
-      Component={GiftDetailPage}
-      loader={<DetailSkeleton cards={[{ rows: 3 }]} tables={0} />}
-    />
+    <WithSuspense loader={<DetailSkeleton cards={[{ rows: 3 }]} tables={0} />}>
+      <GiftDetailPage />
+    </WithSuspense>
   );
 }

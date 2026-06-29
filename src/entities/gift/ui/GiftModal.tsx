@@ -50,9 +50,7 @@ export function GiftModal(props: Props) {
 
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <div aria-hidden>
-            <CardSectionHeader {...props} icon={Gift} />
-          </div>
+          <CardSectionHeader {...props} icon={Gift} aria-hidden />
           <DialogTitle className="sr-only">{props.title}</DialogTitle>
           <DialogDescription className="sr-only">
             {props.description}

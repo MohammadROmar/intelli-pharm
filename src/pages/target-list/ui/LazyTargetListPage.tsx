@@ -7,6 +7,8 @@ const TargetListPage = lazy(() => import('./TargetListPage'));
 
 export function LazyTargetListPage() {
   return (
-    <WithSuspense Component={TargetListPage} loader={<TargetListSkeleton />} />
+    <WithSuspense loader={<TargetListSkeleton />}>
+      <TargetListPage />
+    </WithSuspense>
   );
 }

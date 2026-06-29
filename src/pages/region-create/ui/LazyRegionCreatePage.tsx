@@ -6,9 +6,8 @@ const RegionCreatePage = lazy(() => import('./RegionCreatePage'));
 
 export function LazyRegionCreatePage() {
   return (
-    <WithSuspense
-      Component={RegionCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 3 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 3 }]} />}>
+      <RegionCreatePage />
+    </WithSuspense>
   );
 }

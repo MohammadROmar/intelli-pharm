@@ -6,9 +6,8 @@ const CategoryCreatePage = lazy(() => import('./CategoryCreatePage'));
 
 export function LazyCategoryCreatePage() {
   return (
-    <WithSuspense
-      Component={CategoryCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 3 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 3 }]} />}>
+      <CategoryCreatePage />
+    </WithSuspense>
   );
 }

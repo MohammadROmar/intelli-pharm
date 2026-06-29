@@ -6,6 +6,8 @@ const AreaMetricsPage = lazy(() => import('./AreaMetricsPage'));
 
 export function LazyAreaMetricsPage() {
   return (
-    <WithSuspense Component={AreaMetricsPage} loader={<MetricsSkeleton />} />
+    <WithSuspense loader={<MetricsSkeleton />}>
+      <AreaMetricsPage />
+    </WithSuspense>
   );
 }

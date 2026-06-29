@@ -100,7 +100,10 @@ const router = createBrowserRouter([
             path: 'dashboard',
             element: <DashboardRoute />,
             children: [
-              { index: true, element: <></> },
+              {
+                index: true,
+                element: <></>,
+              },
 
               {
                 path: 'orders',
@@ -123,6 +126,7 @@ const router = createBrowserRouter([
               {
                 path: 'metrics',
                 children: [
+                  { index: true, element: <LazyNotFoundPage minimal /> },
                   { path: 'seasonal', element: <LazySeasonalMetricsPage /> },
                   { path: 'medicine', element: <LazyMedicineMetricsPage /> },
                   { path: 'area', element: <LazyAreaMetricsPage /> },
@@ -273,6 +277,8 @@ const router = createBrowserRouter([
                   { path: ':id', element: <LazyPlanDetailPage /> },
                 ],
               },
+
+              { path: '*', element: <LazyNotFoundPage minimal /> },
             ],
           },
 

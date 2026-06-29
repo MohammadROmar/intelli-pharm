@@ -6,9 +6,8 @@ const RegionEditPage = lazy(() => import('./RegionEditPage'));
 
 export function LazyRegionEditPage() {
   return (
-    <WithSuspense
-      Component={RegionEditPage}
-      loader={<FormSkeleton cards={[{ rows: 2 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 2 }]} />}>
+      <RegionEditPage />
+    </WithSuspense>
   );
 }

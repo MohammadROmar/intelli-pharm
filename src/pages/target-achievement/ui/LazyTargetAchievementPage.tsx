@@ -8,9 +8,8 @@ const TargetAchievementListPage = lazy(
 
 export function LazyTargetAchievementListPage() {
   return (
-    <WithSuspense
-      Component={TargetAchievementListPage}
-      loader={<TableSkeleton />}
-    />
+    <WithSuspense loader={<TableSkeleton />}>
+      <TargetAchievementListPage />
+    </WithSuspense>
   );
 }

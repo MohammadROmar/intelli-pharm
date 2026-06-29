@@ -7,12 +7,13 @@ const RootLayout = lazy(() => import('./RootLayout'));
 export function LazyRootLayout() {
   return (
     <WithSuspense
-      Component={RootLayout}
       loader={
         <div className="flex h-dvh items-center justify-center">
           <Logo withColors className="size-12" />
         </div>
       }
-    />
+    >
+      <RootLayout />
+    </WithSuspense>
   );
 }

@@ -6,9 +6,8 @@ const RegionDetailPage = lazy(() => import('./RegionDetailPage'));
 
 export function LazyRegionDetailPage() {
   return (
-    <WithSuspense
-      Component={RegionDetailPage}
-      loader={<DetailSkeleton cards={[{ rows: 1 }]} tables={1} />}
-    />
+    <WithSuspense loader={<DetailSkeleton cards={[{ rows: 1 }]} tables={1} />}>
+      <RegionDetailPage />
+    </WithSuspense>
   );
 }

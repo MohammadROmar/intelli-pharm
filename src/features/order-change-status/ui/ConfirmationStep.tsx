@@ -1,10 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, ArrowRight, Loader2 } from 'lucide-react';
+import {
+  AlertTriangle,
+  ArrowRight,
+  Loader2,
+  ClipboardEdit,
+} from 'lucide-react';
 
 import { STATUS_META } from '../lib/utils';
 import { OrderStatusBadge, type OrderStatus } from '@/entities/order';
 import {
   Button,
+  CardSectionHeader,
   DialogDescription,
   DialogFooter,
   DialogHeader,
@@ -30,25 +36,31 @@ export function ConfirmationStep({
 
   const isDestructive = STATUS_META[selectedStatus]?.destructive;
 
+  const title = t('changeStatus.confirmTitle');
+  const description = t(
+    isDestructive
+      ? 'changeStatus.confirmDestructiveMessage'
+      : 'changeStatus.confirmMessage',
+    {
+      status: t(`status.${selectedStatus}`),
+    },
+  );
+
   return (
     <>
       <DialogHeader>
-        <DialogTitle className="flex items-center gap-2">
-          {isDestructive && (
-            <AlertTriangle className="text-destructive size-5 shrink-0" />
-          )}
-          {t('changeStatus.confirmTitle')}
-        </DialogTitle>
-        <DialogDescription>
-          {t(
-            isDestructive
-              ? 'changeStatus.confirmDestructiveMessage'
-              : 'changeStatus.confirmMessage',
-            {
-              status: t(`status.${selectedStatus}`),
-            },
-          )}
-        </DialogDescription>
+        <CardSectionHeader
+          title={title}
+          description={description}
+          icon={isDestructive ? AlertTriangle : ClipboardEdit}
+          aria-hidden
+          iconClassName={
+            isDestructive ? 'bg-destructive/10! text-destructive!' : undefined
+          }
+        />
+
+        <DialogTitle className="sr-only">{title}</DialogTitle>
+        <DialogDescription className="sr-only">{description}</DialogDescription>
       </DialogHeader>
 
       <div className="bg-muted/70 flex items-center justify-center gap-4 rounded-lg py-6">

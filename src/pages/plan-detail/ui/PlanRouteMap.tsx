@@ -22,7 +22,7 @@ const ICON_BASE_STYLE =
   'border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;';
 
 function createStopIcon(order: number, visited: boolean): L.DivIcon {
-  const bg = visited ? '#22c55e' : '#f97316';
+  const bg = visited ? '#16a34a' : '#4a80f5';
   return L.divIcon({
     className: '',
     html: `<div style="width:32px;height:32px;${ICON_BASE_STYLE}background:${bg};color:white;font-weight:700;font-size:13px;font-family:system-ui;display:flex;align-items:center;justify-content:center;">${order}</div>`,
@@ -97,7 +97,7 @@ export default function PlanRouteMap({ paths, visits }: Props) {
     (path: PlanPath): string => {
       const visit = visitByOrder.get(path.to_sequence);
       if (!visit) return '#94a3b8';
-      return visit.visited === 1 ? '#22c55e' : '#f97316';
+      return visit.visited === 1 ? '#16a34a' : '#4a80f5';
     },
     [visitByOrder],
   );

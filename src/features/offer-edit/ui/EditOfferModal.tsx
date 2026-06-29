@@ -25,13 +25,12 @@ export function EditOfferModal({ open, onClose, children }: Props) {
     >
       <DialogContent>
         <DialogHeader>
-          <div aria-hidden>
-            <CardSectionHeader
-              title={t('title')}
-              description={t('subtitle')}
-              icon={Tag}
-            />
-          </div>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={Tag}
+            aria-hidden
+          />
           <DialogTitle className="sr-only">{t('title')}</DialogTitle>
           <DialogDescription className="sr-only">
             {t('subtitle')}

@@ -7,9 +7,8 @@ const MedicineScanResultPage = lazy(() => import('./MedicineScanResultPage'));
 
 export function LazyMedicineScanResultPage() {
   return (
-    <WithSuspense
-      Component={MedicineScanResultPage}
-      loader={<ScanResultCardSkeleton />}
-    />
+    <WithSuspense loader={<ScanResultCardSkeleton />}>
+      <MedicineScanResultPage />
+    </WithSuspense>
   );
 }

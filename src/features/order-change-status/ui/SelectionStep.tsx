@@ -4,12 +4,14 @@ import { StatusCard } from './StatusCard';
 import { OrderStatusBadge, type OrderStatus } from '@/entities/order';
 import {
   Button,
+  CardSectionHeader,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   Separator,
 } from '@/shared/ui';
+import { ClipboardEdit } from 'lucide-react';
 
 type SelectionStepProps = {
   currentStatus: OrderStatus;
@@ -33,15 +35,22 @@ export function SelectionStep({
   onCancel,
   onNext,
 }: SelectionStepProps) {
-  const { t } = useTranslation('orders', {
-    keyPrefix: 'changeStatus',
-  });
+  const { t } = useTranslation('orders', { keyPrefix: 'changeStatus' });
 
   return (
     <>
       <DialogHeader>
-        <DialogTitle>{t('title')}</DialogTitle>
-        <DialogDescription>{t('subtitle')}</DialogDescription>
+        <CardSectionHeader
+          title={t('title')}
+          description={t('subtitle')}
+          icon={ClipboardEdit}
+          aria-hidden
+        />
+
+        <DialogTitle className="sr-only">{t('title')}</DialogTitle>
+        <DialogDescription className="sr-only">
+          {t('subtitle')}
+        </DialogDescription>
       </DialogHeader>
 
       <div className="bg-muted/70 flex items-center justify-between gap-2 rounded-lg px-4 py-3">

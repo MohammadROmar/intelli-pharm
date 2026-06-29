@@ -48,7 +48,7 @@ export const NotificationDeviceStatus = memo(function NotificationDeviceStatus({
               'size-4',
               isError ? 'text-destructive' : 'text-primary',
             )}
-            aria-hidden="true"
+            aria-hidden
           />
         </div>
 
@@ -75,11 +75,11 @@ export const NotificationDeviceStatus = memo(function NotificationDeviceStatus({
         className="w-full gap-1.5 sm:w-auto"
       >
         {isRegistering ? (
-          <Loader2 className="size-3.5 animate-spin" aria-hidden="true" />
+          <Loader2 className="size-3.5 animate-spin" aria-hidden />
         ) : isError ? (
-          <RefreshCw className="size-3.5" aria-hidden="true" />
+          <RefreshCw className="size-3.5" aria-hidden />
         ) : (
-          <Bell className="size-3.5" aria-hidden="true" />
+          <Bell className="size-3.5" aria-hidden />
         )}
 
         {isRegistering

@@ -5,5 +5,9 @@ import { WithSuspense } from '@/shared/ui/index.initial';
 const ErrorPage = lazy(() => import('./ErrorPage'));
 
 export function LazyErrorPage() {
-  return <WithSuspense Component={ErrorPage} />;
+  return (
+    <WithSuspense>
+      <ErrorPage />
+    </WithSuspense>
+  );
 }

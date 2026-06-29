@@ -6,9 +6,8 @@ const MedicineMetricsPage = lazy(() => import('./MedicineMetricsPage'));
 
 export function LazyMedicineMetricsPage() {
   return (
-    <WithSuspense
-      Component={MedicineMetricsPage}
-      loader={<MetricsSkeleton />}
-    />
+    <WithSuspense loader={<MetricsSkeleton />}>
+      <MedicineMetricsPage />
+    </WithSuspense>
   );
 }

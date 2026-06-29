@@ -7,8 +7,9 @@ const MedicineCreatePage = lazy(() => import('./MedicineCreatePage'));
 export function LazyMedicineCreatePage() {
   return (
     <WithSuspense
-      Component={MedicineCreatePage}
       loader={<FormSkeleton cards={[{ rows: 7 }, { rows: 2 }, { rows: 1 }]} />}
-    />
+    >
+      <MedicineCreatePage />
+    </WithSuspense>
   );
 }

@@ -6,9 +6,8 @@ const PharmacyMetricsPage = lazy(() => import('./PharmacyMetricsPage'));
 
 export function LazyPharmacyMetricsPage() {
   return (
-    <WithSuspense
-      Component={PharmacyMetricsPage}
-      loader={<MetricsSkeleton withSeason={false} />}
-    />
+    <WithSuspense loader={<MetricsSkeleton withSeason={false} />}>
+      <PharmacyMetricsPage />
+    </WithSuspense>
   );
 }

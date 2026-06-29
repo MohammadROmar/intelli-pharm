@@ -13,15 +13,16 @@ function isArabic(): boolean {
 
 const STRINGS = {
   en: {
-    title: 'Application Error',
+    title: 'Something went seriously wrong',
     message:
-      'Something went seriously wrong. The application could not recover automatically.',
+      'The app hit a critical error and could not recover automatically. Try again or reload the page.',
     tryAgain: 'Try again',
     reload: 'Reload page',
   },
   ar: {
-    title: 'خطأ في التطبيق',
-    message: 'حدث خطأ جسيم. لم يتمكن التطبيق من الاسترداد تلقائياً.',
+    title: 'حدث خطأ جسيم',
+    message:
+      'واجه التطبيق خطأً حرجاً ولم يتمكن من الاسترداد تلقائياً. حاول مجدداً أو أعد تحميل الصفحة.',
     tryAgain: 'حاول مجدداً',
     reload: 'إعادة تحميل الصفحة',
   },
@@ -87,6 +88,16 @@ export function RootErrorFallback({ reset }: RootErrorFallbackProps) {
           {s.message}
         </p>
       </div>
+
+      <div
+        aria-hidden="true"
+        style={{
+          flexShrink: 0,
+          width: '3rem',
+          height: '1px',
+          background: 'rgba(255, 255, 255, 0.07)',
+        }}
+      ></div>
 
       <div
         style={{

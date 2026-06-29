@@ -86,7 +86,7 @@ export function VisitSheet({ visit }: Props) {
   return (
     <>
       <SheetHeader className="border-b pb-5">
-        <SheetTitle className="text-base">
+        <SheetTitle className="w-fit text-base">
           <LabeledLink
             to={`/dashboard/pharmacies/${visit.pharmacy.id}`}
             label={visit.pharmacy.name}

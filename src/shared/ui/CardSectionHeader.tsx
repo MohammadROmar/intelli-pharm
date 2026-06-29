@@ -5,6 +5,8 @@ type CardSectionHeaderProps = {
   title: string;
   description: string;
   className?: string;
+  iconClassName?: string;
+  'aria-hidden'?: boolean | 'true' | 'false';
 };
 
 export function CardSectionHeader({
@@ -12,10 +14,20 @@ export function CardSectionHeader({
   title,
   description,
   className,
+  iconClassName,
+  'aria-hidden': ariaHidden,
 }: CardSectionHeaderProps) {
   return (
-    <div className={cn('flex items-start gap-3', className)}>
-      <div className="bg-primary/10 text-primary mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg">
+    <div
+      className={cn('flex items-start gap-3', className)}
+      aria-hidden={ariaHidden}
+    >
+      <div
+        className={cn(
+          'bg-primary/10 text-primary mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg',
+          iconClassName,
+        )}
+      >
         <Icon className="size-5" />
       </div>
       <div className="space-y-0.5">

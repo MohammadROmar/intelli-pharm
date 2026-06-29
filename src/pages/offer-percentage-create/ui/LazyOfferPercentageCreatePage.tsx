@@ -8,9 +8,8 @@ const OfferPercentageCreatePage = lazy(
 
 export function LazyOfferPercentageCreatePage() {
   return (
-    <WithSuspense
-      Component={OfferPercentageCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 3 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 3 }]} />}>
+      <OfferPercentageCreatePage />
+    </WithSuspense>
   );
 }

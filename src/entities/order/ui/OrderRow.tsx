@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw, Tag } from 'lucide-react';
+import { ClipboardEdit, Tag } from 'lucide-react';
 
 import { OrderStatusBadge } from './OrderStatusBadge';
 import type { OrderListItem } from '../model/orderTypes';
@@ -87,7 +87,7 @@ function ChangeStatus({ order, label }: Props) {
         to={`/dashboard/orders/${order.id}?focus=change-status`}
         className="cursor-pointer"
       >
-        <RefreshCw className="size-4" />
+        <ClipboardEdit className="size-4" />
         <span>{label}</span>
       </Link>
     </DropdownMenuItem>

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw } from 'lucide-react';
+import { ClipboardEdit } from 'lucide-react';
 
 import { SelectionStep } from './SelectionStep';
 import { ConfirmationStep } from './ConfirmationStep';
@@ -61,7 +61,7 @@ export function ChangeOrderStatusDialog({
         onClick={() => handleOpenChange(true)}
         className="bg-card! gap-1.5"
       >
-        <RefreshCw className="size-4" />
+        <ClipboardEdit className="size-4" />
         {t('changeStatus.trigger')}
       </Button>
 

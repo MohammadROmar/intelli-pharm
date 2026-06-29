@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { TruckElectric } from 'lucide-react';
 
 import { DeliveryRow, type DeliveryListResponse } from '@/entities/delivery';
 import {
@@ -24,6 +25,9 @@ export function DeliveriesTable({ data }: Props) {
       basePath="/dashboard/deliveries"
       currentPage={data.meta.current_page}
       totalItems={data.meta.total}
+      addLabel={t('list.assign')}
+      icon={TruckElectric}
+      addHref="/dashboard/deliveries/assign"
       itemsPerPage={data.meta.per_page}
     >
       {deliveries.length > 0 ? (

@@ -7,6 +7,8 @@ const ChatLayout = lazy(() => import('../../../layouts/ChatLayout'));
 
 export function ChatRoute() {
   return (
-    <WithSuspense Component={ChatLayout} loader={<ChatLayoutSkeleton />} />
+    <WithSuspense loader={<ChatLayoutSkeleton />}>
+      <ChatLayout />
+    </WithSuspense>
   );
 }

@@ -61,13 +61,12 @@ export function LaboratorySheet({
           <SheetDescription className="sr-only">
             {t('subtitle')}
           </SheetDescription>
-          <div aria-hidden>
-            <CardSectionHeader
-              title={t('title')}
-              description={t('subtitle')}
-              icon={FlaskConical}
-            />
-          </div>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={FlaskConical}
+            aria-hidden
+          />
         </SheetHeader>
 
         <div className="grid flex-1 gap-6 p-4 pt-0">{children}</div>

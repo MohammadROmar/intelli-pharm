@@ -29,9 +29,8 @@ function InitiatePlanPageSkeleton() {
 
 export function LazyInitiatePlanPage() {
   return (
-    <WithSuspense
-      Component={InitiatePlanPage}
-      loader={<InitiatePlanPageSkeleton />}
-    />
+    <WithSuspense loader={<InitiatePlanPageSkeleton />}>
+      <InitiatePlanPage />
+    </WithSuspense>
   );
 }

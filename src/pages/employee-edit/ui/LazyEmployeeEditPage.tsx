@@ -6,9 +6,8 @@ const EmployeeEditPage = lazy(() => import('./EmployeeEditPage'));
 
 export function LazyEmployeeEditPage() {
   return (
-    <WithSuspense
-      Component={EmployeeEditPage}
-      loader={<FormSkeleton cards={[{ rows: 3 }, { rows: 4 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 3 }, { rows: 4 }]} />}>
+      <EmployeeEditPage />
+    </WithSuspense>
   );
 }

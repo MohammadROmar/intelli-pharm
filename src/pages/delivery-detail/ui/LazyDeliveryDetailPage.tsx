@@ -6,9 +6,8 @@ const DeliveryDetailPage = lazy(() => import('./DeliveryDetailPage'));
 
 export function LazyDeliveryDetailPage() {
   return (
-    <WithSuspense
-      Component={DeliveryDetailPage}
-      loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={1} />}
-    />
+    <WithSuspense loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={1} />}>
+      <DeliveryDetailPage />
+    </WithSuspense>
   );
 }

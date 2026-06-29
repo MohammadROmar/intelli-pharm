@@ -6,9 +6,8 @@ const MedicineRestockPage = lazy(() => import('./MedicineRestockPage'));
 
 export function LazyMedicineRestockPage() {
   return (
-    <WithSuspense
-      Component={MedicineRestockPage}
-      loader={<FormSkeleton cards={[{ rows: 3 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 3 }]} />}>
+      <MedicineRestockPage />
+    </WithSuspense>
   );
 }

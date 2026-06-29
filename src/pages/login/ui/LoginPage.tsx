@@ -22,13 +22,14 @@ export default function LoginPage() {
       <BackgroundPattern />
 
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <div className="mb-8 flex items-center justify-center gap-2">
+        <div className="animate-in fade-in slide-in-from-bottom-3 fill-mode-[both] mb-8 flex items-center justify-center gap-2 duration-700 motion-reduce:animate-none">
           <div className="bg-primary flex size-8 items-center justify-center rounded-lg">
             <Logo className="size-5 text-white" />
           </div>
           <h1 className="text-xl font-bold">IntelliPharma</h1>
         </div>
-        <div className="flex flex-col gap-6">
+
+        <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-[both] flex flex-col gap-6 duration-700 [animation-delay:100ms] motion-reduce:animate-none">
           <Card>
             <CardHeader>
               <CardTitle>{t('title')}</CardTitle>

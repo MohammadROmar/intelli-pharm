@@ -7,9 +7,8 @@ const NotificationsPage = lazy(() => import('./NotificationsPage'));
 
 export function LazyNotificationsPage() {
   return (
-    <WithSuspense
-      Component={NotificationsPage}
-      loader={<NotificationsPageSkeleton />}
-    />
+    <WithSuspense loader={<NotificationsPageSkeleton />}>
+      <NotificationsPage />
+    </WithSuspense>
   );
 }

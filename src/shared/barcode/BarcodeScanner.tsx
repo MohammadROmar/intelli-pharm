@@ -63,13 +63,12 @@ export function BarcodeScanner({ open, onOpenChange, onScan }: Props) {
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader>
-          <div aria-hidden>
-            <CardSectionHeader
-              title={t('title')}
-              description={t('subtitle')}
-              icon={ScanBarcode}
-            />
-          </div>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('subtitle')}
+            icon={ScanBarcode}
+            aria-hidden
+          />
           <DialogTitle className="sr-only flex items-center gap-2">
             <ScanBarcode className="size-4" />
             {t('title')}

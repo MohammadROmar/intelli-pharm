@@ -59,7 +59,7 @@
     "confirming": "جارٍ التحديث…",
     "confirmTitle": "هل أنت متأكد؟",
     "confirmMessage": "أنت على وشك تحديث حالة الطلب إلى {{status}}.",
-    "confirmDestructiveMessage": "أنت على وشك إلغاء هذا الطلب. لا يمكن التراجع عن هذا الإجراء.",
+    "confirmDestructiveMessage": "أنت على وشك إلغاء هذا الطلب.",
     "terminalStatusTooltip": "`{{status}}` حالة نهائية. لا يمكن إجراء أي تغييرات إضافية.",
     "error": "حدث خطأ ما. يرجى المحاولة مجدداً.",
     "statusDescription": {

@@ -142,7 +142,7 @@ export function BotIcon({ size = 96 }: BotIconProps) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden="true"
+      aria-hidden
       style={{ display: 'block' }}
     >
       <path d="M12 8V4H8" />

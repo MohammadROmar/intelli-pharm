@@ -109,7 +109,7 @@ export function DynamicPagination({
       )}
 
       <Pagination className="block">
-        <PaginationContent>
+        <PaginationContent className="flex flex-wrap items-center justify-center">
           <PaginationItem>
             <PaginationPrevious
               label={t('pagination.prev')}

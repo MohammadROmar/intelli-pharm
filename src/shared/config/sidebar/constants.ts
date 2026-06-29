@@ -110,10 +110,6 @@ export const sidebarData: NavSection[] = [
         label: 'labels.deliveries',
         url: '/dashboard/deliveries',
         icon: Truck,
-        items: [
-          { label: 'deliveries.list', url: '/dashboard/deliveries' },
-          { label: 'deliveries.assign', url: '/dashboard/deliveries/assign' },
-        ],
       },
       {
         label: 'labels.metrics',

@@ -6,6 +6,8 @@ const EmployeeListPage = lazy(() => import('./EmployeeListPage'));
 
 export function LazyEmployeeListPage() {
   return (
-    <WithSuspense Component={EmployeeListPage} loader={<TableSkeleton />} />
+    <WithSuspense loader={<TableSkeleton />}>
+      <EmployeeListPage />
+    </WithSuspense>
   );
 }

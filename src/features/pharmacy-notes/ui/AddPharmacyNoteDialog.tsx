@@ -52,13 +52,13 @@ export const AddPharmacyNoteDialog = ({
         className="p-0!"
       >
         <DialogHeader className="p-6! pb-0! text-start">
-          <div aria-hidden>
-            <CardSectionHeader
-              title={t('title')}
-              description={t('description')}
-              icon={StickyNote}
-            />
-          </div>
+          <CardSectionHeader
+            title={t('title')}
+            description={t('description')}
+            icon={StickyNote}
+            aria-hidden
+          />
+
           <DialogTitle className="sr-only">{t('title')}</DialogTitle>
         </DialogHeader>
 

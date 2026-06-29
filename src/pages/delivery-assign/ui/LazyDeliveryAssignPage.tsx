@@ -6,9 +6,8 @@ const DeliveryAssignPage = lazy(() => import('./DeliveryAssignPage'));
 
 export function LazyDeliveryAssignPage() {
   return (
-    <WithSuspense
-      Component={DeliveryAssignPage}
-      loader={<FormSkeleton cards={[{ rows: 1 }, { rows: 2 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 1 }, { rows: 2 }]} />}>
+      <DeliveryAssignPage />
+    </WithSuspense>
   );
 }

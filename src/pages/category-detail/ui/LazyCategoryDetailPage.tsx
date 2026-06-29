@@ -6,9 +6,8 @@ const CategoryDetailPage = lazy(() => import('./CategoryDetailPage'));
 
 export function LazyCategoryDetailPage() {
   return (
-    <WithSuspense
-      Component={CategoryDetailPage}
-      loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={1} />}
-    />
+    <WithSuspense loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={1} />}>
+      <CategoryDetailPage />
+    </WithSuspense>
   );
 }

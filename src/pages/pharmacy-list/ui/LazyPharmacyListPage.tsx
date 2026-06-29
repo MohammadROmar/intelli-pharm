@@ -6,6 +6,8 @@ const PharmacyListPage = lazy(() => import('./PharmacyListPage'));
 
 export function LazyPharmacyListPage() {
   return (
-    <WithSuspense Component={PharmacyListPage} loader={<TableSkeleton />} />
+    <WithSuspense loader={<TableSkeleton />}>
+      <PharmacyListPage />
+    </WithSuspense>
   );
 }

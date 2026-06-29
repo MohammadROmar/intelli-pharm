@@ -6,9 +6,8 @@ const OfferGiftCreatePage = lazy(() => import('./OfferGiftCreatePage'));
 
 export function LazyOfferGiftCreatePage() {
   return (
-    <WithSuspense
-      Component={OfferGiftCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 4 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 4 }]} />}>
+      <OfferGiftCreatePage />
+    </WithSuspense>
   );
 }

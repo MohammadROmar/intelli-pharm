@@ -6,9 +6,8 @@ const EmployeeCreatePage = lazy(() => import('./EmployeeCreatePage'));
 
 export function LazyEmployeeCreatePage() {
   return (
-    <WithSuspense
-      Component={EmployeeCreatePage}
-      loader={<FormSkeleton cards={[{ rows: 4 }, { rows: 4 }]} />}
-    />
+    <WithSuspense loader={<FormSkeleton cards={[{ rows: 4 }, { rows: 4 }]} />}>
+      <EmployeeCreatePage />
+    </WithSuspense>
   );
 }

@@ -6,6 +6,8 @@ const CategoryListPage = lazy(() => import('./CategoryListPage'));
 
 export function LazyCategoryListPage() {
   return (
-    <WithSuspense Component={CategoryListPage} loader={<TableSkeleton />} />
+    <WithSuspense loader={<TableSkeleton />}>
+      <CategoryListPage />
+    </WithSuspense>
   );
 }

@@ -58,7 +58,7 @@
     "confirming": "Updating…",
     "confirmTitle": "Are you sure?",
     "confirmMessage": "You are about to mark this order as {{status}}.",
-    "confirmDestructiveMessage": "You are about to cancel this order. This action cannot be undone.",
+    "confirmDestructiveMessage": "You are about to cancel this order.",
     "terminalStatusTooltip": "`{{status}}` is a final status. No further changes can be made.",
     "error": "Something went wrong. Please try again.",
     "statusDescription": {

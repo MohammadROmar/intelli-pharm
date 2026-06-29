@@ -6,6 +6,8 @@ const LaboratoryListPage = lazy(() => import('./LaboratoryListPage'));
 
 export function LazyLaboratoryListPage() {
   return (
-    <WithSuspense Component={LaboratoryListPage} loader={<TableSkeleton />} />
+    <WithSuspense loader={<TableSkeleton />}>
+      <LaboratoryListPage />
+    </WithSuspense>
   );
 }

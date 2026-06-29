@@ -1,6 +1,7 @@
 {
-  "title": "Page Not Found",
-  "subtitle": "Oops! The page you're trying to access doesn't exist.",
-  "action": "Go Back Home",
-  "back": "Go Back"
+  "badge": "Page not found",
+  "title": "Oops, wrong turn",
+  "subtitle": "The page you're looking for doesn't exist or has been moved somewhere else.",
+  "back": "Go back",
+  "action": "Return home"
 }

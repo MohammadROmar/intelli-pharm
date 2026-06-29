@@ -7,8 +7,9 @@ const MedicineDetailPage = lazy(() => import('./MedicineDetailPage'));
 export function LazyMedicineDetailPage() {
   return (
     <WithSuspense
-      Component={MedicineDetailPage}
       loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={3} hasImage />}
-    />
+    >
+      <MedicineDetailPage />
+    </WithSuspense>
   );
 }

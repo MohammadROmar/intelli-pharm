@@ -6,6 +6,8 @@ const DeliveryListPage = lazy(() => import('./DeliveryListPage'));
 
 export function LazyDeliveryListPage() {
   return (
-    <WithSuspense Component={DeliveryListPage} loader={<TableSkeleton />} />
+    <WithSuspense loader={<TableSkeleton />}>
+      <DeliveryListPage />
+    </WithSuspense>
   );
 }
