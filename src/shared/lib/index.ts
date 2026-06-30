@@ -35,3 +35,9 @@ export {
   type ErrorBoundaryProps,
 } from './ErrorBoundary';
 export { getBackoffDelay } from './getBackoffDelay';
+
+export {
+  alreadyTriedReload,
+  isChunkLoadError,
+  tryAutoReload,
+} from './chunkError';

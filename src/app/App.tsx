@@ -8,17 +8,17 @@ import ThemeProvider from './providers/ThemeProvider';
 import AppRouter from './providers/router/ui/AppRouter';
 import { AuthLoader } from './providers/AuthProvider';
 import { store } from './store/store';
-import { ErrorBoundary, useDocumentDirection } from '@/shared/lib';
+
+import { ErrorBoundary } from '@/shared/lib';
+import { useDocumentDirection } from '@/shared/lib';
 import { queryClient } from '@/shared/api';
 import { Logo } from '@/shared/ui/index.initial';
 
-function I18nLoader() {
-  return (
-    <div className="flex h-dvh items-center justify-center">
-      <Logo withColors className="size-12" />
-    </div>
-  );
-}
+const I18N_LOADER = (
+  <div className="flex h-dvh items-center justify-center">
+    <Logo withColors className="size-12" />
+  </div>
+);
 
 function AppInner() {
   const { dir } = useDocumentDirection();
@@ -28,7 +28,7 @@ function AppInner() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <DirectionProvider dir={dir}>
-            <Suspense fallback={<I18nLoader />}>
+            <Suspense fallback={I18N_LOADER}>
               <AuthLoader>
                 <AppRouter />
               </AuthLoader>

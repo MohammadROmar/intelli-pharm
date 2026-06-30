@@ -230,7 +230,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-cairo selection:bg-primary relative grid min-h-svh overflow-x-hidden selection:text-white;
+    @apply bg-background text-foreground font-cairo selection:bg-primary relative grid min-h-dvh overflow-x-hidden selection:text-white;
   }
 
   ::-webkit-scrollbar {

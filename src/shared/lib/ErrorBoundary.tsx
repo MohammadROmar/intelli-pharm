@@ -1,5 +1,11 @@
 import { Component } from 'react';
-import type { ComponentType, ErrorInfo, ReactNode } from 'react';
+import type { ComponentType, CSSProperties, ErrorInfo, ReactNode } from 'react';
+
+import {
+  tryAutoReload,
+  isChunkLoadError,
+  alreadyTriedReload,
+} from './chunkError';
 
 export type ErrorBoundaryFallbackProps = { error: Error; reset: () => void };
 
@@ -25,11 +31,25 @@ export type ErrorBoundaryProps = {
   | { fallback?: never; FallbackComponent?: never; fallbackRender?: never }
 );
 
-type State =
-  | { didCatch: false; error: null }
-  | { didCatch: true; error: Error };
+const defaultFallbackStyles = {
+  root: {
+    padding: '2rem',
+    textAlign: 'center',
+    fontFamily: 'system-ui',
+  } satisfies CSSProperties,
+  msg: { fontWeight: 600 } satisfies CSSProperties,
+  button: { marginTop: '1rem', cursor: 'pointer' } satisfies CSSProperties,
+};
 
-const INITIAL_STATE: State = { didCatch: false, error: null };
+type State =
+  | { didCatch: false; error: null; willReload: false }
+  | { didCatch: true; error: Error; willReload: boolean };
+
+const INITIAL_STATE: State = {
+  didCatch: false,
+  error: null,
+  willReload: false,
+};
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   state: State = INITIAL_STATE;
@@ -39,10 +59,19 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
       error instanceof Error
         ? error
         : new Error(String(error ?? 'Unknown error'));
-    return { didCatch: true, error: normalized };
+
+    const willReload =
+      isChunkLoadError(normalized) && navigator.onLine && !alreadyTriedReload();
+
+    return { didCatch: true, error: normalized, willReload };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
+    if (isChunkLoadError(error)) {
+      if (navigator.onLine) tryAutoReload();
+      return;
+    }
+
     this.props.onError?.(error, info);
 
     if (import.meta.env.DEV) {
@@ -69,9 +98,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   render(): ReactNode {
     const { children, fallbackRender, FallbackComponent, fallback } =
       this.props;
-    const { didCatch, error } = this.state;
+    const { didCatch, error, willReload } = this.state;
 
     if (!didCatch) return children;
+
+    if (willReload) return null;
 
     const props: ErrorBoundaryFallbackProps = {
       error: error!,
@@ -83,18 +114,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
     if (fallback !== undefined) return fallback;
 
     return (
-      <div
-        style={{
-          padding: '2rem',
-          textAlign: 'center',
-          fontFamily: 'system-ui',
-        }}
-      >
-        <p style={{ fontWeight: 600 }}>Something went wrong</p>
-        <button
-          onClick={this.reset}
-          style={{ marginTop: '1rem', cursor: 'pointer' }}
-        >
+      <div style={defaultFallbackStyles.root}>
+        <p style={defaultFallbackStyles.msg}>Something went wrong</p>
+        <button onClick={this.reset} style={defaultFallbackStyles.button}>
           Try again
         </button>
       </div>

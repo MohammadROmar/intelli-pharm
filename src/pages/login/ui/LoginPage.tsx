@@ -18,7 +18,7 @@ export default function LoginPage() {
   const { t } = useTranslation('login');
 
   return (
-    <main className="relative flex min-h-svh w-full items-center justify-center overflow-x-hidden p-6 md:p-10">
+    <main className="relative flex min-h-dvh w-full items-center justify-center overflow-x-hidden p-6 md:p-10">
       <BackgroundPattern />
 
       <div className="flex w-full max-w-sm flex-col gap-6">
