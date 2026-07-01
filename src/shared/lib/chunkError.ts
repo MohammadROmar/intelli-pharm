@@ -27,7 +27,7 @@ export function tryAutoReload(): boolean {
   if (alreadyTriedReload()) return false;
   const ts = Date.now();
   sessionStorage.setItem(RELOAD_KEY, String(ts));
-  _cachedTimestamp = ts; // keep cache in sync with the write
+  _cachedTimestamp = ts;
   window.location.reload();
   return true;
 }
