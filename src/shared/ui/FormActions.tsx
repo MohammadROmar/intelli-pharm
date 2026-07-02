@@ -45,7 +45,7 @@ export function FormActions({
           isLoading={isLoading}
           disabled={isLoading}
           form={form}
-          className={classNames?.submit}
+          className={cn(classNames?.submit, 'disabled:button-shimmer')}
         >
           {label ?? t(`${isEdit ? 'edit' : 'create'}`)}
         </Button>

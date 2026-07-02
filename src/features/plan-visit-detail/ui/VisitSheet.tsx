@@ -10,7 +10,6 @@ import {
 import { useTranslation } from 'react-i18next';
 
 import { getNoteTypeStyle } from '@/entities/plan';
-import type { RecentNote, VisitDetail } from '../model/visitTypes';
 import { cn } from '@/shared/lib';
 import {
   Badge,
@@ -23,7 +22,9 @@ import {
   SheetTitle,
 } from '@/shared/ui';
 
-function resolveIsUseful(dealStatus: string): boolean {
+import type { RecentNote, VisitDetail } from '../model/visitTypes';
+
+function resolveIsUseful(dealStatus: string) {
   return dealStatus.toLowerCase() === 'closed';
 }
 
@@ -41,15 +42,17 @@ function NoteItem({ note }: NoteItemProps) {
         <span className="text-muted-foreground text-xs font-medium">
           {note.user_name}
         </span>
-        <span
-          className={cn(
-            'flex items-center gap-1 text-xs font-semibold',
-            noteStyle.accent,
-          )}
-        >
-          <NoteIcon className="size-3" />
-          {t(`noteType.${note.note_type}`, { defaultValue: note.note_type })}
-        </span>
+        {note.note_type && (
+          <span
+            className={cn(
+              'flex items-center gap-1 text-xs font-semibold',
+              noteStyle.accent,
+            )}
+          >
+            <NoteIcon className="size-3" />
+            {t(`noteType.${note.note_type}`, { defaultValue: note.note_type })}
+          </span>
+        )}
       </div>
 
       {note.note ? (

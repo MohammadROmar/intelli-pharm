@@ -70,7 +70,7 @@ import { LazyNotificationsPage } from '@/pages/notifications';
 
 import { LazyPlanListPage } from '@/pages/plan-list';
 import { LazyPlanDetailPage } from '@/pages/plan-detail';
-import { LazyInitiatePlanPage } from '@/pages/planner';
+import { LazyInitiatePlanPage } from '@/pages/plan-initiate';
 
 import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
 import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';

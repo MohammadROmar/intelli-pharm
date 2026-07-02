@@ -77,6 +77,7 @@ export function ConfirmationStep({
           variant={isDestructive ? 'destructive' : 'default'}
           onClick={onConfirm}
           disabled={isPending}
+          className="disabled:button-shimmer"
         >
           {isPending ? (
             <span className="flex items-center gap-2">

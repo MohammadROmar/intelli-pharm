@@ -293,6 +293,13 @@
   }
 }
 
+@utility button-shimmer {
+  --skeleton: var(--primary);
+  --skeleton-shine: color-mix(in oklch, var(--primary), white 45%);
+
+  @apply shimmer animate-skeleton;
+}
+
 #qr-shaded-region,
 .qr-shaded-region {
   display: none !important;

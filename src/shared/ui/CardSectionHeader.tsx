@@ -19,7 +19,7 @@ export function CardSectionHeader({
 }: CardSectionHeaderProps) {
   return (
     <div
-      className={cn('flex items-start gap-3', className)}
+      className={cn('flex items-start gap-3 text-start', className)}
       aria-hidden={ariaHidden}
     >
       <div

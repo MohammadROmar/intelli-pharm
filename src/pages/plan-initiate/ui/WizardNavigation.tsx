@@ -71,7 +71,7 @@ export function WizardNavigation({
         type="button"
         onClick={handleNext}
         disabled={!canProceed || isSubmitting}
-        className="gap-2"
+        className={cn('gap-2', isSubmitting && 'button-shimmer')}
       >
         {isSubmitting ? (
           <>

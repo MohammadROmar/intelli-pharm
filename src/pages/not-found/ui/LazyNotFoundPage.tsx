@@ -1,15 +1,19 @@
 import { lazy } from 'react';
-import { WithSuspense } from '@/shared/ui/index.initial';
+import { AetherSpinner, WithSuspense } from '@/shared/ui/index.initial';
 
 const NotFoundPage = lazy(() => import('./NotFoundPage'));
 
-interface LazyNotFoundPageProps {
-  minimal?: boolean;
-}
+type LazyNotFoundPageProps = { minimal?: boolean };
+
+const LOADER = (
+  <div className="flex h-dvh items-center justify-center">
+    <AetherSpinner />
+  </div>
+);
 
 export function LazyNotFoundPage({ minimal }: LazyNotFoundPageProps) {
   return (
-    <WithSuspense>
+    <WithSuspense loader={LOADER}>
       <NotFoundPage minimal={minimal} />
     </WithSuspense>
   );

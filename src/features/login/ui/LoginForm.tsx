@@ -77,7 +77,12 @@ export function LoginForm() {
           )}
         </Field>
         <Field>
-          <Button disabled={isPending} isLoading={isPending} type="submit">
+          <Button
+            disabled={isPending}
+            isLoading={isPending}
+            type="submit"
+            className="disabled:button-shimmer"
+          >
             {t('submit')}
           </Button>
         </Field>

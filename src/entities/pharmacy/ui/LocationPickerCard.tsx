@@ -23,9 +23,9 @@ const MapLocationPicker = lazy(() =>
 type GeoErrorStatus = 'denied' | 'unavailable' | 'timeout';
 
 const GEO_ERROR_I18N: Record<GeoErrorStatus, string> = {
-  denied: 'form.geoErrorDenied',
-  unavailable: 'form.geoErrorUnavailable',
-  timeout: 'form.geoErrorTimeout',
+  denied: 'geoErrorDenied',
+  unavailable: 'geoErrorUnavailable',
+  timeout: 'geoErrorTimeout',
 };
 
 type CurrentLocationButtonProps = {
@@ -55,7 +55,7 @@ function CurrentLocationButton({
         size="sm"
         onClick={onRequest}
         disabled={isPending || isLoading}
-        className="gap-2"
+        className="disabled:shimmer gap-2"
       >
         {isLoading ? (
           <Loader2 className="size-4 animate-spin" />

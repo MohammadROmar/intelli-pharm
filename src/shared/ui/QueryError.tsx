@@ -95,14 +95,16 @@ export function QueryError({ error, onRetry, isRetrying = false }: Props) {
               className="bg-border animate-in fade-in fill-mode-[both] my-7 h-px w-10 duration-500 [animation-delay:200ms] motion-reduce:animate-none"
             />
 
-            <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-[both] duration-500 [animation-delay:225ms] motion-reduce:animate-none">
-              <Button onClick={onRetry} disabled={isRetrying}>
-                <span
+            <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-[both] w-full max-w-xs duration-500 [animation-delay:225ms] motion-reduce:animate-none">
+              <Button
+                onClick={onRetry}
+                disabled={isRetrying}
+                className="disabled:button-shimmer group w-full gap-2 sm:w-auto"
+              >
+                <RefreshCw
                   aria-hidden
-                  className={isRetrying ? 'animate-spin' : undefined}
-                >
-                  <RefreshCw className="size-4" />
-                </span>
+                  className="size-4 transition-transform duration-200 group-hover:rotate-180"
+                />
                 {t('retry')}
               </Button>
             </div>

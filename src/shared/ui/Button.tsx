@@ -30,7 +30,7 @@ export function Button({
       {...props}
     >
       {isLoading && (
-        <Loader2 className="flex animate-spin items-center justify-center" />
+        <Loader2 className="flex origin-center animate-spin items-center justify-center" />
       )}
       {children}
     </Comp>

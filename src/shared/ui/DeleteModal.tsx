@@ -55,6 +55,7 @@ export function DeleteModal({
             onClick={onConfirm}
             isLoading={isPending}
             disabled={isPending}
+            className="disabled:button-shimmer disabled:[--skeleton-shine:color-mix(in_oklch,var(--destructive),white_45%)] disabled:[--skeleton:var(--destructive)]"
           >
             {t('confirm')}
           </Button>

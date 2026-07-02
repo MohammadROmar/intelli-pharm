@@ -1,6 +1,7 @@
 import { useState, type PropsWithChildren } from 'react';
 
 import { Logo } from '@/shared/ui/index.initial';
+import { buttonVariants } from '@/shared/lib';
 
 type Direction = 'ltr' | 'rtl';
 type Lang = 'en' | 'ar';
@@ -64,11 +65,8 @@ const copy = {
   },
 } as const;
 
-const BTN_PRIMARY =
-  'h-10 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
-
-const BTN_SECONDARY =
-  'h-10 rounded-md border border-input bg-background px-6 text-sm font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background';
+const BTN_PRIMARY = buttonVariants();
+const BTN_SECONDARY = buttonVariants({ variant: 'outline' });
 
 const BODY_TEXT = 'max-w-[300px] text-sm leading-relaxed text-muted-foreground';
 
@@ -79,7 +77,7 @@ function BootstrapShell({
   return (
     <div
       dir={dir}
-      className="bg-background animate-in fade-in fill-mode-[both] flex h-dvh flex-col items-center justify-center gap-10 px-6 duration-300 motion-reduce:animate-none"
+      className="bg-background flex h-dvh flex-col items-center justify-center gap-10 px-6"
     >
       <Logo withColors className="size-12 shrink-0" />
       {children && (

@@ -110,7 +110,11 @@ export const CreatePharmacyNoteForm = ({ pharmacyId, onSuccess }: Props) => {
       </Field>
 
       <div className="flex justify-end">
-        <Button type="submit" disabled={isPending} className="items-center">
+        <Button
+          type="submit"
+          disabled={isPending}
+          className="disabled:button-shimmer items-center"
+        >
           {isPending && <Loader2 className="size-4 animate-spin" />}
           {t('submit')}
         </Button>

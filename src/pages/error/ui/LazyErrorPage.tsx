@@ -1,12 +1,18 @@
 import { lazy } from 'react';
 
-import { WithSuspense } from '@/shared/ui/index.initial';
+import { AetherSpinner, WithSuspense } from '@/shared/ui/index.initial';
 
 const ErrorPage = lazy(() => import('./ErrorPage'));
 
+const LOADER = (
+  <div className="flex h-dvh items-center justify-center">
+    <AetherSpinner />
+  </div>
+);
+
 export function LazyErrorPage() {
   return (
-    <WithSuspense>
+    <WithSuspense loader={LOADER}>
       <ErrorPage />
     </WithSuspense>
   );
