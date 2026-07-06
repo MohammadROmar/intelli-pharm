@@ -14,7 +14,7 @@ import {
 
 import type { ApiError } from '@/shared/api';
 import { useInfinitePharmacies, type Pharmacy } from '@/entities/pharmacy';
-import { cn, useDebounce } from '@/shared/lib';
+import { cn, formatTime, useDebounce } from '@/shared/lib';
 import {
   Badge,
   Input,
@@ -30,15 +30,19 @@ import {
 import { WizardNavigation } from '../WizardNavigation';
 import { usePlannerWizard } from '../../model/PlannerWizardContext';
 
+type PharmacyCardProps = {
+  pharmacy: Pharmacy;
+  selected: boolean;
+  language: string;
+  onToggle: (id: number) => void;
+};
+
 function PharmacyCard({
   pharmacy,
   selected,
+  language,
   onToggle,
-}: {
-  pharmacy: Pharmacy;
-  selected: boolean;
-  onToggle: (id: number) => void;
-}) {
+}: PharmacyCardProps) {
   return (
     <button
       type="button"
@@ -64,8 +68,8 @@ function PharmacyCard({
             </span>
             <span className="text-muted-foreground flex items-center gap-1 text-xs">
               <Clock className="size-3 shrink-0" />
-              {pharmacy.opening_time.slice(0, 5)} –{' '}
-              {pharmacy.closing_time.slice(0, 5)}
+              {formatTime(pharmacy.opening_time, language)} –{' '}
+              {formatTime(pharmacy.closing_time, language)}
             </span>
           </div>
         </div>
@@ -95,7 +99,7 @@ function PharmacyList({
   onToggle: (id: number) => void;
   regionId: number | null;
 }) {
-  const { t } = useTranslation('planner');
+  const { t, i18n } = useTranslation('planner');
 
   const { entities: pharmacies, queryResult } = useInfinitePharmacies(
     searchTerm,
@@ -140,6 +144,7 @@ function PharmacyList({
         {pharmacies.map((pharmacy) => (
           <PharmacyCard
             key={pharmacy.id}
+            language={i18n.language}
             pharmacy={pharmacy}
             selected={selectedIds.includes(pharmacy.id)}
             onToggle={onToggle}

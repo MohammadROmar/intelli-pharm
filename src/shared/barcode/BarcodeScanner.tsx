@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScanBarcode } from 'lucide-react';
 
@@ -44,15 +44,21 @@ export function BarcodeScanner({ open, onOpenChange, onScan }: Props) {
 
   const [lastScanned, setLastScanned] = useState<string | null>(null);
 
-  function handleScan(barcode: string) {
-    setLastScanned(barcode);
-    onScan(barcode);
-  }
+  const handleScan = useCallback(
+    (barcode: string) => {
+      setLastScanned(barcode);
+      onScan(barcode);
+    },
+    [onScan],
+  );
 
-  function handleOpenChange(next: boolean) {
-    if (!next) setLastScanned(null);
-    onOpenChange(next);
-  }
+  const handleOpenChange = useCallback(
+    (next: boolean) => {
+      if (!next) setLastScanned(null);
+      onOpenChange(next);
+    },
+    [onOpenChange],
+  );
 
   useKeyboardBarcodeScanner({ enabled: open, onScan: handleScan });
 
@@ -80,7 +86,7 @@ export function BarcodeScanner({ open, onOpenChange, onScan }: Props) {
 
         <div className="space-y-4">
           <BarcodeScannerView onScan={handleScan} />
-          {lastScanned && <ScannedValuePreview value={lastScanned} />}
+          {lastScanned ? <ScannedValuePreview value={lastScanned} /> : null}
           <Separator />
           <UsbHint />
         </div>

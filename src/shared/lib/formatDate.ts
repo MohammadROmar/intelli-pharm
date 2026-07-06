@@ -4,7 +4,9 @@ export function formatDate(
   hasHour: boolean = true,
 ): string {
   return new Intl.DateTimeFormat(language, {
-    dateStyle: 'medium',
-    timeStyle: hasHour ? 'short' : undefined,
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    ...(hasHour ? { hour: 'numeric', minute: '2-digit' } : {}),
   }).format(new Date(iso));
 }

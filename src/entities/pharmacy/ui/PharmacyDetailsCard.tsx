@@ -146,10 +146,10 @@ export function PharmacyDetailsCard({ isPending, selectedRegion }: Props) {
                 aria-invalid={!!errors.closing_time}
                 {...register('closing_time', {
                   disabled: isPending,
-                  required: 'errors.required',
+                  required: 'form.errors.required',
                   validate: (value) => {
                     const start = getValues('opening_time');
-                    return value > start || 'errors.endAfterStart';
+                    return value > start || 'form.errors.endAfterStart';
                   },
                 })}
               />

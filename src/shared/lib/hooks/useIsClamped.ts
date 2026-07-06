@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 export function useIsClamped(
   ref: React.RefObject<HTMLElement | null>,
@@ -6,7 +6,7 @@ export function useIsClamped(
 ) {
   const [isClamped, setIsClamped] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el || skip) return;
 

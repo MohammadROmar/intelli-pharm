@@ -1,28 +1,35 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { serializeFilters } from '../filters';
 
 type Params<T> = {
   filters: Record<string, unknown>;
-  filterKeys: (keyof T)[];
+  filterKeys: readonly (keyof T)[];
 };
 
 export function useFilters<T>({ filters, filterKeys }: Params<T>) {
   const [, setSearchParams] = useSearchParams();
+
+  const filterKeysRef = useRef(filterKeys);
+  useEffect(() => {
+    filterKeysRef.current = filterKeys;
+  }, [filterKeys]);
 
   const applyFilters = useCallback(
     (newFilters: T) => {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev);
+          const keys = filterKeysRef.current;
+
           const serializedFilters = serializeFilters(
             Object.fromEntries(
-              filterKeys.map((key) => [key.toString(), newFilters[key]]),
+              keys.map((key) => [key.toString(), newFilters[key]]),
             ),
           );
 
-          filterKeys.forEach((key) => {
+          keys.forEach((key) => {
             const value = serializedFilters[key.toString()];
 
             if (value !== undefined && value !== '') {
@@ -37,20 +44,20 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
         { replace: false },
       );
     },
-    [setSearchParams, filterKeys],
+    [setSearchParams],
   );
 
   const clearFilters = useCallback(() => {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        filterKeys.forEach((key) => next.delete(key.toString()));
+        filterKeysRef.current.forEach((key) => next.delete(key.toString()));
         next.delete('page');
         return next;
       },
       { replace: false },
     );
-  }, [setSearchParams, filterKeys]);
+  }, [setSearchParams]);
 
   const activeCount = Object.entries(filters).filter(
     ([k, v]) =>

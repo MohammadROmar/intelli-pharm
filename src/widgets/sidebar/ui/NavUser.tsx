@@ -1,3 +1,4 @@
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Bell, ChevronsUpDown, UserCircle } from 'lucide-react';
@@ -22,85 +23,118 @@ import {
 import { UserInfo } from './UserInfo';
 import { NotificationBadge } from './NotificationBadge';
 
-export function NavUser() {
-  const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
-  const { isMobile, setOpenMobile } = useSidebar();
+type NavUserData = ReturnType<typeof useRequiredUser>;
 
+const selectUnreadNotifications = (state: RootState): number =>
+  state.session.unreadNotifications ?? 0;
+
+export function NavUser() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const user = useRequiredUser();
-  const unreadNotifications = useAppSelector(
-    (state) => state.session.unreadNotifications ?? 0,
-  );
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              aria-label={
-                unreadNotifications > 0
-                  ? t('openUserMenuWithNotifications', {
-                      count: unreadNotifications,
-                    })
-                  : undefined
-              }
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <UserInfo
-                user={user}
-                badge={
-                  <NotificationBadge
-                    count={unreadNotifications}
-                    className="absolute -end-1 -top-1"
-                  />
-                }
-              />
-              <ChevronsUpDown className="size-4" />
-            </SidebarMenuButton>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent
-            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-            side={isMobile ? 'bottom' : 'right'}
-            align="end"
-            sideOffset={4}
-          >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-sm">
-                <UserInfo user={user} />
-              </div>
-            </DropdownMenuLabel>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <UserCircle />
-                {t('account')}
-              </DropdownMenuItem>
-
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <Link to="notifications" onClick={() => setOpenMobile(false)}>
-                  <Bell />
-                  {t('notifications')}
-
-                  <NotificationBadge
-                    count={unreadNotifications}
-                    className="ms-auto"
-                  />
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem asChild>
-              <LogoutButton />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
+        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+          <NavUserTrigger user={user} menuOpen={menuOpen} />
+          <NavUserMenuContent user={user} />
         </DropdownMenu>
       </SidebarMenuItem>
     </SidebarMenu>
   );
 }
+
+const NavUserTrigger = memo(function NavUserTrigger({
+  user,
+  menuOpen,
+}: {
+  user: NavUserData;
+  menuOpen: boolean;
+}) {
+  const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
+  const unreadNotifications = useAppSelector(selectUnreadNotifications);
+
+  return (
+    <DropdownMenuTrigger asChild>
+      <SidebarMenuButton
+        size="lg"
+        aria-label={
+          unreadNotifications > 0
+            ? t('openUserMenuWithNotifications', { count: unreadNotifications })
+            : undefined
+        }
+        className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground overflow-visible"
+      >
+        <UserInfo
+          user={user}
+          badge={
+            !menuOpen && unreadNotifications > 0 ? (
+              <NotificationBadge
+                count={unreadNotifications}
+                className="absolute -end-1 -top-1"
+              />
+            ) : null
+          }
+        />
+        <NavUserChevron />
+      </SidebarMenuButton>
+    </DropdownMenuTrigger>
+  );
+});
+
+const NavUserChevron = memo(function NavUserChevron() {
+  const { open } = useSidebar();
+  return open ? <ChevronsUpDown className="size-4" /> : null;
+});
+
+const NavUserMenuContent = memo(function NavUserMenuContent({
+  user,
+}: {
+  user: NavUserData;
+}) {
+  const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  return (
+    <DropdownMenuContent
+      className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+      side={isMobile ? 'bottom' : 'right'}
+      align="end"
+      sideOffset={4}
+    >
+      <DropdownMenuLabel className="p-0 font-normal">
+        <div className="flex items-center gap-2 px-1 py-1.5 text-sm">
+          <UserInfo user={user} />
+        </div>
+      </DropdownMenuLabel>
+
+      <DropdownMenuSeparator />
+
+      <DropdownMenuGroup>
+        <DropdownMenuItem>
+          <UserCircle />
+          {t('account')}
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link to="notifications" onClick={() => setOpenMobile(false)}>
+            <Bell />
+            {t('notifications')}
+            <NavUserNotificationsBadge />
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuGroup>
+
+      <DropdownMenuSeparator />
+
+      <DropdownMenuItem asChild>
+        <LogoutButton />
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  );
+});
+
+const NavUserNotificationsBadge = memo(function NavUserNotificationsBadge() {
+  const unreadNotifications = useAppSelector(selectUnreadNotifications);
+  return <NotificationBadge count={unreadNotifications} className="ms-auto" />;
+});

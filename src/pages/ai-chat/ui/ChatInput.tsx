@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowUp } from 'lucide-react';
@@ -14,27 +14,34 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
   const { t } = useTranslation('chat');
   const [value, setValue] = useState('');
 
+  const trimmedValue = value.trim();
+
+  const trimmedValueRef = useRef(trimmedValue);
+
+  const handleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
+    const next = e.target.value;
+    setValue(next);
+    trimmedValueRef.current = next.trim();
+  }, []);
+
   const handleSend = useCallback(() => {
-    const trimmed = value.trim();
+    const trimmed = trimmedValueRef.current;
     if (!trimmed || isLoading) return;
 
     onSend(trimmed);
     setValue('');
-  }, [value, isLoading, onSend]);
+    trimmedValueRef.current = '';
+  }, [isLoading, onSend]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        handleSend();
-      }
+      if (e.key !== 'Enter' || e.shiftKey || e.nativeEvent.isComposing) return;
+
+      e.preventDefault();
+      handleSend();
     },
     [handleSend],
   );
-
-  const handleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
-  }, []);
 
   return (
     <div className="border-border bg-background/80 supports-backdrop-filter:bg-background/60 border-t backdrop-blur">
@@ -58,7 +65,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
           <Button
             size="icon"
             onClick={handleSend}
-            disabled={!value.trim() || isLoading}
+            disabled={!trimmedValue || isLoading}
             aria-label={t('sendButton')}
             className="mb-1 size-9 shrink-0 rounded-full! transition-all hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 ltr:ml-1 rtl:mr-1"
           >

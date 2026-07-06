@@ -3,9 +3,15 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CheckCheck } from 'lucide-react';
 
-import type { NotificationsParams } from '@/features/notifications';
-import { Badge, Button, CardContent, CardFooter } from '@/shared/ui';
-import { DynamicPagination, PerPageSelect } from '@/shared/ui';
+import type { NotificationsParams } from '../model/types';
+import {
+  Badge,
+  Button,
+  CardContent,
+  CardFooter,
+  DynamicPagination,
+  PerPageSelect,
+} from '@/shared/ui';
 import { useAppDispatch } from '@/shared/config';
 import {
   setUnreadNotifications,
@@ -23,41 +29,72 @@ const MAX_VISIBLE_PAGES = 5;
 const DEFAULT_PAGE = 1;
 const DEFAULT_PER_PAGE = 10;
 
+const READ_STATUS_FILTER_VALUES = new Set(['read', 'unread']);
+
+function isReadOrUnreadFilter(
+  value: string | null,
+): value is 'read' | 'unread' {
+  return value !== null && READ_STATUS_FILTER_VALUES.has(value);
+}
+
+function parsePositiveInt(value: string | null, fallback: number): number {
+  const parsed = Number(value);
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+}
+
 export function NotificationsContent() {
   const { t } = useTranslation('notifications');
   const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
-  const page = Number(searchParams.get('page') ?? DEFAULT_PAGE);
-  const perPage = Number(searchParams.get('per_page') ?? DEFAULT_PER_PAGE);
-  const readStatusParam = searchParams.get('read_status') as
-    | 'read'
-    | 'unread'
-    | null;
+  const page = parsePositiveInt(searchParams.get('page'), DEFAULT_PAGE);
+  const perPage = parsePositiveInt(
+    searchParams.get('per_page'),
+    DEFAULT_PER_PAGE,
+  );
 
-  const params: NotificationsParams = {
-    page,
-    per_page: perPage,
-    ...(readStatusParam !== null && { read_status: readStatusParam }),
-  };
+  const rawReadStatus = searchParams.get('read_status');
+  const readStatusParam = isReadOrUnreadFilter(rawReadStatus)
+    ? rawReadStatus
+    : null;
+
+  const params: NotificationsParams = useMemo(
+    () => ({
+      page,
+      per_page: perPage,
+      ...(readStatusParam !== null && { read_status: readStatusParam }),
+    }),
+    [page, perPage, readStatusParam],
+  );
+
+  const extraParams = useMemo(
+    () =>
+      params.read_status ? { read_status: params.read_status } : undefined,
+    [params.read_status],
+  );
 
   const { data } = useGetNotifications(params);
-  const { mutate: markAsRead, isPending: isMarking } =
-    useMarkNotificationAsRead();
+  const {
+    mutate: markAsRead,
+    isPending: isMarking,
+    variables: markingNotificationId,
+  } = useMarkNotificationAsRead();
   const { mutate: markAllAsRead, isPending: isMarkingAll } =
     useMarkAllNotificationsAsRead();
 
-  const { data: notifications, meta } = data!.data!;
+  const notifications = useMemo(() => data?.data?.data ?? [], [data]);
+  const meta = data?.data?.meta;
 
   const hasUnread = useMemo(
-    () => notifications.some((n) => n.read_at === null),
+    () => notifications.some((notification) => notification.read_at === null),
     [notifications],
   );
 
   const handleMarkAsRead = useCallback(
     (notification: Notification) => {
-      if (!notification || notification.read_at !== null) return;
+      if (notification.read_at !== null) return;
+
       markAsRead(notification.id, {
         onSuccess: () => dispatch(decrementUnreadNotifications()),
       });
@@ -71,13 +108,15 @@ export function NotificationsContent() {
     });
   }, [markAllAsRead, dispatch]);
 
-  const maxPages = Math.ceil(meta.total / meta.per_page);
-  const extraParams =
-    readStatusParam !== null ? { read_status: readStatusParam } : undefined;
+  // Suspense boundary upstream is expected to cover the initial fetch;
+  // this guard just keeps TypeScript honest without a non-null assertion.
+  if (!meta) return null;
 
-  if (meta.total == 0) {
+  if (meta.total === 0) {
     return <NotificationsEmptyState tab={readStatusParam ?? 'all'} />;
   }
+
+  const maxPages = Math.ceil(meta.total / meta.per_page);
 
   return (
     <>
@@ -107,7 +146,7 @@ export function NotificationsContent() {
         <CardContent className="divide-y p-0!">
           {notifications.map((notification) => (
             <NotificationItem
-              isMarking={isMarking}
+              isMarking={isMarking && markingNotificationId === notification.id}
               key={notification.id}
               notification={notification}
               onMarkAsRead={handleMarkAsRead}

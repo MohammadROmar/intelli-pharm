@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm, useFormState, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Loader2, StickyNote, Tag } from 'lucide-react';
@@ -10,11 +10,7 @@ import {
   Field,
   FieldError,
   FieldLabel,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  GenericSingleSelect,
   Textarea,
 } from '@/shared/ui';
 
@@ -28,6 +24,14 @@ const DEFAULT_VALUES: FormValues = { note_type: 'general', note: '' } as const;
 
 const NOTE_MAX_LENGTH = 500;
 const NOTE_MIN_LENGTH = 5;
+
+const NOTE_VALIDATION = {
+  notEmpty: (v: string) => v.trim().length > 0 || 'errors.noteRequired',
+  minLength: (v: string) =>
+    v.trim().length >= NOTE_MIN_LENGTH || 'errors.noteMinLength',
+  maxLength: (v: string) =>
+    v.trim().length <= NOTE_MAX_LENGTH || 'errors.noteMaxLength',
+};
 
 export const CreatePharmacyNoteForm = ({ pharmacyId, onSuccess }: Props) => {
   const { t } = useTranslation('pharmacies', { keyPrefix: 'notes.form' });
@@ -49,12 +53,15 @@ export const CreatePharmacyNoteForm = ({ pharmacyId, onSuccess }: Props) => {
     [t],
   );
 
-  const onSubmit = (values: FormValues) => {
-    mutate(
-      { note_type: values.note_type, note: values.note.trim() },
-      { onSuccess },
-    );
-  };
+  const onSubmit = useCallback(
+    (values: FormValues) => {
+      mutate(
+        { note_type: values.note_type, note: values.note.trim() },
+        { onSuccess },
+      );
+    },
+    [mutate, onSuccess],
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
@@ -64,22 +71,17 @@ export const CreatePharmacyNoteForm = ({ pharmacyId, onSuccess }: Props) => {
           control={control}
           name="note_type"
           render={({ field }) => (
-            <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger
-                icon={Tag}
-                id="note_type"
-                className={cn(errors.note_type && 'border-destructive')}
-              >
-                <SelectValue placeholder={t('placeholders.noteType')} />
-              </SelectTrigger>
-              <SelectContent>
-                {noteTypeOptions.map(({ value, label }) => (
-                  <SelectItem key={value} value={value}>
-                    {label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <GenericSingleSelect
+              options={noteTypeOptions}
+              valueKey="value"
+              labelKey="label"
+              value={field.value}
+              onValueChange={(value) => field.onChange(value as NoteType)}
+              icon={Tag}
+              className={cn(errors.note_type && 'border-destructive')}
+              placeholder={t('placeholders.noteType')}
+              hasMoreLabel={false}
+            />
           )}
         />
         {errors.note_type && (
@@ -96,15 +98,7 @@ export const CreatePharmacyNoteForm = ({ pharmacyId, onSuccess }: Props) => {
           icon={StickyNote}
           placeholder={t('placeholders.note')}
           className={cn(errors.note && 'border-destructive')}
-          {...register('note', {
-            validate: {
-              notEmpty: (v) => v.trim().length > 0 || 'errors.noteRequired',
-              minLength: (v) =>
-                v.trim().length >= NOTE_MIN_LENGTH || 'errors.noteMinLength',
-              maxLength: (v) =>
-                v.trim().length <= NOTE_MAX_LENGTH || 'errors.noteMaxLength',
-            },
-          })}
+          {...register('note', { validate: NOTE_VALIDATION })}
         />
         {errors.note && <FieldError>{t(errors.note.message!)}</FieldError>}
       </Field>

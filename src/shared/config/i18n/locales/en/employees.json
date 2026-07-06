@@ -97,7 +97,8 @@
       "erp": "ERP",
       "crm": "CRM",
       "planner": "Planner",
-      "auth": "Auth"
+      "auth": "Auth",
+      "tracking": "Tracking"
     },
     "actions": {
       "view": "View",
@@ -113,7 +114,11 @@
       "assign_distributor": "Assign Distributor",
       "view_live": "View Live",
       "view_all": "View All",
-      "get": "Get"
+      "get": "Get",
+      "submit_location": "Submit Location"
+    },
+    "scope": {
+      "own": "Own"
     },
     "resources": {
       "categories": "Categories",

@@ -17,3 +17,9 @@ export type Notification = {
 };
 
 export type NotificationsResponse = PaginatedResponse<Notification>;
+
+export type NotificationsParams = {
+  page: number;
+  per_page: number;
+  read_status?: Exclude<ReadStatusFilter, 'all'>;
+};

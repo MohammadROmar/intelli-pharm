@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-type ShortcutOptions = {
+export type ShortcutOptions = {
   key: string;
   ctrlOrMeta?: boolean;
   shift?: boolean;
@@ -13,8 +13,12 @@ export function useKeyboardShortcut(
   options: ShortcutOptions,
   callback: () => void,
 ) {
-  const callbackRef = useRef(callback);
+  const optionsRef = useRef(options);
+  useEffect(() => {
+    optionsRef.current = options;
+  }, [options]);
 
+  const callbackRef = useRef(callback);
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
@@ -28,7 +32,7 @@ export function useKeyboardShortcut(
         alt = false,
         preventDefault = true,
         ignoreInInputs = true,
-      } = options;
+      } = optionsRef.current;
 
       if (ignoreInInputs) {
         const target = event.target as HTMLElement;
@@ -57,5 +61,5 @@ export function useKeyboardShortcut(
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [options]);
+  }, []);
 }

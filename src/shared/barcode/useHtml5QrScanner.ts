@@ -7,7 +7,47 @@ type Options = {
   onError?: (error: Error) => void;
 };
 
+const SCAN_FPS = 10;
+const SCAN_BOX_SIZE = 250;
+const SCANNER_START_TIMEOUT_MS = 15_000;
+
 let scannerQueue: Promise<Html5Qrcode | null> = Promise.resolve(null);
+
+function withTimeout<T>(
+  promise: Promise<T>,
+  ms: number,
+  message: string,
+): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timeoutId = setTimeout(() => reject(new Error(message)), ms);
+
+    promise.then(
+      (value) => {
+        clearTimeout(timeoutId);
+        resolve(value);
+      },
+      (error) => {
+        clearTimeout(timeoutId);
+        reject(error);
+      },
+    );
+  });
+}
+
+async function stopAndClear(scanner: Html5Qrcode): Promise<void> {
+  try {
+    const state = scanner.getState();
+    if (
+      state === Html5QrcodeScannerState.SCANNING ||
+      state === Html5QrcodeScannerState.PAUSED
+    ) {
+      await scanner.stop();
+    }
+    scanner.clear();
+  } catch (error) {
+    console.warn('Failed to stop barcode scanner instance', error);
+  }
+}
 
 export function useHtml5QrScanner({
   elementId,
@@ -27,17 +67,7 @@ export function useHtml5QrScanner({
 
     scannerQueue = scannerQueue.then(async (existingScanner) => {
       if (existingScanner) {
-        try {
-          if (
-            existingScanner.getState() === Html5QrcodeScannerState.SCANNING ||
-            existingScanner.getState() === Html5QrcodeScannerState.PAUSED
-          ) {
-            await existingScanner.stop();
-          }
-          existingScanner.clear();
-        } catch (e) {
-          console.warn('Failed to stop ghost scanner instance', e);
-        }
+        await stopAndClear(existingScanner);
       }
 
       if (isCancelled) return null;
@@ -49,15 +79,28 @@ export function useHtml5QrScanner({
         }
 
         const scanner = new Html5Qrcode(elementId, { verbose: false });
-
-        await scanner.start(
+        const startPromise = scanner.start(
           { facingMode: 'environment' },
-          { fps: 10, qrbox: { width: 250, height: 250 } },
+          {
+            fps: SCAN_FPS,
+            qrbox: { width: SCAN_BOX_SIZE, height: SCAN_BOX_SIZE },
+          },
           (decodedText: string) => {
             if (!isCancelled) onScanRef.current(decodedText);
           },
           () => {},
         );
+
+        try {
+          await withTimeout(
+            startPromise,
+            SCANNER_START_TIMEOUT_MS,
+            'Camera failed to start in time',
+          );
+        } catch (startError) {
+          startPromise.then(() => stopAndClear(scanner)).catch(() => {});
+          throw startError;
+        }
 
         return scanner;
       } catch (error) {
@@ -74,20 +117,7 @@ export function useHtml5QrScanner({
 
       scannerQueue = scannerQueue.then(async (scanner) => {
         if (!scanner) return null;
-
-        try {
-          const state = scanner.getState();
-          if (
-            state === Html5QrcodeScannerState.SCANNING ||
-            state === Html5QrcodeScannerState.PAUSED
-          ) {
-            await scanner.stop();
-          }
-          scanner.clear();
-        } catch (error) {
-          console.warn('Error stopping scanner during cleanup:', error);
-        }
-
+        await stopAndClear(scanner);
         return null;
       });
     };

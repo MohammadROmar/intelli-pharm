@@ -1,4 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Bell } from 'lucide-react';
 
@@ -13,12 +12,10 @@ import {
   TabsTrigger,
 } from '@/shared/ui';
 
-import type { ReadStatusFilter } from '../model/types';
 import { NotificationsContent } from './NotificationsContent';
 import { NotificationDeviceStatus } from './NotificationDeviceStatus';
 import { NotificationPermissionBanner } from './NotificationPermissionBanner';
-
-const TAB_OPTIONS: ReadStatusFilter[] = ['all', 'read', 'unread'];
+import { TAB_OPTIONS, useReadStatusFilter } from '../model/useReadStatusFilter';
 
 export default function NotificationsPage() {
   return (
@@ -30,26 +27,7 @@ export default function NotificationsPage() {
 
 export function NotificationsPageContent() {
   const { t } = useTranslation('notifications');
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const activeTab =
-    (searchParams.get('read_status') as Exclude<
-      ReadStatusFilter,
-      'all'
-    > | null) ?? 'all';
-
-  const handleTabChange = (value: string) => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      next.delete('page');
-      if (value === 'all') {
-        next.delete('read_status');
-      } else {
-        next.set('read_status', value);
-      }
-      return next;
-    });
-  };
+  const { activeTab, handleTabChange } = useReadStatusFilter();
 
   const pageTitle = `${t('page.title')} - IntelliPharma`;
 
