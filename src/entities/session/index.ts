@@ -1,9 +1,12 @@
 export {
-  setRefreshToken,
-  hasRefreshToken,
-  getRefreshToken,
-  clearRefreshToken,
-} from './lib/refreshToken';
+  AUTH_BROADCAST_CHANNEL,
+  broadcastLogout,
+  broadcastRefreshed,
+  isOwnBroadcast,
+  type AuthSyncMessage,
+} from './lib/authBroadcast';
+export { logoutRequest } from './lib/logoutRequest';
+export { toSessionCredentials } from './lib/toSessionCredentials';
 
 export {
   logout,

@@ -1,7 +1,7 @@
 import { useState, type PropsWithChildren } from 'react';
 
-import { Logo } from '@/shared/ui/index.initial';
 import { buttonVariants } from '@/shared/lib';
+import { AetherSpinner, Logo } from '@/shared/ui/index.initial';
 
 type Direction = 'ltr' | 'rtl';
 type Lang = 'en' | 'ar';
@@ -9,16 +9,6 @@ type BootstrapLocale = { lang: Lang; dir: Direction };
 
 const DEFAULT_LOCALE: BootstrapLocale = { lang: 'en', dir: 'ltr' };
 
-/**
- * Reads the active locale once, at mount time.
- *
- * The try/catch stays even without SSR in the picture — it's guarding a
- * real browser condition, not a server one: `localStorage` throws
- * `SecurityError` when a user has blocked all site data/cookies, or when
- * the app runs inside a sandboxed iframe without `allow-same-origin`.
- * Falling back to the `dir` attribute on <html> keeps the screen legible
- * even then.
- */
 function detectBootstrapLocale(): BootstrapLocale {
   try {
     const isArabic =
@@ -32,12 +22,6 @@ function detectBootstrapLocale(): BootstrapLocale {
   }
 }
 
-/**
- * Lazy-initialized so `detectBootstrapLocale` runs once per mount — not on
- * every re-render, and not at module-eval time (which would freeze the
- * locale for the life of the loaded module and break tests that need to
- * vary it). See the `rerender-lazy-state-init` rule.
- */
 function useBootstrapLocale(): BootstrapLocale {
   const [locale] = useState(detectBootstrapLocale);
   return locale;
@@ -46,6 +30,7 @@ function useBootstrapLocale(): BootstrapLocale {
 const copy = {
   loading: { en: 'Loading', ar: 'جارٍ التحميل' },
   reconnecting: { en: 'Reconnecting…', ar: 'جارٍ إعادة الاتصال…' },
+  loggingOut: { en: 'Signing out…', ar: 'جارٍ تسجيل الخروج…' },
   networkError: {
     title: { en: 'Can’t connect', ar: 'تعذَّر الاتصال' },
     body: {
@@ -58,10 +43,18 @@ const copy = {
   interrupted: {
     title: { en: 'Session interrupted', ar: 'انقطعت الجلسة' },
     body: {
-      en: 'Your previous session was interrupted while connecting. Your credentials are safe. please sign in to continue.',
+      en: 'Your previous session was interrupted while connecting. Your credentials are safe. Please sign in to continue.',
       ar: 'انقطعت جلستك السابقة أثناء الاتصال. بياناتك آمنة. يرجى تسجيل الدخول للمتابعة.',
     },
     signIn: { en: 'Sign In Again', ar: 'تسجيل الدخول مجددًا' },
+  },
+  signOutIssue: {
+    title: { en: 'Signed out', ar: 'تم تسجيل الخروج' },
+    body: {
+      en: "You're signed out on this device for now. We couldn't confirm it with the server, so reopening the app may sign you back in — if that happens, just sign out again once you're back online.",
+      ar: 'أنتَ غير مسجَّل الدخول حاليًا على هذا الجهاز. لم نتمكن من تأكيد ذلك مع الخادم، لذا قد يُعيد فتح التطبيق تسجيل دخولك تلقائيًا — إن حدث ذلك، يُرجى تسجيل الخروج مجددًا عند عودة الاتصال.',
+    },
+    continue: { en: 'Continue', ar: 'متابعة' },
   },
 } as const;
 
@@ -80,9 +73,9 @@ function BootstrapShell({
       className="bg-background flex h-dvh flex-col items-center justify-center gap-10 px-6"
     >
       <Logo withColors className="size-12 shrink-0" />
-      {children && (
+      {children ? (
         <div className="flex flex-col items-center gap-7">{children}</div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -92,15 +85,6 @@ function IconChip({ children }: PropsWithChildren) {
     <div className="bg-muted text-muted-foreground flex size-16 items-center justify-center rounded-2xl">
       {children}
     </div>
-  );
-}
-
-function Spinner() {
-  return (
-    <span
-      aria-hidden="true"
-      className="border-muted-foreground/25 border-t-foreground size-5 animate-spin rounded-full border-2"
-    />
   );
 }
 
@@ -163,10 +147,28 @@ export function LoadingScreen({ retrying }: LoadingScreenProps) {
         aria-label={copy.loading[lang]}
         className="flex flex-col items-center gap-2"
       >
-        <Spinner />
+        <AetherSpinner />
         <p className="text-muted-foreground text-sm">
           {copy.reconnecting[lang]}
         </p>
+      </div>
+    </BootstrapShell>
+  );
+}
+
+export function LoggingOutScreen() {
+  const { lang, dir } = useBootstrapLocale();
+
+  return (
+    <BootstrapShell dir={dir}>
+      <div
+        role="status"
+        aria-live="polite"
+        aria-label={copy.loggingOut[lang]}
+        className="flex flex-col items-center gap-2"
+      >
+        <AetherSpinner />
+        <p className="text-muted-foreground text-sm">{copy.loggingOut[lang]}</p>
       </div>
     </BootstrapShell>
   );
@@ -231,6 +233,34 @@ export function InterruptedScreen({ onSignIn }: InterruptedScreenProps) {
       </div>
       <button type="button" onClick={onSignIn} className={BTN_PRIMARY}>
         {copy.interrupted.signIn[lang]}
+      </button>
+    </BootstrapShell>
+  );
+}
+
+type SignOutIssueScreenProps = { onContinue: () => void };
+
+export function SignOutIssueScreen({ onContinue }: SignOutIssueScreenProps) {
+  const { lang, dir } = useBootstrapLocale();
+
+  return (
+    <BootstrapShell dir={dir}>
+      <div
+        role="alert"
+        className="flex flex-col items-center gap-4 text-center"
+      >
+        <IconChip>
+          <ShieldAlertIcon />
+        </IconChip>
+        <div className="flex flex-col gap-1.5">
+          <p className="text-foreground text-lg font-semibold">
+            {copy.signOutIssue.title[lang]}
+          </p>
+          <p className={BODY_TEXT}>{copy.signOutIssue.body[lang]}</p>
+        </div>
+      </div>
+      <button type="button" onClick={onContinue} className={BTN_PRIMARY}>
+        {copy.signOutIssue.continue[lang]}
       </button>
     </BootstrapShell>
   );

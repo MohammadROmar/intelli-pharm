@@ -1,19 +1,22 @@
 import { useLayoutEffect, useState } from 'react';
 
-const RTL_LANGUAGES = ['ar'];
+import { LANGUAGE_CHANGE_EVENT, getInitialLng } from '../language';
 
-function getInitialLng(): string {
-  return localStorage.getItem('i18nextLng') ?? navigator.language.split('-')[0];
-}
+const RTL_LANGUAGES = new Set(['ar']);
 
 export function useDocumentDirection() {
   const [lng, setLng] = useState(getInitialLng);
-  const dir = RTL_LANGUAGES.includes(lng) ? 'rtl' : 'ltr';
+  const dir = RTL_LANGUAGES.has(lng) ? 'rtl' : 'ltr';
 
   useLayoutEffect(() => {
-    const handler = (e: Event) => setLng((e as CustomEvent<string>).detail);
-    window.addEventListener('app:languageChanged', handler);
-    return () => window.removeEventListener('app:languageChanged', handler);
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<string>).detail;
+      if (typeof detail === 'string' && detail.length > 0) {
+        setLng(detail);
+      }
+    };
+    window.addEventListener(LANGUAGE_CHANGE_EVENT, handler);
+    return () => window.removeEventListener(LANGUAGE_CHANGE_EVENT, handler);
   }, []);
 
   useLayoutEffect(() => {

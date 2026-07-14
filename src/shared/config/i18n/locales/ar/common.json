@@ -26,7 +26,9 @@
     "title": "تسجيل الخروج",
     "description": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
     "cancel": "إلغاء",
-    "confirm": "تسجيل الخروج"
+    "confirm": "تسجيل الخروج",
+    "serverErrorTitle": "فشل تسجيل الخروج",
+    "serverErrorDescription": "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى."
   },
   "pagination": {
     "showing": "يتم اظهار",

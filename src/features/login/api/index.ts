@@ -1,5 +1,6 @@
-import type { LoginResponse, LoginParams } from '../model/loginTypes';
 import { apiClient, unwrapApiResponse } from '@/shared/api';
+
+import type { LoginResponse, LoginParams } from '../model/loginTypes';
 
 export async function login(credentials: LoginParams) {
   let fcmToken: string | null = null;
@@ -12,10 +13,14 @@ export async function login(credentials: LoginParams) {
     console.warn('Failed to retrieve FCM token during login:', error);
   }
 
-  const response = await apiClient.post<LoginResponse>('/auth/v1/login', {
-    ...credentials,
-    FCMToken: fcmToken,
-  });
+  const response = await apiClient.post<LoginResponse>(
+    '/auth/v2/login',
+    {
+      ...credentials,
+      FCMToken: fcmToken,
+    },
+    { skipAuthRefresh: true },
+  );
 
   return unwrapApiResponse(response);
 }

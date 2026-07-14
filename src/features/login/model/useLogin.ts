@@ -3,15 +3,22 @@ import { useMutation } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import type { LoginParams, LoginResponse } from './loginTypes';
-import { login } from '../api';
-import { setCredentials } from '@/entities/session';
+import { useLogout } from '@/features/auth/index.initial';
+import {
+  setCredentials,
+  broadcastRefreshed,
+  toSessionCredentials,
+} from '@/entities/session';
 import type { ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';
+
+import { login } from '../api';
+import type { LoginParams, LoginResponse } from './loginTypes';
 
 export function useLogin() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const logoutUser = useLogout();
 
   const { t } = useTranslation('errors');
 
@@ -19,25 +26,22 @@ export function useLogin() {
     mutationFn: login,
 
     onSuccess: (data) => {
-      const role = data.roles[0];
+      const isAdmin = data.roles.includes('admin');
 
-      if (role && role === 'admin') {
-        dispatch(
-          setCredentials({
-            accessToken: data.access_token,
-            refreshToken: data.refresh_token,
-            roles: data.roles,
-            user: { email: data.email, name: data.name },
-            unread_notifications_count: data.unread_notifications_count,
-          }),
-        );
+      if (isAdmin) {
+        dispatch(setCredentials(toSessionCredentials(data)));
+
+        broadcastRefreshed(data);
 
         navigate('/dashboard', { replace: true });
-      } else {
-        toast.error(t('login.error'), {
-          description: t('login.onlyAdmin'),
-        });
+        return;
       }
+
+      void logoutUser();
+
+      toast.error(t('login.error'), {
+        description: t('login.onlyAdmin'),
+      });
     },
 
     onError: (error) => {

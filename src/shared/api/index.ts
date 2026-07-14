@@ -10,4 +10,5 @@ export type {
   ApiResponse,
   PaginatedResponse,
   PaginatedResult,
+  RequestConfig,
 } from './apiClient';

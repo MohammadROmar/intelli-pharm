@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { PharmacyForm, type PharmacyDetail } from '@/entities/pharmacy';
+
 import { useCreatePharmacy } from '../model/useCreatePharmacy';
 
 export function PharmacyCreateForm() {
@@ -9,7 +10,7 @@ export function PharmacyCreateForm() {
 
   function handleSubmit(payload: PharmacyDetail) {
     mutate(payload, {
-      // onSuccess: () => setFormKey((prev) => prev + 1),
+      onSuccess: () => setFormKey((prev) => prev + 1),
     });
   }
 

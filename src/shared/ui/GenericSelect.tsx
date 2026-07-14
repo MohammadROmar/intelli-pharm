@@ -149,9 +149,6 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
 
     let listenerCleanup: (() => void) | undefined;
 
-    // Radix only mounts the popover content once `isOpen` flips to true;
-    // wait a tick so `scrollRef` is attached and layout has settled before
-    // attaching listeners or reading scroll metrics.
     const timerId = setTimeout(() => {
       const container = scrollRef.current;
       if (!container) return;

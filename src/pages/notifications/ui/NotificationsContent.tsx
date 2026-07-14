@@ -108,8 +108,6 @@ export function NotificationsContent() {
     });
   }, [markAllAsRead, dispatch]);
 
-  // Suspense boundary upstream is expected to cover the initial fetch;
-  // this guard just keeps TypeScript honest without a non-null assertion.
   if (!meta) return null;
 
   if (meta.total === 0) {

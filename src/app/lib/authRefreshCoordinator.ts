@@ -1,95 +1,14 @@
 import type { LoginResponse } from '@/features/login/index.initial';
-import { getRefreshToken, setRefreshToken } from '@/entities/session';
+import { broadcastRefreshed } from '@/entities/session';
 import { apiClient, ApiError } from '@/shared/api';
 
-// ─── Why this file exists ───────────────────────────────────────────────────
-//
-// Refresh tokens are single-use and rotate on every call. That one fact
-// creates two races:
-//
-//   Same-tab  — several requests in ONE tab hit 401 around the same moment.
-//   Cross-tab — the same problem, one level up: every tab is a separate JS
-//               context with its own module state and its own Redux store.
-//               Nothing in one tab's code can see what another tab is doing.
-//
-// coordinatedRefresh() is the single entry point both AuthProvider (bootstrap)
-// and store.ts (runtime 401s) call into. It solves both races with two
-// complementary mechanisms:
-//
-//   - An in-flight promise shared by every caller in THIS tab.
-//   - navigator.locks, which provides real mutual exclusion across EVERY tab
-//     of the origin — not just this one.
-//
-// The lock alone is NOT enough. If the new refresh token were persisted only
-// after the lock releases (e.g. by the caller's later Redux dispatch), a tab
-// queued behind the lock could acquire it and still read the just-consumed
-// token — same race, one level up. So the token write happens INSIDE
-// performRefresh(), before the lock is released. Whoever runs next inside
-// the lock is guaranteed to see the fresh value.
-//
-// The "pending" flag (used to detect an interrupted refresh) lives here too,
-// for the same reason: it must bracket the actual network call, which now
-// happens in exactly one place regardless of which caller — bootstrap or
-// runtime — triggered it. It's stored in localStorage rather than
-// sessionStorage deliberately: sessionStorage is wiped the moment a tab
-// closes, which is exactly the scenario this flag exists to catch. It also
-// happens to line up with the lock — since only one refresh can ever be
-// in-flight across the whole origin at a time, a single shared flag
-// correctly represents that.
-
 const LOCK_NAME = 'auth-refresh-lock';
-export const AUTH_BROADCAST_CHANNEL = 'auth-sync';
-
-export type AuthSyncMessage =
-  | { type: 'refreshed'; data: LoginResponse; originId: string }
-  | { type: 'logout'; originId: string };
-
-// One id per tab, stamped on every message this tab posts. BroadcastChannel
-// delivers a message to every OTHER *instance* subscribed to the channel
-// name — including a second instance opened by this same tab (AuthProvider
-// listens on its own BroadcastChannel object, separate from the one below).
-// Without tagging, a tab would "hear" and reprocess the broadcast it just
-// sent to everyone else. isOwnBroadcast() lets a listener filter that out.
-const TAB_ID: string =
-  typeof crypto !== 'undefined' && 'randomUUID' in crypto
-    ? crypto.randomUUID()
-    : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-// Guarded the same way navigator.locks is guarded below — BroadcastChannel
-// isn't available in every browser, and an unguarded `new BroadcastChannel()`
-// at module scope would throw at import time and take down the whole app.
-const authSyncChannel =
-  typeof BroadcastChannel !== 'undefined'
-    ? new BroadcastChannel(AUTH_BROADCAST_CHANNEL)
-    : null;
-
-function broadcastRefreshed(data: LoginResponse): void {
-  authSyncChannel?.postMessage({
-    type: 'refreshed',
-    data,
-    originId: TAB_ID,
-  } satisfies AuthSyncMessage);
-}
-
-export function broadcastLogout(): void {
-  authSyncChannel?.postMessage({
-    type: 'logout',
-    originId: TAB_ID,
-  } satisfies AuthSyncMessage);
-}
-
-export function isOwnBroadcast(message: AuthSyncMessage): boolean {
-  return message.originId === TAB_ID;
-}
 
 // ─── Interrupted-session detection ──────────────────────────────────────────
 //
 // Stamped immediately before the network call, cleared the instant we get
-// ANY definitive outcome (success or failure). If the app dies mid-flight —
-// tab closed, OS killed it, network dropped after the server already
-// rotated the token — this flag is left behind. wasRefreshInterrupted() lets
-// the NEXT boot recognize that window and show "session interrupted"
-// instead of a silent, confusing logout.
+// ANY definitive outcome (success or failure). See the file-level comment
+// above for why this still matters, unchanged, post-migration.
 //
 // Key is versioned (":v1") so a future change to what this flag stores
 // (e.g. adding a reason code) can't be misread by clients still holding an
@@ -101,7 +20,7 @@ export function isOwnBroadcast(message: AuthSyncMessage): boolean {
 // (shows a friendlier "session interrupted" screen instead of a silent
 // logout) — not load-bearing for auth correctness — so failing silently and
 // falling back to normal behavior is the right response to a storage error.
-//
+
 const PENDING_FLAG_KEY = 'intellipharm_auth_refresh_pending:v1';
 const PENDING_FLAG_TTL_MS = 30_000;
 
@@ -130,44 +49,37 @@ export function wasRefreshInterrupted(): boolean {
 
     // A flag outside the TTL isn't a recent interruption — it's debris left
     // behind by one, possibly from a session that ended in an entirely
-    // different way since (e.g. the user logged in again manually). Sweep it
-    // so it doesn't sit in localStorage indefinitely.
+    // different way since (e.g. the user logged in again manually). Sweep
+    // it so it doesn't sit in localStorage indefinitely.
     if (!isRecent) clearRefreshPending();
 
     return isRecent;
   } catch {
-    // Storage unavailable — treat as "no interruption to report" rather
-    // than surfacing a storage error as an auth error.
     return false;
   }
 }
 
 // ─── Error classification ───────────────────────────────────────────────────
-// Shared so bootstrap and runtime judge failures the same way — previously
-// each kept its own copy of this logic.
 //
-// isInvalidRefreshToken() is intentionally scoped to responses from
-// /auth/v1/refresh specifically — it is NOT a general "was this a 401"
-// check, and shouldn't be reused to classify errors from other endpoints.
-// A proper 401 means the same thing here that it means anywhere, but this
-// backend also returns 404 for an already-used or unknown refresh token
-// (confirmed by testing), which is non-standard — 401 is the correct code
-// for an invalid credential — but the frontend has to work with what the
-// backend actually sends. If the backend returns other codes for related
-// cases (expired vs. already-rotated vs. malformed), those need adding here
-// too; worth confirming with whoever owns that endpoint rather than
-// discovering each one by trial.
+// Confirmed directly with backend: every case their own code handles —
+// deleted user, expired token, missing token, malformed token — returns
+// 401. Nothing outside their control (the server itself being unreachable
+// or erroring) is guaranteed a specific code, which is exactly why that
+// bucket is isRetryableError's job, not enumerated here.
 
 export function isInvalidRefreshToken(error: unknown): boolean {
   if (!(error instanceof ApiError)) return false;
-  return error.status === 401 || error.status === 404;
+  return error.status === 401;
 }
 
 /**
  * No status = the request never reached the server (retry). 429 = the auth
  * server is rate-limiting us — transient, not a rejection, so back off and
  * retry rather than fall through to the "no recovery path" logout. 5xx =
- * transient server failure.
+ * transient server failure — and, per backend, also the fallback for
+ * anything outside their own handled cases, so it's deliberately treated as
+ * "try again" rather than "give up": misclassifying a genuine server hiccup
+ * as an invalid session would log someone out for no reason.
  */
 export function isRetryableError(error: unknown): boolean {
   if (!(error instanceof ApiError)) return true;
@@ -197,8 +109,6 @@ function runLockedRefresh(): Promise<LoginResponse> {
     typeof navigator !== 'undefined' && 'locks' in navigator;
 
   if (!hasLockSupport) {
-    // Older browsers without Web Locks fall back to same-tab-only protection —
-    // still strictly better than no coordination at all.
     if (import.meta.env.DEV) {
       console.warn(
         '[auth] navigator.locks unavailable — cross-tab refresh coordination disabled.',
@@ -238,7 +148,7 @@ function runLockedRefresh(): Promise<LoginResponse> {
 // NOTE: There's a narrow race where a refresh request is interrupted
 // (tab/browser closed mid-flight) after the server has already rotated
 // the token but before the client received the response. The client then
-// retries with a now-dead token on next load and gets logged out.
+// retries with a now-dead cookie on next load and gets a 401.
 //
 // Fix would require backend tolerance for a retried refresh (grace period
 // on rotation, or an idempotency key) — raised with backend, declined.
@@ -248,28 +158,29 @@ function runLockedRefresh(): Promise<LoginResponse> {
 // Acceptable trade-off: narrow window (~hundreds of ms), rare to hit,
 // no security impact — just an occasional extra sign-in tap.
 async function performRefresh(): Promise<LoginResponse> {
-  // Re-read at the moment we actually run, not when we started waiting —
-  // another tab may have rotated the token while we were queued for the lock.
-  const refreshToken = getRefreshToken();
-
-  if (!refreshToken) {
-    throw new ApiError('unauthorized', 401);
-  }
-
   markRefreshPending();
 
   try {
-    const { data } = await apiClient.post<LoginResponse>('/auth/v1/refresh', {
-      refresh_token: refreshToken,
-    });
+    // No body and no presence check: the refresh token is an httpOnly
+    // cookie now, attached automatically by the browser — there's nothing
+    // for JS to read or send, and no way to peek at whether it's even
+    // there before asking. A missing or dead cookie just comes back as the
+    // server's own 401, same as any other invalid token.
+    //
+    // skipAuthRefresh: true — this call's own 401 means "no valid session
+    // to restore," never "the access token expired," so it must never
+    // trigger store.ts's response interceptor into attempting ANOTHER
+    // refresh off of this one's failure.
+    const { data } = await apiClient.post<LoginResponse>(
+      '/auth/v2/refresh',
+      undefined,
+      { skipAuthRefresh: true },
+    );
 
     if (!data) {
       throw new ApiError('unauthorized', 401);
     }
 
-    // Persist now, still holding the lock. Anything queued behind us reads
-    // this value, not the one we just consumed.
-    setRefreshToken(data.refresh_token);
     broadcastRefreshed(data);
 
     return data;

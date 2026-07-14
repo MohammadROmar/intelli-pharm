@@ -1,15 +1,29 @@
 import { useCallback } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
-import { logout } from '@/entities/session';
+import { logout, logoutRequest } from '@/entities/session';
 import { useAppDispatch } from '@/shared/config';
-import { revokeFCMToken } from '@/shared/notifications';
 
 export function useLogout() {
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
-  return useCallback(() => {
-    void revokeFCMToken();
+  return useCallback(async () => {
+    const result = await logoutRequest();
 
-    dispatch(logout());
-  }, [dispatch]);
+    if (!result.isError) {
+      dispatch(logout());
+
+      queryClient.clear();
+
+      try {
+        const { revokeFCMToken } = await import('@/shared/notifications');
+        await revokeFCMToken();
+      } catch (error) {
+        console.warn('Failed to revoke FCM token during logout:', error);
+      }
+    }
+
+    return result;
+  }, [dispatch, queryClient]);
 }

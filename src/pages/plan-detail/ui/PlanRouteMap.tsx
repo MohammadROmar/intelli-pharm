@@ -11,18 +11,16 @@ import {
 } from 'react-leaflet';
 import { memo, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Clock, Route } from 'lucide-react';
 
 import { useFormatDistance, useFormatDuration } from '@/entities/plan';
 import type { PlanPath, PlanVisit } from '@/entities/plan';
 import { decodePolyline } from '@/shared/map';
 import { LabeledLink } from '@/shared/ui';
-import { Clock, Route } from 'lucide-react';
 
 const ICON_BASE_STYLE =
   'border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;';
 
-// Single source of truth for route/marker colors so the polyline and the
-// stop badge for a given visit can never drift out of sync.
 const ROUTE_COLORS = {
   start: '#3b82f6',
   visited: '#16a34a',

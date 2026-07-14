@@ -3,6 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import resourcesToBackend from 'i18next-resources-to-backend';
 
+import { LANGUAGE_CHANGE_EVENT } from '../../lib/language';
+
 i18n
   .use(
     resourcesToBackend(
@@ -21,7 +23,7 @@ i18n
   });
 
 i18n.on('languageChanged', (lng) => {
-  window.dispatchEvent(new CustomEvent('app:languageChanged', { detail: lng }));
+  window.dispatchEvent(new CustomEvent(LANGUAGE_CHANGE_EVENT, { detail: lng }));
 });
 
 export default i18n;

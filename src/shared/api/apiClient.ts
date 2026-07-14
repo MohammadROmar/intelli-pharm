@@ -30,16 +30,18 @@ export type PaginatedResult<T> = {
   totalCount: number;
 };
 
+export type RequestConfig = AxiosRequestConfig & { skipAuthRefresh?: boolean };
+
 export class ApiError extends Error {
   public readonly i18nKey: string;
   public readonly status?: number;
-  public readonly config?: AxiosRequestConfig;
+  public readonly config?: RequestConfig;
 
   constructor(
     i18nKey: string,
     status?: number,
     message?: string,
-    config?: AxiosRequestConfig,
+    config?: RequestConfig,
   ) {
     super(i18nKey);
 
@@ -109,29 +111,26 @@ interface ApiInstance extends Omit<
   AxiosInstance,
   'get' | 'post' | 'put' | 'patch' | 'delete'
 > {
-  <T = unknown>(config: AxiosRequestConfig): Promise<ApiResponse<T>>;
-  <T = unknown>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<ApiResponse<T>>;
+  <T = unknown>(config: RequestConfig): Promise<ApiResponse<T>>;
+  <T = unknown>(url: string, config?: RequestConfig): Promise<ApiResponse<T>>;
 
-  get<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+  get<T>(url: string, config?: RequestConfig): Promise<ApiResponse<T>>;
   post<T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig,
+    config?: RequestConfig,
   ): Promise<ApiResponse<T>>;
   put<T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig,
+    config?: RequestConfig,
   ): Promise<ApiResponse<T>>;
   patch<T>(
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig,
+    config?: RequestConfig,
   ): Promise<ApiResponse<T>>;
-  delete<T>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>>;
+  delete<T>(url: string, config?: RequestConfig): Promise<ApiResponse<T>>;
 }
 
 type ResponseError = AxiosError & {
@@ -141,13 +140,14 @@ type ResponseError = AxiosError & {
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 }) as ApiInstance;
 
 apiClient.interceptors.response.use(
   (res) => res.data,
   (error: ResponseError) => {
     if (import.meta.env.DEV) {
-      console.log(error.response);
+      console.warn('[api] request failed:', error.response);
     }
 
     const responseError = error.response?.data?.errors?.message;
