@@ -3,6 +3,20 @@ import { CheckIcon, ChevronRightIcon, CircleIcon } from 'lucide-react';
 
 import { cn } from '../lib';
 
+const checkboxItemIndicator = (
+  <DropdownMenuPrimitive.ItemIndicator>
+    <CheckIcon className="size-4" />
+  </DropdownMenuPrimitive.ItemIndicator>
+);
+
+const radioItemIndicator = (
+  <DropdownMenuPrimitive.ItemIndicator>
+    <CircleIcon className="size-2 fill-current" />
+  </DropdownMenuPrimitive.ItemIndicator>
+);
+
+const subTriggerChevron = <ChevronRightIcon className="ml-auto size-4" />;
+
 function DropdownMenu({
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Root>) {
@@ -96,9 +110,7 @@ function DropdownMenuCheckboxItem({
       {...props}
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
-        <DropdownMenuPrimitive.ItemIndicator>
-          <CheckIcon className="size-4" />
-        </DropdownMenuPrimitive.ItemIndicator>
+        {checkboxItemIndicator}
       </span>
       {children}
     </DropdownMenuPrimitive.CheckboxItem>
@@ -131,9 +143,7 @@ function DropdownMenuRadioItem({
       {...props}
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
-        <DropdownMenuPrimitive.ItemIndicator>
-          <CircleIcon className="size-2 fill-current" />
-        </DropdownMenuPrimitive.ItemIndicator>
+        {radioItemIndicator}
       </span>
       {children}
     </DropdownMenuPrimitive.RadioItem>
@@ -214,7 +224,7 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="ml-auto size-4" />
+      {subTriggerChevron}
     </DropdownMenuPrimitive.SubTrigger>
   );
 }

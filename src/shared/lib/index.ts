@@ -8,10 +8,10 @@ export { formatPrice } from './formatPrice';
 export { buttonVariants } from './buttonVariants';
 export { getPerPage, getPage } from './searchParamsUtils';
 export {
-  canonicalizeFilters,
   normalizeApiParams,
   parseFilters,
   serializeFilters,
+  type FilterParams,
 } from './filters';
 
 export { useIsMobile } from './hooks/useMobile';

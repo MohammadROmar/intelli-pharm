@@ -45,7 +45,7 @@ export function TableCard({
   const isFilterEmpty = !isTotalEmpty && currItemsCount === 0;
   const hasNoRows = isTotalEmpty || isFilterEmpty;
 
-  const Icon = icon ? icon : Plus;
+  const Icon = icon ?? Plus;
 
   return (
     <Card>

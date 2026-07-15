@@ -35,7 +35,7 @@ export function NavUser() {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
+        <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen} modal={false}>
           <NavUserTrigger user={user} menuOpen={menuOpen} />
           <NavUserMenuContent user={user} />
         </DropdownMenu>

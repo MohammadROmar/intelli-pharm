@@ -2,12 +2,23 @@ export function buildUrl(
   basePath: string,
   page: number,
   currentParams: URLSearchParams,
-  extraParams?: Record<string, string>,
+  extraParams?: Record<string, string | number | boolean | undefined | null>,
 ): string {
   const params = new URLSearchParams(currentParams);
+
   if (extraParams) {
-    Object.entries(extraParams).forEach(([k, v]) => params.set(k, v));
+    Object.entries(extraParams).forEach(([k, v]) => {
+      if (v === undefined || v === null || v === '') {
+        params.delete(k);
+      } else {
+        params.set(k, String(v));
+      }
+    });
   }
+
   params.set('page', String(page));
-  return `${basePath}?${params.toString()}`;
+
+  const separator = basePath.includes('?') ? '&' : '?';
+
+  return `${basePath}${separator}${params.toString()}`;
 }

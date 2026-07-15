@@ -8,13 +8,14 @@ import {
   getPage,
   getPerPage,
   normalizeApiParams,
-  canonicalizeFilters,
+  serializeFilters,
+  type FilterParams,
 } from '../lib';
 
 type Props = {
   module?: string;
   queryKey: string;
-  filters?: Record<string, unknown>;
+  filters?: FilterParams;
   withDualLanguage?: boolean;
 };
 
@@ -33,7 +34,7 @@ export function useSuspenseGetEntities<T extends { data?: Y[] }, Y>({
 
   const params = normalizeApiParams(filters, page_number, per_page);
   const queryKeys = createDomainQueryKeys(queryKey);
-  const canonicalFilters = canonicalizeFilters(filters);
+  const canonicalFilters = serializeFilters(filters);
 
   return useSuspenseQuery<ApiResponse<T>, ApiError>({
     queryKey: queryKeys.list({

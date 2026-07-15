@@ -8,7 +8,7 @@ import {
   getPage,
   getPerPage,
   normalizeApiParams,
-  canonicalizeFilters,
+  serializeFilters,
 } from '@/shared/lib';
 
 import { getPharmacyMetrics } from '@/entities/metrics';
@@ -23,7 +23,7 @@ export function usePharmacyMetrics(filters: PharmacyFilters) {
   const page_number = getPage(searchParams);
   const per_page = getPerPage(searchParams);
   const params = normalizeApiParams(filters, page_number, per_page);
-  const canonicalFilters = canonicalizeFilters(filters);
+  const canonicalFilters = serializeFilters(filters);
 
   return useSuspenseQuery<ApiResponse<PharmacyMetricsData>, ApiError>({
     queryKey: queryKeys.list({

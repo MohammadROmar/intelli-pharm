@@ -12,7 +12,7 @@ import {
   DynamicPagination,
   PerPageSelect,
 } from '@/shared/ui';
-import { useAppDispatch } from '@/shared/config';
+import { useAppDispatch, useAppSelector } from '@/shared/config';
 import {
   setUnreadNotifications,
   decrementUnreadNotifications,
@@ -83,12 +83,16 @@ export function NotificationsContent() {
   const { mutate: markAllAsRead, isPending: isMarkingAll } =
     useMarkAllNotificationsAsRead();
 
+  const unreadNotifications = useAppSelector(
+    (state) => state.session.unreadNotifications,
+  );
+
   const notifications = useMemo(() => data?.data?.data ?? [], [data]);
   const meta = data?.data?.meta;
 
   const hasUnread = useMemo(
-    () => notifications.some((notification) => notification.read_at === null),
-    [notifications],
+    () => !!unreadNotifications && unreadNotifications > 0,
+    [unreadNotifications],
   );
 
   const handleMarkAsRead = useCallback(

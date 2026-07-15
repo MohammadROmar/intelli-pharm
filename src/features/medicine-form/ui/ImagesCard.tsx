@@ -65,12 +65,12 @@ export function ImagesCard({ images, isPending, onAdd, onRemove }: Props) {
           onRemove={onRemove}
         />
 
-        {errors.imagesCount && (
+        {errors.imagesCount ? (
           <FieldError
             errors={te(errors.imagesCount, 'images')}
             className="mt-3"
           />
-        )}
+        ) : null}
       </CardContent>
     </Card>
   );

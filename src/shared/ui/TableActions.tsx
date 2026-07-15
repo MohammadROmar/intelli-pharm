@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Info, Pencil, Trash2, MoreHorizontal } from 'lucide-react';
@@ -14,9 +14,9 @@ import {
 
 type TableActionsContextValue<T> = {
   itemId: string | number;
-  path: string;
+  path?: string;
   item: T;
-  onDelete: (item: T) => void;
+  onDelete?: (item: T) => void;
 };
 
 const TableActionsContext =
@@ -53,12 +53,15 @@ function TableActionsRoot<T>({
 }: TableActionsProps<T>) {
   const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
+  // TableActionsRoot render.
+  const contextValue = useMemo(
+    () =>
+      ({ itemId, path, item, onDelete }) as TableActionsContextValue<unknown>,
+    [itemId, path, item, onDelete],
+  );
+
   return (
-    <TableActionsContext.Provider
-      value={
-        { itemId, path, item, onDelete } as TableActionsContextValue<unknown>
-      }
-    >
+    <TableActionsContext.Provider value={contextValue}>
       <TableCell className="relative z-10 w-[1%] whitespace-nowrap">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -80,6 +83,15 @@ function Detail() {
   const { path, itemId } = useTableActions();
   const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
+  if (!path) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        '<TableActions.Detail /> requires a `path` prop on the parent <TableActions>.',
+      );
+    }
+    return null;
+  }
+
   return (
     <DropdownMenuItem asChild>
       <Link to={`${path}/${itemId}`} className="cursor-pointer">
@@ -94,6 +106,15 @@ function Update() {
   const { path, itemId } = useTableActions();
   const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
+  if (!path) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        '<TableActions.Update /> requires a `path` prop on the parent <TableActions>.',
+      );
+    }
+    return null;
+  }
+
   return (
     <DropdownMenuItem asChild>
       <Link to={`${path}/${itemId}/edit`} className="cursor-pointer">
@@ -107,6 +128,15 @@ function Update() {
 function Delete<T>() {
   const { item, onDelete } = useTableActions<T>();
   const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
+
+  if (!onDelete) {
+    if (import.meta.env.DEV) {
+      console.warn(
+        '<TableActions.Delete /> requires an `onDelete` prop on the parent <TableActions>.',
+      );
+    }
+    return null;
+  }
 
   return (
     <DropdownMenuItem

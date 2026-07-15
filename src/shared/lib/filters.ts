@@ -5,17 +5,18 @@ export type FilterPrimitive =
   | Date
   | null
   | undefined;
-export type FilterValue = FilterPrimitive | readonly unknown[];
+
+export type FilterValue = FilterPrimitive | readonly FilterPrimitive[];
 
 export type FilterSpec = Record<
   string,
   'string' | 'number' | 'boolean' | 'date' | 'csv'
 >;
 
-export type FilterParams = Record<string, unknown>;
+export type FilterParams = Record<string, FilterValue>;
 
 function normalizeScalarValue(
-  value: unknown,
+  value: FilterPrimitive,
   type: FilterSpec[string] | undefined,
 ): string | undefined {
   if (value === undefined || value === null || value === '') {
@@ -24,6 +25,13 @@ function normalizeScalarValue(
 
   if (value instanceof Date) {
     return value.toISOString();
+  }
+
+  if (type === 'date') {
+    const parsedDate = new Date(value as string | number);
+    return Number.isNaN(parsedDate.getTime())
+      ? undefined
+      : parsedDate.toISOString();
   }
 
   if (type === 'boolean') {
@@ -39,7 +47,7 @@ function normalizeScalarValue(
 }
 
 function normalizeArrayValue(
-  value: readonly unknown[],
+  value: readonly FilterPrimitive[],
   type: FilterSpec[string] | undefined,
 ): string | undefined {
   const normalized = value
@@ -51,6 +59,12 @@ function normalizeArrayValue(
   }
 
   return normalized.join(',');
+}
+
+function isFilterArray(
+  value: FilterValue,
+): value is readonly FilterPrimitive[] {
+  return Array.isArray(value);
 }
 
 function toSortedEntries(
@@ -65,7 +79,7 @@ function toSortedEntries(
 }
 
 export function serializeFilters(
-  filters: FilterParams,
+  filters: FilterParams = {},
   spec: FilterSpec = {},
 ): Record<string, string> {
   const serialized: Record<string, string> = {};
@@ -73,7 +87,7 @@ export function serializeFilters(
   for (const [key, value] of Object.entries(filters)) {
     const type = spec[key];
 
-    const normalized = Array.isArray(value)
+    const normalized = isFilterArray(value)
       ? normalizeArrayValue(value, type)
       : normalizeScalarValue(value, type);
 
@@ -82,24 +96,7 @@ export function serializeFilters(
     }
   }
 
-  const canonicalized: Record<string, string> = {};
-
-  for (const [key, value] of toSortedEntries(serialized)) {
-    canonicalized[key] = value;
-  }
-
-  return canonicalized;
-}
-
-export function canonicalizeFilters(
-  filters?: FilterParams,
-  spec: FilterSpec = {},
-): Record<string, string> {
-  if (!filters) {
-    return {};
-  }
-
-  return serializeFilters(filters, spec);
+  return Object.fromEntries(toSortedEntries(serialized));
 }
 
 export function normalizeApiParams(
@@ -108,13 +105,9 @@ export function normalizeApiParams(
   perPage?: number,
   spec: FilterSpec = {},
 ): Record<string, string | number> {
-  const params: Record<string, string | number> = {};
-
-  const serializedFilters = serializeFilters(filters ?? {}, spec);
-
-  for (const [key, value] of Object.entries(serializedFilters)) {
-    params[key] = value;
-  }
+  const params: Record<string, string | number> = {
+    ...serializeFilters(filters, spec),
+  };
 
   if (pageNumber !== undefined) {
     params.page_number = pageNumber;
@@ -127,13 +120,13 @@ export function normalizeApiParams(
   return params;
 }
 
-export function parseFilters<T extends Record<string, unknown>>(
+export function parseFilters<T extends FilterParams = FilterParams>(
   searchParams: URLSearchParams,
   spec: FilterSpec = {},
 ): T {
-  const filters: Record<string, unknown> = {};
+  const filters: Record<string, FilterValue> = {};
 
-  for (const key of new Set(Array.from(searchParams.keys()))) {
+  for (const key of new Set(searchParams.keys())) {
     const type = spec[key];
 
     if (type === 'csv') {
@@ -158,9 +151,9 @@ export function parseFilters<T extends Record<string, unknown>>(
 
     if (type === 'boolean') {
       if (rawValue === '1' || rawValue === 'true') {
-        filters[key] = '1';
+        filters[key] = true;
       } else if (rawValue === '0' || rawValue === 'false') {
-        filters[key] = '0';
+        filters[key] = false;
       }
 
       continue;
@@ -171,6 +164,16 @@ export function parseFilters<T extends Record<string, unknown>>(
 
       if (Number.isFinite(parsed)) {
         filters[key] = parsed;
+      }
+
+      continue;
+    }
+
+    if (type === 'date') {
+      const parsedDate = new Date(rawValue);
+
+      if (!Number.isNaN(parsedDate.getTime())) {
+        filters[key] = parsedDate;
       }
 
       continue;

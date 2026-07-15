@@ -19,17 +19,19 @@ type DeleteModalProps = {
   onClose: () => void;
 };
 
+const DESTRUCTIVE_LOADING_CLASSES =
+  'disabled:button-shimmer disabled:[--skeleton-shine:color-mix(in_oklch,var(--destructive),white_45%)] disabled:[--skeleton:var(--destructive)]';
+
 export function DeleteModal({
+  isPending,
   hasItem,
   label,
-  onClose,
   onConfirm,
-  isPending,
+  onClose,
 }: DeleteModalProps) {
   const { t } = useTranslation('common', { keyPrefix: 'dialog.delete' });
 
   const [stableLabel, setStableLabel] = useState(label);
-
   if (label && label !== stableLabel) {
     setStableLabel(label);
   }
@@ -38,10 +40,10 @@ export function DeleteModal({
     <Dialog
       open={!!hasItem}
       onOpenChange={(open) => {
-        if (!open) onClose();
+        if (!open && !isPending) onClose();
       }}
     >
-      <DialogContent>
+      <DialogContent onOpenAutoFocus={(e) => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>{t('title', { item: stableLabel })}</DialogTitle>
           <DialogDescription>{t('description')}</DialogDescription>
@@ -55,7 +57,7 @@ export function DeleteModal({
             onClick={onConfirm}
             isLoading={isPending}
             disabled={isPending}
-            className="disabled:button-shimmer disabled:[--skeleton-shine:color-mix(in_oklch,var(--destructive),white_45%)] disabled:[--skeleton:var(--destructive)]"
+            className={DESTRUCTIVE_LOADING_CLASSES}
           >
             {t('confirm')}
           </Button>

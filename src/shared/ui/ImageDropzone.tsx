@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { ImagePlus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +20,50 @@ type ImageDropzoneProps = {
   onRemove: (id: string) => void;
 };
 
+type ImagePreviewTileProps = {
+  id: string;
+  preview: string;
+  index: number;
+  fileName: string;
+  removeLabel: string;
+  onRemove: (id: string) => void;
+};
+
+const ImagePreviewTile = memo(function ImagePreviewTile({
+  id,
+  preview,
+  index,
+  fileName,
+  removeLabel,
+  onRemove,
+}: ImagePreviewTileProps) {
+  const handleRemove = useCallback(() => {
+    onRemove(id);
+  }, [onRemove, id]);
+
+  return (
+    <div className="group border-border bg-muted relative aspect-square overflow-hidden rounded-lg border">
+      <img
+        src={preview}
+        alt={fileName}
+        className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/40" />
+      <button
+        type="button"
+        onClick={handleRemove}
+        aria-label={removeLabel}
+        className="bg-destructive absolute top-1.5 right-1.5 flex size-6 items-center justify-center rounded-full text-white opacity-0 shadow-md transition-all duration-150 group-hover:opacity-100 hover:scale-110"
+      >
+        <X className="size-3.5" />
+      </button>
+      <Badge className="absolute right-1.5 bottom-1.5 h-5 rounded-sm bg-black/60! px-1.5 text-[10px] text-white! opacity-0 transition-opacity group-hover:opacity-100">
+        {index + 1}
+      </Badge>
+    </div>
+  );
+});
+
 export function ImageDropzone({
   images,
   disabled,
@@ -28,6 +72,26 @@ export function ImageDropzone({
   onRemove,
 }: ImageDropzoneProps) {
   const { t } = useTranslation('common', { keyPrefix: 'dragNDrop' });
+
+  const previewsRef = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
+    const current = new Set(images.map((image) => image.preview));
+
+    previewsRef.current.forEach((preview) => {
+      if (!current.has(preview)) {
+        URL.revokeObjectURL(preview);
+      }
+    });
+
+    previewsRef.current = current;
+  }, [images]);
+
+  useEffect(() => {
+    return () => {
+      previewsRef.current.forEach((preview) => URL.revokeObjectURL(preview));
+    };
+  }, []);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -52,12 +116,13 @@ export function ImageDropzone({
     <div className="space-y-4">
       <div
         {...getRootProps()}
+        aria-invalid={hasError}
         className={cn(
           'relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-8 transition-all duration-200',
           isDragActive
-            ? 'border-primary bg-primaborder-primary/10 scale-[1.01]'
+            ? 'border-primary bg-primary/10 scale-[1.01]'
             : hasError
-              ? 'border-destructive'
+              ? 'border-destructive bg-destructive/5'
               : 'border-border bg-muted/20 hover:bg-muted/40 hover:border-primary/60',
           disabled && 'border-border! bg-card! cursor-not-allowed! opacity-60',
         )}
@@ -65,14 +130,16 @@ export function ImageDropzone({
         <input {...getInputProps()} />
         <div className="flex flex-col items-center gap-2 text-center">
           <div
-            className={`rounded-full p-3 transition-colors ${
-              isDragActive ? 'bg-primaborder-primary/20' : 'bg-muted'
-            }`}
+            className={cn(
+              'rounded-full p-3 transition-colors',
+              isDragActive ? 'bg-primary/20' : 'bg-muted',
+            )}
           >
             <ImagePlus
-              className={`size-6 transition-colors ${
-                isDragActive ? 'text-primary' : 'text-muted-foreground'
-              }`}
+              className={cn(
+                'size-6 transition-colors',
+                isDragActive ? 'text-primary' : 'text-muted-foreground',
+              )}
             />
           </div>
           {isDragActive ? (
@@ -91,33 +158,21 @@ export function ImageDropzone({
         </div>
       </div>
 
-      {images.length > 0 && (
+      {images.length > 0 ? (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-          {images.map((img, i) => (
-            <div
-              key={img.id}
-              className="group border-border bg-muted relative aspect-square overflow-hidden rounded-lg border"
-            >
-              <img
-                src={img.preview}
-                alt={`Preview ${i + 1}`}
-                className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/40" />
-              <button
-                type="button"
-                onClick={() => onRemove(img.id)}
-                className="bg-destructive absolute top-1.5 right-1.5 flex size-6 items-center justify-center rounded-full text-white opacity-0 shadow-md transition-all duration-150 group-hover:opacity-100 hover:scale-110"
-              >
-                <X className="size-3.5" />
-              </button>
-              <Badge className="absolute right-1.5 bottom-1.5 h-5 rounded-sm bg-black/60! px-1.5 text-[10px] text-white! opacity-0 transition-opacity group-hover:opacity-100">
-                {i + 1}
-              </Badge>
-            </div>
+          {images.map((image, index) => (
+            <ImagePreviewTile
+              key={image.id}
+              id={image.id}
+              preview={image.preview}
+              index={index}
+              fileName={image.file.name}
+              removeLabel={t('removeImage', { defaultValue: 'Remove image' })}
+              onRemove={onRemove}
+            />
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -1,20 +1,21 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { serializeFilters } from '../filters';
+import { serializeFilters, type FilterParams } from '../filters';
+import { useLatestRef } from './useLatestRef';
 
-type Params<T> = {
-  filters: Record<string, unknown>;
+type Params<T extends FilterParams> = {
+  filters: Partial<T>;
   filterKeys: readonly (keyof T)[];
 };
 
-export function useFilters<T>({ filters, filterKeys }: Params<T>) {
+export function useFilters<T extends FilterParams>({
+  filters,
+  filterKeys,
+}: Params<T>) {
   const [, setSearchParams] = useSearchParams();
 
-  const filterKeysRef = useRef(filterKeys);
-  useEffect(() => {
-    filterKeysRef.current = filterKeys;
-  }, [filterKeys]);
+  const filterKeysRef = useLatestRef(filterKeys);
 
   const applyFilters = useCallback(
     (newFilters: T) => {
@@ -25,11 +26,11 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
 
           const serializedFilters = serializeFilters(
             Object.fromEntries(
-              keys.map((key) => [key.toString(), newFilters[key]]),
+              keys.map((key: keyof T) => [key.toString(), newFilters[key]]),
             ),
           );
 
-          keys.forEach((key) => {
+          keys.forEach((key: keyof T) => {
             const value = serializedFilters[key.toString()];
 
             if (value !== undefined && value !== '') {
@@ -44,29 +45,27 @@ export function useFilters<T>({ filters, filterKeys }: Params<T>) {
         { replace: false },
       );
     },
-    [setSearchParams],
+    [setSearchParams, filterKeysRef],
   );
 
   const clearFilters = useCallback(() => {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        filterKeysRef.current.forEach((key) => next.delete(key.toString()));
+        filterKeysRef.current.forEach((key: keyof T) =>
+          next.delete(key.toString()),
+        );
         next.delete('page');
         return next;
       },
       { replace: false },
     );
-  }, [setSearchParams]);
+  }, [setSearchParams, filterKeysRef]);
 
-  const activeCount = Object.entries(filters).filter(
-    ([k, v]) =>
-      k !== 'page' &&
-      k !== 'per_page' &&
-      v !== undefined &&
-      v !== null &&
-      v !== '',
-  ).length;
+  const activeCount = filterKeys.filter((key: keyof T) => {
+    const value = filters[key];
+    return value !== undefined && value !== null && value !== '';
+  }).length;
 
   const hasActiveFilters = activeCount !== 0;
 

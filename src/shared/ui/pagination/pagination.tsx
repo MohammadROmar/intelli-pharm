@@ -5,8 +5,8 @@ import {
 } from 'lucide-react';
 import { Link, type LinkProps } from 'react-router-dom';
 
-import { buttonVariants, cn } from '../../lib';
 import type { Button } from '../Button';
+import { buttonVariants, cn } from '../../lib';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -65,11 +65,15 @@ function PaginationLink({
   );
 }
 
+type PaginationNavLinkProps = React.ComponentProps<typeof PaginationLink> & {
+  label?: string;
+};
+
 function PaginationPrevious({
   className,
   label,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { label?: string }) {
+}: PaginationNavLinkProps) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
@@ -77,7 +81,7 @@ function PaginationPrevious({
       className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
       {...props}
     >
-      <ChevronLeftIcon className="rtl:rotate-180" />
+      <ChevronLeftIcon className="size-4 rtl:rotate-180" />
       <span className="hidden sm:block">{label ?? 'Previous'}</span>
     </PaginationLink>
   );
@@ -85,8 +89,9 @@ function PaginationPrevious({
 
 function PaginationNext({
   className,
+  label,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { label?: string }) {
+}: PaginationNavLinkProps) {
   return (
     <PaginationLink
       aria-label="Go to next page"
@@ -94,8 +99,8 @@ function PaginationNext({
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
       {...props}
     >
-      <span className="hidden sm:block">{props.label ?? 'Next'}</span>
-      <ChevronRightIcon className="rtl:rotate-180" />
+      <span className="hidden sm:block">{label ?? 'Next'}</span>
+      <ChevronRightIcon className="size-4 rtl:rotate-180" />
     </PaginationLink>
   );
 }

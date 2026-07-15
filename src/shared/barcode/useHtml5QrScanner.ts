@@ -10,8 +10,16 @@ type Options = {
 const SCAN_FPS = 10;
 const SCAN_BOX_SIZE = 250;
 const SCANNER_START_TIMEOUT_MS = 15_000;
+const DUPLICATE_SCAN_WINDOW_MS = 1_500;
 
-let scannerQueue: Promise<Html5Qrcode | null> = Promise.resolve(null);
+let cameraSessionQueue: Promise<Html5Qrcode | null> = Promise.resolve(null);
+
+function enqueueCameraTask(
+  task: (current: Html5Qrcode | null) => Promise<Html5Qrcode | null>,
+): Promise<Html5Qrcode | null> {
+  cameraSessionQueue = cameraSessionQueue.then(task);
+  return cameraSessionQueue;
+}
 
 function withTimeout<T>(
   promise: Promise<T>,
@@ -56,6 +64,7 @@ export function useHtml5QrScanner({
 }: Options): void {
   const onScanRef = useRef(onScan);
   const onErrorRef = useRef(onError);
+  const lastScanRef = useRef<{ value: string; time: number } | null>(null);
 
   useEffect(() => {
     onScanRef.current = onScan;
@@ -65,7 +74,7 @@ export function useHtml5QrScanner({
   useEffect(() => {
     let isCancelled = false;
 
-    scannerQueue = scannerQueue.then(async (existingScanner) => {
+    enqueueCameraTask(async (existingScanner) => {
       if (existingScanner) {
         await stopAndClear(existingScanner);
       }
@@ -73,11 +82,6 @@ export function useHtml5QrScanner({
       if (isCancelled) return null;
 
       try {
-        const container = document.getElementById(elementId);
-        if (container) {
-          container.innerHTML = '';
-        }
-
         const scanner = new Html5Qrcode(elementId, { verbose: false });
         const startPromise = scanner.start(
           { facingMode: 'environment' },
@@ -86,7 +90,19 @@ export function useHtml5QrScanner({
             qrbox: { width: SCAN_BOX_SIZE, height: SCAN_BOX_SIZE },
           },
           (decodedText: string) => {
-            if (!isCancelled) onScanRef.current(decodedText);
+            if (isCancelled) return;
+
+            const now = Date.now();
+            const last = lastScanRef.current;
+            if (
+              last &&
+              last.value === decodedText &&
+              now - last.time < DUPLICATE_SCAN_WINDOW_MS
+            ) {
+              return;
+            }
+            lastScanRef.current = { value: decodedText, time: now };
+            onScanRef.current(decodedText);
           },
           () => {},
         );
@@ -102,6 +118,11 @@ export function useHtml5QrScanner({
           throw startError;
         }
 
+        if (isCancelled) {
+          await stopAndClear(scanner);
+          return null;
+        }
+
         return scanner;
       } catch (error) {
         if (!isCancelled) {
@@ -115,7 +136,7 @@ export function useHtml5QrScanner({
     return () => {
       isCancelled = true;
 
-      scannerQueue = scannerQueue.then(async (scanner) => {
+      enqueueCameraTask(async (scanner) => {
         if (!scanner) return null;
         await stopAndClear(scanner);
         return null;

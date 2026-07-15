@@ -8,7 +8,7 @@ import {
   getPage,
   getPerPage,
   normalizeApiParams,
-  canonicalizeFilters,
+  serializeFilters,
 } from '@/shared/lib';
 
 import { getMedicineMetrics } from '@/entities/metrics';
@@ -23,7 +23,7 @@ export function useMedicineMetrics(filters: MedicineFilters) {
   const page_number = getPage(searchParams);
   const per_page = getPerPage(searchParams);
   const params = normalizeApiParams(filters, page_number, per_page);
-  const canonicalFilters = canonicalizeFilters(filters);
+  const canonicalFilters = serializeFilters(filters);
 
   return useSuspenseQuery<ApiResponse<MedicineMetricsData>, ApiError>({
     queryKey: queryKeys.list({

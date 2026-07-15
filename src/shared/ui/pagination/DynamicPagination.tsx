@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +12,7 @@ import {
   PaginationPrevious,
 } from './pagination';
 import { buildUrl } from '../../lib/buildUrl';
-import { cn } from '../../lib/utils';
+import { cn } from '../../lib';
 
 export type DynamicPaginationProps = {
   maxPages: number;
@@ -67,6 +68,30 @@ function buildPageItems(
   return [1, 'left-ellipsis', ...middleRange, 'right-ellipsis', maxPages];
 }
 
+type PaginationPageButtonProps = {
+  page: number;
+  isActive: boolean;
+  href: string;
+};
+
+function PaginationPageButton({
+  page,
+  isActive,
+  href,
+}: PaginationPageButtonProps) {
+  return (
+    <PaginationItem>
+      <PaginationLink
+        to={href}
+        isActive={isActive}
+        className="text-xs! md:text-sm!"
+      >
+        {page}
+      </PaginationLink>
+    </PaginationItem>
+  );
+}
+
 export function DynamicPagination({
   maxPages,
   currentPage,
@@ -81,14 +106,17 @@ export function DynamicPagination({
 
   const isFirst = currentPage <= 1;
   const isLast = currentPage >= maxPages;
+  const isValidPage = currentPage >= 1 && currentPage <= maxPages;
 
   const siblingCount = siblingCountFromMax(Math.max(5, maxVisiblePages));
-  const pageItems = buildPageItems(currentPage, maxPages, siblingCount);
 
-  const firstItem = (currentPage - 1) * itemsPerPage + 1;
+  const pageItems = useMemo(
+    () => buildPageItems(currentPage, maxPages, siblingCount),
+    [currentPage, maxPages, siblingCount],
+  );
+
+  const firstItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
   const lastItem = Math.min(currentPage * itemsPerPage, totalItems);
-
-  const isValidPage = currentPage <= maxPages;
 
   return (
     <div
@@ -97,7 +125,7 @@ export function DynamicPagination({
         !isValidPage && 'lg:justify-end',
       )}
     >
-      {isValidPage && (
+      {isValidPage ? (
         <p className="text-muted-foreground text-sm">
           {t('pagination.showing')}{' '}
           <span className="text-foreground font-medium">{firstItem}</span>{' '}
@@ -106,7 +134,7 @@ export function DynamicPagination({
           {t('pagination.of')}{' '}
           <span className="text-foreground font-medium">{totalItems}</span>{' '}
         </p>
-      )}
+      ) : null}
 
       <Pagination className="block">
         <PaginationContent className="flex flex-wrap items-center justify-center">
@@ -130,30 +158,20 @@ export function DynamicPagination({
             />
           </PaginationItem>
 
-          {pageItems.map((item, index) => {
-            if (item === 'left-ellipsis' || item === 'right-ellipsis') {
-              return (
-                <PaginationItem key={`${item}-${index}`}>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              );
-            }
-
-            const isActive = item === currentPage;
-
-            return (
+          {pageItems.map((item) =>
+            item === 'left-ellipsis' || item === 'right-ellipsis' ? (
               <PaginationItem key={item}>
-                <PaginationLink
-                  to={buildUrl(basePath, item, searchParams, extraParams)}
-                  isActive={isActive}
-                  className="text-xs! md:text-sm!"
-                  aria-current={isActive ? 'page' : undefined}
-                >
-                  {item}
-                </PaginationLink>
+                <PaginationEllipsis />
               </PaginationItem>
-            );
-          })}
+            ) : (
+              <PaginationPageButton
+                key={item}
+                page={item}
+                isActive={item === currentPage}
+                href={buildUrl(basePath, item, searchParams, extraParams)}
+              />
+            ),
+          )}
 
           <PaginationItem>
             <PaginationNext
