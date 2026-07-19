@@ -16,7 +16,7 @@ export function createChannelAuthorizer() {
     authorize(socketId: string, callback: AuthorizerCallback): void {
       const body = new URLSearchParams({
         socket_id: socketId,
-        channel_name: `${channel.name}`,
+        channel_name: channel.name,
       });
 
       apiClient

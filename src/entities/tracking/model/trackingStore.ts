@@ -33,7 +33,10 @@ type EchoChannelLike = {
   error(callback: (error: unknown) => void): EchoChannelLike;
 };
 
-type EchoLike = { private(name: string): EchoChannelLike };
+type EchoLike = {
+  private(name: string): EchoChannelLike;
+  leave(name: string): void;
+};
 
 const positions = new Map<number, LocationEvent>();
 const previousPositions = new Map<number, LocationEvent>();
@@ -59,7 +62,8 @@ let hydrated = false;
 
 let channel: EchoChannelLike | null = null;
 let boundHandler: ((payload: LocationEvent) => void) | null = null;
-let echoAcquired = false;
+
+let echoRef: EchoLike | null = null;
 
 const idsCacheBySignature = new Map<string, number[]>();
 
@@ -103,15 +107,13 @@ function flush(): void {
 
   pendingBuffer.clear();
   if (anyChanged) {
-    idsCacheBySignature.clear();
     notifyAll();
   }
 }
 
 function applyEvent(event: LocationEvent): boolean {
   const existing = positions.get(event.u);
-  if (existing && existing.ts > event.ts) return false;
-  if (existing && existing.ts === event.ts) return false;
+  if (existing && existing.ts >= event.ts) return false;
 
   if (existing) previousPositions.set(event.u, existing);
   positions.set(event.u, event);
@@ -132,7 +134,6 @@ function sweep(): void {
   }
 
   if (anyRemoved) {
-    idsCacheBySignature.clear();
     notifyAll();
   }
 
@@ -142,11 +143,10 @@ function sweep(): void {
 async function connect(generation: number): Promise<void> {
   try {
     const initial = await fetchTrackingInit();
-    if (generation !== connectionGeneration) return;
+    if (generation !== connectionGeneration) return; // released while in flight
 
     for (const event of initial) applyEvent(event);
     hydrated = true;
-    idsCacheBySignature.clear();
     notifyAll();
   } catch (error) {
     if (generation !== connectionGeneration) return;
@@ -166,10 +166,13 @@ async function connect(generation: number): Promise<void> {
 }
 
 function openChannel(generation: number): void {
-  const echo = acquireEcho() as unknown as EchoLike;
-  echoAcquired = true;
+  leaveCurrentChannel();
 
-  channel = echo.private(CHANNEL_NAME);
+  if (!echoRef) {
+    echoRef = acquireEcho() as unknown as EchoLike;
+  }
+
+  channel = echoRef.private(CHANNEL_NAME);
   boundHandler = (payload) => ingest(payload);
   channel.listen(LOCATION_EVENT_NAME, boundHandler);
 
@@ -185,7 +188,6 @@ function openChannel(generation: number): void {
     if (import.meta.env.DEV) {
       console.log('[tracking] channel subscription error', error);
     }
-    teardownChannel();
     scheduleRetry(generation);
   });
 
@@ -213,23 +215,31 @@ function scheduleRetry(generation: number): void {
   }, delay);
 }
 
-function teardownChannel(): void {
-  if (channel && boundHandler) {
-    channel.stopListening(LOCATION_EVENT_NAME, boundHandler);
-  }
-  channel = null;
-  boundHandler = null;
-
-  if (echoAcquired) {
-    releaseEcho();
-    echoAcquired = false;
+function leaveCurrentChannel(): void {
+  try {
+    if (channel && boundHandler) {
+      channel.stopListening(LOCATION_EVENT_NAME, boundHandler);
+    }
+    echoRef?.leave(CHANNEL_NAME);
+  } catch (error) {
+    if (import.meta.env.DEV) {
+      console.log('[tracking] error leaving channel', error);
+    }
+  } finally {
+    channel = null;
+    boundHandler = null;
   }
 }
 
 function disconnect(): void {
   connectionGeneration += 1;
 
-  teardownChannel();
+  leaveCurrentChannel();
+
+  if (echoRef) {
+    releaseEcho();
+    echoRef = null;
+  }
 
   if (sweepTimer) clearInterval(sweepTimer);
   sweepTimer = null;

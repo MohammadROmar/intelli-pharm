@@ -18,9 +18,11 @@ export function useTrackingFilters(): UseTrackingFiltersResult {
   const filter = useMemo<TrackingFilter>(() => {
     const regionParam = searchParams.get(REGION_PARAM);
     const roleParam = searchParams.get(ROLE_PARAM);
+    const isValidRegionId =
+      regionParam !== null && /^\d+$/.test(regionParam.trim());
 
     return {
-      regionId: regionParam ? Number(regionParam) : 'all',
+      regionId: isValidRegionId ? Number(regionParam) : 'all',
       role: roleParam === 'rep' || roleParam === 'delivery' ? roleParam : 'all',
     };
   }, [searchParams]);

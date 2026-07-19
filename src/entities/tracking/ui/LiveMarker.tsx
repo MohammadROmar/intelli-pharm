@@ -2,6 +2,8 @@ import { memo, useMemo } from 'react';
 import { Marker, Popup, Tooltip } from 'react-leaflet';
 import { useTranslation } from 'react-i18next';
 
+import { LabeledLink } from '@/shared/ui';
+
 import { useLivePosition } from '../model/useLivePosition';
 import { useTrackingTick } from '../model/useTrackingTick';
 import { getPreviousPosition } from '../model/trackingStore';
@@ -61,9 +63,10 @@ export const LiveMarker = memo(function LiveMarker({ userId }: Props) {
             {position.r === 'rep' ? t('rep') : t('delivery')}
           </p>
           {position.tid != null && (
-            <p className="text-muted-foreground text-xs">
-              {t('onTask', { id: position.tid })}
-            </p>
+            <LabeledLink
+              to={`/dashboard/plans/${position.tid}`}
+              label={t('onTask', { id: position.tid })}
+            />
           )}
         </div>
       </Popup>
