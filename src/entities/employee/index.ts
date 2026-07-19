@@ -10,6 +10,7 @@ export type {
   EmployeeInternalFormData,
 } from './model/employeeTypes';
 export { useGetEmployeeSuspense } from './model/useGetEmployeeSuspense';
+export { getRoles } from './lib/getRoles';
 
 export { EmployeeRow } from './ui/EmployeeRow';
 export { EmployeeForm } from './ui/EmployeeForm';

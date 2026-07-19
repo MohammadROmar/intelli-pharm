@@ -1,0 +1,33 @@
+{
+  "page": {
+    "title": "Live Tracking",
+    "subtitle": "Track your sales reps and delivery team in real time."
+  },
+  "filters": {
+    "clearRegion": "All regions",
+    "regionPlaceholder": "Select a region",
+    "rolePlaceholder": "Select a role",
+    "role": {
+      "all": "All roles",
+      "rep": "Sales reps",
+      "delivery": "Delivery"
+    },
+    "onlineCount": "{{count}} online"
+  },
+  "marker": {
+    "rep": "Sales rep",
+    "delivery": "Delivery",
+    "onTask": "On plan #{{id}}"
+  },
+  "connection": {
+    "connecting": "Connecting…",
+    "reconnecting": "Reconnecting — map may be stale",
+    "retrying": "Reconnecting live tracking…",
+    "unavailable": "Live tracking unavailable",
+    "retry": "Retry"
+  },
+  "permissionDenied": {
+    "title": "You don't have access to live tracking",
+    "description": "Ask an administrator to grant the tracking permission to your account."
+  }
+}

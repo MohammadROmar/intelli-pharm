@@ -72,6 +72,8 @@ import { LazyPlanListPage } from '@/pages/plan-list';
 import { LazyPlanDetailPage } from '@/pages/plan-detail';
 import { LazyInitiatePlanPage } from '@/pages/plan-initiate';
 
+import { LazyLiveTrackingPage } from '@/pages/live-tracking';
+
 import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
 import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
 import { LazyAreaMetricsPage } from '@/pages/metrics-area';
@@ -104,6 +106,8 @@ const router = createBrowserRouter([
                 index: true,
                 element: <></>,
               },
+
+              { path: 'tracking', element: <LazyLiveTrackingPage /> },
 
               {
                 path: 'orders',

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FolderTree } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 import { useInfiniteRegions } from '../model/useInfinteRegions';
 import {
@@ -17,6 +17,7 @@ export function RegionSelector({
   onValueChange,
   invalid,
   isLoading,
+  ...props
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -35,7 +36,7 @@ export function RegionSelector({
       options={selectableRegions}
       valueKey="id"
       labelKey="name"
-      icon={FolderTree}
+      icon={MapPin}
       value={value}
       onValueChange={onValueChange!}
       onSearchChange={setSearchTerm}
@@ -43,6 +44,7 @@ export function RegionSelector({
       hasNextPage={hasNextPage}
       isLoading={isFetching}
       isFetchingNextPage={isFetchingNextPage}
+      {...props}
     />
   );
 }

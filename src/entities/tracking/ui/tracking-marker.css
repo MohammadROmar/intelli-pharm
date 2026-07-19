@@ -1,0 +1,11 @@
+.tracking-marker-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 2px !important;
+}
+
+.tracking-marker-label::before {
+  display: none !important;
+}

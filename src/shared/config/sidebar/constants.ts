@@ -15,6 +15,7 @@ import {
   Target,
   Route,
   type LucideIcon,
+  Radar,
 } from 'lucide-react';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
@@ -63,6 +64,11 @@ export const sidebarData: NavSection[] = [
         label: 'labels.plans',
         url: '/dashboard/plans',
         icon: Route,
+      },
+      {
+        label: 'labels.tracking',
+        url: '/dashboard/tracking',
+        icon: Radar,
       },
       { label: 'labels.pharmacies', url: '/dashboard/pharmacies', icon: Cross },
       {
