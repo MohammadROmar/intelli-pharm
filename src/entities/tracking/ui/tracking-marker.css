@@ -1,3 +1,7 @@
+.leaflet-container {
+  direction: ltr !important;
+}
+
 .tracking-marker-label {
   background: transparent !important;
   border: none !important;
@@ -8,4 +12,27 @@
 
 .tracking-marker-label::before {
   display: none !important;
+}
+
+@keyframes tracking-focus-pulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.tracking-focus-ring {
+  animation: tracking-focus-pulse 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tracking-focus-ring {
+    animation: none;
+    opacity: 0.55;
+  }
 }

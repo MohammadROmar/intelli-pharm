@@ -7,6 +7,8 @@ import { DashboardRoute } from '../config/DashboardRoute';
 
 import { LazyRootLayout } from '../../../layouts/LazyRootLayout';
 
+import type { ScrollRestorationHandle } from '@/shared/lib';
+
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
 
@@ -79,6 +81,8 @@ import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
 import { LazyAreaMetricsPage } from '@/pages/metrics-area';
 import { LazyPharmacyMetricsPage } from '@/pages/metrics-pharmacy';
 
+import { FOCUS_PARAM } from '@/features/live-tracking-roster';
+
 const router = createBrowserRouter([
   {
     element: <LazyRootLayout />,
@@ -107,7 +111,13 @@ const router = createBrowserRouter([
                 element: <></>,
               },
 
-              { path: 'tracking', element: <LazyLiveTrackingPage /> },
+              {
+                path: 'tracking',
+                element: <LazyLiveTrackingPage />,
+                handle: {
+                  scrollRestoration: { ignoreSearchParams: [FOCUS_PARAM] },
+                } satisfies ScrollRestorationHandle,
+              },
 
               {
                 path: 'orders',

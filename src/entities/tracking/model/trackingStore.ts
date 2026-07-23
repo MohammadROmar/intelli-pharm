@@ -143,7 +143,7 @@ function sweep(): void {
 async function connect(generation: number): Promise<void> {
   try {
     const initial = await fetchTrackingInit();
-    if (generation !== connectionGeneration) return; // released while in flight
+    if (generation !== connectionGeneration) return;
 
     for (const event of initial) applyEvent(event);
     hydrated = true;
@@ -166,7 +166,7 @@ async function connect(generation: number): Promise<void> {
 }
 
 function openChannel(generation: number): void {
-  leaveCurrentChannel();
+  leaveChannelForRetry();
 
   if (!echoRef) {
     echoRef = acquireEcho() as unknown as EchoLike;
@@ -186,7 +186,7 @@ function openChannel(generation: number): void {
   channel.error((error) => {
     if (generation !== connectionGeneration) return;
     if (import.meta.env.DEV) {
-      console.log('[tracking] channel subscription error', error);
+      console.error('[tracking] channel subscription error', error);
     }
     scheduleRetry(generation);
   });
@@ -215,26 +215,29 @@ function scheduleRetry(generation: number): void {
   }, delay);
 }
 
-function leaveCurrentChannel(): void {
+function forgetLocalChannel(): void {
+  if (channel && boundHandler) {
+    channel.stopListening(LOCATION_EVENT_NAME, boundHandler);
+  }
+  channel = null;
+  boundHandler = null;
+}
+
+function leaveChannelForRetry(): void {
+  forgetLocalChannel();
   try {
-    if (channel && boundHandler) {
-      channel.stopListening(LOCATION_EVENT_NAME, boundHandler);
-    }
     echoRef?.leave(CHANNEL_NAME);
   } catch (error) {
     if (import.meta.env.DEV) {
-      console.log('[tracking] error leaving channel', error);
+      console.error('[tracking] error leaving channel', error);
     }
-  } finally {
-    channel = null;
-    boundHandler = null;
   }
 }
 
 function disconnect(): void {
   connectionGeneration += 1;
 
-  leaveCurrentChannel();
+  forgetLocalChannel();
 
   if (echoRef) {
     releaseEcho();

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ErrorBoundary } from '@/shared/lib';
@@ -7,6 +7,10 @@ import {
   TrackingFiltersBar,
   useTrackingFilters,
 } from '@/features/live-tracking-filters';
+import {
+  useTrackingFocus,
+  TrackingRosterPanel,
+} from '@/features/live-tracking-roster';
 
 const LiveTrackingMap = lazy(() =>
   import('./LiveTrackingMap').then((module) => ({
@@ -17,6 +21,14 @@ const LiveTrackingMap = lazy(() =>
 export default function LiveTrackingPage() {
   const { t } = useTranslation('tracking', { keyPrefix: 'page' });
   const { filter } = useTrackingFilters();
+  const { focusedUserId, setFocusedUserId } = useTrackingFocus();
+
+  const handleSelectUser = useCallback(
+    (userId: number) => {
+      setFocusedUserId((current) => (current === userId ? null : userId));
+    },
+    [setFocusedUserId],
+  );
 
   return (
     <>
@@ -24,14 +36,30 @@ export default function LiveTrackingPage() {
 
       <TrackingFiltersBar />
 
-      <ErrorBoundary
-        FallbackComponent={SectionErrorFallback}
-        resetKeys={[filter.regionId, filter.role]}
-      >
-        <Suspense fallback={<Skeleton className="h-140 w-full rounded-lg" />}>
-          <LiveTrackingMap filter={filter} />
-        </Suspense>
-      </ErrorBoundary>
+      <div className="relative flex h-140 gap-3">
+        <TrackingRosterPanel
+          filter={filter}
+          focusedUserId={focusedUserId}
+          onSelectUser={handleSelectUser}
+        />
+
+        <div className="min-w-0 flex-1">
+          <ErrorBoundary
+            FallbackComponent={SectionErrorFallback}
+            resetKeys={[filter.regionId, filter.role]}
+          >
+            <Suspense
+              fallback={<Skeleton className="h-140 w-full rounded-lg" />}
+            >
+              <LiveTrackingMap
+                filter={filter}
+                focusedUserId={focusedUserId}
+                onSelectUser={handleSelectUser}
+              />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
+      </div>
     </>
   );
 }

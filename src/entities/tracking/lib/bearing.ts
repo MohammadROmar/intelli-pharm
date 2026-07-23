@@ -2,8 +2,6 @@ import { getBearing } from '@/shared/map';
 
 import type { LocationEvent } from '../model/types';
 
-const IDLE_SPEED_THRESHOLD_MPS = 0.3;
-
 const HEADING_BUCKET_SIZE_DEG = 15;
 
 export type ResolvedHeading = { degrees: number };
@@ -12,9 +10,9 @@ export function resolveHeading(
   current: LocationEvent,
   previous: LocationEvent | undefined,
 ): ResolvedHeading | null {
-  const isStationary =
-    current.s != null && current.s < IDLE_SPEED_THRESHOLD_MPS;
-  if (isStationary) return null;
+  if (current.s === null || current.s === 0) {
+    return null;
+  }
 
   if (current.h != null) {
     return { degrees: current.h };

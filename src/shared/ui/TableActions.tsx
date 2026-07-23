@@ -53,7 +53,6 @@ function TableActionsRoot<T>({
 }: TableActionsProps<T>) {
   const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
-  // TableActionsRoot render.
   const contextValue = useMemo(
     () =>
       ({ itemId, path, item, onDelete }) as TableActionsContextValue<unknown>,

@@ -10,7 +10,7 @@ export function LabeledLink({ to, label, className }: LabeledLinkProps) {
     <Link
       to={to}
       className={cn(
-        'hover:text-primary group flex min-w-0 items-center gap-1 text-sm font-medium transition-colors hover:underline',
+        'hover:text-primary group flex w-fit min-w-0 items-center gap-1 text-sm font-medium transition-colors hover:underline',
         className,
       )}
     >

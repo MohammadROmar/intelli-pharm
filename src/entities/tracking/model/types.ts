@@ -1,4 +1,4 @@
-export type EmployeeRole = 'rep' | 'delivery';
+export type EmployeeRole = 'rep' | 'distributor';
 
 export type RoleFilter = 'all' | EmployeeRole;
 

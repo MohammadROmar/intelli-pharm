@@ -10,9 +10,7 @@ import { ActionsDropdown, DropdownMenuItem, PageHeader } from '@/shared/ui';
 type Props = { employee: Employee };
 
 export function EmployeeDetailHeader({ employee }: Props) {
-  const { t } = useTranslation('medicines', {
-    keyPrefix: 'detail',
-  });
+  const { t } = useTranslation('employees', { keyPrefix: 'detail' });
 
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
     null,
@@ -24,14 +22,14 @@ export function EmployeeDetailHeader({ employee }: Props) {
       <DeleteEmployeeModal
         employee={employeeToDelete}
         onClose={() => setEmployeeToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/medicines')}
+        onDeleteSuccess={() => navigate('/dashboard/employees')}
       />
 
       <PageHeader
         title={employee.name}
         pageTitle={`${employee.name} · ${t('pageTitle')} - IntelliPharma`}
       >
-        <ActionsDropdown label={t('actions')}>
+        <ActionsDropdown label={t('employeeActions')}>
           <DropdownMenuItem asChild>
             <Link
               to={`/dashboard/employees/${employee.id}/edit`}

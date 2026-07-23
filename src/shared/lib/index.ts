@@ -43,3 +43,7 @@ export {
 } from './chunkError';
 
 export { LANGUAGE_CHANGE_EVENT, getInitialLng } from './language';
+export {
+  getScrollRestorationKey,
+  type ScrollRestorationHandle,
+} from './getScrollRestorationKey';

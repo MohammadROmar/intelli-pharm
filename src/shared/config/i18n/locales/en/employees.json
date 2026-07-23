@@ -76,8 +76,11 @@
     "clear": "Clear Filters"
   },
   "detail": {
-    "edit": "Edit Employee",
+    "pageTitle": "Employee Details",
+    "edit": "Edit",
+    "employeeActions": "Actions",
     "active": "Active",
+    "delete": "Delete",
     "inactive": "Inactive",
     "infoCardTitle": "Employee Details",
     "infoCardSubtitle": "Identity, contact, and working hours.",
@@ -98,7 +101,8 @@
       "crm": "CRM",
       "planner": "Planner",
       "auth": "Auth",
-      "tracking": "Tracking"
+      "tracking": "Tracking",
+      "dashboard": "Dashboard"
     },
     "actions": {
       "view": "View",

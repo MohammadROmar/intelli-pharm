@@ -5,14 +5,6 @@ import { createChannelAuthorizer } from './authorizer';
 import { setConnectionState } from './connectionStore';
 import type { ConnectionState } from './types';
 
-declare global {
-  interface Window {
-    Pusher: typeof Pusher;
-  }
-}
-
-window.Pusher = Pusher;
-
 type ReverbEcho = Echo<'reverb'>;
 
 const DEFAULT_REVERB_PORT = 443;
@@ -42,14 +34,18 @@ function warnIfReverbEnvMissing(): void {
 function createEcho(): ReverbEcho {
   warnIfReverbEnvMissing();
 
+  const reverbPort = resolveReverbPort();
+
   const instance = new Echo({
     broadcaster: 'reverb',
     key: import.meta.env.VITE_REVERB_APP_KEY,
     wsHost: import.meta.env.VITE_REVERB_HOST,
-    wsPort: resolveReverbPort(),
+    wsPort: reverbPort,
+    wssPort: reverbPort,
     forceTLS: true,
     enabledTransports: ['ws', 'wss'],
     authorizer: createChannelAuthorizer(),
+    Pusher,
   }) as ReverbEcho;
 
   instance.connector.pusher.connection.bind(

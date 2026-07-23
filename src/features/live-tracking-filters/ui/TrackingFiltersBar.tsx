@@ -8,7 +8,7 @@ import { Badge, Button, GenericSingleSelect } from '@/shared/ui';
 
 import { useTrackingFilters } from '../model/useTrackingFilters';
 
-const ROLE_OPTIONS: RoleFilter[] = ['rep', 'delivery'];
+const ROLE_OPTIONS: RoleFilter[] = ['rep', 'distributor'];
 
 export function TrackingFiltersBar() {
   const { t } = useTranslation('tracking', { keyPrefix: 'filters' });

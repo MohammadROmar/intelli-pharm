@@ -24,19 +24,22 @@ export const TrackingConnectionBanner = memo(
       return (
         <div
           className={cn(
-            'bg-card border-destructive/30 text-destructive absolute top-3 left-1/2 z-1000 flex -translate-x-1/2 items-center gap-2 rounded-full border px-3 py-1.5 text-xs shadow-sm',
+            'bg-card border-destructive/30 text-destructive absolute top-3 left-1/2 z-1000 flex -translate-x-1/2 items-center gap-2 border px-3 py-1.5 text-xs shadow-sm',
             'animate-in fade-in slide-in-from-top-1 fill-mode-[both] motion-reduce:animate-none',
+            'flex-col rounded-2xl md:flex-row md:rounded-full',
           )}
         >
-          <WifiOff className="size-3.5" />
-          <span>{t('unavailable')}</span>
+          <div className="flex items-center gap-2">
+            <WifiOff className="size-3.5 shrink-0" />
+            <span>{t('unavailable')}</span>
+          </div>
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
-            className="text-destructive hover:text-destructive h-auto gap-1 px-1.5 py-0.5"
+            className="text-destructive hover:text-destructive h-auto gap-1! px-1.5! py-0.5!"
             onClick={retry}
           >
-            <RefreshCw className="size-3" />
+            <RefreshCw className="size-3 shrink-0" />
             {t('retry')}
           </Button>
         </div>

@@ -23,19 +23,23 @@ export function useTrackingFilters(): UseTrackingFiltersResult {
 
     return {
       regionId: isValidRegionId ? Number(regionParam) : 'all',
-      role: roleParam === 'rep' || roleParam === 'delivery' ? roleParam : 'all',
+      role:
+        roleParam === 'rep' || roleParam === 'distributor' ? roleParam : 'all',
     };
   }, [searchParams]);
 
   const setRegion = useCallback(
     (regionId: number | 'all') => {
       startTransition(() => {
-        setSearchParams((previous) => {
-          const next = new URLSearchParams(previous);
-          if (regionId === 'all') next.delete(REGION_PARAM);
-          else next.set(REGION_PARAM, String(regionId));
-          return next;
-        });
+        setSearchParams(
+          (previous) => {
+            const next = new URLSearchParams(previous);
+            if (regionId === 'all') next.delete(REGION_PARAM);
+            else next.set(REGION_PARAM, String(regionId));
+            return next;
+          },
+          { replace: true },
+        );
       });
     },
     [setSearchParams],

@@ -1,7 +1,7 @@
 {
   "page": {
     "title": "Live Tracking",
-    "subtitle": "Track your sales reps and delivery team in real time."
+    "subtitle": "Track your sales reps and distributors team in real time."
   },
   "filters": {
     "clearRegion": "All regions",
@@ -10,14 +10,15 @@
     "role": {
       "all": "All roles",
       "rep": "Sales reps",
-      "delivery": "Delivery"
+      "distributor": "Distributors"
     },
     "onlineCount": "{{count}} online"
   },
   "marker": {
     "rep": "Sales rep",
-    "delivery": "Delivery",
-    "onTask": "On plan #{{id}}"
+    "distributor": "Distributor",
+    "admin": "Administrator",
+    "onTask": "Plan #{{id}}"
   },
   "connection": {
     "connecting": "Connecting…",
@@ -29,5 +30,16 @@
   "permissionDenied": {
     "title": "You don't have access to live tracking",
     "description": "Ask an administrator to grant the tracking permission to your account."
+  },
+  "roster": {
+    "title": "Online employees",
+    "onlineCount": "{{count}} online",
+    "empty": "No one is online right now",
+    "description": "Browse everyone currently online and tap someone to follow them on the map."
+  },
+  "follow": {
+    "following": "Following {{name}}",
+    "resume": "{{name}} — tap to re-center",
+    "stop": "Stop following"
   }
 }

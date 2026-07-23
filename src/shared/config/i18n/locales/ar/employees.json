@@ -75,7 +75,9 @@
     "clear": "مسح الفلاتر"
   },
   "detail": {
-    "edit": "تعديل الموظف",
+    "pageTitle": "تفاصيل الموظف",
+    "edit": "تعديل",
+    "delete": "حذف",
     "active": "نشط",
     "inactive": "غير نشط",
     "infoCardTitle": "بيانات الموظف",
@@ -97,8 +99,10 @@
       "crm": "إدارة علاقات العملاء",
       "planner": "المخطط",
       "auth": "المصادقة",
-      "tracking": "التتبع"
+      "tracking": "التتبع",
+      "dashboard": "لوحة المعلومات"
     },
+    "employeeActions": "الإجراءات",
     "actions": {
       "view": "عرض",
       "create": "إنشاء",
