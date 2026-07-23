@@ -3,9 +3,19 @@ import { ExternalLink } from 'lucide-react';
 
 import { cn } from '../lib';
 
-type LabeledLinkProps = { to: string; label: string; className?: string };
+type LabeledLinkProps = {
+  to: string;
+  label: string;
+  withIcon?: boolean;
+  className?: string;
+};
 
-export function LabeledLink({ to, label, className }: LabeledLinkProps) {
+export function LabeledLink({
+  to,
+  label,
+  withIcon = true,
+  className,
+}: LabeledLinkProps) {
   return (
     <Link
       to={to}
@@ -15,7 +25,9 @@ export function LabeledLink({ to, label, className }: LabeledLinkProps) {
       )}
     >
       <span className="max-w-[20ch] min-w-0 truncate">{label}</span>
-      <ExternalLink className="text-muted-foreground size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+      {withIcon && (
+        <ExternalLink className="text-muted-foreground size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+      )}
     </Link>
   );
 }

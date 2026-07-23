@@ -60,7 +60,7 @@ export const TrackingConnectionBanner = memo(
           'animate-in fade-in slide-in-from-top-1 fill-mode-[both] motion-reduce:animate-none',
         )}
       >
-        <Loader2 className="size-3.5 animate-spin" />
+        <Loader2 className="size-3.5 shrink-0 animate-spin" />
         <span>
           {isRetrying
             ? t('retrying')

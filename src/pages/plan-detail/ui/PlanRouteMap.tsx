@@ -152,11 +152,11 @@ const PharmacyMarkers = memo(function PharmacyMarkers({
                 </p>
                 <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-xs">
                   <span className="flex items-center gap-1">
-                    <Route className="size-3" />
+                    <Route className="size-3 shrink-0" />
                     {distanceLabel}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Clock className="size-3" />
+                    <Clock className="size-3 shrink-0" />
                     {durationLabel}
                   </span>
                 </div>

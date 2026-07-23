@@ -81,6 +81,8 @@ import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
 import { LazyAreaMetricsPage } from '@/pages/metrics-area';
 import { LazyPharmacyMetricsPage } from '@/pages/metrics-pharmacy';
 
+import { LazyOverviewPage } from '@/pages/dashboard-overview';
+
 import { FOCUS_PARAM } from '@/features/live-tracking-roster';
 
 const router = createBrowserRouter([
@@ -108,7 +110,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <></>,
+                element: <LazyOverviewPage />,
               },
 
               {

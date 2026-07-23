@@ -5,7 +5,7 @@ import { CalendarDays } from 'lucide-react';
 import { Badge } from '@/shared/ui';
 import { cn } from '@/shared/lib';
 
-import { StatCard } from './StatCard';
+import { StatCard } from '@/shared/ui';
 import type { MetricsSeason } from '../model/metricsTypes';
 
 export type SummaryStatItem = {

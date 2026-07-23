@@ -18,7 +18,8 @@
     "rep": "Sales rep",
     "distributor": "Distributor",
     "admin": "Administrator",
-    "onTask": "Plan #{{id}}"
+    "onTask": "Plan #{{id}}",
+    "unitSpeed": "m/s"
   },
   "connection": {
     "connecting": "Connecting…",
@@ -38,6 +39,7 @@
     "description": "Browse everyone currently online and tap someone to follow them on the map."
   },
   "follow": {
+    "offline": "{{name}} is offline",
     "following": "Following {{name}}",
     "resume": "{{name}} — tap to re-center",
     "stop": "Stop following"

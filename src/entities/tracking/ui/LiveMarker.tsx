@@ -10,6 +10,7 @@ import { getLiveMarkerIcon } from '../lib/markerIcon';
 import { getStalenessLevel } from '../lib/staleness';
 import './tracking-marker.css';
 import { LabeledLink } from '@/shared/ui';
+import { Gauge, Route } from 'lucide-react';
 
 const FOCUSED_Z_INDEX_OFFSET = 1000;
 
@@ -92,13 +93,24 @@ export const LiveMarker = memo(function LiveMarker({
           <p className="text-muted-foreground text-xs">
             {t(position.r, position.r)}
           </p>
-          {position.tid != null && (
-            <LabeledLink
-              label={t('onTask', { id: position.tid })}
-              to={`/dashboard/plans/${position.tid}`}
-              className="text-muted-foreground! hover:text-primary! mt-2 text-xs"
-            />
-          )}
+          <div className="mt-2 flex items-center gap-3">
+            {position.tid != null && (
+              <div className="text-muted-foreground flex items-center gap-1">
+                <Route className="size-3 shrink-0" />
+                <LabeledLink
+                  label={t('onTask', { id: position.tid })}
+                  to={`/dashboard/plans/${position.tid}`}
+                  withIcon={false}
+                  className="text-muted-foreground! hover:text-primary! text-xs"
+                />
+              </div>
+            )}
+
+            <p className="text-muted-foreground m-0! flex items-center gap-1 text-xs">
+              <Gauge className="size-3 shrink-0" />
+              {position.s} {t('unitSpeed')}
+            </p>
+          </div>
         </div>
       </Popup>
     </Marker>

@@ -1,40 +1,61 @@
-import type { ElementType } from 'react';
+import type { ElementType, ReactNode } from 'react';
 
-import { Card, CardContent } from '@/shared/ui';
+import { cn } from '../lib';
+import { Card, CardContent } from './Card';
 
 type StatCardProps = {
   icon: ElementType;
-  title: string;
-  subtitle: string;
-  value: string | number;
+  value: ReactNode;
+  label?: string;
+  caption?: ReactNode;
+  captionClassName?: string;
+  title?: string;
+  subtitle?: ReactNode;
 };
 
 export function StatCard({
   icon: Icon,
+  label,
   title,
-  subtitle,
   value,
+  caption,
+  subtitle,
+  captionClassName,
 }: StatCardProps) {
+  const displayLabel = label ?? title;
+  const displayCaption = caption ?? subtitle;
+
   return (
     <Card className="group hover:shadow-primary/10 hover:border-primary/20 relative overflow-hidden py-2! transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div className="from-primary/25 dark:from-primary/15 pointer-events-none absolute -inset-px rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
       <CardContent className="relative flex items-start justify-between gap-3 p-5">
         <div className="min-w-0 flex-1">
-          <p className="text-muted-foreground/70 mb-1 truncate text-xs font-semibold tracking-widest uppercase">
-            {title}
-          </p>
+          {displayLabel && (
+            <p className="text-muted-foreground/70 mb-1 truncate text-xs font-semibold tracking-widest uppercase">
+              {displayLabel}
+            </p>
+          )}
+
           <p className="text-foreground text-xl leading-tight font-bold tracking-tight wrap-break-word md:text-2xl">
             {value}
           </p>
-          <p className="text-muted-foreground mt-1 truncate text-xs">
-            {subtitle}
-          </p>
+
+          {displayCaption && (
+            <p
+              className={cn(
+                'text-muted-foreground mt-1 truncate text-xs',
+                captionClassName,
+              )}
+            >
+              {displayCaption}
+            </p>
+          )}
         </div>
 
         <div className="relative mt-0.5 shrink-0">
           <div className="bg-primary/20 absolute inset-0 rounded-xl blur-md duration-300" />
           <div className="bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary relative flex size-11 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110">
-            <Icon className="size-5" />
+            <Icon className="size-5 shrink-0" aria-hidden="true" />
           </div>
         </div>
       </CardContent>

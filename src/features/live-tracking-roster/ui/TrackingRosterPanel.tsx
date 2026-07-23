@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UsersRound } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 import {
   Button,
+  CardSectionHeader,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -67,14 +68,23 @@ export function TrackingRosterPanel({
               size="sm"
               className="gap-1.5 rounded-full shadow-md"
             >
-              <UsersRound className="size-3.5" aria-hidden="true" />
+              <Users className="size-3.5" aria-hidden="true" />
               {t('onlineCount', { count: ids.length })}
             </Button>
           </SheetTrigger>
           <SheetContent side="bottom" className="flex max-h-[70vh] flex-col">
             <SheetHeader>
-              <SheetTitle>{t('title')}</SheetTitle>
-              <SheetDescription>{t('description')}</SheetDescription>
+              <CardSectionHeader
+                title={t('title')}
+                description={t('description')}
+                icon={Users}
+                aria-hidden
+              />
+
+              <SheetTitle className="sr-only">{t('title')}</SheetTitle>
+              <SheetDescription className="sr-only">
+                {t('description')}
+              </SheetDescription>
             </SheetHeader>
             <TrackingRosterList
               filter={filter}

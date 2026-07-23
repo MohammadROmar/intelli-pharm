@@ -1,0 +1,57 @@
+{
+  "title": "Overview",
+  "range": {
+    "today": "Today",
+    "7d": "7 days",
+    "30d": "30 days",
+    "regionsPlaceholder": "Select a region"
+  },
+  "areaFilterPlaceholder": "All regions",
+  "kpis": {
+    "ordersToday": "Orders today",
+    "activeFieldStaff": "Active field staff",
+    "onRoute": "{{count}} on route now",
+    "pendingDeliveries": "Pending deliveries",
+    "delayedCount": "{{count}} delayed",
+    "nearExpiryMedicines": "Near-expiry medicines",
+    "withinDays": "within {{count}} days"
+  },
+  "trend": {
+    "title_one": "Orders, last {{count}} day",
+    "title_other": "Orders, last {{count}} days",
+    "ordersSeries": "Orders"
+  },
+  "needsAttention": {
+    "title": "Needs attention",
+    "empty": "Nothing needs your attention right now",
+    "showAll": "Show all ({{count}})",
+    "sheetDescription": "{{count}} items need your attention"
+  },
+  "liveTracking": {
+    "title": "Live tracking",
+    "viewLink": "Open map",
+    "active_one": "{{count}} Active",
+    "active_other": "{{count}} Active",
+    "breakdown": "{{reps}} reps, {{distributors}} distributors"
+  },
+  "todayPlans": {
+    "title": "Today's plans",
+    "viewLink": "View all",
+    "routes_one": "{{count}} Route",
+    "routes_other": "{{count}} Routes",
+    "breakdown": "{{inProgress}} in progress, {{completed}} done"
+  },
+  "targets": {
+    "title": "Target attainment, this month",
+    "viewLink": "View all",
+    "empty": "No active targets this period"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "subtitle": "Quickly perform common tasks and add new entries.",
+    "newPharmacy": "New pharmacy",
+    "newEmployee": "New employee",
+    "initiatePlan": "Initiate plan",
+    "newMedicine": "New medicine"
+  }
+}

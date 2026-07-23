@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { UsersRound } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 import {
   useTrackingIds,
@@ -61,7 +61,7 @@ export function TrackingRosterList({
   if (sortedIds.length === 0) {
     return (
       <div className="text-muted-foreground flex min-h-0 flex-1 flex-col items-center justify-center gap-2 px-4 py-10 text-center">
-        <UsersRound className="size-8 opacity-50" aria-hidden="true" />
+        <Users className="size-8 opacity-50" aria-hidden="true" />
         <p className="text-sm">{t('empty')}</p>
       </div>
     );

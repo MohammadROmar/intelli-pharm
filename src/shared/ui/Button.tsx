@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import type { VariantProps } from 'class-variance-authority';
 import { Loader2 } from 'lucide-react';
 
@@ -32,7 +32,7 @@ export function Button({
       {isLoading && (
         <Loader2 className="flex origin-center animate-spin items-center justify-center" />
       )}
-      {children}
+      <Slottable>{children}</Slottable>
     </Comp>
   );
 }
