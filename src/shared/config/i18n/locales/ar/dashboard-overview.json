@@ -3,7 +3,7 @@
   "range": {
     "today": "اليوم",
     "7d": "7 أيام",
-    "30d": "30 يومًا",
+    "30d": "30 يوماً",
     "regionsPlaceholder": "اختر منطقة"
   },
   "areaFilterPlaceholder": "كل المناطق",
@@ -14,14 +14,14 @@
     "pendingDeliveries": "التوصيلات المعلقة",
     "delayedCount": "{{count}} متأخرة",
     "nearExpiryMedicines": "أدوية قاربت على الانتهاء",
-    "withinDays": "خلال {{count}} يومًا"
+    "withinDays": "خلال {{count}} يوماً"
   },
   "trend": {
     "title_zero": "الطلبات، لا توجد أيام",
     "title_one": "الطلبات، آخر يوم",
     "title_two": "الطلبات، آخر يومين",
     "title_few": "الطلبات، آخر {{count}} أيام",
-    "title_many": "الطلبات، آخر {{count}} يومًا",
+    "title_many": "الطلبات، آخر {{count}} يوماً",
     "title_other": "الطلبات، آخر {{count}} يوم",
     "ordersSeries": "الطلبات"
   },
@@ -38,7 +38,7 @@
     "active_one": "{{count}} نشط",
     "active_two": "{{count}} نشطان",
     "active_few": "{{count}} نشطين",
-    "active_many": "{{count}} نشطًا",
+    "active_many": "{{count}} نشطاً",
     "active_other": "{{count}} نشط",
     "breakdown": "{{reps}} مندوبين، {{distributors}} موزعين"
   },

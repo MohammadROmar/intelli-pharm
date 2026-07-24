@@ -43,7 +43,7 @@ export function TrackingRosterList({
         <span role="status" className="sr-only">
           {t('loading')}
         </span>
-        <div aria-hidden="true" className="flex flex-col gap-0.5">
+        <div aria-hidden className="flex flex-col gap-0.5">
           {Array.from({ length: SKELETON_ROW_COUNT }, (_, index) => (
             <div key={index} className="flex items-center gap-2.5 px-2.5 py-2">
               <Skeleton className="size-7 shrink-0 rounded-full" />
@@ -61,7 +61,7 @@ export function TrackingRosterList({
   if (sortedIds.length === 0) {
     return (
       <div className="text-muted-foreground flex min-h-0 flex-1 flex-col items-center justify-center gap-2 px-4 py-10 text-center">
-        <Users className="size-8 opacity-50" aria-hidden="true" />
+        <Users className="size-8 opacity-50" aria-hidden />
         <p className="text-sm">{t('empty')}</p>
       </div>
     );

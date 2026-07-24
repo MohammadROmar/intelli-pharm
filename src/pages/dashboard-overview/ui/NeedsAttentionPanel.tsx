@@ -118,7 +118,7 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
                 </SheetTrigger>
                 <SheetContent
                   side={i18n.dir() === 'rtl' ? 'left' : 'right'}
-                  className="flex h-full w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
+                  className="flex h-full w-full max-w-[85vw] flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
                 >
                   <SheetHeader className="shrink-0 border-b px-6 py-5 text-start">
                     <CardSectionHeader
@@ -151,7 +151,7 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
         ) : (
           <div className="motion-safe:animate-in motion-safe:fade-in flex flex-col items-center gap-2 py-8 text-center motion-reduce:animate-none">
             <span className="bg-success/10 text-success flex size-10 items-center justify-center rounded-full">
-              <CheckCircle2 className="size-5" aria-hidden="true" />
+              <CheckCircle2 className="size-5" aria-hidden />
             </span>
             <p className="text-muted-foreground text-sm">{t('empty')}</p>
           </div>
@@ -185,7 +185,7 @@ const NeedsAttentionRow = memo(function NeedsAttentionRow({
           ICON_BG_BY_SEVERITY[item.severity],
         )}
       >
-        <Icon className={cn('size-4', iconClass)} aria-hidden="true" />
+        <Icon className={cn('size-4', iconClass)} aria-hidden />
       </span>
       <p
         className={cn(
@@ -202,8 +202,8 @@ const NeedsAttentionRow = memo(function NeedsAttentionRow({
       </p>
       {href && (
         <ChevronRight
-          className="text-muted-foreground mt-1.5 size-4 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-          aria-hidden="true"
+          className="text-muted-foreground mt-1.5 size-4 shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+          aria-hidden
         />
       )}
     </>

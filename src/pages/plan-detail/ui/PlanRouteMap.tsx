@@ -18,15 +18,10 @@ import type { PlanPath, PlanVisit } from '@/entities/plan';
 import { decodePolyline } from '@/shared/map';
 import { LabeledLink } from '@/shared/ui';
 
+import { ROUTE_COLORS } from '../lib/data';
+
 const ICON_BASE_STYLE =
   'border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;';
-
-const ROUTE_COLORS = {
-  start: '#3b82f6',
-  visited: '#16a34a',
-  pending: '#4a80f5',
-  neutral: '#94a3b8',
-} as const;
 
 function isVisited(visit: Pick<PlanVisit, 'visited'>): boolean {
   return visit.visited === 1;
@@ -59,7 +54,7 @@ function getStopIcon(order: number, visited: boolean): L.DivIcon {
 
 const START_ICON = L.divIcon({
   className: '',
-  html: `<div style="width:36px;height:36px;${ICON_BASE_STYLE}background:${ROUTE_COLORS.start};"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>`,
+  html: `<div style="width:36px;height:36px;${ICON_BASE_STYLE}background:${ROUTE_COLORS.start};color:white;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-icon lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div>`,
   iconSize: [36, 36],
   iconAnchor: [18, 18],
   popupAnchor: [0, -24],

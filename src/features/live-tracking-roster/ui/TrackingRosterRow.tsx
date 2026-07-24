@@ -50,7 +50,7 @@ export const TrackingRosterRow = memo(function TrackingRosterRow({
       )}
     >
       <span
-        aria-hidden="true"
+        aria-hidden
         className="flex size-7 shrink-0 items-center justify-center rounded-full text-white"
         style={{
           backgroundColor: ROLE_ACCENT[position.r] ?? DEFAULT_ROLE_ACCENT,

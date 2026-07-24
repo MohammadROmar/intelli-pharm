@@ -46,13 +46,13 @@ const copy = {
       en: 'Your previous session was interrupted while connecting. Your credentials are safe. Please sign in to continue.',
       ar: 'انقطعت جلستك السابقة أثناء الاتصال. بياناتك آمنة. يرجى تسجيل الدخول للمتابعة.',
     },
-    signIn: { en: 'Sign In Again', ar: 'تسجيل الدخول مجددًا' },
+    signIn: { en: 'Sign In Again', ar: 'تسجيل الدخول مجدداً' },
   },
   signOutIssue: {
     title: { en: 'Signed out', ar: 'تم تسجيل الخروج' },
     body: {
       en: "You're signed out on this device for now. We couldn't confirm it with the server, so reopening the app may sign you back in — if that happens, just sign out again once you're back online.",
-      ar: 'أنتَ غير مسجَّل الدخول حاليًا على هذا الجهاز. لم نتمكن من تأكيد ذلك مع الخادم، لذا قد يُعيد فتح التطبيق تسجيل دخولك تلقائيًا — إن حدث ذلك، يُرجى تسجيل الخروج مجددًا عند عودة الاتصال.',
+      ar: 'أنتَ غير مسجَّل الدخول حالياً على هذا الجهاز. لم نتمكن من تأكيد ذلك مع الخادم، لذا قد يُعيد فتح التطبيق تسجيل دخولك تلقائياً — إن حدث ذلك، يُرجى تسجيل الخروج مجدداً عند عودة الاتصال.',
     },
     continue: { en: 'Continue', ar: 'متابعة' },
   },
@@ -98,7 +98,7 @@ function WifiOffIcon() {
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden="true"
+      aria-hidden
       className="size-7"
     >
       <line x1="2" y1="2" x2="22" y2="22" />
@@ -122,7 +122,7 @@ function ShieldAlertIcon() {
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden="true"
+      aria-hidden
       className="size-7"
     >
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />

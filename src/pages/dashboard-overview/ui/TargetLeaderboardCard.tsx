@@ -56,7 +56,7 @@ export const TargetLeaderboardCard = memo(function TargetLeaderboardCard({
           {t('viewLink')}
           <ArrowRight
             className="size-3.5 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-            aria-hidden="true"
+            aria-hidden
           />
         </Link>
       </CardHeader>
@@ -70,6 +70,8 @@ export const TargetLeaderboardCard = memo(function TargetLeaderboardCard({
                 Math.max(0, Math.round(row.attainment_pct)),
               );
 
+              const isFirst = index === 0 && pct === 100;
+
               return (
                 <li
                   key={row.employee_id}
@@ -82,12 +84,12 @@ export const TargetLeaderboardCard = memo(function TargetLeaderboardCard({
                   <span
                     className={cn(
                       'flex size-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold',
-                      index === 0
+                      isFirst
                         ? 'bg-primary/10 text-primary ring-primary/20 ring-1'
                         : 'bg-muted text-muted-foreground',
                     )}
                   >
-                    {index === 0 ? (
+                    {isFirst ? (
                       <Trophy className="size-4" aria-hidden="true" />
                     ) : (
                       getInitials(row.name)
@@ -103,18 +105,19 @@ export const TargetLeaderboardCard = memo(function TargetLeaderboardCard({
                         {formatCount(pct, i18n.language)}%
                       </Badge>
                     </div>
-                    <div className="mt-1.5 flex items-center gap-2">
+                    <div className="mt-1.5 flex flex-col gap-2 sm:flex-row sm:items-center">
                       <div className="bg-muted h-1.5 flex-1 overflow-hidden rounded-full">
                         <div
                           className={cn(
-                            'h-full rounded-full transition-all duration-500',
+                            'h-full min-h-1.5 rounded-full transition-all duration-500',
                             PROGRESS_FILL[variant],
                           )}
                           style={{ width: `${pct}%` }}
                         />
                       </div>
                       <span className="text-muted-foreground shrink-0 text-xs tabular-nums">
-                        {formatPrice(row.actual)} / {formatPrice(row.quota)}
+                        {formatPrice(row.actual, i18n.language)} /{' '}
+                        {formatPrice(row.quota, i18n.language)}
                       </span>
                     </div>
                   </div>

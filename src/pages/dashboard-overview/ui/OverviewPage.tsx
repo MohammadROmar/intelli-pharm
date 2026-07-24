@@ -25,10 +25,9 @@ const OrdersTrendSection = lazy(() =>
 );
 
 const CHART_FALLBACK = (
-  <Skeleton className="h-77 w-full rounded-xl lg:h-full" />
+  <Skeleton className="h-77.5 w-full rounded-xl lg:h-full" />
 );
-
-const SECTION_FALLBACK = <Skeleton className="h-55 rounded-xl" />;
+const SECTION_FALLBACK = <Skeleton className="h-41.75 rounded-xl" />;
 
 export function OverviewPage() {
   const { t } = useTranslation('dashboard-overview');

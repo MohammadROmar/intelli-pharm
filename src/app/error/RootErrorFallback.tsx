@@ -90,7 +90,7 @@ export function RootErrorFallback({ reset }: RootErrorFallbackProps) {
       </div>
 
       <div
-        aria-hidden="true"
+        aria-hidden
         style={{
           flexShrink: 0,
           width: '3rem',

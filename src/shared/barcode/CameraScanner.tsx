@@ -37,7 +37,7 @@ export function CameraScanner({ hintText, onScan, onError }: Props) {
     <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/10 bg-zinc-950 shadow-2xl">
       <div
         id={elementId}
-        aria-hidden="true"
+        aria-hidden
         className="h-full w-full [&>video]:object-cover"
       />
 

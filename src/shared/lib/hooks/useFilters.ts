@@ -1,7 +1,8 @@
 import { startTransition, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { serializeFilters, type FilterParams } from '../filters';
+
 import { useLatestRef } from './useLatestRef';
+import { serializeFilters, type FilterParams } from '../filters';
 
 type Params<T extends FilterParams> = {
   filters: Partial<T>;

@@ -26,7 +26,7 @@ export function StatCard({
   const displayCaption = caption ?? subtitle;
 
   return (
-    <Card className="group hover:shadow-primary/10 hover:border-primary/20 relative overflow-hidden py-2! transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <Card className="group hover:shadow-primary/10 hover:border-primary/20 relative flex h-full overflow-hidden py-2! transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <div className="from-primary/25 dark:from-primary/15 pointer-events-none absolute -inset-px rounded-xl via-transparent to-transparent ltr:bg-linear-to-bl rtl:bg-linear-to-br" />{' '}
       <CardContent className="relative flex items-start justify-between gap-3 p-5">
         <div className="min-w-0 flex-1">
@@ -55,7 +55,7 @@ export function StatCard({
         <div className="relative mt-0.5 shrink-0">
           <div className="bg-primary/20 absolute inset-0 rounded-xl blur-md duration-300" />
           <div className="bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary relative flex size-11 items-center justify-center rounded-xl transition-all duration-300 group-hover:scale-110">
-            <Icon className="size-5 shrink-0" aria-hidden="true" />
+            <Icon className="size-5 shrink-0" aria-hidden />
           </div>
         </div>
       </CardContent>

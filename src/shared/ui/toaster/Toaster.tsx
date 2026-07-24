@@ -16,10 +16,10 @@ export function Toaster() {
     <Sonner
       theme={theme as ToasterProps['theme']}
       icons={{
-        success: <CircleCheckIcon className="size-5 text-green-500" />,
+        success: <CircleCheckIcon className="text-success size-5" />,
         info: <InfoIcon className="size-5 text-cyan-500" />,
-        warning: <TriangleAlertIcon className="size-5 text-yellow-500" />,
-        error: <OctagonXIcon className="size-5 text-red-500" />,
+        warning: <TriangleAlertIcon className="text-warning size-5" />,
+        error: <OctagonXIcon className="text-destructive size-5" />,
         loading: <Loader2Icon className="size-5 animate-spin" />,
       }}
       style={

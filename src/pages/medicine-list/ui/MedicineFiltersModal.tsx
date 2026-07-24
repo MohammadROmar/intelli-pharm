@@ -65,13 +65,13 @@ export function MedicineFiltersModal({
         id="medicine-filters-form"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        className="flex-1 space-y-6 py-2 pr-1"
+        className="flex-1 space-y-4 py-2 pr-1"
       >
         <FieldSet>
           <FieldLegend className="text-muted-foreground mb-3 text-[11px] font-medium tracking-wider uppercase">
             {t('sectionSearch')}
           </FieldLegend>
-          <FieldGroup>
+          <FieldGroup className="gap-3!">
             <Field>
               <FieldLabel htmlFor="f-name">{t('nameLabel')}</FieldLabel>
               <Input
@@ -103,7 +103,7 @@ export function MedicineFiltersModal({
           <FieldLegend className="text-muted-foreground mb-3 text-[11px] font-medium tracking-wider uppercase">
             {t('sectionPrice')}
           </FieldLegend>
-          <FieldGroup className="grid grid-cols-2 gap-4">
+          <FieldGroup className="grid grid-cols-2 gap-2!">
             <Field>
               <FieldLabel htmlFor="f-min-price">
                 {t('minPriceLabel')}
@@ -138,10 +138,10 @@ export function MedicineFiltersModal({
         <Separator />
 
         <FieldSet>
-          <FieldLegend className="text-muted-foreground mb-3 text-[11px] font-medium tracking-wider uppercase">
+          <FieldLegend className="text-muted-foreground text-[11px] font-medium tracking-wider uppercase">
             {t('sectionClassification')}
           </FieldLegend>
-          <FieldGroup className="space-y-4">
+          <FieldGroup className="gap-3!">
             <Controller
               name="category"
               control={control}
@@ -191,7 +191,7 @@ export function MedicineFiltersModal({
           <FieldLegend className="text-muted-foreground mb-3 text-[11px] font-medium tracking-wider uppercase">
             {t('sectionFlags')}
           </FieldLegend>
-          <FieldGroup>
+          <FieldGroup className="gap-3!">
             {(
               [
                 ['active', 'activeLabel'],

@@ -17,6 +17,8 @@ import type { PlanPath, PlanVisit } from '@/entities/plan';
 import { cn } from '@/shared/lib';
 import { Badge, ClampedText, LabeledLink, Separator } from '@/shared/ui';
 
+import { ROUTE_COLORS } from '../lib/data';
+
 type Props = {
   visit: PlanVisit;
   path?: PlanPath;
@@ -59,7 +61,9 @@ export function PlanVisitItem({ visit, path, isLast, onClick }: Props) {
         <div
           className={cn(
             'text-primary-foreground mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold',
-            isVisited ? 'bg-green-500' : 'bg-orange-400',
+            isVisited
+              ? `bg-[${ROUTE_COLORS.visited}]`
+              : `bg-[${ROUTE_COLORS.pending}]`,
           )}
           aria-label={`${t('stop')} ${visit.visit_order}`}
         >

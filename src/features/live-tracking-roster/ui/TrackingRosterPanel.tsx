@@ -68,7 +68,7 @@ export function TrackingRosterPanel({
               size="sm"
               className="gap-1.5 rounded-full shadow-md"
             >
-              <Users className="size-3.5" aria-hidden="true" />
+              <Users className="size-3.5" aria-hidden />
               {t('onlineCount', { count: ids.length })}
             </Button>
           </SheetTrigger>

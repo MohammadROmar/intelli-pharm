@@ -32,7 +32,7 @@ export function FollowChip({
     >
       {isOffline ? (
         <span className="text-muted-foreground flex items-center gap-1.5 ps-2 pe-1">
-          <WifiOff className="size-3.5 shrink-0" aria-hidden="true" />
+          <WifiOff className="size-3.5 shrink-0" aria-hidden />
           <span className="max-w-32 truncate font-medium">
             {t('offline', { name })}
           </span>

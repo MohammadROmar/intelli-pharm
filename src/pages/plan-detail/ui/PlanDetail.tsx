@@ -18,6 +18,8 @@ import {
   Skeleton,
 } from '@/shared/ui';
 
+import { ROUTE_COLORS } from '../lib/data';
+
 const PlanRouteMap = lazy(() => import('./PlanRouteMap'));
 
 const formatPlanId = (id: number) => `PLN-${String(id).padStart(6, '0')}`;
@@ -131,15 +133,21 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
       >
         <div className="text-muted-foreground mb-3 flex flex-wrap items-center gap-4 text-xs">
           <span className="flex items-center gap-1.5">
-            <span className="inline-block size-3 rounded-full bg-blue-500" />
+            <span
+              className={`inline-block size-3 rounded-full bg-[${ROUTE_COLORS.start}]`}
+            />
             {t('map.legend.start')}
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block size-3 rounded-full bg-green-500" />
+            <span
+              className={`inline-block size-3 rounded-full bg-[${ROUTE_COLORS.visited}]`}
+            />
             {t('map.legend.visited')}
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="inline-block size-3 rounded-full bg-orange-400" />
+            <span
+              className={`bg-[${ROUTE_COLORS.pending}] inline-block size-3 rounded-full`}
+            />
             {t('map.legend.notVisited')}
           </span>
         </div>

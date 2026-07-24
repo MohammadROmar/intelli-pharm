@@ -44,10 +44,7 @@ function OrdersTrendTooltipContent({
         {typeof label === 'string' ? formatCompactDate(label, language) : label}
       </p>
       <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold tabular-nums">
-        <span
-          aria-hidden="true"
-          className="bg-primary size-2 shrink-0 rounded-full"
-        />
+        <span aria-hidden className="bg-primary size-2 shrink-0 rounded-full" />
         {typeof value === 'number'
           ? formatCount(value, language)
           : String(value)}
