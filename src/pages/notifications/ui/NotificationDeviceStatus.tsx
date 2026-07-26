@@ -6,7 +6,7 @@ import { cn } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import { useNotificationPermission } from '../model/useNotificationPermission';
-import { useDeviceRegistration } from '../model/useDeviceRegistration';
+import { useDeviceRegistration } from '@/entities/device';
 
 type Props = {
   className?: string;

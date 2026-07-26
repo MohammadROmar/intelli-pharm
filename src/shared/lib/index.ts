@@ -6,7 +6,6 @@ export { formatDate } from './formatDate';
 export { formatTime, formatTime12h } from './formatTime';
 export { formatPrice } from './formatPrice';
 export { buttonVariants } from './buttonVariants';
-export { toggleVariants } from './toggleVariants';
 export { getPerPage, getPage } from './searchParamsUtils';
 export {
   normalizeApiParams,

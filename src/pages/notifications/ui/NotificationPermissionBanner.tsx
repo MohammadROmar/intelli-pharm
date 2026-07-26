@@ -2,8 +2,9 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Bell, BellOff, Info, Loader2, RefreshCw } from 'lucide-react';
 
-import { Button } from '@/shared/ui';
+import { useDeviceRegistration } from '@/entities/device';
 import { cn } from '@/shared/lib';
+import { Button } from '@/shared/ui';
 
 import { useNotificationPermission } from '../model/useNotificationPermission';
 import type { NotificationPermissionState } from '../model/useNotificationPermission';
@@ -47,12 +48,13 @@ export const NotificationPermissionBanner = memo(
   function NotificationPermissionBanner({ className }: Props) {
     const { t } = useTranslation('notifications', { keyPrefix: 'permission' });
 
-    const { permission, requestPermission, isRequesting } =
-      useNotificationPermission();
+    const { permission } = useNotificationPermission();
+    const { state, register } = useDeviceRegistration();
 
     if (permission === 'granted') return null;
 
     const config = BANNER_CONFIG[permission];
+    const isRequesting = state === 'registering';
 
     if (permission === 'denied') {
       const steps = Array.from({ length: DENIED_STEP_COUNT }, (_, i) =>
@@ -176,7 +178,7 @@ export const NotificationPermissionBanner = memo(
 
         <Button
           size="sm"
-          onClick={requestPermission}
+          onClick={register}
           disabled={isRequesting}
           className="w-full gap-1.5 sm:w-auto"
         >

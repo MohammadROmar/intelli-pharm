@@ -1,4 +1,3 @@
-export { getFirebaseApp } from './config';
 export {
   FCM_TOKEN_STORAGE_KEY,
   FCM_BROADCAST_CHANNEL,
@@ -7,5 +6,8 @@ export {
   onForegroundMessage,
   readToken,
   writeToken,
+  unregisterToken,
+  forceRefreshToken,
+  withTokenLock,
+  hasWebLocks,
 } from './messaging';
-export { revokeFCMToken } from './revokeFCMToken';

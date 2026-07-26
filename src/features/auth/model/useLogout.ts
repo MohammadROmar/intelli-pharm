@@ -17,8 +17,8 @@ export function useLogout() {
       queryClient.clear();
 
       try {
-        const { revokeFCMToken } = await import('@/shared/notifications');
-        await revokeFCMToken();
+        const { unregisterToken } = await import('@/shared/notifications');
+        await unregisterToken();
       } catch (error) {
         console.warn('Failed to revoke FCM token during logout:', error);
       }

@@ -14,7 +14,7 @@ type Params<T extends FilterParams> = {
 export function useFilters<T extends FilterParams>({
   filters,
   filterKeys,
-  replace = false,
+  replace = true,
   transition = false,
 }: Params<T>) {
   const [, setSearchParams] = useSearchParams();

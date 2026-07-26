@@ -16,7 +16,8 @@ import {
   SidebarMenuLink,
   useSidebar,
 } from '@/shared/ui';
-import type { NavSection, SidebarItem } from '@/shared/config';
+
+import type { NavSection, SidebarItem } from '../config/constants';
 
 type NavMainProps = { sections: NavSection[] };
 

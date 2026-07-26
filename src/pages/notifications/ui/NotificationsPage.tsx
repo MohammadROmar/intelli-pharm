@@ -35,9 +35,9 @@ export function NotificationsPageContent() {
     <>
       <title>{pageTitle}</title>
 
-      <div className="container mx-auto w-full max-w-3xl">
+      <div className="container mx-auto grid size-full max-w-3xl">
         <Card className="gap-4!">
-          <CardHeader className="space-y-2">
+          <CardHeader className="flex! flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardSectionHeader
               title={t('page.title')}
               description={t('page.description')}
@@ -47,11 +47,15 @@ export function NotificationsPageContent() {
             <Tabs
               value={activeTab}
               onValueChange={handleTabChange}
-              className="pt-1"
+              className="w-full sm:w-auto"
             >
-              <TabsList>
+              <TabsList className="w-full sm:w-auto">
                 {TAB_OPTIONS.map((tab) => (
-                  <TabsTrigger key={tab} value={tab} className="cursor-pointer">
+                  <TabsTrigger
+                    key={tab}
+                    value={tab}
+                    className="w-full cursor-pointer sm:w-auto"
+                  >
                     {t(`tabs.${tab}`)}
                   </TabsTrigger>
                 ))}

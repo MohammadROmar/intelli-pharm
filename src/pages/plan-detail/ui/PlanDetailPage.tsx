@@ -25,7 +25,6 @@ function PlanDetailContent({ planId }: PlanDetailContentProps) {
   const { data } = useGetPlan(planId);
 
   const plan = data.data!;
-  console.log(plan);
 
   return <PlanDetail plan={plan} />;
 }

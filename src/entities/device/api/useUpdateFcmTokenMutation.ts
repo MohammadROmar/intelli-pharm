@@ -7,6 +7,7 @@ export async function updateFcmToken(newToken: string) {
     fcm_token: newToken,
   });
 }
+
 export function useUpdateFcmTokenMutation() {
   return useMutation({ mutationFn: updateFcmToken });
 }

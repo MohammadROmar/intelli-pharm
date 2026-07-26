@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDirection } from '@radix-ui/react-direction';
 
-import { NavMain } from './NavMain';
-import { NavUser } from './NavUser';
-import { sidebarData, useAppSelector } from '@/shared/config';
+import { useAppSelector } from '@/shared/config';
 import {
   Sidebar,
   SidebarContent,
@@ -18,6 +16,10 @@ import {
   Logo,
   useSidebar,
 } from '@/shared/ui';
+
+import { NavMain } from './NavMain';
+import { NavUser } from './NavUser';
+import { sidebarData } from '../config/constants';
 
 const handleWheel = (e: React.WheelEvent) => e.stopPropagation();
 

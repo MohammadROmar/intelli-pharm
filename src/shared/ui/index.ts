@@ -207,6 +207,4 @@ export { ClampedText } from './ClampedText';
 export { EntityListTable } from './EntityListTable';
 export { EntityEmptyState } from './EntityEmptyState';
 export { EntityFiltersToolbar } from './EntityFiltersToolbar';
-export { Toggle } from './toggle';
-export { ToggleGroup, ToggleGroupItem } from './toggle-group';
 export { StatCard } from './StatCard';

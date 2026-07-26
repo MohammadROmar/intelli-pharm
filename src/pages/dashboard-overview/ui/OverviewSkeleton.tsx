@@ -5,7 +5,7 @@ export function OverviewSkeleton() {
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Skeleton className="h-[37.5px] w-33.5 lg:h-11.25" />
-        <Skeleton className="h-28.75 w-121.75 sm:h-13.5" />
+        <Skeleton className="h-28.75 w-full sm:h-13.5 sm:w-121.75" />
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

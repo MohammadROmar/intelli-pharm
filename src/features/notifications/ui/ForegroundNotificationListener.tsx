@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import { useUpdateFcmTokenMutation } from '../api/useUpdateFcmTokenMutation';
+import { useUpdateFcmTokenMutation } from '@/entities/device';
+
 import { useTokenRotationSync } from '../model/useTokenRotationSync';
 import { useNotificationListener } from '../model/useNotificationListener';
 

@@ -16,7 +16,7 @@ import { useAppDispatch } from '@/shared/config';
 import type { FCMNotificationData } from './types';
 import { notificationsKeys } from './notificationsKeys';
 
-let isRegistered = false;
+const RETRY_DELAY_MS = 10_000;
 
 export function useNotificationListener() {
   const dispatch = useAppDispatch();
@@ -49,23 +49,55 @@ export function useNotificationListener() {
   }, [dispatch, queryClient, navigate, t]);
 
   useEffect(() => {
-    if (isRegistered) return;
-    isRegistered = true;
+    let cancelled = false;
+    let unsubscribeForeground: (() => void) | undefined;
+    let retryTimeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    let unsubscribe: (() => void) | undefined;
+    async function subscribe() {
+      try {
+        const unsub = await onForegroundMessage((payload) =>
+          handlerRef.current(payload),
+        );
 
-    onForegroundMessage((payload) => handlerRef.current(payload))
-      .then((unsub) => {
-        unsubscribe = unsub;
-      })
-      .catch((err) => {
-        console.error('[FCM] foreground listener failed:', err);
-        isRegistered = false;
-      });
+        if (cancelled) {
+          return;
+        }
+
+        unsubscribeForeground = unsub;
+      } catch (err) {
+        console.error('[FCM] foreground listener failed, retrying:', err);
+
+        if (cancelled) return;
+
+        if (
+          typeof Notification !== 'undefined' &&
+          Notification.permission === 'denied'
+        ) {
+          return;
+        }
+
+        retryTimeoutId = setTimeout(subscribe, RETRY_DELAY_MS);
+      }
+    }
+
+    void subscribe();
+
+    function handleVisibility() {
+      if (
+        document.visibilityState === 'visible' &&
+        !unsubscribeForeground &&
+        !cancelled
+      ) {
+        void subscribe();
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibility);
 
     return () => {
-      unsubscribe?.();
-      isRegistered = false;
+      cancelled = true;
+      if (retryTimeoutId) clearTimeout(retryTimeoutId);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      unsubscribeForeground?.();
     };
   }, []);
 
