@@ -14,8 +14,8 @@ import {
   Skeleton,
 } from '@/shared/ui';
 
-import { WizardNavigation } from '../WizardNavigation';
-import { usePlannerWizard } from '../../model/PlannerWizardContext';
+import { WizardNavigation } from './WizardNavigation';
+import type { WizardStepProps } from '../model/types';
 
 const MapLocationPicker = lazy(() =>
   import('@/shared/map').then((m) => ({ default: m.MapLocationPicker })),
@@ -23,9 +23,8 @@ const MapLocationPicker = lazy(() =>
 
 const DEFAULT_CENTER: LatLng = { lat: 33.5138, lng: 36.2765 };
 
-export function Step1Location() {
+export function LocationStep({ state, dispatch, totalSteps }: WizardStepProps) {
   const { t } = useTranslation('planner');
-  const { state, dispatch } = usePlannerWizard();
   const geo = useGeolocation();
 
   const position: LatLng = {
@@ -136,7 +135,12 @@ export function Step1Location() {
           </div>
         </CardContent>
       </Card>
-      <WizardNavigation canProceed={hasLocation} />
+      <WizardNavigation
+        step={state.step}
+        dispatch={dispatch}
+        totalSteps={totalSteps}
+        canProceed={hasLocation}
+      />
     </div>
   );
 }

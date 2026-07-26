@@ -19,7 +19,7 @@ import {
 
 import { NavMain } from './NavMain';
 import { NavUser } from './NavUser';
-import { sidebarData } from '../config/constants';
+import { sidebarData } from '../config/sidebarData';
 
 const handleWheel = (e: React.WheelEvent) => e.stopPropagation();
 

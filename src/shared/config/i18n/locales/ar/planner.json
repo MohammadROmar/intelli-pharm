@@ -78,5 +78,10 @@
     "selected": "المحددة",
     "clearAll": "إلغاء الكل",
     "maxLimitReached": "يمكنك اختيار 19 صيدلية كحد أقصى فقط."
+  },
+  "fromDeliveries": {
+    "pageTitle": "إنشاء خطة من التوصيلات",
+    "pageSubtitle": "أعدّ مسار التوصيل الخاص بك في 3 خطوات.",
+    "assignmentCardSubtitle": "عيّن مندوباً لمسار التوصيل هذا."
   }
 }

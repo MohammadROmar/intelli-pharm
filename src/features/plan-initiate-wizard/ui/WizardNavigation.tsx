@@ -1,13 +1,17 @@
+import { memo } from 'react';
+import type { Dispatch } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
 
 import { cn } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
-import type { WizardStep } from '../model/plannerWizardTypes';
-import { usePlannerWizard } from '../model/PlannerWizardContext';
+import type { BaseWizardAction } from '../model/types';
 
 type Props = {
+  step: number;
+  dispatch: Dispatch<BaseWizardAction>;
+  totalSteps: number;
   nextLabel?: string;
   canProceed?: boolean;
   isSubmitting?: boolean;
@@ -15,9 +19,10 @@ type Props = {
   onNext?: () => void;
 };
 
-const TOTAL_STEPS = 4;
-
-export function WizardNavigation({
+export const WizardNavigation = memo(function WizardNavigation({
+  step,
+  dispatch,
+  totalSteps,
   nextLabel,
   canProceed = true,
   isSubmitting = false,
@@ -25,15 +30,13 @@ export function WizardNavigation({
   onNext,
 }: Props) {
   const { t } = useTranslation('planner');
-  const { state, dispatch } = usePlannerWizard();
-  const { step } = state;
 
   const isFirst = step === 1;
-  const isLast = step === TOTAL_STEPS;
+  const isLast = step === totalSteps;
 
   function handleBack() {
     if (isFirst) return;
-    dispatch({ type: 'SET_STEP', payload: (step - 1) as WizardStep });
+    dispatch({ type: 'SET_STEP', payload: step - 1 });
   }
 
   function handleNext() {
@@ -45,7 +48,7 @@ export function WizardNavigation({
       onNext();
       return;
     }
-    dispatch({ type: 'SET_STEP', payload: (step + 1) as WizardStep });
+    dispatch({ type: 'SET_STEP', payload: step + 1 });
   }
 
   return (
@@ -87,4 +90,4 @@ export function WizardNavigation({
       </Button>
     </div>
   );
-}
+});

@@ -1,13 +1,19 @@
 import { useState } from 'react';
 import { User } from 'lucide-react';
 
-import { useInfiniteEmployees } from '../model/useInfiniteEmployees';
 import {
   GenericSingleSelect,
   type GenericSingleSelectProps,
 } from '@/shared/ui';
 
-type Props = Partial<GenericSingleSelectProps<{ name: string; id: number }>>;
+import type { EmployeeRole } from '../model/employeeTypes';
+import { useInfiniteEmployees } from '../model/useInfiniteEmployees';
+
+type EmployeeOption = { id: number; name: string };
+type Props = Partial<GenericSingleSelectProps<EmployeeOption>> & {
+  role?: EmployeeRole;
+};
+
 type Option = string | number | null;
 
 export function EmployeeSelector({
@@ -15,10 +21,11 @@ export function EmployeeSelector({
   onValueChange,
   invalid,
   isLoading,
+  role,
 }: Props) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const { entities, queryResult } = useInfiniteEmployees(searchTerm);
+  const { entities, queryResult } = useInfiniteEmployees({ searchTerm, role });
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 

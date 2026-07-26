@@ -14,6 +14,7 @@ export function useRestockMedicine(id: number) {
   const queryKeys = createDomainQueryKeys('medicines');
 
   const { t } = useTranslation();
+  const { t: tErrors } = useTranslation('errors');
 
   return useMutation<void, ApiError, RestockPayload>({
     mutationFn: (payload) => restockMedicine(id, payload),
@@ -29,7 +30,7 @@ export function useRestockMedicine(id: number) {
 
     onError: (error) => {
       toast.error(t('toasts.restock.error'), {
-        description: t(error.i18nKey),
+        description: tErrors(error.i18nKey),
       });
     },
   });

@@ -1,4 +1,5 @@
-import { useMemo, useRef } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
+import type { ElementType } from 'react';
 import { useForm, useWatch, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Car, Footprints, StickyNote, Zap } from 'lucide-react';
@@ -18,13 +19,13 @@ import {
   Textarea,
 } from '@/shared/ui';
 
-import { WizardNavigation } from '../WizardNavigation';
-import { usePlannerWizard } from '../../model/PlannerWizardContext';
+import { WizardNavigation } from './WizardNavigation';
 import type {
   ConfigSlice,
   PlannerProfile,
   TravelMode,
-} from '../../model/plannerWizardTypes';
+  WizardStepProps,
+} from '../model/types';
 
 function TravelModeToggle({
   value,
@@ -35,7 +36,7 @@ function TravelModeToggle({
 }) {
   const { t } = useTranslation('planner');
 
-  const options: { id: TravelMode; label: string; Icon: React.ElementType }[] =
+  const options: { id: TravelMode; label: string; Icon: ElementType }[] =
     useMemo(
       () => [
         { id: 'driving', label: t('config.modeDriving'), Icon: Car },
@@ -78,9 +79,8 @@ function TravelModeToggle({
   );
 }
 
-export function Step2Config() {
+export function ConfigStep({ state, dispatch, totalSteps }: WizardStepProps) {
   const { t } = useTranslation('planner');
-  const { state, dispatch } = usePlannerWizard();
 
   const {
     control,
@@ -95,6 +95,10 @@ export function Step2Config() {
   const currentProfile = useWatch({ control, name: 'profile' });
 
   const submitRef = useRef<HTMLButtonElement>(null);
+
+  const handleNavigateNext = useCallback(() => {
+    submitRef.current?.click();
+  }, []);
 
   function onValidSubmit(values: ConfigSlice) {
     dispatch({ type: 'UPDATE_CONFIG', payload: values });
@@ -194,7 +198,13 @@ export function Step2Config() {
 
       <button type="submit" ref={submitRef} className="hidden" aria-hidden />
 
-      <WizardNavigation canProceed onNext={() => submitRef.current?.click()} />
+      <WizardNavigation
+        step={state.step}
+        dispatch={dispatch}
+        totalSteps={totalSteps}
+        canProceed
+        onNext={handleNavigateNext}
+      />
     </form>
   );
 }

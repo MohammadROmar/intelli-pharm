@@ -80,6 +80,7 @@ function AssignmentCard({ isPending }: { isPending?: boolean }) {
                   </p>
                 </FieldLabel>
                 <EmployeeSelector
+                  role="distributor"
                   disabled={isPending}
                   isLoading={isPending}
                   value={field.value}

@@ -17,8 +17,8 @@ export function AddOfferButton() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button size="sm">
-          <Plus className="size-4" />
-          {t('addOffer')}
+          <Plus className="size-4 shrink-0" />
+          <span className="sr-only sm:not-sr-only">{t('addOffer')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

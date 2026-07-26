@@ -5,6 +5,9 @@ import {
   Truck,
   Gift,
   Users,
+  Radar,
+  Route,
+  Target,
   MapPin,
   Package,
   Folders,
@@ -12,10 +15,7 @@ import {
   BarChart3,
   FlaskConical,
   LayoutDashboard,
-  Target,
-  Route,
   type LucideIcon,
-  Radar,
 } from 'lucide-react';
 
 export type NavSubItem = {

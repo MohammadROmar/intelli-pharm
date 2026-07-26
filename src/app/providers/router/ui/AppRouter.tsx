@@ -73,6 +73,7 @@ import { LazyNotificationsPage } from '@/pages/notifications';
 import { LazyPlanListPage } from '@/pages/plan-list';
 import { LazyPlanDetailPage } from '@/pages/plan-detail';
 import { LazyInitiatePlanPage } from '@/pages/plan-initiate';
+import { LazyInitiatePlanFromDeliveriesPage } from '@/pages/plan-initiate-from-deliveries';
 
 import { LazyLiveTrackingPage } from '@/pages/live-tracking';
 
@@ -290,6 +291,10 @@ const router = createBrowserRouter([
                 children: [
                   { index: true, element: <LazyPlanListPage /> },
                   { path: 'initiate', element: <LazyInitiatePlanPage /> },
+                  {
+                    path: 'initiate-from-deliveries',
+                    element: <LazyInitiatePlanFromDeliveriesPage />,
+                  },
                   { path: ':id', element: <LazyPlanDetailPage /> },
                 ],
               },

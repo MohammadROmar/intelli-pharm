@@ -78,5 +78,10 @@
     "selected": "Selected",
     "clearAll": "Clear all",
     "maxLimitReached": "You can only select a maximum of 19 pharmacies."
+  },
+  "fromDeliveries": {
+    "pageTitle": "Initiate Plan from Deliveries",
+    "pageSubtitle": "Set up your delivery-based route in 3 steps.",
+    "assignmentCardSubtitle": "Assign a representative for this delivery route."
   }
 }

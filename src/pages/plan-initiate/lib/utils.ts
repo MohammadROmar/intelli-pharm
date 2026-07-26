@@ -3,6 +3,7 @@ import type {
   StoredDraft,
   WizardAction,
   WizardState,
+  WizardStep,
 } from '../model/plannerWizardTypes';
 
 const STORAGE_KEY = 'planner_wizard_draft';
@@ -67,7 +68,7 @@ export function wizardReducer(
 ): WizardState {
   switch (action.type) {
     case 'SET_STEP':
-      return { ...state, step: action.payload };
+      return { ...state, step: action.payload as WizardStep };
     case 'UPDATE_LOCATION':
       return { ...state, location: { ...state.location, ...action.payload } };
     case 'UPDATE_CONFIG':

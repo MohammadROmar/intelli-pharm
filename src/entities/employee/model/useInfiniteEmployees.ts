@@ -1,11 +1,15 @@
-import type { Employee } from './employeeTypes';
-import { getInfiniteEmployees } from '../api';
 import { useInfiniteEntities } from '@/shared/model';
 
-export function useInfiniteEmployees(searchTerm: string) {
+import type { Employee, EmployeeRole } from './employeeTypes';
+import { getInfiniteEmployees } from '../api';
+
+type Filters = { searchTerm: string; role?: EmployeeRole };
+
+export function useInfiniteEmployees({ searchTerm, role }: Filters) {
   return useInfiniteEntities<Employee>({
     queryKey: 'employees',
     searchTerm,
-    queryFn: getInfiniteEmployees,
+    params: { role },
+    queryFn: (page, searchTerm) => getInfiniteEmployees(page, searchTerm, role),
   });
 }

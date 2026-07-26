@@ -46,7 +46,8 @@
       "achievements": "الإنجازات",
       "notifications": "الإشعارات",
       "plans": "الخطط",
-      "initiate": "إنشاء خطة",
+      "initiate": "إنشاء للمندوب",
+      "initiateFromDeliveries": "إنشاء للموزع",
       "tracking": "التتبع المباشر"
     },
     "promotions": {

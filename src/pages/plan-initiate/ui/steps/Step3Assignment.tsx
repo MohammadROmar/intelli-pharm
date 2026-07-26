@@ -1,11 +1,15 @@
+import { useCallback, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, Users } from 'lucide-react';
+import { Users } from 'lucide-react';
 
 import { RegionSelector } from '@/entities/region';
-import { EmployeeSelector } from '@/entities/employee';
 import {
-  Button,
+  RepIdField,
+  WizardNavigation,
+  repIdRequired,
+} from '@/features/plan-initiate-wizard';
+import {
   Card,
   CardContent,
   CardHeader,
@@ -15,6 +19,7 @@ import {
   FieldLabel,
 } from '@/shared/ui';
 
+import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
 import { usePlannerWizard } from '../../model/PlannerWizardContext';
 import type { AssignmentSlice } from '../../model/plannerWizardTypes';
 
@@ -27,7 +32,13 @@ export function Step3Assignment() {
     mode: 'onTouched',
   });
 
-  function onNext(values: AssignmentSlice) {
+  const submitRef = useRef<HTMLButtonElement>(null);
+
+  const handleNavigateNext = useCallback(() => {
+    submitRef.current?.click();
+  }, []);
+
+  function onValidSubmit(values: AssignmentSlice) {
     if (values.region_id !== state.assignment.region_id) {
       dispatch({ type: 'UPDATE_PHARMACIES', payload: { pharmacy_ids: [] } });
     }
@@ -37,7 +48,11 @@ export function Step3Assignment() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onNext)} noValidate className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onValidSubmit)}
+      noValidate
+      className="space-y-6"
+    >
       <Card>
         <CardHeader>
           <CardSectionHeader
@@ -50,23 +65,14 @@ export function Step3Assignment() {
           <Controller
             name="rep_id"
             control={control}
-            rules={{
-              validate: (v) => v !== null || 'assignment.errors.repRequired',
-            }}
+            rules={{ validate: repIdRequired }}
             render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel asChild>
-                  <p>{t('assignment.repLabel')}</p>
-                </FieldLabel>
-                <EmployeeSelector
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  invalid={fieldState.invalid}
-                />
-                {fieldState.invalid && (
-                  <FieldError>{t('assignment.errors.repRequired')}</FieldError>
-                )}
-              </Field>
+              <RepIdField
+                role="rep"
+                value={field.value}
+                onChange={field.onChange}
+                invalid={fieldState.invalid}
+              />
             )}
           />
 
@@ -97,22 +103,15 @@ export function Step3Assignment() {
         </CardContent>
       </Card>
 
-      <div className="flex items-center justify-between pt-2">
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={() => dispatch({ type: 'SET_STEP', payload: 2 })}
-          className="gap-2"
-        >
-          <ArrowLeft className="size-4 rtl:rotate-180" />
-          {t('nav.back')}
-        </Button>
+      <button type="submit" ref={submitRef} className="hidden" aria-hidden />
 
-        <Button type="submit">
-          <ArrowRight className="size-4 rtl:rotate-180" />
-          {t('nav.next')}
-        </Button>
-      </div>
+      <WizardNavigation
+        step={state.step}
+        dispatch={dispatch}
+        totalSteps={TOTAL_STEPS}
+        canProceed
+        onNext={handleNavigateNext}
+      />
     </form>
   );
 }

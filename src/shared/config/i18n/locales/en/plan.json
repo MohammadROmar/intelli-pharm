@@ -1,8 +1,12 @@
 {
+  "initiate": {
+    "main": "Initiate",
+    "rep": "For representative",
+    "delivery": "Plan delivery"
+  },
   "list": {
     "title": "Plans",
     "subtitle": "Filter and review plans by employee, date, or completion status",
-    "initiate": "Initiate",
     "table": {
       "id": "ID",
       "userName": "User Name",
@@ -35,6 +39,7 @@
     }
   },
   "detail": {
+    "title": "Plan #{{id}}",
     "reason": {
       "initiated": "Initiated",
       "replanning": "Replanning"

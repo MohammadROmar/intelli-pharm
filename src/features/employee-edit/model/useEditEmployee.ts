@@ -6,6 +6,7 @@ import { useEditEntity } from '@/shared/model';
 
 export function useEditEmployee(id: number) {
   const { t } = useTranslation();
+  const { t: tErrors } = useTranslation('errors');
 
   return useEditEntity<EditEmployeeFormData>({
     queryKey: 'employees',
@@ -15,7 +16,7 @@ export function useEditEmployee(id: number) {
 
     onError: ({ status, i18nKey }) => {
       toast.error(t(`toasts.edit.error`), {
-        description: t(status === 422 ? 'errors.emailAlreadyTaken' : i18nKey),
+        description: tErrors(status === 422 ? 'emailAlreadyTaken' : i18nKey),
       });
     },
   });

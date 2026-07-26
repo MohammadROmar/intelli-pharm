@@ -26,6 +26,7 @@
   "unknown": "An unexpected error occurred. Please try again.",
 
   "emailAlreadyTaken": "That email address is already in use.",
+  "noDeliveryTasks": "No delivery tasks for the distributor today.",
   "invalidCredentials": "Incorrect email or password. Please try again.",
 
   "badRequest": {

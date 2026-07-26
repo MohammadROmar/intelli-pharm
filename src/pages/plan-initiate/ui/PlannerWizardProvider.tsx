@@ -8,7 +8,8 @@ import { WizardContext } from '../model/PlannerWizardContext/context';
 export function PlannerWizardProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(
     wizardReducer,
-    loadDraft() ?? WIZARD_INITIAL_STATE,
+    WIZARD_INITIAL_STATE,
+    (initial) => loadDraft() ?? initial,
   );
 
   useEffect(() => {

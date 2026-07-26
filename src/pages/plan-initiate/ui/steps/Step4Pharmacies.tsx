@@ -26,8 +26,9 @@ import {
   Button,
   QueryError,
 } from '@/shared/ui';
+import { WizardNavigation } from '@/features/plan-initiate-wizard';
 
-import { WizardNavigation } from '../WizardNavigation';
+import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
 import { usePlannerWizard } from '../../model/PlannerWizardContext';
 
 type PharmacyCardProps = {
@@ -288,6 +289,9 @@ export function Step4Pharmacies({ onSubmit, isPending }: Props) {
       </Card>
 
       <WizardNavigation
+        step={state.step}
+        dispatch={dispatch}
+        totalSteps={TOTAL_STEPS}
         canProceed={hasSelection}
         isSubmitting={isPending}
         onSubmit={onSubmit}

@@ -2,6 +2,7 @@ export { getEmployees, createEmployee, editEmployee } from './api';
 
 export type {
   Employee,
+  EmployeeRole,
   EmployeeFilters,
   EmployeeListResponse,
   BaseEmployeeFormData,

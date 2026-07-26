@@ -1,18 +1,19 @@
 import { Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import SidebarProvider from '../providers/SidebarProvider';
+import { BreadCrumbs } from '@/widgets/breadcrumbs';
 import { AppSidebar } from '@/widgets/sidebar';
 import { ThemeToggle } from '@/features/theme-toggle';
 import { LocaleToggle } from '@/features/locale-toggle';
 import { ErrorBoundary } from '@/shared/lib';
 import {
-  BreadCrumbs,
   PageErrorFallback,
   Separator,
   SidebarInset,
   SidebarTrigger,
 } from '@/shared/ui';
+
+import SidebarProvider from '../providers/SidebarProvider';
 
 export default function DashboardLayout() {
   const { t } = useTranslation();

@@ -6,10 +6,9 @@ import { PlanVisitItem } from './PlanVisitItem';
 
 import { VisitDetail } from '@/features/plan-visit-detail';
 import { useFormatDistance, useFormatDuration } from '@/entities/plan';
-import type { PlanDetail, PlanReason } from '@/entities/plan';
+import type { PlanDetail } from '@/entities/plan';
 import { cn, formatDate, ErrorBoundary } from '@/shared/lib';
 import {
-  Badge,
   BadgeLink,
   DetailCard,
   DetailCell,
@@ -18,16 +17,10 @@ import {
   Skeleton,
 } from '@/shared/ui';
 
-import { ROUTE_COLORS } from '../lib/data';
+import { ROUTE_COLORS } from '../config/colors';
+import { PlanDetailHeader } from './PlanDetailHeader';
 
 const PlanRouteMap = lazy(() => import('./PlanRouteMap'));
-
-const formatPlanId = (id: number) => `PLN-${String(id).padStart(6, '0')}`;
-
-const REASON_VARIANT: Record<PlanReason, 'muted' | 'info'> = {
-  initiated: 'muted',
-  replanning: 'info',
-};
 
 export function PlanDetail({ plan }: { plan: PlanDetail }) {
   const { t, i18n } = useTranslation('plan', { keyPrefix: 'detail' });
@@ -36,9 +29,6 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
 
   const formatDistance = useFormatDistance();
   const formatDuration = useFormatDuration();
-
-  const planLabel = formatPlanId(plan.id);
-  const reasonVariant = REASON_VARIANT[plan.reason];
 
   const visitedCount = useMemo(
     () => plan.visits.filter((v) => v.visited === 1).length,
@@ -60,12 +50,7 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
 
   return (
     <>
-      <div className="flex items-center gap-2">
-        <h1 className="text-xl leading-tight font-bold">{planLabel}</h1>
-        <Badge variant={reasonVariant} className="capitalize">
-          {t(`reason.${plan.reason}`, { defaultValue: plan.reason })}
-        </Badge>
-      </div>
+      <PlanDetailHeader plan={plan} />
 
       <DetailCard
         title={t('overview.title')}

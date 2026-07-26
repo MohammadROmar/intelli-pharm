@@ -25,13 +25,6 @@ export function getDeviceRegistrationSnapshot() {
   return state;
 }
 
-/**
- * Resets the shared registration state back to 'unregistered'. Call this
- * on logout so a stale 'registered' value from the previous session
- * doesn't linger into the next login — the module state persists across
- * a client-side logout -> login navigation since there's no full page
- * reload in between to reset it naturally.
- */
 export function resetDeviceRegistrationState() {
   setDeviceRegistrationState('unregistered');
 }

@@ -38,8 +38,12 @@ export async function editEmployee({
   return apiClient.put(`/erp/v1/employees/${id}`, data);
 }
 
-export async function getInfiniteEmployees(page_number: string, name?: string) {
-  const response = await getEmployees({ page_number, name });
+export async function getInfiniteEmployees(
+  page_number: string,
+  name?: string,
+  role?: string,
+) {
+  const response = await getEmployees({ page_number, name, role });
 
   if (!response.isSuccess || !response.data) {
     throw new ApiError(statusToI18nKey(response.statusCode));

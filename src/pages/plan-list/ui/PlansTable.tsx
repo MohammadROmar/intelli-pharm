@@ -1,9 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-import { PlanFiltersModal } from './PlanFiltersModal';
-import { PlanRow } from './PlanRow';
-import { usePlanFilters } from '../model/usePlanFilters';
-
 import type { PlanListApiResponse } from '@/entities/plan';
 import {
   EntityEmptyState,
@@ -11,6 +7,11 @@ import {
   EntityListTable,
   TableHead,
 } from '@/shared/ui';
+
+import { PlanRow } from './PlanRow';
+import { PlanFiltersModal } from './PlanFiltersModal';
+import { InitiatePlanButton } from './InitiatePlanButton';
+import { usePlanFilters } from '../model/usePlanFilters';
 
 export function PlansTable({ data }: { data: PlanListApiResponse }) {
   const { t } = useTranslation('plan', { keyPrefix: 'list' });
@@ -21,13 +22,15 @@ export function PlansTable({ data }: { data: PlanListApiResponse }) {
       data={data}
       title={t('title')}
       basePath="/dashboard/plans"
-      addLabel={t('initiate')}
-      addHref="/dashboard/plans/initiate"
       toolbar={
-        <EntityFiltersToolbar
-          filtersState={filtersState}
-          FiltersModal={PlanFiltersModal}
-        />
+        <>
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={PlanFiltersModal}
+          />
+
+          <InitiatePlanButton />
+        </>
       }
       columns={
         <>

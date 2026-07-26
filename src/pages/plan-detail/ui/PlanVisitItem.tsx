@@ -17,7 +17,7 @@ import type { PlanPath, PlanVisit } from '@/entities/plan';
 import { cn } from '@/shared/lib';
 import { Badge, ClampedText, LabeledLink, Separator } from '@/shared/ui';
 
-import { ROUTE_COLORS } from '../lib/data';
+import { ROUTE_COLORS } from '../config/colors';
 
 type Props = {
   visit: PlanVisit;

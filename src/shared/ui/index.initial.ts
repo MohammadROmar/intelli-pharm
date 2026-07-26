@@ -18,6 +18,7 @@ export {
   DetailCellSkeleton,
   DetailTableSkeleton,
   DetailHeaderSkeleton,
+  InitiatePlanPageSkeleton,
 } from './skeleton';
 
 export { AetherSpinner } from './AetherSpinner';

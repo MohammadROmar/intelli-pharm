@@ -43,7 +43,8 @@
       "achievements": "Achievements",
       "notifications": "Notifications",
       "plans": "Plans",
-      "initiate": "Initiate Plan",
+      "initiate": "Initiate for Rep",
+      "initiateFromDeliveries": "Initiate for delivery",
       "tracking": "Live Tracking"
     },
     "promotions": {

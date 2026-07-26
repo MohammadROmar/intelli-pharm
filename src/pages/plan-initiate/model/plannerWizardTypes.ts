@@ -1,26 +1,13 @@
+import type {
+  BaseWizardAction,
+  ConfigSlice,
+  LocationSlice,
+  PlannerProfile,
+  TravelMode,
+} from '@/features/plan-initiate-wizard';
+
 export type WizardStep = 1 | 2 | 3 | 4;
-
-export type PlannerProfile =
-  | 'all_factors'
-  | 'balanced'
-  | 'fastest'
-  | 'cheapest'
-  | 'vip_first'
-  | 'time_window_first'
-  | 'pedestrian_light';
-
-export type TravelMode = 'driving' | 'walking';
-
-export type LocationSlice = {
-  current_latitude: number | null;
-  current_longitude: number | null;
-};
-
-export type ConfigSlice = {
-  profile: PlannerProfile;
-  travel_mode: TravelMode;
-  reason_details: string;
-};
+export const TOTAL_STEPS = 4;
 
 export type AssignmentSlice = {
   rep_id: number | null;
@@ -40,12 +27,9 @@ export type WizardState = {
 };
 
 export type WizardAction =
-  | { type: 'SET_STEP'; payload: WizardStep }
-  | { type: 'UPDATE_LOCATION'; payload: Partial<LocationSlice> }
-  | { type: 'UPDATE_CONFIG'; payload: Partial<ConfigSlice> }
+  | BaseWizardAction
   | { type: 'UPDATE_ASSIGNMENT'; payload: Partial<AssignmentSlice> }
-  | { type: 'UPDATE_PHARMACIES'; payload: Partial<PharmaciesSlice> }
-  | { type: 'RESET' };
+  | { type: 'UPDATE_PHARMACIES'; payload: Partial<PharmaciesSlice> };
 
 export type InitiatePlanPayload = {
   current_longitude: number;

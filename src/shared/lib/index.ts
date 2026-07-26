@@ -14,6 +14,7 @@ export {
   type FilterParams,
 } from './filters';
 
+export { useLatestRef } from './hooks/useLatestRef';
 export { useIsMobile } from './hooks/useMobile';
 export { useFilters } from './hooks/useFilters';
 export { useDebounce } from './hooks/useDebounce';

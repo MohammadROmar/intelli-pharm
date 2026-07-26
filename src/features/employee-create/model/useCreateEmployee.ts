@@ -9,6 +9,7 @@ import { useCreateEntity } from '@/shared/model';
 
 export function useCreateEmployee() {
   const { t } = useTranslation();
+  const { t: tErrors } = useTranslation('errors');
 
   return useCreateEntity<CreateEmployeeFormData>({
     queryKey: 'employees',
@@ -17,8 +18,8 @@ export function useCreateEmployee() {
     navigatePath: '/dashboard/employees',
 
     onError: ({ status, i18nKey }) => {
-      toast.error(t(`toasts.edit.error`), {
-        description: t(status === 422 ? 'errors.emailAlreadyTaken' : i18nKey),
+      toast.error(t(`toasts.create.error`), {
+        description: tErrors(status === 422 ? 'emailAlreadyTaken' : i18nKey),
       });
     },
   });
