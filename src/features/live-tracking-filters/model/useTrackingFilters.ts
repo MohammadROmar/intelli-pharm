@@ -1,5 +1,5 @@
 import { startTransition, useCallback, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { RoleFilter, TrackingFilter } from '@/entities/tracking';
 

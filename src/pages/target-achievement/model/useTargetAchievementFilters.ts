@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { TargetAchievementFilters } from '@/entities/target';
 import { useFilters, parseFilters } from '@/shared/lib';

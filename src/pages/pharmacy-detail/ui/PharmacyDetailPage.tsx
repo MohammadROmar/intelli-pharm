@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { PharmacyInfoCard } from './PharmacyInfoCard';
 import { PharmacyScheduleCard } from './PharmacyScheduleCard';

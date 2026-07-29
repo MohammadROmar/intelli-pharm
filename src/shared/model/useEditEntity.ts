@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
 
 import { useMutationSideEffects } from './useMutationSideEffects';

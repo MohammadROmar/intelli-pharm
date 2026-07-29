@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 export const PER_PAGE_OPTIONS = [10, 25, 50, 100] as const;
 export type PerPageOption = (typeof PER_PAGE_OPTIONS)[number];

@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { PharmacyFilters } from './pharmacyTypes';
 import { useFilters, parseFilters } from '@/shared/lib';

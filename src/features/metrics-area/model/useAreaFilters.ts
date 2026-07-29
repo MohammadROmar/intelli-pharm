@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { useFilters, parseFilters } from '@/shared/lib';
 import type { AreaFilters } from '@/entities/metrics';

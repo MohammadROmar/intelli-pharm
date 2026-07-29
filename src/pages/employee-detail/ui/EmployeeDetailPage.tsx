@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { EmployeeInfoCard } from './EmployeeInfoCard';
 import { EmployeeDetailHeader } from './EmployeeDetailHeader';

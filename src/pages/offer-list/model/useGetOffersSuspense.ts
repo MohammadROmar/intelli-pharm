@@ -1,5 +1,5 @@
 import type { Offer, OfferResponse } from '@/entities/offer';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useSuspenseGetEntities } from '@/shared/model';
 
 export function useGetOffersSuspense() {

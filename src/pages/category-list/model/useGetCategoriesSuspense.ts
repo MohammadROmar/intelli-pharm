@@ -3,7 +3,7 @@ import type {
   CategoryListItem,
   CategoryListResponse,
 } from '@/entities/category';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useSuspenseGetEntities } from '@/shared/model';
 
 export function useGetCategoriesSuspense() {

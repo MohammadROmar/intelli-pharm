@@ -1,5 +1,5 @@
 import type { Gift, GiftResponse } from '@/entities/gift';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useSuspenseGetEntities } from '@/shared/model';
 
 export function useGetGiftsSuspense() {

@@ -1,5 +1,5 @@
 import { startTransition, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { useLatestRef } from './useLatestRef';
 import { serializeFilters, type FilterParams } from '../filters';

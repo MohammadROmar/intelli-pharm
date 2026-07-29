@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { PlanFilters } from '@/entities/plan';
 import { parseFilters, useFilters } from '@/shared/lib';

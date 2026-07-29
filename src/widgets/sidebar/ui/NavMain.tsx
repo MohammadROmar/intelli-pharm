@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 import {
   Collapsible,

@@ -1,4 +1,4 @@
-import { Link, useRouteError } from 'react-router-dom';
+import { Link, useRouteError } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { AlertCircle, Home, RefreshCw } from 'lucide-react';
 

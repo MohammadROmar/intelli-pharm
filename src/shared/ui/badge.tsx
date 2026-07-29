@@ -1,5 +1,5 @@
 import type { ElementType } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { Slot } from 'radix-ui';
 import { ExternalLink } from 'lucide-react';

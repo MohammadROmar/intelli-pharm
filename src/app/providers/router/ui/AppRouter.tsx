@@ -1,4 +1,5 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router';
+import { RouterProvider } from 'react-router/dom';
 
 import { ChatRoute } from '../config/ChatRoute';
 import { PublicRoute } from '../config/PublicRoute';

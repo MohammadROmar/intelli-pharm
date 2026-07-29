@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { useTargetAchievementFilters } from './useTargetAchievementFilters';

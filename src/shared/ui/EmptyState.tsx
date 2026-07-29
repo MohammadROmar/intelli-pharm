@@ -1,5 +1,5 @@
 import type { ElementType } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { FolderOpen, SearchX } from 'lucide-react';
 

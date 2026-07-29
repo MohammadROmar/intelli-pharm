@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useTransition } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import { useFilters } from '@/shared/lib';
 

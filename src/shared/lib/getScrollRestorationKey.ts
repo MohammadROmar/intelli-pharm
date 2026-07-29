@@ -1,4 +1,4 @@
-import type { Location, UIMatch } from 'react-router-dom';
+import type { Location, UIMatch } from 'react-router';
 
 export type ScrollRestorationHandle = {
   scrollRestoration?: {

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { PackageSearch, ScanBarcode } from 'lucide-react';

@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { SeasonalFilters } from '@/entities/metrics';
 import { useFilters, parseFilters } from '@/shared/lib';

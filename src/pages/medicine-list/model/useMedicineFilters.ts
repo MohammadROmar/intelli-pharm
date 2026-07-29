@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { MedicineFilters } from '@/entities/medicine';
 import { parseFilters, useFilters } from '@/shared/lib';

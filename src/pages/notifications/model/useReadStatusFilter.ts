@@ -1,5 +1,5 @@
 import { startTransition, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 import type { ReadStatusFilter } from './types';
 

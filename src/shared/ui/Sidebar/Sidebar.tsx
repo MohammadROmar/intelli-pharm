@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { Link, useLocation, type LinkProps } from 'react-router-dom';
+import { Link, useLocation, type LinkProps } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { MenuIcon, PanelLeftIcon, PanelRightIcon } from 'lucide-react';

@@ -1,6 +1,6 @@
 import type { OrderFilters } from '@/entities/order';
 import { useFilters, parseFilters } from '@/shared/lib';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 
 const FILTER_KEYS: (keyof OrderFilters)[] = [
   'date_from',

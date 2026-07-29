@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { Cross, Pill, Route as RouteIcon, UserPlus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const ACTIONS = [
   { to: '/dashboard/pharmacies/new', icon: Cross, key: 'newPharmacy' },

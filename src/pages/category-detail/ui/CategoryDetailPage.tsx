@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { CategoryChildrenTable } from './CategoryChildrenTable';
 import { CategoryDetailHeader } from './CategoryDetailHeader';

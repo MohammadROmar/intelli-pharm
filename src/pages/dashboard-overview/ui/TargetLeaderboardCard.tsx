@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { ArrowRight, Trophy } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import { cn, formatPrice } from '@/shared/lib';
 import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/shared/ui';

@@ -3,7 +3,7 @@ import type { MessagePayload } from 'firebase/messaging';
 import { BellRing } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import { incrementUnreadNotifications } from '@/entities/session';
