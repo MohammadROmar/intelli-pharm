@@ -1,38 +1,25 @@
 import { useCallback, useSyncExternalStore } from 'react';
 
-import { requestPermissionAndGetToken } from '@/shared/notifications';
-
-import { useUpdateFcmTokenMutation } from '../api/useUpdateFcmTokenMutation';
 import {
-  subscribeToDeviceRegistration,
   getDeviceRegistrationSnapshot,
-  setDeviceRegistrationState,
+  subscribeToDeviceRegistration,
 } from './deviceRegistrationStore';
+import { registerDeviceNotifications } from './deviceRegistration';
 
 export function useDeviceRegistration() {
   const state = useSyncExternalStore(
     subscribeToDeviceRegistration,
     getDeviceRegistrationSnapshot,
+    getDeviceRegistrationSnapshot,
   );
 
-  const { mutateAsync: updateToken } = useUpdateFcmTokenMutation();
-
   const register = useCallback(async () => {
-    setDeviceRegistrationState('registering');
     try {
-      const token = await requestPermissionAndGetToken();
-
-      if (!token) {
-        setDeviceRegistrationState('unregistered');
-        return;
-      }
-
-      await updateToken(token);
-      setDeviceRegistrationState('registered');
+      await registerDeviceNotifications();
     } catch {
-      setDeviceRegistrationState('error');
+      // The controller exposes the failure through the external store
     }
-  }, [updateToken]);
+  }, []);
 
   return { state, register };
 }

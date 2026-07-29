@@ -1,3 +1,5 @@
+'use strict';
+
 importScripts(
   'https://www.gstatic.com/firebasejs/12.13.0/firebase-app-compat.js',
 );
@@ -5,348 +7,220 @@ importScripts(
   'https://www.gstatic.com/firebasejs/12.13.0/firebase-messaging-compat.js',
 );
 
+const DEFAULT_NOTIFICATION_PATH = '/dashboard/notifications';
+const ALLOWED_PATH_PREFIX = '/dashboard';
+const CLIENT_MESSAGE_TYPE = 'intelli-pharm:fcm-background-message';
+const LEGACY_AUTH_DATABASE_NAME = 'intelli-pharm-sw';
 const params = new URLSearchParams(self.location.search);
+const REQUIRED_CONFIG_KEYS = [
+  'apiKey',
+  'projectId',
+  'messagingSenderId',
+  'appId',
+];
 
-firebase.initializeApp({
+const firebaseConfig = {
   apiKey: params.get('apiKey'),
   authDomain: params.get('authDomain'),
   projectId: params.get('projectId'),
   storageBucket: params.get('storageBucket'),
   messagingSenderId: params.get('messagingSenderId'),
   appId: params.get('appId'),
+};
+
+const missingConfigKeys = REQUIRED_CONFIG_KEYS.filter((key) => {
+  const value = firebaseConfig[key];
+  return typeof value !== 'string' || value.length === 0;
 });
 
-const messaging = firebase.messaging();
-const DEFAULT_NOTIFICATION_PATH = '/dashboard/notifications';
-
-function getTokenOptions() {
-  return { vapidKey: VAPID_KEY, serviceWorkerRegistration: self.registration };
+if (missingConfigKeys.length > 0) {
+  throw new Error(
+    `[firebase-messaging-sw] Missing config: ${missingConfigKeys.join(', ')}`,
+  );
 }
 
-const VAPID_KEY = params.get('vapidKey');
-const API_BASE_URL = params.get('apiBaseUrl');
-const DEVICE_TOKEN_ENDPOINT = '/auth/v1/notifications/device-token';
-const REFRESH_ENDPOINT = '/auth/v2/refresh';
-const BACKGROUND_SYNC_TAG = 'fcm-token-resync';
-const DEVICE_TOKEN_MAX_ATTEMPTS = 3;
-const DEVICE_TOKEN_RETRY_BASE_DELAY_MS = 1000;
-const ACCESS_TOKEN_SAFETY_MARGIN_MS = 60_000;
+firebase.initializeApp(firebaseConfig);
 
 self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
+function deleteLegacyAuthDatabase() {
+  if (!('indexedDB' in self)) return Promise.resolve();
+
+  return new Promise((resolve) => {
+    try {
+      const request = self.indexedDB.deleteDatabase(LEGACY_AUTH_DATABASE_NAME);
+
+      request.addEventListener('success', () => resolve(), { once: true });
+      request.addEventListener('error', () => resolve(), { once: true });
+      request.addEventListener('blocked', () => resolve(), { once: true });
+    } catch {
+      resolve();
+    }
+  });
+}
+
 self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    Promise.all([self.clients.claim(), deleteLegacyAuthDatabase()]),
+  );
 });
 
-const AUTH_BROADCAST_CHANNEL = 'auth-sync';
-const SW_DB_NAME = 'intelli-pharm-sw';
-const SW_KV_STORE = 'kv';
-const ACCESS_TOKEN_KEY = 'cachedAccessToken';
-
-function openSwStore() {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(SW_DB_NAME, 1);
-    request.onupgradeneeded = () => {
-      request.result.createObjectStore(SW_KV_STORE);
-    };
-    request.onsuccess = () => resolve(request.result);
-    request.onerror = () => reject(request.error);
-  });
+function readData(payload) {
+  return payload?.data && typeof payload.data === 'object' ? payload.data : {};
 }
 
-async function idbGet(key) {
-  const db = await openSwStore();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(SW_KV_STORE, 'readonly');
-    const req = tx.objectStore(SW_KV_STORE).get(key);
-    req.onsuccess = () => resolve(req.result ?? null);
-    req.onerror = () => reject(req.error);
-  });
+function readString(value) {
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
 }
 
-async function idbSet(key, value) {
-  const db = await openSwStore();
-  return new Promise((resolve, reject) => {
-    const tx = db.transaction(SW_KV_STORE, 'readwrite');
-    tx.objectStore(SW_KV_STORE).put(value, key);
-    tx.oncomplete = () => resolve();
-    tx.onerror = () => reject(tx.error);
-  });
-}
-
-async function cacheAccessToken(loginResponse) {
-  if (!loginResponse?.access_token || !loginResponse?.expires_in) return;
-  await idbSet(ACCESS_TOKEN_KEY, {
-    accessToken: loginResponse.access_token,
-    expiresAt: Date.now() + loginResponse.expires_in * 1000,
-  }).catch((error) => {
-    console.warn('[firebase-messaging-sw] caching access token failed:', error);
-  });
-}
-
-async function clearCachedAccessToken() {
-  await idbSet(ACCESS_TOKEN_KEY, null).catch(() => {});
-}
-
-async function getCachedAccessToken() {
-  const cached = await idbGet(ACCESS_TOKEN_KEY).catch(() => null);
-  if (!cached?.accessToken || !cached?.expiresAt) return null;
-  if (Date.now() > cached.expiresAt - ACCESS_TOKEN_SAFETY_MARGIN_MS) {
-    return null;
-  }
-  return cached.accessToken;
-}
-
-const authSyncChannel =
-  typeof BroadcastChannel !== 'undefined'
-    ? new BroadcastChannel(AUTH_BROADCAST_CHANNEL)
-    : null;
-
-authSyncChannel?.addEventListener('message', (event) => {
-  const message = event.data;
-
-  if (message?.type === 'refreshed' && message.data?.access_token) {
-    cacheAccessToken(message.data);
-  } else if (message?.type === 'logout') {
-    clearCachedAccessToken();
-  }
-});
-
-async function refreshAccessTokenOnce() {
+function getSafeNotificationPath(link) {
   try {
-    const response = await fetch(`${API_BASE_URL}${REFRESH_ENDPOINT}`, {
-      method: 'POST',
-      credentials: 'include',
-    });
+    const url = new URL(
+      readString(link) ?? DEFAULT_NOTIFICATION_PATH,
+      self.location.origin,
+    );
 
-    if (!response.ok) {
-      console.warn(
-        '[firebase-messaging-sw] token refresh rejected:',
-        response.status,
-      );
-      return null;
+    if (
+      url.origin !== self.location.origin ||
+      (url.pathname !== ALLOWED_PATH_PREFIX &&
+        !url.pathname.startsWith(`${ALLOWED_PATH_PREFIX}/`))
+    ) {
+      return DEFAULT_NOTIFICATION_PATH;
     }
 
-    const data = await response.json();
-    if (!data?.access_token) return null;
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return DEFAULT_NOTIFICATION_PATH;
+  }
+}
 
-    console.info('[firebase-messaging-sw] token refresh succeeded');
-    await cacheAccessToken(data);
-    return data.access_token;
-  } catch (error) {
-    console.warn(
-      '[firebase-messaging-sw] token refresh request failed:',
-      error,
-    );
+async function notifyOpenClients(payload, data) {
+  const windowClients = await self.clients.matchAll({
+    type: 'window',
+    includeUncontrolled: true,
+  });
+
+  const message = {
+    type: CLIENT_MESSAGE_TYPE,
+    payload: {
+      messageId:
+        readString(payload?.messageId) ??
+        readString(payload?.fcmMessageId) ??
+        readString(data.id),
+      data,
+      fallbackTitle: readString(payload?.notification?.title),
+      fallbackBody: readString(payload?.notification?.body),
+    },
+  };
+
+  windowClients.forEach((client) => client.postMessage(message));
+}
+
+function readPushPayload(event) {
+  if (!event.data) return null;
+
+  try {
+    const payload = event.data.json();
+    return payload && typeof payload === 'object' ? payload : null;
+  } catch {
     return null;
   }
 }
 
-async function getAccessToken() {
-  const cached = await getCachedAccessToken();
-  if (cached) return cached;
-  return refreshAccessTokenOnce();
-}
+self.addEventListener('push', (event) => {
+  const payload = readPushPayload(event);
+  if (!payload) return;
 
-self.addEventListener('pushsubscriptionchange', (event) => {
-  event.waitUntil(resyncTokenWithBackend());
+  event.waitUntil(notifyOpenClients(payload, readData(payload)));
 });
 
-self.addEventListener('sync', (event) => {
-  if (event.tag === BACKGROUND_SYNC_TAG) {
-    event.waitUntil(resyncTokenWithBackend());
-  }
-});
+const messaging = firebase.messaging();
 
-let resyncInFlight = null;
+async function showDataNotification(payload, data) {
+  const messageId = readString(payload?.messageId);
+  const notificationId = readString(data.id);
+  const tag =
+    notificationId ??
+    messageId ??
+    `${readString(data.type) ?? 'notification'}-${Date.now()}`;
+  const link = getSafeNotificationPath(data.link);
 
-async function resyncTokenWithBackend() {
-  if (!API_BASE_URL || !VAPID_KEY) return;
-
-  if (!resyncInFlight) {
-    resyncInFlight = (async () => {
-      const token = await pollForRotatedToken();
-      if (token) await reportTokenToBackend(token);
-    })().finally(() => {
-      resyncInFlight = null;
-    });
-  }
-
-  return resyncInFlight;
-}
-
-async function pollForRotatedToken(attempts = 4, baseDelayMs = 700) {
-  let latest = null;
-
-  for (let attempt = 0; attempt < attempts; attempt++) {
-    await sleep(baseDelayMs * 2 ** attempt);
-
-    try {
-      latest = await messaging.getToken(getTokenOptions());
-    } catch (error) {
-      console.warn('[firebase-messaging-sw] getToken() poll failed:', error);
-    }
-  }
-
-  return latest;
-}
-
-async function reportTokenToBackend(token) {
-  const accessToken = await getAccessToken();
-  if (!accessToken) {
-    console.warn(
-      '[firebase-messaging-sw] no access token available — skipping device-token report',
-    );
-    return;
-  }
-
-  for (let attempt = 1; attempt <= DEVICE_TOKEN_MAX_ATTEMPTS; attempt++) {
-    const outcome = await attemptRegisterDeviceToken(token, accessToken);
-    if (outcome !== 'retryable') return;
-
-    const isLastAttempt = attempt === DEVICE_TOKEN_MAX_ATTEMPTS;
-    if (isLastAttempt) {
-      await scheduleRetryOnReconnect();
-      return;
-    }
-
-    await sleep(DEVICE_TOKEN_RETRY_BASE_DELAY_MS * 2 ** (attempt - 1));
-  }
-}
-
-/** @returns {Promise<'success' | 'retryable' | 'non-retryable'>} */
-async function attemptRegisterDeviceToken(token, accessToken) {
-  try {
-    const response = await fetch(`${API_BASE_URL}${DEVICE_TOKEN_ENDPOINT}`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({ fcm_token: token }),
-    });
-
-    if (response.ok) {
-      console.info('[firebase-messaging-sw] device-token register succeeded');
-      return 'success';
-    }
-
-    if (response.status === 401) {
-      console.warn(
-        '[firebase-messaging-sw] device-token register rejected (401)',
-      );
-      await clearCachedAccessToken();
-      return 'non-retryable';
-    }
-
-    if (response.status >= 400 && response.status < 500) {
-      console.warn(
-        '[firebase-messaging-sw] device-token register rejected:',
-        response.status,
-      );
-      return 'non-retryable';
-    }
-
-    console.warn(
-      '[firebase-messaging-sw] device-token register failed (server):',
-      response.status,
-    );
-    return 'retryable';
-  } catch (error) {
-    console.warn(
-      '[firebase-messaging-sw] device-token register fetch failed:',
-      error,
-    );
-    return 'retryable';
-  }
-}
-
-async function scheduleRetryOnReconnect() {
-  if (!self.registration.sync) return;
-  try {
-    await self.registration.sync.register(BACKGROUND_SYNC_TAG);
-  } catch (error) {
-    console.warn(
-      '[firebase-messaging-sw] Background Sync registration failed:',
-      error,
-    );
-  }
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-messaging.onBackgroundMessage((payload) => {
-  try {
-    const { data } = payload;
-
-    const title = data?.title ?? 'New Notification';
-    const body = data?.body ?? '';
-    const tag = data?.id ?? `${data?.type ?? 'default'}-${Date.now()}`;
-    const link = data?.link ?? DEFAULT_NOTIFICATION_PATH;
-
-    try {
-      if (typeof BroadcastChannel !== 'undefined') {
-        const channel = new BroadcastChannel('fcm-notifications');
-        channel.postMessage({ data });
-        channel.close();
-      }
-    } catch (channelError) {
-      console.error(
-        '[firebase-messaging-sw] BroadcastChannel failed:',
-        channelError,
-      );
-    }
-
-    return self.registration.showNotification(title, {
-      body,
+  await self.registration.showNotification(
+    readString(data.title) ?? 'New Notification',
+    {
+      body: readString(data.body) ?? '',
       icon: '/icons/icon-192.png',
       badge: '/icons/badge-72.png',
       tag,
       renotify: true,
-      data: { ...data, link },
-    });
+      data: {
+        ...data,
+        link,
+        messageId,
+      },
+    },
+  );
+}
+
+messaging.onBackgroundMessage(async (payload) => {
+  const data = readData(payload);
+
+  if (payload?.notification) return;
+
+  try {
+    await showDataNotification(payload, data);
   } catch (error) {
     console.error(
-      '[firebase-messaging-sw] Failed to handle background message:',
+      '[firebase-messaging-sw] Could not display background notification',
       error,
     );
-    return self.registration.showNotification('New Notification', {
-      body: 'You have a new update.',
-      icon: '/icons/icon-192.png',
-      badge: '/icons/badge-72.png',
-      data: { link: DEFAULT_NOTIFICATION_PATH },
-    });
   }
 });
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const targetPath = event.notification.data?.link ?? DEFAULT_NOTIFICATION_PATH;
-  const targetUrl = self.location.origin + targetPath;
+
+  const targetPath = getSafeNotificationPath(event.notification.data?.link);
+  const targetUrl = new URL(targetPath, self.location.origin).href;
 
   event.waitUntil(
     (async () => {
-      const windowClients = await clients.matchAll({
+      const windowClients = await self.clients.matchAll({
         type: 'window',
         includeUncontrolled: true,
       });
 
-      for (const client of windowClients) {
-        if (client.url.startsWith(self.location.origin) && 'focus' in client) {
-          await client.focus();
-          if ('navigate' in client) {
-            return client.navigate(targetUrl);
+      const exactClient = windowClients.find(
+        (client) => client.url === targetUrl,
+      );
+
+      if (exactClient && 'focus' in exactClient) {
+        return exactClient.focus();
+      }
+
+      const existingClient = windowClients.find(
+        (client) =>
+          client.url.startsWith(self.location.origin) && 'focus' in client,
+      );
+
+      if (existingClient) {
+        await existingClient.focus();
+
+        if ('navigate' in existingClient) {
+          try {
+            return await existingClient.navigate(targetUrl);
+          } catch (error) {
+            console.warn(
+              '[firebase-messaging-sw] Client navigation failed',
+              error,
+            );
           }
-          return;
         }
       }
 
-      return clients.openWindow(targetUrl);
+      return self.clients.openWindow(targetUrl);
     })(),
   );
 });

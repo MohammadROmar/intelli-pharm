@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { apiClient, ApiError } from '@/shared/api';
 import { createDomainQueryKeys, useEditEntity } from '@/shared/model';
 
-async function markNotificationAsRead(id: string) {
+async function markNotificationAsRead(id: string): Promise<void> {
   await apiClient.patch(`/auth/v1/notifications/${id}/mark-as-read`, {
     ids: [id],
   });
@@ -21,7 +21,7 @@ export function useMarkNotificationAsRead() {
   const queryKeys = createDomainQueryKeys('notifications');
 
   return useEditEntity({
-    queryKey: 'notificatons',
+    queryKey: 'notifications',
     mutationFn: markNotificationAsRead,
     translationKey: 'notification',
 

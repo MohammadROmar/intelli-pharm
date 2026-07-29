@@ -1,6 +1,7 @@
-import { useTranslation } from 'react-i18next';
-import { Bell } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+import { Bell } from "lucide-react";
 
+import { NotificationActivationBanner } from "@/features/notifications";
 import {
   Card,
   CardHeader,
@@ -10,12 +11,10 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from '@/shared/ui';
+} from "@/shared/ui";
 
-import { NotificationsContent } from './NotificationsContent';
-import { NotificationDeviceStatus } from './NotificationDeviceStatus';
-import { NotificationPermissionBanner } from './NotificationPermissionBanner';
-import { TAB_OPTIONS, useReadStatusFilter } from '../model/useReadStatusFilter';
+import { NotificationsContent } from "./NotificationsContent";
+import { TAB_OPTIONS, useReadStatusFilter } from "../model/useReadStatusFilter";
 
 export default function NotificationsPage() {
   return (
@@ -26,10 +25,10 @@ export default function NotificationsPage() {
 }
 
 export function NotificationsPageContent() {
-  const { t } = useTranslation('notifications');
+  const { t } = useTranslation("notifications");
   const { activeTab, handleTabChange } = useReadStatusFilter();
 
-  const pageTitle = `${t('page.title')} - IntelliPharma`;
+  const pageTitle = `${t("page.title")} - IntelliPharma`;
 
   return (
     <>
@@ -39,8 +38,8 @@ export function NotificationsPageContent() {
         <Card className="gap-4!">
           <CardHeader className="flex! flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardSectionHeader
-              title={t('page.title')}
-              description={t('page.description')}
+              title={t("page.title")}
+              description={t("page.description")}
               icon={Bell}
             />
 
@@ -63,8 +62,7 @@ export function NotificationsPageContent() {
             </Tabs>
           </CardHeader>
 
-          <NotificationPermissionBanner className="mx-6" />
-          <NotificationDeviceStatus className="mx-6" />
+          <NotificationActivationBanner detailed className="mx-6" />
 
           <Separator />
 

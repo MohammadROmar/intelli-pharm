@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useTransition } from 'react';
+import { lazy, Suspense, useCallback, useState, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { cn, ErrorBoundary } from '@/shared/lib';
@@ -7,11 +7,12 @@ import { PageTitle, Skeleton, SectionErrorFallback } from '@/shared/ui';
 import { useDashboardSummary } from '../model/queries';
 import { useDashboardFilters } from '../model/useDashboardFilters';
 
+import { DashboardFilters } from './DashboardFilters';
 import { KpiRow } from './KpiRow';
+import { NeedsAttentionPanel } from './NeedsAttentionPanel';
+import { OverviewNotificationsRow } from './OverviewNotificationsRow';
 import { PreviewRow } from './PreviewRow';
 import { QuickActionsRow } from './QuickActionsRow';
-import { DashboardFilters } from './DashboardFilters';
-import { NeedsAttentionPanel } from './NeedsAttentionPanel';
 
 const TargetLeaderboardSection = lazy(() =>
   import('./TargetLeaderboardSection').then((module) => ({
@@ -35,9 +36,12 @@ export function OverviewPage() {
 
   const [areaId, setAreaIdState] = useState<number | null>(null);
   const [isAreaPending, startAreaTransition] = useTransition();
-  const setAreaId = (next: number | null) => {
-    startAreaTransition(() => setAreaIdState(next));
-  };
+  const setAreaId = useCallback(
+    (next: number | null) => {
+      startAreaTransition(() => setAreaIdState(next));
+    },
+    [startAreaTransition],
+  );
 
   const { data: summaryResponse } = useDashboardSummary(range, areaId);
   const summary = summaryResponse.data!;
@@ -56,6 +60,8 @@ export function OverviewPage() {
           onAreaIdChange={setAreaId}
         />
       </div>
+
+      <OverviewNotificationsRow />
 
       <div
         className={cn(

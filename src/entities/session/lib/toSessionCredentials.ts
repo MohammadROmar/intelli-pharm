@@ -1,4 +1,4 @@
-import type { LoginResponse } from '@/features/login/index.initial';
+import type { LoginResponse } from '@/features/auth/index.initial';
 
 export function toSessionCredentials(data: LoginResponse) {
   return {

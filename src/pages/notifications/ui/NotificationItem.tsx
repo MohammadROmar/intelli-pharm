@@ -53,7 +53,7 @@ export function NotificationItem({
       {!isRead && (
         <span
           aria-hidden
-          className="bg-primary absolute inset-y-0 left-0 w-0.75 rounded-r-sm"
+          className="bg-primary absolute inset-y-0 start-0 w-0.75 rounded-e-sm"
         />
       )}
 

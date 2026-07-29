@@ -91,5 +91,40 @@
       "description": "Couldn't connect this device. Your notification settings are fine — just tap retry.",
       "action": "Retry"
     }
+  },
+  "activation": {
+    "eyebrow": "Real-time operational alerts",
+    "default": {
+      "title": "Stay ahead of what needs your attention",
+      "description": "Enable browser notifications for stock, expiry, and order updates—even when IntelliPharma is not open.",
+      "action": "Enable notifications"
+    },
+    "denied": {
+      "title": "Never miss an alert",
+      "description": "Get instant alerts for stock, expiry, and orders.",
+      "action": "Check again",
+      "stepsLabel": "How to allow browser notifications",
+      "steps": [
+        "Open the site controls beside the address bar.",
+        "Open permissions or site settings.",
+        "Change Notifications to Allow.",
+        "Return to IntelliPharma and select Check again."
+      ]
+    },
+    "unsupported": {
+      "title": "Notifications are unavailable here",
+      "description": "This browser or installation mode does not currently support web notifications."
+    },
+    "unregistered": {
+      "title": "Finish connecting this device",
+      "description": "Permission is allowed, but this browser still needs to be registered for IntelliPharma alerts.",
+      "action": "Connect device"
+    },
+    "error": {
+      "title": "This device could not be connected",
+      "description": "We could not finish notification setup. Check the connection and try again.",
+      "action": "Try again"
+    },
+    "registering": "Connecting…"
   }
 }

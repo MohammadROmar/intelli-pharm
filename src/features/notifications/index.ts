@@ -1,2 +1,10 @@
-export type { NotificationsParams } from './model/types';
-export { ForegroundNotificationListener } from './ui/ForegroundNotificationListener';
+export type {
+  NotificationsParams,
+  NotificationsRuntimeErrorContext,
+  NotificationsRuntimeErrorHandler,
+} from "./model/types";
+export {
+  ForegroundNotificationListener,
+  NotificationsRuntime,
+} from "./ui/ForegroundNotificationListener";
+export { NotificationActivationBanner } from "./ui/NotificationActivationBanner";

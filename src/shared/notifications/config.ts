@@ -9,31 +9,56 @@ export const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const missingKeys = Object.entries(firebaseConfig)
-  .filter(([, value]) => !value)
-  .map(([key]) => key);
+const FIREBASE_NOTIFICATIONS_APP_NAME = 'intelli-pharm-notifications';
+const REQUIRED_FIREBASE_CONFIG_KEYS = [
+  'apiKey',
+  'projectId',
+  'messagingSenderId',
+  'appId',
+] as const;
 
-export const isFirebaseConfigValid = missingKeys.length === 0;
+export const missingFirebaseConfigKeys = REQUIRED_FIREBASE_CONFIG_KEYS.filter(
+  (key) => {
+    const value = firebaseConfig[key];
+    return typeof value !== 'string' || value.trim().length === 0;
+  },
+);
+
+export const isFirebaseConfigValid = missingFirebaseConfigKeys.length === 0;
 
 if (!isFirebaseConfigValid) {
   console.error(
-    `[Firebase] Missing required env vars: ${missingKeys.join(', ')}. FCM will be disabled.`,
+    `[Firebase] Missing required notification config: ${missingFirebaseConfigKeys.join(', ')}. FCM is disabled.`,
   );
 }
 
-let appInstance: FirebaseApp | null = null;
+let appPromise: Promise<FirebaseApp> | null = null;
 
-export async function getFirebaseApp() {
-  if (appInstance) return appInstance;
+async function initializeFirebaseApp(): Promise<FirebaseApp> {
   if (!isFirebaseConfigValid) {
     throw new Error('[Firebase] Cannot initialize app: invalid config');
   }
 
-  const { initializeApp, getApps } = await import('firebase/app');
-  const existingApps = getApps();
+  const { getApps, initializeApp } = await import('firebase/app');
+  const existingApp = getApps().find(
+    (app) =>
+      app.options.appId === firebaseConfig.appId &&
+      app.options.projectId === firebaseConfig.projectId,
+  );
 
-  appInstance =
-    existingApps.length > 0 ? existingApps[0] : initializeApp(firebaseConfig);
+  return (
+    existingApp ??
+    initializeApp(firebaseConfig, FIREBASE_NOTIFICATIONS_APP_NAME)
+  );
+}
 
-  return appInstance;
+export function getFirebaseApp(): Promise<FirebaseApp> {
+  if (!appPromise) {
+    appPromise = initializeFirebaseApp().catch((error) => {
+      appPromise = null;
+      throw error;
+    });
+  }
+
+  return appPromise;
 }

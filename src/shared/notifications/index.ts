@@ -1,13 +1,25 @@
 export {
   FCM_TOKEN_STORAGE_KEY,
-  FCM_BROADCAST_CHANNEL,
-  requestPermissionAndGetToken,
+  FCM_SERVICE_WORKER_MESSAGE_TYPE,
+  clearStoredToken,
   getFreshTokenSilently,
+  isMessagingSupported,
+  isMessagingUnsupportedError,
   onForegroundMessage,
   readToken,
-  writeToken,
+  requestPermissionAndGetToken,
   unregisterToken,
-  forceRefreshToken,
+  withRegistrationLock,
   withTokenLock,
-  hasWebLocks,
+  writeToken,
+  MessagingUnsupportedError,
 } from './messaging';
+export { cleanupLegacyNotificationStorage } from './migration';
+export {
+  getNotificationPermissionSnapshot,
+  refreshNotificationPermission,
+  requestNotificationPermission,
+  subscribeToNotificationPermission,
+  useNotificationPermission,
+  type NotificationPermissionState,
+} from './permission';

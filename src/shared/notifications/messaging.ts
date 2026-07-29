@@ -1,46 +1,174 @@
-import type { Messaging, MessagePayload } from 'firebase/messaging';
+import type { MessagePayload, Messaging } from 'firebase/messaging';
+
 import {
-  getFirebaseApp,
   firebaseConfig,
+  getFirebaseApp,
   isFirebaseConfigValid,
 } from './config';
+import { requestNotificationPermission } from './permission';
 
 const VAPID_KEY = import.meta.env.VITE_FIREBASE_VAPID_KEY;
-export const FCM_TOKEN_STORAGE_KEY = 'fcm_token';
-export const FCM_BROADCAST_CHANNEL = 'fcm-notifications';
+const SERVICE_WORKER_PATH = '/firebase-messaging-sw.js';
+const SERVICE_WORKER_SCOPE = '/';
+const FCM_TOKEN_LOCK_NAME = 'intelli-pharm:fcm-token';
+const FCM_REGISTRATION_LOCK_NAME = 'intelli-pharm:fcm-registration';
+const TOKEN_UNSUBSCRIBE_FAILED_CODE = 'messaging/token-unsubscribe-failed';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+export const FCM_TOKEN_STORAGE_KEY = 'fcm_token';
+export const FCM_SERVICE_WORKER_MESSAGE_TYPE =
+  'intelli-pharm:fcm-background-message';
 
 let messagingPromise: Promise<Messaging> | null = null;
+let supportPromise: Promise<boolean> | null = null;
+let swRegistrationPromise: Promise<ServiceWorkerRegistration> | null = null;
+let inFlightTokenFetch: Promise<string | null> | null = null;
 
-async function initMessaging(): Promise<Messaging> {
-  const { getMessaging } = await import('firebase/messaging');
-  const app = await getFirebaseApp();
+type ForegroundMessageCallback = (payload: MessagePayload) => void;
+
+type ForegroundMessageHub = {
+  callbacks: Set<ForegroundMessageCallback>;
+  firebaseUnsubscribe: (() => void) | null;
+  generation: number;
+  setupPromise: Promise<void> | null;
+};
+
+type MessagingGlobalScope = typeof globalThis & {
+  __intelliPharmFcmForegroundHub__?: ForegroundMessageHub;
+};
+
+const messagingGlobalScope = globalThis as MessagingGlobalScope;
+const foregroundMessageHub: ForegroundMessageHub =
+  messagingGlobalScope.__intelliPharmFcmForegroundHub__ ?? {
+    callbacks: new Set(),
+    firebaseUnsubscribe: null,
+    generation: 0,
+    setupPromise: null,
+  };
+
+messagingGlobalScope.__intelliPharmFcmForegroundHub__ = foregroundMessageHub;
+
+export class MessagingUnsupportedError extends Error {
+  constructor() {
+    super('[FCM] Messaging is unsupported or misconfigured');
+    this.name = 'MessagingUnsupportedError';
+  }
+}
+
+export function isMessagingUnsupportedError(
+  error: unknown,
+): error is MessagingUnsupportedError {
+  return (
+    error instanceof MessagingUnsupportedError ||
+    (error instanceof Error && error.name === 'MessagingUnsupportedError')
+  );
+}
+
+function hasMessagingErrorCode(error: unknown, code: string): boolean {
+  return (
+    error instanceof Error &&
+    'code' in error &&
+    (error as Error & { code?: unknown }).code === code
+  );
+}
+
+function hasRequiredBrowserApis(): boolean {
+  return (
+    typeof window !== 'undefined' &&
+    window.isSecureContext &&
+    'Notification' in window &&
+    'serviceWorker' in navigator &&
+    'PushManager' in window &&
+    'indexedDB' in window
+  );
+}
+
+export function isMessagingSupported(): Promise<boolean> {
+  if (
+    !hasRequiredBrowserApis() ||
+    !isFirebaseConfigValid ||
+    typeof VAPID_KEY !== 'string' ||
+    VAPID_KEY.length === 0
+  ) {
+    return Promise.resolve(false);
+  }
+
+  if (!supportPromise) {
+    supportPromise = import('firebase/messaging')
+      .then(({ isSupported }) => isSupported())
+      .catch((error) => {
+        supportPromise = null;
+        throw error;
+      });
+  }
+
+  return supportPromise;
+}
+
+async function initializeMessaging(): Promise<Messaging> {
+  if (!(await isMessagingSupported())) {
+    throw new MessagingUnsupportedError();
+  }
+
+  const [{ getMessaging }, app] = await Promise.all([
+    import('firebase/messaging'),
+    getFirebaseApp(),
+  ]);
+
   return getMessaging(app);
 }
 
 export function getMessagingInstance(): Promise<Messaging> {
   if (!messagingPromise) {
-    messagingPromise = initMessaging().catch((error) => {
+    messagingPromise = initializeMessaging().catch((error) => {
       messagingPromise = null;
       throw error;
     });
   }
+
   return messagingPromise;
 }
 
-let swRegistrationPromise: Promise<ServiceWorkerRegistration> | null = null;
+function isExpectedMessagingWorker(
+  registration: ServiceWorkerRegistration,
+): boolean {
+  const scriptUrl =
+    registration.active?.scriptURL ??
+    registration.waiting?.scriptURL ??
+    registration.installing?.scriptURL;
+
+  if (!scriptUrl) return false;
+
+  try {
+    return new URL(scriptUrl).pathname === SERVICE_WORKER_PATH;
+  } catch {
+    return false;
+  }
+}
 
 async function registerServiceWorker(): Promise<ServiceWorkerRegistration> {
-  const params = new URLSearchParams({
-    ...firebaseConfig,
-    vapidKey: VAPID_KEY ?? '',
-    apiBaseUrl: API_BASE_URL ?? '',
-  } as Record<string, string>);
+  const existingRegistration =
+    await navigator.serviceWorker.getRegistration(SERVICE_WORKER_SCOPE);
+
+  if (
+    existingRegistration &&
+    !isExpectedMessagingWorker(existingRegistration)
+  ) {
+    throw new Error(
+      '[FCM] Another service worker owns the root scope. Merge the Firebase messaging handler into that worker instead of replacing it.',
+    );
+  }
+
+  const params = new URLSearchParams();
+  Object.entries(firebaseConfig).forEach(([key, value]) => {
+    if (typeof value === 'string') params.set(key, value);
+  });
 
   const registration = await navigator.serviceWorker.register(
-    `/firebase-messaging-sw.js?${params.toString()}`,
-    { scope: '/', updateViaCache: 'none' },
+    `${SERVICE_WORKER_PATH}?${params.toString()}`,
+    {
+      scope: SERVICE_WORKER_SCOPE,
+      updateViaCache: 'none',
+    },
   );
 
   await waitForActivation(registration);
@@ -54,6 +182,7 @@ export function getSWRegistration(): Promise<ServiceWorkerRegistration> {
       throw error;
     });
   }
+
   return swRegistrationPromise;
 }
 
@@ -64,99 +193,145 @@ function waitForActivation(
   if (registration.active) return Promise.resolve();
 
   const worker = registration.installing ?? registration.waiting;
-  if (!worker) return Promise.resolve();
+  if (!worker) {
+    return Promise.reject(
+      new Error('[FCM] Service worker has no installable worker'),
+    );
+  }
+
+  const activatingWorker: ServiceWorker = worker;
+
+  if (activatingWorker.state === 'activated') return Promise.resolve();
 
   return new Promise((resolve, reject) => {
-    const timeoutId = setTimeout(() => {
+    const timeoutId = window.setTimeout(() => {
       cleanup();
       reject(new Error('[FCM] Service worker activation timed out'));
     }, timeoutMs);
 
-    function handleStateChange() {
-      if (worker!.state === 'activated') {
+    function handleStateChange(): void {
+      if (activatingWorker.state === 'activated') {
         cleanup();
         resolve();
-      } else if (worker!.state === 'redundant') {
+      } else if (activatingWorker.state === 'redundant') {
         cleanup();
         reject(
-          new Error('[FCM] Service worker was discarded before activating'),
+          new Error('[FCM] Service worker was discarded before activation'),
         );
       }
     }
 
-    function cleanup() {
-      clearTimeout(timeoutId);
-      worker!.removeEventListener('statechange', handleStateChange);
+    function cleanup(): void {
+      window.clearTimeout(timeoutId);
+      activatingWorker.removeEventListener('statechange', handleStateChange);
     }
 
-    worker.addEventListener('statechange', handleStateChange);
+    activatingWorker.addEventListener('statechange', handleStateChange);
   });
 }
 
-const FCM_TOKEN_LOCK_NAME = 'intelli-pharm:fcm-token';
+/**
+ * Serializes FCM subscription mutations across same-origin tabs.
+ *
+ * Do not pass the generic argument explicitly to `request()`. Some DOM
+ * typings infer the callback's promise as the generic itself, which produces
+ * `Promise<T> is not assignable to T`. Awaiting the inferred request result
+ * also correctly flattens both old and new LockManager typings.
+ */
+async function withNamedLock<T>(
+  name: string,
+  task: () => Promise<T>,
+): Promise<T> {
+  const lockManager =
+    typeof navigator !== 'undefined' ? navigator.locks : undefined;
 
-export const hasWebLocks =
-  typeof navigator !== 'undefined' && !!navigator.locks;
+  if (!lockManager) return task();
 
-export function withTokenLock<T>(task: () => Promise<T>): Promise<T> {
-  if (!hasWebLocks) return task();
-  return navigator.locks.request(FCM_TOKEN_LOCK_NAME, task) as Promise<T>;
+  return await lockManager.request(name, async () => {
+    return await task();
+  });
 }
 
-function readToken() {
+export function withTokenLock<T>(task: () => Promise<T>): Promise<T> {
+  return withNamedLock(FCM_TOKEN_LOCK_NAME, task);
+}
+
+export function withRegistrationLock<T>(task: () => Promise<T>): Promise<T> {
+  return withNamedLock(FCM_REGISTRATION_LOCK_NAME, task);
+}
+
+/**
+ * This is the last token confirmed by the IntelliPharm backend, not merely a
+ * token returned by Firebase. Firebase already owns its internal token cache.
+ */
+export function readToken(): string | null {
   try {
     return localStorage.getItem(FCM_TOKEN_STORAGE_KEY);
-  } catch (e) {
-    console.warn('[FCM] COULD NOT READ TOKEN', e);
+  } catch (error) {
+    console.warn('[FCM] Could not read the synced token', error);
     return null;
   }
 }
 
-const writeToken = (token: string): void => {
+export function writeToken(token: string): void {
   try {
     localStorage.setItem(FCM_TOKEN_STORAGE_KEY, token);
-  } catch (e) {
-    console.warn('[FCM] COULD NOT WRITE TOKEN', e);
-    // Silently ignore — token rotation will still work on next session
+  } catch (error) {
+    console.warn('[FCM] Could not persist the synced token', error);
   }
-};
+}
 
-const clearStoredToken = (): void => {
+export function clearStoredToken(): void {
   try {
     localStorage.removeItem(FCM_TOKEN_STORAGE_KEY);
-  } catch (e) {
-    console.warn('[FCM] COULD NOT CLEAR TOKEN', e);
+  } catch (error) {
+    console.warn('[FCM] Could not clear the synced token', error);
   }
-};
-
-let inFlightTokenFetch: Promise<string | null> | null = null;
+}
 
 async function fetchToken(): Promise<string | null> {
   if (inFlightTokenFetch) return inFlightTokenFetch;
 
   inFlightTokenFetch = (async () => {
-    if (!isFirebaseConfigValid) {
-      console.error('[FCM] Firebase config is invalid — skipping token fetch');
-      return null;
-    }
-    if (!VAPID_KEY) {
-      console.error('[FCM] Missing VITE_FIREBASE_VAPID_KEY');
-      return null;
+    if (!(await isMessagingSupported())) {
+      throw new MessagingUnsupportedError();
     }
 
-    const [messaging, swRegistration] = await Promise.all([
+    const [{ getToken }, messaging, swRegistration] = await Promise.all([
+      import('firebase/messaging'),
       getMessagingInstance(),
       getSWRegistration(),
     ]);
 
-    const { getToken } = await import('firebase/messaging');
-
-    const token = await getToken(messaging, {
+    const tokenOptions = {
       vapidKey: VAPID_KEY,
       serviceWorkerRegistration: swRegistration,
-    });
+    };
+    let token: string;
 
-    return token ?? null;
+    try {
+      token = await getToken(messaging, tokenOptions);
+    } catch (error) {
+      if (!hasMessagingErrorCode(error, TOKEN_UNSUBSCRIBE_FAILED_CODE)) {
+        throw error;
+      }
+
+      // Firebase can retain an expired token after its server-side DELETE
+      // fails. Detaching the stale browser subscription lets the SDK create a
+      // new subscription on the single retry below instead of retrying the
+      // same broken token forever.
+      const staleSubscription =
+        await swRegistration.pushManager.getSubscription();
+      const wasUnsubscribed =
+        !staleSubscription || (await staleSubscription.unsubscribe());
+
+      if (!wasUnsubscribed) throw error;
+
+      clearStoredToken();
+      token = await getToken(messaging, tokenOptions);
+    }
+
+    return token || null;
   })();
 
   try {
@@ -166,95 +341,142 @@ async function fetchToken(): Promise<string | null> {
   }
 }
 
-export async function requestPermissionAndGetToken() {
-  if (!('Notification' in window) || !('serviceWorker' in navigator))
-    return null;
+/**
+ * Must only be called from a user gesture. It returns `null` only when the
+ * browser cannot support messaging or permission was not granted; technical
+ * failures reject so the UI can expose a real registration error.
+ */
+export async function requestPermissionAndGetToken(): Promise<string | null> {
+  if (!hasRequiredBrowserApis()) return null;
 
-  const permission = await Notification.requestPermission();
+  const permission = await requestNotificationPermission();
   if (permission !== 'granted') return null;
 
-  return withTokenLock(async () => {
-    try {
-      const token = await fetchToken();
-      if (token) writeToken(token);
-      return token;
-    } catch (err) {
-      console.error('[FCM] getToken failed:', err);
-      clearStoredToken();
-      return null;
-    }
-  });
+  return getFreshTokenSilently();
 }
 
-export async function getFreshTokenSilently() {
-  if (Notification.permission !== 'granted') {
-    clearStoredToken();
-    return null;
-  }
-  return withTokenLock(async () => {
-    try {
-      return await fetchToken();
-    } catch (err) {
-      console.error('[FCM] getFreshTokenSilently failed:', err);
-      clearStoredToken();
-      return null;
-    }
-  });
-}
-
-export async function forceRefreshToken(): Promise<string | null> {
+export async function getFreshTokenSilently(): Promise<string | null> {
   if (
     typeof Notification === 'undefined' ||
     Notification.permission !== 'granted'
   ) {
-    clearStoredToken();
     return null;
   }
 
-  return withTokenLock(async () => {
-    try {
-      const { deleteToken } = await import('firebase/messaging');
-      const messaging = await getMessagingInstance();
-      await deleteToken(messaging);
-    } catch (err) {
-      console.warn(
-        '[FCM] deleteToken before forced refresh failed (continuing):',
-        err,
-      );
-    }
-
-    try {
-      return await fetchToken();
-    } catch (err) {
-      console.error('[FCM] forceRefreshToken failed:', err);
-      return null;
-    }
-  });
+  return withTokenLock(fetchToken);
 }
 
+/**
+ * Removes the browser-side FCM subscription. The backend association must be
+ * revoked before auth is cleared; see NOTIFICATIONS_REVIEW.md.
+ */
 export async function unregisterToken(): Promise<void> {
-  const token = readToken();
-  if (!token) return;
-
-  await withTokenLock(async () => {
-    try {
-      const { deleteToken } = await import('firebase/messaging');
-      const messaging = await getMessagingInstance();
-      await deleteToken(messaging);
-    } catch (err) {
-      console.warn('[FCM] deleteToken failed (continuing local cleanup):', err);
-    } finally {
-      clearStoredToken();
+  try {
+    if (
+      typeof Notification === 'undefined' ||
+      Notification.permission !== 'granted' ||
+      !(await isMessagingSupported())
+    ) {
+      return;
     }
-  });
+
+    await withTokenLock(async () => {
+      const [{ deleteToken, getToken }, messaging, swRegistration] =
+        await Promise.all([
+          import('firebase/messaging'),
+          getMessagingInstance(),
+          getSWRegistration(),
+        ]);
+
+      // Bind this fresh Messaging instance to the configured worker before
+      // deleteToken(). Otherwise Firebase can fall back to registering a
+      // parameter-less default worker after a full page reload.
+      await getToken(messaging, {
+        vapidKey: VAPID_KEY,
+        serviceWorkerRegistration: swRegistration,
+      });
+      await deleteToken(messaging);
+    });
+  } catch (error) {
+    console.warn('[FCM] Browser token removal failed', error);
+  } finally {
+    resetForegroundMessageHub();
+    clearStoredToken();
+  }
+}
+
+async function ensureForegroundMessageSubscription(): Promise<void> {
+  if (foregroundMessageHub.firebaseUnsubscribe) return;
+
+  if (!foregroundMessageHub.setupPromise) {
+    const generation = foregroundMessageHub.generation;
+
+    const setupPromise = Promise.all([
+      import('firebase/messaging'),
+      getMessagingInstance(),
+    ]).then(([{ onMessage }, messaging]) => {
+      if (
+        foregroundMessageHub.generation !== generation ||
+        foregroundMessageHub.firebaseUnsubscribe
+      ) {
+        return;
+      }
+
+      foregroundMessageHub.firebaseUnsubscribe = onMessage(
+        messaging,
+        (payload) => {
+          foregroundMessageHub.callbacks.forEach((callback) => {
+            callback(payload);
+          });
+        },
+      );
+    });
+
+    foregroundMessageHub.setupPromise = setupPromise;
+
+    const clearSetupPromise = () => {
+      if (foregroundMessageHub.setupPromise === setupPromise) {
+        foregroundMessageHub.setupPromise = null;
+      }
+    };
+
+    void setupPromise.then(clearSetupPromise, clearSetupPromise);
+  }
+
+  const setupPromise = foregroundMessageHub.setupPromise;
+  if (setupPromise) await setupPromise;
+}
+
+function resetForegroundMessageHub(): void {
+  foregroundMessageHub.generation += 1;
+  foregroundMessageHub.callbacks.clear();
+  foregroundMessageHub.firebaseUnsubscribe?.();
+  foregroundMessageHub.firebaseUnsubscribe = null;
+  foregroundMessageHub.setupPromise = null;
 }
 
 export async function onForegroundMessage(
-  callback: (payload: MessagePayload) => void,
-) {
-  const { onMessage } = await import('firebase/messaging');
-  const messaging = await getMessagingInstance();
-  return onMessage(messaging, callback);
-}
+  callback: ForegroundMessageCallback,
+): Promise<() => void> {
+  if (!(await isMessagingSupported())) {
+    throw new MessagingUnsupportedError();
+  }
 
-export { readToken, writeToken };
+  foregroundMessageHub.callbacks.add(callback);
+
+  try {
+    await ensureForegroundMessageSubscription();
+  } catch (error) {
+    foregroundMessageHub.callbacks.delete(callback);
+    throw error;
+  }
+
+  let isSubscribed = true;
+
+  return () => {
+    if (!isSubscribed) return;
+
+    isSubscribed = false;
+    foregroundMessageHub.callbacks.delete(callback);
+  };
+}

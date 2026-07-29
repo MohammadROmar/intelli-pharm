@@ -32,7 +32,7 @@ This category holds business nouns. Each entity keeps its own model, UI, API, an
 
 ### feature-modules
 
-Representative files: `src/features/login/ui/LoginForm.tsx`, `src/features/auth/ui/ProtectedRoute.tsx`, `src/features/order-change-status/ui/ChangeOrderStatus.tsx`, `src/features/medicine-restock/ui/MedicineRestockForm.tsx`.
+Representative files: `src/features/auth/ui/LoginForm.tsx`, `src/features/auth/ui/ProtectedRoute.tsx`, `src/features/order-change-status/ui/ChangeOrderStatus.tsx`, `src/features/medicine-restock/ui/MedicineRestockForm.tsx`.
 
 This category contains action-oriented workflows. Features orchestrate entity hooks, shared UI, and mutation logic without taking over page routing.
 

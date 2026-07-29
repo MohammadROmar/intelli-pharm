@@ -53,5 +53,14 @@
     "newEmployee": "New employee",
     "initiatePlan": "Initiate plan",
     "newMedicine": "New medicine"
+  },
+  "notifications": {
+    "eyebrow": "Notification center",
+    "unreadTitle": "Notifications need your attention",
+    "unread_one": "One unread notification is waiting for you.",
+    "unread_other": "{{count}} unread notifications are waiting for you.",
+    "allReadTitle": "You're all caught up",
+    "allReadDescription": "Everything has been read. New operational alerts will appear here.",
+    "openAriaLabel": "Open notifications. {{count}} unread."
   }
 }

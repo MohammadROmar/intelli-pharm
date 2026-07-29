@@ -1,4 +1,4 @@
-import type { LoginResponse } from '@/features/login/index.initial';
+import type { LoginResponse } from '@/features/auth/index.initial';
 import { broadcastRefreshed } from '@/entities/session';
 import { apiClient, ApiError } from '@/shared/api';
 

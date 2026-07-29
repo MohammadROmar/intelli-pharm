@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { LoginForm } from '@/features/login';
+import { LoginForm } from '@/features/auth';
 import { ThemeToggle } from '@/features/theme-toggle';
 import { LocaleToggle } from '@/features/locale-toggle';
 import {

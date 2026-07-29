@@ -1,4 +1,4 @@
-export { useUpdateFcmTokenMutation } from './api/useUpdateFcmTokenMutation';
+export { updateFcmToken } from './api/deviceTokenApi';
 
 export {
   getDeviceRegistrationSnapshot,
@@ -7,4 +7,8 @@ export {
   subscribeToDeviceRegistration,
   type DeviceRegistrationState,
 } from './model/deviceRegistrationStore';
+export {
+  registerDeviceNotifications,
+  syncDeviceRegistration,
+} from './model/deviceRegistration';
 export { useDeviceRegistration } from './model/useDeviceRegistration';

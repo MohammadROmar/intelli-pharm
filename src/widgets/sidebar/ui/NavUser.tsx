@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Bell, ChevronsUpDown, UserCircle } from 'lucide-react';
 
 import { LogoutButton } from '@/features/auth';
+import { selectUnreadNotifications } from '@/entities/session';
 import { useAppSelector } from '@/shared/config';
 import { useRequiredUser } from '@/shared/model';
 import {
@@ -24,9 +25,6 @@ import { UserInfo } from './UserInfo';
 import { NotificationBadge } from './NotificationBadge';
 
 type NavUserData = ReturnType<typeof useRequiredUser>;
-
-const selectUnreadNotifications = (state: RootState): number =>
-  state.session.unreadNotifications ?? 0;
 
 export function NavUser() {
   const [menuOpen, setMenuOpen] = useState(false);
