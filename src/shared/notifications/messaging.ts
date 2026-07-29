@@ -230,14 +230,6 @@ function waitForActivation(
   });
 }
 
-/**
- * Serializes FCM subscription mutations across same-origin tabs.
- *
- * Do not pass the generic argument explicitly to `request()`. Some DOM
- * typings infer the callback's promise as the generic itself, which produces
- * `Promise<T> is not assignable to T`. Awaiting the inferred request result
- * also correctly flattens both old and new LockManager typings.
- */
 async function withNamedLock<T>(
   name: string,
   task: () => Promise<T>,
@@ -260,10 +252,6 @@ export function withRegistrationLock<T>(task: () => Promise<T>): Promise<T> {
   return withNamedLock(FCM_REGISTRATION_LOCK_NAME, task);
 }
 
-/**
- * This is the last token confirmed by the IntelliPharm backend, not merely a
- * token returned by Firebase. Firebase already owns its internal token cache.
- */
 export function readToken(): string | null {
   try {
     return localStorage.getItem(FCM_TOKEN_STORAGE_KEY);
@@ -316,10 +304,6 @@ async function fetchToken(): Promise<string | null> {
         throw error;
       }
 
-      // Firebase can retain an expired token after its server-side DELETE
-      // fails. Detaching the stale browser subscription lets the SDK create a
-      // new subscription on the single retry below instead of retrying the
-      // same broken token forever.
       const staleSubscription =
         await swRegistration.pushManager.getSubscription();
       const wasUnsubscribed =
@@ -341,11 +325,6 @@ async function fetchToken(): Promise<string | null> {
   }
 }
 
-/**
- * Must only be called from a user gesture. It returns `null` only when the
- * browser cannot support messaging or permission was not granted; technical
- * failures reject so the UI can expose a real registration error.
- */
 export async function requestPermissionAndGetToken(): Promise<string | null> {
   if (!hasRequiredBrowserApis()) return null;
 
@@ -366,10 +345,6 @@ export async function getFreshTokenSilently(): Promise<string | null> {
   return withTokenLock(fetchToken);
 }
 
-/**
- * Removes the browser-side FCM subscription. The backend association must be
- * revoked before auth is cleared; see NOTIFICATIONS_REVIEW.md.
- */
 export async function unregisterToken(): Promise<void> {
   try {
     if (
@@ -388,9 +363,6 @@ export async function unregisterToken(): Promise<void> {
           getSWRegistration(),
         ]);
 
-      // Bind this fresh Messaging instance to the configured worker before
-      // deleteToken(). Otherwise Firebase can fall back to registering a
-      // parameter-less default worker after a full page reload.
       await getToken(messaging, {
         vapidKey: VAPID_KEY,
         serviceWorkerRegistration: swRegistration,

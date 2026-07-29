@@ -12,13 +12,9 @@ import {
   setDeviceRegistrationState,
 } from './deviceRegistrationStore';
 
-type SyncDeviceRegistrationOptions = { forceBackendSync?: boolean };
-
 let registrationPromise: Promise<string | null> | null = null;
 
-async function performDeviceRegistration({
-  forceBackendSync = false,
-}: SyncDeviceRegistrationOptions): Promise<string | null> {
+async function performDeviceRegistration(): Promise<string | null> {
   const previousState = getDeviceRegistrationSnapshot();
 
   if (previousState !== 'registered') {
@@ -33,10 +29,10 @@ async function performDeviceRegistration({
       return null;
     }
 
-    const isAlreadySynced =
-      token === readToken() && previousState === 'registered';
-
-    if (!forceBackendSync && isAlreadySynced) return token;
+    if (token === readToken()) {
+      setDeviceRegistrationState('registered');
+      return token;
+    }
 
     setDeviceRegistrationState('registering');
     await updateFcmToken(token);
@@ -50,24 +46,20 @@ async function performDeviceRegistration({
   }
 }
 
-function runDeviceRegistration(
-  options: SyncDeviceRegistrationOptions,
-): Promise<string | null> {
+function runDeviceRegistration(): Promise<string | null> {
   if (registrationPromise) return registrationPromise;
 
-  registrationPromise = withRegistrationLock(() =>
-    performDeviceRegistration(options),
-  ).finally(() => {
-    registrationPromise = null;
-  });
+  registrationPromise = withRegistrationLock(performDeviceRegistration).finally(
+    () => {
+      registrationPromise = null;
+    },
+  );
 
   return registrationPromise;
 }
 
-export function syncDeviceRegistration(
-  options: SyncDeviceRegistrationOptions = {},
-): Promise<string | null> {
-  return runDeviceRegistration(options);
+export function syncDeviceRegistration(): Promise<string | null> {
+  return runDeviceRegistration();
 }
 
 export async function registerDeviceNotifications(): Promise<string | null> {
@@ -81,7 +73,7 @@ export async function registerDeviceNotifications(): Promise<string | null> {
       return null;
     }
 
-    return await runDeviceRegistration({ forceBackendSync: true });
+    return await runDeviceRegistration();
   } catch (error) {
     setDeviceRegistrationState('error');
     throw error;

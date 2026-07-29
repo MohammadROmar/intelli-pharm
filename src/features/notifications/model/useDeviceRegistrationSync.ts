@@ -4,7 +4,6 @@ import {
   resetDeviceRegistrationState,
   syncDeviceRegistration,
 } from '@/entities/device';
-import { ApiError } from '@/shared/api';
 import { isMessagingUnsupportedError } from '@/shared/notifications';
 
 import type { NotificationsRuntimeErrorHandler } from './types';
@@ -16,14 +15,52 @@ type Options = {
 
 const RETRY_BASE_DELAY_MS = 2_000;
 const RETRY_MAX_DELAY_MS = 60_000;
-const MAX_AUTOMATIC_RETRIES = 5;
-const REGISTRATION_REFRESH_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000;
+const MAX_AUTOMATIC_RETRIES = 3;
+const TOKEN_CHECK_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000;
+
+type ErrorShape = {
+  code?: unknown;
+  i18nKey?: unknown;
+  message?: unknown;
+  name?: unknown;
+  status?: unknown;
+};
+
+function getErrorShape(error: unknown): ErrorShape | null {
+  return typeof error === 'object' && error !== null
+    ? (error as ErrorShape)
+    : null;
+}
 
 function isRetryableRegistrationError(error: unknown): boolean {
   if (isMessagingUnsupportedError(error)) return false;
-  if (!(error instanceof ApiError) || error.status === undefined) return true;
 
-  return error.status === 408 || error.status === 429 || error.status >= 500;
+  const errorShape = getErrorShape(error);
+  const isApiError =
+    errorShape?.name === 'ApiError' || typeof errorShape?.i18nKey === 'string';
+
+  if (isApiError) {
+    const status =
+      typeof errorShape.status === 'number' ? errorShape.status : undefined;
+
+    return (
+      status !== undefined &&
+      (status === 408 || status === 429 || status >= 500)
+    );
+  }
+
+  if (
+    error instanceof TypeError &&
+    /fetch|network|load failed/i.test(error.message)
+  ) {
+    return true;
+  }
+
+  return (
+    errorShape?.code === 'ERR_NETWORK' ||
+    errorShape?.code === 'ECONNABORTED' ||
+    errorShape?.code === 'ETIMEDOUT'
+  );
 }
 
 export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
@@ -43,15 +80,23 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
     let retryAttempt = 0;
     let retryTimeoutId: ReturnType<typeof setTimeout> | undefined;
     let inFlight: Promise<string | null> | undefined;
+    let automaticSyncBlocked = false;
+    let lastFailureWasRetryable = false;
+    let failureReported = false;
 
     function scheduleRetry(): void {
       if (
         cancelled ||
+        automaticSyncBlocked ||
         retryTimeoutId ||
-        retryAttempt >= MAX_AUTOMATIC_RETRIES ||
         !navigator.onLine ||
         document.visibilityState !== 'visible'
       ) {
+        return;
+      }
+
+      if (retryAttempt >= MAX_AUTOMATIC_RETRIES) {
+        automaticSyncBlocked = true;
         return;
       }
 
@@ -64,55 +109,89 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
 
       retryTimeoutId = setTimeout(() => {
         retryTimeoutId = undefined;
-        sync(false);
+        sync();
       }, exponentialDelay + jitter);
     }
 
-    function sync(forceBackendSync: boolean): void {
-      if (cancelled || inFlight) return;
+    function sync(startNewCycle = false): void {
+      if (startNewCycle) {
+        retryAttempt = 0;
+        automaticSyncBlocked = false;
+        lastFailureWasRetryable = false;
+        failureReported = false;
+      }
 
-      const request = syncDeviceRegistration({ forceBackendSync });
+      if (cancelled || inFlight || automaticSyncBlocked) return;
+
+      const request = syncDeviceRegistration();
       inFlight = request;
 
       void request
         .then(() => {
           retryAttempt = 0;
+          automaticSyncBlocked = false;
+          lastFailureWasRetryable = false;
+          failureReported = false;
         })
         .catch((error: unknown) => {
           if (cancelled) return;
 
-          onErrorRef.current?.(error, 'device-registration');
-          if (isRetryableRegistrationError(error)) scheduleRetry();
+          lastFailureWasRetryable = isRetryableRegistrationError(error);
+
+          if (!failureReported) {
+            failureReported = true;
+            onErrorRef.current?.(error, 'device-registration');
+          }
+
+          if (lastFailureWasRetryable) {
+            scheduleRetry();
+          } else {
+            automaticSyncBlocked = true;
+          }
         })
         .finally(() => {
-          if (inFlight === request) inFlight = undefined;
+          if (inFlight === request) {
+            inFlight = undefined;
+          }
         });
     }
 
     function handleOnline(): void {
-      retryAttempt = 0;
-      sync(false);
+      if (document.visibilityState === 'visible' && lastFailureWasRetryable) {
+        sync(true);
+      }
     }
 
     function handleVisibilityChange(): void {
-      if (document.visibilityState !== 'visible') return;
+      if (
+        document.visibilityState !== 'visible' ||
+        !navigator.onLine ||
+        retryTimeoutId ||
+        automaticSyncBlocked
+      ) {
+        return;
+      }
 
-      retryAttempt = 0;
-      sync(false);
+      sync();
     }
 
     sync(true);
 
     const refreshIntervalId = setInterval(
       () => sync(true),
-      REGISTRATION_REFRESH_INTERVAL_MS,
+      TOKEN_CHECK_INTERVAL_MS,
     );
+
     window.addEventListener('online', handleOnline);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       cancelled = true;
-      if (retryTimeoutId) clearTimeout(retryTimeoutId);
+
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId);
+      }
+
       clearInterval(refreshIntervalId);
       window.removeEventListener('online', handleOnline);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
