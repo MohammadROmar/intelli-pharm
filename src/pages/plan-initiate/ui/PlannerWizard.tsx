@@ -12,8 +12,6 @@ import {
 import { TOTAL_STEPS } from '../model/plannerWizardTypes';
 import { usePlannerWizard } from '../model/store';
 
-// Named instead of inlined into `lazy()` so the same loader can be called
-// directly to prefetch — see the effect below.
 const loadStep3Assignment = () =>
   import('./steps/Step3Assignment').then((m) => ({
     default: m.Step3Assignment,
@@ -42,11 +40,6 @@ export function PlannerWizard({ onSubmit, isPending }: Props) {
     [t],
   );
 
-  // Warm the next step's chunk while the user is still on the current one
-  // — by the time they advance, `lazy()` below resolves from cache instead
-  // of suspending on a fresh network fetch. Keyed on `state.step` (not tied
-  // to the "Next" click) so this also covers landing directly on a later
-  // step from a restored draft.
   useEffect(() => {
     switch (state.step) {
       case 1:

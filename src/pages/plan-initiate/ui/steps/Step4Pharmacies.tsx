@@ -38,11 +38,6 @@ type PharmacyCardProps = {
   onToggle: (id: number) => void;
 };
 
-// Memoized: `PharmacyList` re-renders on every selection change (it needs
-// to, to recompute which id is now selected), but without this, every
-// *other* card would re-render too even though only one card's `selected`
-// prop actually changed. Depends on `onToggle` being referentially stable
-// across selection changes — see `togglePharmacy` below.
 const PharmacyCard = memo(function PharmacyCard({
   pharmacy,
   selected,
@@ -195,12 +190,6 @@ export function Step4Pharmacies({ onSubmit, isPending }: Props) {
   const regionId = state.assignment.region_id;
   const hasSelection = selectedIds.length > 0;
 
-  // `togglePharmacy` is handed to every `PharmacyCard` in the list as
-  // `onToggle`. Reading `selectedIds` through a ref (instead of closing
-  // over it directly) means this callback doesn't need `selectedIds` in
-  // its own deps, so it stays referentially stable across toggles — which
-  // is what lets `PharmacyCard`'s memo above actually skip re-rendering
-  // the cards that weren't toggled.
   const selectedIdsRef = useLatestRef(selectedIds);
 
   const togglePharmacy = useCallback(

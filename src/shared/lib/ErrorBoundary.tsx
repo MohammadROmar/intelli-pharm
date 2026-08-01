@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import type { ComponentType, CSSProperties, ErrorInfo, ReactNode } from 'react';
 
-import { isChunkLoadError, recoverFromChunkLoadError } from './chunkError';
+import { isChunkLoadError } from './chunkError';
 
 export type ErrorBoundaryFallbackProps = { error: Error; reset: () => void };
 
@@ -23,8 +23,16 @@ export type ErrorBoundaryProps = {
       fallbackRender?: never;
       fallback?: never;
     }
-  | { fallback: ReactNode; FallbackComponent?: never; fallbackRender?: never }
-  | { fallback?: never; FallbackComponent?: never; fallbackRender?: never }
+  | {
+      fallback: ReactNode;
+      FallbackComponent?: never;
+      fallbackRender?: never;
+    }
+  | {
+      fallback?: never;
+      FallbackComponent?: never;
+      fallbackRender?: never;
+    }
 );
 
 const defaultFallbackStyles = {
@@ -81,8 +89,14 @@ const defaultFallbackStyles = {
 };
 
 type State =
-  | { didCatch: false; error: null }
-  | { didCatch: true; error: Error };
+  | {
+      didCatch: false;
+      error: null;
+    }
+  | {
+      didCatch: true;
+      error: Error;
+    };
 
 type FallbackCopy = {
   action: string;
@@ -124,7 +138,7 @@ function getFallbackCopy(
           eyebrow: 'تعذر تحميل الصفحة',
           title: 'لم نتمكن من تحميل هذا الجزء من التطبيق',
           description:
-            'تحقق من اتصالك بالإنترنت، ثم أعد تحميل التطبيق للمتابعة.',
+            'قد يكون اتصالك بالإنترنت غير مستقر أو تم تحديث التطبيق. تحقق من الاتصال، ثم أعد تحميل التطبيق عندما تكون مستعدًا.',
           action: 'إعادة تحميل التطبيق',
         }
       : {
@@ -140,7 +154,7 @@ function getFallbackCopy(
         eyebrow: 'Loading interrupted',
         title: 'This part of the app could not be loaded',
         description:
-          'Check your internet connection, then reload the app to continue.',
+          'Your connection may be unstable, or the app may have been updated. Check your connection, then reload when you are ready.',
         action: 'Reload app',
       }
     : {
@@ -155,19 +169,18 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
   state: State = INITIAL_STATE;
 
   static getDerivedStateFromError(error: unknown): State {
-    const normalized =
+    const normalizedError =
       error instanceof Error
         ? error
         : new Error(String(error ?? 'Unknown error'));
 
-    return { didCatch: true, error: normalized };
+    return {
+      didCatch: true,
+      error: normalizedError,
+    };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    if (isChunkLoadError(error)) {
-      void recoverFromChunkLoadError(error);
-    }
-
     this.props.onError?.(error, info);
 
     if (import.meta.env.DEV) {
@@ -176,29 +189,37 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
     }
   }
 
-  componentDidUpdate(prevProps: ErrorBoundaryProps): void {
+  componentDidUpdate(previousProps: ErrorBoundaryProps): void {
     const { resetKeys } = this.props;
+
     if (!this.state.didCatch || !resetKeys) return;
 
-    const previousResetKeys = prevProps.resetKeys;
-    const changed =
+    const previousResetKeys = previousProps.resetKeys;
+
+    const resetKeysChanged =
       resetKeys.length !== previousResetKeys?.length ||
       resetKeys.some(
         (key, index) => !Object.is(key, previousResetKeys?.[index]),
       );
 
-    if (changed) this.reset();
+    if (resetKeysChanged) {
+      this.resetBoundary();
+    }
   }
 
-  reset = (): void => {
+  private resetBoundary = (): void => {
     this.props.onReset?.();
+    this.setState(INITIAL_STATE);
+  };
 
+  reset = (): void => {
     if (this.state.didCatch && isChunkLoadError(this.state.error)) {
+      this.props.onReset?.();
       window.location.reload();
       return;
     }
 
-    this.setState(INITIAL_STATE);
+    this.resetBoundary();
   };
 
   render(): ReactNode {
@@ -208,14 +229,22 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
 
     if (!didCatch) return children;
 
-    const props: ErrorBoundaryFallbackProps = {
+    const fallbackProps: ErrorBoundaryFallbackProps = {
       error,
       reset: this.reset,
     };
 
-    if (fallbackRender) return fallbackRender(props);
-    if (FallbackComponent) return <FallbackComponent {...props} />;
-    if (fallback !== undefined) return fallback;
+    if (fallbackRender) {
+      return fallbackRender(fallbackProps);
+    }
+
+    if (FallbackComponent) {
+      return <FallbackComponent {...fallbackProps} />;
+    }
+
+    if (fallback !== undefined) {
+      return fallback;
+    }
 
     const isArabic = isArabicDocument();
     const copy = getFallbackCopy(isArabic, isChunkLoadError(error));
@@ -229,8 +258,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, State> {
       >
         <div style={defaultFallbackStyles.card}>
           <p style={defaultFallbackStyles.eyebrow}>{copy.eyebrow}</p>
+
           <h2 style={defaultFallbackStyles.title}>{copy.title}</h2>
+
           <p style={defaultFallbackStyles.description}>{copy.description}</p>
+
           <button
             onClick={this.reset}
             style={defaultFallbackStyles.button}

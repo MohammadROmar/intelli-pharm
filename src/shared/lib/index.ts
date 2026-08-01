@@ -37,14 +37,6 @@ export {
 } from './ErrorBoundary';
 export { getBackoffDelay } from './getBackoffDelay';
 
-export {
-  isChunkLoadError,
-  initializeDeploymentProtection,
-  recoverFromChunkLoadError,
-  recoverFromVitePreloadError,
-  type ChunkRecoveryResult,
-} from './chunkError';
-
 export { LANGUAGE_CHANGE_EVENT, getInitialLng } from './language';
 export {
   getScrollRestorationKey,

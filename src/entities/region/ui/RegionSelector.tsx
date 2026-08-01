@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MapPin } from 'lucide-react';
 
-import { useInfiniteRegions } from '../model/useInfinteRegions';
+import { useInfiniteRegions } from '../model/useInfiniteRegions';
 import {
   GenericSingleSelect,
   type GenericSingleSelectProps,
