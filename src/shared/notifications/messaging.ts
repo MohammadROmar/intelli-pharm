@@ -6,6 +6,7 @@ import {
   isFirebaseConfigValid,
 } from './config';
 import { requestNotificationPermission } from './permission';
+import { clearRegistrationFingerprint } from './registrationFingerprint';
 
 const VAPID_KEY = import.meta.env.VITE_FIREBASE_VAPID_KEY;
 const SERVICE_WORKER_PATH = '/firebase-messaging-sw.js';
@@ -14,7 +15,6 @@ const FCM_TOKEN_LOCK_NAME = 'intelli-pharm:fcm-token';
 const FCM_REGISTRATION_LOCK_NAME = 'intelli-pharm:fcm-registration';
 const TOKEN_UNSUBSCRIBE_FAILED_CODE = 'messaging/token-unsubscribe-failed';
 
-export const FCM_TOKEN_STORAGE_KEY = 'fcm_token';
 export const FCM_SERVICE_WORKER_MESSAGE_TYPE =
   'intelli-pharm:fcm-background-message';
 
@@ -22,30 +22,6 @@ let messagingPromise: Promise<Messaging> | null = null;
 let supportPromise: Promise<boolean> | null = null;
 let swRegistrationPromise: Promise<ServiceWorkerRegistration> | null = null;
 let inFlightTokenFetch: Promise<string | null> | null = null;
-
-type ForegroundMessageCallback = (payload: MessagePayload) => void;
-
-type ForegroundMessageHub = {
-  callbacks: Set<ForegroundMessageCallback>;
-  firebaseUnsubscribe: (() => void) | null;
-  generation: number;
-  setupPromise: Promise<void> | null;
-};
-
-type MessagingGlobalScope = typeof globalThis & {
-  __intelliPharmFcmForegroundHub__?: ForegroundMessageHub;
-};
-
-const messagingGlobalScope = globalThis as MessagingGlobalScope;
-const foregroundMessageHub: ForegroundMessageHub =
-  messagingGlobalScope.__intelliPharmFcmForegroundHub__ ?? {
-    callbacks: new Set(),
-    firebaseUnsubscribe: null,
-    generation: 0,
-    setupPromise: null,
-  };
-
-messagingGlobalScope.__intelliPharmFcmForegroundHub__ = foregroundMessageHub;
 
 export class MessagingUnsupportedError extends Error {
   constructor() {
@@ -190,10 +166,10 @@ function waitForActivation(
   registration: ServiceWorkerRegistration,
   timeoutMs = 15_000,
 ): Promise<void> {
-  if (registration.active) return Promise.resolve();
-
   const worker = registration.installing ?? registration.waiting;
   if (!worker) {
+    if (registration.active) return Promise.resolve();
+
     return Promise.reject(
       new Error('[FCM] Service worker has no installable worker'),
     );
@@ -252,31 +228,6 @@ export function withRegistrationLock<T>(task: () => Promise<T>): Promise<T> {
   return withNamedLock(FCM_REGISTRATION_LOCK_NAME, task);
 }
 
-export function readToken(): string | null {
-  try {
-    return localStorage.getItem(FCM_TOKEN_STORAGE_KEY);
-  } catch (error) {
-    console.warn('[FCM] Could not read the synced token', error);
-    return null;
-  }
-}
-
-export function writeToken(token: string): void {
-  try {
-    localStorage.setItem(FCM_TOKEN_STORAGE_KEY, token);
-  } catch (error) {
-    console.warn('[FCM] Could not persist the synced token', error);
-  }
-}
-
-export function clearStoredToken(): void {
-  try {
-    localStorage.removeItem(FCM_TOKEN_STORAGE_KEY);
-  } catch (error) {
-    console.warn('[FCM] Could not clear the synced token', error);
-  }
-}
-
 async function fetchToken(): Promise<string | null> {
   if (inFlightTokenFetch) return inFlightTokenFetch;
 
@@ -311,7 +262,7 @@ async function fetchToken(): Promise<string | null> {
 
       if (!wasUnsubscribed) throw error;
 
-      clearStoredToken();
+      clearRegistrationFingerprint();
       token = await getToken(messaging, tokenOptions);
     }
 
@@ -372,83 +323,70 @@ export async function unregisterToken(): Promise<void> {
   } catch (error) {
     console.warn('[FCM] Browser token removal failed', error);
   } finally {
-    resetForegroundMessageHub();
-    clearStoredToken();
+    clearRegistrationFingerprint();
   }
 }
 
-async function ensureForegroundMessageSubscription(): Promise<void> {
-  if (foregroundMessageHub.firebaseUnsubscribe) return;
+type ServiceWorkerForegroundMessage = {
+  type: typeof FCM_SERVICE_WORKER_MESSAGE_TYPE;
+  payload: {
+    messageId?: string;
+    data?: Record<string, string>;
+    fallbackBody?: string;
+    fallbackTitle?: string;
+  };
+};
 
-  if (!foregroundMessageHub.setupPromise) {
-    const generation = foregroundMessageHub.generation;
+function isServiceWorkerForegroundMessage(
+  value: unknown,
+): value is ServiceWorkerForegroundMessage {
+  if (!value || typeof value !== 'object') return false;
 
-    const setupPromise = Promise.all([
-      import('firebase/messaging'),
-      getMessagingInstance(),
-    ]).then(([{ onMessage }, messaging]) => {
-      if (
-        foregroundMessageHub.generation !== generation ||
-        foregroundMessageHub.firebaseUnsubscribe
-      ) {
-        return;
-      }
-
-      foregroundMessageHub.firebaseUnsubscribe = onMessage(
-        messaging,
-        (payload) => {
-          foregroundMessageHub.callbacks.forEach((callback) => {
-            callback(payload);
-          });
-        },
-      );
-    });
-
-    foregroundMessageHub.setupPromise = setupPromise;
-
-    const clearSetupPromise = () => {
-      if (foregroundMessageHub.setupPromise === setupPromise) {
-        foregroundMessageHub.setupPromise = null;
-      }
-    };
-
-    void setupPromise.then(clearSetupPromise, clearSetupPromise);
-  }
-
-  const setupPromise = foregroundMessageHub.setupPromise;
-  if (setupPromise) await setupPromise;
-}
-
-function resetForegroundMessageHub(): void {
-  foregroundMessageHub.generation += 1;
-  foregroundMessageHub.callbacks.clear();
-  foregroundMessageHub.firebaseUnsubscribe?.();
-  foregroundMessageHub.firebaseUnsubscribe = null;
-  foregroundMessageHub.setupPromise = null;
+  const message = value as Partial<ServiceWorkerForegroundMessage>;
+  return (
+    message.type === FCM_SERVICE_WORKER_MESSAGE_TYPE &&
+    !!message.payload &&
+    typeof message.payload === 'object'
+  );
 }
 
 export async function onForegroundMessage(
-  callback: ForegroundMessageCallback,
+  callback: (payload: MessagePayload) => void,
 ): Promise<() => void> {
-  if (!(await isMessagingSupported())) {
+  if (!hasRequiredBrowserApis()) {
     throw new MessagingUnsupportedError();
   }
 
-  foregroundMessageHub.callbacks.add(callback);
+  function handleServiceWorkerMessage(event: MessageEvent<unknown>): void {
+    if (!isServiceWorkerForegroundMessage(event.data)) return;
 
-  try {
-    await ensureForegroundMessageSubscription();
-  } catch (error) {
-    foregroundMessageHub.callbacks.delete(callback);
-    throw error;
+    const { data, fallbackBody, fallbackTitle, messageId } = event.data.payload;
+    const notification =
+      fallbackTitle || fallbackBody
+        ? {
+            title: fallbackTitle ?? '',
+            body: fallbackBody,
+          }
+        : undefined;
+
+    callback({
+      from: '',
+      collapseKey: '',
+      messageId: messageId ?? data?.id ?? '',
+      data,
+      notification,
+    });
   }
 
-  let isSubscribed = true;
+  navigator.serviceWorker.addEventListener(
+    'message',
+    handleServiceWorkerMessage,
+  );
 
   return () => {
-    if (!isSubscribed) return;
-
-    isSubscribed = false;
-    foregroundMessageHub.callbacks.delete(callback);
+    navigator.serviceWorker.removeEventListener(
+      'message',
+      handleServiceWorkerMessage,
+    );
   };
 }

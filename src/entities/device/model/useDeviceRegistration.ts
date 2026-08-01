@@ -6,7 +6,7 @@ import {
 } from './deviceRegistrationStore';
 import { registerDeviceNotifications } from './deviceRegistration';
 
-export function useDeviceRegistration() {
+export function useDeviceRegistration(email: string | null) {
   const state = useSyncExternalStore(
     subscribeToDeviceRegistration,
     getDeviceRegistrationSnapshot,
@@ -14,12 +14,16 @@ export function useDeviceRegistration() {
   );
 
   const register = useCallback(async () => {
+    if (!email) return;
+
     try {
-      await registerDeviceNotifications();
+      await registerDeviceNotifications(email);
     } catch {
-      // The controller exposes the failure through the external store
+      // The controller exposes the failure through the external store. Keep
+      // the event handler rejection contained so React does not report an
+      // unhandled promise while the retry UI becomes available.
     }
-  }, []);
+  }, [email]);
 
   return { state, register };
 }

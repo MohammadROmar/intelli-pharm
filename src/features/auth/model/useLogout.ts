@@ -25,13 +25,10 @@ async function loadNotificationsModule(): Promise<NotificationsModule | null> {
   }
 }
 
-async function readTokenForRevocation(
+async function getTokenForRevocation(
   notifications: NotificationsModule | null,
 ): Promise<string | null> {
   if (!notifications) return null;
-
-  const confirmedToken = notifications.readToken();
-  if (confirmedToken) return confirmedToken;
 
   try {
     return await notifications.getFreshTokenSilently();
@@ -52,7 +49,7 @@ export function useLogout() {
     const notifications = await loadNotificationsModule();
 
     const performLogout = async () => {
-      const fcmToken = await readTokenForRevocation(notifications);
+      const fcmToken = await getTokenForRevocation(notifications);
       const result = await logoutRequest(fcmToken);
 
       if (result.isError) return result;

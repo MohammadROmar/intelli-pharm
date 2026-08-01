@@ -4,17 +4,17 @@ import {
   resetDeviceRegistrationState,
   syncDeviceRegistration,
 } from '@/entities/device';
+import { getBackoffDelay } from '@/shared/lib';
 import { isMessagingUnsupportedError } from '@/shared/notifications';
 
 import type { NotificationsRuntimeErrorHandler } from './types';
 
 type Options = {
   enabled: boolean;
+  email: string | null;
   onError?: NotificationsRuntimeErrorHandler;
 };
 
-const RETRY_BASE_DELAY_MS = 2_000;
-const RETRY_MAX_DELAY_MS = 60_000;
 const MAX_AUTOMATIC_RETRIES = 3;
 const TOKEN_CHECK_INTERVAL_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -63,7 +63,11 @@ function isRetryableRegistrationError(error: unknown): boolean {
   );
 }
 
-export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
+export function useDeviceRegistrationSync({
+  email,
+  enabled,
+  onError,
+}: Options): void {
   const onErrorRef = useRef(onError);
 
   useEffect(() => {
@@ -71,11 +75,12 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
   }, [onError]);
 
   useEffect(() => {
-    if (!enabled) {
+    if (!enabled || !email) {
       resetDeviceRegistrationState();
       return;
     }
 
+    const userEmail = email;
     let cancelled = false;
     let retryAttempt = 0;
     let retryTimeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -83,6 +88,11 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
     let automaticSyncBlocked = false;
     let lastFailureWasRetryable = false;
     let failureReported = false;
+    let lastTokenCheckAt = 0;
+
+    function isTokenCheckDue(): boolean {
+      return Date.now() - lastTokenCheckAt >= TOKEN_CHECK_INTERVAL_MS;
+    }
 
     function scheduleRetry(): void {
       if (
@@ -100,17 +110,22 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
         return;
       }
 
-      const exponentialDelay = Math.min(
-        RETRY_BASE_DELAY_MS * 2 ** retryAttempt,
-        RETRY_MAX_DELAY_MS,
-      );
-      const jitter = Math.floor(Math.random() * 500);
+      const retryDelay = getBackoffDelay(retryAttempt);
       retryAttempt += 1;
 
       retryTimeoutId = setTimeout(() => {
         retryTimeoutId = undefined;
+
+        if (
+          cancelled ||
+          !navigator.onLine ||
+          document.visibilityState !== 'visible'
+        ) {
+          return;
+        }
+
         sync();
-      }, exponentialDelay + jitter);
+      }, retryDelay);
     }
 
     function sync(startNewCycle = false): void {
@@ -123,7 +138,9 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
 
       if (cancelled || inFlight || automaticSyncBlocked) return;
 
-      const request = syncDeviceRegistration();
+      lastTokenCheckAt = Date.now();
+
+      const request = syncDeviceRegistration(userEmail);
       inFlight = request;
 
       void request
@@ -137,7 +154,6 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
           if (cancelled) return;
 
           lastFailureWasRetryable = isRetryableRegistrationError(error);
-
           if (!failureReported) {
             failureReported = true;
             onErrorRef.current?.(error, 'device-registration');
@@ -166,21 +182,29 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
       if (
         document.visibilityState !== 'visible' ||
         !navigator.onLine ||
-        retryTimeoutId ||
-        automaticSyncBlocked
+        retryTimeoutId
       ) {
         return;
       }
 
-      sync();
+      if (lastFailureWasRetryable) {
+        sync(true);
+      } else if (!automaticSyncBlocked && isTokenCheckDue()) {
+        sync(true);
+      }
     }
 
     sync(true);
 
-    const refreshIntervalId = setInterval(
-      () => sync(true),
-      TOKEN_CHECK_INTERVAL_MS,
-    );
+    const refreshIntervalId = setInterval(() => {
+      if (
+        navigator.onLine &&
+        document.visibilityState === 'visible' &&
+        isTokenCheckDue()
+      ) {
+        sync(true);
+      }
+    }, TOKEN_CHECK_INTERVAL_MS);
 
     window.addEventListener('online', handleOnline);
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -196,5 +220,5 @@ export function useDeviceRegistrationSync({ enabled, onError }: Options): void {
       window.removeEventListener('online', handleOnline);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [enabled]);
+  }, [email, enabled]);
 }

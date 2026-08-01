@@ -1,9 +1,10 @@
 import {
+  createRegistrationFingerprint,
   getFreshTokenSilently,
-  readToken,
+  readRegistrationFingerprint,
   requestNotificationPermission,
   withRegistrationLock,
-  writeToken,
+  writeRegistrationFingerprint,
 } from '@/shared/notifications';
 
 import { updateFcmToken } from '../api/deviceTokenApi';
@@ -12,9 +13,21 @@ import {
   setDeviceRegistrationState,
 } from './deviceRegistrationStore';
 
-let registrationPromise: Promise<string | null> | null = null;
+const registrationPromises = new Map<string, Promise<string | null>>();
 
-async function performDeviceRegistration(): Promise<string | null> {
+function normalizeEmail(email: string): string {
+  const normalizedEmail = email.trim().toLowerCase();
+
+  if (!normalizedEmail) {
+    throw new Error('[FCM] Authenticated user email is unavailable');
+  }
+
+  return normalizedEmail;
+}
+
+async function performDeviceRegistration(
+  email: string,
+): Promise<string | null> {
   const previousState = getDeviceRegistrationSnapshot();
 
   if (previousState !== 'registered') {
@@ -29,7 +42,10 @@ async function performDeviceRegistration(): Promise<string | null> {
       return null;
     }
 
-    if (token === readToken()) {
+    const fingerprint = await createRegistrationFingerprint(token, email);
+    const confirmedFingerprint = readRegistrationFingerprint();
+
+    if (fingerprint === confirmedFingerprint) {
       setDeviceRegistrationState('registered');
       return token;
     }
@@ -37,7 +53,7 @@ async function performDeviceRegistration(): Promise<string | null> {
     setDeviceRegistrationState('registering');
     await updateFcmToken(token);
 
-    writeToken(token);
+    writeRegistrationFingerprint(fingerprint);
     setDeviceRegistrationState('registered');
     return token;
   } catch (error) {
@@ -46,23 +62,31 @@ async function performDeviceRegistration(): Promise<string | null> {
   }
 }
 
-function runDeviceRegistration(): Promise<string | null> {
-  if (registrationPromise) return registrationPromise;
+function runDeviceRegistration(email: string): Promise<string | null> {
+  const registrationKey = normalizeEmail(email);
+  const existingPromise = registrationPromises.get(registrationKey);
 
-  registrationPromise = withRegistrationLock(performDeviceRegistration).finally(
-    () => {
-      registrationPromise = null;
-    },
-  );
+  if (existingPromise) return existingPromise;
 
+  const registrationPromise: Promise<string | null> = withRegistrationLock(() =>
+    performDeviceRegistration(registrationKey),
+  ).finally(() => {
+    if (registrationPromises.get(registrationKey) === registrationPromise) {
+      registrationPromises.delete(registrationKey);
+    }
+  });
+
+  registrationPromises.set(registrationKey, registrationPromise);
   return registrationPromise;
 }
 
-export function syncDeviceRegistration(): Promise<string | null> {
-  return runDeviceRegistration();
+export function syncDeviceRegistration(email: string): Promise<string | null> {
+  return runDeviceRegistration(email);
 }
 
-export async function registerDeviceNotifications(): Promise<string | null> {
+export async function registerDeviceNotifications(
+  email: string,
+): Promise<string | null> {
   setDeviceRegistrationState('registering');
 
   try {
@@ -73,7 +97,7 @@ export async function registerDeviceNotifications(): Promise<string | null> {
       return null;
     }
 
-    return await runDeviceRegistration();
+    return await runDeviceRegistration(email);
   } catch (error) {
     setDeviceRegistrationState('error');
     throw error;

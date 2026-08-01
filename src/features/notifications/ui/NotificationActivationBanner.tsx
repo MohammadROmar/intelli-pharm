@@ -17,6 +17,7 @@ import {
   type NotificationPermissionState,
 } from '@/shared/notifications';
 import { Button, Card, CardContent } from '@/shared/ui';
+import { useAppSelector } from '@/shared/config';
 
 type Props = {
   className?: string;
@@ -203,7 +204,13 @@ export const NotificationActivationBanner = memo(
   }: Props) {
     const { t } = useTranslation('notifications', { keyPrefix: 'activation' });
     const { permission, refreshPermission } = useNotificationPermission();
-    const { state, register } = useDeviceRegistration();
+
+    const sessionEmail = useAppSelector(
+      (state) => state.session.user?.email ?? null,
+    );
+    const email = sessionEmail?.trim() || null;
+
+    const { state, register } = useDeviceRegistration(email);
 
     const status = resolveActivationStatus(permission, state);
     const isRegistering = state === 'registering';

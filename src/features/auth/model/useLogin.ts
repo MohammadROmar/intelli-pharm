@@ -8,8 +8,10 @@ import {
   setCredentials,
   toSessionCredentials,
 } from '@/entities/session';
+import { resetDeviceRegistrationState } from '@/entities/device';
 import type { ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';
+import { clearRegistrationFingerprint } from '@/shared/notifications';
 
 import { login } from '../api';
 import type { LoginParams, LoginResponse } from './loginTypes';
@@ -34,6 +36,8 @@ export function useLogin() {
         return;
       }
 
+      clearRegistrationFingerprint();
+      resetDeviceRegistrationState();
       dispatch(setCredentials(toSessionCredentials(data)));
       broadcastRefreshed(data);
       navigate('/dashboard', { replace: true });
