@@ -3,7 +3,6 @@ import { useLocation, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { CheckCheck } from 'lucide-react';
 
-import type { NotificationsParams } from '../model/types';
 import {
   Badge,
   Button,
@@ -20,7 +19,7 @@ import {
 
 import { NotificationItem } from './NotificationItem';
 import { NotificationsEmptyState } from './NotificationsEmptyState';
-import type { Notification } from '../model/types';
+import type { Notification } from '../model/notificationsTypes';
 import { useGetNotifications } from '../model/useGetNotifications';
 import { useNotificationsFilters } from '../model/useNotificationsFilters';
 import { useMarkNotificationAsRead } from '../model/useMarkNotificationAsRead';
@@ -50,22 +49,7 @@ export function NotificationsContent() {
   const { filters: notificationsFilters } = useNotificationsFilters();
   const readStatusParam = notificationsFilters.read_status ?? null;
 
-  const params: NotificationsParams = useMemo(
-    () => ({
-      page,
-      per_page: perPage,
-      ...(readStatusParam !== null && { read_status: readStatusParam }),
-    }),
-    [page, perPage, readStatusParam],
-  );
-
-  const extraParams = useMemo(
-    () =>
-      params.read_status ? { read_status: params.read_status } : undefined,
-    [params.read_status],
-  );
-
-  const { data } = useGetNotifications(params);
+  const { data } = useGetNotifications();
   const {
     mutate: markAsRead,
     isPending: isMarking,
@@ -158,7 +142,6 @@ export function NotificationsContent() {
             basePath={pathname}
             currentPage={page}
             maxPages={maxPages}
-            extraParams={extraParams}
           />
           <PerPageSelect />
         </CardFooter>

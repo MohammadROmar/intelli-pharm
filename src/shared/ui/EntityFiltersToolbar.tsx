@@ -1,4 +1,5 @@
 import { useState, type ComponentType } from 'react';
+import type { LucideIcon } from 'lucide-react';
 
 import { FiltersTrigger } from './FiltersModal';
 
@@ -10,7 +11,7 @@ type FiltersState<TFilters> = {
   hasActiveFilters: boolean;
 };
 
-type FiltersModalProps<TFilters> = {
+export type FiltersModalProps<TFilters> = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   defaultValues: TFilters;
@@ -20,11 +21,17 @@ type FiltersModalProps<TFilters> = {
 };
 
 type EntityFiltersToolbarProps<TFilters> = {
+  label?: string;
+  icon?: LucideIcon;
+  triggerClassName?: string;
   filtersState: FiltersState<TFilters>;
   FiltersModal: ComponentType<FiltersModalProps<TFilters>>;
 };
 
 export function EntityFiltersToolbar<TFilters>({
+  label,
+  icon,
+  triggerClassName,
   filtersState,
   FiltersModal,
 }: EntityFiltersToolbarProps<TFilters>) {
@@ -34,7 +41,13 @@ export function EntityFiltersToolbar<TFilters>({
 
   return (
     <>
-      <FiltersTrigger onClick={() => setOpen(true)} activeCount={activeCount} />
+      <FiltersTrigger
+        label={label}
+        icon={icon}
+        triggerClassName={triggerClassName}
+        onClick={() => setOpen(true)}
+        activeCount={activeCount}
+      />
       <FiltersModal
         open={open}
         onOpenChange={setOpen}

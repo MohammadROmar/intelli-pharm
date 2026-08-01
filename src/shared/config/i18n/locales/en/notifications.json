@@ -13,6 +13,19 @@
     "markAsRead": "Mark as read",
     "markAllAsRead": "Mark all as read"
   },
+  "filters": {
+    "trigger": "Date range",
+    "title": "Filter notifications by date",
+    "description": "Show notifications created within the selected date range. You can use either date on its own.",
+    "fromDate": "From date",
+    "toDate": "To date",
+    "apply": "Apply dates",
+    "cancel": "Cancel",
+    "clear": "Clear dates",
+    "validation": {
+      "invalidRange": "The end date must be on or after the start date."
+    }
+  },
   "item": {
     "types": {
       "test": "Test",
@@ -33,6 +46,11 @@
     "read": {
       "title": "No read notifications",
       "description": "Notifications you have already read will appear here."
+    },
+    "filtered": {
+      "title": "No notifications in this date range",
+      "description": "Try changing the start or end date to widen the results.",
+      "action": "Clear date filter"
     }
   },
 

@@ -1,7 +1,7 @@
 import { Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import type { ReadStatusFilter } from '../model/types';
+import type { ReadStatusFilter } from '../model/notificationsTypes';
 
 type Props = { tab: ReadStatusFilter };
 

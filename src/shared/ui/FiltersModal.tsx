@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SlidersHorizontal, X } from 'lucide-react';
+import { SlidersHorizontal, X, type LucideIcon } from 'lucide-react';
 
 import { Badge } from './badge';
 import { Button } from './Button';
@@ -18,12 +18,18 @@ import {
 import { cn, useKeyboardShortcut } from '../lib';
 
 type TriggerProps = {
+  label?: string;
+  icon?: LucideIcon;
+  triggerClassName?: string;
   onClick: () => void;
   activeCount?: number;
   className?: string;
 };
 
 export function FiltersTrigger({
+  label,
+  icon,
+  triggerClassName,
   onClick,
   activeCount = 0,
   className,
@@ -31,6 +37,8 @@ export function FiltersTrigger({
   const { t } = useTranslation('common', {
     keyPrefix: 'filters',
   });
+
+  const Icon = icon ?? SlidersHorizontal;
 
   useKeyboardShortcut(
     {
@@ -44,8 +52,10 @@ export function FiltersTrigger({
 
   return (
     <Button variant="outline" size="sm" onClick={onClick} className={className}>
-      <SlidersHorizontal className="size-4" />
-      <span className="sr-only sm:not-sr-only">{t('trigger')}</span>
+      <Icon className="size-4" />
+      <span className={cn('sr-only sm:not-sr-only', triggerClassName)}>
+        {label ?? t('trigger')}
+      </span>
 
       {activeCount > 0 && (
         <Badge className="ml-1 flex size-4 items-center justify-center rounded-full p-0 text-[10px]">

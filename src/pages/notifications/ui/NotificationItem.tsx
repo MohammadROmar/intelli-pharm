@@ -4,7 +4,7 @@ import { Badge } from '@/shared/ui';
 import { cn } from '@/shared/lib';
 
 import { formatRelativeTime } from '../lib/formatRelativeTime';
-import type { Notification } from '../model/types';
+import type { Notification } from '../model/notificationsTypes';
 import {
   fallbackTypeConfig,
   notificationTypeConfig,

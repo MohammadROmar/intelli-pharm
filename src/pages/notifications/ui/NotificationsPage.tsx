@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import { Bell } from "lucide-react";
+import { useTranslation } from 'react-i18next';
+import { Bell } from 'lucide-react';
 
-import { NotificationActivationBanner } from "@/features/notifications";
+import { NotificationActivationBanner } from '@/features/notifications';
 import {
   Card,
   CardHeader,
@@ -11,10 +11,11 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from "@/shared/ui";
+} from '@/shared/ui';
 
-import { NotificationsContent } from "./NotificationsContent";
-import { TAB_OPTIONS, useReadStatusFilter } from "../model/useReadStatusFilter";
+import { NotificationsContent } from './NotificationsContent';
+import { TAB_OPTIONS, useReadStatusFilter } from '../model/useReadStatusFilter';
+import { NotificationsDateFilter } from './NotificationsDateFilter';
 
 export default function NotificationsPage() {
   return (
@@ -25,10 +26,10 @@ export default function NotificationsPage() {
 }
 
 export function NotificationsPageContent() {
-  const { t } = useTranslation("notifications");
+  const { t } = useTranslation('notifications');
   const { activeTab, handleTabChange } = useReadStatusFilter();
 
-  const pageTitle = `${t("page.title")} - IntelliPharma`;
+  const pageTitle = `${t('page.title')} - IntelliPharma`;
 
   return (
     <>
@@ -38,28 +39,32 @@ export function NotificationsPageContent() {
         <Card className="gap-4!">
           <CardHeader className="flex! flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between">
             <CardSectionHeader
-              title={t("page.title")}
-              description={t("page.description")}
+              title={t('page.title')}
+              description={t('page.description')}
               icon={Bell}
             />
 
-            <Tabs
-              value={activeTab}
-              onValueChange={handleTabChange}
-              className="w-full sm:w-auto"
-            >
-              <TabsList className="w-full sm:w-auto">
-                {TAB_OPTIONS.map((tab) => (
-                  <TabsTrigger
-                    key={tab}
-                    value={tab}
-                    className="w-full cursor-pointer sm:w-auto"
-                  >
-                    {t(`tabs.${tab}`)}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+            <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+              <Tabs
+                value={activeTab}
+                onValueChange={handleTabChange}
+                className="w-full sm:w-auto"
+              >
+                <TabsList className="w-full sm:w-auto">
+                  {TAB_OPTIONS.map((tab) => (
+                    <TabsTrigger
+                      key={tab}
+                      value={tab}
+                      className="w-full cursor-pointer sm:w-auto"
+                    >
+                      {t(`tabs.${tab}`)}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+
+              <NotificationsDateFilter triggerLabel={t('filters.trigger')} />
+            </div>
           </CardHeader>
 
           <NotificationActivationBanner detailed className="mx-6" />

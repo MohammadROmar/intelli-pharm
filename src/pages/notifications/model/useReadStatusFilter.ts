@@ -1,12 +1,12 @@
-import { startTransition, useCallback } from 'react';
-import { useSearchParams } from 'react-router';
+import { useCallback } from 'react';
 
-import type { ReadStatusFilter } from './types';
+import type { ReadStatusFilter } from './notificationsTypes';
+import { useNotificationsFilters } from './useNotificationsFilters';
 
 export const TAB_OPTIONS = [
   'all',
-  'read',
   'unread',
+  'read',
 ] as const satisfies readonly ReadStatusFilter[];
 
 const READ_STATUS_SET = new Set<string>(TAB_OPTIONS);
@@ -16,31 +16,24 @@ function isReadStatusFilter(value: string | null): value is ReadStatusFilter {
 }
 
 export function useReadStatusFilter() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const readStatusParam = searchParams.get('read_status');
-  const activeTab: ReadStatusFilter = isReadStatusFilter(readStatusParam)
-    ? readStatusParam
-    : 'all';
+  const { filters, applyFilters } = useNotificationsFilters();
+  const activeTab: ReadStatusFilter = filters.read_status ?? 'all';
 
   const handleTabChange = useCallback(
     (value: string) => {
-      startTransition(() => {
-        setSearchParams((prev) => {
-          const next = new URLSearchParams(prev);
-          next.delete('page');
+      if (!isReadStatusFilter(value)) return;
 
-          if (value === 'all') {
-            next.delete('read_status');
-          } else {
-            next.set('read_status', value);
-          }
+      const nextFilters = { ...filters };
 
-          return next;
-        });
-      });
+      if (value === 'all') {
+        delete nextFilters.read_status;
+      } else {
+        nextFilters.read_status = value;
+      }
+
+      applyFilters(nextFilters);
     },
-    [setSearchParams],
+    [applyFilters, filters],
   );
 
   return { activeTab, handleTabChange } as const;

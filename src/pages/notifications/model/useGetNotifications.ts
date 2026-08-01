@@ -1,12 +1,14 @@
-import type { NotificationsParams } from '@/features/notifications';
 import { useSuspenseGetEntities } from '@/shared/model';
 
-import type { Notification, NotificationsResponse } from './types';
+import { useNotificationsFilters } from './useNotificationsFilters';
+import type { Notification, NotificationsResponse } from './notificationsTypes';
 
-export function useGetNotifications(params: NotificationsParams) {
+export function useGetNotifications() {
+  const { filters } = useNotificationsFilters();
+
   return useSuspenseGetEntities<NotificationsResponse, Notification>({
     queryKey: 'notifications',
     module: 'auth',
-    filters: params,
+    filters: filters,
   });
 }

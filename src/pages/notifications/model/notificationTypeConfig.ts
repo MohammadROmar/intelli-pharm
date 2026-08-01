@@ -1,7 +1,7 @@
 import { Bell, CalendarClock, FlaskConical, PackageOpen } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-import type { NotificationType } from './types';
+import type { NotificationType } from './notificationsTypes';
 
 type NotificationTypeConfig = {
   Icon: LucideIcon;

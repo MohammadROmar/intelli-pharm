@@ -205,5 +205,8 @@ export { MultiSelect, type MultiSelectOption } from './MultiSelect';
 export { ClampedText } from './ClampedText';
 export { EntityListTable } from './EntityListTable';
 export { EntityEmptyState } from './EntityEmptyState';
-export { EntityFiltersToolbar } from './EntityFiltersToolbar';
+export {
+  EntityFiltersToolbar,
+  type FiltersModalProps,
+} from './EntityFiltersToolbar';
 export { StatCard } from './StatCard';

@@ -3,7 +3,8 @@ import type { PaginatedResponse } from '@/shared/api';
 export type NotificationType =
   | 'shared.notification'
   | 'erp.stock.low'
-  | 'erp.stock.expiry';
+  | 'erp.stock.expiry'
+  | (string & Record<never, never>);
 
 export type ReadStatusFilter = 'all' | 'read' | 'unread';
 
@@ -18,8 +19,8 @@ export type Notification = {
 
 export type NotificationsResponse = PaginatedResponse<Notification>;
 
-export type NotificationsParams = {
-  page: number;
-  per_page: number;
+export type NotificationsFilters = {
   read_status?: Exclude<ReadStatusFilter, 'all'>;
+  from_date?: string;
+  to_date?: string;
 };
