@@ -38,9 +38,11 @@ export {
 export { getBackoffDelay } from './getBackoffDelay';
 
 export {
-  alreadyTriedReload,
   isChunkLoadError,
-  tryAutoReload,
+  initializeDeploymentProtection,
+  recoverFromChunkLoadError,
+  recoverFromVitePreloadError,
+  type ChunkRecoveryResult,
 } from './chunkError';
 
 export { LANGUAGE_CHANGE_EVENT, getInitialLng } from './language';

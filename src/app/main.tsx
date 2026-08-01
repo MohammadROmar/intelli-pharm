@@ -2,22 +2,30 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from './App.tsx';
-import { isChunkLoadError, tryAutoReload } from '@/shared/lib';
+import {
+  initializeDeploymentProtection,
+  recoverFromVitePreloadError,
+} from '@/shared/lib';
 
 import './styles/index.css';
 
+initializeDeploymentProtection();
+
 window.addEventListener('vite:preloadError', (event) => {
-  if (!navigator.onLine) return;
-  if (!isChunkLoadError(event.payload as Error)) return;
+  if (import.meta.env.DEV) {
+    console.warn('[vite:preloadError]', event.payload);
+  }
 
-  event.preventDefault();
-
-  if (import.meta.env.DEV) console.warn('[vite:preloadError]', event.payload);
-
-  tryAutoReload();
+  void recoverFromVitePreloadError();
 });
 
-createRoot(document.getElementById('root')!).render(
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Unable to mount the application: #root was not found.');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <App />
   </StrictMode>,

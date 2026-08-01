@@ -1,12 +1,18 @@
 {
-  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }],
+  "buildCommand": "VITE_VERCEL_DEPLOYMENT_ID=\"$VERCEL_DEPLOYMENT_ID\" VITE_VERCEL_SKEW_PROTECTION_ENABLED=\"$VERCEL_SKEW_PROTECTION_ENABLED\" npm run build",
+  "rewrites": [
+    {
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
+    }
+  ],
   "headers": [
     {
-      "source": "/index.html",
+      "source": "/((?!assets/).*)",
       "headers": [
         {
           "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     },

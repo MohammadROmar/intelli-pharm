@@ -3,8 +3,6 @@ const FINGERPRINT_SEPARATOR = '\u0000';
 const SHA_256_HEX_LENGTH = 64;
 const SHA_256_HEX_PATTERN = /^[a-f0-9]{64}$/;
 
-const LEGACY_FCM_TOKEN_STORAGE_KEY = 'fcm_token';
-
 export const FCM_TOKEN_FINGERPRINT_STORAGE_KEY = `intelli-pharm:fcm-registration:${FINGERPRINT_VERSION}`;
 
 let volatileFingerprint: string | null = null;
@@ -86,7 +84,6 @@ export function readRegistrationFingerprint(): string | null {
 
   if (ignoreStoredFingerprint) {
     removeStorageValue(storage, FCM_TOKEN_FINGERPRINT_STORAGE_KEY);
-    removeStorageValue(storage, LEGACY_FCM_TOKEN_STORAGE_KEY);
     return volatileFingerprint;
   }
 
@@ -100,7 +97,6 @@ export function readRegistrationFingerprint(): string | null {
   if (isValidFingerprint(storedFingerprint)) {
     volatileFingerprint = storedFingerprint;
     volatileOnly = false;
-    removeStorageValue(storage, LEGACY_FCM_TOKEN_STORAGE_KEY);
     return storedFingerprint;
   }
 
@@ -108,7 +104,6 @@ export function readRegistrationFingerprint(): string | null {
     removeStorageValue(storage, FCM_TOKEN_FINGERPRINT_STORAGE_KEY);
   }
 
-  removeStorageValue(storage, LEGACY_FCM_TOKEN_STORAGE_KEY);
   volatileFingerprint = null;
   return null;
 }
@@ -126,7 +121,6 @@ export function writeRegistrationFingerprint(fingerprint: string): void {
 
   try {
     storage.setItem(FCM_TOKEN_FINGERPRINT_STORAGE_KEY, fingerprint);
-    storage.removeItem(LEGACY_FCM_TOKEN_STORAGE_KEY);
     volatileOnly = false;
   } catch {
     volatileOnly = true;
@@ -142,5 +136,4 @@ export function clearRegistrationFingerprint(): void {
   if (!storage) return;
 
   removeStorageValue(storage, FCM_TOKEN_FINGERPRINT_STORAGE_KEY);
-  removeStorageValue(storage, LEGACY_FCM_TOKEN_STORAGE_KEY);
 }
