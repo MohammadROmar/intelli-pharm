@@ -20,7 +20,7 @@ import {
 } from '@/shared/ui';
 
 import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
-import { usePlannerWizard } from '../../model/PlannerWizardContext';
+import { usePlannerWizard } from '../../model/store';
 import type { AssignmentSlice } from '../../model/plannerWizardTypes';
 
 export function Step3Assignment() {

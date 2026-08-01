@@ -1,23 +1,18 @@
 import { useCallback } from 'react';
 
-import { useLatestRef } from '@/shared/lib';
-
 import { PlannerWizard } from './PlannerWizard';
-import { PlannerWizardProvider } from './PlannerWizardProvider';
 import { toInitiatePlanPayload } from '../lib/utils';
 import { useInitiatePlan } from '../model/useInitiatePlan';
-import { usePlannerWizard } from '../model/PlannerWizardContext';
+import { PlannerWizardProvider, usePlannerWizardActions } from '../model/store';
 
 function PlannerWizardWithSubmit() {
-  const { state, reset } = usePlannerWizard();
+  const { getState, reset } = usePlannerWizardActions();
 
   const { mutate, isPending } = useInitiatePlan();
 
-  const stateRef = useLatestRef(state);
-
   const handleSubmit = useCallback(() => {
-    mutate(toInitiatePlanPayload(stateRef.current), { onSuccess: reset });
-  }, [mutate, reset, stateRef]);
+    mutate(toInitiatePlanPayload(getState()), { onSuccess: reset });
+  }, [mutate, reset, getState]);
 
   return <PlannerWizard onSubmit={handleSubmit} isPending={isPending} />;
 }

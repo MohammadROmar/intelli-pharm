@@ -1,13 +1,9 @@
 import type {
   InitiatePlanPayload,
-  StoredDraft,
   WizardAction,
   WizardState,
   WizardStep,
 } from '../model/plannerWizardTypes';
-
-const STORAGE_KEY = 'planner_wizard_draft';
-const STORAGE_VERSION = 1;
 
 export function toInitiatePlanPayload(state: WizardState): InitiatePlanPayload {
   return {
@@ -21,37 +17,6 @@ export function toInitiatePlanPayload(state: WizardState): InitiatePlanPayload {
     profile: state.config.profile,
     travel_mode: state.config.travel_mode,
   };
-}
-
-export function loadDraft(): WizardState | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed: StoredDraft = JSON.parse(raw);
-    if (parsed.version !== STORAGE_VERSION) return null;
-    return parsed.state;
-  } catch {
-    return null;
-  }
-}
-
-export function saveDraft(state: WizardState): void {
-  try {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ version: STORAGE_VERSION, state }),
-    );
-  } catch {
-    /* silent */
-  }
-}
-
-export function clearDraft(): void {
-  try {
-    localStorage.removeItem(STORAGE_KEY);
-  } catch {
-    /* silent */
-  }
 }
 
 export const WIZARD_INITIAL_STATE: WizardState = {

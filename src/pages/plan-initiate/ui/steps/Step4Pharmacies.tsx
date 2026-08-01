@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import {
@@ -14,7 +14,7 @@ import {
 
 import type { ApiError } from '@/shared/api';
 import { useInfinitePharmacies, type Pharmacy } from '@/entities/pharmacy';
-import { cn, formatTime, useDebounce } from '@/shared/lib';
+import { cn, formatTime, useDebounce, useLatestRef } from '@/shared/lib';
 import {
   Badge,
   Input,
@@ -29,7 +29,7 @@ import {
 import { WizardNavigation } from '@/features/plan-initiate-wizard';
 
 import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
-import { usePlannerWizard } from '../../model/PlannerWizardContext';
+import { usePlannerWizard } from '../../model/store';
 
 type PharmacyCardProps = {
   pharmacy: Pharmacy;
@@ -38,7 +38,12 @@ type PharmacyCardProps = {
   onToggle: (id: number) => void;
 };
 
-function PharmacyCard({
+// Memoized: `PharmacyList` re-renders on every selection change (it needs
+// to, to recompute which id is now selected), but without this, every
+// *other* card would re-render too even though only one card's `selected`
+// prop actually changed. Depends on `onToggle` being referentially stable
+// across selection changes — see `togglePharmacy` below.
+const PharmacyCard = memo(function PharmacyCard({
   pharmacy,
   selected,
   language,
@@ -87,7 +92,7 @@ function PharmacyCard({
       </div>
     </button>
   );
-}
+});
 
 function PharmacyList({
   selectedIds,
@@ -190,26 +195,37 @@ export function Step4Pharmacies({ onSubmit, isPending }: Props) {
   const regionId = state.assignment.region_id;
   const hasSelection = selectedIds.length > 0;
 
+  // `togglePharmacy` is handed to every `PharmacyCard` in the list as
+  // `onToggle`. Reading `selectedIds` through a ref (instead of closing
+  // over it directly) means this callback doesn't need `selectedIds` in
+  // its own deps, so it stays referentially stable across toggles — which
+  // is what lets `PharmacyCard`'s memo above actually skip re-rendering
+  // the cards that weren't toggled.
+  const selectedIdsRef = useLatestRef(selectedIds);
+
   const togglePharmacy = useCallback(
     (id: number) => {
-      if (selectedIds.includes(id)) {
-        const next = selectedIds.filter((x) => x !== id);
+      const current = selectedIdsRef.current;
+
+      if (current.includes(id)) {
         dispatch({
           type: 'UPDATE_PHARMACIES',
-          payload: { pharmacy_ids: next },
+          payload: { pharmacy_ids: current.filter((x) => x !== id) },
         });
         return;
       }
 
-      if (selectedIds.length >= 19) {
+      if (current.length >= 19) {
         toast.warning(t('pharmacies.maxLimitReached'));
         return;
       }
 
-      const next = [...selectedIds, id];
-      dispatch({ type: 'UPDATE_PHARMACIES', payload: { pharmacy_ids: next } });
+      dispatch({
+        type: 'UPDATE_PHARMACIES',
+        payload: { pharmacy_ids: [...current, id] },
+      });
     },
-    [selectedIds, dispatch, t],
+    [selectedIdsRef, dispatch, t],
   );
   return (
     <div className="space-y-6">

@@ -11,7 +11,7 @@ import {
 import { Card, CardContent, CardHeader, CardSectionHeader } from '@/shared/ui';
 
 import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
-import { useDeliveryPlanWizard } from '../../model/PlannerWizardContext';
+import { useDeliveryPlanWizard } from '../../model/store';
 import type { AssignmentSlice } from '../../model/plannerWizardTypes';
 
 type Props = { onSubmit: () => void; isPending?: boolean };

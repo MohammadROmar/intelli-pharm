@@ -1,5 +1,3 @@
-import { createWizardDraftStorage } from '@/features/plan-initiate-wizard';
-
 import type {
   InitiatePlanFromDeliveriesPayload,
   WizardAction,
@@ -27,12 +25,6 @@ export const WIZARD_INITIAL_STATE: WizardState = {
   config: { profile: 'vip_first', travel_mode: 'driving', reason_details: '' },
   assignment: { rep_id: null },
 };
-
-export const { loadDraft, saveDraft, clearDraft } =
-  createWizardDraftStorage<WizardState>(
-    'plan_initiate_from_deliveries_wizard_draft',
-    1,
-  );
 
 export function wizardReducer(
   state: WizardState,

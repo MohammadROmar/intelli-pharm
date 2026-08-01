@@ -1,5 +1,5 @@
 export { repIdRequired } from './lib/utils';
-export { createWizardDraftStorage } from './lib/wizardDraft';
+export { createWizardStore } from './model/createWizardStore';
 
 export type {
   PlannerProfile,
@@ -18,3 +18,9 @@ export { LocationStep } from './ui/LocationStep';
 export { WizardNavigation } from './ui/WizardNavigation';
 export { RepIdField } from './ui/RepIdField';
 export { WizardStepIndicator } from './ui/WizardStepIndicator';
+export {
+  LazyLocationStep,
+  LazyConfigStep,
+  preloadLocationStep,
+  preloadConfigStep,
+} from './ui/lazySteps';

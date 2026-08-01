@@ -42,5 +42,3 @@ export type InitiatePlanPayload = {
   profile: PlannerProfile;
   travel_mode: TravelMode;
 };
-
-export type StoredDraft = { version: number; state: WizardState };
