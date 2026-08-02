@@ -91,56 +91,6 @@
     "labelPhone": "الهاتف",
     "labelWorkingStart": "بداية الدوام",
     "labelWorkingEnd": "نهاية الدوام",
-    "permissionsCardTitle": "الصلاحيات",
-    "permissionsCardSubtitle": "حقوق الوصول الممنوحة لهذا الموظف عبر جميع الوحدات.",
-    "noPermissions": "لم يتم تعيين أي صلاحيات لهذا الموظف.",
-    "modules": {
-      "erp": "تخطيط الموارد",
-      "crm": "إدارة علاقات العملاء",
-      "planner": "المخطط",
-      "auth": "المصادقة",
-      "tracking": "التتبع",
-      "dashboard": "لوحة المعلومات"
-    },
-    "employeeActions": "الإجراءات",
-    "actions": {
-      "view": "عرض",
-      "create": "إنشاء",
-      "complete": "إكمال",
-      "update": "تحديث",
-      "delete": "حذف",
-      "cancel": "إلغاء",
-      "manage": "إدارة",
-      "generate": "توليد",
-      "check": "تحقق",
-      "deactivate": "تعطيل",
-      "assign_distributor": "تعيين موزع",
-      "view_live": "عرض مباشر",
-      "view_all": "عرض الكل",
-      "get": "الاستلام",
-      "submit_location": "إرسال الموقع"
-    },
-    "scope": {
-      "own": "خاص به"
-    },
-    "resources": {
-      "categories": "الفئات",
-      "medicines": "الأدوية",
-      "alternatives": "البدائل",
-      "pharmacies": "الصيدليات",
-      "orders": "الطلبات",
-      "stock": "المخزون",
-      "employees": "الموظفين",
-      "leaves": "الإجازات",
-      "tracking": "التتبع",
-      "analytics": "التحليلات",
-      "notifications": "الإشعارات",
-      "rep": "المندوب",
-      "plan": "الخطة",
-      "distributor": "الموزع",
-      "visits": "الزيارات",
-      "deliveries": "التسليمات",
-      "roles": "الأدوار"
-    }
+    "employeeActions": "الإجراءات"
   }
 }

@@ -48,7 +48,8 @@
       "plans": "الخطط",
       "initiate": "إنشاء للمندوب",
       "initiateFromDeliveries": "إنشاء للموزع",
-      "tracking": "التتبع المباشر"
+      "tracking": "التتبع المباشر",
+      "roles": "الأدوار"
     },
     "promotions": {
       "offers": "العروض",

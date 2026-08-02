@@ -15,6 +15,8 @@ import { LazyNotFoundPage } from '@/pages/not-found';
 
 import { LazyLoginPage } from '@/pages/login';
 
+import { LazyOverviewPage } from '@/pages/dashboard-overview';
+
 import { LazyOrderListPage } from '@/pages/order-list';
 import { LazyOrderDetailPage } from '@/pages/order-detail';
 
@@ -83,7 +85,8 @@ import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
 import { LazyAreaMetricsPage } from '@/pages/metrics-area';
 import { LazyPharmacyMetricsPage } from '@/pages/metrics-pharmacy';
 
-import { LazyOverviewPage } from '@/pages/dashboard-overview';
+import { LazyRoleListPage } from '@/pages/role-list';
+import { LazyRoleDetailPage } from '@/pages/role-detail';
 
 import { FOCUS_PARAM } from '@/features/live-tracking-roster';
 
@@ -297,6 +300,14 @@ const router = createBrowserRouter([
                     element: <LazyInitiatePlanFromDeliveriesPage />,
                   },
                   { path: ':id', element: <LazyPlanDetailPage /> },
+                ],
+              },
+
+              {
+                path: 'roles',
+                children: [
+                  { index: true, element: <LazyRoleListPage /> },
+                  { path: ':id', element: <LazyRoleDetailPage /> },
                 ],
               },
 

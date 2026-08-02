@@ -1,0 +1,40 @@
+{
+  "role": "الدور",
+  "roleLabels": {
+    "admin": "مسؤول",
+    "rep": "مندوب",
+    "distributor": "موزع"
+  },
+  "list": {
+    "title": "الأدوار",
+    "subtitle": "إدارة أدوار المستخدمين وصلاحياتهم في النظام",
+    "add": "إضافة دور",
+    "all": "جميع الأدوار",
+    "actions": "الإجراءات"
+  },
+  "shared": {
+    "actions": "الإجراءات",
+    "name": "الاسم",
+    "permissions": "الصلاحيات",
+    "permissionsCount_zero": "لا صلاحيات",
+    "permissionsCount_one": "صلاحية واحدة",
+    "permissionsCount_two": "صلاحيتان",
+    "permissionsCount_few": "{{count}} صلاحيات",
+    "permissionsCount_many": "{{count}} صلاحية",
+    "permissionsCount_other": "{{count}} صلاحية",
+    "createdAt": "تاريخ الإنشاء",
+    "updatedAt": "آخر تحديث",
+    "edit": "تعديل",
+    "delete": "حذف"
+  },
+  "detail": {
+    "pageTitle": "تفاصيل الدور",
+    "infoTitle": "معلومات الدور",
+    "infoSubtitle": "معلومات مفصلة عن الدور المحدد."
+  },
+  "deleteRestricted": {
+    "title": "لا يمكن حذف دور المسؤول",
+    "message": "لأسباب أمنية، لا يمكن حذف دور المسؤول.",
+    "action": "حسناً"
+  }
+}

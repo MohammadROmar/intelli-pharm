@@ -7,6 +7,7 @@ import {
   Users,
   Radar,
   Route,
+  Shield,
   Target,
   MapPin,
   Package,
@@ -130,6 +131,7 @@ export const sidebarData: NavSection[] = [
     items: [
       { label: 'labels.cities', url: '/dashboard/cities', icon: Building2 },
       { label: 'labels.employees', url: '/dashboard/employees', icon: Users },
+      { label: 'labels.roles', url: '/dashboard/roles', icon: Shield },
     ],
   },
 ];

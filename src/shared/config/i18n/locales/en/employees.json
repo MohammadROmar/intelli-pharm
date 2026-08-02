@@ -92,56 +92,6 @@
     "labelEmail": "Email",
     "labelPhone": "Phone",
     "labelWorkingStart": "Shift Start",
-    "labelWorkingEnd": "Shift End",
-    "permissionsCardTitle": "Permissions",
-    "permissionsCardSubtitle": "Access rights granted to this employee across all modules.",
-    "noPermissions": "No permissions have been assigned to this employee.",
-    "modules": {
-      "erp": "ERP",
-      "crm": "CRM",
-      "planner": "Planner",
-      "auth": "Auth",
-      "tracking": "Tracking",
-      "dashboard": "Dashboard"
-    },
-    "actions": {
-      "view": "View",
-      "create": "Create",
-      "complete": "Complete",
-      "update": "Update",
-      "delete": "Delete",
-      "cancel": "Cancel",
-      "manage": "Manage",
-      "generate": "Generate",
-      "check": "Check",
-      "deactivate": "Deactivate",
-      "assign_distributor": "Assign Distributor",
-      "view_live": "View Live",
-      "view_all": "View All",
-      "get": "Get",
-      "submit_location": "Submit Location"
-    },
-    "scope": {
-      "own": "Own"
-    },
-    "resources": {
-      "categories": "Categories",
-      "medicines": "Medicines",
-      "alternatives": "Alternatives",
-      "pharmacies": "Pharmacies",
-      "orders": "Orders",
-      "stock": "Stock",
-      "employees": "Employees",
-      "leaves": "Leaves",
-      "tracking": "Tracking",
-      "analytics": "Analytics",
-      "notifications": "Notifications",
-      "rep": "Rep",
-      "plan": "Plan",
-      "distributor": "Distributor",
-      "visits": "Visits",
-      "deliveries": "Deliveries",
-      "roles": "Roles"
-    }
+    "labelWorkingEnd": "Shift End"
   }
 }

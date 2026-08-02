@@ -1,4 +1,3 @@
-export { queryClient } from './queryClient';
 export {
   apiClient,
   ApiError,
@@ -8,7 +7,9 @@ export {
 } from './apiClient';
 export type {
   ApiResponse,
-  PaginatedResponse,
-  PaginatedResult,
   RequestConfig,
+  PaginatedResult,
+  PaginatedResponse,
 } from './apiClient';
+export { queryClient } from './queryClient';
+export type { Permission } from './permission';

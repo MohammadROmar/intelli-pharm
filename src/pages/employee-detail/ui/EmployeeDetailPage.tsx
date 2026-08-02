@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 
 import { EmployeeInfoCard } from './EmployeeInfoCard';
 import { EmployeeDetailHeader } from './EmployeeDetailHeader';
-import { EmployeePermissionsCard } from './EmployeePermissionsCard';
+import { PermissionsCard } from '@/entities/permission';
 import { useGetEmployeeSuspense } from '@/entities/employee';
 import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
@@ -32,7 +32,7 @@ function EmployeeDetailContent({ employeeId }: EmployeeDetailContentProps) {
     <div className="space-y-6">
       <EmployeeDetailHeader employee={employee} />
       <EmployeeInfoCard employee={employee} />
-      <EmployeePermissionsCard permissions={employee.permissions} />
+      <PermissionsCard permissions={employee.permissions} />
     </div>
   );
 }

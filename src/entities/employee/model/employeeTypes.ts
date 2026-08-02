@@ -1,4 +1,4 @@
-import type { PaginatedResponse } from '@/shared/api';
+import type { PaginatedResponse, Permission } from '@/shared/api';
 
 type Role = 'distributor' | 'rep' | 'admin';
 
@@ -7,7 +7,7 @@ export type Employee = {
   name: string;
   email: string;
   roles: Role[];
-  permissions: string[];
+  permissions: Permission[];
   working_start: string;
   working_end: string;
   vehicle_capacity?: number;

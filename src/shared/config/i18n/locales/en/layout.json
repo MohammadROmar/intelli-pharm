@@ -45,7 +45,8 @@
       "plans": "Plans",
       "initiate": "Initiate for Rep",
       "initiateFromDeliveries": "Initiate for delivery",
-      "tracking": "Live Tracking"
+      "tracking": "Live Tracking",
+      "roles": "Roles"
     },
     "promotions": {
       "offers": "Offers",

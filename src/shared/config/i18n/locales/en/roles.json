@@ -1,0 +1,40 @@
+{
+  "role": "Role",
+  "roleLabels": {
+    "admin": "Admin",
+    "rep": "Representative",
+    "distributor": "Distributor"
+  },
+  "list": {
+    "title": "Roles",
+    "subtitle": "Manage user roles and their permissions in the system",
+    "add": "Add Role",
+    "all": "All Roles",
+    "actions": "Actions"
+  },
+  "shared": {
+    "actions": "Actions",
+    "name": "Name",
+    "permissions": "Permissions",
+    "permissionsCount_zero": "No permissions",
+    "permissionsCount_one": "{{count}} permission",
+    "permissionsCount_two": "{{count}} permissions",
+    "permissionsCount_few": "{{count}} permissions",
+    "permissionsCount_many": "{{count}} permissions",
+    "permissionsCount_other": "{{count}} permissions",
+    "createdAt": "Created At",
+    "updatedAt": "Last Updated",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "detail": {
+    "pageTitle": "Role Details",
+    "infoTitle": "Role Information",
+    "infoSubtitle": "Detailed information about the selected role."
+  },
+  "deleteRestricted": {
+    "title": "Cannot Delete Admin Role",
+    "message": "For security reasons, the admin role cannot be deleted.",
+    "action": "OK"
+  }
+}
