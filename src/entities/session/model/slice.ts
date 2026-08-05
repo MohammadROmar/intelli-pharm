@@ -1,44 +1,56 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-type User = { name: string; email: string };
+import type { Permission } from '@/shared/api';
 
-type SessionState = {
+export type SessionUser = { name: string; email: string };
+
+export type SessionCredentials = {
+  accessToken: string;
+  roles: string[];
+  permissions: Permission[];
+  user: SessionUser;
+  unread_notifications_count: number;
+};
+
+export type SessionState = {
   accessToken: string | null;
   roles: string[] | null;
-  user: User | null;
+  permissions: Permission[];
+  user: SessionUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   unreadNotifications: number | null;
 };
 
-const initialState: SessionState = {
-  accessToken: null,
-  roles: null,
-  user: null,
-  isAuthenticated: false,
-  isLoading: true,
-  unreadNotifications: null,
-};
+function createInitialState(isLoading: boolean): SessionState {
+  return {
+    accessToken: null,
+    roles: null,
+    permissions: [],
+    user: null,
+    isAuthenticated: false,
+    isLoading,
+    unreadNotifications: null,
+  };
+}
+
+const initialState = createInitialState(true);
 
 export const sessionSlice = createSlice({
   name: 'session',
   initialState,
   reducers: {
-    setCredentials: (
-      state,
-      action: PayloadAction<{
-        accessToken: string;
-        roles: string[];
-        user: User;
-        unread_notifications_count: number;
-      }>,
-    ) => {
+    setCredentials: (state, action: PayloadAction<SessionCredentials>) => {
       state.accessToken = action.payload.accessToken;
       state.roles = action.payload.roles;
+      state.permissions = action.payload.permissions;
       state.user = action.payload.user;
       state.isAuthenticated = true;
       state.isLoading = false;
-      state.unreadNotifications = action.payload.unread_notifications_count;
+      state.unreadNotifications = Math.max(
+        0,
+        action.payload.unread_notifications_count,
+      );
     },
 
     incrementUnreadNotifications: (state) => {
@@ -52,17 +64,10 @@ export const sessionSlice = createSlice({
     },
 
     setUnreadNotifications: (state, action: PayloadAction<number>) => {
-      state.unreadNotifications = action.payload;
+      state.unreadNotifications = Math.max(0, action.payload);
     },
 
-    logout: (state) => {
-      state.accessToken = null;
-      state.roles = null;
-      state.user = null;
-      state.isAuthenticated = false;
-      state.isLoading = false;
-      state.unreadNotifications = null;
-    },
+    logout: () => createInitialState(false),
 
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

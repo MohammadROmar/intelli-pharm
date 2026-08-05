@@ -1,14 +1,12 @@
 import type { Permission } from '@/shared/api';
 
-type Role = 'distributor' | 'rep' | 'admin';
-
 export type LoginResponse = {
   name: string;
   email: string;
   access_token: string;
   token_type: string;
   expires_in: number;
-  roles: Role[];
+  roles: string[];
   permissions: Permission[];
   unread_notifications_count: number;
 };

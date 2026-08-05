@@ -2,7 +2,12 @@ import { lazy, Suspense, useCallback, useState, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { cn, ErrorBoundary } from '@/shared/lib';
-import { PageTitle, Skeleton, SectionErrorFallback } from '@/shared/ui';
+import {
+  PageTitle,
+  Skeleton,
+  SectionErrorFallback,
+  QueryErrorBoundary,
+} from '@/shared/ui';
 
 import { useDashboardSummary } from '../model/queries';
 import { useDashboardFilters } from '../model/useDashboardFilters';
@@ -31,6 +36,14 @@ const CHART_FALLBACK = (
 const SECTION_FALLBACK = <Skeleton className="h-41.75 rounded-xl" />;
 
 export function OverviewPage() {
+  return (
+    <QueryErrorBoundary>
+      <OverviewPageContent />
+    </QueryErrorBoundary>
+  );
+}
+
+export function OverviewPageContent() {
   const { t } = useTranslation('dashboard-overview');
   const { range, setRange, isPending: isRangePending } = useDashboardFilters();
 

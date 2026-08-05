@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 import { useLocation } from 'react-router';
@@ -16,8 +17,10 @@ import {
   SidebarMenuLink,
   useSidebar,
 } from '@/shared/ui';
+import { useGrantedPermissions } from '@/entities/session';
 
 import type { NavSection, SidebarItem } from '../config/sidebarData';
+import { filterSidebarByPermission } from '../lib/filterSidebarByPermission';
 
 type NavMainProps = { sections: NavSection[] };
 
@@ -28,7 +31,7 @@ type NavItemContentProps = { icon?: LucideIcon; label: string };
 function NavItemContent({ icon: Icon, label }: NavItemContentProps) {
   return (
     <>
-      {Icon && <Icon className="size-4" />}
+      {Icon ? <Icon className="size-4" /> : null}
       <span className="truncate">{label}</span>
     </>
   );
@@ -41,7 +44,7 @@ function NavMenuItem({ item, t }: NavMenuItemProps) {
   const { pathname } = useLocation();
 
   const label = t(item.label);
-  const hasSubItems = Boolean(item.items?.length);
+  const subItems = item.items;
 
   const isAncestorActive = item.exact
     ? pathname === item.url
@@ -51,7 +54,7 @@ function NavMenuItem({ item, t }: NavMenuItemProps) {
     ? 'text-sidebar-accent-foreground font-medium'
     : undefined;
 
-  if (!hasSubItems) {
+  if (!subItems?.length) {
     return (
       <SidebarMenuItem className={ancestorClass}>
         <SidebarMenuLink
@@ -89,10 +92,10 @@ function NavMenuItem({ item, t }: NavMenuItemProps) {
 
         <CollapsibleContent>
           <SidebarMenuSub>
-            {item.items?.map((subItem) => {
+            {subItems.map((subItem) => {
               const subLabel = t(subItem.label);
               return (
-                <SidebarMenuSubItem key={subItem.label}>
+                <SidebarMenuSubItem key={subItem.url}>
                   <SidebarMenuLink label={subLabel} to={subItem.url}>
                     <span>{subLabel}</span>
                   </SidebarMenuLink>
@@ -108,17 +111,23 @@ function NavMenuItem({ item, t }: NavMenuItemProps) {
 
 export function NavMain({ sections }: NavMainProps) {
   const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
+  const granted = useGrantedPermissions();
+
+  const visibleSections = useMemo(
+    () => filterSidebarByPermission(sections, granted),
+    [sections, granted],
+  );
 
   return (
     <>
-      {sections.map((section, index) => (
+      {visibleSections.map((section, index) => (
         <SidebarGroup key={section.sectionLabel ?? `section-${index}`}>
-          {section.sectionLabel && (
+          {section.sectionLabel ? (
             <SidebarGroupLabel>{t(section.sectionLabel)}</SidebarGroupLabel>
-          )}
+          ) : null}
           <SidebarMenu>
             {section.items.map((item) => (
-              <NavMenuItem key={item.label} item={item} t={t} />
+              <NavMenuItem key={item.url} item={item} t={t} />
             ))}
           </SidebarMenu>
         </SidebarGroup>

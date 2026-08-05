@@ -65,3 +65,5 @@ export type Permission =
   | 'planner.visits.view.own'
   | 'tracking.submit_location'
   | 'tracking.view_live';
+
+export type PermissionRequirement = Permission | readonly Permission[];

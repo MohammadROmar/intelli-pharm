@@ -12,8 +12,10 @@
     "sections": {
       "sales": "المبيعات",
       "catalog": "الكتالوج",
-      "logistics": "اللوجستيات",
-      "reference": "البيانات الأساسية"
+      "analytics": "التحليلات",
+      "operations": "العمليات",
+      "masterData": "البيانات الأساسية",
+      "administration": "الإدارة"
     },
     "labels": {
       "dashboard": "نظرة عامة",
@@ -49,7 +51,8 @@
       "initiate": "إنشاء للمندوب",
       "initiateFromDeliveries": "إنشاء للموزع",
       "tracking": "التتبع المباشر",
-      "roles": "الأدوار"
+      "roles": "الأدوار",
+      "overview": "نظرة عامة"
     },
     "promotions": {
       "offers": "العروض",

@@ -9,8 +9,10 @@
     "sections": {
       "sales": "Sales",
       "catalog": "Catalog",
-      "logistics": "Logistics",
-      "reference": "Reference"
+      "analytics": "Analytics",
+      "operations": "Operations",
+      "masterData": "Master Data",
+      "administration": "Administration"
     },
     "labels": {
       "dashboard": "Overview",
@@ -46,7 +48,8 @@
       "initiate": "Initiate for Rep",
       "initiateFromDeliveries": "Initiate for delivery",
       "tracking": "Live Tracking",
-      "roles": "Roles"
+      "roles": "Roles",
+      "overview": "Overview"
     },
     "promotions": {
       "offers": "Offers",

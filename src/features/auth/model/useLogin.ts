@@ -4,51 +4,58 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
 import {
-  broadcastRefreshed,
   setCredentials,
+  broadcastRefreshed,
   toSessionCredentials,
 } from '@/entities/session';
-import { resetDeviceRegistrationState } from '@/entities/device';
 import type { ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';
-import { clearRegistrationFingerprint } from '@/shared/notifications';
 
 import { login } from '../api';
-import type { LoginParams, LoginResponse } from './loginTypes';
 import { useLogout } from './useLogout';
+import type { LoginParams, LoginResponse } from './loginTypes';
 
 export function useLogin() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const logoutUser = useLogout();
-  const { t } = useTranslation('errors');
+
+  const { t: tLogin, i18n } = useTranslation('errors', { keyPrefix: 'login' });
+  const tError = i18n.getFixedT(
+    i18n.resolvedLanguage ?? i18n.language,
+    'errors',
+  );
 
   return useMutation<LoginResponse, ApiError, LoginParams>({
     mutationFn: login,
 
-    onSuccess: async (data) => {
-      if (!data.roles.includes('admin')) {
-        await logoutUser();
+    onSuccess: (data) => {
+      const canAccessDashboard = data.permissions.includes('dashboard.access');
 
-        toast.error(t('login.error'), {
-          description: t('login.onlyAdmin'),
-        });
+      if (canAccessDashboard) {
+        dispatch(setCredentials(toSessionCredentials(data)));
+
+        broadcastRefreshed(data);
+
+        navigate('/dashboard', { replace: true });
         return;
       }
 
-      clearRegistrationFingerprint();
-      resetDeviceRegistrationState();
-      dispatch(setCredentials(toSessionCredentials(data)));
-      broadcastRefreshed(data);
-      navigate('/dashboard', { replace: true });
+      void logoutUser();
+
+      toast.error(tLogin('error'), {
+        description: tLogin('noDashboardAccess'),
+      });
     },
 
     onError: (error) => {
-      const toastDescription =
-        error.status === 401 ? 'errors.invalidCredentials' : error.i18nKey;
+      const isInvalidCredentials = error.status === 401;
+      const toastDescription = isInvalidCredentials
+        ? 'errors.invalidCredentials'
+        : error.i18nKey;
 
-      toast.error(t('login.error'), {
-        description: t(toastDescription),
+      toast.error(tLogin('error'), {
+        description: tError(toastDescription),
       });
     },
   });

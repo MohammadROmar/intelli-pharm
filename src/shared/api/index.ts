@@ -12,4 +12,4 @@ export type {
   PaginatedResponse,
 } from './apiClient';
 export { queryClient } from './queryClient';
-export type { Permission } from './permission';
+export type { Permission, PermissionRequirement } from './permission';

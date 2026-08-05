@@ -1,6 +1,6 @@
 {
   "networkBadge": "خطأ في الشبكة",
-  "authBadge": "مطلوب تسجيل الدخول",
+  "authBadge": "صلاحيات غير كافية",
   "notFoundBadge": "غير موجود",
   "serverBadge": "خطأ في الخادم",
 
@@ -38,7 +38,7 @@
 
   "login": {
     "error": "فشل تسجيل الدخول",
-    "onlyAdmin": "يمكن فقط للمسؤولين تسجيل الدخول من هنا."
+    "noDashboardAccess": "ليس لديك صلاحية الوصول إلى لوحة التحكم."
   },
 
   "notifications": {

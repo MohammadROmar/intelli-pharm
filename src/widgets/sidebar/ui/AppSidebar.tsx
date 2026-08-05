@@ -57,6 +57,8 @@ const SidebarBrand = memo(function SidebarBrand() {
 
   const handleClick = useCallback(() => setOpenMobile(false), [setOpenMobile]);
 
+  const role = roles?.[0];
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -69,9 +71,11 @@ const SidebarBrand = memo(function SidebarBrand() {
             {logoIcon}
             <div className="grid flex-1 text-sm leading-tight">
               <span className="truncate font-medium">IntelliPharma</span>
-              <span className="text-sidebar-foreground/70 truncate text-xs">
-                {roles?.[0] ? t(roles[0]) : ''}
-              </span>
+              {role && (
+                <span className="text-sidebar-foreground/70 truncate text-xs">
+                  {t(role, role)}
+                </span>
+              )}
             </div>
           </Link>
         </SidebarMenuButton>

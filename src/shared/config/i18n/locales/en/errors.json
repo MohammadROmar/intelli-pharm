@@ -1,6 +1,6 @@
 {
   "networkBadge": "Network Error",
-  "authBadge": "Authentication Required",
+  "authBadge": "Insufficient permissions",
   "notFoundBadge": "Not Found",
   "serverBadge": "Server Error",
 
@@ -38,7 +38,7 @@
 
   "login": {
     "error": "Sign-in failed",
-    "onlyAdmin": "Only administrators can sign in here."
+    "noDashboardAccess": "You do not have permission to access the dashboard."
   },
 
   "notifications": {
