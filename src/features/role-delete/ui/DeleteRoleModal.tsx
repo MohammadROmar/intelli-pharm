@@ -18,6 +18,7 @@ export function DeleteRoleModal({
 }: DeleteRoleModalProps) {
   const { mutate, isPending } = useDeleteEntity({
     item: 'roles',
+    module: 'auth',
     translationKey: 'role',
   });
 
@@ -32,10 +33,8 @@ export function DeleteRoleModal({
     });
   }
 
-  const isAdmin = role?.name === 'admin';
-
-  if (isAdmin) {
-    return <RoleDeleteRestricted role={role} onClose={onClose} />;
+  if (role?.name === 'admin') {
+    return <RoleDeleteRestricted onClose={onClose} />;
   }
 
   return (

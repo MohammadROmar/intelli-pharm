@@ -27,6 +27,8 @@
 
   "emailAlreadyTaken": "That email address is already in use.",
   "noDeliveryTasks": "No delivery tasks for the distributor today.",
+  "nameAlreadyTaken": "A role with this name already exists.",
+  "permissionsRequired": "Please select at least one permission.",
   "invalidCredentials": "Incorrect email or password. Please try again.",
 
   "badRequest": {

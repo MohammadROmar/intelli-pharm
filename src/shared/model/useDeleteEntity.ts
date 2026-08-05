@@ -3,9 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 import { useMutationSideEffects } from './useMutationSideEffects';
 import { apiClient, type ApiError, type ApiResponse } from '../api';
 
-type Props = { item: string; translationKey: string };
+type Props = { item: string; module?: string; translationKey: string };
 
-export function useDeleteEntity({ item, translationKey }: Props) {
+export function useDeleteEntity({
+  item,
+  module = 'erp',
+  translationKey,
+}: Props) {
   const { onSuccess, onError } = useMutationSideEffects({
     action: 'delete',
     queryKey: item,
@@ -13,7 +17,7 @@ export function useDeleteEntity({ item, translationKey }: Props) {
   });
 
   return useMutation<ApiResponse<unknown>, ApiError, number>({
-    mutationFn: (id: number) => apiClient.delete(`/erp/v1/${item}/${id}`),
+    mutationFn: (id: number) => apiClient.delete(`/${module}/v1/${item}/${id}`),
     onSuccess,
     onError,
   });

@@ -54,5 +54,10 @@
     "offers": "Offers",
     "regions": "Regions",
     "targets": "Targets"
+  },
+  "picker": {
+    "searchPlaceholder": "Search permissions…",
+    "selectedCount": "{{selected}} of {{total}} permissions selected",
+    "noResults": "No permissions match your search."
   }
 }

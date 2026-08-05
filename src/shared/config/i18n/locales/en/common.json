@@ -20,7 +20,8 @@
     "city": "City",
     "employee": "Employee",
     "plan": "Plan",
-    "pharmacyNotes": "Note added successfully"
+    "pharmacyNotes": "Note added successfully",
+    "role": "Role"
   },
   "logout": {
     "title": "Logout",

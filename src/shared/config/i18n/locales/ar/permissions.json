@@ -54,5 +54,10 @@
     "offers": "العروض",
     "regions": "المناطق",
     "targets": "الأهداف"
+  },
+  "picker": {
+    "searchPlaceholder": "البحث عن صلاحية…",
+    "selectedCount": "{{selected}} من {{total}} صلاحية محددة",
+    "noResults": "لا توجد صلاحيات مطابقة لبحثك."
   }
 }

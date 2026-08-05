@@ -3,14 +3,11 @@ import { useTranslation } from 'react-i18next';
 import type { RoleItem } from '@/entities/role';
 import { formatDate } from '@/shared/lib';
 import { TableRow, TableCell, TableActions } from '@/shared/ui';
-import { useMemo } from 'react';
 
 type RoleRowProps = { role: RoleItem; onDelete: (role: RoleItem) => void };
 
 export function RoleRow({ role, onDelete }: RoleRowProps) {
   const { t, i18n } = useTranslation('roles');
-
-  const permissionsCount = useMemo(() => role.permissions.length, [role]);
 
   return (
     <TableRow>
@@ -20,7 +17,7 @@ export function RoleRow({ role, onDelete }: RoleRowProps) {
         </p>
       </TableCell>
       <TableCell>
-        {t('shared.permissionsCount', { count: permissionsCount })}
+        {t('shared.permissionsCount', { count: role.permissions.length })}
       </TableCell>
       <TableCell className="text-muted-foreground">
         {formatDate(role.updated_at, i18n.language, false)}

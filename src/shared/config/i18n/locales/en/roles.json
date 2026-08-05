@@ -36,5 +36,36 @@
     "title": "Cannot Delete Admin Role",
     "message": "For security reasons, the admin role cannot be deleted.",
     "action": "OK"
+  },
+  "form": {
+    "basicInfoTitle": "Role Details",
+    "basicInfoSubtitle": "Give this role a clear, distinctive name",
+    "selectAtLeastOne": "Select at least one permission.",
+    "cancel": "Cancel",
+    "fields": {
+      "name": "Role Name",
+      "namePlaceholder": "e.g. Regional Manager"
+    },
+    "errors": {
+      "nameRequired": "Role name is required."
+    }
+  },
+  "create": {
+    "title": "Create Role",
+    "subtitle": "Define a name and choose exactly what this role can do.",
+    "back": "Back",
+    "submit": "Create Role",
+    "submitting": "Creating…",
+    "success": "Role created successfully.",
+    "error": "Failed to create role."
+  },
+  "edit": {
+    "title": "Edit Role",
+    "subtitle": "Update the name and permissions for this role.",
+    "back": "Back",
+    "submit": "Save Changes",
+    "submitting": "Saving…",
+    "success": "Role updated successfully.",
+    "error": "Failed to update role."
   }
 }

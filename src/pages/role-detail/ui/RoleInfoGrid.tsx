@@ -17,7 +17,7 @@ export function RoleInfoGrid({ role }: Props) {
     >
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('shared.name')}>
-          {t(`roleLabels.${role.name}`)}
+          {t(`roleLabels.${role.name}`, role.name)}
         </DetailCell>
 
         <DetailCell label={t('shared.permissions')}>

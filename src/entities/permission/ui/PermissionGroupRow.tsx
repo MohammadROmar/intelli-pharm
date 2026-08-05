@@ -3,7 +3,8 @@ import type { TFunction } from 'i18next';
 import { CheckCircle2 } from 'lucide-react';
 
 import { ActionBadge } from './ActionBadge';
-import { getActionKey, type PermissionGroup } from '../lib/permissionParser';
+import type { PermissionGroup } from '../lib/permissionParser';
+import { getResourceLabel } from '../lib/permissionPresentation';
 
 type PermissionGroupRowProps = {
   group: PermissionGroup;
@@ -16,12 +17,7 @@ export const PermissionGroupRow = memo(function PermissionGroupRow({
   moduleLabel,
   t,
 }: PermissionGroupRowProps) {
-  const resourceLabel =
-    group.resourceParts.length > 0
-      ? group.resourceParts
-          .map((part) => t(`resources.${part}`, { defaultValue: part }))
-          .join(' › ')
-      : moduleLabel;
+  const resourceLabel = getResourceLabel(group.resourceParts, moduleLabel, t);
 
   return (
     <div className="flex flex-col flex-wrap justify-between gap-3 sm:flex-row sm:items-center">
@@ -34,11 +30,7 @@ export const PermissionGroupRow = memo(function PermissionGroupRow({
 
       <div className="flex flex-wrap gap-1.5">
         {group.actions.map((parsedAction) => (
-          <ActionBadge
-            key={getActionKey(parsedAction)}
-            {...parsedAction}
-            t={t}
-          />
+          <ActionBadge key={parsedAction.permission} {...parsedAction} t={t} />
         ))}
       </div>
     </div>

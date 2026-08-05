@@ -4,7 +4,7 @@ import type { TFunction } from 'i18next';
 import { Separator } from '@/shared/ui';
 
 import { PermissionGroupRow } from './PermissionGroupRow';
-import { MODULE_LABELS } from '../lib/permissionStyleMaps';
+import { getModuleLabel } from '../lib/permissionPresentation';
 import type { PermissionGroup } from '../lib/permissionParser';
 
 type ModuleSectionProps = {
@@ -20,9 +20,7 @@ export const ModuleSection = memo(function ModuleSection({
   showSeparator,
   t,
 }: ModuleSectionProps) {
-  const moduleLabel = t(`modules.${module}`, {
-    defaultValue: MODULE_LABELS[module] ?? module,
-  });
+  const moduleLabel = getModuleLabel(module, t);
 
   return (
     <div>

@@ -2,7 +2,7 @@ import { memo } from 'react';
 import type { TFunction } from 'i18next';
 
 import type { ParsedAction } from '../lib/permissionParser';
-import { ACTION_STYLES } from '../lib/permissionStyleMaps';
+import { getActionPresentation } from '../lib/permissionPresentation';
 
 type ActionBadgeProps = ParsedAction & { t: TFunction<'permissions'> };
 
@@ -11,13 +11,10 @@ export const ActionBadge = memo(function ActionBadge({
   scope,
   t,
 }: ActionBadgeProps) {
-  const style = ACTION_STYLES[action] ?? 'bg-muted text-muted-foreground';
-  const label = t(`actions.${action}`, {
-    defaultValue: action.replace(/_/g, ' '),
-  });
-  const scopeLabel = scope
-    ? t(`scope.${scope}`, { defaultValue: scope })
-    : null;
+  const { style, label, scopeLabel } = getActionPresentation(
+    { action, scope },
+    t,
+  );
 
   return (
     <span

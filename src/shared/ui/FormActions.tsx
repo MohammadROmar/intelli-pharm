@@ -9,6 +9,7 @@ type FormActionsProps = {
   onReset: () => void;
   isEdit?: boolean;
   label?: string;
+  resetLabel?: string;
   form?: string;
   classNames?: { container?: string; reset?: string; submit?: string };
 };
@@ -18,6 +19,7 @@ export function FormActions({
   isLoading,
   isEdit = false,
   label,
+  resetLabel,
   form,
   classNames,
 }: FormActionsProps) {
@@ -38,7 +40,7 @@ export function FormActions({
           onClick={() => onReset()}
           className={classNames?.reset}
         >
-          {t('reset')}
+          {resetLabel ?? t('reset')}
         </Button>
         <Button
           type="submit"

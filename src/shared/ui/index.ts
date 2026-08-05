@@ -210,3 +210,4 @@ export {
   type FiltersModalProps,
 } from './EntityFiltersToolbar';
 export { StatCard } from './StatCard';
+export { Checkbox } from './checkbox';

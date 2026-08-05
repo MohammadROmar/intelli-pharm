@@ -4,11 +4,17 @@ import axios, {
   type AxiosRequestConfig,
 } from 'axios';
 
+export type ApiValidationErrors = Record<string, string[]>;
+
+export type ApiErrors =
+  | Record<string, string | string[] | undefined>
+  | string[];
+
 export type ApiResponse<T> = {
   isSuccess: boolean;
   message: string;
   data: T | null;
-  errors: null | string[];
+  errors: ApiErrors | null;
   statusCode: number;
 };
 
@@ -36,12 +42,14 @@ export class ApiError extends Error {
   public readonly i18nKey: string;
   public readonly status?: number;
   public readonly config?: RequestConfig;
+  public readonly validationErrors?: ApiValidationErrors;
 
   constructor(
     i18nKey: string,
     status?: number,
     message?: string,
     config?: RequestConfig,
+    validationErrors?: ApiValidationErrors,
   ) {
     super(i18nKey);
 
@@ -50,6 +58,7 @@ export class ApiError extends Error {
     this.i18nKey = i18nKey;
     this.status = status;
     this.config = config;
+    this.validationErrors = validationErrors;
   }
 }
 
@@ -74,11 +83,52 @@ export const statusToI18nKey = (status?: number): string => {
   }
 };
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function normalizeValidationErrors(
+  errors: unknown,
+): ApiValidationErrors | undefined {
+  if (!isRecord(errors)) return undefined;
+
+  const validationErrors: ApiValidationErrors = {};
+
+  for (const [field, messages] of Object.entries(errors)) {
+    if (
+      Array.isArray(messages) &&
+      messages.every(
+        (message): message is string => typeof message === 'string',
+      )
+    ) {
+      validationErrors[field] = messages;
+    }
+  }
+
+  return Object.keys(validationErrors).length > 0
+    ? validationErrors
+    : undefined;
+}
+
+function getResponseErrorMessage(data: unknown): string | undefined {
+  if (!isRecord(data)) return undefined;
+
+  const errors = data.errors;
+  if (isRecord(errors) && typeof errors.message === 'string') {
+    return errors.message;
+  }
+
+  return typeof data.message === 'string' ? data.message : undefined;
+}
+
 function assertSuccessfulResponse<T>(response: ApiResponse<T>): T {
   if (!response.isSuccess || response.data === null) {
     throw new ApiError(
       statusToI18nKey(response.statusCode),
       response.statusCode,
+      response.message,
+      undefined,
+      normalizeValidationErrors(response.errors),
     );
   }
 
@@ -133,8 +183,10 @@ interface ApiInstance extends Omit<
   delete<T>(url: string, config?: RequestConfig): Promise<ApiResponse<T>>;
 }
 
-type ResponseError = AxiosError & {
-  response?: { data?: { errors?: { message?: string } } };
+type ApiErrorResponse = {
+  message?: string;
+  errors?: unknown;
+  statusCode?: number;
 };
 
 export const apiClient = axios.create({
@@ -145,20 +197,21 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.response.use(
   (res) => res.data,
-  (error: ResponseError) => {
+  (error: AxiosError<ApiErrorResponse>) => {
     if (import.meta.env.DEV) {
       console.warn('[api] request failed:', error.response);
     }
 
-    const responseError = error.response?.data?.errors?.message;
-    const status = error.response?.status;
+    const responseData = error.response?.data;
+    const status = error.response?.status ?? responseData?.statusCode;
 
     return Promise.reject(
       new ApiError(
         statusToI18nKey(status),
         status,
-        responseError,
+        getResponseErrorMessage(responseData),
         error.config,
+        normalizeValidationErrors(responseData?.errors),
       ),
     );
   },

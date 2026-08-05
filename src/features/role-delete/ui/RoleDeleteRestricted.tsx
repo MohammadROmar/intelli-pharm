@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-import type { RoleItem } from '@/entities/role';
 import {
   Button,
   Dialog,
@@ -11,14 +10,14 @@ import {
   DialogTitle,
 } from '@/shared/ui';
 
-type Props = { role: RoleItem | null; onClose: () => void };
+type Props = { onClose: () => void };
 
-export function RoleDeleteRestricted({ role, onClose }: Props) {
+export function RoleDeleteRestricted({ onClose }: Props) {
   const { t } = useTranslation('roles', { keyPrefix: 'deleteRestricted' });
 
   return (
     <Dialog
-      open={!!role}
+      open
       onOpenChange={(open) => {
         if (!open) onClose();
       }}

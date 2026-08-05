@@ -1,6 +1,10 @@
 import type { Permission } from '@/shared/api';
 
-export type ParsedAction = { action: string; scope?: string };
+export type ParsedAction = {
+  permission: Permission;
+  action: string;
+  scope?: string;
+};
 
 export type PermissionGroup = {
   module: string;
@@ -11,13 +15,16 @@ export type PermissionGroup = {
 const SCOPE_SUFFIXES = new Set(['own']);
 
 export function parsePermission(permission: Permission) {
-  const segments = permission.split('.');
-  const module = segments[0];
-  let rest = segments.slice(1);
+  const [module = '', ...segments] = permission.split('.');
+  let rest = segments;
 
   let scope: string | undefined;
   const lastSegment = rest[rest.length - 1];
-  if (rest.length >= 2 && SCOPE_SUFFIXES.has(lastSegment)) {
+  if (
+    rest.length >= 2 &&
+    lastSegment !== undefined &&
+    SCOPE_SUFFIXES.has(lastSegment)
+  ) {
     scope = lastSegment;
     rest = rest.slice(0, -1);
   }
@@ -29,7 +36,7 @@ export function parsePermission(permission: Permission) {
 }
 
 export function groupPermissionsByModule(
-  permissions: Permission[],
+  permissions: readonly Permission[],
 ): Map<string, PermissionGroup[]> {
   const groups = new Map<string, PermissionGroup>();
 
@@ -43,7 +50,7 @@ export function groupPermissionsByModule(
       group = { module, resourceParts, actions: [] };
       groups.set(key, group);
     }
-    group.actions.push({ action, scope });
+    group.actions.push({ permission, action, scope });
   }
 
   const byModule = new Map<string, PermissionGroup[]>();
@@ -57,8 +64,4 @@ export function groupPermissionsByModule(
   }
 
   return byModule;
-}
-
-export function getActionKey({ action, scope }: ParsedAction): string {
-  return scope ? `${action}-${scope}` : action;
 }

@@ -86,7 +86,9 @@ import { LazyAreaMetricsPage } from '@/pages/metrics-area';
 import { LazyPharmacyMetricsPage } from '@/pages/metrics-pharmacy';
 
 import { LazyRoleListPage } from '@/pages/role-list';
+import { LazyRoleCreatePage } from '@/pages/role-create';
 import { LazyRoleDetailPage } from '@/pages/role-detail';
+import { LazyRoleEditPage } from '@/pages/role-edit';
 
 import { FOCUS_PARAM } from '@/features/live-tracking-roster';
 
@@ -307,7 +309,14 @@ const router = createBrowserRouter([
                 path: 'roles',
                 children: [
                   { index: true, element: <LazyRoleListPage /> },
-                  { path: ':id', element: <LazyRoleDetailPage /> },
+                  { path: 'new', element: <LazyRoleCreatePage /> },
+                  {
+                    path: ':id',
+                    children: [
+                      { index: true, element: <LazyRoleDetailPage /> },
+                      { path: 'edit', element: <LazyRoleEditPage /> },
+                    ],
+                  },
                 ],
               },
 
