@@ -122,7 +122,12 @@
     "historyNoteCollapse": "عرض أقل",
     "noteTypeGeneral": "عام",
     "noteTypeTip": "نصيحة",
-    "noteTypeWarning": "تحذير"
+    "noteTypeWarning": "تحذير",
+    "historyNoteUnknownUser": "مستخدم غير معروف",
+    "historyNoteUncategorized": "غير مصنفة",
+    "historyNoteNoContent": "لم يُضَف محتوى لهذه الملاحظة.",
+    "historyNoteRecordedAt": "سُجّلت في",
+    "noteTypeUnknown": "غير مصنفة"
   },
   "filters": {
     "title": "فلاتر الصيدليات",

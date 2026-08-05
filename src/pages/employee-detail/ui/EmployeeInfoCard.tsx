@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Clock, Mail, Phone, Shield, Truck, User } from 'lucide-react';
+import { Clock, Mail, Phone, ShieldCheck, Truck, User } from 'lucide-react';
 
 import type { Employee } from '@/entities/employee';
 import { Badge, DetailCard, DetailCell, Separator } from '@/shared/ui';
@@ -42,7 +42,7 @@ export function EmployeeInfoCard({ employee }: Props) {
         </DetailCell>
         <DetailCell label={t('detail.labelRole')}>
           <span className="flex items-center gap-1.5">
-            <Shield className="text-muted-foreground size-4 shrink-0" />
+            <ShieldCheck className="text-muted-foreground size-4 shrink-0" />
             <span className="capitalize">
               {t(`roles.${role}`, { defaultValue: role })}
             </span>

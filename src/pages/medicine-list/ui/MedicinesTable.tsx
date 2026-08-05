@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MedicineFiltersModal } from './MedicineFiltersModal';
-import { useMedicineFilters } from '../model/useMedicineFilters';
 import { DeleteMedicineModal } from '@/features/medicine-delete';
-import { MedicineRow } from '@/entities/medicine';
 import type { Medicine, MedicineResponse } from '@/entities/medicine';
 import {
   EntityEmptyState,
@@ -12,6 +9,10 @@ import {
   EntityListTable,
   TableHead,
 } from '@/shared/ui';
+
+import { MedicineRow } from './MedicineRow';
+import { MedicineFiltersModal } from './MedicineFiltersModal';
+import { useMedicineFilters } from '../model/useMedicineFilters';
 
 type Props = { data: MedicineResponse };
 

@@ -23,5 +23,4 @@ export type {
 export { useGetMedicineSuspense } from './model/useGetMedicineSuspense';
 export { useMedicineImages } from './model/useMedicineImages';
 
-export { MedicineRow } from './ui/MedicineRow';
 export { MedicineSelector } from './ui/MedicineSelector';

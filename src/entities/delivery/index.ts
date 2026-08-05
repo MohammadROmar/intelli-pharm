@@ -14,6 +14,5 @@ export type {
   ChangeDeliveryStatusPayload,
 } from './model/deliveryTypes';
 
-export { DeliveryRow } from './ui/DeliveryRow';
 export { DeliveryStatusBadge } from './ui/DeliveryStatusBadge';
 export { DeliveryPaymentStatusBadge } from './ui/DeliveryPaymentStatusBadge';

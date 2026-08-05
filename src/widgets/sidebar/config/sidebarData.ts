@@ -40,7 +40,6 @@ export type SidebarItem = {
   icon?: LucideIcon;
   items?: NavSubItem[];
   exact?: boolean;
-  /** Ignored when `items` is present — visibility of a parent follows its children. */
   permission?: PermissionRequirement;
 };
 

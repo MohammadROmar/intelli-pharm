@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { LaboratoryFiltersModal } from './LaboratoryFiltersModal';
-import { useLaboratoryFilters } from '../model/useLaboratoryFilters';
 import { AddLaboratoryButton } from '@/features/laboratory-create';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
-import {
-  LaboratoryRow,
-  type LaboratoriesResponse,
-  type LaboratoryListItem,
+import type {
+  LaboratoryListItem,
+  LaboratoriesResponse,
 } from '@/entities/laboratory';
 import {
   EntityEmptyState,
@@ -16,6 +13,10 @@ import {
   EntityListTable,
   TableHead,
 } from '@/shared/ui';
+
+import { LaboratoryRow } from './LaboratoryRow';
+import { LaboratoryFiltersModal } from './LaboratoryFiltersModal';
+import { useLaboratoryFilters } from '../model/useLaboratoryFilters';
 
 type Props = { data: LaboratoriesResponse };
 

@@ -3,10 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 import { useLocation } from 'react-router';
 
+import { useGrantedPermissions } from '@/entities/session';
+
+import { useSidebar } from '../model/useSidebar';
+import type { NavSection, SidebarItem } from '../config/sidebarData';
+import { filterSidebarByPermission } from '../lib/filterSidebarByPermission';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
+} from './Collapsible';
+import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
@@ -15,12 +22,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuLink,
-  useSidebar,
-} from '@/shared/ui';
-import { useGrantedPermissions } from '@/entities/session';
-
-import type { NavSection, SidebarItem } from '../config/sidebarData';
-import { filterSidebarByPermission } from '../lib/filterSidebarByPermission';
+} from './Sidebar';
 
 type NavMainProps = { sections: NavSection[] };
 

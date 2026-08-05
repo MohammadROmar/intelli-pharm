@@ -11,6 +11,5 @@ export type {
   CreatePercentageOfferDto,
 } from './model/offerTypes';
 
-export { OfferRow } from './ui/OfferRow';
 export { OfferTypeBadge } from './ui/OfferTypeBadge';
 export { AddOfferButton } from './ui/AddOfferButton';

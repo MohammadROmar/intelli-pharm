@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { EditOffer } from '@/features/offer-edit';
 import { DeleteOfferModal } from '@/features/offer-delete';
-import { AddOfferButton, OfferRow } from '@/entities/offer';
+import { AddOfferButton } from '@/entities/offer';
 import type { Offer, OfferResponse } from '@/entities/offer';
 import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
+
+import { OfferRow } from './OfferRow';
 
 type Props = { data: OfferResponse };
 

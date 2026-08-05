@@ -2,7 +2,7 @@ import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { PackagePlus } from 'lucide-react';
 
-import type { Medicine } from '../model/medicineTypes';
+import type { Medicine } from '@/entities/medicine';
 import { formatDate, formatPrice } from '@/shared/lib';
 import {
   Badge,

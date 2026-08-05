@@ -9,7 +9,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-} from '@/shared/ui';
+} from './Breadcrumb';
 
 const NUMERIC_SEGMENT_REGEX = /^\d+$/;
 

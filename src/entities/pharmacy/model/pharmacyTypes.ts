@@ -27,9 +27,11 @@ type BasePharmacyDetail = BasePharmacy & {
 export type Pharmacy = BasePharmacyDetail & { name: string };
 
 export type HistoryNote = {
-  notes: string;
-  note_type: NoteType;
-  user_name: string;
+  id: number;
+  notes: string | null;
+  note_type: NoteType | null;
+  user_name: string | null;
+  visited_at: string;
 };
 
 export type PharmacyDetail = BasePharmacyDetail & { name: Localized };

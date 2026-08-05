@@ -5,7 +5,7 @@ export { Card, CardHeader, CardContent, CardFooter } from './Card';
 export {
   SidebarContext,
   type SidebarContextProps,
-} from './Sidebar/SidebarContext';
+} from '../../widgets/sidebar/model/SidebarContext';
 export {
   Skeleton,
   FormSkeleton,

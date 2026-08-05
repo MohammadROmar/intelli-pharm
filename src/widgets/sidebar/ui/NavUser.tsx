@@ -8,7 +8,6 @@ import { selectUnreadNotifications } from '@/entities/session';
 import { useAppSelector } from '@/shared/config';
 import { useRequiredUser } from '@/shared/model';
 import {
-  useSidebar,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -16,13 +15,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from '@/shared/ui';
 
 import { UserInfo } from './UserInfo';
+import { useSidebar } from '../model/useSidebar';
 import { NotificationBadge } from './NotificationBadge';
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from './Sidebar';
 
 type NavUserData = ReturnType<typeof useRequiredUser>;
 

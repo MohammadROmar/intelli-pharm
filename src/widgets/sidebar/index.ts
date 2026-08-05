@@ -1,3 +1,17 @@
+export {
+  SIDEBAR_WIDTH,
+  SIDEBAR_WIDTH_ICON,
+  SIDEBAR_COOKIE_NAME,
+  SIDEBAR_COOKIE_MAX_AGE,
+  SIDEBAR_KEYBOARD_SHORTCUT,
+} from './config/sidebarData';
+
 export { resolveSidebarLandingPath } from './lib/resolveSidebarLandingPath';
 
+export {
+  SidebarContext,
+  type SidebarContextProps,
+} from './model/SidebarContext';
+
 export { AppSidebar } from './ui/AppSidebar';
+export { SidebarInset, SidebarTrigger } from './ui/Sidebar';

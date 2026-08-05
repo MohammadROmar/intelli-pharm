@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { OrderRow, type OrderListResponse } from '@/entities/order';
+import type { OrderListResponse } from '@/entities/order';
 import {
   TableHead,
   EntityListTable,
@@ -8,6 +8,7 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
+import { OrderRow } from './OrderRow';
 import { OrderFiltersModal } from './OrderFiltersModal';
 import { useOrderFilters } from '../model/useOrderFilters';
 

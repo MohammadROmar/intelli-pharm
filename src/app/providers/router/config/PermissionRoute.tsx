@@ -1,12 +1,11 @@
 import { Outlet, useMatches } from 'react-router';
 
+import { LazyForbiddenPage } from '@/pages/forbidden';
 import {
   hasAllPermissionRequirements,
   useGrantedPermissions,
 } from '@/entities/session';
 import type { PermissionRequirement } from '@/shared/api';
-
-import { LazyForbiddenPage } from '@/pages/forbidden';
 
 export type PermissionHandle = { permission?: PermissionRequirement };
 

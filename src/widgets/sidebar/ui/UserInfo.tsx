@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui';
+import { Avatar, AvatarFallback, AvatarImage } from './Avatar';
 
 type Props = { user: { email: string; name: string }; badge?: ReactNode };
 

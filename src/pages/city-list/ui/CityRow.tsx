@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
 
-import type { CityDetail } from '../model/cityTypes';
+import type { CityDetail } from '@/entities/city';
+import { getLocalized } from '@/shared/lib';
 import {
   TableRow,
   TableCell,
   TableActions,
   DropdownMenuItem,
 } from '@/shared/ui';
-import { getLocalized } from '@/shared/lib';
 
 type CityRowProps = {
   city: CityDetail;

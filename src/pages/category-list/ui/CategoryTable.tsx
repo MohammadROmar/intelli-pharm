@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CategoryFiltersModal } from './CategoryFiltersModal';
-import { useCategoryFilters } from '../model/useCategoryFilters';
 import { DeleteCategoryModal } from '@/features/category-delete';
-import {
-  CategoryRow,
-  type CategoryListItem,
-  type CategoryListResponse,
+import type {
+  CategoryListItem,
+  CategoryListResponse,
 } from '@/entities/category';
 import {
   TableHead,
@@ -15,6 +12,10 @@ import {
   EntityFiltersToolbar,
   EntityEmptyState,
 } from '@/shared/ui';
+
+import { CategoryRow } from './CategoryRow';
+import { CategoryFiltersModal } from './CategoryFiltersModal';
+import { useCategoryFilters } from '../model/useCategoryFilters';
 
 type Props = { data: CategoryListResponse };
 

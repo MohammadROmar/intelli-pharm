@@ -2,9 +2,11 @@ import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { RefreshCw } from 'lucide-react';
 
-import { DeliveryStatusBadge } from './DeliveryStatusBadge';
-import { DeliveryPaymentStatusBadge } from './DeliveryPaymentStatusBadge';
-import type { DeliveryListItem } from '../model/deliveryTypes';
+import {
+  DeliveryStatusBadge,
+  DeliveryPaymentStatusBadge,
+  type DeliveryListItem,
+} from '@/entities/delivery';
 import { formatDate, formatPrice } from '@/shared/lib';
 import {
   TableCell,

@@ -2,8 +2,7 @@ import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { ClipboardEdit, Tag } from 'lucide-react';
 
-import { OrderStatusBadge } from './OrderStatusBadge';
-import type { OrderListItem } from '../model/orderTypes';
+import { OrderStatusBadge, type OrderListItem } from '@/entities/order';
 import { formatDate, formatPrice } from '@/shared/lib';
 import {
   TableCell,

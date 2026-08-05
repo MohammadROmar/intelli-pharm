@@ -1,4 +1,4 @@
-import type { RegionListItem } from '../model/regionTypes';
+import type { RegionListItem } from '@/entities/region';
 import { TableActions, TableCell, TableRow } from '@/shared/ui';
 
 type RegionRowProps = {

@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DeleteEmployeeModal } from '@/features/employee-delete';
-import {
-  EmployeeRow,
-  type Employee,
-  type EmployeeListResponse,
-} from '@/entities/employee';
+import type { Employee, EmployeeListResponse } from '@/entities/employee';
 import {
   TableHead,
   EntityListTable,
@@ -14,6 +10,7 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
+import { EmployeeRow } from './EmployeeRow';
 import { EmployeeFiltersModal } from './EmployeeFiltersModal';
 import { useEmployeeFilters } from '../model/useEmployeeFilters';
 

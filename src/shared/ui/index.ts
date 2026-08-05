@@ -1,15 +1,5 @@
 export { Logo } from './Logo';
-export { Avatar, AvatarFallback, AvatarImage } from './Avatar';
 export { BackgroundPattern } from './BackgroundPattern';
-export {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from './Breadcrumb';
 export { Button } from './Button';
 export {
   Card,
@@ -20,11 +10,6 @@ export {
   CardHeader,
   CardTitle,
 } from './Card';
-export {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from './Collapsible';
 export {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -67,36 +52,6 @@ export {
   SheetTitle,
   SheetTrigger,
 } from './Sheet';
-export {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInput,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarRail,
-  SidebarSeparator,
-  SidebarTrigger,
-  SidebarMenuLink,
-} from './Sidebar/Sidebar';
-export {
-  SidebarContext,
-  type SidebarContextProps,
-} from './Sidebar/SidebarContext';
-export { useSidebar } from './Sidebar/useSidebar';
 export {
   Skeleton,
   CardsSkeleton,
@@ -171,7 +126,6 @@ export { Badge, BadgeLink } from './badge';
 export { Textarea } from './textarea';
 export { Switch, SwitchRow } from './switch';
 export { CardSectionHeader } from './CardSectionHeader';
-export { ImageDropzone } from './ImageDropzone';
 export { QueryError } from './QueryError';
 export { QueryDisabled } from './QueryDisabled';
 export { QueryErrorBoundary } from './QueryErrorBoundary';
@@ -210,4 +164,3 @@ export {
   type FiltersModalProps,
 } from './EntityFiltersToolbar';
 export { StatCard } from './StatCard';
-export { Checkbox } from './checkbox';

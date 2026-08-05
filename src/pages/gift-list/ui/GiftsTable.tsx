@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { EditGiftForm } from '@/features/gift-edit';
 import { CreateGiftForm } from '@/features/gift-create';
 import { DeleteGiftModal } from '@/features/gift-delete';
-import { GiftRow } from '@/entities/gift';
 import type { Gift, GiftResponse } from '@/entities/gift';
 import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
-import { EditGiftForm } from '@/features/gift-edit';
+
+import { GiftRow } from './GiftRow';
 
 type Props = { data: GiftResponse };
 

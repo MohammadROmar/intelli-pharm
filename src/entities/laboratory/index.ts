@@ -9,7 +9,6 @@ export type {
 } from './model/laboratoryTypes';
 export { useGetLaboratorySuspense } from './model/useGetLaboratorySuspense';
 
-export { LaboratoryRow } from './ui/LaboratoryRow';
 export { LaboratoryForm } from './ui/LaboratoryForm';
 export { LaboratorySheetTrigger, LaboratorySheet } from './ui/LaboratorySheet';
 export { LaboratorySelector } from './ui/LaboratorySelector';

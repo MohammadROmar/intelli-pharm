@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
 
-import type { Gift } from '../model/giftTypes';
+import type { Gift } from '@/entities/gift';
 import { getLocalized } from '@/shared/lib';
 import {
   Badge,

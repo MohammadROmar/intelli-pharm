@@ -29,7 +29,6 @@
   "noDeliveryTasks": "لا توجد مهام توصيل للموزع اليوم.",
   "nameAlreadyTaken": "يوجد دور بهذا الاسم بالفعل.",
   "permissionsRequired": "يرجى تحديد صلاحية واحدة على الأقل.",
-  "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
 
   "badRequest": {
     "title": "طلب غير صالح",
@@ -38,7 +37,8 @@
 
   "login": {
     "error": "فشل تسجيل الدخول",
-    "noDashboardAccess": "ليس لديك صلاحية الوصول إلى لوحة التحكم."
+    "noDashboardAccess": "ليس لديك صلاحية الوصول إلى لوحة التحكم.",
+    "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة."
   },
 
   "notifications": {

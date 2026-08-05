@@ -1,8 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { TruckElectric } from 'lucide-react';
 
-import { DeliveryRow, type DeliveryListResponse } from '@/entities/delivery';
+import type { DeliveryListResponse } from '@/entities/delivery';
 import { TableHead, TableEmptyState, EntityListTable } from '@/shared/ui';
+
+import { DeliveryRow } from './DeliveryRow';
 
 type Props = { data: DeliveryListResponse };
 

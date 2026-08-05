@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DeleteRegionModal } from '@/features/region-delete';
-import {
-  RegionRow,
-  type RegionListItem,
-  type RegionsListResponse,
-} from '@/entities/region';
+import type { RegionListItem, RegionsListResponse } from '@/entities/region';
 import {
   TableHead,
   EntityListTable,
@@ -14,6 +10,7 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
+import { RegionRow } from './RegionRow';
 import { RegionFiltersModal } from './RegionFiltersModal';
 import { useRegionFilters } from '../model/useRegionFilters';
 

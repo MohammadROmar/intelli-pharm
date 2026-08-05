@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import type { CategoryListItem } from '../model/categoryTypes';
+import type { CategoryListItem } from '@/entities/category';
 import { formatDate } from '@/shared/lib';
 import { TableCell, TableActions, TableRow } from '@/shared/ui';
 

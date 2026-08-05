@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { PencilIcon } from 'lucide-react';
 
-import type { Offer } from '../model/offerTypes';
+import { OfferTypeBadge, type Offer } from '@/entities/offer';
 import { formatPrice } from '@/shared/lib';
 import {
   Badge,
@@ -10,7 +10,6 @@ import {
   TableActions,
   DropdownMenuItem,
 } from '@/shared/ui';
-import { OfferTypeBadge } from './OfferTypeBadge';
 
 type Props = {
   offer: Offer;

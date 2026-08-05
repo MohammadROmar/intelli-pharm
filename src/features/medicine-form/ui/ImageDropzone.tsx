@@ -3,8 +3,8 @@ import { useDropzone } from 'react-dropzone';
 import { ImagePlus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { Badge } from './badge';
-import { cn } from '../lib';
+import { Badge } from '@/shared/ui';
+import { cn } from '@/shared/lib';
 
 type ImageFile = {
   id: string;

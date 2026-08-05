@@ -29,11 +29,11 @@
   "noDeliveryTasks": "No delivery tasks for the distributor today.",
   "nameAlreadyTaken": "A role with this name already exists.",
   "permissionsRequired": "Please select at least one permission.",
-  "invalidCredentials": "Incorrect email or password. Please try again.",
 
   "badRequest": {
     "title": "Invalid request",
-    "message": "The request was invalid. Please check your input and try again."
+    "message": "The request was invalid. Please check your input and try again.",
+    "invalidCredentials": "Incorrect email or password. Please try again."
   },
 
   "login": {

@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useIsMobile, cn } from '@/shared/lib';
-import { SidebarContext, type SidebarContextProps } from '@/shared/ui';
+import {} from '@/shared/ui';
 import {
-  SIDEBAR_COOKIE_MAX_AGE,
-  SIDEBAR_COOKIE_NAME,
-  SIDEBAR_KEYBOARD_SHORTCUT,
+  SidebarContext,
   SIDEBAR_WIDTH,
   SIDEBAR_WIDTH_ICON,
-} from '@/shared/config';
+  SIDEBAR_COOKIE_NAME,
+  SIDEBAR_COOKIE_MAX_AGE,
+  SIDEBAR_KEYBOARD_SHORTCUT,
+  type SidebarContextProps,
+} from '@/widgets/sidebar';
 
 export default function SidebarProvider({
   defaultOpen = true,

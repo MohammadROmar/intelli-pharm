@@ -1,7 +1,8 @@
 import type { TFunction } from 'i18next';
 
-import { Checkbox } from '@/shared/ui';
 import { cn } from '@/shared/lib';
+
+import { Checkbox } from './Checkbox';
 
 import type { ParsedAction } from '../lib/permissionParser';
 import { getActionPresentation } from '../lib/permissionPresentation';

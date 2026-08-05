@@ -5,34 +5,37 @@ import { useTranslation } from 'react-i18next';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { MenuIcon, PanelLeftIcon, PanelRightIcon } from 'lucide-react';
 
+import { cn } from '@/shared/lib';
+import {
+  Button,
+  Input,
+  Sheet,
+  Tooltip,
+  Skeleton,
+  Separator,
+  SheetTitle,
+  SheetHeader,
+  SheetContent,
+  TooltipTrigger,
+  TooltipContent,
+  SheetDescription,
+} from '@/shared/ui';
+
 import {
   useSidebar,
-  useSidebarActions,
-  useSidebarMobile,
   useSidebarState,
-} from './useSidebar';
+  useSidebarMobile,
+  useSidebarActions,
+} from '../model/useSidebar';
 import {
-  SidebarActionsContext,
-  SidebarMobileContext,
   SidebarStateContext,
-  type SidebarActionsContextProps,
-  type SidebarMobileContextProps,
+  SidebarMobileContext,
+  SidebarActionsContext,
   type SidebarStateContextProps,
-} from './SidebarContext';
-import { cn } from '../../lib';
-import { SIDEBAR_WIDTH_MOBILE } from '../../config';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from '../Sheet';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { Separator } from '../Separator';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../Tooltip';
-import { Skeleton } from '../skeleton';
+  type SidebarMobileContextProps,
+  type SidebarActionsContextProps,
+} from '../model/SidebarContext';
+import { SIDEBAR_WIDTH_MOBILE } from '../config/sidebarData';
 
 const SIDEBAR_GAP_STYLE: React.CSSProperties = { willChange: 'width' };
 

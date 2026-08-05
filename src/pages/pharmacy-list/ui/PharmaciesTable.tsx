@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PharmacyFiltersModal } from './PharmacyFiltersModal';
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
-import { PharmacyRow, usePharmacyFilters } from '@/entities/pharmacy';
+import { usePharmacyFilters } from '@/entities/pharmacy';
 import type { PharmaciesResponse, Pharmacy } from '@/entities/pharmacy';
 import {
   EntityEmptyState,
@@ -11,6 +10,9 @@ import {
   EntityListTable,
   TableHead,
 } from '@/shared/ui';
+
+import { PharmacyRow } from './PharmacyRow';
+import { PharmacyFiltersModal } from './PharmacyFiltersModal';
 
 type Props = { data: PharmaciesResponse };
 

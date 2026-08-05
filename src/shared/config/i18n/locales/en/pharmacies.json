@@ -122,7 +122,12 @@
     "historyNoteCollapse": "Show less",
     "noteTypeGeneral": "General",
     "noteTypeTip": "Tip",
-    "noteTypeWarning": "Warning"
+    "noteTypeWarning": "Warning",
+    "historyNoteUnknownUser": "Unknown user",
+    "historyNoteUncategorized": "Uncategorized",
+    "historyNoteNoContent": "No note content was provided.",
+    "historyNoteRecordedAt": "Recorded at",
+    "noteTypeUnknown": "Uncategorized"
   },
   "filters": {
     "title": "Filter Pharmacies",

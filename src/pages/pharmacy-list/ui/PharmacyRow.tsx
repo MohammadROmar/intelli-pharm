@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import type { Pharmacy } from '../model/pharmacyTypes';
+import type { Pharmacy } from '@/entities/pharmacy';
 import { TableCell, TableActions, TableRow, Badge } from '@/shared/ui';
 
 type PharmacyRowProps = {

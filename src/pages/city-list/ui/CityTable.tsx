@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { CityEditButton } from '@/features/city-edit';
 import { AddCityButton } from '@/features/city-create';
 import { DeleteCityModal } from '@/features/city-delete';
-import { CityRow, type CitiesResponse, type CityDetail } from '@/entities/city';
+import type { CitiesResponse, CityDetail } from '@/entities/city';
 import {
   TableHead,
   EntityListTable,
@@ -12,6 +12,7 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
+import { CityRow } from './CityRow';
 import { CityFiltersModal } from './CityFiltersModal';
 import { useCityFilters } from '../model/useCityFilters';
 

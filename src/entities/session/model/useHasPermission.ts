@@ -17,14 +17,14 @@ export function useGrantedPermissions(): ReadonlySet<Permission> {
 }
 
 export function useHasPermission(required: Permission): boolean {
-  const granted = useGrantedPermissions();
-  return hasPermission(granted, required);
+  return useAppSelector((state) =>
+    hasPermission(selectPermissionSet(state), required),
+  );
 }
 
 export function useHasAnyPermission(required: PermissionRequirement): boolean {
-  const granted = useGrantedPermissions();
-  return hasAnyPermission(
-    granted,
-    Array.isArray(required) ? required : [required],
+  const list = Array.isArray(required) ? required : [required];
+  return useAppSelector((state) =>
+    hasAnyPermission(selectPermissionSet(state), list),
   );
 }

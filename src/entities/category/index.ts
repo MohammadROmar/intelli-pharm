@@ -10,6 +10,5 @@ export type {
 } from './model/categoryTypes';
 export { useGetCategorySuspense } from './model/useGetCategorySuspense';
 
-export { CategoryRow } from './ui/CategoryRow';
 export { CategoryForm } from './ui/CategoryForm';
 export { CategorySelector } from './ui/CategorySelector';

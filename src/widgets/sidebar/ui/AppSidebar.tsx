@@ -4,6 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useDirection } from '@radix-ui/react-direction';
 
 import { useAppSelector } from '@/shared/config';
+import { Logo } from '@/shared/ui';
+
+import { NavMain } from './NavMain';
+import { NavUser } from './NavUser';
+import { sidebarData } from '../config/sidebarData';
+import { useSidebar } from '../model/useSidebar';
 import {
   Sidebar,
   SidebarContent,
@@ -13,13 +19,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  Logo,
-  useSidebar,
-} from '@/shared/ui';
-
-import { NavMain } from './NavMain';
-import { NavUser } from './NavUser';
-import { sidebarData } from '../config/sidebarData';
+} from './Sidebar';
 
 const handleWheel = (e: React.WheelEvent) => e.stopPropagation();
 

@@ -12,6 +12,7 @@ import type { ApiError } from '@/shared/api';
 import { useAppDispatch } from '@/shared/config';
 
 import { login } from '../api';
+import { getLoginErrorKey } from '../lib/getLoginErrorKey';
 import { useLogout } from './useLogout';
 import type { LoginParams, LoginResponse } from './loginTypes';
 
@@ -20,11 +21,7 @@ export function useLogin() {
   const navigate = useNavigate();
   const logoutUser = useLogout();
 
-  const { t: tLogin, i18n } = useTranslation('errors', { keyPrefix: 'login' });
-  const tError = i18n.getFixedT(
-    i18n.resolvedLanguage ?? i18n.language,
-    'errors',
-  );
+  const { t } = useTranslation('errors', { keyPrefix: 'login' });
 
   return useMutation<LoginResponse, ApiError, LoginParams>({
     mutationFn: login,
@@ -34,28 +31,21 @@ export function useLogin() {
 
       if (canAccessDashboard) {
         dispatch(setCredentials(toSessionCredentials(data)));
-
         broadcastRefreshed(data);
-
         navigate('/dashboard', { replace: true });
         return;
       }
 
       void logoutUser();
 
-      toast.error(tLogin('error'), {
-        description: tLogin('noDashboardAccess'),
+      toast.error(t('error'), {
+        description: t('noDashboardAccess'),
       });
     },
 
     onError: (error) => {
-      const isInvalidCredentials = error.status === 401;
-      const toastDescription = isInvalidCredentials
-        ? 'errors.invalidCredentials'
-        : error.i18nKey;
-
-      toast.error(tLogin('error'), {
-        description: tError(toastDescription),
+      toast.error(t('error'), {
+        description: t(getLoginErrorKey(error)),
       });
     },
   });

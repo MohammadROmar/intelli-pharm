@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router';
 
-import { useGrantedPermissions } from '@/entities/session';
 import { LazyDashboardWelcomePage } from '@/pages/dashboard-welcome';
 import { resolveSidebarLandingPath } from '@/widgets/sidebar';
+import { useGrantedPermissions } from '@/entities/session';
 
 function DashboardLandingRoute() {
   const granted = useGrantedPermissions();

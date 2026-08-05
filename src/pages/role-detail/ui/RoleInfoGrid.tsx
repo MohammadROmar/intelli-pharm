@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { CalendarDays, RefreshCw, Shield } from 'lucide-react';
+import { CalendarDays, RefreshCw, ShieldCheck } from 'lucide-react';
 
 import type { RoleItem } from '@/entities/role';
 import { DetailCard, DetailCell, Separator, SplitDateTime } from '@/shared/ui';
@@ -13,7 +13,7 @@ export function RoleInfoGrid({ role }: Props) {
     <DetailCard
       title={t('detail.infoTitle')}
       subtitle={t('detail.infoSubtitle')}
-      icon={Shield}
+      icon={ShieldCheck}
     >
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('shared.name')}>

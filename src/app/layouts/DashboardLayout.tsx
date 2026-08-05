@@ -2,16 +2,11 @@ import { Outlet } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
 import { BreadCrumbs } from '@/widgets/breadcrumbs';
-import { AppSidebar } from '@/widgets/sidebar';
+import { AppSidebar, SidebarInset, SidebarTrigger } from '@/widgets/sidebar';
 import { ThemeToggle } from '@/features/theme-toggle';
 import { LocaleToggle } from '@/features/locale-toggle';
 import { ErrorBoundary } from '@/shared/lib';
-import {
-  PageErrorFallback,
-  Separator,
-  SidebarInset,
-  SidebarTrigger,
-} from '@/shared/ui';
+import { PageErrorFallback, Separator } from '@/shared/ui';
 
 import SidebarProvider from '../providers/SidebarProvider';
 

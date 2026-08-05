@@ -19,6 +19,5 @@ export { useGetPharmacySuspense } from './model/useGetPharmacySuspense';
 export { useGetPharmaciesSuspense } from './model/useGetPharmaciesSuspense';
 export { useInfinitePharmacies } from './model/useInfinitePharmacies';
 
-export { PharmacyRow } from './ui/PharmacyRow';
 export { PharmacyForm } from './ui/PharmacyForm';
 export { PharmacySelector } from './ui/PharmacySelector';

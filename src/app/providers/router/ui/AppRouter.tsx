@@ -1,10 +1,12 @@
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 
+import { withPermission } from '../config/withPermission';
+
 import { ChatRoute } from '../config/ChatRoute';
 import { PublicRoute } from '../config/PublicRoute';
-import { ProtectedRoute } from '../config/ProtectedRoute';
 import { DashboardRoute } from '../config/DashboardRoute';
+import { ProtectedRoute } from '../config/ProtectedRoute';
 
 import { LazyRootLayout } from '../../../layouts/LazyRootLayout';
 
@@ -14,7 +16,6 @@ import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
 
 import { FOCUS_PARAM } from '@/features/live-tracking-roster';
-import { withPermission } from '../config/withPermission';
 
 const router = createBrowserRouter([
   {

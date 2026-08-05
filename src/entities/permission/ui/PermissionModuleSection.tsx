@@ -3,11 +3,12 @@ import type { TFunction } from 'i18next';
 
 import type { Permission } from '@/shared/api';
 import { cn } from '@/shared/lib';
-import { Checkbox, Separator } from '@/shared/ui';
+import { Separator } from '@/shared/ui';
 
+import { Checkbox } from './Checkbox';
+import { PermissionGroupPicker } from './PermissionGroupPicker';
 import type { PermissionGroup } from '../lib/permissionParser';
 import { getModuleLabel } from '../lib/permissionPresentation';
-import { PermissionGroupPicker } from './PermissionGroupPicker';
 
 type PermissionModuleSectionProps = {
   module: string;

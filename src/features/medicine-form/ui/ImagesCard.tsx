@@ -11,8 +11,9 @@ import {
   CardHeader,
   FieldError,
   CardSectionHeader,
-  ImageDropzone,
 } from '@/shared/ui';
+
+import { ImageDropzone } from './ImageDropzone';
 
 type Props = {
   images: ImageFile[];

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import type { Employee } from '../model/employeeTypes';
+import type { Employee } from '@/entities/employee';
 import { TableCell, TableRow, TableActions, Badge } from '@/shared/ui';
 
 type EmployeeRowProps = {
@@ -11,6 +11,8 @@ type EmployeeRowProps = {
 export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
   const { t } = useTranslation('employees');
 
+  const role = employee.roles[0];
+
   return (
     <TableRow>
       <TableCell className="text-muted-foreground text-xs">
@@ -20,7 +22,7 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
         <p className="max-w-[20ch] truncate font-medium">{employee.name}</p>
       </TableCell>
       <TableCell className="font-mono">{employee.email}</TableCell>
-      <TableCell>{t(`roles.${employee.roles[0]}`)}</TableCell>
+      <TableCell>{t(`roles.${role}`, role)}</TableCell>
       <TableCell>
         <Badge variant={employee.is_active ? 'success' : 'muted'}>
           {employee.is_active ? t('list.active') : t('list.inactive')}
