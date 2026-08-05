@@ -1,1 +1,1 @@
-export { LazyOfferPercentageCreatePage } from './ui/LazyOfferPercentageCreatePage';
+export { Component } from './ui/LazyOfferPercentageCreatePage';

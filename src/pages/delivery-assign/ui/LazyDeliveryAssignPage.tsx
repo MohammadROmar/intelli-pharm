@@ -4,10 +4,12 @@ import { WithSuspense, FormSkeleton } from '@/shared/ui/index.initial';
 
 const DeliveryAssignPage = lazy(() => import('./DeliveryAssignPage'));
 
-export function LazyDeliveryAssignPage() {
+function LazyDeliveryAssignPage() {
   return (
     <WithSuspense loader={<FormSkeleton cards={[{ rows: 1 }, { rows: 2 }]} />}>
       <DeliveryAssignPage />
     </WithSuspense>
   );
 }
+
+export { LazyDeliveryAssignPage as Component };

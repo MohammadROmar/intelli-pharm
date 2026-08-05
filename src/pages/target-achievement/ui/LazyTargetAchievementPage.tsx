@@ -6,10 +6,12 @@ const TargetAchievementListPage = lazy(
   () => import('./TargetAchievementListPage'),
 );
 
-export function LazyTargetAchievementListPage() {
+function LazyTargetAchievementListPage() {
   return (
     <WithSuspense loader={<TableSkeleton />}>
       <TargetAchievementListPage />
     </WithSuspense>
   );
 }
+
+export { LazyTargetAchievementListPage as Component };

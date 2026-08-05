@@ -1,1 +1,1 @@
-export { LazyLaboratoryDetailPage } from './ui/LazyLaboratoryDetailPage';
+export { Component } from './ui/LazyLaboratoryDetailPage';

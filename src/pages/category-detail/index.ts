@@ -1,1 +1,1 @@
-export { LazyCategoryDetailPage } from './ui/LazyCategoryDetailPage';
+export { Component } from './ui/LazyCategoryDetailPage';

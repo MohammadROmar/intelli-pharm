@@ -1,1 +1,1 @@
-export { LazyTargetAchievementListPage } from './ui/LazyTargetAchievementPage';
+export { Component } from './ui/LazyTargetAchievementPage';

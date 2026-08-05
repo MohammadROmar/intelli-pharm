@@ -1,1 +1,1 @@
-export { LazySeasonalMetricsPage } from './ui/LazySeasonalMetricsPage';
+export { Component } from './ui/LazySeasonalMetricsPage';

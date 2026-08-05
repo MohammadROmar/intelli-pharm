@@ -4,7 +4,7 @@ import { DetailSkeleton, WithSuspense } from '@/shared/ui/index.initial';
 
 const PlanDetailPage = lazy(() => import('./PlanDetailPage'));
 
-export function LazyPlanDetailPage() {
+function LazyPlanDetailPage() {
   return (
     <WithSuspense
       loader={
@@ -18,3 +18,5 @@ export function LazyPlanDetailPage() {
     </WithSuspense>
   );
 }
+
+export { LazyPlanDetailPage as Component };

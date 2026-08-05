@@ -5,10 +5,12 @@ import { TargetListSkeleton } from './TargetListSkeleton';
 
 const TargetListPage = lazy(() => import('./TargetListPage'));
 
-export function LazyTargetListPage() {
+function LazyTargetListPage() {
   return (
     <WithSuspense loader={<TargetListSkeleton />}>
       <TargetListPage />
     </WithSuspense>
   );
 }
+
+export { LazyTargetListPage as Component };

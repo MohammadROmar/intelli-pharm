@@ -4,10 +4,12 @@ import { DetailSkeleton, WithSuspense } from '@/shared/ui/index.initial';
 
 const LaboratoryDetailPage = lazy(() => import('./LaboratoryDetailPage'));
 
-export function LazyLaboratoryDetailPage() {
+function LazyLaboratoryDetailPage() {
   return (
     <WithSuspense loader={<DetailSkeleton cards={[{ rows: 3 }]} tables={1} />}>
       <LaboratoryDetailPage />
     </WithSuspense>
   );
 }
+
+export { LazyLaboratoryDetailPage as Component };

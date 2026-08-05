@@ -1,1 +1,1 @@
-export { LazyTargetDetailPage } from './ui/LazyTargetDetailPage';
+export { Component } from './ui/LazyTargetDetailPage';

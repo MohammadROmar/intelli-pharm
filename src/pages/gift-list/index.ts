@@ -1,1 +1,1 @@
-export { LazyGiftListPage } from './ui/LazyGiftListPage';
+export { Component } from './ui/LazyGiftListPage';

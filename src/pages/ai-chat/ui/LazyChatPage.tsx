@@ -5,10 +5,12 @@ import { ChatPageSkeleton } from './ChatLayoutSkeleton';
 
 const ChatPage = lazy(() => import('./ChatPage'));
 
-export function LazyChatPage() {
+function LazyChatPage() {
   return (
     <WithSuspense loader={<ChatPageSkeleton />}>
       <ChatPage />
     </WithSuspense>
   );
 }
+
+export { LazyChatPage as Component };

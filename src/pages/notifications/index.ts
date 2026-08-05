@@ -1,1 +1,1 @@
-export { LazyNotificationsPage } from './ui/LazyNotificationsPage';
+export { Component } from './ui/LazyNotificationsPage';

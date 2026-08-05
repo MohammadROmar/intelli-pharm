@@ -4,10 +4,12 @@ import { WithSuspense, TableSkeleton } from '@/shared/ui/index.initial';
 
 const LaboratoryListPage = lazy(() => import('./LaboratoryListPage'));
 
-export function LazyLaboratoryListPage() {
+function LazyLaboratoryListPage() {
   return (
     <WithSuspense loader={<TableSkeleton />}>
       <LaboratoryListPage />
     </WithSuspense>
   );
 }
+
+export { LazyLaboratoryListPage as Component };

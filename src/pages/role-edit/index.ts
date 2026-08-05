@@ -1,1 +1,1 @@
-export { LazyRoleEditPage } from './ui/LazyRoleEditPage';
+export { Component } from './ui/LazyRoleEditPage';

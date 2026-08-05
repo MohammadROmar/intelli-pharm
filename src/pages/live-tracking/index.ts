@@ -1,1 +1,1 @@
-export { LazyLiveTrackingPage } from './ui/LazyLiveTrackingPage';
+export { Component } from './ui/LazyLiveTrackingPage';

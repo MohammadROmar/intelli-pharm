@@ -4,10 +4,12 @@ import { WithSuspense, MetricsSkeleton } from '@/shared/ui/index.initial';
 
 const AreaMetricsPage = lazy(() => import('./AreaMetricsPage'));
 
-export function LazyAreaMetricsPage() {
+function LazyAreaMetricsPage() {
   return (
     <WithSuspense loader={<MetricsSkeleton />}>
       <AreaMetricsPage />
     </WithSuspense>
   );
 }
+
+export { LazyAreaMetricsPage as Component };

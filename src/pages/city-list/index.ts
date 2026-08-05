@@ -1,1 +1,1 @@
-export { LazyCityListPage } from './ui/LazyCityListPage';
+export { Component } from './ui/LazyCityListPage';

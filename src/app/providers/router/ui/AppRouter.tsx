@@ -5,7 +5,6 @@ import { ChatRoute } from '../config/ChatRoute';
 import { PublicRoute } from '../config/PublicRoute';
 import { ProtectedRoute } from '../config/ProtectedRoute';
 import { DashboardRoute } from '../config/DashboardRoute';
-// import { PermissionRoute } from '../config/PermissionRoute';
 
 import { LazyRootLayout } from '../../../layouts/LazyRootLayout';
 
@@ -13,83 +12,6 @@ import type { ScrollRestorationHandle } from '@/shared/lib';
 
 import { LazyErrorPage } from '@/pages/error';
 import { LazyNotFoundPage } from '@/pages/not-found';
-
-import { LazyLoginPage } from '@/pages/login';
-
-import { LazyOrderListPage } from '@/pages/order-list';
-import { LazyOrderDetailPage } from '@/pages/order-detail';
-
-import { LazyLaboratoryListPage } from '@/pages/laboratory-list';
-import { LazyLaboratoryDetailPage } from '@/pages/laboratory-detail';
-
-import { LazyCityListPage } from '@/pages/city-list';
-
-import { LazyDeliveryListPage } from '@/pages/delivery-list';
-import { LazyDeliveryDetailPage } from '@/pages/delivery-detail';
-import { LazyDeliveryAssignPage } from '@/pages/delivery-assign';
-
-import { LazyRegionListPage } from '@/pages/region-list';
-import { LazyRegionCreatePage } from '@/pages/region-create';
-import { LazyRegionEditPage } from '@/pages/region-edit';
-import { LazyRegionDetailPage } from '@/pages/region-detail';
-
-import { LazyPharmacyListPage } from '@/pages/pharmacy-list';
-import { LazyPharmacyCreatePage } from '@/pages/pharmacy-create';
-import { LazyPharmacyDetailPage } from '@/pages/pharmacy-detail';
-import { LazyPharmacyEditPage } from '@/pages/pharmacy-edit';
-
-import { LazyMedicineListPage } from '@/pages/medicine-list';
-import { LazyMedicineCreatePage } from '@/pages/medicine-create';
-import { LazyMedicineDetailPage } from '@/pages/medicine-detail';
-import { LazyMedicineEditPage } from '@/pages/medicine-edit';
-import { LazyMedicineRestockPage } from '@/pages/medicine-restock';
-import { LazyMedicineScanPage } from '@/pages/medicine-scan';
-import { LazyMedicineScanResultPage } from '@/pages/medicine-scan-result';
-
-import { LazyCategoryListPage } from '@/pages/category-list';
-import { LazyCategoryCreatePage } from '@/pages/category-create';
-import { LazyCategoryDetailPage } from '@/pages/category-detail';
-import { LazyCategoryEditPage } from '@/pages/category-edit';
-
-import { LazyEmployeeListPage } from '@/pages/employee-list';
-import { LazyEmployeeCreatePage } from '@/pages/employee-create';
-import { LazyEmployeeEditPage } from '@/pages/employee-edit';
-import { LazyEmployeeDetailPage } from '@/pages/employee-detail';
-
-import { LazyGiftListPage } from '@/pages/gift-list';
-import { LazyGiftDetailPage } from '@/pages/gift-detail';
-
-import { LazyOfferListPage } from '@/pages/offer-list';
-import { LazyOfferDetailPage } from '@/pages/offer-detail';
-import { LazyOfferGiftCreatePage } from '@/pages/offer-gift-create';
-import { LazyOfferPercentageCreatePage } from '@/pages/offer-percentage-create';
-
-import { LazyTargetListPage } from '@/pages/target-list';
-import { LazyTargetDetailPage } from '@/pages/target-detail';
-import { LazyTargetAchievementListPage } from '@/pages/target-achievement';
-
-import { LazyChatPage } from '@/pages/ai-chat';
-
-import { LazyNotificationsPage } from '@/pages/notifications';
-
-import { LazyPlanListPage } from '@/pages/plan-list';
-import { LazyPlanDetailPage } from '@/pages/plan-detail';
-import { LazyInitiatePlanPage } from '@/pages/plan-initiate';
-import { LazyInitiatePlanFromDeliveriesPage } from '@/pages/plan-initiate-from-deliveries';
-
-import { LazyLiveTrackingPage } from '@/pages/live-tracking';
-
-import { LazySeasonalMetricsPage } from '@/pages/metrics-seasonal';
-import { LazyMedicineMetricsPage } from '@/pages/metrics-medicine';
-import { LazyAreaMetricsPage } from '@/pages/metrics-area';
-import { LazyPharmacyMetricsPage } from '@/pages/metrics-pharmacy';
-
-import { LazyOverviewPage } from '@/pages/dashboard-overview';
-
-import { LazyRoleListPage } from '@/pages/role-list';
-import { LazyRoleCreatePage } from '@/pages/role-create';
-import { LazyRoleDetailPage } from '@/pages/role-detail';
-import { LazyRoleEditPage } from '@/pages/role-edit';
 
 import { FOCUS_PARAM } from '@/features/live-tracking-roster';
 import { withPermission } from '../config/withPermission';
@@ -105,7 +27,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <LazyLoginPage />,
+            lazy: () => import('@/pages/login'),
           },
         ],
       },
@@ -119,7 +41,6 @@ const router = createBrowserRouter([
             handle: withPermission('dashboard.access'),
             children: [
               {
-                // element: <PermissionRoute />,
                 lazy: () => import('../config/PermissionRoute'),
                 children: [
                   {
@@ -129,13 +50,13 @@ const router = createBrowserRouter([
 
                   {
                     path: 'overview',
-                    element: <LazyOverviewPage />,
+                    lazy: () => import('@/pages/dashboard-overview'),
                     handle: withPermission('dashboard.overview'),
                   },
 
                   {
                     path: 'tracking',
-                    element: <LazyLiveTrackingPage />,
+                    lazy: () => import('@/pages/live-tracking'),
                     handle: {
                       ...withPermission('tracking.view_live'),
                       scrollRestoration: { ignoreSearchParams: [FOCUS_PARAM] },
@@ -147,7 +68,7 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyOrderListPage />,
+                        lazy: () => import('@/pages/order-list'),
                         handle: withPermission([
                           'erp.orders.view',
                           'erp.orders.view.own',
@@ -155,7 +76,7 @@ const router = createBrowserRouter([
                       },
                       {
                         path: ':id',
-                        element: <LazyOrderDetailPage />,
+                        lazy: () => import('@/pages/order-detail'),
                         handle: withPermission([
                           'erp.orders.view',
                           'erp.orders.view.own',
@@ -169,12 +90,12 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyLaboratoryListPage />,
+                        lazy: () => import('@/pages/laboratory-list'),
                         handle: withPermission('erp.laboratories.view'),
                       },
                       {
                         path: ':id',
-                        element: <LazyLaboratoryDetailPage />,
+                        lazy: () => import('@/pages/laboratory-detail'),
                         handle: withPermission('erp.laboratories.view'),
                       },
                     ],
@@ -182,7 +103,7 @@ const router = createBrowserRouter([
 
                   {
                     path: 'cities',
-                    element: <LazyCityListPage />,
+                    lazy: () => import('@/pages/city-list'),
                     handle: withPermission('erp.cities.view'),
                   },
 
@@ -192,22 +113,22 @@ const router = createBrowserRouter([
                       { index: true, element: <LazyNotFoundPage minimal /> },
                       {
                         path: 'seasonal',
-                        element: <LazySeasonalMetricsPage />,
+                        lazy: () => import('@/pages/metrics-seasonal'),
                         handle: withPermission('crm.analytics.view'),
                       },
                       {
                         path: 'medicine',
-                        element: <LazyMedicineMetricsPage />,
+                        lazy: () => import('@/pages/metrics-medicine'),
                         handle: withPermission('crm.analytics.view'),
                       },
                       {
                         path: 'area',
-                        element: <LazyAreaMetricsPage />,
+                        lazy: () => import('@/pages/metrics-area'),
                         handle: withPermission('crm.analytics.view'),
                       },
                       {
                         path: 'pharmacy',
-                        element: <LazyPharmacyMetricsPage />,
+                        lazy: () => import('@/pages/metrics-pharmacy'),
                         handle: withPermission('crm.analytics.view'),
                       },
                     ],
@@ -218,17 +139,17 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyDeliveryListPage />,
+                        lazy: () => import('@/pages/delivery-list'),
                         handle: withPermission('planner.deliveries.view_all'),
                       },
                       {
                         path: ':id',
-                        element: <LazyDeliveryDetailPage />,
+                        lazy: () => import('@/pages/delivery-detail'),
                         handle: withPermission('planner.deliveries.view_all'),
                       },
                       {
                         path: 'assign',
-                        element: <LazyDeliveryAssignPage />,
+                        lazy: () => import('@/pages/delivery-assign'),
                         handle: withPermission('erp.orders.assign_distributor'),
                       },
                     ],
@@ -239,12 +160,12 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyRegionListPage />,
+                        lazy: () => import('@/pages/region-list'),
                         handle: withPermission('erp.regions.view'),
                       },
                       {
                         path: 'new',
-                        element: <LazyRegionCreatePage />,
+                        lazy: () => import('@/pages/region-create'),
                         handle: withPermission('erp.regions.create'),
                       },
                       {
@@ -252,12 +173,12 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyRegionDetailPage />,
+                            lazy: () => import('@/pages/region-detail'),
                             handle: withPermission('erp.regions.view'),
                           },
                           {
                             path: 'edit',
-                            element: <LazyRegionEditPage />,
+                            lazy: () => import('@/pages/region-edit'),
                             handle: withPermission('erp.regions.update'),
                           },
                         ],
@@ -270,12 +191,12 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyPharmacyListPage />,
+                        lazy: () => import('@/pages/pharmacy-list'),
                         handle: withPermission('erp.pharmacies.view'),
                       },
                       {
                         path: 'new',
-                        element: <LazyPharmacyCreatePage />,
+                        lazy: () => import('@/pages/pharmacy-create'),
                         handle: withPermission('erp.pharmacies.create'),
                       },
                       {
@@ -283,12 +204,12 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyPharmacyDetailPage />,
+                            lazy: () => import('@/pages/pharmacy-detail'),
                             handle: withPermission('erp.pharmacies.view'),
                           },
                           {
                             path: 'edit',
-                            element: <LazyPharmacyEditPage />,
+                            lazy: () => import('@/pages/pharmacy-edit'),
                             handle: withPermission('erp.pharmacies.update'),
                           },
                         ],
@@ -301,12 +222,12 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyMedicineListPage />,
+                        lazy: () => import('@/pages/medicine-list'),
                         handle: withPermission('erp.medicines.view'),
                       },
                       {
                         path: 'new',
-                        element: <LazyMedicineCreatePage />,
+                        lazy: () => import('@/pages/medicine-create'),
                         handle: withPermission('erp.medicines.create'),
                       },
                       {
@@ -314,17 +235,17 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyMedicineDetailPage />,
+                            lazy: () => import('@/pages/medicine-detail'),
                             handle: withPermission('erp.medicines.view'),
                           },
                           {
                             path: 'edit',
-                            element: <LazyMedicineEditPage />,
+                            lazy: () => import('@/pages/medicine-edit'),
                             handle: withPermission('erp.medicines.update'),
                           },
                           {
                             path: 'restock',
-                            element: <LazyMedicineRestockPage />,
+                            lazy: () => import('@/pages/medicine-restock'),
                             handle: withPermission('erp.stock.update'),
                           },
                         ],
@@ -334,12 +255,12 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyMedicineScanPage />,
+                            lazy: () => import('@/pages/medicine-scan'),
                             handle: withPermission('erp.medicines.view'),
                           },
                           {
                             path: ':barcode',
-                            element: <LazyMedicineScanResultPage />,
+                            lazy: () => import('@/pages/medicine-scan-result'),
                             handle: withPermission('erp.medicines.view'),
                           },
                         ],
@@ -352,12 +273,12 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyGiftListPage />,
+                        lazy: () => import('@/pages/gift-list'),
                         handle: withPermission('erp.gifts.view'),
                       },
                       {
                         path: ':id',
-                        element: <LazyGiftDetailPage />,
+                        lazy: () => import('@/pages/gift-detail'),
                         handle: withPermission('erp.gifts.view'),
                       },
                     ],
@@ -368,22 +289,22 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyOfferListPage />,
+                        lazy: () => import('@/pages/offer-list'),
                         handle: withPermission('erp.offers.view'),
                       },
                       {
                         path: ':id',
-                        element: <LazyOfferDetailPage />,
+                        lazy: () => import('@/pages/offer-detail'),
                         handle: withPermission('erp.offers.view'),
                       },
                       {
                         path: 'new-percentage',
-                        element: <LazyOfferPercentageCreatePage />,
+                        lazy: () => import('@/pages/offer-percentage-create'),
                         handle: withPermission('erp.offers.create'),
                       },
                       {
                         path: 'new-gifts',
-                        element: <LazyOfferGiftCreatePage />,
+                        lazy: () => import('@/pages/offer-gift-create'),
                         handle: withPermission('erp.offers.create'),
                       },
                     ],
@@ -394,7 +315,7 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyCategoryListPage />,
+                        lazy: () => import('@/pages/category-list'),
                         handle: withPermission('erp.categories.view'),
                       },
                       {
@@ -402,19 +323,19 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyCategoryDetailPage />,
+                            lazy: () => import('@/pages/category-detail'),
                             handle: withPermission('erp.categories.view'),
                           },
                           {
                             path: 'edit',
-                            element: <LazyCategoryEditPage />,
+                            lazy: () => import('@/pages/category-edit'),
                             handle: withPermission('erp.categories.update'),
                           },
                         ],
                       },
                       {
                         path: 'new',
-                        element: <LazyCategoryCreatePage />,
+                        lazy: () => import('@/pages/category-create'),
                         handle: withPermission('erp.categories.create'),
                       },
                     ],
@@ -425,7 +346,7 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyTargetListPage />,
+                        lazy: () => import('@/pages/target-list'),
                         handle: withPermission('erp.targets.view'),
                       },
                       {
@@ -433,12 +354,12 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyTargetDetailPage />,
+                            lazy: () => import('@/pages/target-detail'),
                             handle: withPermission('erp.targets.view'),
                           },
                           {
                             path: 'achievements',
-                            element: <LazyTargetAchievementListPage />,
+                            lazy: () => import('@/pages/target-achievement'),
                             handle: withPermission('erp.targets.view'),
                           },
                         ],
@@ -451,7 +372,7 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyEmployeeListPage />,
+                        lazy: () => import('@/pages/employee-list'),
                         handle: withPermission([
                           'erp.employees.view',
                           'erp.employees.view.own',
@@ -462,7 +383,7 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyEmployeeDetailPage />,
+                            lazy: () => import('@/pages/employee-detail'),
                             handle: withPermission([
                               'erp.employees.view',
                               'erp.employees.view.own',
@@ -470,14 +391,14 @@ const router = createBrowserRouter([
                           },
                           {
                             path: 'edit',
-                            element: <LazyEmployeeEditPage />,
+                            lazy: () => import('@/pages/employee-edit'),
                             handle: withPermission('erp.employees.update'),
                           },
                         ],
                       },
                       {
                         path: 'new',
-                        element: <LazyEmployeeCreatePage />,
+                        lazy: () => import('@/pages/employee-create'),
                         handle: withPermission('erp.employees.create'),
                       },
                     ],
@@ -488,12 +409,12 @@ const router = createBrowserRouter([
                     children: [
                       {
                         index: true,
-                        element: <LazyRoleListPage />,
+                        lazy: () => import('@/pages/role-list'),
                         handle: withPermission('auth.roles.manage'),
                       },
                       {
                         path: 'new',
-                        element: <LazyRoleCreatePage />,
+                        lazy: () => import('@/pages/role-create'),
                         handle: withPermission('auth.roles.manage'),
                       },
                       {
@@ -501,12 +422,12 @@ const router = createBrowserRouter([
                         children: [
                           {
                             index: true,
-                            element: <LazyRoleDetailPage />,
+                            lazy: () => import('@/pages/role-detail'),
                             handle: withPermission('auth.roles.manage'),
                           },
                           {
                             path: 'edit',
-                            element: <LazyRoleEditPage />,
+                            lazy: () => import('@/pages/role-edit'),
                             handle: withPermission('auth.roles.manage'),
                           },
                         ],
@@ -514,14 +435,17 @@ const router = createBrowserRouter([
                     ],
                   },
 
-                  { path: 'notifications', element: <LazyNotificationsPage /> },
+                  {
+                    path: 'notifications',
+                    lazy: () => import('@/pages/notifications'),
+                  },
 
                   {
                     path: 'plans',
                     children: [
                       {
                         index: true,
-                        element: <LazyPlanListPage />,
+                        lazy: () => import('@/pages/plan-list'),
                         handle: withPermission([
                           'planner.plan.view',
                           'planner.plan.view.own',
@@ -529,19 +453,20 @@ const router = createBrowserRouter([
                       },
                       {
                         path: 'initiate',
-                        element: <LazyInitiatePlanPage />,
+                        lazy: () => import('@/pages/plan-initiate'),
                         handle: withPermission('planner.rep.plan.generate'),
                       },
                       {
                         path: 'initiate-from-deliveries',
-                        element: <LazyInitiatePlanFromDeliveriesPage />,
+                        lazy: () =>
+                          import('@/pages/plan-initiate-from-deliveries'),
                         handle: withPermission(
                           'planner.distributor.plan.generate',
                         ),
                       },
                       {
                         path: ':id',
-                        element: <LazyPlanDetailPage />,
+                        lazy: () => import('@/pages/plan-detail'),
                         handle: withPermission([
                           'planner.plan.view',
                           'planner.plan.view.own',
@@ -559,7 +484,7 @@ const router = createBrowserRouter([
           {
             path: 'chat',
             element: <ChatRoute />,
-            children: [{ index: true, element: <LazyChatPage /> }],
+            children: [{ index: true, lazy: () => import('@/pages/ai-chat') }],
           },
         ],
       },

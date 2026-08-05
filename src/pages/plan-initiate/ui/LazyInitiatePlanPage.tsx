@@ -7,10 +7,12 @@ import {
 
 const InitiatePlanPage = lazy(() => import('./InitiatePlanPage'));
 
-export function LazyInitiatePlanPage() {
+function LazyInitiatePlanPage() {
   return (
     <WithSuspense loader={<InitiatePlanPageSkeleton />}>
       <InitiatePlanPage />
     </WithSuspense>
   );
 }
+
+export { LazyInitiatePlanPage as Component };

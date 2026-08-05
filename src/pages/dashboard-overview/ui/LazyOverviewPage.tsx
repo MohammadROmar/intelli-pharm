@@ -10,10 +10,12 @@ const OverviewPage = lazy(() =>
   })),
 );
 
-export function LazyOverviewPage() {
+function LazyOverviewPage() {
   return (
     <WithSuspense loader={<OverviewSkeleton />}>
       <OverviewPage />
     </WithSuspense>
   );
 }
+
+export { LazyOverviewPage as Component };

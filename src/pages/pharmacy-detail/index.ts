@@ -1,1 +1,1 @@
-export { LazyPharmacyDetailPage } from './ui/LazyPharmacyDetailPage';
+export { Component } from './ui/LazyPharmacyDetailPage';

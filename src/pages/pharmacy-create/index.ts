@@ -1,1 +1,1 @@
-export { LazyPharmacyCreatePage } from './ui/LazyPharmacyCreatePage';
+export { Component } from './ui/LazyPharmacyCreatePage';

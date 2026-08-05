@@ -8,10 +8,13 @@ import {
 const InitiatePlanFromDeliveriesPage = lazy(
   () => import('./InitiatePlanFromDeliveriesPage'),
 );
-export function LazyInitiatePlanFromDeliveriesPage() {
+
+function LazyInitiatePlanFromDeliveriesPage() {
   return (
     <WithSuspense loader={<InitiatePlanPageSkeleton />}>
       <InitiatePlanFromDeliveriesPage />
     </WithSuspense>
   );
 }
+
+export { LazyInitiatePlanFromDeliveriesPage as Component };

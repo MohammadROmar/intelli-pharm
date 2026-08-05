@@ -6,10 +6,12 @@ import { LiveTrackingSkeleton } from './LiveTrackingSkeleton';
 
 const LiveTrackingPage = lazy(() => import('./LiveTrackingPage'));
 
-export function LazyLiveTrackingPage() {
+function LazyLiveTrackingPage() {
   return (
     <WithSuspense loader={<LiveTrackingSkeleton />}>
       <LiveTrackingPage />
     </WithSuspense>
   );
 }
+
+export { LazyLiveTrackingPage as Component };

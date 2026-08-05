@@ -5,10 +5,12 @@ import { WithSuspense } from '@/shared/ui/index.initial';
 
 const MedicineScanResultPage = lazy(() => import('./MedicineScanResultPage'));
 
-export function LazyMedicineScanResultPage() {
+function LazyMedicineScanResultPage() {
   return (
     <WithSuspense loader={<ScanResultCardSkeleton />}>
       <MedicineScanResultPage />
     </WithSuspense>
   );
 }
+
+export { LazyMedicineScanResultPage as Component };

@@ -4,10 +4,12 @@ import { WithSuspense, MetricsSkeleton } from '@/shared/ui/index.initial';
 
 const SeasonalMetricsPage = lazy(() => import('./SeasonalMetricsPage'));
 
-export function LazySeasonalMetricsPage() {
+function LazySeasonalMetricsPage() {
   return (
     <WithSuspense loader={<MetricsSkeleton />}>
       <SeasonalMetricsPage />
     </WithSuspense>
   );
 }
+
+export { LazySeasonalMetricsPage as Component };

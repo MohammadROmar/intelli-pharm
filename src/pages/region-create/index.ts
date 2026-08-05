@@ -1,1 +1,1 @@
-export { LazyRegionCreatePage } from './ui/LazyRegionCreatePage';
+export { Component } from './ui/LazyRegionCreatePage';

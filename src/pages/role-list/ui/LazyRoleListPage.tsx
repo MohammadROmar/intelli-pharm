@@ -4,10 +4,12 @@ import { WithSuspense, TableSkeleton } from '@/shared/ui/index.initial';
 
 const RoleListPage = lazy(() => import('./RoleListPage'));
 
-export function LazyRoleListPage() {
+function LazyRoleListPage() {
   return (
     <WithSuspense loader={<TableSkeleton />}>
       <RoleListPage />
     </WithSuspense>
   );
 }
+
+export { LazyRoleListPage as Component };

@@ -6,10 +6,12 @@ const OfferPercentageCreatePage = lazy(
   () => import('./OfferPercentageCreatePage'),
 );
 
-export function LazyOfferPercentageCreatePage() {
+function LazyOfferPercentageCreatePage() {
   return (
     <WithSuspense loader={<FormSkeleton cards={[{ rows: 3 }]} />}>
       <OfferPercentageCreatePage />
     </WithSuspense>
   );
 }
+
+export { LazyOfferPercentageCreatePage as Component };

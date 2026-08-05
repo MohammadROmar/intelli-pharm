@@ -1,1 +1,1 @@
-export { LazyRegionEditPage } from './ui/LazyRegionEditPage';
+export { Component } from './ui/LazyRegionEditPage';

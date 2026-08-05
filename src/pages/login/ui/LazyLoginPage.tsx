@@ -5,10 +5,12 @@ import { WithSuspense } from '@/shared/ui/index.initial';
 
 const LoginPage = lazy(() => import('./LoginPage'));
 
-export function LazyLoginPage() {
+function LazyLoginPage() {
   return (
     <WithSuspense loader={<LoginSkeleton />}>
       <LoginPage />
     </WithSuspense>
   );
 }
+
+export { LazyLoginPage as Component };

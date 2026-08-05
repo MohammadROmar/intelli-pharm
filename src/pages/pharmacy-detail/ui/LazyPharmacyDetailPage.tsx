@@ -4,7 +4,7 @@ import { WithSuspense, DetailSkeleton } from '@/shared/ui/index.initial';
 
 const PharmacyDetailPage = lazy(() => import('./PharmacyDetailPage'));
 
-export function LazyPharmacyDetailPage() {
+function LazyPharmacyDetailPage() {
   return (
     <WithSuspense
       loader={
@@ -18,3 +18,5 @@ export function LazyPharmacyDetailPage() {
     </WithSuspense>
   );
 }
+
+export { LazyPharmacyDetailPage as Component };

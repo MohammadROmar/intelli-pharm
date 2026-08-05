@@ -4,7 +4,7 @@ import { WithSuspense, FormSkeleton } from '@/shared/ui/index.initial';
 
 const MedicineCreatePage = lazy(() => import('./MedicineCreatePage'));
 
-export function LazyMedicineCreatePage() {
+function LazyMedicineCreatePage() {
   return (
     <WithSuspense
       loader={<FormSkeleton cards={[{ rows: 7 }, { rows: 2 }, { rows: 1 }]} />}
@@ -13,3 +13,5 @@ export function LazyMedicineCreatePage() {
     </WithSuspense>
   );
 }
+
+export { LazyMedicineCreatePage as Component };

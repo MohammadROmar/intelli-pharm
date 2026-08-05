@@ -1,1 +1,1 @@
-export { LazyInitiatePlanFromDeliveriesPage } from './ui/LazyInitiatePlanFromDeliveriesPage';
+export { Component } from './ui/LazyInitiatePlanFromDeliveriesPage';
