@@ -4,16 +4,20 @@ import type { TargetAchievement } from '@/entities/target';
 import { formatDate, formatPrice } from '@/shared/lib';
 import { TableRow, TableCell, Badge, LabeledLink } from '@/shared/ui';
 
-type Props = { target: TargetAchievement };
+type Props = { target: TargetAchievement; canViewEmployee: boolean };
 
-export function AchievementRow({ target }: Props) {
+export function AchievementRow({ target, canViewEmployee }: Props) {
   const { t, i18n } = useTranslation('targets');
 
   return (
     <TableRow>
       <TableCell>
         <LabeledLink
-          to={`/dashboard/employees/${target.representative_id}`}
+          to={
+            canViewEmployee
+              ? `/dashboard/employees/${target.representative_id}`
+              : undefined
+          }
           label={target.representative_name}
         />
 

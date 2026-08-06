@@ -28,9 +28,9 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-type Props = { data: PharmacyMetricsData };
+type Props = { data: PharmacyMetricsData; canViewPharmacy: boolean };
 
-export function PharmacyMetricsTable({ data }: Props) {
+export function PharmacyMetricsTable({ data, canViewPharmacy }: Props) {
   const { t, i18n } = useTranslation('metrics', { keyPrefix: 'pharmacy' });
   const { metrics, pagination, summary } = data;
   const filtersState = usePharmacyFilters();
@@ -131,7 +131,11 @@ export function PharmacyMetricsTable({ data }: Props) {
             <TableRow key={metric.id}>
               <TableCell className="font-medium">
                 <LabeledLink
-                  to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
+                  to={
+                    canViewPharmacy
+                      ? `/dashboard/pharmacies/${metric.pharmacy_id}`
+                      : undefined
+                  }
                   label={metric.pharmacy_name}
                 />
               </TableCell>

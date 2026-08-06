@@ -18,12 +18,16 @@ type Props = {
   filter: TrackingFilter;
   focusedUserId: number | null;
   onSelectUser: (userId: number) => void;
+  canViewEmployee: boolean;
+  canViewPlan: boolean;
 };
 
 export function TrackingRosterList({
   filter,
   focusedUserId,
   onSelectUser,
+  canViewEmployee,
+  canViewPlan,
 }: Props) {
   const { t, i18n } = useTranslation('tracking', { keyPrefix: 'roster' });
   const ids = useTrackingIds(filter);
@@ -75,6 +79,8 @@ export function TrackingRosterList({
             userId={id}
             isFocused={id === focusedUserId}
             onSelect={onSelectUser}
+            canViewEmployee={canViewEmployee}
+            canViewPlan={canViewPlan}
           />
         </li>
       ))}

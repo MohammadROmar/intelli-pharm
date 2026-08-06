@@ -22,7 +22,19 @@ import { PlanDetailHeader } from './PlanDetailHeader';
 
 const PlanRouteMap = lazy(() => import('./PlanRouteMap'));
 
-export function PlanDetail({ plan }: { plan: PlanDetail }) {
+type Props = {
+  plan: PlanDetail;
+  canViewEmployee: boolean;
+  canViewRegion: boolean;
+  canViewPharmacy: boolean;
+};
+
+export function PlanDetail({
+  plan,
+  canViewEmployee,
+  canViewRegion,
+  canViewPharmacy,
+}: Props) {
   const { t, i18n } = useTranslation('plan', { keyPrefix: 'detail' });
 
   const [selectedVisitId, setSelectedVisitId] = useState<number | null>(null);
@@ -31,12 +43,12 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
   const formatDuration = useFormatDuration();
 
   const visitedCount = useMemo(
-    () => plan.visits.filter((v) => v.visited === 1).length,
+    () => plan.visits.filter((visit) => visit.visited === 1).length,
     [plan.visits],
   );
 
   const pathByVisitOrder = useMemo(
-    () => new Map(plan.paths.map((p) => [p.to_sequence, p])),
+    () => new Map(plan.paths.map((path) => [path.to_sequence, path])),
     [plan.paths],
   );
 
@@ -61,14 +73,22 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
           <DetailCell label={t('overview.user')}>
             <BadgeLink
               label={plan.user_name}
-              to={`/dashboard/employees/${plan.user_id}`}
+              to={
+                canViewEmployee
+                  ? `/dashboard/employees/${plan.user_id}`
+                  : undefined
+              }
             />
           </DetailCell>
 
           <DetailCell label={t('overview.region')}>
             <BadgeLink
               label={plan.region_name}
-              to={`/dashboard/regions/${plan.region_id}`}
+              to={
+                canViewRegion
+                  ? `/dashboard/regions/${plan.region_id}`
+                  : undefined
+              }
             />
           </DetailCell>
 
@@ -123,12 +143,14 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
             />
             {t('map.legend.start')}
           </span>
+
           <span className="flex items-center gap-1.5">
             <span
               className={`inline-block size-3 rounded-full bg-[${ROUTE_COLORS.visited}]`}
             />
             {t('map.legend.visited')}
           </span>
+
           <span className="flex items-center gap-1.5">
             <span
               className={`bg-[${ROUTE_COLORS.pending}] inline-block size-3 rounded-full`}
@@ -139,7 +161,11 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
 
         <ErrorBoundary FallbackComponent={SectionErrorFallback}>
           <Suspense fallback={<Skeleton className="h-105 w-full rounded-lg" />}>
-            <PlanRouteMap paths={plan.paths} visits={plan.visits} />
+            <PlanRouteMap
+              paths={plan.paths}
+              visits={plan.visits}
+              canViewPharmacy={canViewPharmacy}
+            />
           </Suspense>
         </ErrorBoundary>
       </DetailCard>
@@ -153,19 +179,24 @@ export function PlanDetail({ plan }: { plan: PlanDetail }) {
         icon={MapPin}
       >
         <ul>
-          {plan.visits.map((visit, i) => (
+          {plan.visits.map((visit, index) => (
             <PlanVisitItem
               key={visit.id}
               visit={visit}
               path={pathByVisitOrder.get(visit.visit_order)}
-              isLast={i === plan.visits.length - 1}
+              isLast={index === plan.visits.length - 1}
               onClick={handleVisitSelect}
+              canViewPharmacy={canViewPharmacy}
             />
           ))}
         </ul>
       </DetailCard>
 
-      <VisitDetail id={selectedVisitId} onClose={handleVisitClose} />
+      <VisitDetail
+        id={selectedVisitId}
+        onClose={handleVisitClose}
+        canViewPharmacy={canViewPharmacy}
+      />
     </>
   );
 }

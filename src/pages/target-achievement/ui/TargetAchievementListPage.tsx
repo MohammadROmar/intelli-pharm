@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { TargetAchievementTable } from './TargetAchievementTable';
 import { useGetTargetAchievementsSuspense } from '../model/useGetTargetAchievementsSuspense';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { PageTitle, QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function TargetAchievementListPage() {
@@ -25,11 +26,21 @@ type Props = { targetId: number };
 function TargetAchievementListContent({ targetId }: Props) {
   const { t } = useTranslation('targets', { keyPrefix: 'achievements' });
   const { data } = useGetTargetAchievementsSuspense(targetId);
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewEmployee = hasPermission(
+    grantedPermissions,
+    'erp.employees.view',
+  );
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <TargetAchievementTable targetId={targetId} data={data.data!} />
+      <TargetAchievementTable
+        targetId={targetId}
+        data={data.data!}
+        canViewEmployee={canViewEmployee}
+      />
     </>
   );
 }

@@ -51,6 +51,8 @@ type Props = {
   filter: TrackingFilter;
   focusedUserId: number | null;
   onSelectUser: (userId: number) => void;
+  canViewEmployee: boolean;
+  canViewPlan: boolean;
 };
 
 type FocusedPosition = ReturnType<typeof useLivePosition>;
@@ -91,6 +93,8 @@ export function LiveTrackingMap({
   filter,
   focusedUserId,
   onSelectUser,
+  canViewEmployee,
+  canViewPlan,
 }: Props) {
   const { permissionDenied } = useTrackingConnection();
   const ids = useTrackingIds(filter);
@@ -144,6 +148,8 @@ export function LiveTrackingMap({
           filter={filter}
           focusedUserId={focusedUserId}
           onSelectUser={onSelectUser}
+          canViewEmployee={canViewEmployee}
+          canViewPlan={canViewPlan}
         />
 
         {focusedUserId !== null && <TrackingFocusRing userId={focusedUserId} />}

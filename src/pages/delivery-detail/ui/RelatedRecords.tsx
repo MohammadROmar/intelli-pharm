@@ -4,9 +4,17 @@ import { Cross, Network, User } from 'lucide-react';
 import type { DeliveryDetail } from '@/entities/delivery';
 import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
 
-type Props = { delivery: DeliveryDetail };
+type Props = {
+  delivery: DeliveryDetail;
+  canViewEmployee: boolean;
+  canViewPharmacy: boolean;
+};
 
-export function RelatedRecords({ delivery }: Props) {
+export function RelatedRecords({
+  delivery,
+  canViewEmployee,
+  canViewPharmacy,
+}: Props) {
   const { t } = useTranslation('deliveries', {
     keyPrefix: 'detail',
   });
@@ -21,7 +29,11 @@ export function RelatedRecords({ delivery }: Props) {
         <DetailCell label={t('fields.assignedTo')}>
           <BadgeLink
             label={delivery.distributor_name}
-            to={`/dashboard/employees/${delivery.user_id}`}
+            to={
+              canViewEmployee
+                ? `/dashboard/employees/${delivery.user_id}`
+                : undefined
+            }
             icon={User}
           />
         </DetailCell>
@@ -31,7 +43,11 @@ export function RelatedRecords({ delivery }: Props) {
         <DetailCell label={t('fields.pharmacy')}>
           <BadgeLink
             label={delivery.pharmacy_name}
-            to={`/dashboard/pharmacies/${delivery.pharmacy_id}`}
+            to={
+              canViewPharmacy
+                ? `/dashboard/pharmacies/${delivery.pharmacy_id}`
+                : undefined
+            }
             icon={Cross}
           />
         </DetailCell>

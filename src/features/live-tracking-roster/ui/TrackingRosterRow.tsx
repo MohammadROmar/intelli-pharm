@@ -17,12 +17,16 @@ type Props = {
   userId: number;
   isFocused: boolean;
   onSelect: (userId: number) => void;
+  canViewEmployee: boolean;
+  canViewPlan: boolean;
 };
 
 export const TrackingRosterRow = memo(function TrackingRosterRow({
   userId,
   isFocused,
   onSelect,
+  canViewEmployee,
+  canViewPlan,
 }: Props) {
   const { t } = useTranslation('tracking', { keyPrefix: 'marker' });
   const position = useLivePosition(userId);
@@ -67,7 +71,9 @@ export const TrackingRosterRow = memo(function TrackingRosterRow({
 
       <span className="min-w-0 flex-1">
         <LabeledLink
-          to={`/dashboard/employees/${position.u}`}
+          to={
+            canViewEmployee ? `/dashboard/employees/${position.u}` : undefined
+          }
           label={position.name}
           className="text-foreground! hover:text-primary! block truncate text-sm! font-medium!"
         />
@@ -76,7 +82,7 @@ export const TrackingRosterRow = memo(function TrackingRosterRow({
           <span className="inline">{`${roleLabel} ·`}</span>
           {position.tid && (
             <LabeledLink
-              to={`/dashboard/plans/${position.tid}`}
+              to={canViewPlan ? `/dashboard/plans/${position.tid}` : undefined}
               label={`${t('onTask', { id: position.tid })}`}
               className="text-muted-foreground! hover:text-primary! text-xs"
             />

@@ -7,19 +7,25 @@ import { VisitSheet } from './VisitSheet';
 import { VisitSheetSkeleton } from './VisitSheetSkeleton';
 import { useGetVisitSuspense } from '../model/useGetVisitSuspense';
 
-type Props = { id: number | null; onClose: () => void };
+type Props = {
+  id: number | null;
+  onClose: () => void;
+  canViewPharmacy: boolean;
+};
 
 const VisitSheetContent = memo(function VisitSheetContent({
   id,
+  canViewPharmacy,
 }: {
   id: number;
+  canViewPharmacy: boolean;
 }) {
   const { data } = useGetVisitSuspense(id);
 
-  return <VisitSheet visit={data.data!} />;
+  return <VisitSheet visit={data.data!} canViewPharmacy={canViewPharmacy} />;
 });
 
-export default function VisitDetail({ id, onClose }: Props) {
+export default function VisitDetail({ id, onClose, canViewPharmacy }: Props) {
   const { i18n } = useTranslation();
 
   const isRtl = i18n.dir() === 'rtl';
@@ -48,7 +54,10 @@ export default function VisitDetail({ id, onClose }: Props) {
         {activeId !== null ? (
           <QueryErrorBoundary>
             <Suspense fallback={<VisitSheetSkeleton />}>
-              <VisitSheetContent id={activeId} />
+              <VisitSheetContent
+                id={activeId}
+                canViewPharmacy={canViewPharmacy}
+              />
             </Suspense>
           </QueryErrorBoundary>
         ) : null}

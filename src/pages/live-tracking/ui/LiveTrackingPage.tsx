@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ErrorBoundary } from '@/shared/lib';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { PageTitle, SectionErrorFallback, Skeleton } from '@/shared/ui';
 import {
   TrackingFiltersBar,
@@ -22,6 +23,13 @@ export default function LiveTrackingPage() {
   const { t } = useTranslation('tracking', { keyPrefix: 'page' });
   const { filter } = useTrackingFilters();
   const { focusedUserId, setFocusedUserId } = useTrackingFocus();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewEmployee = hasPermission(
+    grantedPermissions,
+    'erp.employees.view',
+  );
+  const canViewPlan = hasPermission(grantedPermissions, 'planner.plan.view');
 
   const handleSelectUser = useCallback(
     (userId: number) => {
@@ -41,6 +49,8 @@ export default function LiveTrackingPage() {
           filter={filter}
           focusedUserId={focusedUserId}
           onSelectUser={handleSelectUser}
+          canViewEmployee={canViewEmployee}
+          canViewPlan={canViewPlan}
         />
 
         <div className="min-w-0 flex-1">
@@ -55,6 +65,8 @@ export default function LiveTrackingPage() {
                 filter={filter}
                 focusedUserId={focusedUserId}
                 onSelectUser={handleSelectUser}
+                canViewEmployee={canViewEmployee}
+                canViewPlan={canViewPlan}
               />
             </Suspense>
           </ErrorBoundary>

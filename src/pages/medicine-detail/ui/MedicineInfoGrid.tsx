@@ -22,9 +22,17 @@ import {
   SplitDateTime,
 } from '@/shared/ui';
 
-type Props = { medicine: MedicineDetail };
+type Props = {
+  medicine: MedicineDetail;
+  canViewCategory: boolean;
+  canViewLaboratory: boolean;
+};
 
-export function MedicineInfoGrid({ medicine }: Props) {
+export function MedicineInfoGrid({
+  medicine,
+  canViewCategory,
+  canViewLaboratory,
+}: Props) {
   const { t, i18n } = useTranslation('medicines', {
     keyPrefix: 'detail',
   });
@@ -41,7 +49,11 @@ export function MedicineInfoGrid({ medicine }: Props) {
         <DetailCell label={t('labelCategory')}>
           <BadgeLink
             label={medicine.category.name}
-            to={`/dashboard/categories/${medicine.category.id}`}
+            to={
+              canViewCategory
+                ? `/dashboard/categories/${medicine.category.id}`
+                : undefined
+            }
             icon={Folders}
           />
         </DetailCell>
@@ -93,7 +105,11 @@ export function MedicineInfoGrid({ medicine }: Props) {
           {medicine.laboratory ? (
             <BadgeLink
               label={medicine.laboratory.name}
-              to={`/dashboard/laboratories/${medicine.laboratory.id}`}
+              to={
+                canViewLaboratory
+                  ? `/dashboard/laboratories/${medicine.laboratory.id}`
+                  : undefined
+              }
               icon={FlaskConical}
             />
           ) : (

@@ -9,12 +9,16 @@ type Props = {
   filter: TrackingFilter;
   focusedUserId?: number | null;
   onSelectUser?: (userId: number) => void;
+  canViewEmployee: boolean;
+  canViewPlan: boolean;
 };
 
 export const TrackingMarkersLayer = memo(function TrackingMarkersLayer({
   filter,
   focusedUserId = null,
   onSelectUser,
+  canViewEmployee,
+  canViewPlan,
 }: Props) {
   const ids = useTrackingIds(filter);
 
@@ -26,6 +30,8 @@ export const TrackingMarkersLayer = memo(function TrackingMarkersLayer({
           userId={id}
           isFocused={id === focusedUserId}
           onSelect={onSelectUser}
+          canViewEmployee={canViewEmployee}
+          canViewPlan={canViewPlan}
         />
       ))}
     </Pane>

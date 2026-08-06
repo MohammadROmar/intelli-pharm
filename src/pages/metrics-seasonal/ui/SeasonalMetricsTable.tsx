@@ -18,9 +18,17 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-type Props = { data: SeasonalMetricsData };
+type Props = {
+  data: SeasonalMetricsData;
+  canViewPharmacy: boolean;
+  canViewCategory: boolean;
+};
 
-export function SeasonalMetricsTable({ data }: Props) {
+export function SeasonalMetricsTable({
+  data,
+  canViewPharmacy,
+  canViewCategory,
+}: Props) {
   const { t, i18n } = useTranslation('metrics', { keyPrefix: 'seasonal' });
   const { metrics, summary, season, pagination } = data;
   const filtersState = useSeasonalFilters();
@@ -92,13 +100,21 @@ export function SeasonalMetricsTable({ data }: Props) {
           <TableRow key={metric.id}>
             <TableCell>
               <LabeledLink
-                to={`/dashboard/pharmacies/${metric.pharmacy_id}`}
+                to={
+                  canViewPharmacy
+                    ? `/dashboard/pharmacies/${metric.pharmacy_id}`
+                    : undefined
+                }
                 label={metric.pharmacy_name}
               />
             </TableCell>
             <TableCell className="text-muted-foreground">
               <LabeledLink
-                to={`/dashboard/categories/${metric.category_id}`}
+                to={
+                  canViewCategory
+                    ? `/dashboard/categories/${metric.category_id}`
+                    : undefined
+                }
                 label={metric.category_name}
               />
             </TableCell>

@@ -1,10 +1,10 @@
-import { Link } from 'react-router';
 import { ExternalLink } from 'lucide-react';
 
 import { cn } from '../lib';
+import { EntityReference } from './EntityReference';
 
 type LabeledLinkProps = {
-  to: string;
+  to?: string;
   label: string;
   withIcon?: boolean;
   className?: string;
@@ -17,17 +17,21 @@ export function LabeledLink({
   className,
 }: LabeledLinkProps) {
   return (
-    <Link
+    <EntityReference
       to={to}
       className={cn(
-        'hover:text-primary group flex w-fit min-w-0 items-center gap-1 text-sm font-medium transition-colors hover:underline',
+        'group flex w-fit min-w-0 items-center gap-1 text-sm font-medium transition-colors',
+        to ? 'hover:text-primary hover:underline' : 'cursor-default',
         className,
       )}
     >
       <span className="max-w-[20ch] min-w-0 truncate">{label}</span>
-      {withIcon && (
-        <ExternalLink className="text-muted-foreground size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
-      )}
-    </Link>
+      {to && withIcon ? (
+        <ExternalLink
+          aria-hidden
+          className="text-muted-foreground size-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+        />
+      ) : null}
+    </EntityReference>
   );
 }

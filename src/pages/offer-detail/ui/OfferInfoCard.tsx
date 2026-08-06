@@ -19,9 +19,9 @@ import {
   SplitDateTime,
 } from '@/shared/ui';
 
-type Props = { offer: Offer };
+type Props = { offer: Offer; canViewMedicine: boolean };
 
-export function OfferInfoCard({ offer }: Props) {
+export function OfferInfoCard({ offer, canViewMedicine }: Props) {
   const { t, i18n } = useTranslation('offers', { keyPrefix: 'detail' });
 
   return (
@@ -69,7 +69,11 @@ export function OfferInfoCard({ offer }: Props) {
         <div className="grid grid-cols-2 gap-6">
           <DetailCell label={t('labelMedicine')}>
             <BadgeLink
-              to={`/dashboard/medicines/${offer.medicine.id}`}
+              to={
+                canViewMedicine
+                  ? `/dashboard/medicines/${offer.medicine.id}`
+                  : undefined
+              }
               label={offer.medicine.commercial_name}
               icon={Pill}
             />

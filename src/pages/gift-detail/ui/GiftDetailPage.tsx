@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { GiftInfoCard } from './GiftInfoCard';
 import { GiftDetailHeader } from './GiftDetailHeader';
 import { useGetGiftSuspense } from '../model/useGetGiftSuspense';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function GiftDetailPage() {
@@ -24,13 +25,19 @@ type GiftDetailContentProps = { giftId: number };
 
 function GiftDetailContent({ giftId }: GiftDetailContentProps) {
   const { data } = useGetGiftSuspense(giftId);
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewMedicine = hasPermission(
+    grantedPermissions,
+    'erp.medicines.view',
+  );
 
   const gift = data.data!;
 
   return (
     <>
       <GiftDetailHeader gift={gift} />
-      <GiftInfoCard gift={gift} />
+      <GiftInfoCard gift={gift} canViewMedicine={canViewMedicine} />
     </>
   );
 }

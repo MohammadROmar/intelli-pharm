@@ -36,6 +36,20 @@ function OrderDetailContent({ orderId, t }: OrderDetailContentProps) {
     grantedPermissions,
     'erp.orders.update',
   );
+  const canViewPharmacy = hasPermission(
+    grantedPermissions,
+    'erp.pharmacies.view',
+  );
+  const canViewEmployee = hasPermission(
+    grantedPermissions,
+    'erp.employees.view',
+  );
+  const canViewOffer = hasPermission(grantedPermissions, 'erp.offers.view');
+  const canViewGift = hasPermission(grantedPermissions, 'erp.gifts.view');
+  const canViewMedicine = hasPermission(
+    grantedPermissions,
+    'erp.medicines.view',
+  );
 
   const order = data.data;
 
@@ -56,11 +70,19 @@ function OrderDetailContent({ orderId, t }: OrderDetailContentProps) {
           </h1>
           {canChangeStatus ? <ChangeOrderStatus order={order} /> : null}
         </div>
-        <OrderInfoCard order={order} />
+        <OrderInfoCard
+          order={order}
+          canViewPharmacy={canViewPharmacy}
+          canViewEmployee={canViewEmployee}
+          canViewOffer={canViewOffer}
+        />
         <OrderItemsTable
           items={order.items}
           totalAmount={order.total_amount}
           totalQuantity={order.total_quantity}
+          canViewMedicine={canViewMedicine}
+          canViewGift={canViewGift}
+          canViewOffer={canViewOffer}
         />
       </div>
     </>

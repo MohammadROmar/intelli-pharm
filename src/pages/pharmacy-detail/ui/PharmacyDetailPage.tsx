@@ -6,6 +6,7 @@ import { PharmacyDetailHeader } from './PharmacyDetailHeader';
 import { PharmacyLocationCard } from './PharmacyLocationCard';
 import { PharmacyHistoryNotesCard } from './PharmacyHistoryNotesCard';
 import { useGetPharmacySuspense } from '@/entities/pharmacy';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function PharmacyDetailPage() {
@@ -27,6 +28,9 @@ type PharmacyDetailContentProps = { pharmacyId: number };
 
 function PharmacyDetailContent({ pharmacyId }: PharmacyDetailContentProps) {
   const { data } = useGetPharmacySuspense(pharmacyId);
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewRegion = hasPermission(grantedPermissions, 'erp.regions.view');
 
   const pharmacy = data.data!;
 
@@ -34,7 +38,7 @@ function PharmacyDetailContent({ pharmacyId }: PharmacyDetailContentProps) {
     <div className="space-y-6">
       <PharmacyDetailHeader pharmacy={pharmacy} />
       <PharmacyInfoCard pharmacy={pharmacy} />
-      <PharmacyScheduleCard pharmacy={pharmacy} />
+      <PharmacyScheduleCard pharmacy={pharmacy} canViewRegion={canViewRegion} />
       <PharmacyHistoryNotesCard notes={pharmacy.history_notes} />
       <PharmacyLocationCard pharmacy={pharmacy} />
     </div>

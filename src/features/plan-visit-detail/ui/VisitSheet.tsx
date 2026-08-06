@@ -75,9 +75,9 @@ function NoteItem({ note }: NoteItemProps) {
   );
 }
 
-type Props = { visit: VisitDetail };
+type Props = { visit: VisitDetail; canViewPharmacy: boolean };
 
-export function VisitSheet({ visit }: Props) {
+export function VisitSheet({ visit, canViewPharmacy }: Props) {
   const { t } = useTranslation('plan', { keyPrefix: 'detail.visits' });
 
   const isVisited = visit.visited === 1;
@@ -91,7 +91,11 @@ export function VisitSheet({ visit }: Props) {
       <SheetHeader className="border-b pb-5">
         <SheetTitle className="w-fit text-base">
           <LabeledLink
-            to={`/dashboard/pharmacies/${visit.pharmacy.id}`}
+            to={
+              canViewPharmacy
+                ? `/dashboard/pharmacies/${visit.pharmacy.id}`
+                : undefined
+            }
             label={visit.pharmacy.name}
             className="leading-snug font-semibold"
           />

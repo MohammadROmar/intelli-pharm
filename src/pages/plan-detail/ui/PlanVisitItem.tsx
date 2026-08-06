@@ -24,13 +24,20 @@ type Props = {
   path?: PlanPath;
   isLast: boolean;
   onClick?: (id: number) => void;
+  canViewPharmacy: boolean;
 };
 
 function handleLinkClick(e: React.MouseEvent) {
   e.stopPropagation();
 }
 
-export function PlanVisitItem({ visit, path, isLast, onClick }: Props) {
+export function PlanVisitItem({
+  visit,
+  path,
+  isLast,
+  onClick,
+  canViewPharmacy,
+}: Props) {
   const { t } = useTranslation('plan', { keyPrefix: 'detail.visits' });
 
   const formatDistance = useFormatDistance();
@@ -75,7 +82,11 @@ export function PlanVisitItem({ visit, path, isLast, onClick }: Props) {
             <div className="min-w-0">
               <div onClick={handleLinkClick}>
                 <LabeledLink
-                  to={`/dashboard/pharmacies/${visit.pharmacy.id}`}
+                  to={
+                    canViewPharmacy
+                      ? `/dashboard/pharmacies/${visit.pharmacy.id}`
+                      : undefined
+                  }
                   label={visit.pharmacy.name}
                   className="truncate text-sm leading-snug font-semibold"
                 />

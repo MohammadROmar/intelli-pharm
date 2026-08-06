@@ -20,7 +20,19 @@ import {
   SplitDateTime,
 } from '@/shared/ui';
 
-export function OrderInfoCard({ order }: { order: OrderDetail }) {
+type Props = {
+  order: OrderDetail;
+  canViewPharmacy: boolean;
+  canViewEmployee: boolean;
+  canViewOffer: boolean;
+};
+
+export function OrderInfoCard({
+  order,
+  canViewPharmacy,
+  canViewEmployee,
+  canViewOffer,
+}: Props) {
   const { t, i18n } = useTranslation('orders', {
     keyPrefix: 'detail',
   });
@@ -50,7 +62,11 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
         <DetailCell label={t('labelPharmacy')}>
           <BadgeLink
             label={order.pharmacy.name}
-            to={`/dashboard/pharmacies/${order.pharmacy.id}`}
+            to={
+              canViewPharmacy
+                ? `/dashboard/pharmacies/${order.pharmacy.id}`
+                : undefined
+            }
             icon={Cross}
           />
         </DetailCell>
@@ -67,7 +83,11 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelCreatedBy')}>
           <BadgeLink
-            to={`/dashboard/employees/${order.created_by}`}
+            to={
+              canViewEmployee
+                ? `/dashboard/employees/${order.created_by}`
+                : undefined
+            }
             label={order.created_by_name}
             icon={User}
           />
@@ -77,7 +97,11 @@ export function OrderInfoCard({ order }: { order: OrderDetail }) {
           <DetailCell label={t('labelOffer')}>
             <BadgeLink
               label={`#${order.offer_id}`}
-              to={`/dashboard/promotions/offers/${order.offer_id}`}
+              to={
+                canViewOffer
+                  ? `/dashboard/promotions/offers/${order.offer_id}`
+                  : undefined
+              }
               icon={Tag}
             />
           </DetailCell>

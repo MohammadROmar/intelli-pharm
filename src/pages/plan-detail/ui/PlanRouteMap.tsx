@@ -58,11 +58,13 @@ const RoutePolylines = memo(function RoutePolylines({
 type PharmacyMarkersProps = {
   markers: PharmacyMarker[];
   stopLabel: string;
+  canViewPharmacy: boolean;
 };
 
 const PharmacyMarkers = memo(function PharmacyMarkers({
   markers,
   stopLabel,
+  canViewPharmacy,
 }: PharmacyMarkersProps) {
   return (
     <>
@@ -73,7 +75,11 @@ const PharmacyMarkers = memo(function PharmacyMarkers({
               <div className="min-w-45 space-y-0.5!">
                 <div className="w-fit">
                   <LabeledLink
-                    to={`/dashboard/pharmacies/${visit.pharmacy.id}`}
+                    to={
+                      canViewPharmacy
+                        ? `/dashboard/pharmacies/${visit.pharmacy.id}`
+                        : undefined
+                    }
                     label={visit.pharmacy.name}
                     className="text-card-foreground! hover:text-primary! text-left! text-sm leading-snug font-semibold"
                   />
@@ -104,9 +110,17 @@ const PharmacyMarkers = memo(function PharmacyMarkers({
   );
 });
 
-type Props = { paths: PlanPath[]; visits: PlanVisit[] };
+type Props = {
+  paths: PlanPath[];
+  visits: PlanVisit[];
+  canViewPharmacy: boolean;
+};
 
-export default function PlanRouteMap({ paths, visits }: Props) {
+export default function PlanRouteMap({
+  paths,
+  visits,
+  canViewPharmacy,
+}: Props) {
   const { t } = useTranslation('plan', { keyPrefix: 'detail.map' });
 
   const formatDistance = useFormatDistance();
@@ -169,7 +183,11 @@ export default function PlanRouteMap({ paths, visits }: Props) {
           </Marker>
         )}
 
-        <PharmacyMarkers markers={pharmacyMarkers} stopLabel={t('stop')} />
+        <PharmacyMarkers
+          markers={pharmacyMarkers}
+          stopLabel={t('stop')}
+          canViewPharmacy={canViewPharmacy}
+        />
 
         {allPoints.length > 0 && <MapBoundsController allPoints={allPoints} />}
       </MapView>

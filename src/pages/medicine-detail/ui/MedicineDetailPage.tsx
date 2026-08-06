@@ -8,6 +8,7 @@ import { MedicineBarcodeCard } from './MedicineBarcodeCard';
 import { MedicineImageGallery } from './MedicineImageGallery';
 import { MedicineDetailHeader } from './MedicineDetailHeader';
 import { useGetMedicineSuspense } from '@/entities/medicine';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
 export default function MedicineDetailPage() {
@@ -29,6 +30,16 @@ type MedicineDetailContentProps = { medicineId: number };
 
 function MedicineDetailContent({ medicineId }: MedicineDetailContentProps) {
   const { data } = useGetMedicineSuspense(medicineId);
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewCategory = hasPermission(
+    grantedPermissions,
+    'erp.categories.view',
+  );
+  const canViewLaboratory = hasPermission(
+    grantedPermissions,
+    'erp.laboratories.view',
+  );
 
   const medicine = data.data!;
 
@@ -41,7 +52,11 @@ function MedicineDetailContent({ medicineId }: MedicineDetailContentProps) {
 
       <div className="grid max-w-full grid-cols-1 gap-6 lg:grid-cols-3">
         <MedicineImageGallery images={medicine.images} />
-        <MedicineInfoGrid medicine={medicine} />
+        <MedicineInfoGrid
+          medicine={medicine}
+          canViewCategory={canViewCategory}
+          canViewLaboratory={canViewLaboratory}
+        />
       </div>
 
       {hasGift && <GiftCard medicine={medicine} />}

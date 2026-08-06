@@ -17,9 +17,19 @@ import {
   TableRow,
 } from '@/shared/ui';
 
-type Props = { delivery: DeliveryDetail };
+type Props = {
+  delivery: DeliveryDetail;
+  canViewMedicine: boolean;
+  canViewGift: boolean;
+  canViewOffer: boolean;
+};
 
-export function OrderItems({ delivery }: Props) {
+export function OrderItems({
+  delivery,
+  canViewMedicine,
+  canViewGift,
+  canViewOffer,
+}: Props) {
   const { t, i18n } = useTranslation('deliveries', {
     keyPrefix: 'detail',
   });
@@ -42,7 +52,9 @@ export function OrderItems({ delivery }: Props) {
             <TableHead>{t('table.quantity')}</TableHead>
             <TableHead>{t('table.unitPrice')}</TableHead>
             <TableHead>{t('table.total')}</TableHead>
-            <TableHead>{t('table.actions')}</TableHead>
+            {canViewMedicine ? (
+              <TableHead>{t('table.actions')}</TableHead>
+            ) : null}
           </TableRow>
         </TableHeader>
 
@@ -53,6 +65,9 @@ export function OrderItems({ delivery }: Props) {
               item={item}
               lang={i18n.language}
               t={t}
+              canViewMedicine={canViewMedicine}
+              canViewGift={canViewGift}
+              canViewOffer={canViewOffer}
             />
           ))}
         </TableBody>
@@ -65,7 +80,7 @@ export function OrderItems({ delivery }: Props) {
             <TableCell className="font-semibold tabular-nums">
               {delivery.number_of_items}
             </TableCell>
-            <TableCell />
+            {canViewMedicine ? <TableCell /> : null}
             <TableCell className="font-bold tabular-nums">
               {formatPrice(delivery.required_payment_amount, i18n.language)}
             </TableCell>
@@ -81,10 +96,16 @@ function OrderItemRow({
   item,
   lang,
   t,
+  canViewMedicine,
+  canViewGift,
+  canViewOffer,
 }: {
   item: DeliveryOrderItem;
   lang: string;
   t: ReturnType<typeof useTranslation>['t'];
+  canViewMedicine: boolean;
+  canViewGift: boolean;
+  canViewOffer: boolean;
 }) {
   const isGift = item.is_gift === 1;
 
@@ -113,7 +134,11 @@ function OrderItemRow({
             {item.gift_id !== null && (
               <BadgeLink
                 label={`${t('table.gift')} #${item.gift_id}`}
-                to={`/dashboard/promotions/gifts/${item.gift_id}`}
+                to={
+                  canViewGift
+                    ? `/dashboard/promotions/gifts/${item.gift_id}`
+                    : undefined
+                }
                 icon={Tag}
               />
             )}
@@ -121,7 +146,11 @@ function OrderItemRow({
             {item.offer_id !== null && (
               <BadgeLink
                 label={`${t('table.offer')} #${item.offer_id}`}
-                to={`/dashboard/promotions/offers/${item.offer_id}`}
+                to={
+                  canViewOffer
+                    ? `/dashboard/promotions/offers/${item.offer_id}`
+                    : undefined
+                }
                 icon={Tag}
               />
             )}
@@ -157,13 +186,15 @@ function OrderItemRow({
         )}
       </TableCell>
 
-      <TableActions
-        item={item.medicine}
-        itemId={item.medicine.id}
-        path="/dashboard/medicines"
-      >
-        <TableActions.Detail />
-      </TableActions>
+      {canViewMedicine ? (
+        <TableActions
+          item={item.medicine}
+          itemId={item.medicine.id}
+          path="/dashboard/medicines"
+        >
+          <TableActions.Detail />
+        </TableActions>
+      ) : null}
     </TableRow>
   );
 }

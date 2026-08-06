@@ -20,12 +20,16 @@ type Props = {
   filter: TrackingFilter;
   focusedUserId: number | null;
   onSelectUser: (userId: number) => void;
+  canViewEmployee: boolean;
+  canViewPlan: boolean;
 };
 
 export function TrackingRosterPanel({
   filter,
   focusedUserId,
   onSelectUser,
+  canViewEmployee,
+  canViewPlan,
 }: Props) {
   const { t } = useTranslation('tracking', { keyPrefix: 'roster' });
   const ids = useTrackingIds(filter);
@@ -57,6 +61,8 @@ export function TrackingRosterPanel({
           filter={filter}
           focusedUserId={focusedUserId}
           onSelectUser={onSelectUser}
+          canViewEmployee={canViewEmployee}
+          canViewPlan={canViewPlan}
         />
       </aside>
 
@@ -90,6 +96,8 @@ export function TrackingRosterPanel({
               filter={filter}
               focusedUserId={focusedUserId}
               onSelectUser={handleSelectAndClose}
+              canViewEmployee={canViewEmployee}
+              canViewPlan={canViewPlan}
             />
           </SheetContent>
         </Sheet>

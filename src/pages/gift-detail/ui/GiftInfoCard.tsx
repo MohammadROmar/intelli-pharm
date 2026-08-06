@@ -12,7 +12,9 @@ import {
   SplitDateTime,
 } from '@/shared/ui';
 
-export function GiftInfoCard({ gift }: { gift: GiftType }) {
+type Props = { gift: GiftType; canViewMedicine: boolean };
+
+export function GiftInfoCard({ gift, canViewMedicine }: Props) {
   const { t, i18n } = useTranslation('gifts', { keyPrefix: 'detail' });
 
   const name = getLocalized(gift.medicine.commercial_name, i18n.language);
@@ -22,7 +24,11 @@ export function GiftInfoCard({ gift }: { gift: GiftType }) {
       <div className="grid grid-cols-2 gap-6">
         <DetailCell label={t('labelMedicine')}>
           <BadgeLink
-            to={`/dashboard/medicines/${gift.medicine_id}`}
+            to={
+              canViewMedicine
+                ? `/dashboard/medicines/${gift.medicine_id}`
+                : undefined
+            }
             label={name}
             icon={Pill}
           />

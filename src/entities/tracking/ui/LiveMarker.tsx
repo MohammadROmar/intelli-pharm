@@ -18,12 +18,16 @@ type Props = {
   userId: number;
   isFocused?: boolean;
   onSelect?: (userId: number) => void;
+  canViewEmployee: boolean;
+  canViewPlan: boolean;
 };
 
 export const LiveMarker = memo(function LiveMarker({
   userId,
   isFocused = false,
   onSelect,
+  canViewEmployee,
+  canViewPlan,
 }: Props) {
   const { t, i18n } = useTranslation('tracking', { keyPrefix: 'marker' });
   const position = useLivePosition(userId);
@@ -85,7 +89,9 @@ export const LiveMarker = memo(function LiveMarker({
           className="min-w-40 space-y-0.5!"
         >
           <LabeledLink
-            to={`/dashboard/employees/${position.u}`}
+            to={
+              canViewEmployee ? `/dashboard/employees/${position.u}` : undefined
+            }
             label={position.name}
             className="text-card-foreground! hover:text-primary! text-sm leading-snug font-semibold"
           />
@@ -99,7 +105,9 @@ export const LiveMarker = memo(function LiveMarker({
                 <Route className="size-3 shrink-0" />
                 <LabeledLink
                   label={t('onTask', { id: position.tid })}
-                  to={`/dashboard/plans/${position.tid}`}
+                  to={
+                    canViewPlan ? `/dashboard/plans/${position.tid}` : undefined
+                  }
                   withIcon={false}
                   className="text-muted-foreground! hover:text-primary! text-xs"
                 />

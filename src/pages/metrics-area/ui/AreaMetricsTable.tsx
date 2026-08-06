@@ -15,9 +15,17 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-type Props = { data: AreaMetricsData };
+type Props = {
+  data: AreaMetricsData;
+  canViewRegion: boolean;
+  canViewCategory: boolean;
+};
 
-export function AreaMetricsTable({ data }: Props) {
+export function AreaMetricsTable({
+  data,
+  canViewRegion,
+  canViewCategory,
+}: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'area' });
   const { metrics, summary, season, pagination } = data;
   const filtersState = useAreaFilters();
@@ -101,13 +109,21 @@ export function AreaMetricsTable({ data }: Props) {
             <TableRow key={metric.id}>
               <TableCell className="font-medium">
                 <LabeledLink
-                  to={`/dashboard/regions/${metric.region_id}`}
+                  to={
+                    canViewRegion
+                      ? `/dashboard/regions/${metric.region_id}`
+                      : undefined
+                  }
                   label={metric.region_name}
                 />
               </TableCell>
               <TableCell className="text-muted-foreground">
                 <LabeledLink
-                  to={`/dashboard/categories/${metric.category_id}`}
+                  to={
+                    canViewCategory
+                      ? `/dashboard/categories/${metric.category_id}`
+                      : undefined
+                  }
                   label={metric.category_name}
                 />
               </TableCell>

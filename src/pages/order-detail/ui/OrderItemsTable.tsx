@@ -4,7 +4,6 @@ import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import type { OrderItem } from '@/entities/order';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { formatPrice } from '@/shared/lib';
 import {
   Badge,
@@ -25,6 +24,9 @@ type Props = {
   items: OrderItem[];
   totalAmount: string;
   totalQuantity: string;
+  canViewMedicine: boolean;
+  canViewGift: boolean;
+  canViewOffer: boolean;
 };
 
 type OrderItemRowActionAccess = Readonly<{
@@ -32,20 +34,23 @@ type OrderItemRowActionAccess = Readonly<{
   hasAnyRowAction: boolean;
 }>;
 
-export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
+export function OrderItemsTable({
+  items,
+  totalAmount,
+  totalQuantity,
+  canViewMedicine,
+  canViewGift,
+  canViewOffer,
+}: Props) {
   const { t, i18n } = useTranslation('orders', {
     keyPrefix: 'detail',
   });
-  const grantedPermissions = useGrantedPermissions();
-
-  const canView = hasPermission(grantedPermissions, 'erp.medicines.view');
-
   const actionAccess = useMemo<OrderItemRowActionAccess>(
     () => ({
-      canView,
-      hasAnyRowAction: canView,
+      canView: canViewMedicine,
+      hasAnyRowAction: canViewMedicine,
     }),
-    [canView],
+    [canViewMedicine],
   );
 
   const renderRow = useCallback(
@@ -56,9 +61,11 @@ export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
         lang={i18n.language}
         t={t}
         actionAccess={actionAccess}
+        canViewGift={canViewGift}
+        canViewOffer={canViewOffer}
       />
     ),
-    [actionAccess, i18n.language, t],
+    [actionAccess, canViewGift, canViewOffer, i18n.language, t],
   );
 
   return (
@@ -114,11 +121,15 @@ const OrderItemRow = memo(function OrderItemRow({
   lang,
   t,
   actionAccess,
+  canViewGift,
+  canViewOffer,
 }: {
   item: OrderItem;
   lang: string;
   t: TFunction;
   actionAccess: OrderItemRowActionAccess;
+  canViewGift: boolean;
+  canViewOffer: boolean;
 }) {
   const isGift = item.is_gift === 1;
 
@@ -145,7 +156,11 @@ const OrderItemRow = memo(function OrderItemRow({
             {item.gift_id !== null && (
               <BadgeLink
                 label={`${t('giftSourceRule')} #${item.gift_id}`}
-                to={`/dashboard/promotions/gifts/${item.gift_id}`}
+                to={
+                  canViewGift
+                    ? `/dashboard/promotions/gifts/${item.gift_id}`
+                    : undefined
+                }
                 icon={Tag}
               />
             )}
@@ -153,7 +168,11 @@ const OrderItemRow = memo(function OrderItemRow({
             {item.offer_id !== null && (
               <BadgeLink
                 label={`${t('giftSourceOffer')} #${item.offer_id}`}
-                to={`/dashboard/promotions/offers/${item.offer_id}`}
+                to={
+                  canViewOffer
+                    ? `/dashboard/promotions/offers/${item.offer_id}`
+                    : undefined
+                }
                 icon={Tag}
               />
             )}

@@ -11,9 +11,9 @@ import {
   Badge,
 } from '@/shared/ui';
 
-type Props = { pharmacy: PharmacyDetail };
+type Props = { pharmacy: PharmacyDetail; canViewRegion: boolean };
 
-export function PharmacyScheduleCard({ pharmacy }: Props) {
+export function PharmacyScheduleCard({ pharmacy, canViewRegion }: Props) {
   const { t, i18n } = useTranslation('pharmacies');
   return (
     <DetailCard
@@ -34,7 +34,11 @@ export function PharmacyScheduleCard({ pharmacy }: Props) {
         <DetailCell label={t('detail.labelRegion')}>
           <BadgeLink
             label={pharmacy.region}
-            to={`/dashboard/regions/${pharmacy.region_id}`}
+            to={
+              canViewRegion
+                ? `/dashboard/regions/${pharmacy.region_id}`
+                : undefined
+            }
             icon={MapPin}
           />
         </DetailCell>

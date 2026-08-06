@@ -18,9 +18,9 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-type Props = { data: MedicineMetricsData };
+type Props = { data: MedicineMetricsData; canViewMedicine: boolean };
 
-export function MedicineMetricsTable({ data }: Props) {
+export function MedicineMetricsTable({ data, canViewMedicine }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'medicine' });
   const { metrics, summary, season, pagination } = data;
   const filtersState = useMedicineFilters();
@@ -96,7 +96,11 @@ export function MedicineMetricsTable({ data }: Props) {
             <TableRow key={metric.id}>
               <TableCell>
                 <LabeledLink
-                  to={`/dashboard/medicines/${metric.medicine_id}`}
+                  to={
+                    canViewMedicine
+                      ? `/dashboard/medicines/${metric.medicine_id}`
+                      : undefined
+                  }
                   label={metric.medicine_name}
                 />
               </TableCell>

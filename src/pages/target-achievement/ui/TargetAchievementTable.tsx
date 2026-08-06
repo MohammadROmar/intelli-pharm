@@ -12,9 +12,17 @@ import { AchievementRow } from './AchievementRow';
 import { TargetAchievementFiltersModal } from './TargetAchievementFiltersModal';
 import { useTargetAchievementFilters } from '../model/useTargetAchievementFilters';
 
-type Props = { targetId: number; data: TargetAchievementResponse };
+type Props = {
+  targetId: number;
+  data: TargetAchievementResponse;
+  canViewEmployee: boolean;
+};
 
-export function TargetAchievementTable({ targetId, data }: Props) {
+export function TargetAchievementTable({
+  targetId,
+  data,
+  canViewEmployee,
+}: Props) {
   const { t } = useTranslation('targets', { keyPrefix: 'achievements' });
 
   const filtersState = useTargetAchievementFilters();
@@ -41,6 +49,7 @@ export function TargetAchievementTable({ targetId, data }: Props) {
         <AchievementRow
           key={`${achievement.representative_id}-${achievement.achieved_at}`}
           target={achievement}
+          canViewEmployee={canViewEmployee}
         />
       )}
       emptyState={

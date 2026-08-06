@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAreaFilters, useAreaMetrics } from '@/features/metrics-area';
 import { MetricsFiltersRequired } from '@/entities/metrics';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 import { AreaMetricsTable } from './AreaMetricsTable';
@@ -26,11 +27,22 @@ type Props = { filters: Record<string, unknown> };
 function AreaMetricsContent({ filters }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'area' });
   const { data } = useAreaMetrics(filters);
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewRegion = hasPermission(grantedPermissions, 'erp.regions.view');
+  const canViewCategory = hasPermission(
+    grantedPermissions,
+    'erp.categories.view',
+  );
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <AreaMetricsTable data={data.data!} />
+      <AreaMetricsTable
+        data={data.data!}
+        canViewRegion={canViewRegion}
+        canViewCategory={canViewCategory}
+      />
     </>
   );
 }
