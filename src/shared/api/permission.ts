@@ -39,6 +39,7 @@ export type Permission =
   | 'erp.orders.cancel'
   | 'erp.orders.complete'
   | 'erp.orders.create'
+  | 'erp.orders.update'
   | 'erp.orders.view'
   | 'erp.orders.view.own'
   | 'erp.pharmacies.create'
@@ -53,7 +54,6 @@ export type Permission =
   | 'erp.stock.update'
   | 'erp.stock.view'
   | 'erp.targets.view'
-  | 'erp.tracking.view_live'
   | 'planner.deliveries.view_all'
   | 'planner.distributor.plan.generate'
   | 'planner.plan.view'
@@ -63,7 +63,14 @@ export type Permission =
   | 'planner.visits.check.own'
   | 'planner.visits.view'
   | 'planner.visits.view.own'
+  | 'planner.deliveries.create'
+  | 'planner.deliveries.update'
+  | 'planner.deliveries.update.own'
+  | 'planner.deliveries.view'
+  | 'planner.deliveries.view.own'
   | 'tracking.submit_location'
   | 'tracking.view_live';
 
-export type PermissionRequirement = Permission | readonly Permission[];
+export type NonEmptyPermissionList = readonly [Permission, ...Permission[]];
+
+export type PermissionRequirement = Permission | NonEmptyPermissionList;

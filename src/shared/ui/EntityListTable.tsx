@@ -7,7 +7,12 @@ type PaginatedMeta = { current_page: number; per_page: number; total: number };
 
 export type Paginated<T> = { data: T[]; meta: PaginatedMeta };
 
-type EntityListTableProps<T> = {
+type PresentAddButtonProps = Extract<
+  AddButtonProps,
+  { addHref: string; addLabel: string }
+>;
+
+type EntityListTableBaseProps<T> = {
   data: Paginated<T>;
   title: string;
   basePath: string;
@@ -15,11 +20,23 @@ type EntityListTableProps<T> = {
   columns: ReactNode;
   renderRow: (item: T) => ReactNode;
   emptyState: ReactNode;
-} & AddButtonProps;
+};
+
+type EntityListTableProps<T> = EntityListTableBaseProps<T> &
+  (
+    | (AddButtonProps & { addButton?: never })
+    | {
+        addButton: PresentAddButtonProps | undefined;
+        addHref?: never;
+        addLabel?: never;
+        icon?: never;
+      }
+  );
 
 export function EntityListTable<T>({
   data,
   title,
+  addButton,
   addHref,
   addLabel,
   basePath,
@@ -32,7 +49,7 @@ export function EntityListTable<T>({
   const items = data.data;
 
   const addButtonProps: AddButtonProps =
-    addHref && addLabel ? { addHref, addLabel, icon } : {};
+    addButton ?? (addHref && addLabel ? { addHref, addLabel, icon } : {});
 
   return (
     <TableCard

@@ -5,6 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteGiftModal } from '@/features/gift-delete';
 import type { Gift } from '@/entities/gift';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 import { EditGiftForm } from '@/features/gift-edit';
 
@@ -32,32 +33,47 @@ function GiftActions({ gift }: Props) {
   const [giftToEdit, setGiftToEdit] = useState<Gift | null>(null);
 
   const navigate = useNavigate();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canUpdate = hasPermission(grantedPermissions, 'erp.gifts.update');
+  const canDelete = hasPermission(grantedPermissions, 'erp.gifts.delete');
+  const hasAnyAction = canUpdate || canDelete;
 
   return (
     <>
-      <DeleteGiftModal
-        gift={giftToDelete}
-        onClose={() => setGiftToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/promotions/gifts')}
-      />
+      {canDelete ? (
+        <DeleteGiftModal
+          gift={giftToDelete}
+          onClose={() => setGiftToDelete(null)}
+          onDeleteSuccess={() => navigate('/dashboard/promotions/gifts')}
+        />
+      ) : null}
 
-      <EditGiftForm gift={giftToEdit} onClose={() => setGiftToEdit(null)} />
+      {canUpdate ? (
+        <EditGiftForm gift={giftToEdit} onClose={() => setGiftToEdit(null)} />
+      ) : null}
 
-      <ActionsDropdown label={t('actions')}>
-        <DropdownMenuItem onClick={() => setGiftToEdit(gift)}>
-          <Pencil className="size-4" />
-          {t('edit')}
-        </DropdownMenuItem>
+      {hasAnyAction ? (
+        <ActionsDropdown label={t('actions')}>
+          {canUpdate ? (
+            <DropdownMenuItem onSelect={() => setGiftToEdit(gift)}>
+              <Pencil className="size-4" />
+              {t('edit')}
+            </DropdownMenuItem>
+          ) : null}
 
-        <DropdownMenuItem
-          variant="destructive"
-          onClick={() => setGiftToDelete(gift)}
-          className="text-destructive hover:text-destructive hover:bg-destructive/20 w-full justify-start"
-        >
-          <Trash2 className="size-4" />
-          {t('delete')}
-        </DropdownMenuItem>
-      </ActionsDropdown>
+          {canDelete ? (
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => setGiftToDelete(gift)}
+              className="text-destructive hover:text-destructive hover:bg-destructive/20 w-full justify-start"
+            >
+              <Trash2 className="size-4" />
+              {t('delete')}
+            </DropdownMenuItem>
+          ) : null}
+        </ActionsDropdown>
+      ) : null}
     </>
   );
 }

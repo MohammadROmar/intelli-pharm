@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
 import { Calendar, Package, Trash2, Boxes } from 'lucide-react';
 
@@ -12,7 +13,6 @@ import {
   Input,
 } from '@/shared/ui';
 import type { RestockFormValues } from '../model/restockTypes';
-import { useTranslation } from 'react-i18next';
 
 type StockRowCardProps = {
   index: number;

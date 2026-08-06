@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { ClipboardEdit, Tag } from 'lucide-react';
@@ -11,21 +12,27 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
-type OrderRowProps = { order: OrderListItem };
+export type OrderRowActionAccess = Readonly<{
+  canView: boolean;
+  canChangeStatus: boolean;
+  hasAnyRowAction: boolean;
+}>;
 
-export function OrderRow({ order }: OrderRowProps) {
-  const { t, i18n } = useTranslation('orders', {
-    keyPrefix: 'list',
-  });
+type OrderRowProps = {
+  order: OrderListItem;
+  actionAccess: OrderRowActionAccess;
+};
+
+export const OrderRow = memo(function OrderRow({
+  order,
+  actionAccess,
+}: OrderRowProps) {
+  const { t, i18n } = useTranslation('orders', { keyPrefix: 'list' });
 
   const hasDiscount = order.offer_id !== null && parseFloat(order.discount) > 0;
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground font-mono text-xs">
-        {order.id}
-      </TableCell>
-
       <TableCell>
         <p className="max-w-[20ch] truncate font-medium">
           {order.pharmacy.name}
@@ -69,15 +76,19 @@ export function OrderRow({ order }: OrderRowProps) {
         {formatDate(order.created_at, i18n.language, false)}
       </TableCell>
 
-      <TableActions item={order} itemId={order.id} path="/dashboard/orders">
-        <TableActions.Detail />
-        <ChangeStatus order={order} label={t('changeStatus')} />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions item={order} itemId={order.id} path="/dashboard/orders">
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {actionAccess.canChangeStatus ? (
+            <ChangeStatus order={order} label={t('changeStatus')} />
+          ) : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});
 
-type Props = OrderRowProps & { label: string };
+type Props = { order: OrderListItem; label: string };
 
 function ChangeStatus({ order, label }: Props) {
   return (

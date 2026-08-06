@@ -1,23 +1,33 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Employee } from '@/entities/employee';
 import { TableCell, TableRow, TableActions, Badge } from '@/shared/ui';
 
+export type EmployeeRowActionAccess = Readonly<{
+  canView: boolean;
+  canUpdate: boolean;
+  canDeactivate: boolean;
+  hasAnyRowAction: boolean;
+}>;
+
 type EmployeeRowProps = {
   employee: Employee;
+  actionAccess: EmployeeRowActionAccess;
   onDelete: (employee: Employee) => void;
 };
 
-export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
+export const EmployeeRow = memo(function EmployeeRow({
+  employee,
+  actionAccess,
+  onDelete,
+}: EmployeeRowProps) {
   const { t } = useTranslation('employees');
 
   const role = employee.roles[0];
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground text-xs">
-        {employee.id}
-      </TableCell>
       <TableCell>
         <p className="max-w-[20ch] truncate font-medium">{employee.name}</p>
       </TableCell>
@@ -29,16 +39,18 @@ export function EmployeeRow({ employee, onDelete }: EmployeeRowProps) {
         </Badge>
       </TableCell>
 
-      <TableActions
-        itemId={employee.id}
-        item={employee}
-        onDelete={onDelete}
-        path="/dashboard/employees"
-      >
-        <TableActions.Detail />
-        <TableActions.Update />
-        <TableActions.Delete />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          itemId={employee.id}
+          item={employee}
+          onDelete={onDelete}
+          path="/dashboard/employees"
+        >
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {actionAccess.canUpdate ? <TableActions.Update /> : null}
+          {actionAccess.canDeactivate ? <TableActions.Delete /> : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});

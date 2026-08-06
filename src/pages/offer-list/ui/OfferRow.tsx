@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PencilIcon } from 'lucide-react';
 
@@ -13,18 +14,28 @@ import {
 
 type Props = {
   offer: Offer;
+  actionAccess: OfferRowActionAccess;
   onEdit: (offer: Offer) => void;
   onDelete: (offer: Offer) => void;
 };
 
-export function OfferRow({ offer, onEdit, onDelete }: Props) {
+export type OfferRowActionAccess = Readonly<{
+  canView: boolean;
+  canUpdate: boolean;
+  canDelete: boolean;
+  hasAnyRowAction: boolean;
+}>;
+
+export const OfferRow = memo(function OfferRow({
+  offer,
+  actionAccess,
+  onEdit,
+  onDelete,
+}: Props) {
   const { t, i18n } = useTranslation('offers');
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground text-xs">
-        {offer.id}
-      </TableCell>
       <TableCell>
         <OfferTypeBadge type={offer.type} />
       </TableCell>
@@ -37,19 +48,23 @@ export function OfferRow({ offer, onEdit, onDelete }: Props) {
           {t(offer.is_active ? 'status.active' : 'status.inactive')}
         </Badge>
       </TableCell>
-      <TableActions
-        item={offer}
-        itemId={offer.id}
-        onDelete={onDelete}
-        path="/dashboard/promotions/offers"
-      >
-        <TableActions.Detail />
-        <EditOfferButton offer={offer} onEdit={onEdit} />
-        <TableActions.Delete />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          item={offer}
+          itemId={offer.id}
+          onDelete={onDelete}
+          path="/dashboard/promotions/offers"
+        >
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {actionAccess.canUpdate ? (
+            <EditOfferButton offer={offer} onEdit={onEdit} />
+          ) : null}
+          {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});
 
 function OfferBenefitCell({ offer }: { offer: Offer }) {
   if (offer.type === 'percentage') {
@@ -71,7 +86,7 @@ function OfferBenefitCell({ offer }: { offer: Offer }) {
   );
 }
 
-type EditOfferButtonProps = Omit<Props, 'onDelete'>;
+type EditOfferButtonProps = Pick<Props, 'offer' | 'onEdit'>;
 
 function EditOfferButton({ offer, onEdit }: EditOfferButtonProps) {
   const { t } = useTranslation('common', {
@@ -80,7 +95,7 @@ function EditOfferButton({ offer, onEdit }: EditOfferButtonProps) {
 
   return (
     <DropdownMenuItem
-      onClick={() => onEdit(offer)}
+      onSelect={() => onEdit(offer)}
       className="w-full cursor-pointer"
     >
       <PencilIcon className="size-4" />

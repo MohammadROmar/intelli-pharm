@@ -155,7 +155,7 @@ export const sidebarData: NavSection[] = [
         label: 'labels.deliveries',
         url: '/dashboard/deliveries',
         icon: Truck,
-        permission: 'planner.deliveries.view_all',
+        permission: 'planner.deliveries.view',
       },
     ],
   },

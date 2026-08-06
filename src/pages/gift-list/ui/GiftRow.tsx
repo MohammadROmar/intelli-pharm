@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
 
@@ -11,13 +12,26 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
+export type GiftRowActionAccess = Readonly<{
+  canView: boolean;
+  canUpdate: boolean;
+  canDelete: boolean;
+  hasAnyRowAction: boolean;
+}>;
+
 type GiftRowProps = {
   gift: Gift;
+  actionAccess: GiftRowActionAccess;
   onDelete: (gift: Gift) => void;
   onEdit: (gift: Gift) => void;
 };
 
-export function GiftRow({ gift, onEdit, onDelete }: GiftRowProps) {
+export const GiftRow = memo(function GiftRow({
+  gift,
+  actionAccess,
+  onEdit,
+  onDelete,
+}: GiftRowProps) {
   const { t, i18n } = useTranslation('gifts', { keyPrefix: 'list' });
 
   const isActive = gift.active === 1;
@@ -26,7 +40,6 @@ export function GiftRow({ gift, onEdit, onDelete }: GiftRowProps) {
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground text-xs">{gift.id}</TableCell>
       <TableCell>
         <p className="max-w-[20ch] truncate font-medium">{name}</p>
       </TableCell>
@@ -38,28 +51,38 @@ export function GiftRow({ gift, onEdit, onDelete }: GiftRowProps) {
       <TableCell>{gift.required_quantity}</TableCell>
       <TableCell>{gift.gift_quantity}</TableCell>
 
-      <TableActions
-        item={gift}
-        itemId={gift.id}
-        onDelete={onDelete}
-        path="/dashboard/promotions/gifts"
-      >
-        <TableActions.Detail />
-        <EditCityButton gift={gift} onEdit={onEdit} />
-        <TableActions.Delete />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          item={gift}
+          itemId={gift.id}
+          onDelete={onDelete}
+          path="/dashboard/promotions/gifts"
+        >
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {actionAccess.canUpdate ? (
+            <EditGiftButton gift={gift} onEdit={onEdit} />
+          ) : null}
+          {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});
 
-function EditCityButton({ gift, onEdit }: Omit<GiftRowProps, 'onDelete'>) {
+function EditGiftButton({
+  gift,
+  onEdit,
+}: {
+  gift: Gift;
+  onEdit: (gift: Gift) => void;
+}) {
   const { t } = useTranslation('common', {
     keyPrefix: 'tableActions',
   });
 
   return (
     <DropdownMenuItem
-      onClick={() => onEdit(gift)}
+      onSelect={() => onEdit(gift)}
       className="w-full cursor-pointer"
     >
       <Pencil className="size-4" />

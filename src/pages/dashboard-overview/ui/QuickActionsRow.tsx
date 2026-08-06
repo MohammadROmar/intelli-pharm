@@ -1,19 +1,54 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Cross, Pill, Route as RouteIcon, UserPlus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
+
 const ACTIONS = [
-  { to: '/dashboard/pharmacies/new', icon: Cross, key: 'newPharmacy' },
-  { to: '/dashboard/employees/new', icon: UserPlus, key: 'newEmployee' },
-  { to: '/dashboard/plans/initiate', icon: RouteIcon, key: 'initiatePlan' },
-  { to: '/dashboard/medicines/new', icon: Pill, key: 'newMedicine' },
+  {
+    to: '/dashboard/pharmacies/new',
+    icon: Cross,
+    key: 'newPharmacy',
+    permission: 'erp.pharmacies.create',
+  },
+  {
+    to: '/dashboard/employees/new',
+    icon: UserPlus,
+    key: 'newEmployee',
+    permission: 'erp.employees.create',
+  },
+  {
+    to: '/dashboard/plans/initiate',
+    icon: RouteIcon,
+    key: 'initiatePlan',
+    permission: 'planner.rep.plan.generate',
+  },
+  {
+    to: '/dashboard/medicines/new',
+    icon: Pill,
+    key: 'newMedicine',
+    permission: 'erp.medicines.create',
+  },
 ] as const;
 
 export const QuickActionsRow = memo(function QuickActionsRow() {
   const { t } = useTranslation('dashboard-overview', {
     keyPrefix: 'quickActions',
   });
+  const grantedPermissions = useGrantedPermissions();
+
+  const visibleActions = useMemo(
+    () =>
+      ACTIONS.filter((action) =>
+        hasPermission(grantedPermissions, action.permission),
+      ),
+    [grantedPermissions],
+  );
+
+  if (visibleActions.length === 0) {
+    return null;
+  }
 
   return (
     <div className="mt-8 space-y-2">
@@ -23,7 +58,7 @@ export const QuickActionsRow = memo(function QuickActionsRow() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {ACTIONS.map(({ to, icon: Icon, key }) => (
+        {visibleActions.map(({ to, icon: Icon, key }) => (
           <Link
             key={key}
             to={to}

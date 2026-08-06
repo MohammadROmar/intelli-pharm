@@ -17,7 +17,7 @@ export function TargetDetailHeader({ target }: Props) {
   return (
     <PageHeader
       title={target.name}
-      pageTitle={`${name} · ${t('pageTitle')} - IntelliPharma`}
+      pageTitle={`${target.name} · ${t('pageTitle')} - IntelliPharma`}
     >
       <TargetActions target={target} />
     </PageHeader>
@@ -39,7 +39,7 @@ function TargetActions({ target }: Props) {
       />
 
       <ActionsDropdown label={t('actions')}>
-        <DropdownMenuItem onClick={() => setEditingTarget(target)}>
+        <DropdownMenuItem onSelect={() => setEditingTarget(target)}>
           <Pencil className="size-4" />
           {t('edit')}
         </DropdownMenuItem>

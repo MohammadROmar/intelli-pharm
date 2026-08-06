@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { RefreshCw } from 'lucide-react';
@@ -15,16 +16,25 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
-type DeliveryRowProps = { delivery: DeliveryListItem };
+export type DeliveryRowActionAccess = Readonly<{
+  canViewDetails: boolean;
+  canChangeStatus: boolean;
+  hasAnyRowAction: boolean;
+}>;
 
-export function DeliveryRow({ delivery }: DeliveryRowProps) {
+type DeliveryRowProps = {
+  delivery: DeliveryListItem;
+  actionAccess: DeliveryRowActionAccess;
+};
+
+export const DeliveryRow = memo(function DeliveryRow({
+  delivery,
+  actionAccess,
+}: DeliveryRowProps) {
   const { i18n } = useTranslation();
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground text-xs">
-        {delivery.id}
-      </TableCell>
       <TableCell>
         <p className="max-w-[20ch] truncate font-medium">
           {delivery.pharmacy_name}
@@ -38,9 +48,11 @@ export function DeliveryRow({ delivery }: DeliveryRowProps) {
       <TableCell className="text-muted-foreground">
         {formatDate(delivery.scheduled_at, i18n.language, false)}
       </TableCell>
-      <TableCell>{<DeliveryStatusBadge status={delivery.status} />}</TableCell>
       <TableCell>
-        {<DeliveryPaymentStatusBadge status={delivery.payment_status} />}
+        <DeliveryStatusBadge status={delivery.status} />
+      </TableCell>
+      <TableCell>
+        <DeliveryPaymentStatusBadge status={delivery.payment_status} />
       </TableCell>
       <TableCell className="font-medium">
         {formatPrice(delivery.required_payment_amount, i18n.language)}
@@ -49,17 +61,21 @@ export function DeliveryRow({ delivery }: DeliveryRowProps) {
         {delivery.number_of_items}
       </TableCell>
 
-      <TableActions
-        item={delivery}
-        itemId={delivery.id}
-        path="/dashboard/deliveries"
-      >
-        <TableActions.Detail />
-        <ChangeStatus id={delivery.id} />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          item={delivery}
+          itemId={delivery.id}
+          path="/dashboard/deliveries"
+        >
+          {actionAccess.canViewDetails ? <TableActions.Detail /> : null}
+          {actionAccess.canChangeStatus ? (
+            <ChangeStatus id={delivery.id} />
+          ) : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});
 
 function ChangeStatus({ id }: { id: number }) {
   const { t } = useTranslation('deliveries', {

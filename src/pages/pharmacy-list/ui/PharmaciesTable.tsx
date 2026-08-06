@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
 import { usePharmacyFilters } from '@/entities/pharmacy';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { PharmaciesResponse, Pharmacy } from '@/entities/pharmacy';
 import {
   EntityEmptyState,
@@ -11,13 +12,14 @@ import {
   TableHead,
 } from '@/shared/ui';
 
-import { PharmacyRow } from './PharmacyRow';
+import { PharmacyRow, type PharmacyRowActionAccess } from './PharmacyRow';
 import { PharmacyFiltersModal } from './PharmacyFiltersModal';
 
 type Props = { data: PharmaciesResponse };
 
 export function PharmaciesTable({ data }: Props) {
   const { t } = useTranslation('pharmacies');
+  const grantedPermissions = useGrantedPermissions();
 
   const [pharmacyToDelete, setPharmacyToDelete] = useState<Pharmacy | null>(
     null,
@@ -25,18 +27,55 @@ export function PharmaciesTable({ data }: Props) {
 
   const filtersState = usePharmacyFilters();
 
+  const canCreate = hasPermission(grantedPermissions, 'erp.pharmacies.create');
+  const canView = hasPermission(grantedPermissions, 'erp.pharmacies.view');
+  const canUpdate = hasPermission(grantedPermissions, 'erp.pharmacies.update');
+  const canDelete = hasPermission(grantedPermissions, 'erp.pharmacies.delete');
+
+  const actionAccess = useMemo<PharmacyRowActionAccess>(
+    () => ({
+      canView,
+      canUpdate,
+      canDelete,
+      hasAnyRowAction: canView || canUpdate || canDelete,
+    }),
+    [canDelete, canUpdate, canView],
+  );
+
+  const handleDeleteClose = useCallback(() => setPharmacyToDelete(null), []);
+
+  const renderRow = useCallback(
+    (pharmacy: Pharmacy) => (
+      <PharmacyRow
+        key={pharmacy.id}
+        pharmacy={pharmacy}
+        actionAccess={actionAccess}
+        onDelete={setPharmacyToDelete}
+      />
+    ),
+    [actionAccess],
+  );
+
   return (
     <>
-      <DeletePharmacyModal
-        label={pharmacyToDelete?.name}
-        pharmacy={pharmacyToDelete}
-        onClose={() => setPharmacyToDelete(null)}
-      />
+      {canDelete ? (
+        <DeletePharmacyModal
+          label={pharmacyToDelete?.name}
+          pharmacy={pharmacyToDelete}
+          onClose={handleDeleteClose}
+        />
+      ) : null}
       <EntityListTable
         data={data}
         title={t('list.all')}
-        addHref="/dashboard/pharmacies/new"
-        addLabel={t('list.add')}
+        addButton={
+          canCreate
+            ? {
+                addHref: '/dashboard/pharmacies/new',
+                addLabel: t('list.add'),
+              }
+            : undefined
+        }
         basePath="/dashboard/pharmacies"
         toolbar={
           <EntityFiltersToolbar
@@ -46,22 +85,17 @@ export function PharmaciesTable({ data }: Props) {
         }
         columns={
           <>
-            <TableHead className="w-25">{t('list.id')}</TableHead>
             <TableHead>{t('list.name')}</TableHead>
             <TableHead>{t('list.region')}</TableHead>
             <TableHead>{t('list.pharmacistName')}</TableHead>
             <TableHead>{t('list.pharmacistNumber')}</TableHead>
             <TableHead>{t('list.status')}</TableHead>
-            <TableHead>{t('list.actions')}</TableHead>
+            {actionAccess.hasAnyRowAction ? (
+              <TableHead>{t('list.actions')}</TableHead>
+            ) : null}
           </>
         }
-        renderRow={(pharmacy) => (
-          <PharmacyRow
-            key={pharmacy.id}
-            pharmacy={pharmacy}
-            onDelete={setPharmacyToDelete}
-          />
-        )}
+        renderRow={renderRow}
         emptyState={
           <EntityEmptyState
             hasActiveFilters={filtersState.hasActiveFilters}

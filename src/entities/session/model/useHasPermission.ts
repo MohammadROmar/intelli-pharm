@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { useAppSelector } from '@/shared/config';
 import type { Permission, PermissionRequirement } from '@/shared/api';
 
-import { hasAnyPermission, hasPermission } from '../lib/hasPermission';
+import { hasPermission, hasPermissionRequirement } from '../lib/hasPermission';
 
 const selectPermissions = (state: RootState) => state.session.permissions;
 
@@ -23,8 +23,7 @@ export function useHasPermission(required: Permission): boolean {
 }
 
 export function useHasAnyPermission(required: PermissionRequirement): boolean {
-  const list = Array.isArray(required) ? required : [required];
   return useAppSelector((state) =>
-    hasAnyPermission(selectPermissionSet(state), list),
+    hasPermissionRequirement(selectPermissionSet(state), required),
   );
 }

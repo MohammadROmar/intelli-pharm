@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { AddLaboratoryButton } from '@/features/laboratory-create';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type {
   LaboratoryListItem,
   LaboratoriesResponse,
@@ -14,7 +15,7 @@ import {
   TableHead,
 } from '@/shared/ui';
 
-import { LaboratoryRow } from './LaboratoryRow';
+import { LaboratoryRow, type LaboratoryRowActionAccess } from './LaboratoryRow';
 import { LaboratoryFiltersModal } from './LaboratoryFiltersModal';
 import { useLaboratoryFilters } from '../model/useLaboratoryFilters';
 
@@ -22,18 +23,61 @@ type Props = { data: LaboratoriesResponse };
 
 export function LaboratoryTable({ data }: Props) {
   const { t } = useTranslation('laboratories');
+  const grantedPermissions = useGrantedPermissions();
 
   const [laboratoryToDelete, setLaboratoryToDelete] =
     useState<LaboratoryListItem | null>(null);
   const filtersState = useLaboratoryFilters();
 
+  const canCreate = hasPermission(
+    grantedPermissions,
+    'erp.laboratories.create',
+  );
+  const canView = hasPermission(grantedPermissions, 'erp.laboratories.view');
+  const canUpdate = hasPermission(
+    grantedPermissions,
+    'erp.laboratories.update',
+  );
+  const canDelete = hasPermission(
+    grantedPermissions,
+    'erp.laboratories.delete',
+  );
+
+  const actionAccess = useMemo<LaboratoryRowActionAccess>(
+    () => ({
+      canView,
+      canUpdate,
+      canDelete,
+      hasAnyRowAction: canView || canUpdate || canDelete,
+    }),
+    [canDelete, canUpdate, canView],
+  );
+
+  const handleDeleteModalClose = useCallback(() => {
+    setLaboratoryToDelete(null);
+  }, []);
+
+  const renderRow = useCallback(
+    (lab: LaboratoryListItem) => (
+      <LaboratoryRow
+        key={lab.id}
+        laboratory={lab}
+        actionAccess={actionAccess}
+        onDelete={setLaboratoryToDelete}
+      />
+    ),
+    [actionAccess],
+  );
+
   return (
     <>
-      <DeleteLaboratoryModal
-        label={laboratoryToDelete?.name}
-        laboratory={laboratoryToDelete}
-        onClose={() => setLaboratoryToDelete(null)}
-      />
+      {canDelete ? (
+        <DeleteLaboratoryModal
+          label={laboratoryToDelete?.name}
+          laboratory={laboratoryToDelete}
+          onClose={handleDeleteModalClose}
+        />
+      ) : null}
 
       <EntityListTable
         data={data}
@@ -45,23 +89,18 @@ export function LaboratoryTable({ data }: Props) {
               filtersState={filtersState}
               FiltersModal={LaboratoryFiltersModal}
             />
-            <AddLaboratoryButton />
+            {canCreate ? <AddLaboratoryButton /> : null}
           </>
         }
         columns={
           <>
-            <TableHead className="w-25">{t('list.id')}</TableHead>
             <TableHead>{t('list.name')}</TableHead>
-            <TableHead>{t('list.actions')}</TableHead>
+            {actionAccess.hasAnyRowAction ? (
+              <TableHead>{t('list.actions')}</TableHead>
+            ) : null}
           </>
         }
-        renderRow={(lab) => (
-          <LaboratoryRow
-            key={lab.id}
-            laboratory={lab}
-            onDelete={setLaboratoryToDelete}
-          />
-        )}
+        renderRow={renderRow}
         emptyState={
           <EntityEmptyState
             hasActiveFilters={filtersState.hasActiveFilters}

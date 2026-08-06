@@ -5,6 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteRoleModal } from '@/features/role-delete';
 import type { RoleItem } from '@/entities/role';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { role: RoleItem };
@@ -29,36 +30,43 @@ function RoleActions({ role, name }: Props & { name: string }) {
 
   const [roleToDelete, setRoleToDelete] = useState<RoleItem | null>(null);
   const navigate = useNavigate();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canManage = hasPermission(grantedPermissions, 'auth.roles.manage');
 
   return (
     <>
-      <DeleteRoleModal
-        label={name}
-        role={roleToDelete}
-        onClose={() => setRoleToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/roles')}
-      />
+      {canManage ? (
+        <DeleteRoleModal
+          label={name}
+          role={roleToDelete}
+          onClose={() => setRoleToDelete(null)}
+          onDeleteSuccess={() => navigate('/dashboard/roles')}
+        />
+      ) : null}
 
-      <ActionsDropdown label={t('actions')}>
-        <DropdownMenuItem asChild>
-          <Link
-            to={`/dashboard/roles/${role.id}/edit`}
-            className="cursor-pointer"
+      {canManage ? (
+        <ActionsDropdown label={t('actions')}>
+          <DropdownMenuItem asChild>
+            <Link
+              to={`/dashboard/roles/${role.id}/edit`}
+              className="cursor-pointer"
+            >
+              <Pencil className="size-4" />
+              {t('edit')}
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            variant="destructive"
+            onSelect={() => setRoleToDelete(role)}
+            className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
           >
-            <Pencil className="size-4" />
-            {t('edit')}
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          variant="destructive"
-          onClick={() => setRoleToDelete(role)}
-          className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
-        >
-          <Trash2 className="size-4" />
-          {t('delete')}
-        </DropdownMenuItem>
-      </ActionsDropdown>
+            <Trash2 className="size-4" />
+            {t('delete')}
+          </DropdownMenuItem>
+        </ActionsDropdown>
+      ) : null}
     </>
   );
 }

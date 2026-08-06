@@ -9,6 +9,7 @@ export { logoutRequest } from './lib/logoutRequest';
 export { toSessionCredentials } from './lib/toSessionCredentials';
 export { selectUnreadNotifications } from './lib/selectUnreadNotifications';
 export {
+  hasPermission,
   hasAnyPermission,
   hasPermissionRequirement,
   hasAllPermissionRequirements,

@@ -1,7 +1,10 @@
+import { memo, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Cross, PackageSearch } from 'lucide-react';
 
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { RegionPharmacy } from '@/entities/region';
+import { getLocalized } from '@/shared/lib';
 import {
   DetailCard,
   DetailEmptyState,
@@ -13,14 +16,40 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/ui';
-import { getLocalized } from '@/shared/lib';
+
+type RegionPharmacyRowActionAccess = Readonly<{
+  canView: boolean;
+  hasAnyRowAction: boolean;
+}>;
 
 type Props = { pharmacies: RegionPharmacy[] };
 
 export function RegionPharmaciesTable({ pharmacies }: Props) {
-  const { t, i18n } = useTranslation('regions', {
+  const { t } = useTranslation('regions', {
     keyPrefix: 'detail',
   });
+  const grantedPermissions = useGrantedPermissions();
+
+  const canView = hasPermission(grantedPermissions, 'erp.pharmacies.view');
+
+  const actionAccess = useMemo<RegionPharmacyRowActionAccess>(
+    () => ({
+      canView,
+      hasAnyRowAction: canView,
+    }),
+    [canView],
+  );
+
+  const renderRow = useCallback(
+    (pharmacy: RegionPharmacy) => (
+      <RegionPharmacyRow
+        key={pharmacy.id}
+        pharmacy={pharmacy}
+        actionAccess={actionAccess}
+      />
+    ),
+    [actionAccess],
+  );
 
   return (
     <DetailCard
@@ -38,40 +67,53 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
               <TableHead className="w-25">{t('colId')}</TableHead>
               <TableHead>{t('colName')}</TableHead>
               <TableHead>{t('colPhone')}</TableHead>
-              <TableHead>{t('colActions')}</TableHead>
+              {actionAccess.hasAnyRowAction ? (
+                <TableHead>{t('colActions')}</TableHead>
+              ) : null}
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {pharmacies.map((pharmacy) => (
-              <TableRow key={pharmacy.id}>
-                <TableCell className="text-muted-foreground text-xs">
-                  {pharmacy.id}
-                </TableCell>
-
-                <TableCell>
-                  <p className="max-w-[20ch] truncate font-medium">
-                    {getLocalized(pharmacy.name, i18n.language)}
-                  </p>
-                </TableCell>
-
-                <TableCell>
-                  <span className="flex items-center gap-1.5 text-sm">
-                    {pharmacy.pharmacist_phone}
-                  </span>
-                </TableCell>
-
-                <TableActions
-                  item={pharmacy}
-                  itemId={pharmacy.id}
-                  path="/dashboard/pharmacies"
-                >
-                  <TableActions.Detail />
-                </TableActions>
-              </TableRow>
-            ))}
-          </TableBody>
+          <TableBody>{pharmacies.map(renderRow)}</TableBody>
         </Table>
       )}
     </DetailCard>
   );
 }
+
+type RegionPharmacyRowProps = {
+  pharmacy: RegionPharmacy;
+  actionAccess: RegionPharmacyRowActionAccess;
+};
+
+const RegionPharmacyRow = memo(function RegionPharmacyRow({
+  pharmacy,
+  actionAccess,
+}: RegionPharmacyRowProps) {
+  const { i18n } = useTranslation();
+
+  return (
+    <TableRow>
+      <TableCell className="text-muted-foreground text-xs">
+        {pharmacy.id}
+      </TableCell>
+      <TableCell>
+        <p className="max-w-[20ch] truncate font-medium">
+          {getLocalized(pharmacy.name, i18n.language)}
+        </p>
+      </TableCell>
+      <TableCell>
+        <span className="flex items-center gap-1.5 text-sm">
+          {pharmacy.pharmacist_phone}
+        </span>
+      </TableCell>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          item={pharmacy}
+          itemId={pharmacy.id}
+          path="/dashboard/pharmacies"
+        >
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+        </TableActions>
+      ) : null}
+    </TableRow>
+  );
+});

@@ -5,6 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteRegionModal } from '@/features/region-delete';
 import type { RegionDetail } from '@/entities/region';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 import { getLocalized } from '@/shared/lib';
 
@@ -36,36 +37,49 @@ function RegionActions({ region, name }: Props & { name: string }) {
     null,
   );
   const navigate = useNavigate();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canUpdate = hasPermission(grantedPermissions, 'erp.regions.update');
+  const canDelete = hasPermission(grantedPermissions, 'erp.regions.delete');
+  const hasAnyAction = canUpdate || canDelete;
 
   return (
     <>
-      <DeleteRegionModal
-        label={name}
-        region={regionToDelete}
-        onClose={() => setRegionToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/region')}
-      />
+      {canDelete ? (
+        <DeleteRegionModal
+          label={name}
+          region={regionToDelete}
+          onClose={() => setRegionToDelete(null)}
+          onDeleteSuccess={() => navigate('/dashboard/region')}
+        />
+      ) : null}
 
-      <ActionsDropdown label={t('actions')}>
-        <DropdownMenuItem asChild>
-          <Link
-            to={`/dashboard/regions/${region.id}/edit`}
-            className="cursor-pointer"
-          >
-            <Pencil className="size-4" />
-            {t('edit')}
-          </Link>
-        </DropdownMenuItem>
+      {hasAnyAction ? (
+        <ActionsDropdown label={t('actions')}>
+          {canUpdate ? (
+            <DropdownMenuItem asChild>
+              <Link
+                to={`/dashboard/regions/${region.id}/edit`}
+                className="cursor-pointer"
+              >
+                <Pencil className="size-4" />
+                {t('edit')}
+              </Link>
+            </DropdownMenuItem>
+          ) : null}
 
-        <DropdownMenuItem
-          variant="destructive"
-          onClick={() => setRegionToDelete(region)}
-          className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
-        >
-          <Trash2 className="size-4" />
-          {t('delete')}
-        </DropdownMenuItem>
-      </ActionsDropdown>
+          {canDelete ? (
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => setRegionToDelete(region)}
+              className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
+            >
+              <Trash2 className="size-4" />
+              {t('delete')}
+            </DropdownMenuItem>
+          ) : null}
+        </ActionsDropdown>
+      ) : null}
     </>
   );
 }

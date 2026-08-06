@@ -5,6 +5,7 @@ import { PackagePlus, Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteMedicineModal } from '@/features/medicine-delete';
 import type { MedicineDetail } from '@/entities/medicine';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -41,56 +42,75 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
   const [medicineToDelete, setMedicineToDelete] =
     useState<MedicineDetail | null>(null);
   const navigate = useNavigate();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canUpdate = hasPermission(grantedPermissions, 'erp.medicines.update');
+  const canDelete = hasPermission(grantedPermissions, 'erp.medicines.delete');
+  const canRestock = hasPermission(grantedPermissions, 'erp.stock.update');
+  const hasMedicineAction = canUpdate || canDelete;
+  const hasAnyAction = hasMedicineAction || canRestock;
 
   return (
     <>
-      <DeleteMedicineModal
-        label={name}
-        medicine={medicineToDelete}
-        onClose={() => setMedicineToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/medicines')}
-      />
+      {canDelete ? (
+        <DeleteMedicineModal
+          label={name}
+          medicine={medicineToDelete}
+          onClose={() => setMedicineToDelete(null)}
+          onDeleteSuccess={() => navigate('/dashboard/medicines')}
+        />
+      ) : null}
 
-      <ActionsDropdown label={t('actions')}>
-        <DropdownMenuGroup>
-          <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
-            {t('medicine')}
-          </DropdownMenuLabel>
-          <DropdownMenuItem asChild>
-            <Link
-              to={`/dashboard/medicines/${medicine.id}/edit`}
-              className="cursor-pointer"
-            >
-              <Pencil className="size-4" />
-              {t('edit')}
-            </Link>
-          </DropdownMenuItem>
+      {hasAnyAction ? (
+        <ActionsDropdown label={t('actions')}>
+          {hasMedicineAction ? (
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
+                {t('medicine')}
+              </DropdownMenuLabel>
+              {canUpdate ? (
+                <DropdownMenuItem asChild>
+                  <Link
+                    to={`/dashboard/medicines/${medicine.id}/edit`}
+                    className="cursor-pointer"
+                  >
+                    <Pencil className="size-4" />
+                    {t('edit')}
+                  </Link>
+                </DropdownMenuItem>
+              ) : null}
 
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => setMedicineToDelete(medicine)}
-            className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
-          >
-            <Trash2 className="size-4" />
-            {t('delete')}
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+              {canDelete ? (
+                <DropdownMenuItem
+                  variant="destructive"
+                  onSelect={() => setMedicineToDelete(medicine)}
+                  className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
+                >
+                  <Trash2 className="size-4" />
+                  {t('delete')}
+                </DropdownMenuItem>
+              ) : null}
+            </DropdownMenuGroup>
+          ) : null}
 
-        <DropdownMenuGroup>
-          <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
-            {t('stock')}
-          </DropdownMenuLabel>
-          <DropdownMenuItem asChild>
-            <Link
-              to={`/dashboard/medicines/${medicine.id}/restock`}
-              className="cursor-pointer"
-            >
-              <PackagePlus className="size-4" />
-              {t('restock')}
-            </Link>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </ActionsDropdown>
+          {canRestock ? (
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
+                {t('stock')}
+              </DropdownMenuLabel>
+              <DropdownMenuItem asChild>
+                <Link
+                  to={`/dashboard/medicines/${medicine.id}/restock`}
+                  className="cursor-pointer"
+                >
+                  <PackagePlus className="size-4" />
+                  {t('restock')}
+                </Link>
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
+          ) : null}
+        </ActionsDropdown>
+      ) : null}
     </>
   );
 }

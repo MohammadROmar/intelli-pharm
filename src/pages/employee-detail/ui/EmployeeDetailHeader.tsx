@@ -5,6 +5,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteEmployeeModal } from '@/features/employee-delete';
 import type { Employee } from '@/entities/employee';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { ActionsDropdown, DropdownMenuItem, PageHeader } from '@/shared/ui';
 
 type Props = { employee: Employee };
@@ -16,39 +17,55 @@ export function EmployeeDetailHeader({ employee }: Props) {
     null,
   );
   const navigate = useNavigate();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canUpdate = hasPermission(grantedPermissions, 'erp.employees.update');
+  const canDeactivate = hasPermission(
+    grantedPermissions,
+    'erp.employees.deactivate',
+  );
+  const hasAnyAction = canUpdate || canDeactivate;
 
   return (
     <>
-      <DeleteEmployeeModal
-        employee={employeeToDelete}
-        onClose={() => setEmployeeToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/employees')}
-      />
+      {canDeactivate ? (
+        <DeleteEmployeeModal
+          employee={employeeToDelete}
+          onClose={() => setEmployeeToDelete(null)}
+          onDeleteSuccess={() => navigate('/dashboard/employees')}
+        />
+      ) : null}
 
       <PageHeader
         title={employee.name}
         pageTitle={`${employee.name} · ${t('pageTitle')} - IntelliPharma`}
       >
-        <ActionsDropdown label={t('employeeActions')}>
-          <DropdownMenuItem asChild>
-            <Link
-              to={`/dashboard/employees/${employee.id}/edit`}
-              className="cursor-pointer"
-            >
-              <Pencil className="size-4" />
-              {t('edit')}
-            </Link>
-          </DropdownMenuItem>
+        {hasAnyAction ? (
+          <ActionsDropdown label={t('employeeActions')}>
+            {canUpdate ? (
+              <DropdownMenuItem asChild>
+                <Link
+                  to={`/dashboard/employees/${employee.id}/edit`}
+                  className="cursor-pointer"
+                >
+                  <Pencil className="size-4" />
+                  {t('edit')}
+                </Link>
+              </DropdownMenuItem>
+            ) : null}
 
-          <DropdownMenuItem
-            variant="destructive"
-            onClick={() => setEmployeeToDelete(employee)}
-            className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
-          >
-            <Trash2 className="size-4" />
-            {t('delete')}
-          </DropdownMenuItem>
-        </ActionsDropdown>
+            {canDeactivate ? (
+              <DropdownMenuItem
+                variant="destructive"
+                onSelect={() => setEmployeeToDelete(employee)}
+                className="text-destructive hover:text-destructive hover:bg-destructive/20! w-full justify-start"
+              >
+                <Trash2 className="size-4" />
+                {t('delete')}
+              </DropdownMenuItem>
+            ) : null}
+          </ActionsDropdown>
+        ) : null}
       </PageHeader>
     </>
   );

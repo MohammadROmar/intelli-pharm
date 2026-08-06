@@ -14,6 +14,7 @@ import {
   type DeliveryDetail,
   type ChangeDeliveryStatusValues,
 } from '@/entities/delivery';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 
 type Props = { delivery: DeliveryDetail };
 
@@ -21,6 +22,12 @@ export function DeliveryDetailHeader({ delivery }: Props) {
   const { t } = useTranslation('deliveries', {
     keyPrefix: 'detail',
   });
+  const grantedPermissions = useGrantedPermissions();
+
+  const canChangeStatus = hasPermission(
+    grantedPermissions,
+    'planner.deliveries.update',
+  );
 
   const pageTitle = `#${delivery.id} · ${t('pageTitle')} - IntelliPharma`;
 
@@ -53,7 +60,7 @@ export function DeliveryDetailHeader({ delivery }: Props) {
           </div>
         </div>
 
-        <ChangeDeliveryStatus delivery={delivery} />
+        {canChangeStatus ? <ChangeDeliveryStatus delivery={delivery} /> : null}
       </div>
     </>
   );

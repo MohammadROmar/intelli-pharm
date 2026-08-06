@@ -42,7 +42,7 @@ export function PermissionToggle({
         checked={checked}
         disabled={disabled}
         onCheckedChange={() => onToggle(permission)}
-        className="dark:border-foreground/25! data-[state=checked]:border-primary! size-3.5"
+        className="dark:border-foreground/25! data-[state=checked]:border-primary! size-3.5 cursor-pointer shadow-none"
       />
       <span>{label}</span>
       {scopeLabel ? (

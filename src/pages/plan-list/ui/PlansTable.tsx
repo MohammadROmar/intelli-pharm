@@ -1,5 +1,7 @@
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { PlanListApiResponse } from '@/entities/plan';
 import {
   EntityEmptyState,
@@ -8,7 +10,7 @@ import {
   TableHead,
 } from '@/shared/ui';
 
-import { PlanRow } from './PlanRow';
+import { PlanRow, type PlanRowActionAccess } from './PlanRow';
 import { PlanFiltersModal } from './PlanFiltersModal';
 import { InitiatePlanButton } from './InitiatePlanButton';
 import { usePlanFilters } from '../model/usePlanFilters';
@@ -16,6 +18,24 @@ import { usePlanFilters } from '../model/usePlanFilters';
 export function PlansTable({ data }: { data: PlanListApiResponse }) {
   const { t } = useTranslation('plan', { keyPrefix: 'list' });
   const filtersState = usePlanFilters();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canView = hasPermission(grantedPermissions, 'planner.plan.view');
+
+  const actionAccess = useMemo<PlanRowActionAccess>(
+    () => ({
+      canView,
+      hasAnyRowAction: canView,
+    }),
+    [canView],
+  );
+
+  const renderRow = useCallback(
+    (plan: PlanListApiResponse['data'][number]) => (
+      <PlanRow key={plan.id} plan={plan} actionAccess={actionAccess} />
+    ),
+    [actionAccess],
+  );
 
   return (
     <EntityListTable
@@ -34,17 +54,18 @@ export function PlansTable({ data }: { data: PlanListApiResponse }) {
       }
       columns={
         <>
-          <TableHead className="w-32">{t('table.id')}</TableHead>
           <TableHead>{t('table.userName')}</TableHead>
           <TableHead>{t('table.region')}</TableHead>
           <TableHead>{t('table.createdAt')}</TableHead>
           <TableHead>{t('table.reason')}</TableHead>
           <TableHead>{t('table.distance')}</TableHead>
           <TableHead>{t('table.duration')}</TableHead>
-          <TableHead>{t('table.actions')}</TableHead>
+          {actionAccess.hasAnyRowAction ? (
+            <TableHead>{t('table.actions')}</TableHead>
+          ) : null}
         </>
       }
-      renderRow={(plan) => <PlanRow key={plan.id} plan={plan} />}
+      renderRow={renderRow}
       emptyState={
         <EntityEmptyState
           hasActiveFilters={filtersState.hasActiveFilters}

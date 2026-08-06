@@ -1,27 +1,68 @@
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TruckElectric } from 'lucide-react';
 
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { DeliveryListResponse } from '@/entities/delivery';
 import { TableHead, TableEmptyState, EntityListTable } from '@/shared/ui';
 
-import { DeliveryRow } from './DeliveryRow';
+import { DeliveryRow, type DeliveryRowActionAccess } from './DeliveryRow';
 
 type Props = { data: DeliveryListResponse };
 
 export function DeliveriesTable({ data }: Props) {
   const { t } = useTranslation('deliveries');
+  const grantedPermissions = useGrantedPermissions();
+
+  const canViewDetails = hasPermission(
+    grantedPermissions,
+    'planner.deliveries.view',
+  );
+  const canChangeStatus = hasPermission(
+    grantedPermissions,
+    'planner.deliveries.update',
+  );
+  const canAssign = hasPermission(
+    grantedPermissions,
+    'planner.deliveries.create',
+  );
+
+  const actionAccess = useMemo<DeliveryRowActionAccess>(
+    () => ({
+      canViewDetails,
+      canChangeStatus,
+      hasAnyRowAction: canViewDetails || canChangeStatus,
+    }),
+    [canChangeStatus, canViewDetails],
+  );
+
+  const renderRow = useCallback(
+    (delivery: DeliveryListResponse['data'][number]) => (
+      <DeliveryRow
+        key={delivery.id}
+        delivery={delivery}
+        actionAccess={actionAccess}
+      />
+    ),
+    [actionAccess],
+  );
 
   return (
     <EntityListTable
       data={data}
       title={t('list.all')}
-      icon={TruckElectric}
-      addHref="/dashboard/deliveries/assign"
-      addLabel={t('list.assign')}
+      addButton={
+        canAssign
+          ? {
+              addHref: '/dashboard/deliveries/assign',
+              addLabel: t('list.assign'),
+              icon: TruckElectric,
+            }
+          : undefined
+      }
       basePath="/dashboard/deliveries"
       columns={
         <>
-          <TableHead className="w-25">{t('list.id')}</TableHead>
           <TableHead>{t('list.pharmacyName')}</TableHead>
           <TableHead>{t('list.distributorName')}</TableHead>
           <TableHead>{t('list.scheduledAt')}</TableHead>
@@ -29,12 +70,12 @@ export function DeliveriesTable({ data }: Props) {
           <TableHead>{t('list.paymentStatus')}</TableHead>
           <TableHead>{t('list.paymentAmount')}</TableHead>
           <TableHead>{t('list.totalItems')}</TableHead>
-          <TableHead>{t('list.actions')}</TableHead>
+          {actionAccess.hasAnyRowAction ? (
+            <TableHead>{t('list.actions')}</TableHead>
+          ) : null}
         </>
       }
-      renderRow={(delivery) => (
-        <DeliveryRow key={delivery.id} delivery={delivery} />
-      )}
+      renderRow={renderRow}
       emptyState={<TableEmptyState variant="empty" />}
     />
   );

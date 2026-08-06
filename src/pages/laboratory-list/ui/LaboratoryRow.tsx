@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Pencil } from 'lucide-react';
@@ -10,38 +11,49 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
+export type LaboratoryRowActionAccess = Readonly<{
+  canView: boolean;
+  canUpdate: boolean;
+  canDelete: boolean;
+  hasAnyRowAction: boolean;
+}>;
+
 type LaboratoryRowProps = {
   laboratory: LaboratoryListItem;
+  actionAccess: LaboratoryRowActionAccess;
   onDelete: (laboratory: LaboratoryListItem) => void;
 };
 
-export function LaboratoryRow({ laboratory, onDelete }: LaboratoryRowProps) {
-  const { t } = useTranslation('common', {
-    keyPrefix: 'tableActions',
-  });
+export const LaboratoryRow = memo(function LaboratoryRow({
+  laboratory,
+  actionAccess,
+  onDelete,
+}: LaboratoryRowProps) {
+  const { t } = useTranslation('common', { keyPrefix: 'tableActions' });
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground text-xs">
-        {laboratory.id}
-      </TableCell>
       <TableCell>
         <p className="max-w-[20ch] truncate font-medium">{laboratory.name}</p>
       </TableCell>
 
-      <TableActions
-        item={laboratory}
-        itemId={laboratory.id}
-        onDelete={onDelete}
-        path="/dashboard/laboratories"
-      >
-        <TableActions.Detail />
-        <EditLaboratoryButton id={laboratory.id} label={t('edit')} />
-        <TableActions.Delete />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          item={laboratory}
+          itemId={laboratory.id}
+          onDelete={onDelete}
+          path="/dashboard/laboratories"
+        >
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {actionAccess.canUpdate ? (
+            <EditLaboratoryButton id={laboratory.id} label={t('edit')} />
+          ) : null}
+          {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});
 
 type Props = { id: number; label: string };
 

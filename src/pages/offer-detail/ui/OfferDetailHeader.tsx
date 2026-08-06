@@ -6,6 +6,7 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { EditOffer } from '@/features/offer-edit';
 import { DeleteOfferModal } from '@/features/offer-delete';
 import type { Offer } from '@/entities/offer';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { offer: Offer };
@@ -32,32 +33,47 @@ function OfferActions({ offer }: Props) {
   const [offerToEdit, setOfferToEdit] = useState<Offer | null>(null);
 
   const navigate = useNavigate();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canUpdate = hasPermission(grantedPermissions, 'erp.offers.update');
+  const canDelete = hasPermission(grantedPermissions, 'erp.offers.delete');
+  const hasAnyAction = canUpdate || canDelete;
 
   return (
     <>
-      <DeleteOfferModal
-        offer={offerToDelete}
-        onClose={() => setOfferToDelete(null)}
-        onDeleteSuccess={() => navigate('/dashboard/promotions/offers')}
-      />
+      {canDelete ? (
+        <DeleteOfferModal
+          offer={offerToDelete}
+          onClose={() => setOfferToDelete(null)}
+          onDeleteSuccess={() => navigate('/dashboard/promotions/offers')}
+        />
+      ) : null}
 
-      <EditOffer offer={offerToEdit} onClose={() => setOfferToEdit(null)} />
+      {canUpdate ? (
+        <EditOffer offer={offerToEdit} onClose={() => setOfferToEdit(null)} />
+      ) : null}
 
-      <ActionsDropdown label={t('actions')}>
-        <DropdownMenuItem onClick={() => setOfferToEdit(offer)}>
-          <Pencil className="size-4" />
-          {t('edit')}
-        </DropdownMenuItem>
+      {hasAnyAction ? (
+        <ActionsDropdown label={t('actions')}>
+          {canUpdate ? (
+            <DropdownMenuItem onSelect={() => setOfferToEdit(offer)}>
+              <Pencil className="size-4" />
+              {t('edit')}
+            </DropdownMenuItem>
+          ) : null}
 
-        <DropdownMenuItem
-          variant="destructive"
-          onClick={() => setOfferToDelete(offer)}
-          className="text-destructive hover:text-destructive hover:bg-destructive/20 w-full justify-start"
-        >
-          <Trash2 className="size-4" />
-          {t('delete')}
-        </DropdownMenuItem>
-      </ActionsDropdown>
+          {canDelete ? (
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => setOfferToDelete(offer)}
+              className="text-destructive hover:text-destructive hover:bg-destructive/20 w-full justify-start"
+            >
+              <Trash2 className="size-4" />
+              {t('delete')}
+            </DropdownMenuItem>
+          ) : null}
+        </ActionsDropdown>
+      ) : null}
     </>
   );
 }

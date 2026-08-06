@@ -141,17 +141,17 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         lazy: () => import('@/pages/delivery-list'),
-                        handle: withPermission('planner.deliveries.view_all'),
+                        handle: withPermission('planner.deliveries.view'),
                       },
                       {
                         path: ':id',
                         lazy: () => import('@/pages/delivery-detail'),
-                        handle: withPermission('planner.deliveries.view_all'),
+                        handle: withPermission('planner.deliveries.view'),
                       },
                       {
                         path: 'assign',
                         lazy: () => import('@/pages/delivery-assign'),
-                        handle: withPermission('erp.orders.assign_distributor'),
+                        handle: withPermission('planner.deliveries.create'),
                       },
                     ],
                   },

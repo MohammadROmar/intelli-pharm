@@ -1,5 +1,7 @@
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { OrderListResponse } from '@/entities/order';
 import {
   TableHead,
@@ -8,7 +10,7 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-import { OrderRow } from './OrderRow';
+import { OrderRow, type OrderRowActionAccess } from './OrderRow';
 import { OrderFiltersModal } from './OrderFiltersModal';
 import { useOrderFilters } from '../model/useOrderFilters';
 
@@ -17,6 +19,29 @@ type Props = { data: OrderListResponse };
 export function OrdersTable({ data }: Props) {
   const { t } = useTranslation('orders', { keyPrefix: 'list' });
   const filtersState = useOrderFilters();
+  const grantedPermissions = useGrantedPermissions();
+
+  const canView = hasPermission(grantedPermissions, 'erp.orders.view');
+  const canChangeStatus = hasPermission(
+    grantedPermissions,
+    'erp.orders.update',
+  );
+
+  const actionAccess = useMemo<OrderRowActionAccess>(
+    () => ({
+      canView,
+      canChangeStatus,
+      hasAnyRowAction: canView || canChangeStatus,
+    }),
+    [canChangeStatus, canView],
+  );
+
+  const renderRow = useCallback(
+    (order: OrderListResponse['data'][number]) => (
+      <OrderRow key={order.id} order={order} actionAccess={actionAccess} />
+    ),
+    [actionAccess],
+  );
 
   return (
     <EntityListTable
@@ -31,16 +56,17 @@ export function OrdersTable({ data }: Props) {
       }
       columns={
         <>
-          <TableHead className="w-30">{t('id')}</TableHead>
           <TableHead>{t('pharmacyName')}</TableHead>
           <TableHead>{t('status')}</TableHead>
-          <TableHead>{t('totalQuantity')}</TableHead>
           <TableHead>{t('totalAmount')}</TableHead>
+          <TableHead>{t('totalQuantity')}</TableHead>
           <TableHead>{t('created')}</TableHead>
-          <TableHead>{t('actions')}</TableHead>
+          {actionAccess.hasAnyRowAction ? (
+            <TableHead>{t('actions')}</TableHead>
+          ) : null}
         </>
       }
-      renderRow={(order) => <OrderRow key={order.id} order={order} />}
+      renderRow={renderRow}
       emptyState={
         <EntityEmptyState
           hasActiveFilters={filtersState.hasActiveFilters}

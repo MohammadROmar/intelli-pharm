@@ -1,8 +1,10 @@
+import { memo, useCallback, useMemo } from 'react';
 import { PackageSearch, Pill, Gift, Tag } from 'lucide-react';
 import type { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import type { OrderItem } from '@/entities/order';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { formatPrice } from '@/shared/lib';
 import {
   Badge,
@@ -25,10 +27,39 @@ type Props = {
   totalQuantity: string;
 };
 
+type OrderItemRowActionAccess = Readonly<{
+  canView: boolean;
+  hasAnyRowAction: boolean;
+}>;
+
 export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
   const { t, i18n } = useTranslation('orders', {
     keyPrefix: 'detail',
   });
+  const grantedPermissions = useGrantedPermissions();
+
+  const canView = hasPermission(grantedPermissions, 'erp.medicines.view');
+
+  const actionAccess = useMemo<OrderItemRowActionAccess>(
+    () => ({
+      canView,
+      hasAnyRowAction: canView,
+    }),
+    [canView],
+  );
+
+  const renderRow = useCallback(
+    (item: OrderItem, index: number) => (
+      <OrderItemRow
+        key={`item-${item.medicine_id}-${index}`}
+        item={item}
+        lang={i18n.language}
+        t={t}
+        actionAccess={actionAccess}
+      />
+    ),
+    [actionAccess, i18n.language, t],
+  );
 
   return (
     <DetailCard
@@ -49,20 +80,13 @@ export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
               <TableHead>{t('colQty')}</TableHead>
               <TableHead>{t('colUnitPrice')}</TableHead>
               <TableHead>{t('colTotalPrice')}</TableHead>
-              <TableHead>{t('colActions')}</TableHead>
+              {actionAccess.hasAnyRowAction ? (
+                <TableHead>{t('colActions')}</TableHead>
+              ) : null}
             </TableRow>
           </TableHeader>
 
-          <TableBody>
-            {items.map((item, i) => (
-              <OrderItemRow
-                key={`item-${item.medicine_id}-${i}`}
-                item={item}
-                lang={i18n.language}
-                t={t}
-              />
-            ))}
-          </TableBody>
+          <TableBody>{items.map(renderRow)}</TableBody>
 
           <TableFooter>
             <TableRow>
@@ -76,7 +100,7 @@ export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
               <TableCell className="font-bold tabular-nums">
                 {formatPrice(totalAmount, i18n.language)}
               </TableCell>
-              <TableCell />
+              {actionAccess.hasAnyRowAction ? <TableCell /> : null}
             </TableRow>
           </TableFooter>
         </Table>
@@ -85,14 +109,16 @@ export function OrderItemsTable({ items, totalAmount, totalQuantity }: Props) {
   );
 }
 
-function OrderItemRow({
+const OrderItemRow = memo(function OrderItemRow({
   item,
   lang,
   t,
+  actionAccess,
 }: {
   item: OrderItem;
   lang: string;
   t: TFunction;
+  actionAccess: OrderItemRowActionAccess;
 }) {
   const isGift = item.is_gift === 1;
 
@@ -163,13 +189,15 @@ function OrderItemRow({
         )}
       </TableCell>
 
-      <TableActions
-        item={item}
-        itemId={item.medicine_id}
-        path="/dashboard/medicines"
-      >
-        <TableActions.Detail />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions
+          item={item}
+          itemId={item.medicine_id}
+          path="/dashboard/medicines"
+        >
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});

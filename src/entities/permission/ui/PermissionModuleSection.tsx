@@ -74,7 +74,7 @@ export function PermissionModuleSection({
             checked={someSelected ? 'indeterminate' : allSelected}
             disabled={disabled}
             onCheckedChange={handleSelectAll}
-            className="size-3.5"
+            className="size-3.5 cursor-pointer shadow-none"
           />
           <span>
             {selectedCount}/{allPermissionsInModule.length}

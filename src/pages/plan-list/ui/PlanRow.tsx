@@ -1,25 +1,24 @@
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  useFormatDistance,
-  useFormatDuration,
-  type PlanSummary,
-} from '@/entities/plan';
+import { useFormatDistance, useFormatDuration } from '@/entities/plan';
+import type { PlanSummary } from '@/entities/plan';
 import { formatDate } from '@/shared/lib';
 import { Badge, TableActions, TableCell, TableRow } from '@/shared/ui';
 
-type Props = { plan: PlanSummary };
+export type PlanRowActionAccess = Readonly<{
+  canView: boolean;
+  hasAnyRowAction: boolean;
+}>;
+
+type Props = { plan: PlanSummary; actionAccess: PlanRowActionAccess };
 
 const REASON_VARIANT: Record<PlanSummary['reason'], 'muted' | 'info'> = {
   initiated: 'muted',
   replanning: 'info',
 };
 
-function formatPlanId(id: number) {
-  return `PLN-${String(id).padStart(6, '0')}`;
-}
-
-export function PlanRow({ plan }: Props) {
+export const PlanRow = memo(function PlanRow({ plan, actionAccess }: Props) {
   const { t, i18n } = useTranslation('plan', { keyPrefix: 'list' });
 
   const formatDistance = useFormatDistance();
@@ -27,10 +26,6 @@ export function PlanRow({ plan }: Props) {
 
   return (
     <TableRow>
-      <TableCell className="text-muted-foreground text-xs">
-        {formatPlanId(plan.id)}
-      </TableCell>
-
       <TableCell className="font-medium">{plan.user_name}</TableCell>
       <TableCell>{plan.region_name}</TableCell>
 
@@ -54,9 +49,11 @@ export function PlanRow({ plan }: Props) {
         </span>
       </TableCell>
 
-      <TableActions item={plan} itemId={plan.id} path="/dashboard/plans">
-        <TableActions.Detail />
-      </TableActions>
+      {actionAccess.hasAnyRowAction ? (
+        <TableActions item={plan} itemId={plan.id} path="/dashboard/plans">
+          {actionAccess.canView ? <TableActions.Detail /> : null}
+        </TableActions>
+      ) : null}
     </TableRow>
   );
-}
+});
