@@ -25,7 +25,11 @@
     "createdAt": "Created At",
     "updatedAt": "Last Updated",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "protectedRole": "Protected role",
+    "protection": "Role protection",
+    "protected": "Protected",
+    "notProtected": "Not protected"
   },
   "detail": {
     "pageTitle": "Role Details",
@@ -33,9 +37,9 @@
     "infoSubtitle": "Detailed information about the selected role."
   },
   "deleteRestricted": {
-    "title": "Cannot Delete Admin Role",
-    "message": "For security reasons, the admin role cannot be deleted.",
-    "action": "OK"
+    "title": "This role cannot be deleted",
+    "message": "This is a protected system role. It cannot be edited or deleted.",
+    "action": "Close"
   },
   "form": {
     "basicInfoTitle": "Role Details",
@@ -66,6 +70,13 @@
     "submit": "Save Changes",
     "submitting": "Saving…",
     "success": "Role updated successfully.",
-    "error": "Failed to update role."
+    "error": "Failed to update role.",
+    "restricted": {
+      "badge": "Protected role",
+      "title": "This role cannot be edited",
+      "description": "This is a system-managed role. Its details and permissions are protected to keep essential access rules working correctly.",
+      "backToRoles": "Back to roles",
+      "viewRole": "View role"
+    }
   }
 }

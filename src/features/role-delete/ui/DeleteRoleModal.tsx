@@ -1,6 +1,7 @@
 import type { RoleItem } from '@/entities/role';
 import { useDeleteEntity } from '@/shared/model';
 import { DeleteModal } from '@/shared/ui';
+
 import { RoleDeleteRestricted } from './RoleDeleteRestricted';
 
 type DeleteRoleModalProps = {
@@ -23,7 +24,7 @@ export function DeleteRoleModal({
   });
 
   function handleConfirm() {
-    if (!role) return;
+    if (!role?.is_editable) return;
 
     mutate(role.id, {
       onSuccess: () => {
@@ -33,13 +34,13 @@ export function DeleteRoleModal({
     });
   }
 
-  if (role?.name === 'admin') {
+  if (role && !role.is_editable) {
     return <RoleDeleteRestricted onClose={onClose} />;
   }
 
   return (
     <DeleteModal
-      hasItem={!!role}
+      hasItem={role !== null}
       label={label}
       isPending={isPending}
       onClose={onClose}

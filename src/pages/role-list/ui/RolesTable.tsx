@@ -8,7 +8,9 @@ import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
 
 import { RoleRow, type RoleActionAccess } from './RoleRow';
 
-type Props = { data: RolesListResponse };
+type Props = {
+  data: RolesListResponse;
+};
 
 export function RolesTable({ data }: Props) {
   const { t } = useTranslation('roles');
@@ -16,13 +18,14 @@ export function RolesTable({ data }: Props) {
 
   const [roleToDelete, setRoleToDelete] = useState<RoleItem | null>(null);
 
-  const actionAccess = useMemo<RoleActionAccess>(
-    () => ({
-      canManage: hasPermission(grantedPermissions, 'auth.roles.manage'),
-      hasAnyRowAction: hasPermission(grantedPermissions, 'auth.roles.manage'),
-    }),
-    [grantedPermissions],
-  );
+  const actionAccess = useMemo<RoleActionAccess>(() => {
+    const canManage = hasPermission(grantedPermissions, 'auth.roles.manage');
+
+    return {
+      canManage,
+      hasAnyRowAction: canManage,
+    };
+  }, [grantedPermissions]);
 
   const name = roleToDelete?.name;
 
@@ -43,6 +46,9 @@ export function RolesTable({ data }: Props) {
         columns={
           <>
             <TableHead>{t('shared.name')}</TableHead>
+            <TableHead>
+              <span className="sr-only">{t('shared.protection')}</span>
+            </TableHead>
             <TableHead>{t('shared.permissions')}</TableHead>
             <TableHead>{t('shared.updatedAt')}</TableHead>
             {actionAccess.hasAnyRowAction ? (

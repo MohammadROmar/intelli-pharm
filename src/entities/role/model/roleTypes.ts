@@ -7,6 +7,7 @@ export type Role = {
 };
 
 export type RoleItem = Role & {
+  is_editable: boolean;
   guard_name: string;
   created_at: string;
   updated_at: string;

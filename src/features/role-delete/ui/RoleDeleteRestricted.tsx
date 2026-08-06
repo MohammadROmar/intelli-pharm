@@ -22,11 +22,12 @@ export function RoleDeleteRestricted({ onClose }: Props) {
         if (!open) onClose();
       }}
     >
-      <DialogContent>
+      <DialogContent onOpenAutoFocus={(event) => event.preventDefault()}>
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>{t('message')}</DialogDescription>
         </DialogHeader>
+
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>
             {t('action')}
