@@ -1,12 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DeleteRoleModal } from '@/features/role-delete';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { RoleItem, RolesListResponse } from '@/entities/role';
 import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
 
-import { RoleRow, type RoleActionAccess } from './RoleRow';
+import { RoleRow } from './RoleRow';
 
 type Props = {
   data: RolesListResponse;
@@ -14,18 +13,8 @@ type Props = {
 
 export function RolesTable({ data }: Props) {
   const { t } = useTranslation('roles');
-  const grantedPermissions = useGrantedPermissions();
 
   const [roleToDelete, setRoleToDelete] = useState<RoleItem | null>(null);
-
-  const actionAccess = useMemo<RoleActionAccess>(() => {
-    const canManage = hasPermission(grantedPermissions, 'auth.roles.manage');
-
-    return {
-      canManage,
-      hasAnyRowAction: canManage,
-    };
-  }, [grantedPermissions]);
 
   const name = roleToDelete?.name;
 
@@ -51,18 +40,11 @@ export function RolesTable({ data }: Props) {
             </TableHead>
             <TableHead>{t('shared.permissions')}</TableHead>
             <TableHead>{t('shared.updatedAt')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('shared.actions')}</TableHead>
-            ) : null}
+            <TableHead>{t('shared.actions')}</TableHead>
           </>
         }
         renderRow={(role) => (
-          <RoleRow
-            key={role.id}
-            role={role}
-            actionAccess={actionAccess}
-            onDelete={setRoleToDelete}
-          />
+          <RoleRow key={role.id} role={role} onDelete={setRoleToDelete} />
         )}
         emptyState={<TableEmptyState variant="empty" />}
       />

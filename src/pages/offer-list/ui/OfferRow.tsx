@@ -20,10 +20,8 @@ type Props = {
 };
 
 export type OfferRowActionAccess = Readonly<{
-  canView: boolean;
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 export const OfferRow = memo(function OfferRow({
@@ -48,20 +46,18 @@ export const OfferRow = memo(function OfferRow({
           {t(offer.is_active ? 'status.active' : 'status.inactive')}
         </Badge>
       </TableCell>
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={offer}
-          itemId={offer.id}
-          onDelete={onDelete}
-          path="/dashboard/promotions/offers"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? (
-            <EditOfferButton offer={offer} onEdit={onEdit} />
-          ) : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={offer}
+        itemId={offer.id}
+        onDelete={onDelete}
+        path="/dashboard/promotions/offers"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? (
+          <EditOfferButton offer={offer} onEdit={onEdit} />
+        ) : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

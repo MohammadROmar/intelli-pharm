@@ -16,20 +16,14 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
-export type DeliveryRowActionAccess = Readonly<{
-  canViewDetails: boolean;
-  canChangeStatus: boolean;
-  hasAnyRowAction: boolean;
-}>;
-
 type DeliveryRowProps = {
   delivery: DeliveryListItem;
-  actionAccess: DeliveryRowActionAccess;
+  canChangeStatus: boolean;
 };
 
 export const DeliveryRow = memo(function DeliveryRow({
   delivery,
-  actionAccess,
+  canChangeStatus,
 }: DeliveryRowProps) {
   const { i18n } = useTranslation();
 
@@ -61,18 +55,14 @@ export const DeliveryRow = memo(function DeliveryRow({
         {delivery.number_of_items}
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={delivery}
-          itemId={delivery.id}
-          path="/dashboard/deliveries"
-        >
-          {actionAccess.canViewDetails ? <TableActions.Detail /> : null}
-          {actionAccess.canChangeStatus ? (
-            <ChangeStatus id={delivery.id} />
-          ) : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={delivery}
+        itemId={delivery.id}
+        path="/dashboard/deliveries"
+      >
+        <TableActions.Detail />
+        {canChangeStatus ? <ChangeStatus id={delivery.id} /> : null}
+      </TableActions>
     </TableRow>
   );
 });

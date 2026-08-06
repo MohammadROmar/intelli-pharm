@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useRegionAccess } from '@/features/region-access';
 import { DeleteRegionModal } from '@/features/region-delete';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { RegionListItem, RegionsListResponse } from '@/entities/region';
 import {
   TableHead,
@@ -11,7 +11,7 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-import { RegionRow, type RegionRowActionAccess } from './RegionRow';
+import { RegionRow } from './RegionRow';
 import { RegionFiltersModal } from './RegionFiltersModal';
 import { useRegionFilters } from '../model/useRegionFilters';
 
@@ -19,7 +19,6 @@ type Props = { data: RegionsListResponse };
 
 export function RegionsTable({ data }: Props) {
   const { t } = useTranslation('regions', { keyPrefix: 'list' });
-  const grantedPermissions = useGrantedPermissions();
 
   const [regionToDelete, setRegionToDelete] = useState<RegionListItem | null>(
     null,
@@ -27,20 +26,7 @@ export function RegionsTable({ data }: Props) {
 
   const filtersState = useRegionFilters();
 
-  const canCreate = hasPermission(grantedPermissions, 'erp.regions.create');
-  const canView = hasPermission(grantedPermissions, 'erp.regions.view');
-  const canUpdate = hasPermission(grantedPermissions, 'erp.regions.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.regions.delete');
-
-  const actionAccess = useMemo<RegionRowActionAccess>(
-    () => ({
-      canView,
-      canUpdate,
-      canDelete,
-      hasAnyRowAction: canView || canUpdate || canDelete,
-    }),
-    [canDelete, canUpdate, canView],
-  );
+  const actionAccess = useRegionAccess();
 
   const handleDeleteClose = useCallback(() => setRegionToDelete(null), []);
 
@@ -58,7 +44,7 @@ export function RegionsTable({ data }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {actionAccess.canDelete ? (
         <DeleteRegionModal
           label={regionToDelete?.name}
           region={regionToDelete}
@@ -70,7 +56,7 @@ export function RegionsTable({ data }: Props) {
         data={data}
         title={t('all')}
         addButton={
-          canCreate
+          actionAccess.canCreate
             ? {
                 addHref: '/dashboard/regions/new',
                 addLabel: t('add'),
@@ -88,9 +74,7 @@ export function RegionsTable({ data }: Props) {
           <>
             <TableHead>{t('name')}</TableHead>
             <TableHead>{t('city')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('actions')}</TableHead>
-            ) : null}
+            <TableHead>{t('actions')}</TableHead>
           </>
         }
         renderRow={renderRow}

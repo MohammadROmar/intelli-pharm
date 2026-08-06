@@ -1,5 +1,8 @@
 import { useParams } from 'react-router';
 
+import { useGetMedicineSuspense } from '@/entities/medicine';
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
+
 import { GiftCard } from './GiftCard';
 import { StocksCard } from './StocksCard';
 import { MedicineInfoGrid } from './MedicineInfoGrid';
@@ -7,9 +10,7 @@ import { AlternativesTable } from './AlternativesTable';
 import { MedicineBarcodeCard } from './MedicineBarcodeCard';
 import { MedicineImageGallery } from './MedicineImageGallery';
 import { MedicineDetailHeader } from './MedicineDetailHeader';
-import { useGetMedicineSuspense } from '@/entities/medicine';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
-import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
+import { useMedicineDetailAccess } from '../model/useMedicineDetailAccess';
 
 export default function MedicineDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -30,16 +31,8 @@ type MedicineDetailContentProps = { medicineId: number };
 
 function MedicineDetailContent({ medicineId }: MedicineDetailContentProps) {
   const { data } = useGetMedicineSuspense(medicineId);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewCategory = hasPermission(
-    grantedPermissions,
-    'erp.categories.view',
-  );
-  const canViewLaboratory = hasPermission(
-    grantedPermissions,
-    'erp.laboratories.view',
-  );
+  const { canViewCategory, canViewLaboratory } = useMedicineDetailAccess();
 
   const medicine = data.data!;
 

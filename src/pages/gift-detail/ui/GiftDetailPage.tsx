@@ -1,10 +1,11 @@
 import { useParams } from 'react-router';
 
+import { useHasPermission } from '@/entities/session';
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
+
 import { GiftInfoCard } from './GiftInfoCard';
 import { GiftDetailHeader } from './GiftDetailHeader';
 import { useGetGiftSuspense } from '../model/useGetGiftSuspense';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
-import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function GiftDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -25,12 +26,8 @@ type GiftDetailContentProps = { giftId: number };
 
 function GiftDetailContent({ giftId }: GiftDetailContentProps) {
   const { data } = useGetGiftSuspense(giftId);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewMedicine = hasPermission(
-    grantedPermissions,
-    'erp.medicines.view',
-  );
+  const canViewMedicine = useHasPermission('erp.medicines.view');
 
   const gift = data.data!;
 

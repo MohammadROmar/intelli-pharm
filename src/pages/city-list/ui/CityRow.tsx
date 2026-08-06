@@ -13,7 +13,7 @@ import {
 export type CityRowActionAccess = Readonly<{
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
+  hasAnyAction: boolean;
 }>;
 
 type CityRowProps = {
@@ -38,7 +38,7 @@ export function CityRow({
         <p className="max-w-[20ch] truncate font-medium">{name}</p>
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
+      {actionAccess.hasAnyAction ? (
         <TableActions
           item={city}
           itemId={city.id}

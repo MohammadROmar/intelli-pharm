@@ -1,9 +1,10 @@
 import { useParams } from 'react-router';
 
+import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
+
 import { PlanDetail } from './PlanDetail';
 import { useGetPlan } from '../model/useGetPlan';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
-import { QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
+import { usePlanDetailAccess } from '../model/usePlanDetailAccess';
 
 export default function PlanDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -24,17 +25,9 @@ type PlanDetailContentProps = { planId: number };
 
 function PlanDetailContent({ planId }: PlanDetailContentProps) {
   const { data } = useGetPlan(planId);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewEmployee = hasPermission(
-    grantedPermissions,
-    'erp.employees.view',
-  );
-  const canViewRegion = hasPermission(grantedPermissions, 'erp.regions.view');
-  const canViewPharmacy = hasPermission(
-    grantedPermissions,
-    'erp.pharmacies.view',
-  );
+  const { canViewEmployee, canViewPharmacy, canViewRegion } =
+    usePlanDetailAccess();
 
   const plan = data.data!;
 

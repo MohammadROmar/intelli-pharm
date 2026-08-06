@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Pencil, Trash2 } from 'lucide-react';
 
+import { useCategoryAccess } from '@/features/category-access';
 import { DeleteCategoryModal } from '@/features/category-delete';
 import type { CategoryDetail } from '@/entities/category';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { getLocalized } from '@/shared/lib';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
@@ -36,10 +36,8 @@ function CategoryActions({ category, name }: Props & { name: string }) {
   const [categoryToDelete, setCategoryToDelete] =
     useState<CategoryDetail | null>(null);
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.categories.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.categories.delete');
+  const { canDelete, canUpdate } = useCategoryAccess();
   const hasAnyAction = canUpdate || canDelete;
 
   return (

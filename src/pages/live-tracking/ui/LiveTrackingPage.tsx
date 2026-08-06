@@ -1,9 +1,6 @@
 import { lazy, Suspense, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ErrorBoundary } from '@/shared/lib';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
-import { PageTitle, SectionErrorFallback, Skeleton } from '@/shared/ui';
 import {
   TrackingFiltersBar,
   useTrackingFilters,
@@ -12,6 +9,10 @@ import {
   useTrackingFocus,
   TrackingRosterPanel,
 } from '@/features/live-tracking-roster';
+import { ErrorBoundary } from '@/shared/lib';
+import { PageTitle, SectionErrorFallback, Skeleton } from '@/shared/ui';
+
+import { useTrackingAccess } from '../model/useTrackingAccess';
 
 const LiveTrackingMap = lazy(() =>
   import('./LiveTrackingMap').then((module) => ({
@@ -23,13 +24,8 @@ export default function LiveTrackingPage() {
   const { t } = useTranslation('tracking', { keyPrefix: 'page' });
   const { filter } = useTrackingFilters();
   const { focusedUserId, setFocusedUserId } = useTrackingFocus();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewEmployee = hasPermission(
-    grantedPermissions,
-    'erp.employees.view',
-  );
-  const canViewPlan = hasPermission(grantedPermissions, 'planner.plan.view');
+  const { canViewEmployee, canViewPlan } = useTrackingAccess();
 
   const handleSelectUser = useCallback(
     (userId: number) => {

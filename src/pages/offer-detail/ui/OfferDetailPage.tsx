@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { OfferDetailHeader } from './OfferDetailHeader';
 import { OfferInfoCard } from './OfferInfoCard';
 import { useGetOfferSuspense } from '../model/useGetOfferSuspense';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import { useHasPermission } from '@/entities/session';
 import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function OfferDetailPage() {
@@ -25,12 +25,8 @@ type OfferDetailContentProps = { offerId: number };
 
 function OfferDetailContent({ offerId }: OfferDetailContentProps) {
   const { data } = useGetOfferSuspense(offerId);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewMedicine = hasPermission(
-    grantedPermissions,
-    'erp.medicines.view',
-  );
+  const canViewMedicine = useHasPermission('erp.medicines.view');
 
   const offer = data.data!;
 

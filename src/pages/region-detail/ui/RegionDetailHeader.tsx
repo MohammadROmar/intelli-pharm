@@ -5,9 +5,9 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteRegionModal } from '@/features/region-delete';
 import type { RegionDetail } from '@/entities/region';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 import { getLocalized } from '@/shared/lib';
+import { useRegionAccess } from '@/features/region-access';
 
 type Props = { region: RegionDetail };
 
@@ -37,10 +37,8 @@ function RegionActions({ region, name }: Props & { name: string }) {
     null,
   );
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.regions.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.regions.delete');
+  const { canUpdate, canDelete } = useRegionAccess();
   const hasAnyAction = canUpdate || canDelete;
 
   return (

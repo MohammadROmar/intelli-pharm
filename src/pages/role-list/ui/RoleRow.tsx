@@ -5,20 +5,11 @@ import type { RoleItem } from '@/entities/role';
 import { formatDate } from '@/shared/lib';
 import { Badge, TableActions, TableCell, TableRow } from '@/shared/ui';
 
-export type RoleActionAccess = Readonly<{
-  canManage: boolean;
-  hasAnyRowAction: boolean;
-}>;
+type RoleRowProps = { role: RoleItem; onDelete: (role: RoleItem) => void };
 
-type RoleRowProps = {
-  role: RoleItem;
-  actionAccess: RoleActionAccess;
-  onDelete: (role: RoleItem) => void;
-};
-
-export function RoleRow({ role, actionAccess, onDelete }: RoleRowProps) {
+export function RoleRow({ role, onDelete }: RoleRowProps) {
   const { t, i18n } = useTranslation('roles');
-  const canMutate = actionAccess.canManage && role.is_editable;
+  const canMutate = role.is_editable;
 
   return (
     <TableRow>
@@ -43,18 +34,16 @@ export function RoleRow({ role, actionAccess, onDelete }: RoleRowProps) {
         {formatDate(role.updated_at, i18n.language, false)}
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={role}
-          itemId={role.id}
-          onDelete={onDelete}
-          path="/dashboard/roles"
-        >
-          {actionAccess.canManage ? <TableActions.Detail /> : null}
-          {canMutate ? <TableActions.Update /> : null}
-          {canMutate ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={role}
+        itemId={role.id}
+        onDelete={onDelete}
+        path="/dashboard/roles"
+      >
+        <TableActions.Detail />
+        {canMutate ? <TableActions.Update /> : null}
+        {canMutate ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 }

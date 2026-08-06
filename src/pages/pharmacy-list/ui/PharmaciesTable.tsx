@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { usePharmacyAccess } from '@/features/pharmacy-access';
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
 import { usePharmacyFilters } from '@/entities/pharmacy';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { PharmaciesResponse, Pharmacy } from '@/entities/pharmacy';
 import {
   EntityEmptyState,
@@ -12,14 +12,13 @@ import {
   TableHead,
 } from '@/shared/ui';
 
-import { PharmacyRow, type PharmacyRowActionAccess } from './PharmacyRow';
+import { PharmacyRow } from './PharmacyRow';
 import { PharmacyFiltersModal } from './PharmacyFiltersModal';
 
 type Props = { data: PharmaciesResponse };
 
 export function PharmaciesTable({ data }: Props) {
   const { t } = useTranslation('pharmacies');
-  const grantedPermissions = useGrantedPermissions();
 
   const [pharmacyToDelete, setPharmacyToDelete] = useState<Pharmacy | null>(
     null,
@@ -27,20 +26,7 @@ export function PharmaciesTable({ data }: Props) {
 
   const filtersState = usePharmacyFilters();
 
-  const canCreate = hasPermission(grantedPermissions, 'erp.pharmacies.create');
-  const canView = hasPermission(grantedPermissions, 'erp.pharmacies.view');
-  const canUpdate = hasPermission(grantedPermissions, 'erp.pharmacies.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.pharmacies.delete');
-
-  const actionAccess = useMemo<PharmacyRowActionAccess>(
-    () => ({
-      canView,
-      canUpdate,
-      canDelete,
-      hasAnyRowAction: canView || canUpdate || canDelete,
-    }),
-    [canDelete, canUpdate, canView],
-  );
+  const actionAccess = usePharmacyAccess();
 
   const handleDeleteClose = useCallback(() => setPharmacyToDelete(null), []);
 
@@ -58,7 +44,7 @@ export function PharmaciesTable({ data }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {actionAccess.canDelete ? (
         <DeletePharmacyModal
           label={pharmacyToDelete?.name}
           pharmacy={pharmacyToDelete}
@@ -69,7 +55,7 @@ export function PharmaciesTable({ data }: Props) {
         data={data}
         title={t('list.all')}
         addButton={
-          canCreate
+          actionAccess.canCreate
             ? {
                 addHref: '/dashboard/pharmacies/new',
                 addLabel: t('list.add'),
@@ -90,9 +76,7 @@ export function PharmaciesTable({ data }: Props) {
             <TableHead>{t('list.pharmacistName')}</TableHead>
             <TableHead>{t('list.pharmacistNumber')}</TableHead>
             <TableHead>{t('list.status')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('list.actions')}</TableHead>
-            ) : null}
+            <TableHead>{t('list.actions')}</TableHead>
           </>
         }
         renderRow={renderRow}

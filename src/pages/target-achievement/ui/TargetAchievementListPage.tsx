@@ -1,10 +1,11 @@
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
+import { useHasPermission } from '@/entities/session';
+import { PageTitle, QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
+
 import { TargetAchievementTable } from './TargetAchievementTable';
 import { useGetTargetAchievementsSuspense } from '../model/useGetTargetAchievementsSuspense';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
-import { PageTitle, QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 export default function TargetAchievementListPage() {
   const { id: rawId } = useParams<{ id: string }>();
@@ -26,12 +27,8 @@ type Props = { targetId: number };
 function TargetAchievementListContent({ targetId }: Props) {
   const { t } = useTranslation('targets', { keyPrefix: 'achievements' });
   const { data } = useGetTargetAchievementsSuspense(targetId);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewEmployee = hasPermission(
-    grantedPermissions,
-    'erp.employees.view',
-  );
+  const canViewEmployee = useHasPermission('erp.employees.view');
 
   return (
     <>

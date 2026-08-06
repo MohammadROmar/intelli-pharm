@@ -5,10 +5,8 @@ import type { Pharmacy } from '@/entities/pharmacy';
 import { TableCell, TableActions, TableRow, Badge } from '@/shared/ui';
 
 export type PharmacyRowActionAccess = Readonly<{
-  canView: boolean;
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type PharmacyRowProps = {
@@ -22,9 +20,7 @@ export const PharmacyRow = memo(function PharmacyRow({
   actionAccess,
   onDelete,
 }: PharmacyRowProps) {
-  const { t } = useTranslation('pharmacies', {
-    keyPrefix: 'list',
-  });
+  const { t } = useTranslation('pharmacies', { keyPrefix: 'list' });
 
   return (
     <TableRow>
@@ -48,18 +44,16 @@ export const PharmacyRow = memo(function PharmacyRow({
         </Badge>
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={pharmacy}
-          itemId={pharmacy.id}
-          onDelete={onDelete}
-          path="/dashboard/pharmacies"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? <TableActions.Update /> : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={pharmacy}
+        itemId={pharmacy.id}
+        onDelete={onDelete}
+        path="/dashboard/pharmacies"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? <TableActions.Update /> : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

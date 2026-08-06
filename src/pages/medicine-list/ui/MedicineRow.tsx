@@ -14,11 +14,9 @@ import {
 } from '@/shared/ui';
 
 export type MedicineRowActionAccess = Readonly<{
-  canView: boolean;
   canUpdate: boolean;
   canRestock: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type MedicineRowProps = {
@@ -51,19 +49,17 @@ export const MedicineRow = memo(function MedicineRow({
         {formatDate(medicine.created_at, i18n.language, false)}
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={medicine}
-          itemId={medicine.id}
-          onDelete={onDelete}
-          path="/dashboard/medicines"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? <TableActions.Update /> : null}
-          {actionAccess.canRestock ? <Restock id={medicine.id} /> : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={medicine}
+        itemId={medicine.id}
+        onDelete={onDelete}
+        path="/dashboard/medicines"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? <TableActions.Update /> : null}
+        {actionAccess.canRestock ? <Restock id={medicine.id} /> : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

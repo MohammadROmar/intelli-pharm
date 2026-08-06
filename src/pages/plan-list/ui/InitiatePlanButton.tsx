@@ -1,9 +1,7 @@
-import { useMemo } from 'react';
 import { Link } from 'react-router';
 import { Route } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import {
   Button,
   DropdownMenu,
@@ -12,30 +10,17 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/ui';
 
+import { usePlanButtonAccess } from '../model/usePlanButtonAccess';
+
 export function InitiatePlanButton() {
   const { t } = useTranslation('plan', { keyPrefix: 'initiate' });
-  const grantedPermissions = useGrantedPermissions();
 
-  const actionAccess = useMemo(
-    () => ({
-      canInitiateFromReps: hasPermission(
-        grantedPermissions,
-        'planner.rep.plan.generate',
-      ),
-      canInitiateFromDeliveries: hasPermission(
-        grantedPermissions,
-        'planner.distributor.plan.generate',
-      ),
-    }),
-    [grantedPermissions],
-  );
+  const actionAccess = usePlanButtonAccess();
 
   const hasAnyAction =
     actionAccess.canInitiateFromReps || actionAccess.canInitiateFromDeliveries;
 
-  if (!hasAnyAction) {
-    return null;
-  }
+  if (!hasAnyAction) return null;
 
   return (
     <DropdownMenu>

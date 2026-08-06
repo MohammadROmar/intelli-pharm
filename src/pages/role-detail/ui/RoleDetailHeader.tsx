@@ -5,12 +5,10 @@ import { Pencil, Trash2 } from 'lucide-react';
 
 import { DeleteRoleModal } from '@/features/role-delete';
 import type { RoleItem } from '@/entities/role';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import { useHasPermission } from '@/entities/session';
 import { ActionsDropdown, DropdownMenuItem, PageHeader } from '@/shared/ui';
 
-type Props = {
-  role: RoleItem;
-};
+type Props = { role: RoleItem };
 
 export function RoleDetailHeader({ role }: Props) {
   const { t } = useTranslation('roles');
@@ -26,18 +24,14 @@ export function RoleDetailHeader({ role }: Props) {
   );
 }
 
-type RoleActionsProps = {
-  role: RoleItem;
-  name: string;
-};
+type RoleActionsProps = { role: RoleItem; name: string };
 
 function RoleActions({ role, name }: RoleActionsProps) {
   const { t } = useTranslation('roles', { keyPrefix: 'shared' });
   const [roleToDelete, setRoleToDelete] = useState<RoleItem | null>(null);
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canManage = hasPermission(grantedPermissions, 'auth.roles.manage');
+  const canManage = useHasPermission('auth.roles.manage');
   const canMutate = canManage && role.is_editable;
 
   if (!canMutate) return null;

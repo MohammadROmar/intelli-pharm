@@ -1,9 +1,9 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { PackageSearch, Pill } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 import type { LaboratoryMedicine } from '@/entities/laboratory';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import { useHasPermission } from '@/entities/session';
 import { formatDate, formatPrice, getLocalized } from '@/shared/lib';
 import {
   Badge,
@@ -20,36 +20,22 @@ import {
 
 type Props = { medicines: LaboratoryMedicine[] };
 
-type LaboratoryMedicineRowActionAccess = Readonly<{
-  canView: boolean;
-  hasAnyRowAction: boolean;
-}>;
-
 export function LaboratoryMedicinesTable({ medicines }: Props) {
   const { t } = useTranslation('laboratories', {
     keyPrefix: 'detail',
   });
-  const grantedPermissions = useGrantedPermissions();
 
-  const canView = hasPermission(grantedPermissions, 'erp.medicines.view');
-
-  const actionAccess = useMemo<LaboratoryMedicineRowActionAccess>(
-    () => ({
-      canView,
-      hasAnyRowAction: canView,
-    }),
-    [canView],
-  );
+  const canView = useHasPermission('erp.medicines.view');
 
   const renderRow = useCallback(
     (medicine: LaboratoryMedicine) => (
       <LaboratoryMedicineRow
         key={medicine.id}
         medicine={medicine}
-        actionAccess={actionAccess}
+        canView={canView}
       />
     ),
-    [actionAccess],
+    [canView],
   );
 
   return (
@@ -70,9 +56,7 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
               <TableHead>{t('colStatus')}</TableHead>
               <TableHead>{t('colPrice')}</TableHead>
               <TableHead>{t('colCreatedAt')}</TableHead>
-              {actionAccess.hasAnyRowAction ? (
-                <TableHead>{t('actions')}</TableHead>
-              ) : null}
+              {canView ? <TableHead>{t('actions')}</TableHead> : null}
             </TableRow>
           </TableHeader>
           <TableBody>{medicines.map(renderRow)}</TableBody>
@@ -84,12 +68,12 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
 
 type LaboratoryMedicineRowProps = {
   medicine: LaboratoryMedicine;
-  actionAccess: LaboratoryMedicineRowActionAccess;
+  canView: boolean;
 };
 
 const LaboratoryMedicineRow = memo(function LaboratoryMedicineRow({
   medicine,
-  actionAccess,
+  canView,
 }: LaboratoryMedicineRowProps) {
   const { t, i18n } = useTranslation('laboratories', {
     keyPrefix: 'detail',
@@ -116,13 +100,13 @@ const LaboratoryMedicineRow = memo(function LaboratoryMedicineRow({
       <TableCell className="text-muted-foreground text-sm">
         {formatDate(medicine.created_at, i18n.language, false)}
       </TableCell>
-      {actionAccess.hasAnyRowAction ? (
+      {canView ? (
         <TableActions
           item={medicine}
           itemId={medicine.id}
           path="/dashboard/medicines"
         >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
+          <TableActions.Detail />
         </TableActions>
       ) : null}
     </TableRow>

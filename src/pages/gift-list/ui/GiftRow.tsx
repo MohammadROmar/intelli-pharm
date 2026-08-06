@@ -12,11 +12,9 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
-export type GiftRowActionAccess = Readonly<{
-  canView: boolean;
+type GiftRowActionAccess = Readonly<{
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type GiftRowProps = {
@@ -51,20 +49,18 @@ export const GiftRow = memo(function GiftRow({
       <TableCell>{gift.required_quantity}</TableCell>
       <TableCell>{gift.gift_quantity}</TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={gift}
-          itemId={gift.id}
-          onDelete={onDelete}
-          path="/dashboard/promotions/gifts"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? (
-            <EditGiftButton gift={gift} onEdit={onEdit} />
-          ) : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={gift}
+        itemId={gift.id}
+        onDelete={onDelete}
+        path="/dashboard/promotions/gifts"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? (
+          <EditGiftButton gift={gift} onEdit={onEdit} />
+        ) : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

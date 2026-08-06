@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useEmployeeAccess } from '@/features/employee-access';
 import { DeleteEmployeeModal } from '@/features/employee-delete';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { Employee, EmployeeListResponse } from '@/entities/employee';
 import {
   TableHead,
@@ -11,13 +11,12 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-import { EmployeeRow, type EmployeeRowActionAccess } from './EmployeeRow';
+import { EmployeeRow } from './EmployeeRow';
 import { EmployeeFiltersModal } from './EmployeeFiltersModal';
 import { useEmployeeFilters } from '../model/useEmployeeFilters';
 
 export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
   const { t } = useTranslation('employees');
-  const grantedPermissions = useGrantedPermissions();
 
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
     null,
@@ -25,23 +24,7 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
 
   const filtersState = useEmployeeFilters();
 
-  const canCreate = hasPermission(grantedPermissions, 'erp.employees.create');
-  const canView = hasPermission(grantedPermissions, 'erp.employees.view');
-  const canUpdate = hasPermission(grantedPermissions, 'erp.employees.update');
-  const canDeactivate = hasPermission(
-    grantedPermissions,
-    'erp.employees.deactivate',
-  );
-
-  const actionAccess = useMemo<EmployeeRowActionAccess>(
-    () => ({
-      canView,
-      canUpdate,
-      canDeactivate,
-      hasAnyRowAction: canView || canUpdate || canDeactivate,
-    }),
-    [canDeactivate, canUpdate, canView],
-  );
+  const actionAccess = useEmployeeAccess();
 
   const handleDeleteModalClose = useCallback(() => {
     setEmployeeToDelete(null);
@@ -61,7 +44,7 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
 
   return (
     <>
-      {canDeactivate ? (
+      {actionAccess.canDeactivate ? (
         <DeleteEmployeeModal
           employee={employeeToDelete}
           onClose={handleDeleteModalClose}
@@ -72,7 +55,7 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
         data={data}
         title={t('list.all')}
         addButton={
-          canCreate
+          actionAccess.canCreate
             ? {
                 addHref: '/dashboard/employees/new',
                 addLabel: t('list.add'),
@@ -92,9 +75,7 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
             <TableHead>{t('list.email')}</TableHead>
             <TableHead>{t('list.role')}</TableHead>
             <TableHead>{t('list.status')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('list.actions')}</TableHead>
-            ) : null}
+            <TableHead>{t('list.actions')}</TableHead>
           </>
         }
         renderRow={renderRow}

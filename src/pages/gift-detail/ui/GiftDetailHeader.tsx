@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Pencil, Trash2 } from 'lucide-react';
 
+import { EditGiftForm } from '@/features/gift-edit';
+import { useGiftAccess } from '@/features/gift-access';
 import { DeleteGiftModal } from '@/features/gift-delete';
 import type { Gift } from '@/entities/gift';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
-import { EditGiftForm } from '@/features/gift-edit';
 
 type Props = { gift: Gift };
 
@@ -33,10 +33,8 @@ function GiftActions({ gift }: Props) {
   const [giftToEdit, setGiftToEdit] = useState<Gift | null>(null);
 
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.gifts.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.gifts.delete');
+  const { canUpdate, canDelete } = useGiftAccess();
   const hasAnyAction = canUpdate || canDelete;
 
   return (

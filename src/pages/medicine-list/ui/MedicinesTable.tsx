@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useMedicineAccess } from '@/features/medicine-acces';
 import { DeleteMedicineModal } from '@/features/medicine-delete';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { Medicine, MedicineResponse } from '@/entities/medicine';
 import {
   EntityEmptyState,
@@ -11,7 +11,7 @@ import {
   TableHead,
 } from '@/shared/ui';
 
-import { MedicineRow, type MedicineRowActionAccess } from './MedicineRow';
+import { MedicineRow } from './MedicineRow';
 import { MedicineFiltersModal } from './MedicineFiltersModal';
 import { useMedicineFilters } from '../model/useMedicineFilters';
 
@@ -19,28 +19,13 @@ type Props = { data: MedicineResponse };
 
 export function MedicinesTable({ data }: Props) {
   const { t } = useTranslation('medicines');
-  const grantedPermissions = useGrantedPermissions();
 
   const [medicineToDelete, setMedicineToDelete] = useState<Medicine | null>(
     null,
   );
   const filtersState = useMedicineFilters();
 
-  const canCreate = hasPermission(grantedPermissions, 'erp.medicines.create');
-  const canView = hasPermission(grantedPermissions, 'erp.medicines.view');
-  const canUpdate = hasPermission(grantedPermissions, 'erp.medicines.update');
-  const canRestock = hasPermission(grantedPermissions, 'erp.stock.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.medicines.delete');
-
-  const actionAccess = useMemo<MedicineRowActionAccess>(() => {
-    return {
-      canView,
-      canUpdate,
-      canRestock,
-      canDelete,
-      hasAnyRowAction: canView || canUpdate || canRestock || canDelete,
-    };
-  }, [canDelete, canRestock, canUpdate, canView]);
+  const actionAccess = useMedicineAccess();
 
   const handleDeleteModalClose = useCallback(() => {
     setMedicineToDelete(null);
@@ -60,7 +45,7 @@ export function MedicinesTable({ data }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {actionAccess.canDelete ? (
         <DeleteMedicineModal
           label={medicineToDelete?.commercial_name ?? t('medicine')}
           medicine={medicineToDelete}
@@ -72,7 +57,7 @@ export function MedicinesTable({ data }: Props) {
         data={data}
         title={t('list.all')}
         addButton={
-          canCreate
+          actionAccess.canCreate
             ? {
                 addHref: '/dashboard/medicines/new',
                 addLabel: t('list.add'),
@@ -92,9 +77,7 @@ export function MedicinesTable({ data }: Props) {
             <TableHead>{t('list.status')}</TableHead>
             <TableHead>{t('list.price')}</TableHead>
             <TableHead>{t('list.createdAt')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('list.actions')}</TableHead>
-            ) : null}
+            <TableHead>{t('list.actions')}</TableHead>
           </>
         }
         renderRow={renderRow}

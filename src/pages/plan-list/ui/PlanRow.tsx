@@ -6,19 +6,14 @@ import type { PlanSummary } from '@/entities/plan';
 import { formatDate } from '@/shared/lib';
 import { Badge, TableActions, TableCell, TableRow } from '@/shared/ui';
 
-export type PlanRowActionAccess = Readonly<{
-  canView: boolean;
-  hasAnyRowAction: boolean;
-}>;
-
-type Props = { plan: PlanSummary; actionAccess: PlanRowActionAccess };
+type Props = { plan: PlanSummary };
 
 const REASON_VARIANT: Record<PlanSummary['reason'], 'muted' | 'info'> = {
   initiated: 'muted',
   replanning: 'info',
 };
 
-export const PlanRow = memo(function PlanRow({ plan, actionAccess }: Props) {
+export const PlanRow = memo(function PlanRow({ plan }: Props) {
   const { t, i18n } = useTranslation('plan', { keyPrefix: 'list' });
 
   const formatDistance = useFormatDistance();
@@ -49,11 +44,9 @@ export const PlanRow = memo(function PlanRow({ plan, actionAccess }: Props) {
         </span>
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions item={plan} itemId={plan.id} path="/dashboard/plans">
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions item={plan} itemId={plan.id} path="/dashboard/plans">
+        <TableActions.Detail />
+      </TableActions>
     </TableRow>
   );
 });

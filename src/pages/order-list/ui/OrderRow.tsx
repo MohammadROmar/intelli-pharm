@@ -12,20 +12,14 @@ import {
   DropdownMenuItem,
 } from '@/shared/ui';
 
-export type OrderRowActionAccess = Readonly<{
-  canView: boolean;
-  canChangeStatus: boolean;
-  hasAnyRowAction: boolean;
-}>;
-
 type OrderRowProps = {
   order: OrderListItem;
-  actionAccess: OrderRowActionAccess;
+  canChangeStatus: boolean;
 };
 
 export const OrderRow = memo(function OrderRow({
   order,
-  actionAccess,
+  canChangeStatus,
 }: OrderRowProps) {
   const { t, i18n } = useTranslation('orders', { keyPrefix: 'list' });
 
@@ -76,14 +70,12 @@ export const OrderRow = memo(function OrderRow({
         {formatDate(order.created_at, i18n.language, false)}
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions item={order} itemId={order.id} path="/dashboard/orders">
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canChangeStatus ? (
-            <ChangeStatus order={order} label={t('changeStatus')} />
-          ) : null}
-        </TableActions>
-      ) : null}
+      <TableActions item={order} itemId={order.id} path="/dashboard/orders">
+        <TableActions.Detail />
+        {canChangeStatus ? (
+          <ChangeStatus order={order} label={t('changeStatus')} />
+        ) : null}
+      </TableActions>
     </TableRow>
   );
 });

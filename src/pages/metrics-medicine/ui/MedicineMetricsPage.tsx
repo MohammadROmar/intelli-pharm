@@ -5,7 +5,7 @@ import {
   useMedicineMetrics,
 } from '@/features/metrics-medicine';
 import { MetricsFiltersRequired } from '@/entities/metrics';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import { useHasPermission } from '@/entities/session';
 import { PageTitle, QueryErrorBoundary } from '@/shared/ui';
 
 import { MedicineMetricsTable } from './MedicineMetricsTable';
@@ -30,12 +30,8 @@ type Props = { filters: Record<string, unknown> };
 function MedicineMetricsContent({ filters }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'medicine' });
   const { data } = useMedicineMetrics(filters);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewMedicine = hasPermission(
-    grantedPermissions,
-    'erp.medicines.view',
-  );
+  const canViewMedicine = useHasPermission('erp.medicines.view');
 
   return (
     <>

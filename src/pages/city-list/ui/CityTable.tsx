@@ -1,10 +1,9 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { CityEditButton } from '@/features/city-edit';
 import { AddCityButton } from '@/features/city-create';
 import { DeleteCityModal } from '@/features/city-delete';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { CitiesResponse, CityDetail } from '@/entities/city';
 import {
   TableHead,
@@ -13,33 +12,24 @@ import {
   EntityEmptyState,
 } from '@/shared/ui';
 
-import { CityRow, type CityRowActionAccess } from './CityRow';
+import { CityRow } from './CityRow';
 import { CityFiltersModal } from './CityFiltersModal';
+import { useCityAccess } from '../model/useCityAccess';
 import { useCityFilters } from '../model/useCityFilters';
 
 type Props = { data: CitiesResponse };
 
 export function CityTable({ data }: Props) {
   const { t } = useTranslation('cities');
-  const grantedPermissions = useGrantedPermissions();
 
   const [cityToDelete, setCityToDelete] = useState<CityDetail | null>(null);
   const [cityToEdit, setCityToEdit] = useState<CityDetail | null>(null);
 
   const filtersState = useCityFilters();
 
-  const canCreate = hasPermission(grantedPermissions, 'erp.cities.create');
-  const canUpdate = hasPermission(grantedPermissions, 'erp.cities.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.cities.delete');
-
-  const actionAccess = useMemo<CityRowActionAccess>(
-    () => ({
-      canUpdate,
-      canDelete,
-      hasAnyRowAction: canUpdate || canDelete,
-    }),
-    [canDelete, canUpdate],
-  );
+  const actionAccess = useCityAccess();
+  const { canCreate, canUpdate, canDelete } = actionAccess;
+  const hasAnyAction = canUpdate || canDelete;
 
   const handleDeleteModalClose = useCallback(() => {
     setCityToDelete(null);
@@ -54,12 +44,12 @@ export function CityTable({ data }: Props) {
       <CityRow
         key={city.id}
         city={city}
-        actionAccess={actionAccess}
+        actionAccess={{ ...actionAccess, hasAnyAction }}
         onEdit={setCityToEdit}
         onDelete={setCityToDelete}
       />
     ),
-    [actionAccess],
+    [actionAccess, hasAnyAction],
   );
 
   return (
@@ -91,9 +81,7 @@ export function CityTable({ data }: Props) {
         columns={
           <>
             <TableHead>{t('list.name')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('list.actions')}</TableHead>
-            ) : null}
+            {hasAnyAction ? <TableHead>{t('list.actions')}</TableHead> : null}
           </>
         }
         renderRow={renderRow}

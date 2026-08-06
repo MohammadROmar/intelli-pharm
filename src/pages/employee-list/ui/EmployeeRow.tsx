@@ -4,11 +4,9 @@ import { useTranslation } from 'react-i18next';
 import type { Employee } from '@/entities/employee';
 import { TableCell, TableRow, TableActions, Badge } from '@/shared/ui';
 
-export type EmployeeRowActionAccess = Readonly<{
-  canView: boolean;
+type EmployeeRowActionAccess = Readonly<{
   canUpdate: boolean;
   canDeactivate: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type EmployeeRowProps = {
@@ -39,18 +37,16 @@ export const EmployeeRow = memo(function EmployeeRow({
         </Badge>
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          itemId={employee.id}
-          item={employee}
-          onDelete={onDelete}
-          path="/dashboard/employees"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? <TableActions.Update /> : null}
-          {actionAccess.canDeactivate ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        itemId={employee.id}
+        item={employee}
+        onDelete={onDelete}
+        path="/dashboard/employees"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? <TableActions.Update /> : null}
+        {actionAccess.canDeactivate ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

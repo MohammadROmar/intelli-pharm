@@ -5,7 +5,7 @@ import {
   usePharmacyMetrics,
   usePharmacyFilters,
 } from '@/features/metrics-pharmacy';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import { useHasPermission } from '@/entities/session';
 
 import { PharmacyMetricsTable } from './PharmacyMetricsTable';
 
@@ -21,12 +21,8 @@ function PharmacyMetricsContent() {
   const { t } = useTranslation('metrics', { keyPrefix: 'pharmacy' });
   const { filters } = usePharmacyFilters();
   const { data } = usePharmacyMetrics(filters);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewPharmacy = hasPermission(
-    grantedPermissions,
-    'erp.pharmacies.view',
-  );
+  const canViewPharmacy = useHasPermission('erp.pharmacies.view');
 
   return (
     <>

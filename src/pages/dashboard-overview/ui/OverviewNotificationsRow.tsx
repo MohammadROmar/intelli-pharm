@@ -1,6 +1,6 @@
-import { NotificationActivationBanner } from "@/features/notifications";
+import { NotificationActivationBanner } from '@/features/notifications';
 
-import { OverviewNotificationSummary } from "./OverviewNotificationSummary";
+import { OverviewNotificationSummary } from './OverviewNotificationSummary';
 
 export function OverviewNotificationsRow() {
   return (

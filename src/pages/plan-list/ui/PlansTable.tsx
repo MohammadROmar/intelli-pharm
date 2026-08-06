@@ -1,7 +1,6 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { PlanListApiResponse } from '@/entities/plan';
 import {
   EntityEmptyState,
@@ -10,7 +9,7 @@ import {
   TableHead,
 } from '@/shared/ui';
 
-import { PlanRow, type PlanRowActionAccess } from './PlanRow';
+import { PlanRow } from './PlanRow';
 import { PlanFiltersModal } from './PlanFiltersModal';
 import { InitiatePlanButton } from './InitiatePlanButton';
 import { usePlanFilters } from '../model/usePlanFilters';
@@ -18,23 +17,12 @@ import { usePlanFilters } from '../model/usePlanFilters';
 export function PlansTable({ data }: { data: PlanListApiResponse }) {
   const { t } = useTranslation('plan', { keyPrefix: 'list' });
   const filtersState = usePlanFilters();
-  const grantedPermissions = useGrantedPermissions();
-
-  const canView = hasPermission(grantedPermissions, 'planner.plan.view');
-
-  const actionAccess = useMemo<PlanRowActionAccess>(
-    () => ({
-      canView,
-      hasAnyRowAction: canView,
-    }),
-    [canView],
-  );
 
   const renderRow = useCallback(
     (plan: PlanListApiResponse['data'][number]) => (
-      <PlanRow key={plan.id} plan={plan} actionAccess={actionAccess} />
+      <PlanRow key={plan.id} plan={plan} />
     ),
-    [actionAccess],
+    [],
   );
 
   return (
@@ -60,9 +48,7 @@ export function PlansTable({ data }: { data: PlanListApiResponse }) {
           <TableHead>{t('table.reason')}</TableHead>
           <TableHead>{t('table.distance')}</TableHead>
           <TableHead>{t('table.duration')}</TableHead>
-          {actionAccess.hasAnyRowAction ? (
-            <TableHead>{t('table.actions')}</TableHead>
-          ) : null}
+          <TableHead>{t('table.actions')}</TableHead>
         </>
       }
       renderRow={renderRow}

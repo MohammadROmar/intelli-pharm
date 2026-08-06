@@ -5,7 +5,6 @@ export {
   isOwnBroadcast,
   type AuthSyncMessage,
 } from './lib/authBroadcast';
-export { logoutRequest } from './lib/logoutRequest';
 export { toSessionCredentials } from './lib/toSessionCredentials';
 export { selectUnreadNotifications } from './lib/selectUnreadNotifications';
 export {
@@ -28,4 +27,7 @@ export {
 
 export { Can } from './ui/Can';
 
-export { useGrantedPermissions } from './model/useHasPermission';
+export {
+  useHasPermission,
+  useGrantedPermissions,
+} from './model/useHasPermission';

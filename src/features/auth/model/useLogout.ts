@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 
+import { logout } from '@/entities/session';
 import { resetDeviceRegistrationState } from '@/entities/device';
-import { logout, logoutRequest } from '@/entities/session';
 import { useAppDispatch } from '@/shared/config';
+
+import { logoutRequest } from '../api';
 
 type NotificationsModule = typeof import('@/shared/notifications');
 

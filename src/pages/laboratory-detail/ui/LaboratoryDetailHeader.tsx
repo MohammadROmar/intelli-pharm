@@ -6,9 +6,9 @@ import { Pencil, Trash2 } from 'lucide-react';
 import { LaboratoryEditSheet } from '@/features/laboratory-edit';
 import { DeleteLaboratoryModal } from '@/features/laboratory-delete';
 import type { LaboratoryDetail } from '@/entities/laboratory';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { getLocalized } from '@/shared/lib';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
+import { useLaboratoryAccess } from '@/features/laboratory-access';
 
 type Props = { laboratory: LaboratoryDetail };
 
@@ -44,16 +44,8 @@ export function LaboratoryActions({
   );
 
   const [labToDelete, setLabToDelete] = useState<LaboratoryDetail | null>(null);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(
-    grantedPermissions,
-    'erp.laboratories.update',
-  );
-  const canDelete = hasPermission(
-    grantedPermissions,
-    'erp.laboratories.delete',
-  );
+  const { canUpdate, canDelete } = useLaboratoryAccess();
   const hasAnyAction = canUpdate || canDelete;
 
   return (

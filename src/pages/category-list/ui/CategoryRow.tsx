@@ -5,11 +5,9 @@ import type { CategoryListItem } from '@/entities/category';
 import { formatDate } from '@/shared/lib';
 import { TableCell, TableActions, TableRow } from '@/shared/ui';
 
-export type CategoryRowActionAccess = Readonly<{
-  canView: boolean;
+type CategoryRowActionAccess = Readonly<{
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type CategoryRowProps = {
@@ -39,18 +37,16 @@ export const CategoryRow = memo(function CategoryRow({
         {formatDate(category.created_at, i18n.language, false)}
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={category}
-          itemId={category.id}
-          onDelete={onDelete}
-          path="/dashboard/categories"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? <TableActions.Update /> : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={category}
+        itemId={category.id}
+        onDelete={onDelete}
+        path="/dashboard/categories"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? <TableActions.Update /> : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

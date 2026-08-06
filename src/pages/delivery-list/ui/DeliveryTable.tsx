@@ -1,50 +1,30 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TruckElectric } from 'lucide-react';
 
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { DeliveryListResponse } from '@/entities/delivery';
 import { TableHead, TableEmptyState, EntityListTable } from '@/shared/ui';
 
-import { DeliveryRow, type DeliveryRowActionAccess } from './DeliveryRow';
+import { DeliveryRow } from './DeliveryRow';
+import { useDeliveryAccess } from '../model/useDeliveryAccess';
 
 type Props = { data: DeliveryListResponse };
 
 export function DeliveriesTable({ data }: Props) {
   const { t } = useTranslation('deliveries');
-  const grantedPermissions = useGrantedPermissions();
 
-  const canViewDetails = hasPermission(
-    grantedPermissions,
-    'planner.deliveries.view',
-  );
-  const canChangeStatus = hasPermission(
-    grantedPermissions,
-    'planner.deliveries.update',
-  );
-  const canAssign = hasPermission(
-    grantedPermissions,
-    'planner.deliveries.create',
-  );
-
-  const actionAccess = useMemo<DeliveryRowActionAccess>(
-    () => ({
-      canViewDetails,
-      canChangeStatus,
-      hasAnyRowAction: canViewDetails || canChangeStatus,
-    }),
-    [canChangeStatus, canViewDetails],
-  );
+  const actionAccess = useDeliveryAccess();
+  const { canCreate, canUpdate } = actionAccess;
 
   const renderRow = useCallback(
     (delivery: DeliveryListResponse['data'][number]) => (
       <DeliveryRow
         key={delivery.id}
         delivery={delivery}
-        actionAccess={actionAccess}
+        canChangeStatus={canUpdate}
       />
     ),
-    [actionAccess],
+    [canUpdate],
   );
 
   return (
@@ -52,7 +32,7 @@ export function DeliveriesTable({ data }: Props) {
       data={data}
       title={t('list.all')}
       addButton={
-        canAssign
+        canCreate
           ? {
               addHref: '/dashboard/deliveries/assign',
               addLabel: t('list.assign'),
@@ -70,9 +50,7 @@ export function DeliveriesTable({ data }: Props) {
           <TableHead>{t('list.paymentStatus')}</TableHead>
           <TableHead>{t('list.paymentAmount')}</TableHead>
           <TableHead>{t('list.totalItems')}</TableHead>
-          {actionAccess.hasAnyRowAction ? (
-            <TableHead>{t('list.actions')}</TableHead>
-          ) : null}
+          <TableHead>{t('list.actions')}</TableHead>
         </>
       }
       renderRow={renderRow}

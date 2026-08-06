@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Pencil, Trash2 } from 'lucide-react';
 
+import { useEmployeeAccess } from '@/features/employee-access';
 import { DeleteEmployeeModal } from '@/features/employee-delete';
 import type { Employee } from '@/entities/employee';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { ActionsDropdown, DropdownMenuItem, PageHeader } from '@/shared/ui';
 
 type Props = { employee: Employee };
@@ -17,13 +17,8 @@ export function EmployeeDetailHeader({ employee }: Props) {
     null,
   );
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.employees.update');
-  const canDeactivate = hasPermission(
-    grantedPermissions,
-    'erp.employees.deactivate',
-  );
+  const { canDeactivate, canUpdate } = useEmployeeAccess();
   const hasAnyAction = canUpdate || canDeactivate;
 
   return (

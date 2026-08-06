@@ -1,8 +1,8 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Cross, PackageSearch } from 'lucide-react';
 
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import { useHasPermission } from '@/entities/session';
 import type { RegionPharmacy } from '@/entities/region';
 import { getLocalized } from '@/shared/lib';
 import {
@@ -17,38 +17,22 @@ import {
   TableRow,
 } from '@/shared/ui';
 
-type RegionPharmacyRowActionAccess = Readonly<{
-  canView: boolean;
-  hasAnyRowAction: boolean;
-}>;
-
 type Props = { pharmacies: RegionPharmacy[] };
 
 export function RegionPharmaciesTable({ pharmacies }: Props) {
-  const { t } = useTranslation('regions', {
-    keyPrefix: 'detail',
-  });
-  const grantedPermissions = useGrantedPermissions();
+  const { t } = useTranslation('regions', { keyPrefix: 'detail' });
 
-  const canView = hasPermission(grantedPermissions, 'erp.pharmacies.view');
-
-  const actionAccess = useMemo<RegionPharmacyRowActionAccess>(
-    () => ({
-      canView,
-      hasAnyRowAction: canView,
-    }),
-    [canView],
-  );
+  const canView = useHasPermission('erp.pharmacies.view');
 
   const renderRow = useCallback(
     (pharmacy: RegionPharmacy) => (
       <RegionPharmacyRow
         key={pharmacy.id}
         pharmacy={pharmacy}
-        actionAccess={actionAccess}
+        canView={canView}
       />
     ),
-    [actionAccess],
+    [canView],
   );
 
   return (
@@ -67,9 +51,7 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
               <TableHead className="w-25">{t('colId')}</TableHead>
               <TableHead>{t('colName')}</TableHead>
               <TableHead>{t('colPhone')}</TableHead>
-              {actionAccess.hasAnyRowAction ? (
-                <TableHead>{t('colActions')}</TableHead>
-              ) : null}
+              {canView ? <TableHead>{t('colActions')}</TableHead> : null}
             </TableRow>
           </TableHeader>
           <TableBody>{pharmacies.map(renderRow)}</TableBody>
@@ -81,12 +63,12 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
 
 type RegionPharmacyRowProps = {
   pharmacy: RegionPharmacy;
-  actionAccess: RegionPharmacyRowActionAccess;
+  canView: boolean;
 };
 
 const RegionPharmacyRow = memo(function RegionPharmacyRow({
   pharmacy,
-  actionAccess,
+  canView,
 }: RegionPharmacyRowProps) {
   const { i18n } = useTranslation();
 
@@ -105,13 +87,13 @@ const RegionPharmacyRow = memo(function RegionPharmacyRow({
           {pharmacy.pharmacist_phone}
         </span>
       </TableCell>
-      {actionAccess.hasAnyRowAction ? (
+      {canView ? (
         <TableActions
           item={pharmacy}
           itemId={pharmacy.id}
           path="/dashboard/pharmacies"
         >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {canView ? <TableActions.Detail /> : null}
         </TableActions>
       ) : null}
     </TableRow>

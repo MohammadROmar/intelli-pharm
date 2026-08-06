@@ -12,10 +12,8 @@ import {
 } from '@/shared/ui';
 
 export type LaboratoryRowActionAccess = Readonly<{
-  canView: boolean;
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type LaboratoryRowProps = {
@@ -37,20 +35,18 @@ export const LaboratoryRow = memo(function LaboratoryRow({
         <p className="max-w-[20ch] truncate font-medium">{laboratory.name}</p>
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={laboratory}
-          itemId={laboratory.id}
-          onDelete={onDelete}
-          path="/dashboard/laboratories"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? (
-            <EditLaboratoryButton id={laboratory.id} label={t('edit')} />
-          ) : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={laboratory}
+        itemId={laboratory.id}
+        onDelete={onDelete}
+        path="/dashboard/laboratories"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? (
+          <EditLaboratoryButton id={laboratory.id} label={t('edit')} />
+        ) : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

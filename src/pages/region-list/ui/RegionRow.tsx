@@ -3,11 +3,9 @@ import { memo } from 'react';
 import type { RegionListItem } from '@/entities/region';
 import { TableActions, TableCell, TableRow } from '@/shared/ui';
 
-export type RegionRowActionAccess = Readonly<{
-  canView: boolean;
+type RegionRowActionAccess = Readonly<{
   canUpdate: boolean;
   canDelete: boolean;
-  hasAnyRowAction: boolean;
 }>;
 
 type RegionRowProps = {
@@ -30,18 +28,16 @@ export const RegionRow = memo(function RegionRow({
         <p className="max-w-[20ch] truncate font-medium">{region.city.name}</p>
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
-        <TableActions
-          item={region}
-          itemId={region.id}
-          onDelete={onDelete}
-          path="/dashboard/regions"
-        >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
-          {actionAccess.canUpdate ? <TableActions.Update /> : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
-        </TableActions>
-      ) : null}
+      <TableActions
+        item={region}
+        itemId={region.id}
+        onDelete={onDelete}
+        path="/dashboard/regions"
+      >
+        <TableActions.Detail />
+        {actionAccess.canUpdate ? <TableActions.Update /> : null}
+        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+      </TableActions>
     </TableRow>
   );
 });

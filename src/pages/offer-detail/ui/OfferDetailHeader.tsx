@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Pencil, Trash2 } from 'lucide-react';
 
 import { EditOffer } from '@/features/offer-edit';
+import { useOfferAccess } from '@/features/offer-access';
 import { DeleteOfferModal } from '@/features/offer-delete';
 import type { Offer } from '@/entities/offer';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
 
 type Props = { offer: Offer };
@@ -33,10 +33,8 @@ function OfferActions({ offer }: Props) {
   const [offerToEdit, setOfferToEdit] = useState<Offer | null>(null);
 
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.offers.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.offers.delete');
+  const { canUpdate, canDelete } = useOfferAccess();
   const hasAnyAction = canUpdate || canDelete;
 
   return (

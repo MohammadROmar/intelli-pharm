@@ -1,38 +1,24 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { EditOffer } from '@/features/offer-edit';
+import { useOfferAccess } from '@/features/offer-access';
 import { DeleteOfferModal } from '@/features/offer-delete';
 import { AddOfferButton } from '@/entities/offer';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import type { Offer, OfferResponse } from '@/entities/offer';
 import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
 
-import { OfferRow, type OfferRowActionAccess } from './OfferRow';
+import { OfferRow } from './OfferRow';
 
 type Props = { data: OfferResponse };
 
 export function OffersTable({ data }: Props) {
   const { t } = useTranslation('offers', { keyPrefix: 'list' });
-  const grantedPermissions = useGrantedPermissions();
 
   const [offerToDelete, setOfferToDelete] = useState<Offer | null>(null);
   const [offerToEdit, setOfferToEdit] = useState<Offer | null>(null);
 
-  const canCreate = hasPermission(grantedPermissions, 'erp.offers.create');
-  const canView = hasPermission(grantedPermissions, 'erp.offers.view');
-  const canUpdate = hasPermission(grantedPermissions, 'erp.offers.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.offers.delete');
-
-  const actionAccess = useMemo<OfferRowActionAccess>(
-    () => ({
-      canView,
-      canUpdate,
-      canDelete,
-      hasAnyRowAction: canView || canUpdate || canDelete,
-    }),
-    [canDelete, canUpdate, canView],
-  );
+  const actionAccess = useOfferAccess();
 
   const handleEditClose = useCallback(() => setOfferToEdit(null), []);
   const handleDeleteClose = useCallback(() => setOfferToDelete(null), []);
@@ -52,18 +38,18 @@ export function OffersTable({ data }: Props) {
 
   return (
     <>
-      {canUpdate ? (
+      {actionAccess.canUpdate ? (
         <EditOffer offer={offerToEdit} onClose={handleEditClose} />
       ) : null}
 
-      {canDelete ? (
+      {actionAccess.canDelete ? (
         <DeleteOfferModal offer={offerToDelete} onClose={handleDeleteClose} />
       ) : null}
 
       <EntityListTable
         data={data}
         title={t('all')}
-        toolbar={canCreate ? <AddOfferButton /> : undefined}
+        toolbar={actionAccess.canCreate ? <AddOfferButton /> : undefined}
         basePath="/dashboard/offers"
         columns={
           <>
@@ -71,9 +57,7 @@ export function OffersTable({ data }: Props) {
             <TableHead>{t('requiredAmount')}</TableHead>
             <TableHead>{t('benefit')}</TableHead>
             <TableHead>{t('status')}</TableHead>
-            {actionAccess.hasAnyRowAction ? (
-              <TableHead>{t('actions')}</TableHead>
-            ) : null}
+            <TableHead>{t('actions')}</TableHead>
           </>
         }
         renderRow={renderRow}

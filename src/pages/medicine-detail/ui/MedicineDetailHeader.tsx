@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { PackagePlus, Pencil, Trash2 } from 'lucide-react';
 
+import { useMedicineAccess } from '@/features/medicine-acces';
 import { DeleteMedicineModal } from '@/features/medicine-delete';
 import type { MedicineDetail } from '@/entities/medicine';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -42,11 +42,9 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
   const [medicineToDelete, setMedicineToDelete] =
     useState<MedicineDetail | null>(null);
   const navigate = useNavigate();
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.medicines.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.medicines.delete');
-  const canRestock = hasPermission(grantedPermissions, 'erp.stock.update');
+  const { canUpdate, canDelete, canRestock } = useMedicineAccess();
+
   const hasMedicineAction = canUpdate || canDelete;
   const hasAnyAction = hasMedicineAction || canRestock;
 

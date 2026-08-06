@@ -6,9 +6,9 @@ import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { DeletePharmacyModal } from '@/features/pharmacy-delete';
 import { AddPharmacyNoteDialog } from '@/features/pharmacy-notes';
 import type { PharmacyDetail } from '@/entities/pharmacy';
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
 import { getLocalized } from '@/shared/lib';
 import { DropdownMenuItem, PageHeader, ActionsDropdown } from '@/shared/ui';
+import { usePharmacyAccess } from '@/features/pharmacy-access';
 
 type Props = { pharmacy: PharmacyDetail };
 
@@ -33,10 +33,11 @@ function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
   const [pharmacyToDelete, setPharmacyToDelete] =
     useState<PharmacyDetail | null>(null);
   const [noteDialogOpen, setNoteDialogOpen] = useState(false);
-  const grantedPermissions = useGrantedPermissions();
 
-  const canUpdate = hasPermission(grantedPermissions, 'erp.pharmacies.update');
-  const canDelete = hasPermission(grantedPermissions, 'erp.pharmacies.delete');
+  const { canUpdate, canDelete } = usePharmacyAccess();
+  const hasAnyAction = canUpdate || canDelete;
+
+  if (!hasAnyAction) return null;
 
   return (
     <>
@@ -49,11 +50,13 @@ function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
         />
       ) : null}
 
-      <AddPharmacyNoteDialog
-        pharmacyId={pharmacy.id}
-        open={noteDialogOpen}
-        onOpenChange={setNoteDialogOpen}
-      />
+      {canUpdate ? (
+        <AddPharmacyNoteDialog
+          pharmacyId={pharmacy.id}
+          open={noteDialogOpen}
+          onOpenChange={setNoteDialogOpen}
+        />
+      ) : null}
 
       <ActionsDropdown label={t('actions')}>
         <DropdownMenuItem
