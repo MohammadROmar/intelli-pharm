@@ -5,7 +5,7 @@ import { useCreateEntity } from '@/shared/model';
 
 import { createRole } from '../api/roleApi';
 import type { CreateRolePayload } from './roleTypes';
-import { getCreateRoleErrorKey } from '../lib/getCreateRoleErrorKey';
+import { getRoleErrorKey } from '../lib/getRoleErrorKey';
 
 export function useCreateRole() {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export function useCreateRole() {
     mutationFn: createRole,
     onError: (error) => {
       toast.error(t('toasts.create.error'), {
-        description: tErrors(getCreateRoleErrorKey(error)),
+        description: tErrors(getRoleErrorKey(error)),
       });
     },
   });

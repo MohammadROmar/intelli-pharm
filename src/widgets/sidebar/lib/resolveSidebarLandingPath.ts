@@ -1,17 +1,16 @@
-import { hasPermissionRequirement } from '@/entities/session';
-import type { Permission, PermissionRequirement } from '@/shared/api';
+import { hasPermission } from '@/entities/session';
+import type { Permission } from '@/shared/api';
 
 import { sidebarData } from '../config/sidebarData';
 
-type PermissionGatedLink = { url: string; permission?: PermissionRequirement };
+type PermissionGatedLink = { url: string; permission?: Permission };
 
 function isAccessible(
   link: PermissionGatedLink,
   granted: ReadonlySet<Permission>,
 ): boolean {
   return (
-    link.permission !== undefined &&
-    hasPermissionRequirement(granted, link.permission)
+    link.permission !== undefined && hasPermission(granted, link.permission)
   );
 }
 

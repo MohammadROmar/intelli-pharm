@@ -19,7 +19,7 @@ import {
   Radar,
 } from 'lucide-react';
 
-import type { PermissionRequirement } from '@/shared/api';
+import type { Permission } from '@/shared/api';
 
 export const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 export const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -31,7 +31,7 @@ export const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 export type NavSubItem = {
   label: string;
   url: string;
-  permission?: PermissionRequirement;
+  permission?: Permission;
 };
 
 export type SidebarItem = {
@@ -40,7 +40,7 @@ export type SidebarItem = {
   icon?: LucideIcon;
   items?: NavSubItem[];
   exact?: boolean;
-  permission?: PermissionRequirement;
+  permission?: Permission;
 };
 
 export type NavSection = {
@@ -69,13 +69,13 @@ export const sidebarData: NavSection[] = [
         label: 'labels.orders',
         url: '/dashboard/orders',
         icon: Package,
-        permission: ['erp.orders.view', 'erp.orders.view.own'],
+        permission: 'erp.orders.view',
       },
       {
         label: 'labels.plans',
         url: '/dashboard/plans',
         icon: Route,
-        permission: ['planner.plan.view', 'planner.plan.view.own'],
+        permission: 'planner.plan.view',
       },
       {
         label: 'labels.targets',
@@ -220,7 +220,7 @@ export const sidebarData: NavSection[] = [
         label: 'labels.employees',
         url: '/dashboard/employees',
         icon: Users,
-        permission: ['erp.employees.view', 'erp.employees.view.own'],
+        permission: 'erp.employees.view',
       },
       {
         label: 'labels.roles',

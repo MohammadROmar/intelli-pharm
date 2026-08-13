@@ -1,32 +1,32 @@
 import { Outlet, useMatches } from 'react-router';
 
 import { LazyForbiddenPage } from '@/pages/forbidden';
-import {
-  hasAllPermissionRequirements,
-  useGrantedPermissions,
-} from '@/entities/session';
-import type { PermissionRequirement } from '@/shared/api';
+import { hasPermission, useGrantedPermissions } from '@/entities/session';
+import type { Permission } from '@/shared/api';
 
-export type PermissionHandle = { permission?: PermissionRequirement };
+export type PermissionHandle = { permission?: Permission };
 
-function getRequiredPermissions(
+function hasRequiredPermissions(
   matches: ReturnType<typeof useMatches>,
-): PermissionRequirement[] {
-  const requirements: PermissionRequirement[] = [];
-
+  granted: ReadonlySet<Permission>,
+): boolean {
   for (const match of matches) {
     const handle = match.handle as PermissionHandle | undefined;
-    if (handle?.permission) requirements.push(handle.permission);
+    if (
+      handle?.permission !== undefined &&
+      !hasPermission(granted, handle.permission)
+    ) {
+      return false;
+    }
   }
 
-  return requirements;
+  return true;
 }
 
 export function PermissionRoute() {
   const matches = useMatches();
   const granted = useGrantedPermissions();
-  const requirements = getRequiredPermissions(matches);
-  const isAllowed = hasAllPermissionRequirements(granted, requirements);
+  const isAllowed = hasRequiredPermissions(matches, granted);
 
   return isAllowed ? <Outlet /> : <LazyForbiddenPage />;
 }

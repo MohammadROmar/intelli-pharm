@@ -70,7 +70,3 @@ export type Permission =
   | 'planner.deliveries.view.own'
   | 'tracking.submit_location'
   | 'tracking.view_live';
-
-export type NonEmptyPermissionList = readonly [Permission, ...Permission[]];
-
-export type PermissionRequirement = Permission | NonEmptyPermissionList;

@@ -7,12 +7,7 @@ export {
 } from './lib/authBroadcast';
 export { toSessionCredentials } from './lib/toSessionCredentials';
 export { selectUnreadNotifications } from './lib/selectUnreadNotifications';
-export {
-  hasPermission,
-  hasAnyPermission,
-  hasPermissionRequirement,
-  hasAllPermissionRequirements,
-} from './lib/hasPermission';
+export { hasPermission } from './lib/hasPermission';
 
 export {
   logout,
@@ -24,8 +19,6 @@ export {
   decrementUnreadNotifications,
   default as sessionReducer,
 } from './model/slice';
-
-export { Can } from './ui/Can';
 
 export {
   useHasPermission,

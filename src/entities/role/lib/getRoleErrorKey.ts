@@ -1,6 +1,6 @@
 import type { ApiError } from '@/shared/api';
 
-export function getCreateRoleErrorKey(error: ApiError): string {
+export function getRoleErrorKey(error: ApiError): string {
   if (error.status !== 422) return error.i18nKey;
 
   if (error.validationErrors?.name?.length) {

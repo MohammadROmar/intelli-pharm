@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router';
 
 import { useHasPermission } from '@/entities/session';
 import { useAppSelector } from '@/shared/config';
+import { ErrorBoundary } from '@/shared/lib';
 
 const ForegroundNotificationListener = lazy(() =>
   import('@/features/notifications').then((module) => ({
@@ -18,9 +19,11 @@ function StockNotificationListenerGate() {
   if (!canReceiveStockNotifications) return null;
 
   return (
-    <Suspense fallback={null}>
-      <ForegroundNotificationListener />
-    </Suspense>
+    <ErrorBoundary fallback={null}>
+      <Suspense fallback={null}>
+        <ForegroundNotificationListener />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 

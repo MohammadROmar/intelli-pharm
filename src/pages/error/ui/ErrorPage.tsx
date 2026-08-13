@@ -48,7 +48,7 @@ export default function ErrorPage() {
           className="bg-destructive/10 text-destructive animate-in fade-in slide-in-from-bottom-2 fill-mode-[both] inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-[0.12em] uppercase duration-500 motion-reduce:animate-none"
         >
           <AlertCircle className="size-3.5 shrink-0" aria-hidden />
-          {t('badge')}
+          {t('badge', 'خطأ في التطبيق')}
         </div>
 
         <div className="animate-in fade-in slide-in-from-bottom-3 fill-mode-[both] space-y-4 duration-700 [animation-delay:100ms] motion-reduce:animate-none">
@@ -56,10 +56,10 @@ export default function ErrorPage() {
             id="error-heading"
             className="text-foreground text-5xl font-bold tracking-tight text-balance sm:text-6xl lg:text-7xl"
           >
-            {t('title')}
+            {t('title', 'حدث خطأ ما')}
           </h1>
           <p className="text-muted-foreground mx-auto max-w-sm text-lg leading-relaxed sm:max-w-md sm:text-xl">
-            {t('subtitle')}
+            {t('subtitle', 'حدث خطأ غير متوقع أثناء تحميل هذه الصفحة.')}
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export default function ErrorPage() {
               aria-hidden
               className="size-4 origin-center transition-transform duration-200 group-hover:rotate-90"
             />
-            {t('reload')}
+            {t('reload', 'إعادة تحميل الصفحة')}
           </Button>
 
           <Link
@@ -102,7 +102,7 @@ export default function ErrorPage() {
               aria-hidden
               className="size-4 transition-transform duration-200 group-hover:scale-110"
             />
-            {t('home')}
+            {t('home', 'العودة للرئيسية')}
           </Link>
         </div>
       </section>

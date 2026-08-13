@@ -70,18 +70,12 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         lazy: () => import('@/pages/order-list'),
-                        handle: withPermission([
-                          'erp.orders.view',
-                          'erp.orders.view.own',
-                        ]),
+                        handle: withPermission('erp.orders.view'),
                       },
                       {
                         path: ':id',
                         lazy: () => import('@/pages/order-detail'),
-                        handle: withPermission([
-                          'erp.orders.view',
-                          'erp.orders.view.own',
-                        ]),
+                        handle: withPermission('erp.orders.view'),
                       },
                     ],
                   },
@@ -374,10 +368,7 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         lazy: () => import('@/pages/employee-list'),
-                        handle: withPermission([
-                          'erp.employees.view',
-                          'erp.employees.view.own',
-                        ]),
+                        handle: withPermission('erp.employees.view'),
                       },
                       {
                         path: ':id',
@@ -385,10 +376,7 @@ const router = createBrowserRouter([
                           {
                             index: true,
                             lazy: () => import('@/pages/employee-detail'),
-                            handle: withPermission([
-                              'erp.employees.view',
-                              'erp.employees.view.own',
-                            ]),
+                            handle: withPermission('erp.employees.view'),
                           },
                           {
                             path: 'edit',
@@ -447,10 +435,7 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         lazy: () => import('@/pages/plan-list'),
-                        handle: withPermission([
-                          'planner.plan.view',
-                          'planner.plan.view.own',
-                        ]),
+                        handle: withPermission('planner.plan.view'),
                       },
                       {
                         path: 'initiate',
@@ -468,10 +453,7 @@ const router = createBrowserRouter([
                       {
                         path: ':id',
                         lazy: () => import('@/pages/plan-detail'),
-                        handle: withPermission([
-                          'planner.plan.view',
-                          'planner.plan.view.own',
-                        ]),
+                        handle: withPermission('planner.plan.view'),
                       },
                     ],
                   },

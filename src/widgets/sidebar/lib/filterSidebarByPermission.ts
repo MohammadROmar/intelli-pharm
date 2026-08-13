@@ -1,24 +1,16 @@
-import { hasAnyPermission } from '@/entities/session';
-import type { Permission, PermissionRequirement } from '@/shared/api';
+import { hasPermission } from '@/entities/session';
+import type { Permission } from '@/shared/api';
 import type {
   NavSection,
   NavSubItem,
   SidebarItem,
 } from '../config/sidebarData';
 
-function toPermissionList(
-  permission?: PermissionRequirement,
-): readonly Permission[] {
-  if (!permission) return [];
-  return typeof permission === 'string' ? [permission] : permission;
-}
-
 function isVisible(
-  permission: PermissionRequirement | undefined,
+  permission: Permission | undefined,
   granted: ReadonlySet<Permission>,
 ): boolean {
-  const required = toPermissionList(permission);
-  return required.length === 0 || hasAnyPermission(granted, required);
+  return permission === undefined || hasPermission(granted, permission);
 }
 
 function filterSubItems(
