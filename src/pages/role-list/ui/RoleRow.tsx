@@ -41,8 +41,8 @@ export function RoleRow({ role, onDelete }: RoleRowProps) {
         path="/dashboard/roles"
       >
         <TableActions.Detail />
-        {canMutate ? <TableActions.Update /> : null}
-        {canMutate ? <TableActions.Delete /> : null}
+        {canMutate && <TableActions.Update />}
+        {canMutate && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

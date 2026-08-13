@@ -54,16 +54,16 @@ export function CityTable({ data }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteCityModal city={cityToDelete} onClose={handleDeleteModalClose} />
-      ) : null}
+      )}
 
-      {canUpdate ? (
+      {canUpdate && (
         <CityEditButton
           cityToEdit={cityToEdit}
           onClose={handleEditModalClose}
         />
-      ) : null}
+      )}
 
       <EntityListTable
         data={data}
@@ -75,13 +75,13 @@ export function CityTable({ data }: Props) {
               filtersState={filtersState}
               FiltersModal={CityFiltersModal}
             />
-            {canCreate ? <AddCityButton /> : null}
+            {canCreate && <AddCityButton />}
           </>
         }
         columns={
           <>
             <TableHead>{t('list.name')}</TableHead>
-            {hasAnyAction ? <TableHead>{t('list.actions')}</TableHead> : null}
+            {hasAnyAction && <TableHead>{t('list.actions')}</TableHead>}
           </>
         }
         renderRow={renderRow}

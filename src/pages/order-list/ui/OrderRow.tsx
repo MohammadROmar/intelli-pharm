@@ -72,9 +72,9 @@ export const OrderRow = memo(function OrderRow({
 
       <TableActions item={order} itemId={order.id} path="/dashboard/orders">
         <TableActions.Detail />
-        {canChangeStatus ? (
+        {canChangeStatus && (
           <ChangeStatus order={order} label={t('changeStatus')} />
-        ) : null}
+        )}
       </TableActions>
     </TableRow>
   );

@@ -125,7 +125,7 @@ export function DynamicPagination({
         !isValidPage && 'lg:justify-end',
       )}
     >
-      {isValidPage ? (
+      {isValidPage && (
         <p className="text-muted-foreground text-sm">
           {t('pagination.showing')}{' '}
           <span className="text-foreground font-medium">{firstItem}</span>{' '}
@@ -134,7 +134,7 @@ export function DynamicPagination({
           {t('pagination.of')}{' '}
           <span className="text-foreground font-medium">{totalItems}</span>{' '}
         </p>
-      ) : null}
+      )}
 
       <Pagination className="block">
         <PaginationContent className="flex flex-wrap items-center justify-center">

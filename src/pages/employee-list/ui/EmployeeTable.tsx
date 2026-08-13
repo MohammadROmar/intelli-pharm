@@ -44,12 +44,12 @@ export function EmployeeTable({ data }: { data: EmployeeListResponse }) {
 
   return (
     <>
-      {actionAccess.canDeactivate ? (
+      {actionAccess.canDeactivate && (
         <DeleteEmployeeModal
           employee={employeeToDelete}
           onClose={handleDeleteModalClose}
         />
-      ) : null}
+      )}
 
       <EntityListTable
         data={data}

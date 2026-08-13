@@ -61,7 +61,7 @@ export const DeliveryRow = memo(function DeliveryRow({
         path="/dashboard/deliveries"
       >
         <TableActions.Detail />
-        {canChangeStatus ? <ChangeStatus id={delivery.id} /> : null}
+        {canChangeStatus && <ChangeStatus id={delivery.id} />}
       </TableActions>
     </TableRow>
   );

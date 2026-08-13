@@ -38,19 +38,19 @@ export function CityRow({
         <p className="max-w-[20ch] truncate font-medium">{name}</p>
       </TableCell>
 
-      {actionAccess.hasAnyAction ? (
+      {actionAccess.hasAnyAction && (
         <TableActions
           item={city}
           itemId={city.id}
           onDelete={onDelete}
           path="/dashboard/cities"
         >
-          {actionAccess.canUpdate ? (
+          {actionAccess.canUpdate && (
             <EditCityButton city={city} onEdit={onEdit} />
-          ) : null}
-          {actionAccess.canDelete ? <TableActions.Delete /> : null}
+          )}
+          {actionAccess.canDelete && <TableActions.Delete />}
         </TableActions>
-      ) : null}
+      )}
     </TableRow>
   );
 }

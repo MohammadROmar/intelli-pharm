@@ -68,9 +68,9 @@ export function RolePermissionsCard({
             onChange={handleChange}
           />
 
-          {typeof permissionError === 'string' ? (
+          {typeof permissionError === 'string' && (
             <p className="text-destructive text-sm">{tForm(permissionError)}</p>
-          ) : null}
+          )}
         </Field>
       </CardContent>
     </Card>

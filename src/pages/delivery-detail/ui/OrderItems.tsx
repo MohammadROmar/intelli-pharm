@@ -52,9 +52,7 @@ export function OrderItems({
             <TableHead>{t('table.quantity')}</TableHead>
             <TableHead>{t('table.unitPrice')}</TableHead>
             <TableHead>{t('table.total')}</TableHead>
-            {canViewMedicine ? (
-              <TableHead>{t('table.actions')}</TableHead>
-            ) : null}
+            {canViewMedicine && <TableHead>{t('table.actions')}</TableHead>}
           </TableRow>
         </TableHeader>
 
@@ -80,7 +78,7 @@ export function OrderItems({
             <TableCell className="font-semibold tabular-nums">
               {delivery.number_of_items}
             </TableCell>
-            {canViewMedicine ? <TableCell /> : null}
+            {canViewMedicine && <TableCell />}
             <TableCell className="font-bold tabular-nums">
               {formatPrice(delivery.required_payment_amount, i18n.language)}
             </TableCell>
@@ -186,7 +184,7 @@ function OrderItemRow({
         )}
       </TableCell>
 
-      {canViewMedicine ? (
+      {canViewMedicine && (
         <TableActions
           item={item.medicine}
           itemId={item.medicine.id}
@@ -194,7 +192,7 @@ function OrderItemRow({
         >
           <TableActions.Detail />
         </TableActions>
-      ) : null}
+      )}
     </TableRow>
   );
 }

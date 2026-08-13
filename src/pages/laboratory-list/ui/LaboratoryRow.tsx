@@ -42,10 +42,10 @@ export const LaboratoryRow = memo(function LaboratoryRow({
         path="/dashboard/laboratories"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? (
+        {actionAccess.canUpdate && (
           <EditLaboratoryButton id={laboratory.id} label={t('edit')} />
-        ) : null}
-        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        )}
+        {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

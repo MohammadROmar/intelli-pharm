@@ -51,7 +51,7 @@ export function RegionPharmaciesTable({ pharmacies }: Props) {
               <TableHead className="w-25">{t('colId')}</TableHead>
               <TableHead>{t('colName')}</TableHead>
               <TableHead>{t('colPhone')}</TableHead>
-              {canView ? <TableHead>{t('colActions')}</TableHead> : null}
+              {canView && <TableHead>{t('colActions')}</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>{pharmacies.map(renderRow)}</TableBody>
@@ -87,15 +87,15 @@ const RegionPharmacyRow = memo(function RegionPharmacyRow({
           {pharmacy.pharmacist_phone}
         </span>
       </TableCell>
-      {canView ? (
+      {canView && (
         <TableActions
           item={pharmacy}
           itemId={pharmacy.id}
           path="/dashboard/pharmacies"
         >
-          {canView ? <TableActions.Detail /> : null}
+          {canView && <TableActions.Detail />}
         </TableActions>
-      ) : null}
+      )}
     </TableRow>
   );
 });

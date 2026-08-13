@@ -399,12 +399,12 @@ const router = createBrowserRouter([
                       {
                         index: true,
                         lazy: () => import('@/pages/role-list'),
-                        handle: withPermission('auth.roles.manage'),
+                        handle: withPermission('auth.roles.view'),
                       },
                       {
                         path: 'new',
                         lazy: () => import('@/pages/role-create'),
-                        handle: withPermission('auth.roles.manage'),
+                        handle: withPermission('auth.roles.create'),
                       },
                       {
                         path: ':id',
@@ -412,12 +412,12 @@ const router = createBrowserRouter([
                           {
                             index: true,
                             lazy: () => import('@/pages/role-detail'),
-                            handle: withPermission('auth.roles.manage'),
+                            handle: withPermission('auth.roles.view'),
                           },
                           {
                             path: 'edit',
                             lazy: () => import('@/pages/role-edit'),
-                            handle: withPermission('auth.roles.manage'),
+                            handle: withPermission('auth.roles.update'),
                           },
                         ],
                       },

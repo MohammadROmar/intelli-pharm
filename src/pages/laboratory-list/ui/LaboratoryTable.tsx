@@ -48,13 +48,13 @@ export function LaboratoryTable({ data }: Props) {
 
   return (
     <>
-      {actionAccess.canDelete ? (
+      {actionAccess.canDelete && (
         <DeleteLaboratoryModal
           label={laboratoryToDelete?.name}
           laboratory={laboratoryToDelete}
           onClose={handleDeleteModalClose}
         />
-      ) : null}
+      )}
 
       <EntityListTable
         data={data}
@@ -66,7 +66,7 @@ export function LaboratoryTable({ data }: Props) {
               filtersState={filtersState}
               FiltersModal={LaboratoryFiltersModal}
             />
-            {actionAccess.canCreate ? <AddLaboratoryButton /> : null}
+            {actionAccess.canCreate && <AddLaboratoryButton />}
           </>
         }
         columns={

@@ -51,7 +51,7 @@ export default function VisitDetail({ id, onClose, canViewPharmacy }: Props) {
         side={isRtl ? 'left' : 'right'}
         className="thin-scrollbar overflow-y-auto sm:max-w-md"
       >
-        {activeId !== null ? (
+        {activeId !== null && (
           <QueryErrorBoundary>
             <Suspense fallback={<VisitSheetSkeleton />}>
               <VisitSheetContent
@@ -60,7 +60,7 @@ export default function VisitDetail({ id, onClose, canViewPharmacy }: Props) {
               />
             </Suspense>
           </QueryErrorBoundary>
-        ) : null}
+        )}
       </SheetContent>
     </Sheet>
   );

@@ -43,18 +43,18 @@ function RegionActions({ region, name }: Props & { name: string }) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteRegionModal
           label={name}
           region={regionToDelete}
           onClose={() => setRegionToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/region')}
         />
-      ) : null}
+      )}
 
-      {hasAnyAction ? (
+      {hasAnyAction && (
         <ActionsDropdown label={t('actions')}>
-          {canUpdate ? (
+          {canUpdate && (
             <DropdownMenuItem asChild>
               <Link
                 to={`/dashboard/regions/${region.id}/edit`}
@@ -64,9 +64,9 @@ function RegionActions({ region, name }: Props & { name: string }) {
                 {t('edit')}
               </Link>
             </DropdownMenuItem>
-          ) : null}
+          )}
 
-          {canDelete ? (
+          {canDelete && (
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => setRegionToDelete(region)}
@@ -75,9 +75,9 @@ function RegionActions({ region, name }: Props & { name: string }) {
               <Trash2 className="size-4" />
               {t('delete')}
             </DropdownMenuItem>
-          ) : null}
+          )}
         </ActionsDropdown>
-      ) : null}
+      )}
     </>
   );
 }

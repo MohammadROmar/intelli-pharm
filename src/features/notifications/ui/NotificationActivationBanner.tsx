@@ -273,7 +273,7 @@ function NotificationActivationBannerContent({
               </div>
             </div>
 
-            {status !== 'unsupported' ? (
+            {status !== 'unsupported' && (
               <ActivationAction
                 status={status}
                 isRegistering={isRegistering}
@@ -281,7 +281,7 @@ function NotificationActivationBannerContent({
                 onRefreshPermission={refreshPermission}
                 onRegister={register}
               />
-            ) : null}
+            )}
           </div>
 
           <DeniedStepsList steps={deniedSteps} label={t('denied.stepsLabel')} />

@@ -49,13 +49,13 @@ export function CategoriesTable({ data }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteCategoryModal
           label={categoryToDelete?.name}
           category={categoryToDelete}
           onClose={handleDeleteModalClose}
         />
-      ) : null}
+      )}
 
       <EntityListTable
         data={data}

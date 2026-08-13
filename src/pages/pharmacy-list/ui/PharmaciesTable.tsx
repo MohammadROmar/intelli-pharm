@@ -44,13 +44,13 @@ export function PharmaciesTable({ data }: Props) {
 
   return (
     <>
-      {actionAccess.canDelete ? (
+      {actionAccess.canDelete && (
         <DeletePharmacyModal
           label={pharmacyToDelete?.name}
           pharmacy={pharmacyToDelete}
           onClose={handleDeleteClose}
         />
-      ) : null}
+      )}
       <EntityListTable
         data={data}
         title={t('list.all')}

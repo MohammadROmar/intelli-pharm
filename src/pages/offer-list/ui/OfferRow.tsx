@@ -53,10 +53,10 @@ export const OfferRow = memo(function OfferRow({
         path="/dashboard/promotions/offers"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? (
+        {actionAccess.canUpdate && (
           <EditOfferButton offer={offer} onEdit={onEdit} />
-        ) : null}
-        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        )}
+        {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

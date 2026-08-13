@@ -50,27 +50,27 @@ export function LaboratoryActions({
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteLaboratoryModal
           label={name}
           laboratory={labToDelete}
           onClose={() => setLabToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/laboratories')}
         />
-      ) : null}
+      )}
 
-      {canUpdate ? (
+      {canUpdate && (
         <LaboratoryEditSheet
           id={laboratory.id}
           defaultName={laboratory.name}
           open={isEditOpen}
           onOpenChange={setIsEditOpen}
         />
-      ) : null}
+      )}
 
-      {hasAnyAction ? (
+      {hasAnyAction && (
         <ActionsDropdown label={t('actions')}>
-          {canUpdate ? (
+          {canUpdate && (
             <DropdownMenuItem
               onSelect={() => setIsEditOpen(true)}
               className="cursor-pointer"
@@ -78,9 +78,9 @@ export function LaboratoryActions({
               <Pencil className="size-4" />
               {t('edit')}
             </DropdownMenuItem>
-          ) : null}
+          )}
 
-          {canDelete ? (
+          {canDelete && (
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => setLabToDelete(laboratory)}
@@ -89,9 +89,9 @@ export function LaboratoryActions({
               <Trash2 className="size-4" />
               {t('delete')}
             </DropdownMenuItem>
-          ) : null}
+          )}
         </ActionsDropdown>
-      ) : null}
+      )}
     </>
   );
 }

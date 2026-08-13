@@ -192,7 +192,7 @@ export function PageErrorFallback({
         />
 
         <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-[both] flex w-full max-w-xs flex-col gap-3 duration-700 [animation-delay:250ms] motion-reduce:animate-none sm:max-w-none sm:flex-row sm:justify-center">
-          {canTryAgain ? (
+          {canTryAgain && (
             <Button variant="outline" onClick={reset} className="group gap-2">
               <RefreshCcw
                 aria-hidden
@@ -200,7 +200,7 @@ export function PageErrorFallback({
               />
               {config.tryAgain}
             </Button>
-          ) : null}
+          )}
 
           <Button
             onClick={() => window.location.reload()}
@@ -214,14 +214,14 @@ export function PageErrorFallback({
           </Button>
         </div>
 
-        {showStackTrace ? (
+        {showStackTrace && (
           <div className="animate-in fade-in fill-mode-[both] flex w-full flex-col items-center duration-500 [animation-delay:300ms] motion-reduce:animate-none">
             <Separator className="my-8 max-w-xs" />
             <p className="text-muted-foreground/50 max-w-sm font-mono text-xs break-all">
               {error?.message}
             </p>
           </div>
-        ) : null}
+        )}
       </div>
     </div>
   );

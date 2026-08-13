@@ -87,9 +87,9 @@ export function OrderItemsTable({
               <TableHead>{t('colQty')}</TableHead>
               <TableHead>{t('colUnitPrice')}</TableHead>
               <TableHead>{t('colTotalPrice')}</TableHead>
-              {actionAccess.hasAnyRowAction ? (
+              {actionAccess.hasAnyRowAction && (
                 <TableHead>{t('colActions')}</TableHead>
-              ) : null}
+              )}
             </TableRow>
           </TableHeader>
 
@@ -107,7 +107,7 @@ export function OrderItemsTable({
               <TableCell className="font-bold tabular-nums">
                 {formatPrice(totalAmount, i18n.language)}
               </TableCell>
-              {actionAccess.hasAnyRowAction ? <TableCell /> : null}
+              {actionAccess.hasAnyRowAction && <TableCell />}
             </TableRow>
           </TableFooter>
         </Table>
@@ -208,15 +208,15 @@ const OrderItemRow = memo(function OrderItemRow({
         )}
       </TableCell>
 
-      {actionAccess.hasAnyRowAction ? (
+      {actionAccess.hasAnyRowAction && (
         <TableActions
           item={item}
           itemId={item.medicine_id}
           path="/dashboard/medicines"
         >
-          {actionAccess.canView ? <TableActions.Detail /> : null}
+          {actionAccess.canView && <TableActions.Detail />}
         </TableActions>
-      ) : null}
+      )}
     </TableRow>
   );
 });

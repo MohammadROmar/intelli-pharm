@@ -56,9 +56,9 @@ export const MedicineRow = memo(function MedicineRow({
         path="/dashboard/medicines"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? <TableActions.Update /> : null}
-        {actionAccess.canRestock ? <Restock id={medicine.id} /> : null}
-        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        {actionAccess.canUpdate && <TableActions.Update />}
+        {actionAccess.canRestock && <Restock id={medicine.id} />}
+        {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

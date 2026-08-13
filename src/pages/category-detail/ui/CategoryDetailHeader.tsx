@@ -42,18 +42,18 @@ function CategoryActions({ category, name }: Props & { name: string }) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteCategoryModal
           label={name}
           category={categoryToDelete}
           onClose={() => setCategoryToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/categories')}
         />
-      ) : null}
+      )}
 
-      {hasAnyAction ? (
+      {hasAnyAction && (
         <ActionsDropdown label={t('actions')}>
-          {canUpdate ? (
+          {canUpdate && (
             <DropdownMenuItem asChild>
               <Link
                 to={`/dashboard/categories/${category.id}/edit`}
@@ -63,9 +63,9 @@ function CategoryActions({ category, name }: Props & { name: string }) {
                 {t('edit')}
               </Link>
             </DropdownMenuItem>
-          ) : null}
+          )}
 
-          {canDelete ? (
+          {canDelete && (
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => setCategoryToDelete(category)}
@@ -74,9 +74,9 @@ function CategoryActions({ category, name }: Props & { name: string }) {
               <Trash2 className="size-4" />
               {t('delete')}
             </DropdownMenuItem>
-          ) : null}
+          )}
         </ActionsDropdown>
-      ) : null}
+      )}
     </>
   );
 }

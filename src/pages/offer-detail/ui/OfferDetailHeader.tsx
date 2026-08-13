@@ -39,28 +39,28 @@ function OfferActions({ offer }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteOfferModal
           offer={offerToDelete}
           onClose={() => setOfferToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/promotions/offers')}
         />
-      ) : null}
+      )}
 
-      {canUpdate ? (
+      {canUpdate && (
         <EditOffer offer={offerToEdit} onClose={() => setOfferToEdit(null)} />
-      ) : null}
+      )}
 
-      {hasAnyAction ? (
+      {hasAnyAction && (
         <ActionsDropdown label={t('actions')}>
-          {canUpdate ? (
+          {canUpdate && (
             <DropdownMenuItem onSelect={() => setOfferToEdit(offer)}>
               <Pencil className="size-4" />
               {t('edit')}
             </DropdownMenuItem>
-          ) : null}
+          )}
 
-          {canDelete ? (
+          {canDelete && (
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => setOfferToDelete(offer)}
@@ -69,9 +69,9 @@ function OfferActions({ offer }: Props) {
               <Trash2 className="size-4" />
               {t('delete')}
             </DropdownMenuItem>
-          ) : null}
+          )}
         </ActionsDropdown>
-      ) : null}
+      )}
     </>
   );
 }

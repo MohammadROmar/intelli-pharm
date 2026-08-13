@@ -226,7 +226,7 @@ export const sidebarData: NavSection[] = [
         label: 'labels.roles',
         url: '/dashboard/roles',
         icon: ShieldCheck,
-        permission: 'auth.roles.manage',
+        permission: 'auth.roles.view',
       },
     ],
   },

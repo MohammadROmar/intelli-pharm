@@ -44,13 +44,13 @@ export function RegionsTable({ data }: Props) {
 
   return (
     <>
-      {actionAccess.canDelete ? (
+      {actionAccess.canDelete && (
         <DeleteRegionModal
           label={regionToDelete?.name}
           region={regionToDelete}
           onClose={handleDeleteClose}
         />
-      ) : null}
+      )}
 
       <EntityListTable
         data={data}

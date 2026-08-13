@@ -23,21 +23,21 @@ export function EmployeeDetailHeader({ employee }: Props) {
 
   return (
     <>
-      {canDeactivate ? (
+      {canDeactivate && (
         <DeleteEmployeeModal
           employee={employeeToDelete}
           onClose={() => setEmployeeToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/employees')}
         />
-      ) : null}
+      )}
 
       <PageHeader
         title={employee.name}
         pageTitle={`${employee.name} · ${t('pageTitle')} - IntelliPharma`}
       >
-        {hasAnyAction ? (
+        {hasAnyAction && (
           <ActionsDropdown label={t('employeeActions')}>
-            {canUpdate ? (
+            {canUpdate && (
               <DropdownMenuItem asChild>
                 <Link
                   to={`/dashboard/employees/${employee.id}/edit`}
@@ -47,9 +47,9 @@ export function EmployeeDetailHeader({ employee }: Props) {
                   {t('edit')}
                 </Link>
               </DropdownMenuItem>
-            ) : null}
+            )}
 
-            {canDeactivate ? (
+            {canDeactivate && (
               <DropdownMenuItem
                 variant="destructive"
                 onSelect={() => setEmployeeToDelete(employee)}
@@ -58,9 +58,9 @@ export function EmployeeDetailHeader({ employee }: Props) {
                 <Trash2 className="size-4" />
                 {t('delete')}
               </DropdownMenuItem>
-            ) : null}
+            )}
           </ActionsDropdown>
-        ) : null}
+        )}
       </PageHeader>
     </>
   );

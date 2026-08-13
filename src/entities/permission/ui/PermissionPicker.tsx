@@ -171,11 +171,11 @@ export function PermissionPicker({
           isStale ? 'opacity-60' : 'opacity-100',
         )}
       >
-        {visibleModules.length === 0 ? (
+        {visibleModules.length === 0 && (
           <p className="text-muted-foreground py-8 text-center text-sm">
             {tPicker('noResults')}
           </p>
-        ) : null}
+        )}
 
         {visibleModules.map(([module, groups], index) => (
           <PermissionModuleSection

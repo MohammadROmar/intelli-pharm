@@ -39,28 +39,28 @@ function GiftActions({ gift }: Props) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteGiftModal
           gift={giftToDelete}
           onClose={() => setGiftToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/promotions/gifts')}
         />
-      ) : null}
+      )}
 
-      {canUpdate ? (
+      {canUpdate && (
         <EditGiftForm gift={giftToEdit} onClose={() => setGiftToEdit(null)} />
-      ) : null}
+      )}
 
-      {hasAnyAction ? (
+      {hasAnyAction && (
         <ActionsDropdown label={t('actions')}>
-          {canUpdate ? (
+          {canUpdate && (
             <DropdownMenuItem onSelect={() => setGiftToEdit(gift)}>
               <Pencil className="size-4" />
               {t('edit')}
             </DropdownMenuItem>
-          ) : null}
+          )}
 
-          {canDelete ? (
+          {canDelete && (
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => setGiftToDelete(gift)}
@@ -69,9 +69,9 @@ function GiftActions({ gift }: Props) {
               <Trash2 className="size-4" />
               {t('delete')}
             </DropdownMenuItem>
-          ) : null}
+          )}
         </ActionsDropdown>
-      ) : null}
+      )}
     </>
   );
 }

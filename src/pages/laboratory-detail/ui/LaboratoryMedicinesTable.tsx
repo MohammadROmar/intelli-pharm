@@ -56,7 +56,7 @@ export function LaboratoryMedicinesTable({ medicines }: Props) {
               <TableHead>{t('colStatus')}</TableHead>
               <TableHead>{t('colPrice')}</TableHead>
               <TableHead>{t('colCreatedAt')}</TableHead>
-              {canView ? <TableHead>{t('actions')}</TableHead> : null}
+              {canView && <TableHead>{t('actions')}</TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>{medicines.map(renderRow)}</TableBody>
@@ -100,7 +100,7 @@ const LaboratoryMedicineRow = memo(function LaboratoryMedicineRow({
       <TableCell className="text-muted-foreground text-sm">
         {formatDate(medicine.created_at, i18n.language, false)}
       </TableCell>
-      {canView ? (
+      {canView && (
         <TableActions
           item={medicine}
           itemId={medicine.id}
@@ -108,7 +108,7 @@ const LaboratoryMedicineRow = memo(function LaboratoryMedicineRow({
         >
           <TableActions.Detail />
         </TableActions>
-      ) : null}
+      )}
     </TableRow>
   );
 });

@@ -56,10 +56,10 @@ export const GiftRow = memo(function GiftRow({
         path="/dashboard/promotions/gifts"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? (
+        {actionAccess.canUpdate && (
           <EditGiftButton gift={gift} onEdit={onEdit} />
-        ) : null}
-        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        )}
+        {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

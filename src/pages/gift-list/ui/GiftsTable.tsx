@@ -53,13 +53,13 @@ export function GiftsTable({ data }: Props) {
 
   return (
     <>
-      {actionAccess.canDelete ? (
+      {actionAccess.canDelete && (
         <DeleteGiftModal gift={giftToDelete} onClose={handleDeleteModalClose} />
-      ) : null}
+      )}
 
-      {actionAccess.canUpdate ? (
+      {actionAccess.canUpdate && (
         <EditGiftForm gift={giftToEdit} onClose={handleEditModalClose} />
-      ) : null}
+      )}
 
       <EntityListTable
         data={tableData}

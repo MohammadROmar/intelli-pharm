@@ -41,22 +41,22 @@ function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeletePharmacyModal
           label={name}
           pharmacy={pharmacyToDelete}
           onClose={() => setPharmacyToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/pharmacies')}
         />
-      ) : null}
+      )}
 
-      {canUpdate ? (
+      {canUpdate && (
         <AddPharmacyNoteDialog
           pharmacyId={pharmacy.id}
           open={noteDialogOpen}
           onOpenChange={setNoteDialogOpen}
         />
-      ) : null}
+      )}
 
       <ActionsDropdown label={t('actions')}>
         <DropdownMenuItem
@@ -67,7 +67,7 @@ function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
           {t('addNote')}
         </DropdownMenuItem>
 
-        {canUpdate ? (
+        {canUpdate && (
           <DropdownMenuItem asChild>
             <Link
               to={`/dashboard/pharmacies/${pharmacy.id}/edit`}
@@ -77,9 +77,9 @@ function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
               {t('edit')}
             </Link>
           </DropdownMenuItem>
-        ) : null}
+        )}
 
-        {canDelete ? (
+        {canDelete && (
           <DropdownMenuItem
             variant="destructive"
             onSelect={() => setPharmacyToDelete(pharmacy)}
@@ -88,7 +88,7 @@ function PharmacyActions({ pharmacy, name }: Props & { name: string }) {
             <Trash2 className="size-4" />
             {t('delete')}
           </DropdownMenuItem>
-        ) : null}
+        )}
       </ActionsDropdown>
     </>
   );

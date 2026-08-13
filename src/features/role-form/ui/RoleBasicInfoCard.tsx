@@ -56,11 +56,11 @@ export function RoleBasicInfoCard({ isPending }: RoleBasicInfoCardProps) {
             })}
           />
 
-          {typeof nameError === 'string' ? (
+          {typeof nameError === 'string' && (
             <p id={ROLE_NAME_ERROR_ID} className="text-destructive text-sm">
               {t(nameError)}
             </p>
-          ) : null}
+          )}
         </Field>
       </CardContent>
     </Card>

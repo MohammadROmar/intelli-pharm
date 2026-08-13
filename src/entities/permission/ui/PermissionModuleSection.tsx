@@ -96,7 +96,7 @@ export function PermissionModuleSection({
         ))}
       </div>
 
-      {showSeparator ? <Separator className="mt-6" /> : null}
+      {showSeparator && <Separator className="mt-6" />}
     </div>
   );
 }

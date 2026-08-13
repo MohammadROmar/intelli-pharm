@@ -51,7 +51,7 @@ export function DeliveryDetailHeader({ delivery, canChangeStatus }: Props) {
           </div>
         </div>
 
-        {canChangeStatus ? <ChangeDeliveryStatus delivery={delivery} /> : null}
+        {canChangeStatus && <ChangeDeliveryStatus delivery={delivery} />}
       </div>
     </>
   );

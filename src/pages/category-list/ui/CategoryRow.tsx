@@ -44,8 +44,8 @@ export const CategoryRow = memo(function CategoryRow({
         path="/dashboard/categories"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? <TableActions.Update /> : null}
-        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        {actionAccess.canUpdate && <TableActions.Update />}
+        {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

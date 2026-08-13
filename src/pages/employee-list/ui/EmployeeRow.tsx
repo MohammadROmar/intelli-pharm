@@ -44,8 +44,8 @@ export const EmployeeRow = memo(function EmployeeRow({
         path="/dashboard/employees"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? <TableActions.Update /> : null}
-        {actionAccess.canDeactivate ? <TableActions.Delete /> : null}
+        {actionAccess.canUpdate && <TableActions.Update />}
+        {actionAccess.canDeactivate && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

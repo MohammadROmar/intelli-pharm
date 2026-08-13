@@ -38,13 +38,13 @@ export function OffersTable({ data }: Props) {
 
   return (
     <>
-      {actionAccess.canUpdate ? (
+      {actionAccess.canUpdate && (
         <EditOffer offer={offerToEdit} onClose={handleEditClose} />
-      ) : null}
+      )}
 
-      {actionAccess.canDelete ? (
+      {actionAccess.canDelete && (
         <DeleteOfferModal offer={offerToDelete} onClose={handleDeleteClose} />
-      ) : null}
+      )}
 
       <EntityListTable
         data={data}

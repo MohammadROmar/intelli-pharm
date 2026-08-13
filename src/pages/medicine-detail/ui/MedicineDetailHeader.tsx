@@ -50,23 +50,23 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
 
   return (
     <>
-      {canDelete ? (
+      {canDelete && (
         <DeleteMedicineModal
           label={name}
           medicine={medicineToDelete}
           onClose={() => setMedicineToDelete(null)}
           onDeleteSuccess={() => navigate('/dashboard/medicines')}
         />
-      ) : null}
+      )}
 
-      {hasAnyAction ? (
+      {hasAnyAction && (
         <ActionsDropdown label={t('actions')}>
-          {hasMedicineAction ? (
+          {hasMedicineAction && (
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
                 {t('medicine')}
               </DropdownMenuLabel>
-              {canUpdate ? (
+              {canUpdate && (
                 <DropdownMenuItem asChild>
                   <Link
                     to={`/dashboard/medicines/${medicine.id}/edit`}
@@ -76,9 +76,9 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
                     {t('edit')}
                   </Link>
                 </DropdownMenuItem>
-              ) : null}
+              )}
 
-              {canDelete ? (
+              {canDelete && (
                 <DropdownMenuItem
                   variant="destructive"
                   onSelect={() => setMedicineToDelete(medicine)}
@@ -87,11 +87,11 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
                   <Trash2 className="size-4" />
                   {t('delete')}
                 </DropdownMenuItem>
-              ) : null}
+              )}
             </DropdownMenuGroup>
-          ) : null}
+          )}
 
-          {canRestock ? (
+          {canRestock && (
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
                 {t('stock')}
@@ -106,9 +106,9 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
-          ) : null}
+          )}
         </ActionsDropdown>
-      ) : null}
+      )}
     </>
   );
 }

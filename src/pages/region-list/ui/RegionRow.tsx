@@ -35,8 +35,8 @@ export const RegionRow = memo(function RegionRow({
         path="/dashboard/regions"
       >
         <TableActions.Detail />
-        {actionAccess.canUpdate ? <TableActions.Update /> : null}
-        {actionAccess.canDelete ? <TableActions.Delete /> : null}
+        {actionAccess.canUpdate && <TableActions.Update />}
+        {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

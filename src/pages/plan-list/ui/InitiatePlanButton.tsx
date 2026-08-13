@@ -32,14 +32,14 @@ export function InitiatePlanButton() {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end">
-        {actionAccess.canInitiateFromReps ? (
+        {actionAccess.canInitiateFromReps && (
           <DropdownMenuItem asChild>
             <Link to="/dashboard/plans/initiate" className="cursor-pointer">
               {t('rep')}
             </Link>
           </DropdownMenuItem>
-        ) : null}
-        {actionAccess.canInitiateFromDeliveries ? (
+        )}
+        {actionAccess.canInitiateFromDeliveries && (
           <DropdownMenuItem asChild>
             <Link
               to="/dashboard/plans/initiate-from-deliveries"
@@ -48,7 +48,7 @@ export function InitiatePlanButton() {
               {t('delivery')}
             </Link>
           </DropdownMenuItem>
-        ) : null}
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

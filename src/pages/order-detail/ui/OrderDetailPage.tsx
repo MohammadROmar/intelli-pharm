@@ -57,7 +57,7 @@ function OrderDetailContent({ orderId, t }: OrderDetailContentProps) {
           <h1 className="text-3xl font-bold tracking-tight">
             ORD-{String(order.id).padStart(6, '0')}
           </h1>
-          {canChangeStatus ? <ChangeOrderStatus order={order} /> : null}
+          {canChangeStatus && <ChangeOrderStatus order={order} />}
         </div>
         <OrderInfoCard
           order={order}

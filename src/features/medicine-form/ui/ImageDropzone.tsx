@@ -158,7 +158,7 @@ export function ImageDropzone({
         </div>
       </div>
 
-      {images.length > 0 ? (
+      {images.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
           {images.map((image, index) => (
             <ImagePreviewTile
@@ -172,7 +172,7 @@ export function ImageDropzone({
             />
           ))}
         </div>
-      ) : null}
+      )}
     </div>
   );
 }
