@@ -1,0 +1,57 @@
+{
+  "detail": {
+    "pageTitle": "تفاصيل الطلب",
+    "header": {
+      "recordLabel": "طلب شراء",
+      "pharmacyContext": "مُعدّ لصيدلية {{pharmacy}}"
+    },
+    "summary": {
+      "ariaLabel": "ملخص الطلب",
+      "pharmacy": "الصيدلية",
+      "units": "إجمالي الوحدات",
+      "finalTotal": "الإجمالي النهائي",
+      "updatedAt": "آخر تحديث"
+    },
+    "sections": {
+      "items": "أصناف الطلب",
+      "itemsSubtitle": "الأدوية والكميات والهدايا والقيم النهائية للأصناف",
+      "financial": "الملخص المالي",
+      "financialSubtitle": "الحسومات والمدفوعات والرصيد المتبقي",
+      "context": "بيانات الطلب",
+      "contextSubtitle": "المنشئ والمستودع والعرض والجدول الزمني"
+    },
+    "fields": {
+      "subtotal": "الإجمالي قبل الحسم",
+      "discount": "الحسم",
+      "discountWithPercentage": "الحسم ({{percentage}}٪)",
+      "finalTotal": "الإجمالي النهائي للطلب",
+      "paidAmount": "المدفوع حتى الآن",
+      "remainingBalance": "الرصيد المتبقي",
+      "createdBy": "أنشأه",
+      "warehouse": "مستودع التجهيز",
+      "warehouseRecord": "المستودع رقم {{id}}",
+      "offer": "العرض المطبّق",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "آخر تحديث",
+      "notes": "ملاحظات الطلب",
+      "noNotes": "لم تتم إضافة ملاحظات إلى هذا الطلب."
+    },
+    "table": {
+      "medicine": "الدواء",
+      "type": "النوع",
+      "quantity": "الكمية",
+      "unitPrice": "سعر الوحدة",
+      "total": "إجمالي الصنف",
+      "actions": "الإجراءات",
+      "gift": "هدية",
+      "regular": "صنف عادي",
+      "free": "مجاني",
+      "giftRule": "قاعدة الهدية",
+      "offer": "عرض",
+      "totalUnits": "إجمالي الوحدات",
+      "orderTotal": "الإجمالي النهائي للطلب",
+      "viewMedicine": "عرض تفاصيل الدواء",
+      "noItems": "لا يحتوي هذا الطلب على أي أصناف."
+    }
+  }
+}

@@ -36,6 +36,9 @@ export function SelectionStep({
   onNext,
 }: SelectionStepProps) {
   const { t } = useTranslation('orders', { keyPrefix: 'changeStatus' });
+  const availableStatuses = TRANSITIONS.filter(
+    (status) => status !== currentStatus,
+  );
 
   return (
     <>
@@ -63,21 +66,25 @@ export function SelectionStep({
       <Separator />
 
       <div className="space-y-3">
-        {TRANSITIONS.map((status) => (
+        {availableStatuses.map((status) => (
           <StatusCard
             key={status}
             status={status}
             selected={selectedStatus === status}
-            onSelect={() => onSelect(status)}
+            onSelect={onSelect}
           />
         ))}
       </div>
 
       <DialogFooter>
-        <Button variant="ghost" onClick={onCancel}>
+        <Button variant="ghost" onClick={onCancel} className="min-h-11!">
           {t('cancel')}
         </Button>
-        <Button disabled={!selectedStatus} onClick={onNext}>
+        <Button
+          disabled={!selectedStatus}
+          onClick={onNext}
+          className="min-h-11!"
+        >
           {t('next')}
         </Button>
       </DialogFooter>

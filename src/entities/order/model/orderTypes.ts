@@ -40,6 +40,7 @@ export type OrderListItem = {
 
 export type OrderDetail = {
   items: OrderItem[];
+  paid_amount?: string | null;
 } & OrderListItem;
 
 export type OrderFilters = {

@@ -8,7 +8,7 @@ import { cn } from '@/shared/lib';
 type StatusCardProps = {
   status: OrderStatus;
   selected: boolean;
-  onSelect: () => void;
+  onSelect: (status: OrderStatus) => void;
 };
 
 export function StatusCard({ status, selected, onSelect }: StatusCardProps) {
@@ -21,9 +21,10 @@ export function StatusCard({ status, selected, onSelect }: StatusCardProps) {
   return (
     <button
       type="button"
-      onClick={onSelect}
+      onClick={() => onSelect(status)}
+      aria-pressed={selected}
       className={cn(
-        'focus-visible:ring-muted-foreground w-full rounded-lg border-2 p-4 text-start transition-all focus-visible:ring',
+        'min-h-16 w-full cursor-pointer rounded-lg border-2 p-4 text-start transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none',
         selected && !destructive && 'border-primary! bg-primary/5',
         selected && destructive && 'border-destructive! bg-destructive/5',
         !selected &&
@@ -33,6 +34,7 @@ export function StatusCard({ status, selected, onSelect }: StatusCardProps) {
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <Icon
+            aria-hidden="true"
             className={cn(
               'size-5 shrink-0',
               selected && !destructive && 'text-primary',
@@ -47,16 +49,24 @@ export function StatusCard({ status, selected, onSelect }: StatusCardProps) {
             </p>
           </div>
         </div>
-        {selected && (
+        {selected ? (
           <div
             className={cn(
               'flex size-5 shrink-0 items-center justify-center rounded-full',
               destructive ? 'bg-destructive' : 'bg-primary',
             )}
           >
-            <CheckCircle2 className="size-3 text-white" />
+            <CheckCircle2
+              aria-hidden="true"
+              className={cn(
+                'size-3',
+                destructive
+                  ? 'text-destructive-foreground'
+                  : 'text-primary-foreground',
+              )}
+            />
           </div>
-        )}
+        ) : null}
       </div>
     </button>
   );

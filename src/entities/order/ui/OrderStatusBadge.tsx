@@ -19,11 +19,8 @@ export function OrderStatusBadge({ status, withIcon = true }: Props) {
   });
 
   return (
-    <Badge
-      variant={STATUS_VARIANT[status]}
-      className={'font-normal capitalize'}
-    >
-      {withIcon && <Activity />}
+    <Badge variant={STATUS_VARIANT[status]} className="font-normal capitalize">
+      {withIcon ? <Activity className="size-3" aria-hidden="true" /> : null}
       {t(status)}
     </Badge>
   );

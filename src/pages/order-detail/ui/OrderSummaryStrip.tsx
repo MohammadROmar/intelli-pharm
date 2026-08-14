@@ -1,15 +1,18 @@
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Banknote, Building2, CalendarClock, Package } from 'lucide-react';
+import { Banknote, Building2, Package, RefreshCw } from 'lucide-react';
 
-import type { DeliveryDetail } from '@/entities/delivery';
+import type { OrderDetail } from '@/entities/order';
 import { formatPrice } from '@/shared/lib';
-import { SplitDateTime } from '@/shared/ui';
+import { BadgeLink, SplitDateTime } from '@/shared/ui';
 
-type Props = { delivery: DeliveryDetail };
+type Props = {
+  order: OrderDetail;
+  canViewPharmacy: boolean;
+};
 
-export function DeliverySummaryStrip({ delivery }: Props) {
-  const { t, i18n } = useTranslation('delivery-detail', {
+export function OrderSummaryStrip({ order, canViewPharmacy }: Props) {
+  const { t, i18n } = useTranslation('order-detail', {
     keyPrefix: 'detail.summary',
   });
 
@@ -19,23 +22,31 @@ export function DeliverySummaryStrip({ delivery }: Props) {
       className="bg-card grid overflow-hidden rounded-2xl border shadow-sm sm:grid-cols-2 xl:grid-cols-4"
     >
       <SummaryItem icon={Building2} label={t('pharmacy')}>
-        <span className="font-semibold">{delivery.pharmacy_name}</span>
-      </SummaryItem>
-
-      <SummaryItem icon={CalendarClock} label={t('scheduledAt')}>
-        <SplitDateTime date={delivery.scheduled_at} icon={CalendarClock} />
+        <BadgeLink
+          label={order.pharmacy.name}
+          to={
+            canViewPharmacy
+              ? `/dashboard/pharmacies/${order.pharmacy.id}`
+              : undefined
+          }
+          icon={Building2}
+        />
       </SummaryItem>
 
       <SummaryItem icon={Package} label={t('units')}>
         <span className="font-semibold tabular-nums">
-          {delivery.number_of_items.toLocaleString(i18n.language)}
+          {Number(order.total_quantity || 0).toLocaleString(i18n.language)}
         </span>
       </SummaryItem>
 
-      <SummaryItem icon={Banknote} label={t('amountToCollect')}>
+      <SummaryItem icon={Banknote} label={t('finalTotal')}>
         <span className="text-primary font-bold tabular-nums">
-          {formatPrice(delivery.required_payment_amount, i18n.language)}
+          {formatPrice(order.final_total, i18n.language)}
         </span>
+      </SummaryItem>
+
+      <SummaryItem icon={RefreshCw} label={t('updatedAt')}>
+        <SplitDateTime date={order.updated_at} icon={RefreshCw} />
       </SummaryItem>
     </section>
   );

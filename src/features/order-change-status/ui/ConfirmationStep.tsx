@@ -32,17 +32,16 @@ export function ConfirmationStep({
   onBack,
   onConfirm,
 }: ConfirmationStepProps) {
-  const { t } = useTranslation('orders');
+  const { t } = useTranslation('orders', { keyPrefix: 'changeStatus' });
+  const { t: tStatus } = useTranslation('orders', { keyPrefix: 'status' });
 
   const isDestructive = STATUS_META[selectedStatus]?.destructive;
 
-  const title = t('changeStatus.confirmTitle');
+  const title = t('confirmTitle');
   const description = t(
-    isDestructive
-      ? 'changeStatus.confirmDestructiveMessage'
-      : 'changeStatus.confirmMessage',
+    isDestructive ? 'confirmDestructiveMessage' : 'confirmMessage',
     {
-      status: t(`status.${selectedStatus}`),
+      status: tStatus(selectedStatus),
     },
   );
 
@@ -65,27 +64,35 @@ export function ConfirmationStep({
 
       <div className="bg-muted/70 flex items-center justify-center gap-4 rounded-lg py-6">
         <OrderStatusBadge status={currentStatus} />
-        <ArrowRight className="text-muted-foreground size-5 shrink-0 rtl:rotate-180" />
+        <ArrowRight
+          className="size-5 shrink-0 text-muted-foreground rtl:rotate-180"
+          aria-hidden="true"
+        />
         <OrderStatusBadge status={selectedStatus} />
       </div>
 
       <DialogFooter>
-        <Button variant="ghost" onClick={onBack} disabled={isPending}>
-          {t('changeStatus.back')}
+        <Button
+          variant="ghost"
+          onClick={onBack}
+          disabled={isPending}
+          className="min-h-11!"
+        >
+          {t('back')}
         </Button>
         <Button
           variant={isDestructive ? 'destructive' : 'default'}
           onClick={onConfirm}
           disabled={isPending}
-          className="disabled:button-shimmer"
+          className="min-h-11! disabled:button-shimmer"
         >
           {isPending ? (
             <span className="flex items-center gap-2">
-              <Loader2 className="size-4 animate-spin" />
-              {t('changeStatus.confirming')}
+              <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+              {t('confirming')}
             </span>
           ) : (
-            t('changeStatus.confirm')
+            t('confirm')
           )}
         </Button>
       </DialogFooter>

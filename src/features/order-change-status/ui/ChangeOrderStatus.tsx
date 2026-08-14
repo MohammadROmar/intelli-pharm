@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { ChangeOrderStatusDialog } from './ChangeOrderStatusDialog';
@@ -15,19 +15,20 @@ export function ChangeOrderStatus({ order }: Props) {
     () => searchParams.get('focus') === 'change-status',
   );
 
-  async function onSubmit(status: OrderStatus) {
-    return mutateAsync(
-      { id: order.id, status },
-      { onSuccess: () => setIsOpen(false) },
-    );
-  }
+  const handleSuccess = useCallback(() => setIsOpen(false), []);
+
+  const handleSubmit = useCallback(
+    (status: OrderStatus) =>
+      mutateAsync({ id: order.id, status }, { onSuccess: handleSuccess }),
+    [handleSuccess, mutateAsync, order.id],
+  );
 
   return (
     <ChangeOrderStatusDialog
       currentStatus={order.status}
       isOpen={isOpen}
       setIsOpen={setIsOpen}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       isPending={isPending}
     />
   );

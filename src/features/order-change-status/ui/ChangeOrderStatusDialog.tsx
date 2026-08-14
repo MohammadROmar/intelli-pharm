@@ -22,7 +22,7 @@ export function ChangeOrderStatusDialog({
   isOpen,
   setIsOpen,
 }: ChangeOrderStatusDialogProps) {
-  const { t } = useTranslation('orders');
+  const { t } = useTranslation('orders', { keyPrefix: 'changeStatus' });
 
   const [step, setStep] = useState<'select' | 'confirm'>('select');
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | null>(
@@ -32,18 +32,16 @@ export function ChangeOrderStatusDialog({
   const handleOpenChange = useCallback(
     (open: boolean) => {
       if (isPending) return;
-      setIsOpen(open);
-      if (!open) {
-        setTimeout(() => {
-          setStep('select');
-          setSelectedStatus(null);
-        }, 300);
+      if (open) {
+        setStep('select');
+        setSelectedStatus(null);
       }
+      setIsOpen(open);
     },
     [isPending, setIsOpen],
   );
 
-  async function handleConfirm() {
+  const handleConfirm = useCallback(async () => {
     if (!selectedStatus) return;
     try {
       await onSubmit(selectedStatus);
@@ -51,43 +49,59 @@ export function ChangeOrderStatusDialog({
     } catch {
       setStep('select');
     }
-  }
+  }, [handleOpenChange, onSubmit, selectedStatus]);
+
+  const handleSelect = useCallback((status: OrderStatus) => {
+    setSelectedStatus(status);
+  }, []);
+
+  const handleCancel = useCallback(() => {
+    handleOpenChange(false);
+  }, [handleOpenChange]);
+
+  const handleNext = useCallback(() => setStep('confirm'), []);
+  const handleBack = useCallback(() => setStep('select'), []);
+  const handleTrigger = useCallback(
+    () => handleOpenChange(true),
+    [handleOpenChange],
+  );
 
   return (
     <>
       <Button
-        variant="outline"
+        variant="default"
         size="sm"
-        onClick={() => handleOpenChange(true)}
-        className="bg-card! gap-1.5"
+        onClick={handleTrigger}
+        className="h-10! min-w-40! gap-2! px-4! shadow-sm"
       >
-        <ClipboardEdit className="size-4" />
-        {t('changeStatus.trigger')}
+        <ClipboardEdit className="size-4" aria-hidden="true" />
+        {t('trigger')}
       </Button>
 
       <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-        <DialogContent className="thin-scrollbar max-h-dvh sm:max-w-md">
-          <div tabIndex={0} aria-hidden className="sr-only" />
-
-          {step === 'select' ? (
-            <SelectionStep
-              currentStatus={currentStatus}
-              selectedStatus={selectedStatus}
-              onSelect={setSelectedStatus}
-              onCancel={() => handleOpenChange(false)}
-              onNext={() => setStep('confirm')}
-            />
-          ) : (
-            selectedStatus && (
+        <DialogContent
+          className="thin-scrollbar max-h-dvh! gap-0! overflow-y-auto! p-0! sm:max-w-md!"
+          onOpenAutoFocus={(event) => event.preventDefault()}
+        >
+          <div className="space-y-5 p-5">
+            {step === 'select' ? (
+              <SelectionStep
+                currentStatus={currentStatus}
+                selectedStatus={selectedStatus}
+                onSelect={handleSelect}
+                onCancel={handleCancel}
+                onNext={handleNext}
+              />
+            ) : selectedStatus ? (
               <ConfirmationStep
                 currentStatus={currentStatus}
                 selectedStatus={selectedStatus}
                 isPending={isPending}
-                onBack={() => setStep('select')}
+                onBack={handleBack}
                 onConfirm={handleConfirm}
               />
-            )
-          )}
+            ) : null}
+          </div>
         </DialogContent>
       </Dialog>
     </>

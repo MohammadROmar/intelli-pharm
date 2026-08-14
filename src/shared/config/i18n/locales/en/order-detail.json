@@ -1,0 +1,57 @@
+{
+  "detail": {
+    "pageTitle": "Order details",
+    "header": {
+      "recordLabel": "Purchase order",
+      "pharmacyContext": "Prepared for {{pharmacy}}"
+    },
+    "summary": {
+      "ariaLabel": "Order summary",
+      "pharmacy": "Pharmacy",
+      "units": "Total units",
+      "finalTotal": "Final total",
+      "updatedAt": "Last updated"
+    },
+    "sections": {
+      "items": "Order items",
+      "itemsSubtitle": "Medicines, quantities, gifts, and final line values",
+      "financial": "Financial summary",
+      "financialSubtitle": "Discounts, payments, and remaining balance",
+      "context": "Order context",
+      "contextSubtitle": "Ownership, warehouse, offer, and timeline"
+    },
+    "fields": {
+      "subtotal": "Subtotal",
+      "discount": "Discount",
+      "discountWithPercentage": "Discount ({{percentage}}%)",
+      "finalTotal": "Final order total",
+      "paidAmount": "Paid to date",
+      "remainingBalance": "Remaining balance",
+      "createdBy": "Created by",
+      "warehouse": "Fulfillment warehouse",
+      "warehouseRecord": "Warehouse #{{id}}",
+      "offer": "Applied offer",
+      "createdAt": "Created",
+      "updatedAt": "Last updated",
+      "notes": "Order notes",
+      "noNotes": "No notes were added to this order."
+    },
+    "table": {
+      "medicine": "Medicine",
+      "type": "Type",
+      "quantity": "Quantity",
+      "unitPrice": "Unit price",
+      "total": "Line total",
+      "actions": "Actions",
+      "gift": "Gift",
+      "regular": "Regular item",
+      "free": "Free",
+      "giftRule": "Gift rule",
+      "offer": "Offer",
+      "totalUnits": "Total units",
+      "orderTotal": "Final order total",
+      "viewMedicine": "View medicine details",
+      "noItems": "This order does not contain any items."
+    }
+  }
+}
