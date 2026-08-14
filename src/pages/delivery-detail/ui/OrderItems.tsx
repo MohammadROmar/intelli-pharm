@@ -1,5 +1,13 @@
+import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Gift, ShoppingCart, Tag } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Gift,
+  PackageOpen,
+  ShoppingCart,
+  Tag,
+} from 'lucide-react';
 
 import type { DeliveryDetail, DeliveryOrderItem } from '@/entities/delivery';
 import { formatPrice } from '@/shared/lib';
@@ -17,23 +25,12 @@ import {
   TableRow,
 } from '@/shared/ui';
 
-type Props = {
-  delivery: DeliveryDetail;
-  canViewMedicine: boolean;
-  canViewGift: boolean;
-  canViewOffer: boolean;
-};
+type Props = { delivery: DeliveryDetail };
 
-export function OrderItems({
-  delivery,
-  canViewMedicine,
-  canViewGift,
-  canViewOffer,
-}: Props) {
-  const { t, i18n } = useTranslation('deliveries', {
+export function OrderItems({ delivery }: Props) {
+  const { t, i18n } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
-
   const { order } = delivery;
 
   return (
@@ -43,156 +40,247 @@ export function OrderItems({
       icon={ShoppingCart}
       itemsCount={order.items.length}
     >
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-25">{t('table.medicineId')}</TableHead>
-            <TableHead>{t('table.medicine')}</TableHead>
-            <TableHead>{t('table.type')}</TableHead>
-            <TableHead>{t('table.quantity')}</TableHead>
-            <TableHead>{t('table.unitPrice')}</TableHead>
-            <TableHead>{t('table.total')}</TableHead>
-            {canViewMedicine && <TableHead>{t('table.actions')}</TableHead>}
-          </TableRow>
-        </TableHeader>
+      {order.items.length === 0 ? (
+        <div className="bg-muted/30 flex flex-col items-center rounded-xl border border-dashed px-5 py-10 text-center">
+          <PackageOpen className="text-muted-foreground mb-3 size-7" />
+          <p className="font-semibold">{t('table.empty')}</p>
+          <p className="text-muted-foreground mt-1 text-sm">
+            {t('table.emptyDescription')}
+          </p>
+        </div>
+      ) : (
+        <>
+          <div className="space-y-3 md:hidden">
+            {order.items.map((item) => (
+              <OrderItemMobileCard
+                key={item.id}
+                item={item}
+                language={i18n.language}
+              />
+            ))}
 
-        <TableBody>
-          {order.items.map((item) => (
-            <OrderItemRow
-              key={item.id}
-              item={item}
-              lang={i18n.language}
-              t={t}
-              canViewMedicine={canViewMedicine}
-              canViewGift={canViewGift}
-              canViewOffer={canViewOffer}
-            />
-          ))}
-        </TableBody>
+            <div className="bg-muted/30 grid grid-cols-2 gap-3 rounded-xl border p-4">
+              <MobileTotal
+                label={t('table.totalUnits')}
+                value={delivery.number_of_items.toLocaleString(i18n.language)}
+              />
+              <MobileTotal
+                label={t('table.orderValue')}
+                value={formatPrice(
+                  delivery.required_payment_amount,
+                  i18n.language,
+                )}
+                alignEnd
+              />
+            </div>
+          </div>
 
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={3} className="text-muted-foreground text-sm">
-              {t('table.totalItems')}
-            </TableCell>
-            <TableCell className="font-semibold tabular-nums">
-              {delivery.number_of_items}
-            </TableCell>
-            {canViewMedicine && <TableCell />}
-            <TableCell className="font-bold tabular-nums">
-              {formatPrice(delivery.required_payment_amount, i18n.language)}
-            </TableCell>
-            <TableCell />
-          </TableRow>
-        </TableFooter>
-      </Table>
+          <div className="hidden md:block">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t('table.medicine')}</TableHead>
+                  <TableHead>{t('table.type')}</TableHead>
+                  <TableHead>{t('table.quantity')}</TableHead>
+                  <TableHead>{t('table.unitPrice')}</TableHead>
+                  <TableHead>{t('table.total')}</TableHead>
+                  <TableHead className="w-16">{t('table.actions')}</TableHead>
+                </TableRow>
+              </TableHeader>
+
+              <TableBody>
+                {order.items.map((item) => (
+                  <OrderItemRow
+                    key={item.id}
+                    item={item}
+                    language={i18n.language}
+                  />
+                ))}
+              </TableBody>
+
+              <TableFooter>
+                <TableRow>
+                  <TableCell
+                    colSpan={2}
+                    className="text-muted-foreground text-sm"
+                  >
+                    {t('table.totalUnits')}
+                  </TableCell>
+                  <TableCell className="font-semibold tabular-nums">
+                    {delivery.number_of_items.toLocaleString(i18n.language)}
+                  </TableCell>
+                  <TableCell />
+                  <TableCell className="font-bold tabular-nums">
+                    {formatPrice(
+                      delivery.required_payment_amount,
+                      i18n.language,
+                    )}
+                  </TableCell>
+                  <TableCell />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </div>
+        </>
+      )}
     </DetailCard>
   );
 }
 
-function OrderItemRow({
-  item,
-  lang,
-  t,
-  canViewMedicine,
-  canViewGift,
-  canViewOffer,
-}: {
+type ItemProps = {
   item: DeliveryOrderItem;
-  lang: string;
-  t: ReturnType<typeof useTranslation>['t'];
-  canViewMedicine: boolean;
-  canViewGift: boolean;
-  canViewOffer: boolean;
-}) {
+  language: string;
+};
+
+function OrderItemRow({ item, language }: ItemProps) {
+  const { t } = useTranslation('delivery-detail', {
+    keyPrefix: 'detail',
+  });
   const isGift = item.is_gift === 1;
 
   return (
     <TableRow className={isGift ? 'bg-muted/30' : undefined}>
-      <TableCell className="text-muted-foreground text-xs">
-        {item.medicine.id}
-      </TableCell>
-
       <TableCell>
-        <p className="max-w-[20ch] truncate font-medium">
-          {item.medicine.commercial_name}
-        </p>
+        <div className="min-w-40">
+          <p className="font-medium">{item.medicine.commercial_name}</p>
+          <p className="text-muted-foreground mt-0.5 text-xs tabular-nums">
+            {`MED-${String(item.medicine.id).padStart(6, '0')}`}
+          </p>
+        </div>
       </TableCell>
-
       <TableCell>
-        {isGift ? (
-          <div className="flex flex-col gap-0.5">
-            <Badge
-              variant="secondary"
-              className="w-fit gap-1 border-emerald-200 bg-emerald-50 px-1.5 text-emerald-600 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400"
-            >
-              <Gift className="size-3" />
-              {t('table.gift')}
-            </Badge>
-            {item.gift_id !== null && (
-              <BadgeLink
-                label={`${t('table.gift')} #${item.gift_id}`}
-                to={
-                  canViewGift
-                    ? `/dashboard/promotions/gifts/${item.gift_id}`
-                    : undefined
-                }
-                icon={Tag}
-              />
-            )}
-
-            {item.offer_id !== null && (
-              <BadgeLink
-                label={`${t('table.offer')} #${item.offer_id}`}
-                to={
-                  canViewOffer
-                    ? `/dashboard/promotions/offers/${item.offer_id}`
-                    : undefined
-                }
-                icon={Tag}
-              />
-            )}
-          </div>
-        ) : (
-          <span className="text-muted-foreground text-xs">
-            {t('table.regular')}
-          </span>
-        )}
+        <ItemType item={item} />
       </TableCell>
-
       <TableCell className="text-muted-foreground tabular-nums">
-        ×{item.quantity}
+        {item.quantity.toLocaleString(language)}
       </TableCell>
-
       <TableCell className="text-muted-foreground tabular-nums">
-        {isGift ? (
-          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-            {t('table.free')}
-          </span>
-        ) : (
-          formatPrice(item.unit_price, lang)
-        )}
+        {isGift ? t('table.free') : formatPrice(item.unit_price, language)}
       </TableCell>
-
       <TableCell className="font-semibold tabular-nums">
-        {isGift ? (
-          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-            {t('table.free')}
-          </span>
-        ) : (
-          formatPrice(item.total_price, lang)
-        )}
+        {isGift ? t('table.free') : formatPrice(item.total_price, language)}
       </TableCell>
-
-      {canViewMedicine && (
-        <TableActions
-          item={item.medicine}
-          itemId={item.medicine.id}
-          path="/dashboard/medicines"
-        >
-          <TableActions.Detail />
-        </TableActions>
-      )}
+      <TableActions
+        item={item.medicine}
+        itemId={item.medicine.id}
+        path="/dashboard/medicines"
+      >
+        <TableActions.Detail />
+      </TableActions>
     </TableRow>
+  );
+}
+
+function OrderItemMobileCard({ item, language }: ItemProps) {
+  const { t, i18n } = useTranslation('delivery-detail', {
+    keyPrefix: 'detail',
+  });
+  const isGift = item.is_gift === 1;
+  const DirectionIcon = i18n.dir() === 'rtl' ? ChevronLeft : ChevronRight;
+
+  return (
+    <article className="bg-card rounded-xl border p-4 [contain-intrinsic-size:140px] [content-visibility:auto]">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="leading-snug font-semibold">
+            {item.medicine.commercial_name}
+          </p>
+          <p className="text-muted-foreground mt-1 text-xs tabular-nums">
+            {`MED-${String(item.medicine.id).padStart(6, '0')}`}
+          </p>
+        </div>
+        <ItemType item={item} />
+      </div>
+
+      <div className="my-4 grid grid-cols-3 gap-3 border-y py-3">
+        <ItemMetric
+          label={t('table.quantity')}
+          value={item.quantity.toLocaleString(language)}
+        />
+        <ItemMetric
+          label={t('table.unitPrice')}
+          value={
+            isGift ? t('table.free') : formatPrice(item.unit_price, language)
+          }
+        />
+        <ItemMetric
+          label={t('table.total')}
+          value={
+            isGift ? t('table.free') : formatPrice(item.total_price, language)
+          }
+          alignEnd
+        />
+      </div>
+
+      <Link
+        to={`/dashboard/medicines/${item.medicine.id}`}
+        className="text-primary focus-visible:ring-ring flex items-center justify-between rounded-lg px-1 text-sm font-semibold focus-visible:ring-2 focus-visible:outline-none"
+      >
+        {t('table.viewMedicine')}
+        <DirectionIcon className="size-4" aria-hidden="true" />
+      </Link>
+    </article>
+  );
+}
+
+function ItemType({ item }: { item: DeliveryOrderItem }) {
+  const { t } = useTranslation('delivery-detail', {
+    keyPrefix: 'detail.table',
+  });
+  const isGift = item.is_gift === 1;
+
+  if (!isGift) {
+    return (
+      <span className="text-muted-foreground text-xs">{t('regular')}</span>
+    );
+  }
+
+  return (
+    <div className="flex flex-wrap justify-end gap-1.5 md:justify-start">
+      <Badge variant="success" className="gap-1!">
+        <Gift className="size-3" />
+        {t('gift')}
+      </Badge>
+      {item.gift_id !== null ? (
+        <BadgeLink
+          label={`${t('gift')} #${item.gift_id}`}
+          to={`/dashboard/promotions/gifts/${item.gift_id}`}
+          icon={Tag}
+        />
+      ) : null}
+      {item.offer_id !== null ? (
+        <BadgeLink
+          label={`${t('offer')} #${item.offer_id}`}
+          to={`/dashboard/promotions/offers/${item.offer_id}`}
+          icon={Tag}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+type MetricProps = {
+  label: string;
+  value: string;
+  alignEnd?: boolean;
+};
+
+function ItemMetric({ label, value, alignEnd = false }: MetricProps) {
+  return (
+    <div className={alignEnd ? 'min-w-0 text-end' : 'min-w-0'}>
+      <p className="text-muted-foreground text-[11px]">{label}</p>
+      <p className="mt-1 text-xs font-semibold wrap-break-word tabular-nums">
+        {value}
+      </p>
+    </div>
+  );
+}
+
+function MobileTotal({ label, value, alignEnd = false }: MetricProps) {
+  return (
+    <div className={alignEnd ? 'text-end' : undefined}>
+      <p className="text-muted-foreground text-xs">{label}</p>
+      <p className="mt-1 text-sm font-bold tabular-nums">{value}</p>
+    </div>
   );
 }

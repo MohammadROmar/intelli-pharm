@@ -53,7 +53,10 @@ export function ChangeDeliveryStatusForm({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<ChangeDeliveryStatusValues>({ defaultValues: defaultValues });
+  } = useForm<ChangeDeliveryStatusValues>({
+    defaultValues,
+    mode: 'onTouched',
+  });
 
   const watchedPaymentStatus = useWatch({ control, name: 'payment_status' });
   const watchedStatus = useWatch({ control, name: 'status' });
@@ -65,7 +68,7 @@ export function ChangeDeliveryStatusForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex h-full flex-col justify-between gap-5 overflow-y-auto"
+      className="flex min-h-full flex-col justify-between gap-6"
     >
       <FieldGroup className="gap-5!">
         <Controller
@@ -136,6 +139,7 @@ export function ChangeDeliveryStatusForm({
             <Input
               id="payment_amount"
               type="number"
+              inputMode="decimal"
               min="0"
               step="0.01"
               icon={BadgeDollarSign}
@@ -164,7 +168,8 @@ export function ChangeDeliveryStatusForm({
           </FieldLabel>
           <Input
             id="receiver_name"
-            autoComplete="off"
+            autoComplete="name"
+            required={isCompleting}
             icon={User}
             placeholder={t('placeholderReceiverName')}
             aria-invalid={!!errors.receiver_name}
@@ -208,9 +213,10 @@ export function ChangeDeliveryStatusForm({
         onReset={onReset}
         isLoading={isPending}
         classNames={{
-          container: 'lg:justify-center! lg:flex-col-reverse! lg:items-center!',
-          reset: 'w-full',
-          submit: 'w-full',
+          container:
+            'grid! grid-cols-2! items-center! justify-stretch! gap-3! lg:grid! lg:grid-cols-2!',
+          reset: 'w-full!',
+          submit: 'w-full!',
         }}
       />
     </form>

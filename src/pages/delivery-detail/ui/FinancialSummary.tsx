@@ -8,9 +8,11 @@ import { DetailCard, Separator } from '@/shared/ui';
 type Props = { delivery: DeliveryDetail };
 
 export function FinancialSummary({ delivery }: Props) {
-  const { t, i18n } = useTranslation('deliveries', {
+  const { t, i18n } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
+  const { order } = delivery;
+  const hasDiscount = Number(order.discount) > 0;
 
   return (
     <DetailCard
@@ -18,25 +20,86 @@ export function FinancialSummary({ delivery }: Props) {
       subtitle={t('sections.financialSubtitle')}
       icon={Banknote}
     >
-      <div className="bg-primary/5 border-primary/15 rounded-xl border px-4 py-5 text-center">
-        <p className="text-muted-foreground mb-1.5 text-[10px] font-semibold tracking-widest uppercase">
-          {t('fields.totalPrice')}
+      <div className="border-primary/20 bg-primary/5 rounded-xl border p-4">
+        <p className="text-muted-foreground text-xs font-semibold tracking-[0.14em] uppercase">
+          {t('fields.requiredPaymentAmount')}
         </p>
-        <p className="text-primary max-w-full text-[clamp(1.25rem,3vw,1.875rem)] leading-tight font-bold wrap-anywhere whitespace-normal tabular-nums">
+        <p className="text-primary mt-2 text-2xl leading-tight font-bold wrap-break-word tabular-nums">
           {formatPrice(delivery.required_payment_amount, i18n.language)}
         </p>
       </div>
 
       <Separator />
 
-      <div className="flex items-center justify-between">
-        <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
-          {t('fields.numberOfItems')}
-        </span>
-        <span className="text-sm font-semibold">
-          {delivery.number_of_items}
-        </span>
+      <div className="space-y-3">
+        <AmountRow
+          label={t('fields.orderSubtotal')}
+          value={formatPrice(order.total_amount, i18n.language)}
+        />
+
+        {hasDiscount ? (
+          <AmountRow
+            label={
+              order.percentage
+                ? t('fields.orderDiscountWithPercentage', {
+                    percentage: order.percentage,
+                  })
+                : t('fields.orderDiscount')
+            }
+            value={`−${formatPrice(order.discount, i18n.language)}`}
+            emphasized
+          />
+        ) : null}
+
+        <Separator />
+
+        <AmountRow
+          label={t('fields.orderFinalTotal')}
+          value={formatPrice(order.final_total, i18n.language)}
+          strong
+        />
+        <AmountRow
+          label={t('fields.paidAmount')}
+          value={formatPrice(order.paid_amount ?? '0', i18n.language)}
+        />
       </div>
     </DetailCard>
+  );
+}
+
+type AmountRowProps = {
+  label: string;
+  value: string;
+  emphasized?: boolean;
+  strong?: boolean;
+};
+
+function AmountRow({
+  label,
+  value,
+  emphasized = false,
+  strong = false,
+}: AmountRowProps) {
+  return (
+    <div className="flex items-start justify-between gap-4 text-sm">
+      <span
+        className={
+          emphasized
+            ? 'text-badge-success-text font-medium'
+            : 'text-muted-foreground'
+        }
+      >
+        {label}
+      </span>
+      <span
+        className={
+          strong
+            ? 'text-end font-bold tabular-nums'
+            : 'text-end font-medium tabular-nums'
+        }
+      >
+        {value}
+      </span>
+    </div>
   );
 }

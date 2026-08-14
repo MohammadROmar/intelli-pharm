@@ -1,28 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { Package, Cross, Tag } from 'lucide-react';
+import { Building2, Package, Tag } from 'lucide-react';
 
 import type { DeliveryOrder } from '@/entities/delivery';
-import { formatPrice } from '@/shared/lib';
 import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
 
-type Props = {
-  order: DeliveryOrder;
-  canViewOrder: boolean;
-  canViewPharmacy: boolean;
-  canViewOffer: boolean;
-};
+type Props = { order: DeliveryOrder };
 
-export function DeliveryOrderCard({
-  order,
-  canViewOrder,
-  canViewPharmacy,
-  canViewOffer,
-}: Props) {
-  const { t, i18n } = useTranslation('deliveries', {
+export function DeliveryOrderCard({ order }: Props) {
+  const { t } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
-
-  const hasDiscount = order.offer_id !== null && parseFloat(order.discount) > 0;
 
   return (
     <DetailCard
@@ -33,7 +20,7 @@ export function DeliveryOrderCard({
       <DetailCell label={t('fields.orderId')}>
         <BadgeLink
           label={`ORD-${String(order.id).padStart(6, '0')}`}
-          to={canViewOrder ? `/dashboard/orders/${order.id}` : undefined}
+          to={`/dashboard/orders/${order.id}`}
           icon={Package}
         />
       </DetailCell>
@@ -43,81 +30,23 @@ export function DeliveryOrderCard({
       <DetailCell label={t('fields.orderPharmacy')}>
         <BadgeLink
           label={order.pharmacy.name}
-          to={
-            canViewPharmacy
-              ? `/dashboard/pharmacies/${order.pharmacy.id}`
-              : undefined
-          }
-          icon={Cross}
+          to={`/dashboard/pharmacies/${order.pharmacy.id}`}
+          icon={Building2}
         />
       </DetailCell>
 
-      {order.offer_id !== null && (
+      {order.offer_id !== null ? (
         <>
           <Separator />
-
           <DetailCell label={t('fields.appliedOffer')}>
             <BadgeLink
               label={`OFF-${String(order.offer_id).padStart(6, '0')}`}
-              to={
-                canViewOffer
-                  ? `/dashboard/promotions/offers/${order.offer_id}`
-                  : undefined
-              }
+              to={`/dashboard/promotions/offers/${order.offer_id}`}
               icon={Tag}
             />
           </DetailCell>
         </>
-      )}
-
-      <Separator />
-
-      {hasDiscount ? (
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-muted-foreground text-xs font-medium">
-              {t('fields.orderSubtotal')}
-            </span>
-
-            <span className="text-muted-foreground text-sm tabular-nums line-through">
-              {formatPrice(order.total_amount, i18n.language)}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-badge-success-text/80 text-xs font-medium">
-              {t('fields.orderDiscount')}
-              {order.percentage !== null && (
-                <span className="ms-1">({order.percentage}%)</span>
-              )}
-            </span>
-
-            <span className="text-badge-success-text text-sm tabular-nums">
-              −{formatPrice(order.discount, i18n.language)}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold">
-              {t('fields.orderFinalTotal')}
-            </span>
-
-            <span className="font-bold tabular-nums">
-              {formatPrice(order.final_total, i18n.language)}
-            </span>
-          </div>
-        </div>
-      ) : (
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground text-xs font-medium">
-            {t('fields.orderTotal')}
-          </span>
-
-          <span className="font-bold tabular-nums">
-            {formatPrice(order.total_amount, i18n.language)}
-          </span>
-        </div>
-      )}
+      ) : null}
     </DetailCard>
   );
 }

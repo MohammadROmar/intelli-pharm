@@ -1,21 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import { Cross, Network, User } from 'lucide-react';
+import { Building2, Network, User } from 'lucide-react';
 
 import type { DeliveryDetail } from '@/entities/delivery';
 import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
 
-type Props = {
-  delivery: DeliveryDetail;
-  canViewEmployee: boolean;
-  canViewPharmacy: boolean;
-};
+type Props = { delivery: DeliveryDetail };
 
-export function RelatedRecords({
-  delivery,
-  canViewEmployee,
-  canViewPharmacy,
-}: Props) {
-  const { t } = useTranslation('deliveries', {
+export function RelatedRecords({ delivery }: Props) {
+  const { t } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
 
@@ -25,33 +17,23 @@ export function RelatedRecords({
       subtitle={t('sections.relatedSubtitle')}
       icon={Network}
     >
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-1">
-        <DetailCell label={t('fields.assignedTo')}>
-          <BadgeLink
-            label={delivery.distributor_name}
-            to={
-              canViewEmployee
-                ? `/dashboard/employees/${delivery.user_id}`
-                : undefined
-            }
-            icon={User}
-          />
-        </DetailCell>
+      <DetailCell label={t('fields.assignedTo')}>
+        <BadgeLink
+          label={delivery.distributor_name}
+          to={`/dashboard/employees/${delivery.user_id}`}
+          icon={User}
+        />
+      </DetailCell>
 
-        <Separator className="hidden lg:block" />
+      <Separator />
 
-        <DetailCell label={t('fields.pharmacy')}>
-          <BadgeLink
-            label={delivery.pharmacy_name}
-            to={
-              canViewPharmacy
-                ? `/dashboard/pharmacies/${delivery.pharmacy_id}`
-                : undefined
-            }
-            icon={Cross}
-          />
-        </DetailCell>
-      </div>
+      <DetailCell label={t('fields.pharmacy')}>
+        <BadgeLink
+          label={delivery.pharmacy_name}
+          to={`/dashboard/pharmacies/${delivery.pharmacy_id}`}
+          icon={Building2}
+        />
+      </DetailCell>
     </DetailCard>
   );
 }

@@ -1,0 +1,77 @@
+{
+  "detail": {
+    "pageTitle": "Delivery details",
+    "recordLabel": "Delivery record",
+    "orderContext": "Linked to order #{{orderId}}",
+    "notCompleted": "Not completed yet",
+    "noNotes": "No delivery notes were added.",
+    "summary": {
+      "ariaLabel": "Delivery summary",
+      "pharmacy": "Destination pharmacy",
+      "scheduledAt": "Scheduled for",
+      "units": "Units in delivery",
+      "amountToCollect": "Required collection"
+    },
+    "sections": {
+      "items": "Order items",
+      "itemsSubtitle": "Medicines, quantities, gifts, and line totals",
+      "timeline": "Timeline and notes",
+      "timelineSubtitle": "Delivery milestones and handling instructions",
+      "financial": "Financial summary",
+      "financialSubtitle": "Collection requirement and order totals",
+      "confirmation": "Delivery confirmation",
+      "confirmationSubtitle": "Receiver, payment, and proof of delivery",
+      "order": "Order references",
+      "orderSubtitle": "Open the linked business records",
+      "related": "Delivery parties",
+      "relatedSubtitle": "Assigned distributor and destination"
+    },
+    "fields": {
+      "scheduledAt": "Scheduled",
+      "completedAt": "Completed",
+      "createdAt": "Created",
+      "updatedAt": "Last updated",
+      "notes": "Handling notes",
+      "requiredPaymentAmount": "Required payment amount",
+      "orderSubtotal": "Order subtotal",
+      "orderDiscount": "Discount",
+      "orderDiscountWithPercentage": "Discount ({{percentage}}%)",
+      "orderFinalTotal": "Final order total",
+      "paidAmount": "Paid to date",
+      "orderId": "Order record",
+      "orderPharmacy": "Order pharmacy",
+      "appliedOffer": "Applied offer",
+      "assignedTo": "Assigned distributor",
+      "pharmacy": "Destination pharmacy",
+      "receiverName": "Received by",
+      "paymentCollected": "Payment collected",
+      "confirmedAt": "Confirmed at",
+      "checkNotes": "Confirmation notes"
+    },
+    "confirmation": {
+      "record": "Confirmation {{number}}",
+      "proofAlt": "Proof of delivery received by {{receiver}}",
+      "openProof": "Open full-size proof",
+      "noProof": "No proof image attached",
+      "noConfirmations": "No confirmation recorded",
+      "noConfirmationsDescription": "Receiver details and proof of delivery will appear here once the delivery is confirmed."
+    },
+    "table": {
+      "medicine": "Medicine",
+      "type": "Type",
+      "quantity": "Quantity",
+      "unitPrice": "Unit price",
+      "total": "Line total",
+      "actions": "Actions",
+      "gift": "Gift",
+      "offer": "Offer",
+      "regular": "Regular item",
+      "free": "Free",
+      "totalUnits": "Total units",
+      "orderValue": "Required collection",
+      "viewMedicine": "View medicine details",
+      "empty": "No order items",
+      "emptyDescription": "This delivery does not contain any item lines."
+    }
+  }
+}

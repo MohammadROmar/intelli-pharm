@@ -14,6 +14,7 @@ export type DeliveryConfirmation = {
   check_notes: string;
   payment_amount: string;
   receiver_name: string;
+  receipt_image: string | null;
   created_at: string;
 };
 
@@ -34,6 +35,7 @@ export type DeliveryOrder = {
   total_amount: string;
   percentage: string | null;
   final_total: string;
+  paid_amount: string;
   discount: string;
   offer_id: number | null;
   items: DeliveryOrderItem[];

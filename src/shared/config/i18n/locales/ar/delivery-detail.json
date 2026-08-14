@@ -1,0 +1,77 @@
+{
+  "detail": {
+    "pageTitle": "تفاصيل التوصيل",
+    "recordLabel": "سجل التوصيل",
+    "orderContext": "مرتبط بالطلب رقم {{orderId}}",
+    "notCompleted": "لم يكتمل بعد",
+    "noNotes": "لم تتم إضافة ملاحظات للتوصيل.",
+    "summary": {
+      "ariaLabel": "ملخص التوصيل",
+      "pharmacy": "الصيدلية المستلمة",
+      "scheduledAt": "موعد التوصيل",
+      "units": "عدد الوحدات",
+      "amountToCollect": "المبلغ المطلوب تحصيله"
+    },
+    "sections": {
+      "items": "أصناف الطلب",
+      "itemsSubtitle": "الأدوية والكميات والهدايا وإجماليات الأصناف",
+      "timeline": "الجدول الزمني والملاحظات",
+      "timelineSubtitle": "مراحل التوصيل وتعليمات المناولة",
+      "financial": "الملخص المالي",
+      "financialSubtitle": "المبلغ المطلوب وإجماليات الطلب",
+      "confirmation": "تأكيد التوصيل",
+      "confirmationSubtitle": "المستلم والدفع وإثبات التوصيل",
+      "order": "مراجع الطلب",
+      "orderSubtitle": "فتح سجلات الأعمال المرتبطة",
+      "related": "أطراف التوصيل",
+      "relatedSubtitle": "الموزّع المكلّف ووجهة التوصيل"
+    },
+    "fields": {
+      "scheduledAt": "موعد التوصيل",
+      "completedAt": "وقت الإكمال",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "آخر تحديث",
+      "notes": "ملاحظات المناولة",
+      "requiredPaymentAmount": "المبلغ المطلوب دفعه",
+      "orderSubtotal": "الإجمالي قبل الحسم",
+      "orderDiscount": "الحسم",
+      "orderDiscountWithPercentage": "الحسم ({{percentage}}٪)",
+      "orderFinalTotal": "الإجمالي النهائي للطلب",
+      "paidAmount": "المدفوع حتى الآن",
+      "orderId": "سجل الطلب",
+      "orderPharmacy": "صيدلية الطلب",
+      "appliedOffer": "العرض المطبّق",
+      "assignedTo": "الموزّع المكلّف",
+      "pharmacy": "الصيدلية المستلمة",
+      "receiverName": "اسم المستلم",
+      "paymentCollected": "المبلغ المحصّل",
+      "confirmedAt": "وقت التأكيد",
+      "checkNotes": "ملاحظات التأكيد"
+    },
+    "confirmation": {
+      "record": "التأكيد {{number}}",
+      "proofAlt": "إثبات توصيل استلمه {{receiver}}",
+      "openProof": "فتح الإثبات بالحجم الكامل",
+      "noProof": "لا توجد صورة إثبات مرفقة",
+      "noConfirmations": "لم يُسجّل تأكيد بعد",
+      "noConfirmationsDescription": "ستظهر هنا بيانات المستلم وإثبات التوصيل بعد تأكيد عملية التوصيل."
+    },
+    "table": {
+      "medicine": "الدواء",
+      "type": "النوع",
+      "quantity": "الكمية",
+      "unitPrice": "سعر الوحدة",
+      "total": "إجمالي الصنف",
+      "actions": "الإجراءات",
+      "gift": "هدية",
+      "offer": "عرض",
+      "regular": "صنف عادي",
+      "free": "مجاني",
+      "totalUnits": "إجمالي الوحدات",
+      "orderValue": "المبلغ المطلوب تحصيله",
+      "viewMedicine": "عرض تفاصيل الدواء",
+      "empty": "لا توجد أصناف",
+      "emptyDescription": "لا يحتوي هذا التوصيل على أي أصناف."
+    }
+  }
+}

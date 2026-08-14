@@ -42,14 +42,21 @@ export function ChangeDeliveryStatusSheet({
   return (
     <Sheet open={open} onOpenChange={(val) => setOpen(val)}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="sm" className="bg-card! gap-2">
+        <Button
+          variant="default"
+          size="sm"
+          className="h-10! min-w-40! gap-2! px-4! shadow-sm"
+        >
           <ClipboardCheck className="size-4" />
           {t('trigger')}
         </Button>
       </SheetTrigger>
 
-      <SheetContent side={isRtl ? 'left' : 'right'}>
-        <SheetHeader>
+      <SheetContent
+        side={isRtl ? 'left' : 'right'}
+        className="w-full! gap-0! overflow-hidden! p-0! sm:max-w-md!"
+      >
+        <SheetHeader className="border-b p-5! pe-12!">
           <SheetTitle className="sr-only">{t('title')}</SheetTitle>
           <SheetDescription className="sr-only">
             {t('subtitle')}
@@ -62,15 +69,15 @@ export function ChangeDeliveryStatusSheet({
           />
         </SheetHeader>
 
-        <div className="thin-scrollbar space-y-4 p-4 pt-0">
-          <div className="bg-muted/75 space-y-2 rounded-lg px-4 py-3">
-            <div className="flex items-center justify-between gap-2">
+        <div className="thin-scrollbar min-h-0 flex-1 space-y-5 overflow-y-auto p-5">
+          <div className="bg-muted/40 grid grid-cols-2 gap-3 rounded-xl border p-3">
+            <div className="bg-background space-y-2 rounded-lg p-3">
               <span className="text-muted-foreground text-xs">
                 {t('currentStatus')}
               </span>
               <DeliveryStatusBadge status={currentStatus} />
             </div>
-            <div className="flex items-center justify-between gap-2">
+            <div className="bg-background space-y-2 rounded-lg p-3">
               <span className="text-muted-foreground text-xs">
                 {t('currentPaymentStatus')}
               </span>
@@ -78,7 +85,7 @@ export function ChangeDeliveryStatusSheet({
             </div>
           </div>
 
-          <div className="grid flex-1 overflow-y-auto">{children}</div>
+          <div>{children}</div>
         </div>
       </SheetContent>
     </Sheet>

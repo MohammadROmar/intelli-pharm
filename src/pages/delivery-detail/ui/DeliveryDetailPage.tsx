@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 
-import { Separator, QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 import { OrderItems } from './OrderItems';
 import { Confirmations } from './Confirmations';
@@ -9,8 +9,8 @@ import { FinancialSummary } from './FinancialSummary';
 import { DeliveryOrderCard } from './DeliveryOrderCard';
 import { DeliveryInformation } from './DeliveryInformation';
 import { DeliveryDetailHeader } from './DeliveryDetailHeader';
+import { DeliverySummaryStrip } from './DeliverySummaryStrip';
 import { useGetDeliverySuspense } from '../model/useGetDeliverySuspense';
-import { useDeliveryDetailAccess } from '../model/useDeliveryDetailAccess';
 
 export default function DeliveryDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -32,53 +32,25 @@ type DeliveryDetailContentProps = { deliveryId: number };
 function DeliveryDetailContent({ deliveryId }: DeliveryDetailContentProps) {
   const { data } = useGetDeliverySuspense(deliveryId);
 
-  const {
-    canChangeStatus,
-    canViewEmployee,
-    canViewGift,
-    canViewMedicine,
-    canViewOffer,
-    canViewOrder,
-    canViewPharmacy,
-  } = useDeliveryDetailAccess();
-
   const delivery = data.data!;
 
   return (
-    <div className="space-y-6">
-      <DeliveryDetailHeader
-        delivery={delivery}
-        canChangeStatus={canChangeStatus}
-      />
+    <div className="space-y-5 pb-8">
+      <DeliveryDetailHeader delivery={delivery} />
+      <DeliverySummaryStrip delivery={delivery} />
 
-      <Separator />
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <div className="space-y-6 lg:col-span-2">
-          <DeliveryInformation delivery={delivery} />
-          <OrderItems
-            delivery={delivery}
-            canViewMedicine={canViewMedicine}
-            canViewGift={canViewGift}
-            canViewOffer={canViewOffer}
-          />
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
+        <aside className="space-y-5 xl:col-start-2 xl:row-start-1">
           <Confirmations confirmations={delivery.confirmations} />
-        </div>
-
-        <div className="space-y-6">
           <FinancialSummary delivery={delivery} />
-          <DeliveryOrderCard
-            order={delivery.order}
-            canViewOrder={canViewOrder}
-            canViewPharmacy={canViewPharmacy}
-            canViewOffer={canViewOffer}
-          />
-          <RelatedRecords
-            delivery={delivery}
-            canViewEmployee={canViewEmployee}
-            canViewPharmacy={canViewPharmacy}
-          />
-        </div>
+          <DeliveryOrderCard order={delivery.order} />
+          <RelatedRecords delivery={delivery} />
+        </aside>
+
+        <main className="min-w-0 space-y-5 xl:col-start-1 xl:row-start-1">
+          <OrderItems delivery={delivery} />
+          <DeliveryInformation delivery={delivery} />
+        </main>
       </div>
     </div>
   );

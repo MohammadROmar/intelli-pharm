@@ -1,63 +1,71 @@
-import { useState } from 'react';
-import { useSearchParams } from 'react-router';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router';
+import { PackageCheck } from 'lucide-react';
 
 import {
-  ChangeDeliveryStatusSheet,
-  useChangeDeliveryStatus,
   ChangeDeliveryStatusForm,
+  ChangeDeliveryStatusSheet,
   toPayload,
+  useChangeDeliveryStatus,
 } from '@/features/delivery-change-status';
 import {
-  DeliveryStatusBadge,
   DeliveryPaymentStatusBadge,
-  type DeliveryDetail,
+  DeliveryStatusBadge,
   type ChangeDeliveryStatusValues,
+  type DeliveryDetail,
 } from '@/entities/delivery';
 
-type Props = { delivery: DeliveryDetail; canChangeStatus: boolean };
+type Props = { delivery: DeliveryDetail };
 
-export function DeliveryDetailHeader({ delivery, canChangeStatus }: Props) {
-  const { t } = useTranslation('deliveries', { keyPrefix: 'detail' });
-
-  const pageTitle = `#${delivery.id} · ${t('pageTitle')} - IntelliPharma`;
+export function DeliveryDetailHeader({ delivery }: Props) {
+  const { t } = useTranslation('delivery-detail', { keyPrefix: 'detail' });
+  const deliveryCode = `DEL-${String(delivery.id).padStart(6, '0')}`;
 
   return (
     <>
-      <title>{pageTitle}</title>
+      <title>{`${deliveryCode} · ${t('pageTitle')} - IntelliPharm`}</title>
 
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-2.5">
-          <h1 className="text-2xl font-bold tracking-tight">
-            {t('deliveryNo', { id: delivery.id })}
-          </h1>
+      <header className="bg-card relative overflow-hidden rounded-2xl border p-5 shadow-sm sm:p-6">
+        <div
+          className="bg-primary/5 pointer-events-none absolute -end-12 -top-16 size-40 rounded-full"
+          aria-hidden="true"
+        />
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
-                {t('fields.status')}
-              </span>
-              <DeliveryStatusBadge status={delivery.status} />
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="flex min-w-0 items-start gap-4">
+            <div className="bg-primary/10 text-primary hidden size-12 shrink-0 items-center justify-center rounded-xl border sm:flex">
+              <PackageCheck className="size-6" />
             </div>
 
-            <div className="bg-border h-4 w-px shrink-0" />
+            <div className="min-w-0 space-y-3">
+              <div>
+                <p className="text-muted-foreground mb-1 text-xs font-semibold tracking-[0.16em] uppercase">
+                  {t('recordLabel')}
+                </p>
+                <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                  {deliveryCode}
+                </h1>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  {t('orderContext', { orderId: delivery.order_id })}
+                </p>
+              </div>
 
-            <div className="flex items-center gap-1.5">
-              <span className="text-muted-foreground text-[10px] font-semibold tracking-wider uppercase">
-                {t('fields.paymentStatus')}
-              </span>
-              <DeliveryPaymentStatusBadge status={delivery.payment_status} />
+              <div className="flex flex-wrap items-center gap-2">
+                <DeliveryStatusBadge status={delivery.status} />
+                <DeliveryPaymentStatusBadge status={delivery.payment_status} />
+              </div>
             </div>
           </div>
-        </div>
 
-        {canChangeStatus && <ChangeDeliveryStatus delivery={delivery} />}
-      </div>
+          <ChangeDeliveryStatus delivery={delivery} />
+        </div>
+      </header>
     </>
   );
 }
 
-function ChangeDeliveryStatus({ delivery }: Omit<Props, 'canChangeStatus'>) {
+function ChangeDeliveryStatus({ delivery }: Props) {
   const [searchParams] = useSearchParams();
   const [formKey, setFormKey] = useState(0);
   const [open, setOpen] = useState(
@@ -65,15 +73,35 @@ function ChangeDeliveryStatus({ delivery }: Omit<Props, 'canChangeStatus'>) {
   );
   const { mutate, isPending } = useChangeDeliveryStatus();
 
-  function handleSuccess() {
-    setOpen(false);
-    setFormKey((prev) => prev + 1);
-  }
+  const defaultValues = useMemo<ChangeDeliveryStatusValues>(
+    () => ({
+      status: delivery.status,
+      payment_status: delivery.payment_status,
+      check_notes: '',
+      payment_amount: '',
+      receiver_name: '',
+    }),
+    [delivery.payment_status, delivery.status],
+  );
 
-  function handleSubmit(data: ChangeDeliveryStatusValues) {
-    const payload = toPayload(data);
-    mutate({ id: delivery.id, payload }, { onSuccess: handleSuccess });
-  }
+  const handleReset = useCallback(() => {
+    setFormKey((previousKey) => previousKey + 1);
+  }, []);
+
+  const handleSuccess = useCallback(() => {
+    setOpen(false);
+    handleReset();
+  }, [handleReset]);
+
+  const handleSubmit = useCallback(
+    (values: ChangeDeliveryStatusValues) => {
+      mutate(
+        { id: delivery.id, payload: toPayload(values) },
+        { onSuccess: handleSuccess },
+      );
+    },
+    [delivery.id, handleSuccess, mutate],
+  );
 
   return (
     <ChangeDeliveryStatusSheet
@@ -86,11 +114,8 @@ function ChangeDeliveryStatus({ delivery }: Omit<Props, 'canChangeStatus'>) {
         key={formKey}
         isPending={isPending}
         onSubmit={handleSubmit}
-        onReset={() => setFormKey((prev) => prev + 1)}
-        defaultValues={{
-          status: delivery.status,
-          payment_status: delivery.payment_status,
-        }}
+        onReset={handleReset}
+        defaultValues={defaultValues}
       />
     </ChangeDeliveryStatusSheet>
   );
