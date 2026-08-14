@@ -3,7 +3,7 @@ import { Banknote } from 'lucide-react';
 
 import type { OrderDetail } from '@/entities/order';
 import { formatPrice } from '@/shared/lib';
-import { DetailCard, Separator } from '@/shared/ui';
+import { DetailCard, Separator, DetailAmountRow } from '@/shared/ui';
 
 type Props = { order: OrderDetail };
 
@@ -36,13 +36,13 @@ export function OrderFinancialSummary({ order }: Props) {
       <Separator />
 
       <div className="space-y-3">
-        <AmountRow
+        <DetailAmountRow
           label={t('fields.subtotal')}
           value={formatPrice(order.total_amount, i18n.language)}
         />
 
         {hasDiscount ? (
-          <AmountRow
+          <DetailAmountRow
             label={
               order.percentage
                 ? t('fields.discountWithPercentage', {
@@ -60,11 +60,11 @@ export function OrderFinancialSummary({ order }: Props) {
         {hasPaymentData ? (
           <>
             <Separator />
-            <AmountRow
+            <DetailAmountRow
               label={t('fields.paidAmount')}
               value={formatPrice(order.paid_amount ?? '0', i18n.language)}
             />
-            <AmountRow
+            <DetailAmountRow
               label={t('fields.remainingBalance')}
               value={formatPrice(String(remainingBalance ?? 0), i18n.language)}
               strong
@@ -73,42 +73,5 @@ export function OrderFinancialSummary({ order }: Props) {
         ) : null}
       </div>
     </DetailCard>
-  );
-}
-
-type AmountRowProps = {
-  label: string;
-  value: string;
-  emphasized?: boolean;
-  strong?: boolean;
-};
-
-function AmountRow({
-  label,
-  value,
-  emphasized = false,
-  strong = false,
-}: AmountRowProps) {
-  return (
-    <div className="flex items-start justify-between gap-4 text-sm">
-      <span
-        className={
-          emphasized
-            ? 'text-badge-success-text font-medium'
-            : 'text-muted-foreground'
-        }
-      >
-        {label}
-      </span>
-      <span
-        className={
-          strong
-            ? 'text-end font-bold tabular-nums'
-            : 'text-end font-medium tabular-nums'
-        }
-      >
-        {value}
-      </span>
-    </div>
   );
 }

@@ -17,6 +17,10 @@ export async function changeOrderStatus({
   return apiClient.patch(`/erp/v1/orders/${id}/change-status`, { status });
 }
 
+export async function cancelOrder({ id }: { id: number }) {
+  return apiClient.patch(`/erp/v1/orders/${id}/cancel`);
+}
+
 export async function getInfiniteOrders(page_number: string, name?: string) {
   const response = await getOrders({ page_number, name });
 

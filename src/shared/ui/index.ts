@@ -166,3 +166,5 @@ export {
 export { StatCard } from './StatCard';
 export { UnavailableField } from './UnavailableField';
 export { AccessDeniedSection } from './AccessDeniedSection';
+export { DetailAmountRow } from './DetailAmountRow';
+export { DetailSummary, DetailSummaryItem } from './DetailSummary';

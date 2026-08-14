@@ -47,6 +47,7 @@ function OrderDetailContent({ orderId }: OrderDetailContentProps) {
       <div className="space-y-5 pb-8">
         <OrderDetailHeader
           order={order}
+          canCancel={access.canCancel}
           canChangeStatus={access.canChangeStatus}
         />
         <OrderSummaryStrip

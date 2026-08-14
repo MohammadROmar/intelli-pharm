@@ -33,6 +33,7 @@ function DeliveryDetailContent({ deliveryId }: DeliveryDetailContentProps) {
   const { data } = useGetDeliverySuspense(deliveryId);
 
   const delivery = data.data!;
+  console.log(delivery);
 
   return (
     <div className="space-y-5 pb-8">

@@ -7,6 +7,7 @@ export function useOrderDetailAccess() {
 
   return useMemo(() => {
     return {
+      canCancel: hasPermission(grantedPermissions, 'erp.orders.cancel'),
       canChangeStatus: hasPermission(grantedPermissions, 'erp.orders.update'),
       canViewPharmacy: hasPermission(grantedPermissions, 'erp.pharmacies.view'),
       canViewEmployee: hasPermission(grantedPermissions, 'erp.employees.view'),

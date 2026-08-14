@@ -162,9 +162,6 @@ function OrderItemRow({
       <TableCell>
         <div className="min-w-40">
           <p className="font-medium">{item.medicine.commercial_name}</p>
-          <p className="text-muted-foreground mt-0.5 text-xs tabular-nums">
-            {`MED-${String(item.medicine_id).padStart(6, '0')}`}
-          </p>
         </div>
       </TableCell>
       <TableCell>
@@ -215,9 +212,6 @@ function OrderItemMobileCard({
         <div className="min-w-0">
           <p className="leading-snug font-semibold">
             {item.medicine.commercial_name}
-          </p>
-          <p className="text-muted-foreground mt-1 text-xs tabular-nums">
-            {`MED-${String(item.medicine_id).padStart(6, '0')}`}
           </p>
         </div>
         <ItemType

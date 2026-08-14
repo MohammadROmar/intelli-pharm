@@ -5,8 +5,8 @@ export function formatDate(
 ): string {
   return new Intl.DateTimeFormat(language, {
     year: 'numeric',
-    month: 'short',
-    day: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
     ...(hasHour ? { hour: 'numeric', minute: '2-digit' } : {}),
   }).format(new Date(iso));
 }

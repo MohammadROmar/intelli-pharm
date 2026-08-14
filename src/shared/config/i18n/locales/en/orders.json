@@ -55,5 +55,15 @@
     "processing": "Processing",
     "completed": "Completed",
     "cancelled": "Cancelled"
+  },
+  "cancelOrder": {
+    "trigger": "Cancel order",
+    "title": "Cancel {{order}}?",
+    "description": "Review the order status before confirming this destructive action.",
+    "currentStatus": "Current status",
+    "warningTitle": "This action cannot be undone",
+    "warningDescription": "The order will be marked as cancelled and will no longer continue through the normal fulfillment workflow.",
+    "keepOrder": "Keep order",
+    "confirm": "Cancel order"
   }
 }

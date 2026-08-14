@@ -55,5 +55,15 @@
     "dateToLabel": "إلى",
     "minTotalLabel": "أدنى مبلغ",
     "maxTotalLabel": "أعلى مبلغ"
+  },
+  "cancelOrder": {
+    "trigger": "إلغاء الطلب",
+    "title": "هل تريد إلغاء {{order}}؟",
+    "description": "راجع حالة الطلب قبل تأكيد هذا الإجراء النهائي.",
+    "currentStatus": "الحالة الحالية",
+    "warningTitle": "لا يمكن التراجع عن هذا الإجراء",
+    "warningDescription": "سيُعلَّم الطلب كملغى ولن يتابع ضمن مسار التجهيز المعتاد.",
+    "keepOrder": "الاحتفاظ بالطلب",
+    "confirm": "إلغاء الطلب"
   }
 }

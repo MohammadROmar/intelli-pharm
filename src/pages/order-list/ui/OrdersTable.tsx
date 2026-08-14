@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useHasPermission } from '@/entities/session';
 import type { OrderListResponse } from '@/entities/order';
 import {
   TableHead,
@@ -13,24 +12,20 @@ import {
 import { OrderRow } from './OrderRow';
 import { OrderFiltersModal } from './OrderFiltersModal';
 import { useOrderFilters } from '../model/useOrderFilters';
+import { useOrdersAccess } from '@/features/order-access';
 
 type Props = { data: OrderListResponse };
 
 export function OrdersTable({ data }: Props) {
   const { t } = useTranslation('orders', { keyPrefix: 'list' });
   const filtersState = useOrderFilters();
-
-  const canChangeStatus = useHasPermission('erp.orders.update');
+  const actionAccess = useOrdersAccess();
 
   const renderRow = useCallback(
     (order: OrderListResponse['data'][number]) => (
-      <OrderRow
-        key={order.id}
-        order={order}
-        canChangeStatus={canChangeStatus}
-      />
+      <OrderRow key={order.id} order={order} actionAccess={actionAccess} />
     ),
-    [canChangeStatus],
+    [actionAccess],
   );
 
   return (

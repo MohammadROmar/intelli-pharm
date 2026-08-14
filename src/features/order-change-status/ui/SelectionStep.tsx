@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { ClipboardEdit } from 'lucide-react';
 
 import { StatusCard } from './StatusCard';
 import { OrderStatusBadge, type OrderStatus } from '@/entities/order';
@@ -11,7 +12,6 @@ import {
   DialogTitle,
   Separator,
 } from '@/shared/ui';
-import { ClipboardEdit } from 'lucide-react';
 
 type SelectionStepProps = {
   currentStatus: OrderStatus;
@@ -21,12 +21,7 @@ type SelectionStepProps = {
   onNext: () => void;
 };
 
-const TRANSITIONS: OrderStatus[] = [
-  'pending',
-  'processing',
-  'completed',
-  'cancelled',
-];
+const TRANSITIONS: OrderStatus[] = ['pending', 'processing', 'completed'];
 
 export function SelectionStep({
   currentStatus,
