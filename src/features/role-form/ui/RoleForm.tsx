@@ -2,16 +2,17 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { PermissionCatalogModule } from '@/entities/permission';
+import { usePermissionsCatalogSuspense } from '@/entities/permission';
 import type { Role, RoleFormData } from '@/entities/role';
-import { FormActions } from '@/shared/ui';
+import { useHasPermission } from '@/entities/session';
+import { FormActions, QueryErrorBoundary } from '@/shared/ui';
 
 import { RoleBasicInfoCard } from './RoleBasicInfoCard';
 import { RolePermissionsCard } from './RolePermissionsCard';
+import { RolePermissionsAccessDenied } from './RolePermissionsAccessDenied';
 import { getAvailablePermissions, roleToFormData } from '../lib/roleFormUtils';
 
 type RoleFormProps = {
-  catalog: PermissionCatalogModule[];
   role?: Role;
   isPending?: boolean;
   onSubmit: (values: RoleFormData) => void;
@@ -19,13 +20,37 @@ type RoleFormProps = {
 };
 
 export function RoleForm({
-  catalog,
+  role,
+  isPending,
+  onSubmit,
+  onReset,
+}: RoleFormProps) {
+  const canViewPermissions = useHasPermission('auth.permissions.view');
+
+  if (!canViewPermissions) {
+    return <RolePermissionsAccessDenied />;
+  }
+
+  return (
+    <QueryErrorBoundary>
+      <RoleFormContent
+        role={role}
+        isPending={isPending}
+        onSubmit={onSubmit}
+        onReset={onReset}
+      />
+    </QueryErrorBoundary>
+  );
+}
+
+function RoleFormContent({
   role,
   isPending,
   onSubmit,
   onReset,
 }: RoleFormProps) {
   const { t } = useTranslation('roles', { keyPrefix: 'form' });
+  const { data: catalog } = usePermissionsCatalogSuspense();
 
   const availablePermissions = useMemo(
     () => getAvailablePermissions(catalog),
@@ -37,16 +62,10 @@ export function RoleForm({
     [availablePermissions, role],
   );
 
-  const methods = useForm<RoleFormData>({
-    defaultValues,
-    mode: 'onTouched',
-  });
+  const methods = useForm<RoleFormData>({ defaultValues, mode: 'onTouched' });
 
   function submitHandler(values: RoleFormData) {
-    onSubmit({
-      ...values,
-      name: values.name.trim(),
-    });
+    onSubmit({ ...values, name: values.name.trim() });
   }
 
   return (

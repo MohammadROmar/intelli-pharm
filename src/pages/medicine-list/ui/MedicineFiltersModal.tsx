@@ -2,6 +2,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Dna, DollarSign, Pill, Tag } from 'lucide-react';
 
+import { useHasPermission } from '@/entities/session';
 import { CategorySelector } from '@/entities/category';
 import { MedicineSelector, type MedicineFilters } from '@/entities/medicine';
 import {
@@ -15,6 +16,7 @@ import {
   FieldSet,
   SwitchRow,
   FiltersModal,
+  UnavailableField,
 } from '@/shared/ui';
 
 type Props = {
@@ -34,14 +36,14 @@ export function MedicineFiltersModal({
   onClear,
   hasActiveFilters,
 }: Props) {
-  const { t } = useTranslation('medicines', {
-    keyPrefix: 'filters',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'filters' });
 
   const { register, control, handleSubmit } = useForm<MedicineFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const canFilterByCategory = useHasPermission('erp.categories.view');
 
   function onSubmit(values: MedicineFilters) {
     const cleaned = Object.fromEntries(
@@ -153,10 +155,14 @@ export function MedicineFiltersModal({
                       {t('categoryLabel')}
                     </p>
                   </FieldLabel>
-                  <CategorySelector
-                    value={field.value ? +field.value : null}
-                    onValueChange={field.onChange}
-                  />
+                  {canFilterByCategory ? (
+                    <CategorySelector
+                      value={field.value ? +field.value : null}
+                      onValueChange={field.onChange}
+                    />
+                  ) : (
+                    <UnavailableField />
+                  )}
                 </Field>
               )}
             />

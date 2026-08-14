@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { RegionSelector } from '@/entities/region';
+import { useHasPermission } from '@/entities/session';
 import { Separator, Tabs, TabsList, TabsTrigger } from '@/shared/ui';
 
 import type { DashboardRange } from '../model/types';
@@ -26,6 +27,8 @@ export function DashboardFilters({
 }: DashboardFiltersProps) {
   const { t } = useTranslation('dashboard-overview', { keyPrefix: 'range' });
 
+  const canFilterByRegions = useHasPermission('erp.regions.view');
+
   return (
     <div className="bg-card flex w-full flex-col gap-3 rounded-lg border p-2 shadow-sm sm:w-fit sm:flex-row sm:items-center">
       <Tabs
@@ -48,18 +51,25 @@ export function DashboardFilters({
         </TabsList>
       </Tabs>
 
-      <Separator orientation="vertical" className="hidden h-6 sm:block" />
-      <Separator className="sm:hidden" />
+      {canFilterByRegions && (
+        <>
+          <Separator
+            orientation="vertical"
+            className="hidden sm:block md:h-6!"
+          />
+          <Separator className="sm:hidden" />
 
-      <div className="w-full sm:w-auto sm:min-w-48">
-        <RegionSelector
-          value={areaId ?? undefined}
-          onValueChange={(value) =>
-            onAreaIdChange((value as number | null) ?? null)
-          }
-          placeholder={t('regionsPlaceholder')}
-        />
-      </div>
+          <div className="w-full sm:w-auto sm:min-w-48">
+            <RegionSelector
+              value={areaId ?? undefined}
+              onValueChange={(value) =>
+                onAreaIdChange((value as number | null) ?? null)
+              }
+              placeholder={t('regionsPlaceholder')}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 }

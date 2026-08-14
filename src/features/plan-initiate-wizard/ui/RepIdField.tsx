@@ -2,13 +2,14 @@ import { memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { EmployeeSelector, type EmployeeRole } from '@/entities/employee';
-import { Field, FieldError, FieldLabel } from '@/shared/ui';
+import { Field, FieldError, FieldLabel, UnavailableField } from '@/shared/ui';
 
 type Props = {
   value: number | null;
   role?: EmployeeRole;
   onChange: (value: number | null) => void;
   invalid?: boolean;
+  canView: boolean;
 };
 
 export const RepIdField = memo(function RepIdField({
@@ -16,6 +17,7 @@ export const RepIdField = memo(function RepIdField({
   onChange,
   role,
   invalid,
+  canView,
 }: Props) {
   const { t } = useTranslation('planner');
 
@@ -31,12 +33,16 @@ export const RepIdField = memo(function RepIdField({
       <FieldLabel asChild>
         <p>{t('assignment.repLabel')}</p>
       </FieldLabel>
-      <EmployeeSelector
-        role={role}
-        value={value}
-        onValueChange={handleValueChange}
-        invalid={invalid}
-      />
+      {canView ? (
+        <EmployeeSelector
+          role={role}
+          value={value}
+          onValueChange={handleValueChange}
+          invalid={invalid}
+        />
+      ) : (
+        <UnavailableField invalid={invalid} />
+      )}
       {invalid && <FieldError>{t('assignment.errors.repRequired')}</FieldError>}
     </Field>
   );

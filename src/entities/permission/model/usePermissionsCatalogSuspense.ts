@@ -1,16 +1,16 @@
 import { unwrapApiResponse } from '@/shared/api';
 import { useSuspenseGetResource } from '@/shared/model';
 
-import type { PermissionCatalogModule } from './permissionCatalogTypes';
+import type { PermissionCatalog } from './permissionCatalogTypes';
 
-const PERMISSIONS_CATALOG_STALE_TIME = 30 * 60 * 1000;
+const PERMISSIONS_CATALOG_STALE_TIME = Infinity;
+const PERMISSIONS_CATALOG_GC_TIME = Infinity;
 
-export function usePermissionsCatalogSuspense(): {
-  data: PermissionCatalogModule[];
-} {
-  const { data: response } = useSuspenseGetResource<PermissionCatalogModule[]>({
+export function usePermissionsCatalogSuspense() {
+  const { data: response } = useSuspenseGetResource<PermissionCatalog[]>({
     module: 'auth',
     queryKey: 'permissions',
+    gcTime: PERMISSIONS_CATALOG_GC_TIME,
     staleTime: PERMISSIONS_CATALOG_STALE_TIME,
   });
 

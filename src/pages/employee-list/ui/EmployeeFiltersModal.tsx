@@ -1,7 +1,9 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Mail, Phone, UserRound } from 'lucide-react';
 
+import { RoleSelector } from '@/entities/role';
+import { useHasPermission } from '@/entities/session';
 import type { EmployeeFilters } from '@/entities/employee';
 import {
   Input,
@@ -9,6 +11,7 @@ import {
   FieldLabel,
   FiltersModal,
   FieldError,
+  UnavailableField,
 } from '@/shared/ui';
 
 type Props = {
@@ -28,18 +31,19 @@ export function EmployeeFiltersModal({
   onApply,
   onClear,
 }: Props) {
-  const { t } = useTranslation('employees', {
-    keyPrefix: 'filters',
-  });
+  const { t } = useTranslation('employees', { keyPrefix: 'filters' });
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<EmployeeFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const canFilterByRoles = useHasPermission('auth.roles.view');
 
   function onSubmit(values: EmployeeFilters) {
     const cleaned: EmployeeFilters = Object.fromEntries(
@@ -101,6 +105,24 @@ export function EmployeeFiltersModal({
             })}
           />
           {errors.phone && <FieldError>{errors.phone.message}</FieldError>}
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="filter-phone">{t('roleLabel')}</FieldLabel>
+          {canFilterByRoles ? (
+            <Controller
+              name="role"
+              control={control}
+              render={({ field }) => (
+                <RoleSelector
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
+          )}
         </Field>
       </form>
     </FiltersModal>

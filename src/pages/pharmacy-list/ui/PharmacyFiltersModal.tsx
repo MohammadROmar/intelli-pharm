@@ -3,8 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { Phone, User, UserRound } from 'lucide-react';
 
 import { RegionSelector } from '@/entities/region';
+import { useHasPermission } from '@/entities/session';
 import type { PharmacyFilters } from '@/entities/pharmacy';
-import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
+import {
+  Input,
+  Field,
+  FieldLabel,
+  FiltersModal,
+  UnavailableField,
+} from '@/shared/ui';
 
 type Props = {
   open: boolean;
@@ -31,6 +38,8 @@ export function PharmacyFiltersModal({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const canFilterByRegions = useHasPermission('erp.regions.view');
 
   function onSubmit(values: PharmacyFilters) {
     const cleaned: PharmacyFilters = Object.fromEntries(
@@ -66,21 +75,25 @@ export function PharmacyFiltersModal({
           />
         </Field>
 
-        <Controller
-          name="region"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel asChild>
-                <p>{t('labelRegion')}</p>
-              </FieldLabel>
-              <RegionSelector
-                value={field.value ? +field.value : null}
-                onValueChange={field.onChange}
-              />
-            </Field>
+        <Field>
+          <FieldLabel asChild>
+            <p>{t('labelRegion')}</p>
+          </FieldLabel>
+          {canFilterByRegions ? (
+            <Controller
+              name="region"
+              control={control}
+              render={({ field }) => (
+                <RegionSelector
+                  value={field.value ? +field.value : null}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
           )}
-        />
+        </Field>
 
         <Field>
           <FieldLabel htmlFor="pharmacist_name">

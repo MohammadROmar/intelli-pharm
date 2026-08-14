@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 
-import { PharmacyEditForm } from '@/features/pharmacy-edit';
+import { PharmacyEditForm } from '@/features/pharmacy-form';
 import { useGetPharmacySuspense } from '@/entities/pharmacy';
 import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 

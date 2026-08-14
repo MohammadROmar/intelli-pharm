@@ -10,5 +10,4 @@ export type {
 } from './model/regionTypes';
 export { useGetRegionSuspense } from './model/useGetRegionSuspense';
 
-export { RegionForm } from './ui/RegionForm';
 export { RegionSelector } from './ui/RegionSelector';

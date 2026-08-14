@@ -1,9 +1,10 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useHasPermission } from '@/entities/session';
 import { MedicineSelector } from '@/entities/medicine';
-import { FiltersModal, Field, FieldLabel } from '@/shared/ui';
 import { YearQuarterField, type MedicineFilters } from '@/entities/metrics';
+import { FiltersModal, Field, FieldLabel, UnavailableField } from '@/shared/ui';
 
 type Props = {
   open: boolean;
@@ -29,6 +30,8 @@ export function MedicineFiltersModal({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const canFilterByMedicine = useHasPermission('erp.medicines.view');
 
   function handleOpenChange(nextOpen: boolean) {
     if (nextOpen) reset(defaultValues);
@@ -60,21 +63,25 @@ export function MedicineFiltersModal({
       >
         <YearQuarterField control={control} />
 
-        <Controller
-          name="medicine_id"
-          control={control}
-          render={({ field }) => (
-            <Field>
-              <FieldLabel asChild>
-                <p>{t('medicineLabel')}</p>
-              </FieldLabel>
-              <MedicineSelector
-                value={field.value}
-                onValueChange={field.onChange}
-              />
-            </Field>
+        <Field>
+          <FieldLabel asChild>
+            <p>{t('medicineLabel')}</p>
+          </FieldLabel>
+          {canFilterByMedicine ? (
+            <Controller
+              name="medicine_id"
+              control={control}
+              render={({ field }) => (
+                <MedicineSelector
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
           )}
-        />
+        </Field>
       </form>
     </FiltersModal>
   );

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { CreateRegionForm } from '@/features/region-create';
+import { CreateRegionForm } from '@/features/region-form';
 import { PageTitle } from '@/shared/ui';
 
 export default function RegionCreatePage() {

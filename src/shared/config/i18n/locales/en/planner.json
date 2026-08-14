@@ -77,7 +77,12 @@
     "selectedCount": "{{count}} selected",
     "selected": "Selected",
     "clearAll": "Clear all",
-    "maxLimitReached": "You can only select a maximum of 19 pharmacies."
+    "maxLimitReached": "You can only select a maximum of 19 pharmacies.",
+    "accessDenied": {
+      "badge": "Access Denied",
+      "title": "You don't have permission to access",
+      "subtitle": "Your account does not have permission to view `Pharmacies`. If you believe this is an error, please contact the administrator."
+    }
   },
   "fromDeliveries": {
     "pageTitle": "Initiate Plan from Deliveries",

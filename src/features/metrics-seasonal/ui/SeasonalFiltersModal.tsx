@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import { PharmacySelector } from '@/entities/pharmacy';
 import { CategorySelector } from '@/entities/category';
-import { FiltersModal, Field, FieldLabel } from '@/shared/ui';
 import { YearQuarterField, type SeasonalFilters } from '@/entities/metrics';
+import { FiltersModal, Field, FieldLabel, UnavailableField } from '@/shared/ui';
+
+import { useSeasonalFiltersAccess } from '../model/useSeasonalFiltersAccess';
 
 const DEFAULT_FILTERS: SeasonalFilters = {};
 
@@ -31,6 +33,9 @@ export function SeasonalFiltersModal({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const { canFilterByCategories, canFilterByPharmacies } =
+    useSeasonalFiltersAccess();
 
   function handleOpenChange(nextOpen: boolean) {
     if (nextOpen) reset(defaultValues);
@@ -62,37 +67,45 @@ export function SeasonalFiltersModal({
       >
         <YearQuarterField control={control} />
 
-        <Controller
-          name="pharmacy_id"
-          control={control}
-          render={({ field }) => (
-            <Field>
-              <FieldLabel asChild>
-                <p>{t('pharmacyLabel')}</p>
-              </FieldLabel>
-              <PharmacySelector
-                value={field.value}
-                onValueChange={field.onChange}
-              />
-            </Field>
+        <Field>
+          <FieldLabel asChild>
+            <p>{t('pharmacyLabel')}</p>
+          </FieldLabel>
+          {canFilterByPharmacies ? (
+            <Controller
+              name="pharmacy_id"
+              control={control}
+              render={({ field }) => (
+                <PharmacySelector
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
           )}
-        />
+        </Field>
 
-        <Controller
-          name="category_id"
-          control={control}
-          render={({ field }) => (
-            <Field>
-              <FieldLabel asChild>
-                <p>{t('categoryLabel')}</p>
-              </FieldLabel>
-              <CategorySelector
-                value={field.value}
-                onValueChange={field.onChange}
-              />
-            </Field>
+        <Field>
+          <FieldLabel asChild>
+            <p>{t('categoryLabel')}</p>
+          </FieldLabel>
+          {canFilterByCategories ? (
+            <Controller
+              name="category_id"
+              control={control}
+              render={({ field }) => (
+                <CategorySelector
+                  value={field.value}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
           )}
-        />
+        </Field>
       </form>
     </FiltersModal>
   );

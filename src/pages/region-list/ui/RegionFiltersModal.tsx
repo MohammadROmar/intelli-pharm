@@ -3,8 +3,15 @@ import { useTranslation } from 'react-i18next';
 import { UserRound } from 'lucide-react';
 
 import { CitySelector } from '@/entities/city';
+import { useHasPermission } from '@/entities/session';
 import type { RegionFilters } from '@/entities/region';
-import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
+import {
+  Input,
+  Field,
+  FieldLabel,
+  FiltersModal,
+  UnavailableField,
+} from '@/shared/ui';
 
 type Props = {
   open: boolean;
@@ -31,6 +38,8 @@ export function RegionFiltersModal({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const canFilterByCities = useHasPermission('erp.cities.view');
 
   function onSubmit(values: RegionFilters) {
     const cleaned: RegionFilters = Object.fromEntries(
@@ -70,16 +79,20 @@ export function RegionFiltersModal({
           <FieldLabel asChild>
             <p>{t('cityLabel')}</p>
           </FieldLabel>
-          <Controller
-            name="city"
-            control={control}
-            render={({ field }) => (
-              <CitySelector
-                value={field.value ? +field.value : null}
-                onValueChange={field.onChange}
-              />
-            )}
-          />
+          {canFilterByCities ? (
+            <Controller
+              name="city"
+              control={control}
+              render={({ field }) => (
+                <CitySelector
+                  value={field.value ? +field.value : null}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
+          )}
         </Field>
       </form>
     </FiltersModal>

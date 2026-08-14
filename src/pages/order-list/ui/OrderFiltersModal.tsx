@@ -3,16 +3,19 @@ import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { Activity, Calendar, DollarSign } from 'lucide-react';
 
-import { getStatusesCodes } from '../lib/utils';
 import type { OrderFilters } from '@/entities/order';
+import { useHasPermission } from '@/entities/session';
 import { PharmacySelector } from '@/entities/pharmacy';
 import {
   Field,
+  Input,
   FieldLabel,
   FiltersModal,
   GenericSingleSelect,
-  Input,
+  UnavailableField,
 } from '@/shared/ui';
+
+import { getStatusesCodes } from '../lib/utils';
 
 type Props = {
   open: boolean;
@@ -39,6 +42,8 @@ export function OrderFiltersModal({
   });
 
   const statuses = useMemo(() => getStatusesCodes(t), [t]);
+
+  const canFilterByPharmacy = useHasPermission('erp.pharmacies.view');
 
   function onSubmit(values: OrderFilters) {
     const cleaned: OrderFilters = Object.fromEntries(
@@ -67,16 +72,23 @@ export function OrderFiltersModal({
           <FieldLabel asChild>
             <p>{t('filters.pharmacyLabel')}</p>
           </FieldLabel>
-          <Controller
-            name="pharmacy"
-            control={control}
-            render={({ field }) => (
-              <PharmacySelector
-                value={field.value ? +field.value : null}
-                onValueChange={field.onChange}
-              />
-            )}
-          />
+
+          {canFilterByPharmacy ? (
+            <Controller
+              name="pharmacy"
+              control={control}
+              render={({ field }) => (
+                <PharmacySelector
+                  value={field.value ? Number(field.value) : null}
+                  onValueChange={(value) =>
+                    field.onChange(value === null ? '' : String(value))
+                  }
+                />
+              )}
+            />
+          ) : (
+            <UnavailableField />
+          )}
         </Field>
 
         <Controller

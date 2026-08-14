@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardSectionHeader } from '@/shared/ui';
 import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
 import { useDeliveryPlanWizard } from '../../model/store';
 import type { AssignmentSlice } from '../../model/plannerWizardTypes';
+import { useHasPermission } from '@/entities/session';
 
 type Props = { onSubmit: () => void; isPending?: boolean };
 
@@ -30,6 +31,8 @@ export function Step3Assignment({ onSubmit, isPending }: Props) {
   const handleTriggerSubmit = useCallback(() => {
     submitRef.current?.click();
   }, []);
+
+  const canView = useHasPermission('erp.employees.view');
 
   function onValidSubmit(values: AssignmentSlice) {
     dispatch({ type: 'UPDATE_ASSIGNMENT', payload: values });
@@ -61,19 +64,13 @@ export function Step3Assignment({ onSubmit, isPending }: Props) {
                 value={field.value}
                 onChange={field.onChange}
                 invalid={fieldState.invalid}
+                canView={canView}
               />
             )}
           />
         </CardContent>
       </Card>
 
-      {/*
-        This is the wizard's last step, so `WizardNavigation`'s "next" button
-        is already in submit mode (isLast). Routing that click through a
-        hidden submit button — same trick ConfigStep uses — makes sure
-        react-hook-form validates `rep_id` before `onValidSubmit` ever runs,
-        instead of firing the mutation straight from the nav bar.
-      */}
       <button type="submit" ref={submitRef} className="hidden" aria-hidden />
 
       <WizardNavigation

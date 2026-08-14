@@ -32,7 +32,7 @@ function RoleActions({ role, name }: RoleActionsProps) {
   const navigate = useNavigate();
 
   const { canUpdate, canDelete } = useRoleAccess();
-  const canMutate = (canUpdate && role.is_editable) || canDelete;
+  const canMutate = (canUpdate || canDelete) && role.is_editable;
 
   if (!canMutate) return null;
 

@@ -164,3 +164,5 @@ export {
   type FiltersModalProps,
 } from './EntityFiltersToolbar';
 export { StatCard } from './StatCard';
+export { UnavailableField } from './UnavailableField';
+export { AccessDeniedSection } from './AccessDeniedSection';

@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 
 import { useDeviceRegistration } from '@/entities/device';
-import { useHasPermission } from '@/entities/session';
 import { useAppSelector } from '@/shared/config';
 import { cn } from '@/shared/lib';
 import {
@@ -24,6 +23,7 @@ type Props = {
   className?: string;
   detailed?: boolean;
   hideUnsupported?: boolean;
+  canReceiveStockNotifications: boolean;
 };
 
 type ActivationStatus =
@@ -293,11 +293,7 @@ function NotificationActivationBannerContent({
 
 export const NotificationActivationBanner = memo(
   function NotificationActivationBanner(props: Props) {
-    const canReceiveStockNotifications = useHasPermission(
-      'erp.stock.notifications.get',
-    );
-
-    if (!canReceiveStockNotifications) return null;
+    if (!props.canReceiveStockNotifications) return null;
 
     return <NotificationActivationBannerContent {...props} />;
   },

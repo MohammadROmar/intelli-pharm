@@ -1,15 +1,22 @@
 import { useTranslation } from 'react-i18next';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useSuspenseQuery,
+  type UseSuspenseQueryOptions,
+} from '@tanstack/react-query';
 
 import { createDomainQueryKeys } from './queryKeys';
 import { apiClient, type ApiError, type ApiResponse } from '../api';
 
-type UseSuspenseGetResourceOptions = {
+type SuspenseQueryPassthroughOptions<T> = Omit<
+  UseSuspenseQueryOptions<ApiResponse<T>, ApiError>,
+  'queryKey' | 'queryFn'
+>;
+
+type UseSuspenseGetResourceOptions<T> = SuspenseQueryPassthroughOptions<T> & {
   module?: string;
   queryKey: string;
   params?: Record<string, unknown>;
   withDualLanguage?: boolean;
-  staleTime?: number;
 };
 
 export function useSuspenseGetResource<T>({
@@ -17,16 +24,15 @@ export function useSuspenseGetResource<T>({
   queryKey,
   params,
   withDualLanguage = false,
-  staleTime,
-}: UseSuspenseGetResourceOptions) {
+  ...queryOptions
+}: UseSuspenseGetResourceOptions<T>) {
   const { i18n } = useTranslation();
   const currentLang = i18n.language;
   const queryKeys = createDomainQueryKeys(queryKey);
 
   return useSuspenseQuery<ApiResponse<T>, ApiError>({
+    ...queryOptions,
     queryKey: queryKeys.list({ ...params, currentLang, withDualLanguage }),
-    staleTime,
-
     queryFn: () => {
       const config: Record<string, unknown> = { params };
 

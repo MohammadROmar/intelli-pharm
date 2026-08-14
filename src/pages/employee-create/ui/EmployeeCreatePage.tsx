@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { CreateEmployeeForm } from '@/features/employee-create';
+import { CreateEmployeeForm } from '@/features/employee-form';
 import { PageTitle } from '@/shared/ui';
 
 export default function EmployeeCreatePage() {

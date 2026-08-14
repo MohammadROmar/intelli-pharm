@@ -84,7 +84,8 @@
     "errorCameraDenied": "Camera access was denied. Allow camera access in your browser settings, or use a USB scanner instead.",
     "errorCameraUnavailable": "Camera is not available on this device.",
     "scanHint": "Center Barcode in Frame",
-    "done": "Done"
+    "done": "Done",
+    "retry": "Retry"
   },
   "form": {
     "fields": { "nameEn": "Name (English)", "nameAr": "Name (Arabic)" },
@@ -153,7 +154,8 @@
   "filters": {
     "apply": "Apply Filters",
     "clear": "Clear Filters",
-    "trigger": "Filters"
+    "trigger": "Filters",
+    "unavailable": "You do not have access permission"
   },
   "errorBoundary": {
     "title": "Something went wrong",

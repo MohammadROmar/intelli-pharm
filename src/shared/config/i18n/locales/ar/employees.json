@@ -70,6 +70,7 @@
     "emailPlaceholder": "البحث بالبريد الالكتروني…",
     "phoneLabel": "رقم الهاتف",
     "phonePlaceholder": "البحث برقم الهاتف…",
+    "roleLabel": "الدور",
     "phoneError": "يسمح بالأرقام فقط",
     "apply": "تطبيق الفلاتر",
     "clear": "مسح الفلاتر"

@@ -4,9 +4,15 @@ import { Users, Shield } from 'lucide-react';
 
 import { RegionSelector } from '@/entities/region';
 import { useTrackingIds, type RoleFilter } from '@/entities/tracking';
-import { Badge, Button, GenericSingleSelect } from '@/shared/ui';
+import {
+  Badge,
+  Button,
+  GenericSingleSelect,
+  UnavailableField,
+} from '@/shared/ui';
 
 import { useTrackingFilters } from '../model/useTrackingFilters';
+import { useHasPermission } from '@/entities/session';
 
 const ROLE_OPTIONS: RoleFilter[] = ['rep', 'distributor'];
 
@@ -30,17 +36,23 @@ export function TrackingFiltersBar() {
     [t],
   );
 
+  const canFilterByRegion = useHasPermission('erp.regions.view');
+
   return (
     <div className="flex flex-wrap items-center gap-3">
       <div className="flex items-center gap-1.5">
         <div>
-          <RegionSelector
-            value={regionValue}
-            onValueChange={(value) =>
-              setRegion(value == null ? 'all' : Number(value))
-            }
-            placeholder={t('regionPlaceholder')}
-          />
+          {canFilterByRegion ? (
+            <RegionSelector
+              value={regionValue}
+              onValueChange={(value) =>
+                setRegion(value == null ? 'all' : Number(value))
+              }
+              placeholder={t('regionPlaceholder')}
+            />
+          ) : (
+            <UnavailableField label={t('noRegionAccess')} />
+          )}
         </div>
         {filter.regionId !== 'all' && (
           <Button variant="secondary" onClick={() => setRegion('all')}>

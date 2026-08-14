@@ -9,3 +9,5 @@ export type {
 export { useCreateRole } from './model/useCreateRole';
 export { useEditRole } from './model/useEditRole';
 export { useGetRoleSuspense } from './model/useGetRoleSuspense';
+
+export { RoleSelector } from './ui/RoleSelector';

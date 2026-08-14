@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DollarSign, Gift, Package } from 'lucide-react';
 
 import { MedicineSelector } from '@/entities/medicine';
+import { useHasPermission } from '@/entities/session';
 import type { CreateGiftsOfferDto } from '@/entities/offer';
 import { required, positiveNumber } from '@/shared/form';
 import {
@@ -18,6 +19,7 @@ import {
   FormActions,
   Input,
   SwitchRow,
+  UnavailableField,
 } from '@/shared/ui';
 
 type FormValues = {
@@ -45,6 +47,8 @@ type Props = {
 
 export function CreateGiftsOfferForm({ onSubmit, isPending, onReset }: Props) {
   const { t } = useTranslation('offers', { keyPrefix: 'form.gifts' });
+
+  const canViewMedicine = useHasPermission('erp.medicines.view');
 
   const {
     register,
@@ -110,12 +114,16 @@ export function CreateGiftsOfferForm({ onSubmit, isPending, onReset }: Props) {
                   <FieldLabel asChild>
                     <p>{t('labelMedicine')}</p>
                   </FieldLabel>
-                  <MedicineSelector
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    disabled={isPending}
-                    invalid={fieldState.invalid}
-                  />
+                  {canViewMedicine ? (
+                    <MedicineSelector
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      disabled={isPending}
+                      invalid={fieldState.invalid}
+                    />
+                  ) : (
+                    <UnavailableField invalid={fieldState.invalid} />
+                  )}
                   {fieldState.error?.message && (
                     <FieldError>{t(fieldState.error.message)}</FieldError>
                   )}

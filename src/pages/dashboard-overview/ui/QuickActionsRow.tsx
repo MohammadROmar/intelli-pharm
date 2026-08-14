@@ -1,50 +1,15 @@
-import { memo, useMemo } from 'react';
-import { Cross, Pill, Route as RouteIcon, UserPlus } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
+import { memo } from 'react';
 import { Link } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
-import { hasPermission, useGrantedPermissions } from '@/entities/session';
-
-const ACTIONS = [
-  {
-    to: '/dashboard/pharmacies/new',
-    icon: Cross,
-    key: 'newPharmacy',
-    permission: 'erp.pharmacies.create',
-  },
-  {
-    to: '/dashboard/employees/new',
-    icon: UserPlus,
-    key: 'newEmployee',
-    permission: 'erp.employees.create',
-  },
-  {
-    to: '/dashboard/plans/initiate',
-    icon: RouteIcon,
-    key: 'initiatePlan',
-    permission: 'planner.rep.plan.generate',
-  },
-  {
-    to: '/dashboard/medicines/new',
-    icon: Pill,
-    key: 'newMedicine',
-    permission: 'erp.medicines.create',
-  },
-] as const;
+import { useQuickActionsAccess } from '../model/useQuickActionsAccess';
 
 export const QuickActionsRow = memo(function QuickActionsRow() {
   const { t } = useTranslation('dashboard-overview', {
     keyPrefix: 'quickActions',
   });
-  const grantedPermissions = useGrantedPermissions();
 
-  const visibleActions = useMemo(
-    () =>
-      ACTIONS.filter((action) =>
-        hasPermission(grantedPermissions, action.permission),
-      ),
-    [grantedPermissions],
-  );
+  const visibleActions = useQuickActionsAccess();
 
   if (visibleActions.length === 0) {
     return null;

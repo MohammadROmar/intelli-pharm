@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Bell } from 'lucide-react';
 
 import { NotificationActivationBanner } from '@/features/notifications';
+import { useHasPermission } from '@/entities/session';
 import {
   Card,
   CardHeader,
@@ -14,8 +15,8 @@ import {
 } from '@/shared/ui';
 
 import { NotificationsContent } from './NotificationsContent';
-import { TAB_OPTIONS, useReadStatusFilter } from '../model/useReadStatusFilter';
 import { NotificationsDateFilter } from './NotificationsDateFilter';
+import { TAB_OPTIONS, useReadStatusFilter } from '../model/useReadStatusFilter';
 
 export default function NotificationsPage() {
   return (
@@ -28,6 +29,10 @@ export default function NotificationsPage() {
 export function NotificationsPageContent() {
   const { t } = useTranslation('notifications');
   const { activeTab, handleTabChange } = useReadStatusFilter();
+
+  const canReceiveStockNotifications = useHasPermission(
+    'erp.stock.notifications.get',
+  );
 
   const pageTitle = `${t('page.title')} - IntelliPharma`;
 
@@ -67,7 +72,11 @@ export function NotificationsPageContent() {
             </div>
           </CardHeader>
 
-          <NotificationActivationBanner detailed className="mx-6" />
+          <NotificationActivationBanner
+            detailed
+            className="mx-6"
+            canReceiveStockNotifications={canReceiveStockNotifications}
+          />
 
           <Separator />
 

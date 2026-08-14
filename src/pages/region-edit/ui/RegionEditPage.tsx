@@ -1,9 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 
-import { RegionEditForm } from '@/features/region-edit';
 import { useGetRegionSuspense } from '@/entities/region';
 import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
+
+import { RegionEditForm } from '@/features/region-form';
 
 export default function RegionEditPage() {
   const { id } = useParams<{ id: string }>();

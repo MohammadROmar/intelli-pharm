@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { usePermissionsCatalogSuspense } from '@/entities/permission';
 import {
   useGetRoleSuspense,
   useEditRole,
@@ -58,7 +57,6 @@ type EditableRoleContentProps = {
 };
 
 function EditableRoleContent({ role }: EditableRoleContentProps) {
-  const { data: catalog } = usePermissionsCatalogSuspense();
   const { mutate: editRole, isPending } = useEditRole(role.id);
   const navigate = useNavigate();
   const { t } = useTranslation('roles', { keyPrefix: 'edit' });
@@ -81,7 +79,6 @@ function EditableRoleContent({ role }: EditableRoleContentProps) {
       <RoleForm
         key={role.id}
         role={role}
-        catalog={catalog}
         isPending={isPending}
         onSubmit={handleSubmit}
         onReset={handleReset}

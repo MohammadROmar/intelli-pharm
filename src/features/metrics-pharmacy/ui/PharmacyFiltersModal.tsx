@@ -1,8 +1,9 @@
 import { useController, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
+import { useHasPermission } from '@/entities/session';
 import { PharmacySelector } from '@/entities/pharmacy';
-import { FiltersModal, Field, FieldLabel } from '@/shared/ui';
+import { FiltersModal, Field, FieldLabel, UnavailableField } from '@/shared/ui';
 import type { PharmacyFilters } from '@/entities/metrics';
 
 type Props = {
@@ -28,6 +29,8 @@ export function PharmacyFiltersModal({
     defaultValues,
     mode: 'onSubmit',
   });
+
+  const canFilterByPharmacies = useHasPermission('erp.pharmacies.view');
 
   function handleOpenChange(nextOpen: boolean) {
     if (nextOpen) reset(defaultValues);
@@ -63,10 +66,16 @@ export function PharmacyFiltersModal({
           <FieldLabel asChild>
             <p>{t('pharmacyLabel')}</p>
           </FieldLabel>
-          <PharmacySelector
-            value={pharmacyField.field.value ? +pharmacyField.field.value : null}
-            onValueChange={pharmacyField.field.onChange}
-          />
+          {canFilterByPharmacies ? (
+            <PharmacySelector
+              value={
+                pharmacyField.field.value ? +pharmacyField.field.value : null
+              }
+              onValueChange={pharmacyField.field.onChange}
+            />
+          ) : (
+            <UnavailableField />
+          )}
         </Field>
       </form>
     </FiltersModal>

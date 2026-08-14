@@ -42,6 +42,7 @@ export type EmployeeFilters = {
   name?: string;
   email?: string;
   phone?: string;
+  role?: string;
 };
 
 export type EmployeeRole = 'rep' | 'distributor';

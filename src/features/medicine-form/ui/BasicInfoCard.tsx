@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   Controller,
   useFormContext,
@@ -7,7 +8,6 @@ import {
 import { Dna, DollarSign, Pill, StickyNote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
 import { MedicineSelector } from '@/entities/medicine';
 import type { MedicineDetail, MedicineFormData } from '@/entities/medicine';
 import { CategorySelector } from '@/entities/category';
@@ -29,8 +29,11 @@ import {
   Separator,
   SwitchRow,
   Textarea,
+  UnavailableField,
 } from '@/shared/ui';
-import { useMemo } from 'react';
+
+import { MedicineBarcodeScanner } from './MedicineBarcodeScanner';
+import { useMedicineFormAccess } from '../model/useMedicineFormAccess';
 
 type Props = { medicine?: MedicineDetail; isPending?: boolean };
 
@@ -50,11 +53,11 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
     ],
   });
 
+  const { canViewCategories, canViewLaboratories } = useMedicineFormAccess();
+
   const isAlternative = useWatch({ control, name: 'is_alternative' });
 
-  const { t, i18n } = useTranslation('medicines', {
-    keyPrefix: 'form',
-  });
+  const { t, i18n } = useTranslation('medicines', { keyPrefix: 'form' });
 
   const { te } = useFieldError();
 
@@ -141,13 +144,17 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
                 <FieldLabel asChild>
                   <p>{t('category')}</p>
                 </FieldLabel>
-                <CategorySelector
-                  parent={medicine?.category}
-                  isLoading={isPending}
-                  invalid={fieldState.invalid}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
+                {canViewCategories ? (
+                  <CategorySelector
+                    parent={medicine?.category}
+                    isLoading={isPending}
+                    invalid={fieldState.invalid}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  />
+                ) : (
+                  <UnavailableField invalid={fieldState.invalid} />
+                )}
                 <FieldError errors={te(fieldState.error, 'category')} />
               </Field>
             )}
@@ -162,13 +169,17 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
                 <FieldLabel asChild>
                   <p>{t('laboratory')}</p>
                 </FieldLabel>
-                <LaboratorySelector
-                  selected={medicine?.laboratory ?? undefined}
-                  isLoading={isPending}
-                  invalid={fieldState.invalid}
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
+                {canViewLaboratories ? (
+                  <LaboratorySelector
+                    selected={medicine?.laboratory ?? undefined}
+                    isLoading={isPending}
+                    invalid={fieldState.invalid}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  />
+                ) : (
+                  <UnavailableField invalid={fieldState.invalid} />
+                )}
                 <FieldError errors={te(fieldState.error, 'laboratory')} />
               </Field>
             )}

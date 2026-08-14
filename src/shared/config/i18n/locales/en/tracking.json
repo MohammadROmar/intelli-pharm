@@ -12,7 +12,8 @@
       "rep": "Sales reps",
       "distributor": "Distributors"
     },
-    "onlineCount": "{{count}} online"
+    "onlineCount": "{{count}} online",
+    "noRegionAccess": "You do not have access to regions"
   },
   "marker": {
     "rep": "Sales rep",

@@ -12,7 +12,8 @@
       "rep": "مندوبو المبيعات",
       "distributor": "الموزعون"
     },
-    "onlineCount": "{{count}} متصل الآن"
+    "onlineCount": "{{count}} متصل الآن",
+    "noRegionAccess": "لا تملك حق الوصول للمناطق"
   },
   "marker": {
     "rep": "مندوب مبيعات",

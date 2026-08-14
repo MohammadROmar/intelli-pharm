@@ -71,6 +71,7 @@
     "emaiPlaceholder": "Search by employee email…",
     "phoneLabel": "Phone Number",
     "phonePlaceholder": "Search by employeee phone…",
+    "roleLabel": "Role",
     "phoneError": "Only numbers are allowed",
     "apply": "Apply Filters",
     "clear": "Clear Filters"

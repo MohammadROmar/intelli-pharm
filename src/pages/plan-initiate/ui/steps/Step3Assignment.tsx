@@ -17,13 +17,16 @@ import {
   Field,
   FieldError,
   FieldLabel,
+  UnavailableField,
 } from '@/shared/ui';
 
 import { TOTAL_STEPS } from '../../model/plannerWizardTypes';
 import { usePlannerWizard } from '../../model/store';
 import type { AssignmentSlice } from '../../model/plannerWizardTypes';
 
-export function Step3Assignment() {
+type Props = { canViewEmployees: boolean; canViewRegions: boolean };
+
+export function Step3Assignment({ canViewEmployees, canViewRegions }: Props) {
   const { t } = useTranslation('planner');
   const { state, dispatch } = usePlannerWizard();
 
@@ -68,6 +71,7 @@ export function Step3Assignment() {
             rules={{ validate: repIdRequired }}
             render={({ field, fieldState }) => (
               <RepIdField
+                canView={canViewEmployees}
                 role="rep"
                 value={field.value}
                 onChange={field.onChange}
@@ -87,11 +91,15 @@ export function Step3Assignment() {
                 <FieldLabel asChild>
                   <p>{t('assignment.regionLabel')}</p>
                 </FieldLabel>
-                <RegionSelector
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  invalid={fieldState.invalid}
-                />
+                {canViewRegions ? (
+                  <RegionSelector
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    invalid={fieldState.invalid}
+                  />
+                ) : (
+                  <UnavailableField invalid={fieldState.invalid} />
+                )}
                 {fieldState.invalid && (
                   <FieldError>
                     {t('assignment.errors.regionRequired')}

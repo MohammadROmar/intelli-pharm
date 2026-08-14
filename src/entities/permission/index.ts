@@ -6,8 +6,8 @@ export {
 } from './lib/permissionSelection';
 
 export type {
+  PermissionCatalog,
   PermissionCatalogEntry,
-  PermissionCatalogModule,
 } from './model/permissionCatalogTypes';
 
 export { PermissionPicker } from './ui/PermissionPicker';

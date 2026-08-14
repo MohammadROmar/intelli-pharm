@@ -1,10 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 
-import { AdminEditRestricted } from './AdminEditRestricted';
-import { EditEmployeeForm } from '@/features/employee-edit';
+import { EditEmployeeForm } from '@/features/employee-form';
 import { useGetEmployeeSuspense } from '@/entities/employee';
 import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
+
+import { AdminEditRestricted } from './AdminEditRestricted';
 
 export default function EmployeeEditPage() {
   const { id } = useParams<{ id: string }>();

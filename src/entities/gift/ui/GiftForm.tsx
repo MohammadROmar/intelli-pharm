@@ -3,9 +3,17 @@ import { useTranslation } from 'react-i18next';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import { Gift, ListChecks } from 'lucide-react';
 
-import type { GiftPayload } from '../model/giftTypes';
-import { Field, FieldError, FieldLabel, FormActions, Input } from '@/shared/ui';
 import { positiveNumber, required } from '@/shared/form';
+import {
+  Field,
+  FieldError,
+  FieldLabel,
+  FormActions,
+  Input,
+  UnavailableField,
+} from '@/shared/ui';
+
+import type { GiftPayload } from '../model/giftTypes';
 
 type Props = {
   isPending?: boolean;
@@ -14,6 +22,7 @@ type Props = {
   onSubmit: SubmitHandler<GiftPayload>;
   defaultValues?: GiftPayload;
   MedicineSelector: ElementType;
+  canViewMedicine: boolean;
 };
 
 export function GiftForm({
@@ -23,6 +32,7 @@ export function GiftForm({
   selectedMedicine,
   defaultValues,
   MedicineSelector,
+  canViewMedicine,
 }: Props) {
   const { t } = useTranslation('gifts', { keyPrefix: 'form' });
 
@@ -44,13 +54,17 @@ export function GiftForm({
             <FieldLabel asChild>
               <p className="text-sm font-medium">{t('medicine')}</p>
             </FieldLabel>
-            <MedicineSelector
-              isLoading={isPending}
-              invalid={fieldState.invalid}
-              defaultValue={selectedMedicine}
-              value={field.value}
-              onValueChange={field.onChange}
-            />
+            {canViewMedicine ? (
+              <MedicineSelector
+                isLoading={isPending}
+                invalid={fieldState.invalid}
+                defaultValue={selectedMedicine}
+                value={field.value}
+                onValueChange={field.onChange}
+              />
+            ) : (
+              <UnavailableField invalid={fieldState.invalid} />
+            )}
             {errors.medicine_id && <FieldError>{t('required')}</FieldError>}
           </Field>
         )}

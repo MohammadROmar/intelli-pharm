@@ -11,6 +11,7 @@ import {
 
 import { TOTAL_STEPS } from '../model/plannerWizardTypes';
 import { usePlannerWizard } from '../model/store';
+import { useInitiatePlanAccess } from '../model/useInitiatePlanAccess';
 
 const loadStep3Assignment = () =>
   import('./steps/Step3Assignment').then((m) => ({
@@ -39,6 +40,9 @@ export function PlannerWizard({ onSubmit, isPending }: Props) {
     ],
     [t],
   );
+
+  const { canViewEmployees, canViewPharmacies, canViewRegions } =
+    useInitiatePlanAccess();
 
   useEffect(() => {
     switch (state.step) {
@@ -77,9 +81,18 @@ export function PlannerWizard({ onSubmit, isPending }: Props) {
           totalSteps={TOTAL_STEPS}
         />
       )}
-      {state.step === 3 && <Step3Assignment />}
+      {state.step === 3 && (
+        <Step3Assignment
+          canViewEmployees={canViewEmployees}
+          canViewRegions={canViewRegions}
+        />
+      )}
       {state.step === 4 && (
-        <Step4Pharmacies onSubmit={onSubmit} isPending={isPending} />
+        <Step4Pharmacies
+          onSubmit={onSubmit}
+          isPending={isPending}
+          canView={canViewPharmacies}
+        />
       )}
     </WizardShell>
   );

@@ -8,7 +8,4 @@ export type PermissionCatalogEntry = {
   updated_at: string;
 };
 
-export type PermissionCatalogModule = {
-  module: string;
-  permissions: PermissionCatalogEntry[];
-};
+export type PermissionCatalog = { id: number; name: Permission };

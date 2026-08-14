@@ -78,5 +78,10 @@
       "backToRoles": "Back to roles",
       "viewRole": "View role"
     }
+  },
+  "accessDenied": {
+    "badge": "Access Denied",
+    "title": "You don't have permission to access",
+    "subtitle": "Your account does not have permission to view `Permissions`. If you believe this is an error, please contact the administrator."
   }
 }

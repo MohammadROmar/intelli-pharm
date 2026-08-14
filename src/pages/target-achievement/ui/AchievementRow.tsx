@@ -20,10 +20,6 @@ export function AchievementRow({ target, canViewEmployee }: Props) {
           }
           label={target.representative_name}
         />
-
-        <p className="text-muted-foreground font-mono text-[11px]">
-          EMP-{String(target.representative_id).padStart(5, '0')}
-        </p>
       </TableCell>
 
       <TableCell className="font-semibold tabular-nums">
