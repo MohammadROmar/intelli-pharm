@@ -15,6 +15,10 @@ export type RoleItem = Role & {
 
 export type RolesListResponse = PaginatedResponse<RoleItem>;
 
+export type RoleFilters = {
+  name?: string | null;
+};
+
 export type RoleFormData = Omit<Role, 'id'>;
 
 export type CreateRolePayload = RoleFormData;

@@ -80,5 +80,13 @@
       "required": "هذا الحقل مطلوب.",
       "notInPast": "يجب أن يكون موعد التسليم في المستقبل."
     }
+  },
+  "filters": {
+    "title": "تصفية عمليات التوصيل",
+    "subtitle": "ضيّق نتائج التوصيل حسب الصيدلية والحالة وتاريخ الجدولة.",
+    "pharmacyLabel": "الصيدلية",
+    "statusLabel": "الحالة",
+    "scheduledAtAfterLabel": "مجدول من تاريخ",
+    "scheduledAtBeforeLabel": "مجدول حتى تاريخ"
   }
 }

@@ -83,5 +83,11 @@
     "badge": "Access Denied",
     "title": "You don't have permission to access",
     "subtitle": "Your account does not have permission to view `Permissions`. If you believe this is an error, please contact the administrator."
+  },
+  "filters": {
+    "title": "Filter roles",
+    "subtitle": "Find roles by a partial name match.",
+    "nameLabel": "Role name",
+    "namePlaceholder": "Enter a role name"
   }
 }

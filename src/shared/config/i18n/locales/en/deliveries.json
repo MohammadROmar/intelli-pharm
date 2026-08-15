@@ -80,5 +80,13 @@
       "required": "This field is required.",
       "notInPast": "Scheduled time must be in the future."
     }
+  },
+  "filters": {
+    "title": "Filter deliveries",
+    "subtitle": "Narrow deliveries by pharmacy, status, and scheduled date.",
+    "pharmacyLabel": "Pharmacy",
+    "statusLabel": "Status",
+    "scheduledAtAfterLabel": "Scheduled from",
+    "scheduledAtBeforeLabel": "Scheduled until"
   }
 }

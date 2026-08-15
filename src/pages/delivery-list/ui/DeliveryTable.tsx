@@ -3,16 +3,24 @@ import { useTranslation } from 'react-i18next';
 import { TruckElectric } from 'lucide-react';
 
 import type { DeliveryListResponse } from '@/entities/delivery';
-import { TableHead, TableEmptyState, EntityListTable } from '@/shared/ui';
+import {
+  EntityEmptyState,
+  EntityFiltersToolbar,
+  EntityListTable,
+  TableHead,
+} from '@/shared/ui';
 
+import { DeliveryFiltersModal } from './DeliveryFiltersModal';
 import { DeliveryRow } from './DeliveryRow';
 import { useDeliveryAccess } from '../model/useDeliveryAccess';
+import { useDeliveryFilters } from '../model/useDeliveryFilters';
 
 type Props = { data: DeliveryListResponse };
 
 export function DeliveriesTable({ data }: Props) {
   const { t } = useTranslation('deliveries');
 
+  const filtersState = useDeliveryFilters();
   const actionAccess = useDeliveryAccess();
   const { canCreate, canUpdate } = actionAccess;
 
@@ -41,6 +49,12 @@ export function DeliveriesTable({ data }: Props) {
           : undefined
       }
       basePath="/dashboard/deliveries"
+      toolbar={
+        <EntityFiltersToolbar
+          filtersState={filtersState}
+          FiltersModal={DeliveryFiltersModal}
+        />
+      }
       columns={
         <>
           <TableHead>{t('list.pharmacyName')}</TableHead>
@@ -54,7 +68,12 @@ export function DeliveriesTable({ data }: Props) {
         </>
       }
       renderRow={renderRow}
-      emptyState={<TableEmptyState variant="empty" />}
+      emptyState={
+        <EntityEmptyState
+          hasActiveFilters={filtersState.hasActiveFilters}
+          clearFilters={filtersState.clearFilters}
+        />
+      }
     />
   );
 }

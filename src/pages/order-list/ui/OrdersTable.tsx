@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useOrdersAccess } from '@/features/order-access';
 import type { OrderListResponse } from '@/entities/order';
 import {
   TableHead,
@@ -12,7 +13,6 @@ import {
 import { OrderRow } from './OrderRow';
 import { OrderFiltersModal } from './OrderFiltersModal';
 import { useOrderFilters } from '../model/useOrderFilters';
-import { useOrdersAccess } from '@/features/order-access';
 
 type Props = { data: OrderListResponse };
 

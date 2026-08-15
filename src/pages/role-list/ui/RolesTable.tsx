@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DeleteRoleModal } from '@/features/role-delete';
 import type { RoleItem, RolesListResponse } from '@/entities/role';
-import { EntityListTable, TableEmptyState, TableHead } from '@/shared/ui';
+import {
+  EntityEmptyState,
+  EntityFiltersToolbar,
+  EntityListTable,
+  TableHead,
+} from '@/shared/ui';
 
+import { RoleFiltersModal } from './RoleFiltersModal';
 import { RoleRow } from './RoleRow';
+import { useRoleFilters } from '../model/useRoleFilters';
 
 type Props = {
   data: RolesListResponse;
@@ -14,16 +21,28 @@ type Props = {
 export function RolesTable({ data }: Props) {
   const { t } = useTranslation('roles');
 
+  const filtersState = useRoleFilters();
   const [roleToDelete, setRoleToDelete] = useState<RoleItem | null>(null);
 
   const name = roleToDelete?.name;
+
+  const handleDeleteModalClose = useCallback(() => {
+    setRoleToDelete(null);
+  }, []);
+
+  const renderRow = useCallback(
+    (role: RoleItem) => (
+      <RoleRow key={role.id} role={role} onDelete={setRoleToDelete} />
+    ),
+    [],
+  );
 
   return (
     <>
       <DeleteRoleModal
         label={name ? t(`roleLabels.${name}`, name) : t('role')}
         role={roleToDelete}
-        onClose={() => setRoleToDelete(null)}
+        onClose={handleDeleteModalClose}
       />
 
       <EntityListTable
@@ -32,6 +51,12 @@ export function RolesTable({ data }: Props) {
         addHref="/dashboard/roles/new"
         addLabel={t('list.add')}
         basePath="/dashboard/roles"
+        toolbar={
+          <EntityFiltersToolbar
+            filtersState={filtersState}
+            FiltersModal={RoleFiltersModal}
+          />
+        }
         columns={
           <>
             <TableHead>{t('shared.name')}</TableHead>
@@ -43,10 +68,13 @@ export function RolesTable({ data }: Props) {
             <TableHead>{t('shared.actions')}</TableHead>
           </>
         }
-        renderRow={(role) => (
-          <RoleRow key={role.id} role={role} onDelete={setRoleToDelete} />
-        )}
-        emptyState={<TableEmptyState variant="empty" />}
+        renderRow={renderRow}
+        emptyState={
+          <EntityEmptyState
+            hasActiveFilters={filtersState.hasActiveFilters}
+            clearFilters={filtersState.clearFilters}
+          />
+        }
       />
     </>
   );

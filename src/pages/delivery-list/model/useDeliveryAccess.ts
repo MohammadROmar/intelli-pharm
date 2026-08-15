@@ -9,6 +9,10 @@ export function useDeliveryAccess() {
     return {
       canCreate: hasPermission(grantedPermissions, 'planner.deliveries.create'),
       canUpdate: hasPermission(grantedPermissions, 'planner.deliveries.update'),
+      canViewPharmacies: hasPermission(
+        grantedPermissions,
+        'erp.pharmacies.view',
+      ),
     };
   }, [grantedPermissions]);
 }

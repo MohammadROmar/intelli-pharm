@@ -6,6 +6,7 @@ export type {
   DeliveryStatus,
   DeliveryDetail,
   DeliveryListItem,
+  DeliveryFilters,
   DeliveryOrderItem,
   DeliveryListResponse,
   DeliveryConfirmation,

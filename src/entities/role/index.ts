@@ -1,6 +1,7 @@
 export type {
   Role,
   RoleFormData,
+  RoleFilters,
   RoleItem,
   RolesListResponse,
   CreateRolePayload,

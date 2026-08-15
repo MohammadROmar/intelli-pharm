@@ -68,6 +68,13 @@ export type DeliveryDetail = BaseDelivery & {
 
 export type DeliveryListResponse = PaginatedResponse<DeliveryListItem>;
 
+export type DeliveryFilters = {
+  status?: DeliveryStatus | null;
+  pharmacy_id?: string | null;
+  scheduled_at_before?: string | null;
+  scheduled_at_after?: string | null;
+};
+
 export type AssignDeliveryPayload = {
   user_id: number;
   order_id: number;

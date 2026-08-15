@@ -9,27 +9,25 @@ export function DebtListSkeleton() {
       </div>
 
       <div className="bg-card rounded-3xl border p-5 sm:p-6 lg:p-7">
-        <div className="mx-auto max-w-4xl">
-          <div className="flex flex-col items-start gap-3">
-            <Skeleton className="h-4 w-full max-w-40" />
-            <Skeleton className="h-10 w-full max-w-72 lg:h-12" />
-          </div>
+        <div className="flex flex-col items-start gap-1">
+          <Skeleton className="h-5 w-full max-w-40" />
+          <Skeleton className="h-9 w-full max-w-72 sm:h-11" />
+        </div>
 
-          <div className="mt-7 grid grid-cols-2 gap-6 sm:mt-8 sm:gap-12">
-            {Array.from({ length: 2 }, (_, index) => (
-              <div key={index} className="space-y-2">
-                <Skeleton className="h-4 w-full max-w-24" />
-                <Skeleton className="h-7 w-full max-w-40" />
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-5 space-y-3 sm:mt-6">
-            <Skeleton className="h-2.5 w-full rounded-full sm:h-3" />
-            <div className="flex items-center justify-between gap-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-6">
+          {Array.from({ length: 2 }, (_, index) => (
+            <div key={index} className="space-y-1">
               <Skeleton className="h-4 w-full max-w-24" />
-              <Skeleton className="h-4 w-full max-w-24" />
+              <Skeleton className="h-6 w-full max-w-40 sm:h-7" />
             </div>
+          ))}
+        </div>
+
+        <div className="mt-6 space-y-2.5">
+          <Skeleton className="h-2.5 w-full rounded-full" />
+          <div className="flex items-center justify-between gap-4">
+            <Skeleton className="h-4 w-full max-w-24" />
+            <Skeleton className="h-4 w-full max-w-24" />
           </div>
         </div>
       </div>
