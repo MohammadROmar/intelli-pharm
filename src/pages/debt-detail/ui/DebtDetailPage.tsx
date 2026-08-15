@@ -1,14 +1,15 @@
-import { useParams } from "react-router";
-import { useTranslation } from "react-i18next";
+import { useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
-import { DebtContextCard } from "./DebtContextCard";
-import { DebtDetailHeader } from "./DebtDetailHeader";
-import { DebtOrders } from "./DebtOrders";
-import { DebtPayments } from "./DebtPayments";
-import { DebtSummaryStrip } from "./DebtSummaryStrip";
-import { useDebtDetailAccess } from "../model/useDebtDetailAccess";
-import { useGetDebtSuspense } from "../model/useGetDebtSuspense";
-import { QueryDisabled, QueryErrorBoundary } from "@/shared/ui";
+import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
+
+import { DebtContextCard } from './DebtContextCard';
+import { DebtDetailHeader } from './DebtDetailHeader';
+import { DebtOrders } from './DebtOrders';
+import { DebtPayments } from './DebtPayments';
+import { DebtSummaryStrip } from './DebtSummaryStrip';
+import { useDebtDetailAccess } from '../model/useDebtDetailAccess';
+import { useGetDebtSuspense } from '../model/useGetDebtSuspense';
 
 export default function DebtDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -28,20 +29,20 @@ export default function DebtDetailPage() {
 type DebtDetailContentProps = { debtId: number };
 
 function DebtDetailContent({ debtId }: DebtDetailContentProps) {
-  const { t } = useTranslation("debt-detail", { keyPrefix: "detail" });
+  const { t } = useTranslation('debt-detail', { keyPrefix: 'detail' });
   const { data } = useGetDebtSuspense(debtId);
   const access = useDebtDetailAccess();
   const debt = data.data;
 
   if (!debt) {
-    throw new Error("Debt response did not include debt data.");
+    throw new Error('Debt response did not include debt data.');
   }
 
-  const debtCode = `DBT-${String(debt.id).padStart(6, "0")}`;
+  const debtCode = `DBT-${String(debt.id).padStart(6, '0')}`;
 
   return (
     <>
-      <title>{`${debtCode} · ${t("pageTitle")} - IntelliPharm`}</title>
+      <title>{`${debtCode} · ${t('pageTitle')} - IntelliPharm`}</title>
 
       <div className="space-y-5 pb-8">
         <DebtDetailHeader debt={debt} />

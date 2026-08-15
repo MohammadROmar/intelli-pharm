@@ -1,12 +1,21 @@
 import { useTranslation } from 'react-i18next';
-import { SearchX } from 'lucide-react';
+import { SearchX, WalletCards } from 'lucide-react';
 
 import { DebtCard } from './DebtCard';
 import { DebtFiltersBar } from './DebtFiltersBar';
 import { DebtPortfolioSummary } from './DebtPortfolioSummary';
 import { useDebtFilters } from '../model/useDebtFilters';
 import { useGetDebtsSuspense } from '../model/useGetDebtsSuspense';
-import { Button, PageTitle, QueryErrorBoundary } from '@/shared/ui';
+import {
+  Button,
+  DynamicPagination,
+  PageTitle,
+  PerPageSelect,
+  QueryErrorBoundary,
+} from '@/shared/ui';
+
+const DEBTS_PATH = '/dashboard/debts';
+const MAX_VISIBLE_PAGES = 5;
 
 export default function DebtListPage() {
   return (
@@ -26,6 +35,10 @@ function DebtListContent() {
     throw new Error('Debt list response did not include debt data.');
   }
 
+  const { meta } = payload.pagination;
+  const hasRecords = payload.debts.length > 0;
+  const hasAnyRecords = meta.total > 0;
+
   return (
     <>
       <title>{`${t('pageTitle')} - IntelliPharm`}</title>
@@ -36,7 +49,27 @@ function DebtListContent() {
         <DebtFiltersBar {...filterState} />
 
         <section aria-labelledby="debt-records-title" className="space-y-4">
-          {payload.debts.length > 0 ? (
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <WalletCards
+                  className="text-primary size-5"
+                  aria-hidden="true"
+                />
+                <h2 id="debt-records-title" className="text-lg font-semibold">
+                  {t('recordsTitle')}
+                </h2>
+              </div>
+              <p
+                className="text-muted-foreground mt-1 text-sm"
+                aria-live="polite"
+              >
+                {t('resultsCount', { count: meta.total })}
+              </p>
+            </div>
+          </div>
+
+          {hasRecords ? (
             <div className="grid gap-4 xl:grid-cols-2">
               {payload.debts.map((debt) => (
                 <DebtCard key={debt.id} debt={debt} />
@@ -48,6 +81,20 @@ function DebtListContent() {
               onClear={filterState.clearFilters}
             />
           )}
+
+          {hasAnyRecords ? (
+            <footer className="flex flex-col items-center gap-4 border-t pt-4 sm:justify-between">
+              <DynamicPagination
+                maxPages={meta.last_page}
+                currentPage={meta.current_page}
+                totalItems={meta.total}
+                itemsPerPage={meta.per_page}
+                maxVisiblePages={MAX_VISIBLE_PAGES}
+                basePath={DEBTS_PATH}
+              />
+              <PerPageSelect />
+            </footer>
+          ) : null}
         </section>
       </div>
     </>

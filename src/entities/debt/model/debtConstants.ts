@@ -1,6 +1,7 @@
 import type { DebtStatus } from './debtTypes';
 
 export const DEBT_STATUSES = [
+  'pending',
   'unpaid',
   'partially_paid',
   'paid',

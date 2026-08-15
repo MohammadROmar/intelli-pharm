@@ -1,9 +1,11 @@
 {
   "status": {
+    "pending": "Pending",
     "unpaid": "Unpaid",
     "partially_paid": "Partially paid",
     "paid": "Paid",
-    "overdue": "Overdue"
+    "overdue": "Overdue",
+    "unknown": "Unknown"
   },
   "list": {
     "pageTitle": "Debts",
@@ -28,6 +30,7 @@
       "allStatuses": "All statuses",
       "clear": "Clear filters ({{count}})",
       "statuses": {
+        "pending": "Pending",
         "unpaid": "Unpaid",
         "partially_paid": "Partially paid",
         "paid": "Paid",

@@ -1,9 +1,11 @@
 {
   "status": {
+    "pending": "قيد الانتظار",
     "unpaid": "غير مدفوع",
     "partially_paid": "مدفوع جزئياً",
     "paid": "مدفوع",
-    "overdue": "متأخر"
+    "overdue": "متأخر",
+    "unknown": "غير معروف"
   },
   "list": {
     "pageTitle": "الديون",
@@ -28,6 +30,7 @@
       "allStatuses": "جميع الحالات",
       "clear": "مسح المرشحات ({{count}})",
       "statuses": {
+        "pending": "قيد الانتظار",
         "unpaid": "غير مدفوع",
         "partially_paid": "مدفوع جزئياً",
         "paid": "مدفوع",

@@ -68,7 +68,7 @@ function PageFooter({ meta }: { meta: PaginatedResponse<undefined>['meta'] }) {
   if (total === 0) return null;
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:justify-between">
+    <footer className="flex flex-col items-center gap-4 border-t pt-4 sm:justify-between">
       <DynamicPagination
         itemsPerPage={per_page}
         maxVisiblePages={MAX_VISIBLE_PAGES}
@@ -79,7 +79,7 @@ function PageFooter({ meta }: { meta: PaginatedResponse<undefined>['meta'] }) {
       />
 
       <PerPageSelect />
-    </div>
+    </footer>
   );
 }
 

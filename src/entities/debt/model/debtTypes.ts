@@ -1,10 +1,15 @@
-export type DebtStatus = "unpaid" | "partially_paid" | "paid" | "overdue";
+export type DebtStatus =
+  | 'pending'
+  | 'unpaid'
+  | 'partially_paid'
+  | 'paid'
+  | 'overdue';
 
 export type DebtOrderStatus =
-  | "pending"
-  | "processing"
-  | "completed"
-  | "cancelled";
+  | 'pending'
+  | 'processing'
+  | 'completed'
+  | 'cancelled';
 
 export type DebtLastPayment = {
   id: number;
@@ -74,8 +79,39 @@ export type DebtListSummary = {
   total_remaining: number;
 };
 
+export type DebtPaginationLink = {
+  url: string | null;
+  label: string;
+  page: number | null;
+  active: boolean;
+};
+
+export type DebtPaginationMeta = {
+  current_page: number;
+  from: number | null;
+  last_page: number;
+  links: DebtPaginationLink[];
+  path: string;
+  per_page: number;
+  to: number | null;
+  total: number;
+};
+
+export type DebtPaginationLinks = {
+  first: string;
+  last: string;
+  prev: string | null;
+  next: string | null;
+};
+
+export type DebtPagination = {
+  meta: DebtPaginationMeta;
+  links: DebtPaginationLinks;
+};
+
 export type DebtListResponse = {
   debts: DebtListItem[];
+  pagination: DebtPagination;
   summary: DebtListSummary;
 };
 

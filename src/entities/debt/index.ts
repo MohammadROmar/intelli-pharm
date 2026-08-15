@@ -11,5 +11,9 @@ export type {
   DebtOrder,
   DebtOrderStatus,
   DebtPayment,
+  DebtPagination,
+  DebtPaginationLink,
+  DebtPaginationLinks,
+  DebtPaginationMeta,
   DebtStatus,
 } from './model/debtTypes';

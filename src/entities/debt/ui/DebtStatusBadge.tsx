@@ -4,16 +4,30 @@ import {
   CircleCheck,
   CircleDashed,
   CircleGauge,
+  CircleHelp,
+  Clock3,
   type LucideIcon,
 } from 'lucide-react';
 
+import { isDebtStatus } from '../model/debtConstants';
 import type { DebtStatus } from '../model/debtTypes';
 import { cn } from '@/shared/lib';
 import { Badge } from '@/shared/ui';
 
 type BadgeVariant = 'muted' | 'info' | 'success' | 'destructive';
 
+type StatusConfig = {
+  icon: LucideIcon;
+  iconClassName: string;
+  variant: BadgeVariant;
+};
+
 const STATUS_CONFIG = {
+  pending: {
+    icon: Clock3,
+    iconClassName: 'text-muted-foreground',
+    variant: 'muted',
+  },
   unpaid: {
     icon: CircleDashed,
     iconClassName: 'text-muted-foreground',
@@ -34,39 +48,56 @@ const STATUS_CONFIG = {
     iconClassName: 'text-destructive',
     variant: 'destructive',
   },
-} satisfies Record<
-  DebtStatus,
-  {
-    icon: LucideIcon;
-    iconClassName: string;
-    variant: BadgeVariant;
+} satisfies Record<DebtStatus, StatusConfig>;
+
+const UNKNOWN_STATUS_CONFIG: StatusConfig = {
+  icon: CircleHelp,
+  iconClassName: 'text-muted-foreground',
+  variant: 'muted',
+};
+
+type DebtStatusValue = string | null | undefined;
+
+function resolveStatus(status: DebtStatusValue) {
+  if (!isDebtStatus(status)) {
+    return {
+      config: UNKNOWN_STATUS_CONFIG,
+      translationKey: 'unknown' as const,
+    };
   }
->;
+
+  return {
+    config: STATUS_CONFIG[status],
+    translationKey: status,
+  };
+}
 
 type BadgeProps = {
-  status: DebtStatus;
+  status: DebtStatusValue;
   withIcon?: boolean;
 };
 
 export function DebtStatusBadge({ status, withIcon = true }: BadgeProps) {
   const { t } = useTranslation('debts', { keyPrefix: 'status' });
-  const { icon: Icon, variant } = STATUS_CONFIG[status];
+  const { config, translationKey } = resolveStatus(status);
+  const { icon: Icon, variant } = config;
 
   return (
     <Badge variant={variant} className="gap-1.5! font-medium!">
       {withIcon ? <Icon className="size-3" aria-hidden="true" /> : null}
-      {t(status)}
+      {t(translationKey)}
     </Badge>
   );
 }
 
 type IconProps = {
-  status: DebtStatus;
+  status: DebtStatusValue;
   className?: string;
 };
 
 export function DebtStatusIcon({ status, className }: IconProps) {
-  const { icon: Icon, iconClassName } = STATUS_CONFIG[status];
+  const { config } = resolveStatus(status);
+  const { icon: Icon, iconClassName } = config;
 
   return (
     <Icon

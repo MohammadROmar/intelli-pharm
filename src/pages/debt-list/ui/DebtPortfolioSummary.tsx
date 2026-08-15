@@ -6,21 +6,16 @@ import { cn, formatPrice } from '@/shared/lib';
 
 type Props = { summary: DebtListSummary };
 
-/**
- * Both gradient stops and the accent are derived from existing theme tokens
- * — no new hardcoded colors. `--debt-gradient-from` mixes `--primary` toward
- * black in OKLCH space for the deep end of the gradient; `--debt-gradient-to`
- * is `--primary` itself. The "paid" accent reuses `--success`, which is the
- * semantically correct token for a collected/completed amount anyway.
- */
 type CardAccentVars = CSSProperties & {
   '--debt-gradient-from': string;
   '--debt-gradient-to': string;
+  '--debt-accent': string;
 };
 
 const CARD_ACCENT_STYLE: CardAccentVars = {
-  '--debt-gradient-from': 'color-mix(in oklch, var(--primary), black 45%)',
-  '--debt-gradient-to': 'var(--primary)',
+  '--debt-gradient-from': '#023E68',
+  '--debt-gradient-to': '#005B60',
+  '--debt-accent': 'color-mix(in oklch, var(--success), white 55%)',
 };
 
 export function DebtPortfolioSummary({ summary }: Props) {
@@ -88,7 +83,7 @@ export function DebtPortfolioSummary({ summary }: Props) {
           })}
         >
           <div
-            className="bg-success h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none"
+            className="h-full rounded-full bg-(--debt-accent) transition-[width] duration-300 motion-reduce:transition-none"
             style={{ width: `${collectedPercentage}%` }}
           />
         </div>
@@ -113,12 +108,6 @@ export function DebtPortfolioSummary({ summary }: Props) {
 type SummaryValueProps = {
   label: string;
   value: string;
-  /**
-   * Which edge of the card this cell should hug. `start` = right in RTL,
-   * left in LTR; `end` is the opposite. Passing the physically-outward edge
-   * for each column is what produces the mirrored "spread" layout — first
-   * column pinned to `start`, second to `end` — regardless of text direction.
-   */
   align: 'start' | 'end';
   accent?: boolean;
 };
@@ -139,7 +128,7 @@ function SummaryValue({
       <dd
         className={cn(
           'mt-1 text-base font-bold wrap-break-word tabular-nums sm:text-lg lg:text-xl',
-          accent ? 'text-success' : 'text-primary-foreground',
+          accent ? 'text-(--debt-accent)' : 'text-primary-foreground',
         )}
       >
         {value}
