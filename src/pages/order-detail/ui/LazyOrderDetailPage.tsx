@@ -1,12 +1,14 @@
 import { lazy } from 'react';
 
-import { WithSuspense, DetailSkeleton } from '@/shared/ui/index.initial';
+import { WithSuspense } from '@/shared/ui/index.initial';
+
+import { OrderDetailSkeleton } from './OrderDetailSkeleton';
 
 const OrderDetailPage = lazy(() => import('./OrderDetailPage'));
 
 function LazyOrderDetailPage() {
   return (
-    <WithSuspense loader={<DetailSkeleton cards={[{ rows: 4 }]} tables={1} />}>
+    <WithSuspense loader={<OrderDetailSkeleton />}>
       <OrderDetailPage />
     </WithSuspense>
   );

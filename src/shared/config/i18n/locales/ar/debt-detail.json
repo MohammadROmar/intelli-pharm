@@ -1,0 +1,62 @@
+{
+  "detail": {
+    "pageTitle": "تفاصيل الدين",
+    "header": {
+      "recordLabel": "دين الصيدلية",
+      "pharmacyContext": "مبلغ مستحق على صيدلية {{pharmacy}}"
+    },
+    "status": {
+      "unpaid": "غير مدفوع",
+      "partially_paid": "مدفوع جزئياً",
+      "paid": "مدفوع",
+      "overdue": "متأخر"
+    },
+    "summary": {
+      "ariaLabel": "الملخص المالي للدين",
+      "totalDebt": "إجمالي الدين",
+      "paidAmount": "المدفوع حتى الآن",
+      "remainingAmount": "الرصيد المستحق",
+      "creditBalance": "الرصيد الدائن",
+      "dueDate": "تاريخ الاستحقاق",
+      "collectionProgress": "نسبة التحصيل",
+      "overpaymentNotice": "تتجاوز المدفوعات قيمة هذا الدين بمقدار {{amount}}. يظهر المبلغ الزائد كرصيد دائن."
+    },
+    "sections": {
+      "payments": "سجل الدفعات",
+      "paymentsSubtitle": "المبالغ المحصّلة لهذا الدين مرتبة من تاريخ الدفع الأحدث",
+      "orders": "الطلبات المكوّنة للدين",
+      "ordersSubtitle": "الطلبات الداخلة ضمن رصيد الصيدلية",
+      "context": "بيانات الدين",
+      "contextSubtitle": "الصيدلية والمنطقة وآخر دفعة والتسلسل الزمني للسجل"
+    },
+    "fields": {
+      "pharmacy": "الصيدلية",
+      "region": "المنطقة",
+      "lastPayment": "تاريخ آخر دفعة",
+      "noPayments": "لا توجد دفعات مسجلة",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "آخر تحديث"
+    },
+    "payments": {
+      "empty": "لم تُسجّل أي دفعات لهذا الدين.",
+      "record": "الدفعة",
+      "paymentDate": "تاريخ الدفع",
+      "recordedAt": "تاريخ التسجيل",
+      "collector": "حصّلها",
+      "amount": "المبلغ",
+      "remaining": "الرصيد بعد الدفعة",
+      "note": "ملاحظة",
+      "noNote": "لا توجد ملاحظة"
+    },
+    "orders": {
+      "empty": "لا توجد طلبات مرتبطة بهذا الدين.",
+      "viewOrder": "فتح تفاصيل الطلب",
+      "finalTotal": "الإجمالي النهائي",
+      "paidAmount": "المدفوع",
+      "remaining": "المتبقي",
+      "discount": "الحسم",
+      "offer": "العرض المطبّق",
+      "createdAt": "تاريخ الإنشاء"
+    }
+  }
+}

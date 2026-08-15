@@ -1,0 +1,59 @@
+{
+  "status": {
+    "unpaid": "غير مدفوع",
+    "partially_paid": "مدفوع جزئياً",
+    "paid": "مدفوع",
+    "overdue": "متأخر"
+  },
+  "list": {
+    "pageTitle": "الديون",
+    "title": "ديون الصيدليات",
+    "subtitle": "متابعة الأرصدة المستحقة ونسب التحصيل ومواعيد الاستحقاق وآخر الدفعات.",
+    "summary": {
+      "ariaLabel": "ملخص محفظة الديون",
+      "remainingBalance": "إجمالي الرصيد المتبقي",
+      "totalPaid": "إجمالي المدفوع",
+      "totalInvoices": "إجمالي الفواتير",
+      "collectionProgress": "نسبة التحصيل الإجمالية",
+      "progressAriaValue": "تم تحصيل {{collected}} بالمئة والمتبقي {{remaining}} بالمئة",
+      "collectedPercentage": "تم تحصيل {{percentage}}٪",
+      "remainingPercentage": "متبقي {{percentage}}٪"
+    },
+    "filters": {
+      "ariaLabel": "مرشحات الديون",
+      "pharmacyLabel": "الصيدلية",
+      "pharmacyPlaceholder": "البحث باسم الصيدلية",
+      "search": "بحث",
+      "statusLabel": "الحالة",
+      "allStatuses": "جميع الحالات",
+      "clear": "مسح المرشحات ({{count}})",
+      "statuses": {
+        "unpaid": "غير مدفوع",
+        "partially_paid": "مدفوع جزئياً",
+        "paid": "مدفوع",
+        "overdue": "متأخر"
+      }
+    },
+    "recordsTitle": "حسابات الديون",
+    "resultsCount": "عرض {{count}} سجلات",
+    "card": {
+      "openAriaLabel": "فتح تفاصيل دين صيدلية {{pharmacy}}",
+      "remainingBalance": "الرصيد المستحق",
+      "creditBalance": "الرصيد الدائن",
+      "collectionProgress": "نسبة التحصيل",
+      "progressAriaValue": "تم تحصيل {{percentage}}: {{paid}} من أصل {{total}}",
+      "paidOfTotal": "تم دفع {{paid}} من أصل {{total}}",
+      "dueDate": "تاريخ الاستحقاق",
+      "lastPayment": "آخر دفعة",
+      "noPayments": "لا توجد دفعات مسجلة",
+      "viewDetails": "عرض تفاصيل الدين"
+    },
+    "empty": {
+      "title": "لا توجد سجلات ديون بعد",
+      "description": "ستظهر حسابات الديون هنا عند إنشاء أرصدة مستحقة على الصيدليات.",
+      "filteredTitle": "لا توجد ديون مطابقة",
+      "filteredDescription": "جرّب تغيير اسم الصيدلية أو مرشح الحالة.",
+      "clearFilters": "مسح المرشحات"
+    }
+  }
+}

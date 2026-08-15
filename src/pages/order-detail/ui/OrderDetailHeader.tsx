@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { ShoppingBag } from 'lucide-react';
+import { Package } from 'lucide-react';
 
 import { CancelOrder } from '@/features/order-cancel';
 import { ChangeOrderStatus } from '@/features/order-change-status';
@@ -16,9 +16,7 @@ export function OrderDetailHeader({
   canCancel,
   canChangeStatus,
 }: Props) {
-  const { t } = useTranslation('order-detail', {
-    keyPrefix: 'detail.header',
-  });
+  const { t } = useTranslation('order-detail', { keyPrefix: 'detail.header' });
 
   const orderCode = `ORD-${String(order.id).padStart(6, '0')}`;
 
@@ -39,7 +37,7 @@ export function OrderDetailHeader({
       <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex min-w-0 items-start gap-4">
           <div className="bg-primary/10 text-primary hidden size-12 shrink-0 items-center justify-center rounded-xl border sm:flex">
-            <ShoppingBag className="size-6" aria-hidden="true" />
+            <Package className="size-6" aria-hidden="true" />
           </div>
 
           <div className="min-w-0 space-y-3">

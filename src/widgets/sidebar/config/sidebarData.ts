@@ -5,18 +5,19 @@ import {
   Truck,
   Gift,
   Users,
+  Radar,
+  Route,
+  Target,
   MapPin,
   Package,
   Folders,
   Building2,
+  HandCoins,
   BarChart3,
+  ShieldCheck,
   FlaskConical,
   LayoutDashboard,
-  Target,
-  Route,
-  ShieldCheck,
   type LucideIcon,
-  Radar,
 } from 'lucide-react';
 
 import type { Permission } from '@/shared/api';
@@ -88,6 +89,12 @@ export const sidebarData: NavSection[] = [
         url: '/dashboard/pharmacies',
         icon: Cross,
         permission: 'erp.pharmacies.view',
+      },
+      {
+        label: 'labels.debts',
+        url: '/dashboard/debts',
+        icon: HandCoins,
+        permission: 'erp.debts.view',
       },
       {
         label: 'labels.promotions',

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router';
-import { PackageCheck } from 'lucide-react';
+import { Truck } from 'lucide-react';
 
 import {
   ChangeDeliveryStatusForm,
@@ -16,9 +16,9 @@ import {
   type DeliveryDetail,
 } from '@/entities/delivery';
 
-type Props = { delivery: DeliveryDetail };
+type Props = { delivery: DeliveryDetail; canUpdate: boolean };
 
-export function DeliveryDetailHeader({ delivery }: Props) {
+export function DeliveryDetailHeader({ delivery, canUpdate }: Props) {
   const { t } = useTranslation('delivery-detail', { keyPrefix: 'detail' });
   const deliveryCode = `DEL-${String(delivery.id).padStart(6, '0')}`;
 
@@ -35,7 +35,7 @@ export function DeliveryDetailHeader({ delivery }: Props) {
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex min-w-0 items-start gap-4">
             <div className="bg-primary/10 text-primary hidden size-12 shrink-0 items-center justify-center rounded-xl border sm:flex">
-              <PackageCheck className="size-6" />
+              <Truck className="size-6" />
             </div>
 
             <div className="min-w-0 space-y-3">
@@ -58,7 +58,7 @@ export function DeliveryDetailHeader({ delivery }: Props) {
             </div>
           </div>
 
-          <ChangeDeliveryStatus delivery={delivery} />
+          <ChangeDeliveryStatus delivery={delivery} canUpdate={canUpdate} />
         </div>
       </header>
     </>

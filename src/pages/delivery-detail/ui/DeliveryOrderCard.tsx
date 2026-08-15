@@ -1,15 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { Building2, Package, Tag } from 'lucide-react';
+import { Cross, Package, Tag } from 'lucide-react';
 
 import type { DeliveryOrder } from '@/entities/delivery';
 import { BadgeLink, DetailCard, DetailCell, Separator } from '@/shared/ui';
 
-type Props = { order: DeliveryOrder };
+import type { DeliveryDetailAccess } from '../model/useDeliveryDetailAccess';
 
-export function DeliveryOrderCard({ order }: Props) {
-  const { t } = useTranslation('delivery-detail', {
-    keyPrefix: 'detail',
-  });
+type Props = { order: DeliveryOrder; actionAccess: DeliveryDetailAccess };
+
+export function DeliveryOrderCard({ order, actionAccess }: Props) {
+  const { t } = useTranslation('delivery-detail', { keyPrefix: 'detail' });
+
+  const { canViewOrder, canViewPharmacy, canViewOffer } = actionAccess;
 
   return (
     <DetailCard
@@ -20,7 +22,7 @@ export function DeliveryOrderCard({ order }: Props) {
       <DetailCell label={t('fields.orderId')}>
         <BadgeLink
           label={`ORD-${String(order.id).padStart(6, '0')}`}
-          to={`/dashboard/orders/${order.id}`}
+          to={canViewOrder ? `/dashboard/orders/${order.id}` : undefined}
           icon={Package}
         />
       </DetailCell>
@@ -30,8 +32,12 @@ export function DeliveryOrderCard({ order }: Props) {
       <DetailCell label={t('fields.orderPharmacy')}>
         <BadgeLink
           label={order.pharmacy.name}
-          to={`/dashboard/pharmacies/${order.pharmacy.id}`}
-          icon={Building2}
+          to={
+            canViewPharmacy
+              ? `/dashboard/pharmacies/${order.pharmacy.id}`
+              : undefined
+          }
+          icon={Cross}
         />
       </DetailCell>
 
@@ -41,7 +47,11 @@ export function DeliveryOrderCard({ order }: Props) {
           <DetailCell label={t('fields.appliedOffer')}>
             <BadgeLink
               label={`OFF-${String(order.offer_id).padStart(6, '0')}`}
-              to={`/dashboard/promotions/offers/${order.offer_id}`}
+              to={
+                canViewOffer
+                  ? `/dashboard/promotions/offers/${order.offer_id}`
+                  : undefined
+              }
               icon={Tag}
             />
           </DetailCell>

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Banknote, Building2, CalendarClock, Package } from 'lucide-react';
+import { Banknote, Cross, CalendarClock, Package } from 'lucide-react';
 
 import type { DeliveryDetail } from '@/entities/delivery';
 import { formatDate, formatPrice } from '@/shared/lib';
@@ -14,7 +14,7 @@ export function DeliverySummaryStrip({ delivery }: Props) {
 
   return (
     <DetailSummary ariaLabel={t('ariaLabel')}>
-      <DetailSummaryItem icon={Building2} label={t('pharmacy')}>
+      <DetailSummaryItem icon={Cross} label={t('pharmacy')}>
         <span className="font-semibold">{delivery.pharmacy_name}</span>
       </DetailSummaryItem>
 

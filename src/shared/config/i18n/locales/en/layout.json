@@ -49,7 +49,8 @@
       "initiateFromDeliveries": "Initiate for delivery",
       "tracking": "Live Tracking",
       "roles": "Roles",
-      "overview": "Overview"
+      "overview": "Overview",
+      "debts": "Debts"
     },
     "promotions": {
       "offers": "Offers",

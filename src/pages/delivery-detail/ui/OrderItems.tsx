@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 
 import type { DeliveryDetail, DeliveryOrderItem } from '@/entities/delivery';
-import { formatPrice } from '@/shared/lib';
+import { cn, formatPrice } from '@/shared/lib';
 import {
   Badge,
   BadgeLink,
@@ -25,12 +25,15 @@ import {
   TableRow,
 } from '@/shared/ui';
 
-type Props = { delivery: DeliveryDetail };
+import type { DeliveryDetailAccess } from '../model/useDeliveryDetailAccess';
 
-export function OrderItems({ delivery }: Props) {
+type Props = { delivery: DeliveryDetail; actionAccess: DeliveryDetailAccess };
+
+export function OrderItems({ delivery, actionAccess }: Props) {
   const { t, i18n } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
+
   const { order } = delivery;
 
   return (
@@ -54,6 +57,7 @@ export function OrderItems({ delivery }: Props) {
             {order.items.map((item) => (
               <OrderItemMobileCard
                 key={item.id}
+                actionAccess={actionAccess}
                 item={item}
                 language={i18n.language}
               />
@@ -84,7 +88,9 @@ export function OrderItems({ delivery }: Props) {
                   <TableHead>{t('table.quantity')}</TableHead>
                   <TableHead>{t('table.unitPrice')}</TableHead>
                   <TableHead>{t('table.total')}</TableHead>
-                  <TableHead className="w-16">{t('table.actions')}</TableHead>
+                  {actionAccess.canViewMedicine && (
+                    <TableHead className="w-16">{t('table.actions')}</TableHead>
+                  )}
                 </TableRow>
               </TableHeader>
 
@@ -93,6 +99,7 @@ export function OrderItems({ delivery }: Props) {
                   <OrderItemRow
                     key={item.id}
                     item={item}
+                    actionAccess={actionAccess}
                     language={i18n.language}
                   />
                 ))}
@@ -106,17 +113,21 @@ export function OrderItems({ delivery }: Props) {
                   >
                     {t('table.totalUnits')}
                   </TableCell>
+
                   <TableCell className="font-semibold tabular-nums">
                     {delivery.number_of_items.toLocaleString(i18n.language)}
                   </TableCell>
+
                   <TableCell />
+
                   <TableCell className="font-bold tabular-nums">
                     {formatPrice(
                       delivery.required_payment_amount,
                       i18n.language,
                     )}
                   </TableCell>
-                  <TableCell />
+
+                  {actionAccess.canViewMedicine && <TableCell />}
                 </TableRow>
               </TableFooter>
             </Table>
@@ -130,9 +141,10 @@ export function OrderItems({ delivery }: Props) {
 type ItemProps = {
   item: DeliveryOrderItem;
   language: string;
+  actionAccess: DeliveryDetailAccess;
 };
 
-function OrderItemRow({ item, language }: ItemProps) {
+function OrderItemRow({ item, language, actionAccess }: ItemProps) {
   const { t } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
@@ -146,7 +158,7 @@ function OrderItemRow({ item, language }: ItemProps) {
         </div>
       </TableCell>
       <TableCell>
-        <ItemType item={item} />
+        <ItemType item={item} actionAccess={actionAccess} />
       </TableCell>
       <TableCell className="text-muted-foreground tabular-nums">
         {item.quantity.toLocaleString(language)}
@@ -157,18 +169,20 @@ function OrderItemRow({ item, language }: ItemProps) {
       <TableCell className="font-semibold tabular-nums">
         {isGift ? t('table.free') : formatPrice(item.total_price, language)}
       </TableCell>
-      <TableActions
-        item={item.medicine}
-        itemId={item.medicine.id}
-        path="/dashboard/medicines"
-      >
-        <TableActions.Detail />
-      </TableActions>
+      {actionAccess.canViewMedicine && (
+        <TableActions
+          item={item.medicine}
+          itemId={item.medicine.id}
+          path="/dashboard/medicines"
+        >
+          <TableActions.Detail />
+        </TableActions>
+      )}
     </TableRow>
   );
 }
 
-function OrderItemMobileCard({ item, language }: ItemProps) {
+function OrderItemMobileCard({ item, language, actionAccess }: ItemProps) {
   const { t, i18n } = useTranslation('delivery-detail', {
     keyPrefix: 'detail',
   });
@@ -183,10 +197,15 @@ function OrderItemMobileCard({ item, language }: ItemProps) {
             {item.medicine.commercial_name}
           </p>
         </div>
-        <ItemType item={item} />
+        <ItemType item={item} actionAccess={actionAccess} />
       </div>
 
-      <div className="my-4 grid grid-cols-3 gap-3 border-y py-3">
+      <div
+        className={cn(
+          'my-4 grid grid-cols-3 gap-3 border-y py-3',
+          !actionAccess.canViewMedicine && 'mb-0 border-b-0 pb-0',
+        )}
+      >
         <ItemMetric
           label={t('table.quantity')}
           value={item.quantity.toLocaleString(language)}
@@ -206,22 +225,30 @@ function OrderItemMobileCard({ item, language }: ItemProps) {
         />
       </div>
 
-      <Link
-        to={`/dashboard/medicines/${item.medicine.id}`}
-        className="text-primary focus-visible:ring-ring flex items-center justify-between rounded-lg px-1 text-sm font-semibold focus-visible:ring-2 focus-visible:outline-none"
-      >
-        {t('table.viewMedicine')}
-        <DirectionIcon className="size-4" aria-hidden="true" />
-      </Link>
+      {actionAccess.canViewMedicine && (
+        <Link
+          to={`/dashboard/medicines/${item.medicine.id}`}
+          className="text-primary focus-visible:ring-ring flex items-center justify-between rounded-lg px-1 text-sm font-semibold focus-visible:ring-2 focus-visible:outline-none"
+        >
+          {t('table.viewMedicine')}
+          <DirectionIcon className="size-4" aria-hidden="true" />
+        </Link>
+      )}
     </article>
   );
 }
 
-function ItemType({ item }: { item: DeliveryOrderItem }) {
+type ItemTypeProps = {
+  item: DeliveryOrderItem;
+  actionAccess: DeliveryDetailAccess;
+};
+
+function ItemType({ item, actionAccess }: ItemTypeProps) {
   const { t } = useTranslation('delivery-detail', {
     keyPrefix: 'detail.table',
   });
   const isGift = item.is_gift === 1;
+  const { canViewOffer, canViewGift } = actionAccess;
 
   if (!isGift) {
     return (
@@ -238,14 +265,22 @@ function ItemType({ item }: { item: DeliveryOrderItem }) {
       {item.gift_id !== null ? (
         <BadgeLink
           label={`${t('gift')} #${item.gift_id}`}
-          to={`/dashboard/promotions/gifts/${item.gift_id}`}
+          to={
+            canViewGift
+              ? `/dashboard/promotions/gifts/${item.gift_id}`
+              : undefined
+          }
           icon={Tag}
         />
       ) : null}
       {item.offer_id !== null ? (
         <BadgeLink
           label={`${t('offer')} #${item.offer_id}`}
-          to={`/dashboard/promotions/offers/${item.offer_id}`}
+          to={
+            canViewOffer
+              ? `/dashboard/promotions/offers/${item.offer_id}`
+              : undefined
+          }
           icon={Tag}
         />
       ) : null}

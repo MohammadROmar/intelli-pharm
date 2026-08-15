@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Banknote, Building2, Package, RefreshCw } from 'lucide-react';
+import { Banknote, Cross, Package, RefreshCw } from 'lucide-react';
 
 import type { OrderDetail } from '@/entities/order';
 import { formatDate, formatPrice } from '@/shared/lib';
@@ -14,7 +14,7 @@ export function OrderSummaryStrip({ order, canViewPharmacy }: Props) {
 
   return (
     <DetailSummary ariaLabel={t('ariaLabel')}>
-      <DetailSummaryItem icon={Building2} label={t('pharmacy')}>
+      <DetailSummaryItem icon={Cross} label={t('pharmacy')}>
         <BadgeLink
           label={order.pharmacy.name}
           to={
@@ -22,7 +22,6 @@ export function OrderSummaryStrip({ order, canViewPharmacy }: Props) {
               ? `/dashboard/pharmacies/${order.pharmacy.id}`
               : undefined
           }
-          icon={Building2}
         />
       </DetailSummaryItem>
 

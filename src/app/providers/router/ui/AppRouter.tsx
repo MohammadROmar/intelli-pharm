@@ -213,6 +213,22 @@ const router = createBrowserRouter([
                   },
 
                   {
+                    path: 'debts',
+                    children: [
+                      {
+                        index: true,
+                        lazy: () => import('@/pages/debt-list'),
+                        handle: withPermission('erp.debts.view'),
+                      },
+                      {
+                        path: ':id',
+                        lazy: () => import('@/pages/debt-detail'),
+                        handle: withPermission('erp.debts.view'),
+                      },
+                    ],
+                  },
+
+                  {
                     path: 'medicines',
                     children: [
                       {

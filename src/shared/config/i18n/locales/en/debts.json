@@ -1,0 +1,59 @@
+{
+  "status": {
+    "unpaid": "Unpaid",
+    "partially_paid": "Partially paid",
+    "paid": "Paid",
+    "overdue": "Overdue"
+  },
+  "list": {
+    "pageTitle": "Debts",
+    "title": "Pharmacy debts",
+    "subtitle": "Monitor outstanding balances, collection progress, due dates, and recent payments.",
+    "summary": {
+      "ariaLabel": "Debt portfolio summary",
+      "remainingBalance": "Total remaining balance",
+      "totalPaid": "Total paid",
+      "totalInvoices": "Total invoices",
+      "collectionProgress": "Overall collection progress",
+      "progressAriaValue": "{{collected}} percent collected and {{remaining}} percent remaining",
+      "collectedPercentage": "{{percentage}}% collected",
+      "remainingPercentage": "{{percentage}}% remaining"
+    },
+    "filters": {
+      "ariaLabel": "Debt filters",
+      "pharmacyLabel": "Pharmacy",
+      "pharmacyPlaceholder": "Search by pharmacy name",
+      "search": "Search",
+      "statusLabel": "Status",
+      "allStatuses": "All statuses",
+      "clear": "Clear filters ({{count}})",
+      "statuses": {
+        "unpaid": "Unpaid",
+        "partially_paid": "Partially paid",
+        "paid": "Paid",
+        "overdue": "Overdue"
+      }
+    },
+    "recordsTitle": "Debt accounts",
+    "resultsCount": "Showing {{count}} records",
+    "card": {
+      "openAriaLabel": "Open debt details for {{pharmacy}}",
+      "remainingBalance": "Outstanding balance",
+      "creditBalance": "Credit balance",
+      "collectionProgress": "Collection progress",
+      "progressAriaValue": "{{percentage}} collected: {{paid}} of {{total}}",
+      "paidOfTotal": "{{paid}} paid of {{total}}",
+      "dueDate": "Due date",
+      "lastPayment": "Latest payment",
+      "noPayments": "No payments recorded",
+      "viewDetails": "View debt details"
+    },
+    "empty": {
+      "title": "No debt records yet",
+      "description": "Debt accounts will appear here when balances are created for pharmacies.",
+      "filteredTitle": "No matching debts",
+      "filteredDescription": "Try changing the pharmacy name or status filter.",
+      "clearFilters": "Clear filters"
+    }
+  }
+}

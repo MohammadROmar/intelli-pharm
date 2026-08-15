@@ -11,6 +11,7 @@ import { DeliveryInformation } from './DeliveryInformation';
 import { DeliveryDetailHeader } from './DeliveryDetailHeader';
 import { DeliverySummaryStrip } from './DeliverySummaryStrip';
 import { useGetDeliverySuspense } from '../model/useGetDeliverySuspense';
+import { useDeliveryDetailAccess } from '../model/useDeliveryDetailAccess';
 
 export default function DeliveryDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -32,24 +33,31 @@ type DeliveryDetailContentProps = { deliveryId: number };
 function DeliveryDetailContent({ deliveryId }: DeliveryDetailContentProps) {
   const { data } = useGetDeliverySuspense(deliveryId);
 
+  const actionAccess = useDeliveryDetailAccess();
+
   const delivery = data.data!;
-  console.log(delivery);
 
   return (
     <div className="space-y-5 pb-8">
-      <DeliveryDetailHeader delivery={delivery} />
+      <DeliveryDetailHeader
+        delivery={delivery}
+        canUpdate={actionAccess.canChangeStatus}
+      />
       <DeliverySummaryStrip delivery={delivery} />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_22rem] xl:items-start">
         <aside className="space-y-5 xl:col-start-2 xl:row-start-1">
           <Confirmations confirmations={delivery.confirmations} />
           <FinancialSummary delivery={delivery} />
-          <DeliveryOrderCard order={delivery.order} />
-          <RelatedRecords delivery={delivery} />
+          <DeliveryOrderCard
+            order={delivery.order}
+            actionAccess={actionAccess}
+          />
+          <RelatedRecords delivery={delivery} actionAccess={actionAccess} />
         </aside>
 
         <main className="min-w-0 space-y-5 xl:col-start-1 xl:row-start-1">
-          <OrderItems delivery={delivery} />
+          <OrderItems delivery={delivery} actionAccess={actionAccess} />
           <DeliveryInformation delivery={delivery} />
         </main>
       </div>

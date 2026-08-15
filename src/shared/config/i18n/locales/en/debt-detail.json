@@ -1,0 +1,62 @@
+{
+  "detail": {
+    "pageTitle": "Debt details",
+    "header": {
+      "recordLabel": "Pharmacy debt",
+      "pharmacyContext": "Receivable from {{pharmacy}}"
+    },
+    "status": {
+      "unpaid": "Unpaid",
+      "partially_paid": "Partially paid",
+      "paid": "Paid",
+      "overdue": "Overdue"
+    },
+    "summary": {
+      "ariaLabel": "Debt financial summary",
+      "totalDebt": "Total debt",
+      "paidAmount": "Paid to date",
+      "remainingAmount": "Outstanding balance",
+      "creditBalance": "Credit balance",
+      "dueDate": "Due date",
+      "collectionProgress": "Collection progress",
+      "overpaymentNotice": "Payments exceed this debt by {{amount}}. The excess is shown as a credit balance."
+    },
+    "sections": {
+      "payments": "Payment history",
+      "paymentsSubtitle": "Collections recorded against this debt, newest payment date first",
+      "orders": "Contributing orders",
+      "ordersSubtitle": "Orders included in this pharmacy balance",
+      "context": "Debt context",
+      "contextSubtitle": "Pharmacy, region, latest payment, and record timeline"
+    },
+    "fields": {
+      "pharmacy": "Pharmacy",
+      "region": "Region",
+      "lastPayment": "Latest payment date",
+      "noPayments": "No payments recorded",
+      "createdAt": "Created",
+      "updatedAt": "Last updated"
+    },
+    "payments": {
+      "empty": "No payments have been recorded for this debt.",
+      "record": "Payment",
+      "paymentDate": "Payment date",
+      "recordedAt": "Recorded",
+      "collector": "Collected by",
+      "amount": "Amount",
+      "remaining": "Balance after payment",
+      "note": "Note",
+      "noNote": "No note"
+    },
+    "orders": {
+      "empty": "No contributing orders are attached to this debt.",
+      "viewOrder": "Open order details",
+      "finalTotal": "Final total",
+      "paidAmount": "Paid",
+      "remaining": "Remaining",
+      "discount": "Discount",
+      "offer": "Applied offer",
+      "createdAt": "Created"
+    }
+  }
+}

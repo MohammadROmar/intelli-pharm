@@ -13,3 +13,5 @@ export function useDeliveryDetailAccess() {
     canChangeStatus: hasPermission(granted, 'planner.deliveries.update'),
   } as const;
 }
+
+export type DeliveryDetailAccess = ReturnType<typeof useDeliveryDetailAccess>;
