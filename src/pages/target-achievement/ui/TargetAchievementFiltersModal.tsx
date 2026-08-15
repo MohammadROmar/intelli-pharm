@@ -41,10 +41,17 @@ type Props = {
   onClear: () => void;
 };
 
+type FormProps = {
+  defaultValues: TargetAchievementFilters;
+  onApply: (filters: TargetAchievementFilters) => void;
+};
+
+const EMPTY_FILTERS: TargetAchievementFilters = {};
+
 export function TargetAchievementFiltersModal({
   open,
   onOpenChange,
-  defaultValues = {},
+  defaultValues = EMPTY_FILTERS,
   hasActiveFilters,
   onApply,
   onClear,
@@ -53,7 +60,30 @@ export function TargetAchievementFiltersModal({
     keyPrefix: 'achievementFilters',
   });
 
-  const MONTH_OPTIONS = useMemo(
+  return (
+    <FiltersModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      form="achievement-filters-form"
+      hasActiveFilters={hasActiveFilters}
+      onClear={onClear}
+    >
+      <TargetAchievementFiltersForm
+        defaultValues={defaultValues}
+        onApply={onApply}
+      />
+    </FiltersModal>
+  );
+}
+
+function TargetAchievementFiltersForm({ defaultValues, onApply }: FormProps) {
+  const { t } = useTranslation('targets', {
+    keyPrefix: 'achievementFilters',
+  });
+
+  const monthOptions = useMemo(
     () => [
       { id: '1', name: t('months.january') },
       { id: '2', name: t('months.february') },
@@ -71,7 +101,7 @@ export function TargetAchievementFiltersModal({
     [t],
   );
 
-  const QUARTER_OPTIONS = useMemo(
+  const quarterOptions = useMemo(
     () => [
       {
         id: '1',
@@ -114,156 +144,146 @@ export function TargetAchievementFiltersModal({
   }
 
   return (
-    <FiltersModal
-      open={open}
-      onOpenChange={onOpenChange}
-      title={t('title')}
-      subtitle={t('subtitle')}
-      form="achievement-filters-form"
-      hasActiveFilters={hasActiveFilters}
-      onClear={onClear}
+    <form
+      id="achievement-filters-form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 py-2"
     >
-      <form
-        id="achievement-filters-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4 py-2"
-      >
-        <Field>
-          <FieldLabel htmlFor="filter-achieved-at">
-            {t('achievedAtLabel')}
-          </FieldLabel>
-          <Input
-            id="filter-achieved-at"
-            type="date"
-            {...register('achieved_at')}
-          />
-        </Field>
+      <Field>
+        <FieldLabel htmlFor="filter-achieved-at">
+          {t('achievedAtLabel')}
+        </FieldLabel>
+        <Input
+          id="filter-achieved-at"
+          type="date"
+          {...register('achieved_at')}
+        />
+      </Field>
 
-        <Separator />
+      <Separator />
 
-        <Controller
-          name="year"
-          control={control}
-          rules={{
-            validate: {
-              requiredWithPeriod: (v) => {
-                const month = getValues('month');
-                const quarter = getValues('quarter');
-                const hasPeriod =
-                  (!!month && month !== '') || (!!quarter && quarter !== '');
-                if (hasPeriod && (!v || v === '')) {
-                  return 'achievementFilters.errors.yearRequired';
-                }
-                return true;
-              },
+      <Controller
+        name="year"
+        control={control}
+        rules={{
+          validate: {
+            requiredWithPeriod: (v) => {
+              const month = getValues('month');
+              const quarter = getValues('quarter');
+              const hasPeriod =
+                (!!month && month !== '') || (!!quarter && quarter !== '');
+              if (hasPeriod && (!v || v === '')) {
+                return 'achievementFilters.errors.yearRequired';
+              }
+              return true;
             },
-          }}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
+          },
+        }}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel asChild>
+              <p>
+                {t('yearLabel')}
+                {yearRequired && (
+                  <span className="text-destructive ml-0.5">*</span>
+                )}
+              </p>
+            </FieldLabel>
+            <GenericSingleSelect
+              options={YEAR_OPTIONS}
+              valueKey="id"
+              labelKey="name"
+              value={field.value ?? ''}
+              onValueChange={field.onChange}
+              icon={CalendarDays}
+              hasMoreLabel={false}
+            />
+            {yearRequired && !fieldState.invalid && (
+              <FieldDescription className="flex items-center gap-1.5 text-xs">
+                <AlertCircle className="text-muted-foreground size-3 shrink-0" />
+                {t('yearRequiredHint')}
+              </FieldDescription>
+            )}
+            {fieldState.invalid && (
+              <FieldError>{t('errors.yearRequired')}</FieldError>
+            )}
+          </Field>
+        )}
+      />
+
+      <div className="grid grid-cols-2 gap-3">
+        <Controller
+          name="month"
+          control={control}
+          render={({ field }) => (
+            <Field>
               <FieldLabel asChild>
                 <p>
-                  {t('yearLabel')}
-                  {yearRequired && (
-                    <span className="text-destructive ml-0.5">*</span>
+                  {t('monthLabel')}
+                  {hasQuarter && (
+                    <span className="text-muted-foreground ml-1 text-[10px] font-normal">
+                      {t('mutuallyExclusive')}
+                    </span>
                   )}
                 </p>
               </FieldLabel>
               <GenericSingleSelect
-                options={YEAR_OPTIONS}
+                options={monthOptions}
                 valueKey="id"
                 labelKey="name"
                 value={field.value ?? ''}
-                onValueChange={field.onChange}
+                onValueChange={(v) => {
+                  field.onChange(v);
+                  if (v) trigger('year');
+                }}
+                disabled={hasQuarter}
                 icon={CalendarDays}
                 hasMoreLabel={false}
               />
-              {yearRequired && !fieldState.invalid && (
-                <FieldDescription className="flex items-center gap-1.5 text-xs">
-                  <AlertCircle className="text-muted-foreground size-3 shrink-0" />
-                  {t('yearRequiredHint')}
-                </FieldDescription>
-              )}
-              {fieldState.invalid && (
-                <FieldError>{t('errors.yearRequired')}</FieldError>
-              )}
             </Field>
           )}
         />
 
-        <div className="grid grid-cols-2 gap-3">
-          <Controller
-            name="month"
-            control={control}
-            render={({ field }) => (
-              <Field>
-                <FieldLabel asChild>
-                  <p>
-                    {t('monthLabel')}
-                    {hasQuarter && (
-                      <span className="text-muted-foreground ml-1 text-[10px] font-normal">
-                        {t('mutuallyExclusive')}
-                      </span>
-                    )}
-                  </p>
-                </FieldLabel>
-                <GenericSingleSelect
-                  options={MONTH_OPTIONS}
-                  valueKey="id"
-                  labelKey="name"
-                  value={field.value ?? ''}
-                  onValueChange={(v) => {
-                    field.onChange(v);
-                    if (v) trigger('year');
-                  }}
-                  disabled={hasQuarter}
-                  icon={CalendarDays}
-                  hasMoreLabel={false}
-                />
-              </Field>
-            )}
-          />
+        <Controller
+          name="quarter"
+          control={control}
+          render={({ field }) => (
+            <Field>
+              <FieldLabel asChild>
+                <p>
+                  {t('quarterLabel')}
+                  {hasMonth && (
+                    <span className="text-muted-foreground ml-1 text-[10px] font-normal">
+                      {t('mutuallyExclusive')}
+                    </span>
+                  )}
+                </p>
+              </FieldLabel>
+              <GenericSingleSelect
+                options={quarterOptions}
+                valueKey="id"
+                labelKey="name"
+                value={field.value ?? ''}
+                onValueChange={(v) => {
+                  field.onChange(v);
+                  if (v) trigger('year');
+                }}
+                disabled={hasMonth}
+                icon={CalendarDays}
+                hasMoreLabel={false}
+              />
+            </Field>
+          )}
+        />
+      </div>
 
-          <Controller
-            name="quarter"
-            control={control}
-            render={({ field }) => (
-              <Field>
-                <FieldLabel asChild>
-                  <p>
-                    {t('quarterLabel')}
-                    {hasMonth && (
-                      <span className="text-muted-foreground ml-1 text-[10px] font-normal">
-                        {t('mutuallyExclusive')}
-                      </span>
-                    )}
-                  </p>
-                </FieldLabel>
-                <GenericSingleSelect
-                  options={QUARTER_OPTIONS}
-                  valueKey="id"
-                  labelKey="name"
-                  value={field.value ?? ''}
-                  onValueChange={(v) => {
-                    field.onChange(v);
-                    if (v) trigger('year');
-                  }}
-                  disabled={hasMonth}
-                  icon={CalendarDays}
-                  hasMoreLabel={false}
-                />
-              </Field>
-            )}
-          />
-        </div>
-
-        {(hasMonth || hasQuarter) && (
-          <p className="text-muted-foreground flex items-center gap-1.5 text-xs">
-            <AlertCircle className="size-3 shrink-0" />
-            {t('mutualExclusionHint')}
-          </p>
-        )}
-      </form>
-    </FiltersModal>
+      {(hasMonth || hasQuarter) && (
+        <p className="text-muted-foreground flex items-center gap-1.5 text-xs">
+          <AlertCircle className="size-3 shrink-0" />
+          {t('mutualExclusionHint')}
+        </p>
+      )}
+    </form>
   );
 }

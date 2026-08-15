@@ -16,28 +16,46 @@ type Props = {
   onClear: () => void;
 };
 
+type FormProps = {
+  defaultValues: AreaFilters;
+  onApply: (filters: AreaFilters) => void;
+};
+
+const EMPTY_FILTERS: AreaFilters = {};
+
 export function AreaFiltersModal({
   open,
   onOpenChange,
-  defaultValues = {},
+  defaultValues = EMPTY_FILTERS,
   hasActiveFilters,
   onApply,
   onClear,
 }: Props) {
   const { t } = useTranslation('metrics', { keyPrefix: 'filters.area' });
 
-  const { control, handleSubmit, reset } = useForm<AreaFilters>({
+  return (
+    <FiltersModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      form="area-filters-form"
+      hasActiveFilters={hasActiveFilters}
+      onClear={onClear}
+    >
+      <AreaFiltersForm defaultValues={defaultValues} onApply={onApply} />
+    </FiltersModal>
+  );
+}
+
+function AreaFiltersForm({ defaultValues, onApply }: FormProps) {
+  const { t } = useTranslation('metrics', { keyPrefix: 'filters.area' });
+  const { control, handleSubmit } = useForm<AreaFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
   const { canFilterByCategories, canFilterByRegions } =
     useAreaMetricsFiltersAccess();
-
-  function handleOpenChange(nextOpen: boolean) {
-    if (nextOpen) reset(defaultValues);
-    onOpenChange(nextOpen);
-  }
 
   function onSubmit(values: AreaFilters) {
     const cleaned = Object.fromEntries(
@@ -47,63 +65,53 @@ export function AreaFiltersModal({
   }
 
   return (
-    <FiltersModal
-      open={open}
-      onOpenChange={handleOpenChange}
-      title={t('title')}
-      subtitle={t('subtitle')}
-      form="area-filters-form"
-      hasActiveFilters={hasActiveFilters}
-      onClear={onClear}
+    <form
+      id="area-filters-form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 py-2"
     >
-      <form
-        id="area-filters-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4 py-2"
-      >
-        <YearQuarterField control={control} />
+      <YearQuarterField control={control} />
 
-        <Field>
-          <FieldLabel asChild>
-            <p>{t('regionLabel')}</p>
-          </FieldLabel>
-          {canFilterByCategories ? (
-            <Controller
-              name="region_id"
-              control={control}
-              render={({ field }) => (
-                <RegionSelector
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
-            />
-          ) : (
-            <UnavailableField />
-          )}
-        </Field>
+      <Field>
+        <FieldLabel asChild>
+          <p>{t('regionLabel')}</p>
+        </FieldLabel>
+        {canFilterByRegions ? (
+          <Controller
+            name="region_id"
+            control={control}
+            render={({ field }) => (
+              <RegionSelector
+                value={field.value}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        ) : (
+          <UnavailableField />
+        )}
+      </Field>
 
-        <Field>
-          <FieldLabel asChild>
-            <p>{t('categoryLabel')}</p>
-          </FieldLabel>
-          {canFilterByRegions ? (
-            <Controller
-              name="category_id"
-              control={control}
-              render={({ field }) => (
-                <CategorySelector
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
-            />
-          ) : (
-            <UnavailableField />
-          )}
-        </Field>
-      </form>
-    </FiltersModal>
+      <Field>
+        <FieldLabel asChild>
+          <p>{t('categoryLabel')}</p>
+        </FieldLabel>
+        {canFilterByCategories ? (
+          <Controller
+            name="category_id"
+            control={control}
+            render={({ field }) => (
+              <CategorySelector
+                value={field.value}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        ) : (
+          <UnavailableField />
+        )}
+      </Field>
+    </form>
   );
 }

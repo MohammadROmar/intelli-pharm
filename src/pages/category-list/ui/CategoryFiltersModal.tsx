@@ -14,10 +14,17 @@ type Props = {
   onClear: () => void;
 };
 
+type FormProps = {
+  defaultValues: CategoryFilters;
+  onApply: (filters: CategoryFilters) => void;
+};
+
+const EMPTY_FILTERS: CategoryFilters = {};
+
 export function CategoryFiltersModal({
   open,
   onOpenChange,
-  defaultValues = {},
+  defaultValues = EMPTY_FILTERS,
   hasActiveFilters,
   onApply,
   onClear,
@@ -26,6 +33,23 @@ export function CategoryFiltersModal({
     keyPrefix: 'filters',
   });
 
+  return (
+    <FiltersModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      form="category-filters-form"
+      hasActiveFilters={hasActiveFilters}
+      onClear={onClear}
+    >
+      <CategoryFiltersForm defaultValues={defaultValues} onApply={onApply} />
+    </FiltersModal>
+  );
+}
+
+function CategoryFiltersForm({ defaultValues, onApply }: FormProps) {
+  const { t } = useTranslation('categories', { keyPrefix: 'filters' });
   const { register, control, handleSubmit } = useForm<CategoryFilters>({
     defaultValues,
     mode: 'onSubmit',
@@ -39,48 +63,38 @@ export function CategoryFiltersModal({
   }
 
   return (
-    <FiltersModal
-      open={open}
-      onOpenChange={onOpenChange}
-      title={t('title')}
-      subtitle={t('subtitle')}
-      form="category-filters-form"
-      hasActiveFilters={hasActiveFilters}
-      onClear={onClear}
+    <form
+      id="category-filters-form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 py-2"
     >
-      <form
-        id="category-filters-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4 py-2"
-      >
-        <Field>
-          <FieldLabel htmlFor="filter-name">{t('nameLabel')}</FieldLabel>
-          <Input
-            id="filter-name"
-            placeholder={t('namePlaceholder')}
-            autoComplete="off"
-            icon={UserRound}
-            {...register('name')}
-          />
-        </Field>
+      <Field>
+        <FieldLabel htmlFor="filter-name">{t('nameLabel')}</FieldLabel>
+        <Input
+          id="filter-name"
+          placeholder={t('namePlaceholder')}
+          autoComplete="off"
+          icon={UserRound}
+          {...register('name')}
+        />
+      </Field>
 
-        <Field>
-          <FieldLabel asChild>
-            <p>{t('parentLabel')}</p>
-          </FieldLabel>
-          <Controller
-            name="parent_id"
-            control={control}
-            render={({ field }) => (
-              <CategorySelector
-                value={field.value ? +field.value : null}
-                onValueChange={field.onChange}
-              />
-            )}
-          />
-        </Field>
-      </form>
-    </FiltersModal>
+      <Field>
+        <FieldLabel asChild>
+          <p>{t('parentLabel')}</p>
+        </FieldLabel>
+        <Controller
+          name="parent_id"
+          control={control}
+          render={({ field }) => (
+            <CategorySelector
+              value={field.value ? +field.value : null}
+              onValueChange={field.onChange}
+            />
+          )}
+        />
+      </Field>
+    </form>
   );
 }

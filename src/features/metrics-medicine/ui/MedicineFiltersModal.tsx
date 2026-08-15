@@ -15,28 +15,46 @@ type Props = {
   onClear: () => void;
 };
 
+type FormProps = {
+  defaultValues: MedicineFilters;
+  onApply: (filters: MedicineFilters) => void;
+};
+
+const EMPTY_FILTERS: MedicineFilters = {};
+
 export function MedicineFiltersModal({
   open,
   onOpenChange,
-  defaultValues = {},
+  defaultValues = EMPTY_FILTERS,
   hasActiveFilters,
   onApply,
   onClear,
 }: Props) {
-  'use no memo';
   const { t } = useTranslation('metrics', { keyPrefix: 'filters.medicine' });
 
-  const { control, handleSubmit, reset } = useForm<MedicineFilters>({
+  return (
+    <FiltersModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      form="medicine-filters-form"
+      hasActiveFilters={hasActiveFilters}
+      onClear={onClear}
+    >
+      <MedicineFiltersForm defaultValues={defaultValues} onApply={onApply} />
+    </FiltersModal>
+  );
+}
+
+function MedicineFiltersForm({ defaultValues, onApply }: FormProps) {
+  'use no memo';
+  const { t } = useTranslation('metrics', { keyPrefix: 'filters.medicine' });
+  const { control, handleSubmit } = useForm<MedicineFilters>({
     defaultValues,
     mode: 'onSubmit',
   });
-
   const canFilterByMedicine = useHasPermission('erp.medicines.view');
-
-  function handleOpenChange(nextOpen: boolean) {
-    if (nextOpen) reset(defaultValues);
-    onOpenChange(nextOpen);
-  }
 
   function onSubmit(values: MedicineFilters) {
     const cleaned = Object.fromEntries(
@@ -46,43 +64,33 @@ export function MedicineFiltersModal({
   }
 
   return (
-    <FiltersModal
-      open={open}
-      onOpenChange={handleOpenChange}
-      title={t('title')}
-      subtitle={t('subtitle')}
-      form="medicine-filters-form"
-      hasActiveFilters={hasActiveFilters}
-      onClear={onClear}
+    <form
+      id="medicine-filters-form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 py-2"
     >
-      <form
-        id="medicine-filters-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4 py-2"
-      >
-        <YearQuarterField control={control} />
+      <YearQuarterField control={control} />
 
-        <Field>
-          <FieldLabel asChild>
-            <p>{t('medicineLabel')}</p>
-          </FieldLabel>
-          {canFilterByMedicine ? (
-            <Controller
-              name="medicine_id"
-              control={control}
-              render={({ field }) => (
-                <MedicineSelector
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
-            />
-          ) : (
-            <UnavailableField />
-          )}
-        </Field>
-      </form>
-    </FiltersModal>
+      <Field>
+        <FieldLabel asChild>
+          <p>{t('medicineLabel')}</p>
+        </FieldLabel>
+        {canFilterByMedicine ? (
+          <Controller
+            name="medicine_id"
+            control={control}
+            render={({ field }) => (
+              <MedicineSelector
+                value={field.value}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        ) : (
+          <UnavailableField />
+        )}
+      </Field>
+    </form>
   );
 }

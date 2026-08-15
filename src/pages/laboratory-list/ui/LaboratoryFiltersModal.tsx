@@ -5,6 +5,7 @@ import { UserRound } from 'lucide-react';
 import { Input, Field, FieldLabel, FiltersModal } from '@/shared/ui';
 
 type LaboratoryFilters = { name?: string };
+
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -14,10 +15,17 @@ type Props = {
   onClear: () => void;
 };
 
+type FormProps = {
+  defaultValues: LaboratoryFilters;
+  onApply: (filters: LaboratoryFilters) => void;
+};
+
+const EMPTY_FILTERS: LaboratoryFilters = {};
+
 export function LaboratoryFiltersModal({
   open,
   onOpenChange,
-  defaultValues = {},
+  defaultValues = EMPTY_FILTERS,
   hasActiveFilters,
   onApply,
   onClear,
@@ -26,6 +34,23 @@ export function LaboratoryFiltersModal({
     keyPrefix: 'filters',
   });
 
+  return (
+    <FiltersModal
+      open={open}
+      onOpenChange={onOpenChange}
+      title={t('title')}
+      subtitle={t('subtitle')}
+      form="laboratory-filters-form"
+      hasActiveFilters={hasActiveFilters}
+      onClear={onClear}
+    >
+      <LaboratoryFiltersForm defaultValues={defaultValues} onApply={onApply} />
+    </FiltersModal>
+  );
+}
+
+function LaboratoryFiltersForm({ defaultValues, onApply }: FormProps) {
+  const { t } = useTranslation('laboratories', { keyPrefix: 'filters' });
   const { register, handleSubmit } = useForm<LaboratoryFilters>({
     defaultValues,
     mode: 'onSubmit',
@@ -39,32 +64,22 @@ export function LaboratoryFiltersModal({
   }
 
   return (
-    <FiltersModal
-      open={open}
-      onOpenChange={onOpenChange}
-      title={t('title')}
-      subtitle={t('subtitle')}
-      form="laboratory-filters-form"
-      hasActiveFilters={hasActiveFilters}
-      onClear={onClear}
+    <form
+      id="laboratory-filters-form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 py-2"
     >
-      <form
-        id="laboratory-filters-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4 py-2"
-      >
-        <Field>
-          <FieldLabel htmlFor="filter-name">{t('nameLabel')}</FieldLabel>
-          <Input
-            id="filter-name"
-            placeholder={t('namePlaceholder')}
-            autoComplete="off"
-            icon={UserRound}
-            {...register('name')}
-          />
-        </Field>
-      </form>
-    </FiltersModal>
+      <Field>
+        <FieldLabel htmlFor="filter-name">{t('nameLabel')}</FieldLabel>
+        <Input
+          id="filter-name"
+          placeholder={t('namePlaceholder')}
+          autoComplete="off"
+          icon={UserRound}
+          {...register('name')}
+        />
+      </Field>
+    </form>
   );
 }

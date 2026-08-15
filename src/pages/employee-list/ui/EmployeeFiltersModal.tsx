@@ -23,34 +23,22 @@ type Props = {
   onClear: () => void;
 };
 
+type FormProps = {
+  defaultValues: EmployeeFilters;
+  onApply: (filters: EmployeeFilters) => void;
+};
+
+const EMPTY_FILTERS: EmployeeFilters = {};
+
 export function EmployeeFiltersModal({
   open,
   onOpenChange,
-  defaultValues = {},
+  defaultValues = EMPTY_FILTERS,
   hasActiveFilters,
   onApply,
   onClear,
 }: Props) {
   const { t } = useTranslation('employees', { keyPrefix: 'filters' });
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<EmployeeFilters>({
-    defaultValues,
-    mode: 'onSubmit',
-  });
-
-  const canFilterByRoles = useHasPermission('auth.roles.view');
-
-  function onSubmit(values: EmployeeFilters) {
-    const cleaned: EmployeeFilters = Object.fromEntries(
-      Object.entries(values).filter(([, v]) => v !== '' && v !== undefined),
-    );
-    onApply(cleaned);
-  }
 
   return (
     <FiltersModal
@@ -62,69 +50,96 @@ export function EmployeeFiltersModal({
       hasActiveFilters={hasActiveFilters}
       onClear={onClear}
     >
-      <form
-        id="employee-filters-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-        className="space-y-4 py-2"
-      >
-        <Field>
-          <FieldLabel htmlFor="filter-name">{t('nameLabel')}</FieldLabel>
-          <Input
-            id="filter-name"
-            placeholder={t('namePlaceholder')}
-            autoComplete="off"
-            icon={UserRound}
-            {...register('name')}
-          />
-        </Field>
-
-        <Field>
-          <FieldLabel htmlFor="filter-email">{t('emailLabel')}</FieldLabel>
-          <Input
-            id="filter-email"
-            placeholder={t('emailPlaceholder')}
-            autoComplete="off"
-            icon={Mail}
-            {...register('email')}
-          />
-        </Field>
-
-        <Field>
-          <FieldLabel htmlFor="filter-phone">{t('phoneLabel')}</FieldLabel>
-          <Input
-            id="filter-phone"
-            placeholder={t('phonePlaceholder')}
-            autoComplete="off"
-            icon={Phone}
-            {...register('phone', {
-              pattern: {
-                value: /^[0-9]+$/,
-                message: t('phoneError'),
-              },
-            })}
-          />
-          {errors.phone && <FieldError>{errors.phone.message}</FieldError>}
-        </Field>
-
-        <Field>
-          <FieldLabel htmlFor="filter-phone">{t('roleLabel')}</FieldLabel>
-          {canFilterByRoles ? (
-            <Controller
-              name="role"
-              control={control}
-              render={({ field }) => (
-                <RoleSelector
-                  value={field.value}
-                  onValueChange={field.onChange}
-                />
-              )}
-            />
-          ) : (
-            <UnavailableField />
-          )}
-        </Field>
-      </form>
+      <EmployeeFiltersForm defaultValues={defaultValues} onApply={onApply} />
     </FiltersModal>
+  );
+}
+
+function EmployeeFiltersForm({ defaultValues, onApply }: FormProps) {
+  const { t } = useTranslation('employees', { keyPrefix: 'filters' });
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<EmployeeFilters>({
+    defaultValues,
+    mode: 'onSubmit',
+  });
+  const canFilterByRoles = useHasPermission('auth.roles.view');
+
+  function onSubmit(values: EmployeeFilters) {
+    const cleaned: EmployeeFilters = Object.fromEntries(
+      Object.entries(values).filter(([, v]) => v !== '' && v !== undefined),
+    );
+    onApply(cleaned);
+  }
+
+  return (
+    <form
+      id="employee-filters-form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="space-y-4 py-2"
+    >
+      <Field>
+        <FieldLabel htmlFor="filter-name">{t('nameLabel')}</FieldLabel>
+        <Input
+          id="filter-name"
+          placeholder={t('namePlaceholder')}
+          autoComplete="off"
+          icon={UserRound}
+          {...register('name')}
+        />
+      </Field>
+
+      <Field>
+        <FieldLabel htmlFor="filter-email">{t('emailLabel')}</FieldLabel>
+        <Input
+          id="filter-email"
+          placeholder={t('emailPlaceholder')}
+          autoComplete="off"
+          icon={Mail}
+          {...register('email')}
+        />
+      </Field>
+
+      <Field>
+        <FieldLabel htmlFor="filter-phone">{t('phoneLabel')}</FieldLabel>
+        <Input
+          id="filter-phone"
+          placeholder={t('phonePlaceholder')}
+          autoComplete="off"
+          icon={Phone}
+          {...register('phone', {
+            pattern: {
+              value: /^[0-9]+$/,
+              message: t('phoneError'),
+            },
+          })}
+        />
+        {errors.phone && <FieldError>{errors.phone.message}</FieldError>}
+      </Field>
+
+      <Field>
+        <FieldLabel asChild>
+          <p>{t('roleLabel')}</p>
+        </FieldLabel>
+        {canFilterByRoles ? (
+          <Controller
+            name="role"
+            control={control}
+            render={({ field }) => (
+              <RoleSelector
+                value={field.value}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        ) : (
+          <UnavailableField />
+        )}
+      </Field>
+    </form>
   );
 }
