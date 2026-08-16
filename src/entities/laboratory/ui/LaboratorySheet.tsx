@@ -55,7 +55,10 @@ export function LaboratorySheet({
       {hasTrigger && <LaboratorySheetTrigger />}
       {!hasTrigger && trigger}
 
-      <SheetContent side={isRtl ? 'left' : 'right'}>
+      <SheetContent
+        side={isRtl ? 'left' : 'right'}
+        className="w-full sm:max-w-md"
+      >
         <SheetHeader>
           <SheetTitle className="sr-only">{t('title')}</SheetTitle>
           <SheetDescription className="sr-only">

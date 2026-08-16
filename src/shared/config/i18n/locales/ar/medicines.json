@@ -53,7 +53,12 @@
     "quantity": "الكمية",
     "expiryDate": "تاريخ انتهاء الصلاحية",
     "productPhotosTitle": "صور المنتج",
-    "productPhotosSubtitle": "تم تحديد {{imagesCount}} صورة (صور)",
+    "productPhotosSubtitle": "الصور المحددة: {{imagesCount}}",
+    "currentPhotosSubtitle": "الصور الحالية التي سيتم الاحتفاظ بها: {{imagesCount}}",
+    "currentPhotosTitle": "الصور الحالية",
+    "currentPhotosHint": "سيتم الاحتفاظ بهذه الصور ما لم تحدد صوراً بديلة.",
+    "replacementPhotosHint": "ستحل الصور المحددة محل الصور الحالية عند حفظ التعديلات.",
+    "currentImageAlt": "صورة الدواء الحالية {{index}}",
     "images": "الصور"
   },
   "detail": {

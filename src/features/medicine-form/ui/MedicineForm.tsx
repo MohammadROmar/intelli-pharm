@@ -1,10 +1,11 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
+import { useMedicineImages } from '@/entities/medicine';
+
+import { ImagesCard } from './ImagesCard';
 import { BasicInfoCard } from './BasicInfoCard';
 import { StockEntriesCard } from './StockEntriesCard';
-import { ImagesCard } from './ImagesCard';
 import { medicineToFromData } from '../lib/utils';
-import { useMedicineImages } from '@/entities/medicine';
 import type {
   ImageFile,
   MedicineDetail,
@@ -53,6 +54,8 @@ export function MedicineForm({
         {!medicine && <StockEntriesCard isPending={isPending} />}
         <ImagesCard
           images={images}
+          existingImages={medicine?.images}
+          imagesRequired={!medicine}
           isPending={isPending}
           onAdd={handleImagesAdd}
           onRemove={handleImageRemove}

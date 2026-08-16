@@ -52,7 +52,12 @@
     "notePlaceholder": "Additional notes about this medicine…",
     "expiryDate": "Expiry Date",
     "productPhotosTitle": "Product Photos",
-    "productPhotosSubtitle": "{{imagesCount}} image (images) selected",
+    "productPhotosSubtitle": "Selected images: {{imagesCount}}",
+    "currentPhotosSubtitle": "Current images preserved: {{imagesCount}}",
+    "currentPhotosTitle": "Current images",
+    "currentPhotosHint": "These images will be kept unless you select replacements.",
+    "replacementPhotosHint": "The selected images will replace the current images when you save.",
+    "currentImageAlt": "Current medicine image {{index}}",
     "images": "Images"
   },
   "detail": {

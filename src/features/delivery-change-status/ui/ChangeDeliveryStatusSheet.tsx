@@ -54,7 +54,7 @@ export function ChangeDeliveryStatusSheet({
 
       <SheetContent
         side={isRtl ? 'left' : 'right'}
-        className="w-full! gap-0! overflow-hidden! p-0! sm:max-w-md!"
+        className="w-full gap-0! overflow-hidden! p-0! sm:max-w-md"
       >
         <SheetHeader className="border-b p-5! pe-12!">
           <SheetTitle className="sr-only">{t('title')}</SheetTitle>

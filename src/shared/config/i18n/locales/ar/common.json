@@ -49,7 +49,16 @@
   "dragNDrop": {
     "dnd": "اسحب وأفلت الصور أو",
     "browse": "تصفح",
-    "dropHere": "قم بوضع الصور هنا"
+    "dropHere": "قم بوضع الصور هنا",
+    "constraints": "JPG أو JPEG أو PNG · حتى {{maxFiles}} صور · {{maxSizeMb}} ميغابايت لكل صورة",
+    "limitReached": "تم الوصول إلى الحد الأقصى وهو {{maxFiles}} صور.",
+    "removeImage": "إزالة الصورة",
+    "errors": {
+      "invalidType": "يُسمح فقط بصور JPG وJPEG وPNG.",
+      "fileTooLarge": "يجب ألا يتجاوز حجم كل صورة {{maxSizeMb}} ميغابايت.",
+      "tooManyFiles": "يمكنك رفع {{maxFiles}} صور كحد أقصى.",
+      "rejected": "تعذرت إضافة الصور المحددة."
+    }
   },
   "dialog": {
     "delete": {

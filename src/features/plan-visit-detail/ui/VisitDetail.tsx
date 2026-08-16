@@ -49,7 +49,7 @@ export default function VisitDetail({ id, onClose, canViewPharmacy }: Props) {
     <Sheet open={id !== null} onOpenChange={handleOpenChange}>
       <SheetContent
         side={isRtl ? 'left' : 'right'}
-        className="thin-scrollbar overflow-y-auto sm:max-w-md"
+        className="thin-scrollbar w-full overflow-y-auto sm:max-w-md"
       >
         {activeId !== null && (
           <QueryErrorBoundary>

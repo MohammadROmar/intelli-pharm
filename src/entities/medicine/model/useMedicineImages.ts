@@ -10,11 +10,7 @@ export function useMedicineImages() {
   }, []);
 
   const handleImageRemove = useCallback((id: string) => {
-    setImages((prev) => {
-      const removed = prev.find((img) => img.id === id);
-      if (removed) URL.revokeObjectURL(removed.preview);
-      return prev.filter((img) => img.id !== id);
-    });
+    setImages((prev) => prev.filter((image) => image.id !== id));
   }, []);
 
   const clearImages = useCallback(() => {

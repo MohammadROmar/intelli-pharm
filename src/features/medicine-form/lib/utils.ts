@@ -21,7 +21,7 @@ export function medicineToFromData(medicine: MedicineDetail): MedicineFormData {
     stocks,
     is_alternative,
     note: medicine.note ?? '',
-    imagesCount: medicine.images.length,
+    imagesCount: 0,
     laboratory_id: medicine.laboratory.id,
     is_alternative_to_id: is_alternative
       ? medicine.alternative_for[0].id

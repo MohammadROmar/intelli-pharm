@@ -118,7 +118,7 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
                 </SheetTrigger>
                 <SheetContent
                   side={i18n.dir() === 'rtl' ? 'left' : 'right'}
-                  className="flex h-full w-full max-w-[85vw] flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
+                  className="flex h-full w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
                 >
                   <SheetHeader className="shrink-0 border-b px-6 py-5 text-start">
                     <CardSectionHeader

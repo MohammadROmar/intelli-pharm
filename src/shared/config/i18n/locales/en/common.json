@@ -49,7 +49,16 @@
   "dragNDrop": {
     "dnd": "Drag & drop images or",
     "browse": "Browse",
-    "dropHere": "Drop images here…"
+    "dropHere": "Drop images here…",
+    "constraints": "JPG, JPEG or PNG · Up to {{maxFiles}} images · {{maxSizeMb}} MB each",
+    "limitReached": "The maximum of {{maxFiles}} images has been reached.",
+    "removeImage": "Remove image",
+    "errors": {
+      "invalidType": "Only JPG, JPEG, and PNG images are allowed.",
+      "fileTooLarge": "Each image must be no larger than {{maxSizeMb}} MB.",
+      "tooManyFiles": "You can upload at most {{maxFiles}} images.",
+      "rejected": "The selected images could not be added."
+    }
   },
   "dialog": {
     "delete": {
