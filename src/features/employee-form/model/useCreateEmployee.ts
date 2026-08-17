@@ -7,6 +7,8 @@ import {
 } from '@/entities/employee';
 import { useCreateEntity } from '@/shared/model';
 
+import { getEmployeeErrorKey } from '../lib/getEmployeeErrorKey';
+
 export function useCreateEmployee() {
   const { t } = useTranslation();
   const { t: tErrors } = useTranslation('errors');
@@ -17,9 +19,9 @@ export function useCreateEmployee() {
     translationKey: 'employee',
     navigatePath: '/dashboard/employees',
 
-    onError: ({ status, i18nKey }) => {
+    onError: (error) => {
       toast.error(t(`toasts.create.error`), {
-        description: tErrors(status === 422 ? 'emailAlreadyTaken' : i18nKey),
+        description: tErrors(getEmployeeErrorKey(error)),
       });
     },
   });

@@ -4,6 +4,8 @@ import { toast } from 'sonner';
 import { editEmployee, type EditEmployeeFormData } from '@/entities/employee';
 import { useEditEntity } from '@/shared/model';
 
+import { getEmployeeErrorKey } from '../lib/getEmployeeErrorKey';
+
 export function useEditEmployee(id: number) {
   const { t } = useTranslation();
   const { t: tErrors } = useTranslation('errors');
@@ -14,9 +16,9 @@ export function useEditEmployee(id: number) {
     translationKey: 'employee',
     redirectTo: `/dashboard/employees/${id}`,
 
-    onError: ({ status, i18nKey }) => {
+    onError: (error) => {
       toast.error(t(`toasts.edit.error`), {
-        description: tErrors(status === 422 ? 'emailAlreadyTaken' : i18nKey),
+        description: tErrors(getEmployeeErrorKey(error)),
       });
     },
   });

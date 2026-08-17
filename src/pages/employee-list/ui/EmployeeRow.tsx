@@ -30,7 +30,7 @@ export const EmployeeRow = memo(function EmployeeRow({
         <p className="max-w-[20ch] truncate font-medium">{employee.name}</p>
       </TableCell>
       <TableCell className="font-mono">{employee.email}</TableCell>
-      <TableCell>{t(`roles.${role}`, role)}</TableCell>
+      <TableCell>{role ? t(`roles.${role}`, role) : '—'}</TableCell>
       <TableCell>
         <Badge variant={employee.is_active ? 'success' : 'muted'}>
           {employee.is_active ? t('list.active') : t('list.inactive')}

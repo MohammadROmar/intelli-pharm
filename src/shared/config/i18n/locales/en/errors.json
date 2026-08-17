@@ -25,6 +25,7 @@
   "unknownTitle": "An error occurred",
   "unknown": "An unexpected error occurred. Please try again.",
 
+  "roleRequired": "Please select the employee's role.",
   "emailAlreadyTaken": "That email address is already in use.",
   "noDeliveryTasks": "No delivery tasks for the distributor today.",
   "nameAlreadyTaken": "A role with this name already exists.",
