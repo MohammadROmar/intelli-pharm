@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
-import { useQuickActionsAccess } from '../model/useQuickActionsAccess';
+import { useQuickActionsAccess } from '@/features/overview-access';
 
 export const QuickActionsRow = memo(function QuickActionsRow() {
   const { t } = useTranslation('dashboard-overview', {

@@ -10,3 +10,6 @@ export const RELATED_ENTITY_ROUTE: Partial<Record<string, string>> = {
   delivery: '/dashboard/deliveries',
   pharmacy: '/dashboard/pharmacies',
 };
+
+export const OVERVIEW_CARD_LINK_CLASS =
+  'block rounded-xl transition-colors hover:bg-accent/50 focus-visible:outline-2 focus-visible:outline-ring';

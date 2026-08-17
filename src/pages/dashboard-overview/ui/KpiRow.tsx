@@ -1,26 +1,43 @@
 import { memo } from 'react';
-import { AlertTriangle, ClipboardList, Truck, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router';
+import { AlertTriangle, ClipboardList, Truck, Users } from 'lucide-react';
 
+import type { useOverviewAccess } from '@/features/overview-access';
 import { StatCard } from '@/shared/ui';
 
 import { formatCount, formatSignedPercent } from '../model/format';
 import type { DashboardSummary } from '../model/types';
 
-export const CARD_LINK_CLASS =
-  'block rounded-xl transition-colors hover:bg-accent/50 focus-visible:outline-2 focus-visible:outline-ring';
+import { ConditionalLink } from './ConditionalLink';
+import { OVERVIEW_CARD_LINK_CLASS } from '../model/constants';
 
-type KpiRowProps = { kpis: DashboardSummary['kpis'] };
+type OverviewAccess = ReturnType<typeof useOverviewAccess>;
 
-export const KpiRow = memo(function KpiRow({ kpis }: KpiRowProps) {
+type KpiRowAccess = Pick<
+  OverviewAccess,
+  | 'canViewOrders'
+  | 'canViewLiveTracking'
+  | 'canViewDeliveries'
+  | 'canViewMedicines'
+>;
+
+type KpiRowProps = {
+  kpis: DashboardSummary['kpis'];
+  access: KpiRowAccess;
+};
+
+export const KpiRow = memo(function KpiRow({ kpis, access }: KpiRowProps) {
   const { t, i18n } = useTranslation('dashboard-overview', {
     keyPrefix: 'kpis',
   });
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      <Link to="/dashboard/orders" className={CARD_LINK_CLASS}>
+      <ConditionalLink
+        enabled={access.canViewOrders}
+        to="/dashboard/orders"
+        className={OVERVIEW_CARD_LINK_CLASS}
+      >
         <StatCard
           icon={ClipboardList}
           label={t('ordersToday')}
@@ -35,32 +52,48 @@ export const KpiRow = memo(function KpiRow({ kpis }: KpiRowProps) {
               : 'text-success!'
           }
         />
-      </Link>
+      </ConditionalLink>
 
-      <Link to="/dashboard/tracking" className={CARD_LINK_CLASS}>
+      <ConditionalLink
+        enabled={access.canViewLiveTracking}
+        to="/dashboard/tracking"
+        className={OVERVIEW_CARD_LINK_CLASS}
+      >
         <StatCard
           icon={Users}
           label={t('activeFieldStaff')}
           value={formatCount(kpis.active_field_staff.value, i18n.language)}
-          caption={t('onRoute', { count: kpis.active_field_staff.on_route })}
+          caption={t('onRoute', {
+            count: kpis.active_field_staff.on_route,
+          })}
         />
-      </Link>
+      </ConditionalLink>
 
-      <Link to="/dashboard/deliveries" className={CARD_LINK_CLASS}>
+      <ConditionalLink
+        enabled={access.canViewDeliveries}
+        to="/dashboard/deliveries"
+        className={OVERVIEW_CARD_LINK_CLASS}
+      >
         <StatCard
           icon={Truck}
           label={t('pendingDeliveries')}
           value={formatCount(kpis.pending_deliveries.value, i18n.language)}
           caption={
             kpis.pending_deliveries.delayed > 0
-              ? t('delayedCount', { count: kpis.pending_deliveries.delayed })
+              ? t('delayedCount', {
+                  count: kpis.pending_deliveries.delayed,
+                })
               : undefined
           }
           captionClassName="text-destructive!"
         />
-      </Link>
+      </ConditionalLink>
 
-      <Link to="/dashboard/medicines" className={CARD_LINK_CLASS}>
+      <ConditionalLink
+        enabled={access.canViewMedicines}
+        to="/dashboard/medicines"
+        className={OVERVIEW_CARD_LINK_CLASS}
+      >
         <StatCard
           icon={AlertTriangle}
           label={t('nearExpiryMedicines')}
@@ -70,7 +103,7 @@ export const KpiRow = memo(function KpiRow({ kpis }: KpiRowProps) {
           })}
           captionClassName="text-warning!"
         />
-      </Link>
+      </ConditionalLink>
     </div>
   );
 });

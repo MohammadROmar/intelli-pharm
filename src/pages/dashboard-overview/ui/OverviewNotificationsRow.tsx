@@ -1,13 +1,12 @@
 import { NotificationActivationBanner } from '@/features/notifications';
 
 import { OverviewNotificationSummary } from './OverviewNotificationSummary';
-import { useHasPermission } from '@/entities/session';
 
-export function OverviewNotificationsRow() {
-  const canReceiveStockNotifications = useHasPermission(
-    'erp.stock.notifications.get',
-  );
+type Props = { canReceiveStockNotifications: boolean };
 
+export function OverviewNotificationsRow({
+  canReceiveStockNotifications,
+}: Props) {
   if (!canReceiveStockNotifications) return null;
 
   return (

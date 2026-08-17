@@ -1,12 +1,13 @@
 import { lazy, Suspense, useCallback, useState, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useOverviewAccess } from '@/features/overview-access';
 import { cn, ErrorBoundary } from '@/shared/lib';
 import {
   PageTitle,
-  Skeleton,
-  SectionErrorFallback,
   QueryErrorBoundary,
+  SectionErrorFallback,
+  Skeleton,
 } from '@/shared/ui';
 
 import { useDashboardSummary } from '../model/queries';
@@ -24,6 +25,7 @@ const TargetLeaderboardSection = lazy(() =>
     default: module.TargetLeaderboardSection,
   })),
 );
+
 const OrdersTrendSection = lazy(() =>
   import('./OrdersTrendSection').then((module) => ({
     default: module.OrdersTrendSection,
@@ -33,6 +35,7 @@ const OrdersTrendSection = lazy(() =>
 const CHART_FALLBACK = (
   <Skeleton className="h-77.5 w-full rounded-xl lg:h-full" />
 );
+
 const SECTION_FALLBACK = <Skeleton className="h-41.75 rounded-xl" />;
 
 export function OverviewPage() {
@@ -49,6 +52,7 @@ export function OverviewPageContent() {
 
   const [areaId, setAreaIdState] = useState<number | null>(null);
   const [isAreaPending, startAreaTransition] = useTransition();
+
   const setAreaId = useCallback(
     (next: number | null) => {
       startAreaTransition(() => setAreaIdState(next));
@@ -57,8 +61,10 @@ export function OverviewPageContent() {
   );
 
   const { data: summaryResponse } = useDashboardSummary(range, areaId);
-  const summary = summaryResponse.data!;
 
+  const access = useOverviewAccess();
+
+  const summary = summaryResponse.data!;
   const isRefreshing = isRangePending || isAreaPending;
 
   return (
@@ -74,7 +80,9 @@ export function OverviewPageContent() {
         />
       </div>
 
-      <OverviewNotificationsRow />
+      <OverviewNotificationsRow
+        canReceiveStockNotifications={access.canReceiveStockNotifications}
+      />
 
       <div
         className={cn(
@@ -83,7 +91,7 @@ export function OverviewPageContent() {
         )}
         aria-busy={isRefreshing}
       >
-        <KpiRow kpis={summary.kpis} />
+        <KpiRow kpis={summary.kpis} access={access} />
 
         <div className="grid grid-cols-1 gap-3 lg:grid-cols-[1.4fr_1fr]">
           <ErrorBoundary FallbackComponent={SectionErrorFallback}>
@@ -92,18 +100,22 @@ export function OverviewPageContent() {
             </Suspense>
           </ErrorBoundary>
 
-          <NeedsAttentionPanel items={summary.needs_attention} />
+          <NeedsAttentionPanel
+            items={summary.needs_attention}
+            access={access}
+          />
         </div>
 
         <PreviewRow
           liveTracking={summary.live_tracking_preview}
           todayPlans={summary.today_plans}
+          access={access}
         />
       </div>
 
       <ErrorBoundary FallbackComponent={SectionErrorFallback}>
         <Suspense fallback={SECTION_FALLBACK}>
-          <TargetLeaderboardSection />
+          <TargetLeaderboardSection canViewTargets={access.canViewTargets} />
         </Suspense>
       </ErrorBoundary>
 

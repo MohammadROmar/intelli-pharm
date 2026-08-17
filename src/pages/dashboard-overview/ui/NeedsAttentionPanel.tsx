@@ -10,6 +10,7 @@ import {
   XCircle,
 } from 'lucide-react';
 
+import type { useOverviewAccess } from '@/features/overview-access';
 import { cn } from '@/shared/lib';
 import {
   Badge,
@@ -53,13 +54,38 @@ const SEVERITY_WEIGHT: Record<NeedsAttentionItem['severity'], number> = {
   warning: 1,
 };
 
-type NeedsAttentionPanelProps = { items: NeedsAttentionItem[] };
+type OverviewAccess = ReturnType<typeof useOverviewAccess>;
+
+type NeedsAttentionAccess = Pick<
+  OverviewAccess,
+  'canViewMedicines' | 'canViewDeliveries' | 'canViewPlans'
+>;
+
+const ACCESS_KEY_BY_ATTENTION_TYPE: Record<
+  NeedsAttentionItem['type'],
+  keyof NeedsAttentionAccess
+> = {
+  expiring_medicine: 'canViewMedicines',
+  delivery_delayed: 'canViewDeliveries',
+  visit_failed: 'canViewPlans',
+};
+
+type NeedsAttentionPanelProps = {
+  items: NeedsAttentionItem[];
+  access: NeedsAttentionAccess;
+};
 
 function headerBadgeVariant(
   items: NeedsAttentionItem[],
 ): 'destructive' | 'warning' | 'secondary' {
-  if (items.some((item) => item.severity === 'danger')) return 'destructive';
-  if (items.some((item) => item.severity === 'warning')) return 'warning';
+  if (items.some((item) => item.severity === 'danger')) {
+    return 'destructive';
+  }
+
+  if (items.some((item) => item.severity === 'warning')) {
+    return 'warning';
+  }
+
   return 'secondary';
 }
 
@@ -67,8 +93,18 @@ function getItemKey(item: NeedsAttentionItem, index: number) {
   return `${item.type}-${item.related_type}-${item.related_id ?? index}`;
 }
 
+function canNavigateToItem(
+  item: NeedsAttentionItem,
+  access: NeedsAttentionAccess,
+): boolean {
+  const accessKey = ACCESS_KEY_BY_ATTENTION_TYPE[item.type];
+
+  return access[accessKey];
+}
+
 export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
   items,
+  access,
 }: NeedsAttentionPanelProps) {
   const { t, i18n } = useTranslation('dashboard-overview', {
     keyPrefix: 'needsAttention',
@@ -81,6 +117,7 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
       ),
     [items],
   );
+
   const visibleItems = sortedItems.slice(0, PREVIEW_ITEM_COUNT);
   const hiddenCount = sortedItems.length - visibleItems.length;
 
@@ -88,10 +125,12 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
     <Card className="gap-2!">
       <CardHeader className="flex! items-center! justify-between!">
         <CardTitle className="text-sm font-medium">{t('title')}</CardTitle>
+
         {items.length > 0 && (
           <Badge variant={headerBadgeVariant(items)}>{items.length}</Badge>
         )}
       </CardHeader>
+
       <CardContent>
         {items.length > 0 ? (
           <>
@@ -100,6 +139,7 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
                 <NeedsAttentionRow
                   key={getItemKey(item, index)}
                   item={item}
+                  canNavigate={canNavigateToItem(item, access)}
                   messageClassName="line-clamp-1"
                 />
               ))}
@@ -113,9 +153,12 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
                     size="sm"
                     className="text-muted-foreground mt-2 w-full"
                   >
-                    {t('showAll', { count: items.length })}
+                    {t('showAll', {
+                      count: items.length,
+                    })}
                   </Button>
                 </SheetTrigger>
+
                 <SheetContent
                   side={i18n.dir() === 'rtl' ? 'left' : 'right'}
                   className="flex h-full w-full flex-col gap-0 overflow-hidden p-0 sm:max-w-md"
@@ -129,17 +172,23 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
                       icon={CircleAlert}
                       aria-hidden
                     />
+
                     <SheetTitle className="sr-only">{t('title')}</SheetTitle>
+
                     <SheetDescription className="sr-only">
-                      {t('sheetDescription', { count: items.length })}
+                      {t('sheetDescription', {
+                        count: items.length,
+                      })}
                     </SheetDescription>
                   </SheetHeader>
+
                   <div className="thin-scrollbar overflow-y-auto">
                     <ul className="space-y-1 px-5">
                       {sortedItems.map((item, index) => (
                         <NeedsAttentionRow
                           key={getItemKey(item, index)}
                           item={item}
+                          canNavigate={canNavigateToItem(item, access)}
                         />
                       ))}
                     </ul>
@@ -153,6 +202,7 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
             <span className="bg-success/10 text-success flex size-10 items-center justify-center rounded-full">
               <CheckCircle2 className="size-5" aria-hidden />
             </span>
+
             <p className="text-muted-foreground text-sm">{t('empty')}</p>
           </div>
         )}
@@ -163,19 +213,29 @@ export const NeedsAttentionPanel = memo(function NeedsAttentionPanel({
 
 type NeedsAttentionRowProps = {
   item: NeedsAttentionItem;
+  canNavigate: boolean;
   messageClassName?: string;
 };
 
 const NeedsAttentionRow = memo(function NeedsAttentionRow({
   item,
+  canNavigate,
   messageClassName,
 }: NeedsAttentionRowProps) {
   const Icon = ICON_BY_TYPE[item.type];
   const iconClass = ICON_CLASS_BY_SEVERITY[item.severity];
-  const basePath = item.related_id
-    ? RELATED_ENTITY_ROUTE[item.related_type]
-    : undefined;
-  const href = basePath ? `${basePath}/${item.related_id}` : undefined;
+
+  const basePath =
+    item.related_id != null
+      ? RELATED_ENTITY_ROUTE[item.related_type]
+      : undefined;
+
+  const href =
+    basePath && item.related_id != null
+      ? `${basePath}/${item.related_id}`
+      : undefined;
+
+  const isNavigable = href !== undefined && canNavigate;
 
   const content = (
     <>
@@ -187,20 +247,23 @@ const NeedsAttentionRow = memo(function NeedsAttentionRow({
       >
         <Icon className={cn('size-4', iconClass)} aria-hidden />
       </span>
+
       <p
         className={cn(
           'text-foreground/90 min-w-0 flex-1 pt-1 text-sm leading-snug',
           messageClassName,
         )}
       >
-        {item.related_type === 'delivery' && (
+        {item.related_type === 'delivery' && item.related_id != null && (
           <span className="text-muted-foreground font-mono ltr:pr-2 rtl:pl-2">
             #{item.related_id}
           </span>
         )}
+
         {item.message}
       </p>
-      {href && (
+
+      {isNavigable && (
         <ChevronRight
           className="text-muted-foreground mt-1.5 size-4 shrink-0 opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
           aria-hidden
@@ -211,7 +274,7 @@ const NeedsAttentionRow = memo(function NeedsAttentionRow({
 
   return (
     <li>
-      {href ? (
+      {isNavigable ? (
         <Link
           to={href}
           className="group hover:bg-accent/60 flex items-center gap-3 rounded-lg p-2 transition-colors"

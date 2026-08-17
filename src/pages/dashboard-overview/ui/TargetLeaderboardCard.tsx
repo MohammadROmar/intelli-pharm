@@ -13,7 +13,10 @@ import {
 import { formatCount } from '../model/format';
 import type { TargetLeaderboard } from '../model/types';
 
-type TargetLeaderboardCardProps = { rows: TargetLeaderboard };
+type TargetLeaderboardCardProps = {
+  rows: TargetLeaderboard;
+  canViewTargets: boolean;
+};
 type AttainmentVariant = 'success' | 'warning' | 'destructive';
 
 function attainmentVariant(pct: number): AttainmentVariant {
@@ -40,6 +43,7 @@ function getInitials(name: string) {
 
 export const TargetLeaderboardCard = memo(function TargetLeaderboardCard({
   rows,
+  canViewTargets,
 }: TargetLeaderboardCardProps) {
   const { t, i18n } = useTranslation('dashboard-overview', {
     keyPrefix: 'targets',
@@ -49,16 +53,18 @@ export const TargetLeaderboardCard = memo(function TargetLeaderboardCard({
     <Card>
       <CardHeader className="flex! flex-row! items-center justify-between space-y-0">
         <CardTitle className="text-sm font-medium">{t('title')}</CardTitle>
-        <Link
-          to="/dashboard/targets"
-          className="text-primary group flex items-center gap-1 text-xs font-medium"
-        >
-          {t('viewLink')}
-          <ArrowRight
-            className="size-3.5 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
-            aria-hidden
-          />
-        </Link>
+        {canViewTargets && (
+          <Link
+            to="/dashboard/targets"
+            className="text-primary group flex items-center gap-1 text-xs font-medium"
+          >
+            {t('viewLink')}
+            <ArrowRight
+              className="size-3.5 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+              aria-hidden
+            />
+          </Link>
+        )}
       </CardHeader>
       <CardContent>
         {rows.length > 0 ? (

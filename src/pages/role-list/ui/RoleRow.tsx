@@ -4,12 +4,20 @@ import { LockKeyhole } from 'lucide-react';
 import type { RoleItem } from '@/entities/role';
 import { formatDate } from '@/shared/lib';
 import { Badge, TableActions, TableCell, TableRow } from '@/shared/ui';
+import type { useRoleAccess } from '@/features/role-access';
 
-type RoleRowProps = { role: RoleItem; onDelete: (role: RoleItem) => void };
+type RoleRowAccess = ReturnType<typeof useRoleAccess>;
+type RoleRowProps = {
+  role: RoleItem;
+  onDelete: (role: RoleItem) => void;
+  access: RoleRowAccess;
+};
 
-export function RoleRow({ role, onDelete }: RoleRowProps) {
+export function RoleRow({ role, onDelete, access }: RoleRowProps) {
   const { t, i18n } = useTranslation('roles');
-  const canMutate = role.is_editable;
+
+  const canUpdateRole = role.is_editable && access.canUpdate;
+  const canDeleteRole = role.is_editable && access.canDelete;
 
   return (
     <TableRow>
@@ -41,8 +49,8 @@ export function RoleRow({ role, onDelete }: RoleRowProps) {
         path="/dashboard/roles"
       >
         <TableActions.Detail />
-        {canMutate && <TableActions.Update />}
-        {canMutate && <TableActions.Delete />}
+        {canUpdateRole && <TableActions.Update />}
+        {canDeleteRole && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );

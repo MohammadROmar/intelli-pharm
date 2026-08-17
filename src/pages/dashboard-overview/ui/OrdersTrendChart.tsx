@@ -34,7 +34,9 @@ function OrdersTrendTooltipContent({
   language,
   ordersLabel,
 }: OrdersTrendTooltipContentProps) {
-  if (!active || !payload?.length) return null;
+  if (!active || !payload?.length) {
+    return null;
+  }
 
   const value = payload[0]?.value;
 
@@ -43,11 +45,14 @@ function OrdersTrendTooltipContent({
       <p className="text-muted-foreground text-xs font-medium">
         {typeof label === 'string' ? formatCompactDate(label, language) : label}
       </p>
+
       <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold tabular-nums">
         <span aria-hidden className="bg-primary size-2 shrink-0 rounded-full" />
+
         {typeof value === 'number'
           ? formatCount(value, language)
           : String(value)}
+
         <span className="text-muted-foreground font-normal">{ordersLabel}</span>
       </p>
     </div>
@@ -61,6 +66,7 @@ export const OrdersTrendChart = memo(function OrdersTrendChart({
   const { t, i18n } = useTranslation('dashboard-overview', {
     keyPrefix: 'trend',
   });
+
   const gradientId = useId();
 
   return (
@@ -70,15 +76,24 @@ export const OrdersTrendChart = memo(function OrdersTrendChart({
           {t('title', { count: days })}
         </CardTitle>
       </CardHeader>
+
       <CardContent className="h-55">
         <ResponsiveContainer
           width="100%"
           height="100%"
-          initialDimension={{ width: 400, height: 220 }}
+          initialDimension={{
+            width: 400,
+            height: 220,
+          }}
         >
           <AreaChart
             data={trend}
-            margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+            margin={{
+              top: 8,
+              right: 8,
+              bottom: 0,
+              left: 0,
+            }}
           >
             <defs>
               <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -87,6 +102,7 @@ export const OrdersTrendChart = memo(function OrdersTrendChart({
                   stopColor="var(--color-primary)"
                   stopOpacity={0.35}
                 />
+
                 <stop
                   offset="100%"
                   stopColor="var(--color-primary)"
@@ -94,11 +110,13 @@ export const OrdersTrendChart = memo(function OrdersTrendChart({
                 />
               </linearGradient>
             </defs>
+
             <CartesianGrid
               vertical={false}
               strokeDasharray="3 3"
               className="stroke-border"
             />
+
             <XAxis
               dataKey="date"
               tickFormatter={(value: string) =>
@@ -110,6 +128,7 @@ export const OrdersTrendChart = memo(function OrdersTrendChart({
               minTickGap={24}
               className="fill-muted-foreground text-xs"
             />
+
             <Tooltip
               content={({ active, payload, label }) => (
                 <OrdersTrendTooltipContent
@@ -120,9 +139,15 @@ export const OrdersTrendChart = memo(function OrdersTrendChart({
                   ordersLabel={t('ordersSeries')}
                 />
               )}
-              cursor={{ stroke: 'var(--color-border)', strokeDasharray: '4 4' }}
-              wrapperStyle={{ outline: 'none' }}
+              cursor={{
+                stroke: 'var(--color-border)',
+                strokeDasharray: '4 4',
+              }}
+              wrapperStyle={{
+                outline: 'none',
+              }}
             />
+
             <Area
               type="monotone"
               dataKey="orders_count"

@@ -13,10 +13,9 @@ import {
 import { RoleFiltersModal } from './RoleFiltersModal';
 import { RoleRow } from './RoleRow';
 import { useRoleFilters } from '../model/useRoleFilters';
+import { useRoleAccess } from '@/features/role-access';
 
-type Props = {
-  data: RolesListResponse;
-};
+type Props = { data: RolesListResponse };
 
 export function RolesTable({ data }: Props) {
   const { t } = useTranslation('roles');
@@ -25,6 +24,7 @@ export function RolesTable({ data }: Props) {
   const [roleToDelete, setRoleToDelete] = useState<RoleItem | null>(null);
 
   const name = roleToDelete?.name;
+  const access = useRoleAccess();
 
   const handleDeleteModalClose = useCallback(() => {
     setRoleToDelete(null);
@@ -32,9 +32,14 @@ export function RolesTable({ data }: Props) {
 
   const renderRow = useCallback(
     (role: RoleItem) => (
-      <RoleRow key={role.id} role={role} onDelete={setRoleToDelete} />
+      <RoleRow
+        key={role.id}
+        role={role}
+        onDelete={setRoleToDelete}
+        access={access}
+      />
     ),
-    [],
+    [access],
   );
 
   return (
@@ -48,8 +53,11 @@ export function RolesTable({ data }: Props) {
       <EntityListTable
         data={data}
         title={t('list.all')}
-        addHref="/dashboard/roles/new"
-        addLabel={t('list.add')}
+        addButton={
+          access.canCreate
+            ? { addHref: '/dashboard/roles/new', addLabel: t('list.add') }
+            : undefined
+        }
         basePath="/dashboard/roles"
         toolbar={
           <EntityFiltersToolbar
