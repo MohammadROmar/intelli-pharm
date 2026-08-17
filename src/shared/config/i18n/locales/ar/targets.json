@@ -15,7 +15,8 @@
   "emptySubtitle": "أنشئ هدف مبيعاتك الأول للبدء.",
   "type": {
     "monthly": "شهري",
-    "quarterly": "ربع سنوي"
+    "quarterly": "ربع سنوي",
+    "yearly": "سنوي"
   },
   "detail": {
     "actions": "الإجراءات",
@@ -35,7 +36,8 @@
     "labelUpdatedAt": "آخر تحديث",
     "type": {
       "monthly": "شهري",
-      "quarterly": "ربع سنوي"
+      "quarterly": "ربع سنوي",
+      "yearly": "سنوي"
     }
   },
   "filters": {
@@ -46,7 +48,8 @@
     "isActiveDescription": "عرض الأهداف النشطة فقط.",
     "type": {
       "monthly": "شهري",
-      "quarterly": "ربع سنوي"
+      "quarterly": "ربع سنوي",
+      "yearly": "سنوي"
     }
   },
   "achievementFilters": {

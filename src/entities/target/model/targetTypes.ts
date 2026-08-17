@@ -1,6 +1,6 @@
 import type { PaginatedResponse } from '@/shared/api';
 
-export type TargetType = 'monthly' | 'quarterly';
+export type TargetType = 'monthly' | 'quarterly' | 'yearly';
 
 export type Target = {
   id: number;

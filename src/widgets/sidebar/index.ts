@@ -13,5 +13,26 @@ export {
   type SidebarContextProps,
 } from './model/SidebarContext';
 
+export {
+  useSidebar,
+  useSidebarActions,
+  useSidebarMobile,
+  useSidebarState,
+} from './model/useSidebar';
+
 export { AppSidebar } from './ui/AppSidebar';
-export { SidebarInset, SidebarTrigger } from './ui/Sidebar';
+export {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuLink,
+  SidebarRail,
+  SidebarTrigger,
+} from './ui/Sidebar';

@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useIsMobile, cn } from '@/shared/lib';
-import {} from '@/shared/ui';
 import {
   SidebarContext,
   SIDEBAR_WIDTH,
@@ -11,6 +9,7 @@ import {
   SIDEBAR_KEYBOARD_SHORTCUT,
   type SidebarContextProps,
 } from '@/widgets/sidebar';
+import { useIsMobile, cn } from '@/shared/lib';
 
 export default function SidebarProvider({
   defaultOpen = true,

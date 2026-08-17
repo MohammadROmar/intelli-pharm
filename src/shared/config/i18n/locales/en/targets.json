@@ -15,7 +15,8 @@
   "emptySubtitle": "Create your first sales target to get started.",
   "type": {
     "monthly": "Monthly",
-    "quarterly": "Quarterly"
+    "quarterly": "Quarterly",
+    "yearly": "Yearly"
   },
   "detail": {
     "actions": "Actions",
@@ -35,7 +36,8 @@
     "labelUpdatedAt": "Last Updated",
     "type": {
       "monthly": "Monthly",
-      "quarterly": "Quarterly"
+      "quarterly": "Quarterly",
+      "yearly": "Yearly"
     }
   },
   "filters": {
@@ -46,7 +48,8 @@
     "isActiveDescription": "Show only currently active targets.",
     "type": {
       "monthly": "Monthly",
-      "quarterly": "Quarterly"
+      "quarterly": "Quarterly",
+      "yearly": "Yearly"
     }
   },
   "achievementFilters": {

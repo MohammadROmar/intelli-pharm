@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowRight,
+  CalendarClock,
   CalendarDays,
   CalendarRange,
   Pencil,
@@ -36,6 +37,11 @@ const TYPE_CONFIG: Record<TargetType, TypeConfig> = {
     Icon: CalendarRange,
     accentClass: 'border-purple-500/20! [&_.type-icon]:text-purple-500!',
     badgeClass: 'border-purple-500/30! bg-purple-500/10! text-purple-500!',
+  },
+  yearly: {
+    Icon: CalendarClock,
+    accentClass: 'border-orange-500/20! [&_.type-icon]:text-orange-500!',
+    badgeClass: 'border-orange-500/30! bg-orange-500/10! text-orange-500!',
   },
 };
 

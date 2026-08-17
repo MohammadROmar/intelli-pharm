@@ -2,9 +2,8 @@ import type { ChatAction, ChatState } from './chatTypes';
 
 export const INITIAL_CHAT_STATE: ChatState = {
   messages: [],
-  isLoading: false,
+  isConversationLoading: false,
   conversation_id: null,
-  error: null,
 };
 
 export function chatReducer(state: ChatState, action: ChatAction): ChatState {
@@ -12,35 +11,44 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
     case 'SEND':
       return {
         ...state,
-        isLoading: true,
-        error: null,
-        messages: [
-          ...state.messages,
-          {
-            id: crypto.randomUUID(),
-            role: 'user',
-            message: action.payload,
-            created_at: new Date().toString(),
-            conversation_id: state.conversation_id,
-          },
-        ],
+        messages: [...state.messages, action.payload],
       };
 
     case 'RECEIVE':
       return {
         ...state,
-        isLoading: false,
         conversation_id: action.payload.conversation_id,
-        messages: [
-          ...state.messages,
-          {
-            ...action.payload,
-          },
-        ],
+        messages: [...state.messages, action.payload],
       };
 
-    case 'ERROR':
-      return { ...state, isLoading: false, error: action.payload };
+    case 'SEND_ERROR':
+      return {
+        ...state,
+        messages: state.messages.filter(
+          (message) => message.id !== action.payload.clientMessageId,
+        ),
+      };
+
+    case 'LOAD_START':
+      return {
+        ...state,
+        messages: [],
+        conversation_id: action.payload.conversationId,
+        isConversationLoading: true,
+      };
+
+    case 'LOAD_SUCCESS':
+      return {
+        ...state,
+        messages: action.payload.messages,
+        conversation_id: action.payload.conversationId,
+        isConversationLoading: false,
+      };
+
+    case 'LOAD_ERROR':
+      return action.payload.conversationId === state.conversation_id
+        ? { ...state, isConversationLoading: false }
+        : state;
 
     case 'CLEAR':
       return INITIAL_CHAT_STATE;
