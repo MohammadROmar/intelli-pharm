@@ -19,7 +19,9 @@
     "active": "نشط",
     "price": "السعر",
     "createdAt": "تاريخ الانشاء",
-    "actions": "الإجراءات"
+    "actions": "الإجراءات",
+    "restock": "إضافة مخزون",
+    "editStock": "تعديل المخزون"
   },
   "form": {
     "medicineDetailsTitle": "تفاصيل الدواء",
@@ -64,7 +66,8 @@
     "pageTitle": "تفاصيل الدواء",
     "medicine": "الدواء",
     "stock": "المخزون",
-    "restock": "إعادة التخزين",
+    "restock": "إضافة مخزون",
+    "editStock": "تعديل المخزون",
     "actions": "الإجراءات",
     "availableQuantity": "الكمية المتاحة",
     "scientificName": "الاسم العلمي",
@@ -146,21 +149,27 @@
     "units": "وحدة"
   },
   "restock": {
-    "tooltipLabel": "إعادة التخزين",
-    "title": "إعادة تخزين الدواء",
-    "subtitle": "أضف إدخالات مخزون لمستودع واحد أو أكثر.",
-    "warehouseStock": "مخزون المستودع",
-    "warehouseStockSubtitle": "كل صف يمثل مخزوناً في مستودع معين.",
+    "tooltipLabel": "إضافة مخزون",
+    "title": "إضافة مخزون للدواء",
+    "subtitle": "أضف كميات جديدة للدواء في مستودع واحد أو أكثر.",
+    "submit": "تأكيد إضافة المخزون"
+  },
+  "editStock": {
+    "tooltipLabel": "تعديل المخزون",
+    "title": "تعديل مخزون الدواء",
+    "subtitle": "عدّل مخزون الدواء الحالي في المستودعات.",
+    "submit": "حفظ تعديلات المخزون"
+  },
+  "stockForm": {
+    "warehouseStock": "مخزون المستودعات",
+    "warehouseStockSubtitle": "كل صف يمثل مخزون الدواء في مستودع معين.",
     "stockLabel": "المخزون",
     "warehouse": "المستودع",
     "quantity": "الكمية",
     "expiryDate": "تاريخ الانتهاء",
     "addStock": "إضافة مخزون",
-    "totalQuantity": "إجمالي الوحدات المضافة",
+    "totalQuantity": "إجمالي الوحدات",
     "units": "وحدة",
-    "submit": "تأكيد إعادة التخزين",
-    "submitting": "جارٍ الحفظ…",
-    "cancel": "إلغاء",
     "required": "{{field}} مطلوب",
     "fRequired": "{{field}} مطلوبة"
   },

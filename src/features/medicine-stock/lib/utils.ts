@@ -1,6 +1,6 @@
-import type { RestockFormValues, RestockPayload } from '../model/restockTypes';
+import type { StockFormValues, StockPayload } from '../model/stockTypes';
 
-export function toPayload(values: RestockFormValues): RestockPayload {
+export function toPayload(values: StockFormValues): StockPayload {
   return {
     stocks: values.stocks.map((row) => ({
       warehouse_id: row.warehouse_id,

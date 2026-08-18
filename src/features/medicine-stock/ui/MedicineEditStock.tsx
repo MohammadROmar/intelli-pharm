@@ -2,17 +2,17 @@ import { useState } from 'react';
 
 import type { MedicineDetail } from '@/entities/medicine';
 
-import { MedicineRestockForm } from './MedicineRestockForm';
+import { MedicineUpdateStockForm } from './MedicineUpdateStockForm';
 import { toPayload } from '../lib/utils';
 import { stocksToFormValues } from '../lib/stocksToFormValues';
-import { useRestockMedicine } from '../model/useRestockMedicine';
+import { useEditMedicineStock } from '../model/useEditMedicineStock';
 
-export function MedicineRestock({ medicine }: { medicine: MedicineDetail }) {
+export function MedicineEditStock({ medicine }: { medicine: MedicineDetail }) {
   const [formKey, setFormKey] = useState(0);
-  const { mutate, isPending } = useRestockMedicine(medicine.id);
+  const { mutate, isPending } = useEditMedicineStock(medicine.id);
 
   return (
-    <MedicineRestockForm
+    <MedicineUpdateStockForm
       key={formKey}
       onSubmit={(payload) => mutate(toPayload(payload))}
       isPending={isPending}

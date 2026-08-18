@@ -19,7 +19,9 @@
     "inactive": "Inactive",
     "price": "Price",
     "createdAt": "Created",
-    "actions": "Actions"
+    "actions": "Actions",
+    "restock": "Restock",
+    "editStock": "Edit Stock"
   },
   "form": {
     "medicineDetailsTitle": "Medicine Details",
@@ -67,6 +69,7 @@
     "medicine": "Medicine",
     "stock": "Stock",
     "restock": "Restock",
+    "editStock": "Edit Stock",
     "actions": "Actions",
     "breadcrumbMedicines": "Medicines",
     "edit": "Edit",
@@ -146,9 +149,17 @@
     "units": "units"
   },
   "restock": {
-    "tooltipLabel": "Restock",
     "title": "Restock Medicine",
     "subtitle": "Add stock entries to one or more warehouses.",
+    "submit": "Confirm Restock"
+  },
+  "editStock": {
+    "tooltipLabel": "Edit Stock",
+    "title": "Edit Medicine Stock",
+    "subtitle": "Update the medicine's current stock across its warehouses.",
+    "submit": "Save Stock Changes"
+  },
+  "stockForm": {
     "warehouseStock": "Warehouse Stocks",
     "warehouseStockSubtitle": "Each row represents stock in a specific warehouse.",
     "stockLabel": "Stock",
@@ -156,11 +167,8 @@
     "quantity": "Quantity",
     "expiryDate": "Expiry Date",
     "addStock": "Add Stock",
-    "totalQuantity": "Total units being added",
+    "totalQuantity": "Total units",
     "units": "units",
-    "submit": "Confirm Restock",
-    "submitting": "Saving…",
-    "cancel": "Cancel",
     "required": "{{field}} is required",
     "fRequired": "{{field}} is required"
   },

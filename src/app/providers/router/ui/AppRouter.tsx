@@ -259,6 +259,11 @@ const router = createBrowserRouter([
                             lazy: () => import('@/pages/medicine-restock'),
                             handle: withPermission('erp.stock.update'),
                           },
+                          {
+                            path: 'edit-stock',
+                            lazy: () => import('@/pages/medicine-edit-stock'),
+                            handle: withPermission('erp.stock.update'),
+                          },
                         ],
                       },
                       {

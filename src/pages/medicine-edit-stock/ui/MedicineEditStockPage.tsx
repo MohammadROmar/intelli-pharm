@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 
-import { MedicineRestock } from '@/features/medicine-stock';
+import { MedicineEditStock } from '@/features/medicine-stock';
 import { useGetMedicineSuspense } from '@/entities/medicine';
 import { PageTitle, QueryErrorBoundary, QueryDisabled } from '@/shared/ui';
 
-export default function MedicineRestockPage() {
+export default function MedicineEditStockPage() {
   const { id } = useParams<{ id: string }>();
   const medicineId = Number(id);
 
@@ -15,21 +15,23 @@ export default function MedicineRestockPage() {
 
   return (
     <QueryErrorBoundary>
-      <MedicineRestockContent medicineId={medicineId} />
+      <MedicineEditStockContent medicineId={medicineId} />
     </QueryErrorBoundary>
   );
 }
 
-type MedicineRestockContentProps = { medicineId: number };
+type MedicineEditStockContentProps = { medicineId: number };
 
-function MedicineRestockContent({ medicineId }: MedicineRestockContentProps) {
-  const { t } = useTranslation('medicines', { keyPrefix: 'restock' });
+function MedicineEditStockContent({
+  medicineId,
+}: MedicineEditStockContentProps) {
+  const { t } = useTranslation('medicines', { keyPrefix: 'editStock' });
   const { data } = useGetMedicineSuspense(medicineId);
 
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <MedicineRestock medicine={data.data!} />
+      <MedicineEditStock medicine={data.data!} />
     </>
   );
 }

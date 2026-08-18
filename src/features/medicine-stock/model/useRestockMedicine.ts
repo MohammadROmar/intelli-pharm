@@ -3,10 +3,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 
-import type { RestockPayload } from './restockTypes';
-import { restockMedicine } from '../api';
 import type { ApiError } from '@/shared/api';
 import { createDomainQueryKeys } from '@/shared/model';
+
+import { restockMedicine } from '../api';
+import type { StockPayload } from './stockTypes';
 
 export function useRestockMedicine(id: number) {
   const queryClient = useQueryClient();
@@ -16,7 +17,7 @@ export function useRestockMedicine(id: number) {
   const { t } = useTranslation();
   const { t: tErrors } = useTranslation('errors');
 
-  return useMutation<void, ApiError, RestockPayload>({
+  return useMutation<void, ApiError, StockPayload>({
     mutationFn: (payload) => restockMedicine(id, payload),
 
     onSuccess: () => {

@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { memo, type ElementType } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { PackagePlus } from 'lucide-react';
+import { PackagePlus, Pencil } from 'lucide-react';
 
 import type { Medicine } from '@/entities/medicine';
 import { formatDate, formatPrice } from '@/shared/lib';
@@ -15,7 +15,7 @@ import {
 
 export type MedicineRowActionAccess = Readonly<{
   canUpdate: boolean;
-  canRestock: boolean;
+  canUpdateStock: boolean;
   canDelete: boolean;
 }>;
 
@@ -39,12 +39,15 @@ export const MedicineRow = memo(function MedicineRow({
           {medicine.commercial_name}
         </p>
       </TableCell>
+
       <TableCell>
         <Badge variant={medicine.is_active ? 'success' : 'muted'}>
           {medicine.is_active ? t('active') : t('inactive')}
         </Badge>
       </TableCell>
+
       <TableCell>{formatPrice(medicine.price, i18n.language)}</TableCell>
+
       <TableCell className="text-muted-foreground">
         {formatDate(medicine.created_at, i18n.language, false)}
       </TableCell>
@@ -56,27 +59,47 @@ export const MedicineRow = memo(function MedicineRow({
         path="/dashboard/medicines"
       >
         <TableActions.Detail />
+
         {actionAccess.canUpdate && <TableActions.Update />}
-        {actionAccess.canRestock && <Restock id={medicine.id} />}
+
+        {actionAccess.canUpdateStock && (
+          <>
+            <MedicineStockAction
+              to={`/dashboard/medicines/${medicine.id}/restock`}
+              icon={PackagePlus}
+              label={t('restock')}
+            />
+
+            <MedicineStockAction
+              to={`/dashboard/medicines/${medicine.id}/edit-stock`}
+              icon={Pencil}
+              label={t('editStock')}
+            />
+          </>
+        )}
+
         {actionAccess.canDelete && <TableActions.Delete />}
       </TableActions>
     </TableRow>
   );
 });
 
-function Restock({ id }: { id: number }) {
-  const { t } = useTranslation('medicines', {
-    keyPrefix: 'restock',
-  });
+type MedicineStockActionProps = {
+  to: string;
+  icon: ElementType;
+  label: string;
+};
 
+function MedicineStockAction({
+  to,
+  label,
+  icon: Icon,
+}: MedicineStockActionProps) {
   return (
     <DropdownMenuItem asChild>
-      <Link
-        to={`/dashboard/medicines/${id}/restock`}
-        className="cursor-pointer"
-      >
-        <PackagePlus className="size-4" />
-        <span>{t('tooltipLabel')}</span>
+      <Link to={to} className="cursor-pointer">
+        <Icon className="size-4" />
+        <span>{label}</span>
       </Link>
     </DropdownMenuItem>
   );

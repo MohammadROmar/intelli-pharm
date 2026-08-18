@@ -12,7 +12,7 @@ import {
   GenericSingleSelect,
   Input,
 } from '@/shared/ui';
-import type { RestockFormValues } from '../model/restockTypes';
+import type { StockFormValues } from '../model/stockTypes';
 
 type StockRowCardProps = {
   index: number;
@@ -30,9 +30,9 @@ export function StockRowCard({
   isPending,
 }: StockRowCardProps) {
   const { register, control, getFieldState } =
-    useFormContext<RestockFormValues>();
+    useFormContext<StockFormValues>();
 
-  const formState = useFormState<RestockFormValues>({
+  const formState = useFormState<StockFormValues>({
     name: [
       `stocks.${index}.warehouse_id`,
       `stocks.${index}.quantity`,
@@ -40,9 +40,7 @@ export function StockRowCard({
     ],
   });
 
-  const { t } = useTranslation('medicines', {
-    keyPrefix: 'restock',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'stockForm' });
 
   const warehouseState = getFieldState(
     `stocks.${index}.warehouse_id`,

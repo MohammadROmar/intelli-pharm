@@ -15,9 +15,9 @@ import {
 
 import { StockRowCard } from './StockRowCard';
 import type {
-  RestockFormValues,
-  MedicineRestockFormProps,
-} from '../model/restockTypes';
+  StockFormValues,
+  MedicineUpdateStockFormProps,
+} from '../model/stockTypes';
 
 const DEFAULT_ROW: StockEntry = {
   warehouse_id: '',
@@ -25,15 +25,15 @@ const DEFAULT_ROW: StockEntry = {
   expiry_date: '',
 };
 
-export function MedicineRestockForm({
+export function MedicineUpdateStockForm({
   isPending = false,
   onSubmit,
   onReset,
   defaultValues,
-}: MedicineRestockFormProps) {
-  const { t } = useTranslation('medicines', { keyPrefix: 'restock' });
+}: MedicineUpdateStockFormProps) {
+  const { t } = useTranslation('medicines', { keyPrefix: 'stockForm' });
 
-  const methods = useForm<RestockFormValues>({
+  const methods = useForm<StockFormValues>({
     defaultValues: { stocks: defaultValues ?? [DEFAULT_ROW] },
     mode: 'onTouched',
   });

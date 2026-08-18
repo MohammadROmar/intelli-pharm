@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ElementType } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { PackagePlus, Pencil, Trash2 } from 'lucide-react';
@@ -35,18 +35,17 @@ export function MedicineDetailHeader({ medicine }: Props) {
 }
 
 function MedicineActions({ medicine, name }: Props & { name: string }) {
-  const { t } = useTranslation('medicines', {
-    keyPrefix: 'detail',
-  });
+  const { t } = useTranslation('medicines', { keyPrefix: 'detail' });
 
   const [medicineToDelete, setMedicineToDelete] =
     useState<MedicineDetail | null>(null);
+
   const navigate = useNavigate();
 
-  const { canUpdate, canDelete, canRestock } = useMedicineAccess();
+  const { canUpdate, canDelete, canUpdateStock } = useMedicineAccess();
 
   const hasMedicineAction = canUpdate || canDelete;
-  const hasAnyAction = hasMedicineAction || canRestock;
+  const hasAnyAction = hasMedicineAction || canUpdateStock;
 
   return (
     <>
@@ -66,6 +65,7 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
               <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
                 {t('medicine')}
               </DropdownMenuLabel>
+
               {canUpdate && (
                 <DropdownMenuItem asChild>
                   <Link
@@ -91,24 +91,48 @@ function MedicineActions({ medicine, name }: Props & { name: string }) {
             </DropdownMenuGroup>
           )}
 
-          {canRestock && (
+          {canUpdateStock && (
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-muted-foreground text-xs! uppercase">
                 {t('stock')}
               </DropdownMenuLabel>
-              <DropdownMenuItem asChild>
-                <Link
-                  to={`/dashboard/medicines/${medicine.id}/restock`}
-                  className="cursor-pointer"
-                >
-                  <PackagePlus className="size-4" />
-                  {t('restock')}
-                </Link>
-              </DropdownMenuItem>
+
+              <MedicineStockAction
+                to={`/dashboard/medicines/${medicine.id}/restock`}
+                icon={PackagePlus}
+                label={t('restock')}
+              />
+
+              <MedicineStockAction
+                to={`/dashboard/medicines/${medicine.id}/edit-stock`}
+                icon={Pencil}
+                label={t('editStock')}
+              />
             </DropdownMenuGroup>
           )}
         </ActionsDropdown>
       )}
     </>
+  );
+}
+
+type MedicineStockActionProps = {
+  to: string;
+  icon: ElementType;
+  label: string;
+};
+
+function MedicineStockAction({
+  to,
+  icon: Icon,
+  label,
+}: MedicineStockActionProps) {
+  return (
+    <DropdownMenuItem asChild>
+      <Link to={to} className="cursor-pointer">
+        <Icon className="size-4" />
+        {label}
+      </Link>
+    </DropdownMenuItem>
   );
 }
