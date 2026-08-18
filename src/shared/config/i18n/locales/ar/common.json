@@ -21,7 +21,8 @@
     "employee": "الموظف",
     "plan": "الخطة",
     "pharmacyNotes": "تمت إضافة الملاحظة بنجاح",
-    "role": "الدور"
+    "role": "الدور",
+    "conversation": "المحادثة"
   },
   "logout": {
     "title": "تسجيل الخروج",

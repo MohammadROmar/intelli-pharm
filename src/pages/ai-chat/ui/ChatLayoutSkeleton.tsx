@@ -40,21 +40,32 @@ function HistorySidebarSkeleton() {
           </div>
         ))}
       </div>
-      <div className="border-sidebar-border border-t p-2">
-        <Skeleton className="h-10 w-full rounded-lg!" />
+      <div className="p-2">
+        <Skeleton className="h-8 w-full rounded-lg!" />
       </div>
     </aside>
   );
 }
 
+function ChatHeaderSkeleton() {
+  return (
+    <div className="flex h-16 shrink-0 items-center gap-2 border-b px-3">
+      <Skeleton className="size-9 rounded-lg!" />
+      <Skeleton className="h-4 w-px shrink-0 rounded-none!" />
+      <Skeleton className="h-3.5 w-full max-w-32" />
+    </div>
+  );
+}
+
 export function ChatPageSkeleton() {
   return (
-    <div className="relative flex h-full min-h-0 w-full overflow-hidden">
+    <div className="relative flex size-full min-h-0 overflow-hidden">
       <HistorySidebarSkeleton />
-      <Skeleton className="absolute start-3 top-2.5 z-20 size-11 rounded-xl! md:hidden md:size-10 md:rounded-lg!" />
 
-      <div className="grid min-w-0 flex-1 grid-rows-[1fr_auto] overflow-hidden">
-        <div className="mx-auto w-full max-w-3xl space-y-7 overflow-hidden px-4 pt-16 pb-8 sm:px-6 md:pt-8">
+      <div className="grid min-w-0 flex-1 grid-rows-[auto_1fr_auto] overflow-hidden">
+        <ChatHeaderSkeleton />
+
+        <div className="mx-auto w-full max-w-3xl space-y-7 overflow-hidden px-4 pt-8 pb-8 sm:px-6">
           {PAGE_SKELETON_ROLES.map((role, index) => (
             <ChatMessageSkeleton key={`${role}-${index}`} role={role} />
           ))}
@@ -74,7 +85,7 @@ export function ChatPageSkeleton() {
 
 export function ChatLayoutSkeleton() {
   return (
-    <div className="h-dvh min-h-0 overflow-hidden">
+    <div className="h-dvh min-h-0 w-full overflow-hidden">
       <ChatPageSkeleton />
     </div>
   );

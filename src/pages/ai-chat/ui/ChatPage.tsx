@@ -1,12 +1,13 @@
 import { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { SidebarInset, SidebarTrigger } from '@/widgets/sidebar';
+import { SidebarInset } from '@/widgets/sidebar';
 
-import { ChatHistorySidebar } from './ChatHistorySidebar';
+import { ChatInput } from './ChatInput';
+import { ChatHeader } from './ChatHeader';
 import type { ChatInputHandle } from './ChatInput';
 import { ChatMessageList } from './ChatMessageList';
-import { ChatInput } from './ChatInput';
+import { ChatHistorySidebar } from './ChatHistorySidebar';
 import { useChat } from '../model/useChat';
 import { useConversations } from '../model/useConversations';
 import type { Conversation } from '../model/chatTypes';
@@ -40,6 +41,13 @@ export default function ChatPage() {
   } = useConversations();
   const conversations = data ?? EMPTY_CONVERSATIONS;
 
+  const activeConversation =
+    conversations.find((conversation) => conversation.id === conversationId) ??
+    null;
+  const chatTitle =
+    activeConversation?.title?.trim() ||
+    (conversationId ? t('untitledConversation') : t('newConversation'));
+
   const pageTitle = `${t('pageTitle')} - IntelliPharma`;
 
   const handleRetryHistory = useCallback(() => {
@@ -51,6 +59,15 @@ export default function ChatPage() {
       void loadConversation(selectedConversationId);
     },
     [loadConversation],
+  );
+
+  const handleConversationDeleted = useCallback(
+    (deletedConversationId: number) => {
+      if (deletedConversationId === conversationId) {
+        clear();
+      }
+    },
+    [clear, conversationId],
   );
 
   return (
@@ -67,17 +84,15 @@ export default function ChatPage() {
         onRetry={handleRetryHistory}
         onNewChat={clear}
         onSelectConversation={handleSelectConversation}
+        onConversationDeleted={handleConversationDeleted}
       />
 
-      <SidebarInset className="relative min-h-0">
-        <SidebarTrigger
-          srLabel={t('toggleHistory')}
-          className="bg-background/85 absolute start-3 top-2.5 z-20 size-11 touch-manipulation rounded-xl shadow-sm backdrop-blur-md md:size-10 md:rounded-lg"
-        />
+      <SidebarInset className="min-h-0">
+        <ChatHeader title={chatTitle} />
 
         <section
           aria-label={t('conversation')}
-          className="relative grid h-full min-h-0 grid-rows-[1fr_auto] overflow-hidden"
+          className="relative grid min-h-0 flex-1 grid-rows-[1fr_auto] overflow-hidden"
         >
           <div
             data-chat-scroll-container

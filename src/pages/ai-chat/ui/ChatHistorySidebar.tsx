@@ -1,7 +1,7 @@
 import { useCallback, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDirection } from '@radix-ui/react-direction';
-import { ArrowLeft, MessageCirclePlus, Search, X } from 'lucide-react';
+import { ArrowLeft, Search, SquarePen, X } from 'lucide-react';
 
 import { cn } from '@/shared/lib';
 import { Input } from '@/shared/ui';
@@ -88,6 +88,7 @@ function ChatHistorySidebarBody({
   onRetry,
   onNewChat,
   onSelectConversation,
+  onConversationDeleted,
 }: ChatHistorySidebarProps) {
   const { t } = useTranslation('chat');
   const { setOpenMobile } = useSidebarMobile();
@@ -122,7 +123,7 @@ function ChatHistorySidebarBody({
               disabled={isChatBusy}
               tooltip={t('newConversation')}
             >
-              <MessageCirclePlus className="size-4" aria-hidden />
+              <SquarePen className="size-4" aria-hidden />
               <span className="truncate">{t('newConversation')}</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -143,6 +144,7 @@ function ChatHistorySidebarBody({
           isChatBusy={isChatBusy}
           onRetry={onRetry}
           onSelectConversation={handleSelectConversation}
+          onConversationDeleted={onConversationDeleted}
         />
       </SidebarContent>
 

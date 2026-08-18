@@ -130,7 +130,14 @@ export function ChatInput({ onSend, isLoading, ref }: ChatInputProps) {
           id={hintId}
           className="text-muted-foreground mt-2 text-center text-xs"
         >
-          {isLoading ? t('inputLoadingHint') : t('inputHint')}
+          {isLoading ? (
+            t('inputLoadingHint')
+          ) : (
+            <>
+              <span className="hidden md:block">{t('inputHint')}</span>
+              <span className="block md:hidden">{t('inputHintMobile')}</span>
+            </>
+          )}
         </p>
       </div>
     </div>

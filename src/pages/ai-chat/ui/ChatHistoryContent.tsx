@@ -1,18 +1,27 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageSquare, RefreshCw } from 'lucide-react';
+import { MessageSquare, MoreVertical, RefreshCw, Trash2 } from 'lucide-react';
 
+import { cn } from '@/shared/lib';
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  Skeleton,
+} from '@/shared/ui';
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebarState,
 } from '@/widgets/sidebar';
-import { cn } from '@/shared/lib';
-import { Button, Skeleton } from '@/shared/ui';
 
+import { DeleteConversationModal } from './Deleteconversationmodal';
 import type { ConversationGroup } from '../model/chatHistory';
 import type { Conversation } from '../model/chatTypes';
 import type { HistoryContentProps } from '../model/chatHistoryTypes';
@@ -71,7 +80,10 @@ function HistoryError({ isRetrying, onRetry }: HistoryErrorProps) {
 
   if (state === 'collapsed') {
     return (
-      <div role="alert" className="flex justify-center px-2 py-2">
+      <div
+        role="alert"
+        className="flex h-full items-center justify-center px-2 py-2"
+      >
         <span className="sr-only">{t('historyErrorTitle')}</span>
         <SidebarMenuButton
           onClick={onRetry}
@@ -87,7 +99,7 @@ function HistoryError({ isRetrying, onRetry }: HistoryErrorProps) {
   return (
     <div
       role="alert"
-      className="flex min-h-48 flex-col items-center justify-center gap-3 px-4 text-center"
+      className="flex h-full flex-col items-center justify-center gap-3 px-4 text-center"
     >
       <div className="bg-sidebar-accent flex size-10 items-center justify-center rounded-xl">
         {retryIcon}
@@ -122,18 +134,7 @@ function HistoryEmptyState({ hasNoResults }: HistoryEmptyStateProps) {
   const { state } = useSidebarState();
   const title = hasNoResults ? t('noHistoryResults') : t('emptyHistoryTitle');
 
-  if (state === 'collapsed') {
-    return (
-      <div className="flex justify-center px-2 py-2">
-        <span
-          className="text-sidebar-foreground/50 flex size-8 items-center justify-center"
-          title={title}
-        >
-          <MessageSquare className="size-4" aria-hidden />
-        </span>
-      </div>
-    );
-  }
+  if (state === 'collapsed') return null;
 
   return (
     <div
@@ -163,6 +164,7 @@ type HistoryListProps = {
   isSearchPending: boolean;
   isRetrying: boolean;
   onSelectConversation: (conversationId: number) => void;
+  onDelete: (conversation: Conversation) => void;
 };
 
 function HistoryConversationButton({
@@ -170,11 +172,13 @@ function HistoryConversationButton({
   isActive,
   isChatBusy,
   onSelectConversation,
+  onDelete,
 }: {
   conversation: Conversation;
   isActive: boolean;
   isChatBusy: boolean;
   onSelectConversation: (conversationId: number) => void;
+  onDelete: (conversation: Conversation) => void;
 }) {
   const { t } = useTranslation('chat');
   const title = conversation.title?.trim() || t('untitledConversation');
@@ -184,12 +188,36 @@ function HistoryConversationButton({
       <SidebarMenuButton
         isActive={isActive}
         disabled={isChatBusy}
-        tooltip={title}
         aria-current={isActive ? 'page' : undefined}
         onClick={() => onSelectConversation(conversation.id)}
       >
         <span className="truncate">{title}</span>
       </SidebarMenuButton>
+
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <SidebarMenuAction
+            showOnHover
+            disabled={isChatBusy}
+            className="peer-data-[active=true]/menu-button:opacity-100"
+          >
+            <MoreVertical aria-hidden />
+            <span className="sr-only">
+              {t('conversationOptions', { title })}
+            </span>
+          </SidebarMenuAction>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            variant="destructive"
+            onSelect={() => onDelete(conversation)}
+          >
+            <Trash2 aria-hidden />
+            {t('deleteConversation')}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </SidebarMenuItem>
   );
 }
@@ -201,6 +229,7 @@ function HistoryList({
   isSearchPending,
   isRetrying,
   onSelectConversation,
+  onDelete,
 }: HistoryListProps) {
   return (
     <>
@@ -215,6 +244,7 @@ function HistoryList({
                 isActive={conversation.id === activeConversationId}
                 isChatBusy={isChatBusy}
                 onSelectConversation={onSelectConversation}
+                onDelete={onDelete}
               />
             ))}
           </SidebarMenu>
@@ -235,7 +265,11 @@ export const ChatHistoryContent = memo(function ChatHistoryContent({
   isChatBusy,
   onRetry,
   onSelectConversation,
+  onConversationDeleted,
 }: HistoryContentProps) {
+  const [conversationToDelete, setConversationToDelete] =
+    useState<Conversation | null>(null);
+
   const hasBlockingError = isError && conversations.length === 0;
   const isEmpty = !isLoading && !hasBlockingError && conversations.length === 0;
   const hasNoResults =
@@ -244,24 +278,43 @@ export const ChatHistoryContent = memo(function ChatHistoryContent({
     conversations.length > 0 &&
     groups.length === 0;
 
-  if (isLoading) return <HistorySkeleton />;
+  const handleDeleteModalClose = () => setConversationToDelete(null);
 
-  if (hasBlockingError) {
-    return <HistoryError isRetrying={isRetrying} onRetry={onRetry} />;
-  }
+  const handleConversationDeleted = (conversationId: number) => {
+    onConversationDeleted(conversationId);
+  };
 
-  if (isEmpty || hasNoResults) {
-    return <HistoryEmptyState hasNoResults={hasNoResults} />;
+  let content: React.ReactNode;
+
+  if (isLoading) {
+    content = <HistorySkeleton />;
+  } else if (hasBlockingError) {
+    content = <HistoryError isRetrying={isRetrying} onRetry={onRetry} />;
+  } else if (isEmpty || hasNoResults) {
+    content = <HistoryEmptyState hasNoResults={hasNoResults} />;
+  } else {
+    content = (
+      <HistoryList
+        groups={groups}
+        activeConversationId={activeConversationId}
+        isChatBusy={isChatBusy}
+        isSearchPending={isSearchPending}
+        isRetrying={isRetrying}
+        onSelectConversation={onSelectConversation}
+        onDelete={setConversationToDelete}
+      />
+    );
   }
 
   return (
-    <HistoryList
-      groups={groups}
-      activeConversationId={activeConversationId}
-      isChatBusy={isChatBusy}
-      isSearchPending={isSearchPending}
-      isRetrying={isRetrying}
-      onSelectConversation={onSelectConversation}
-    />
+    <>
+      {content}
+
+      <DeleteConversationModal
+        conversation={conversationToDelete}
+        onClose={handleDeleteModalClose}
+        onDeleted={handleConversationDeleted}
+      />
+    </>
   );
 });

@@ -21,7 +21,8 @@
     "employee": "Employee",
     "plan": "Plan",
     "pharmacyNotes": "Note added successfully",
-    "role": "Role"
+    "role": "Role",
+    "conversation": "Conversation"
   },
   "logout": {
     "title": "Logout",

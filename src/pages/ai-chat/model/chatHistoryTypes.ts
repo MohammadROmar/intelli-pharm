@@ -11,6 +11,7 @@ export type ChatHistorySidebarProps = {
   onRetry: () => void;
   onNewChat: () => void;
   onSelectConversation: (conversationId: number) => void;
+  onConversationDeleted: (conversationId: number) => void;
 };
 
 export type HistoryContentProps = Omit<ChatHistorySidebarProps, 'onNewChat'> & {
