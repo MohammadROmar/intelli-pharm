@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Activity, ArrowRight, Boxes, ScanBarcode, Truck } from 'lucide-react';
 
 import type { BarcodeScanResult } from '@/entities/medicine';
+import { UsbHint } from '@/shared/barcode';
 import { buttonVariants, formatPrice } from '@/shared/lib';
 import {
   Badge,
@@ -105,6 +106,8 @@ export function BarcodeScanResultCard({ result }: Props) {
               </Link>
             </CardFooter>
           </Card>
+
+          <UsbHint />
         </div>
       </div>
     </div>

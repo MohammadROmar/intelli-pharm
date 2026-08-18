@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 const SCANNER_THRESHOLD_MS = 50;
 const MIN_BARCODE_LENGTH = 4;
@@ -11,6 +11,11 @@ const listenerStack: ScanCallbackRef[] = [];
 const keyBuffer: string[] = [];
 let lastKeyTime = 0;
 let isWindowListenerAttached = false;
+
+function resetBuffer() {
+  keyBuffer.length = 0;
+  lastKeyTime = 0;
+}
 
 function flush() {
   const barcode = keyBuffer.join('').trim();
@@ -69,7 +74,7 @@ function detachWindowListenerIfIdle() {
   if (listenerStack.length > 0 || !isWindowListenerAttached) return;
   window.removeEventListener('keydown', handleWindowKeyDown, true);
   isWindowListenerAttached = false;
-  keyBuffer.length = 0;
+  resetBuffer();
 }
 
 export function useKeyboardBarcodeScanner({ onScan, enabled = true }: Options) {
@@ -79,15 +84,17 @@ export function useKeyboardBarcodeScanner({ onScan, enabled = true }: Options) {
     onScanRef.current = onScan;
   }, [onScan]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!enabled) return;
 
     listenerStack.push(onScanRef);
+    resetBuffer();
     attachWindowListenerIfNeeded();
 
     return () => {
       const index = listenerStack.indexOf(onScanRef);
       if (index !== -1) listenerStack.splice(index, 1);
+      resetBuffer();
       detachWindowListenerIfIdle();
     };
   }, [enabled]);

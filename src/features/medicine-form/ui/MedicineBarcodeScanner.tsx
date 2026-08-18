@@ -1,22 +1,64 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import type { KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormContext, useFormState } from 'react-hook-form';
 import { ScanBarcode } from 'lucide-react';
 
 import type { MedicineFormData } from '@/entities/medicine';
-import { BarcodeScanner } from '@/shared/barcode';
-import { useFieldError } from '@/shared/lib';
+import { BarcodeScanner, useKeyboardBarcodeScanner } from '@/shared/barcode';
+import { cn, useFieldError } from '@/shared/lib';
 import { Button, Field, FieldError, FieldLabel, Input } from '@/shared/ui';
 
-export function MedicineBarcodeScanner() {
+const SCAN_HIGHLIGHT_MS = 1600;
+
+type Props = { isPending?: boolean };
+
+export function MedicineBarcodeScanner({ isPending }: Props) {
   const { register, setValue } = useFormContext<MedicineFormData>();
   const { errors } = useFormState<MedicineFormData>({ name: ['barcode'] });
 
   const { t } = useTranslation('medicines', { keyPrefix: 'form' });
+  const { te } = useFieldError();
 
   const [scanOpen, setScanOpen] = useState(false);
+  const [justScanned, setJustScanned] = useState(false);
 
-  const { te } = useFieldError();
+  const applyScan = useCallback(
+    (value: string) => {
+      setValue('barcode', value, { shouldDirty: true, shouldValidate: true });
+      setJustScanned(true);
+    },
+    [setValue],
+  );
+
+  useKeyboardBarcodeScanner({ enabled: !isPending, onScan: applyScan });
+
+  useEffect(() => {
+    if (!justScanned) return;
+
+    const timeoutId = setTimeout(
+      () => setJustScanned(false),
+      SCAN_HIGHLIGHT_MS,
+    );
+    return () => clearTimeout(timeoutId);
+  }, [justScanned]);
+
+  const handleDialogScan = useCallback(
+    (value: string) => {
+      applyScan(value);
+      setScanOpen(false);
+    },
+    [applyScan],
+  );
+
+  const handleOpenScan = useCallback(() => setScanOpen(true), []);
+
+  const handleBarcodeKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLInputElement>) => {
+      if (event.key === 'Enter') event.preventDefault();
+    },
+    [],
+  );
 
   return (
     <>
@@ -29,13 +71,19 @@ export function MedicineBarcodeScanner() {
             autoComplete="off"
             icon={ScanBarcode}
             aria-invalid={!!errors.barcode}
-            {...register('barcode')}
+            onKeyDown={handleBarcodeKeyDown}
+            className={cn(
+              'transition-shadow duration-300',
+              justScanned && 'ring-primary/60 ring-2',
+            )}
+            {...register('barcode', { disabled: isPending })}
           />
           <Button
             type="button"
             variant="outline"
             size="icon"
-            onClick={() => setScanOpen(true)}
+            disabled={isPending}
+            onClick={handleOpenScan}
           >
             <ScanBarcode className="size-4" />
           </Button>
@@ -46,13 +94,7 @@ export function MedicineBarcodeScanner() {
       <BarcodeScanner
         open={scanOpen}
         onOpenChange={setScanOpen}
-        onScan={(value) => {
-          setValue('barcode', value, {
-            shouldDirty: true,
-            shouldValidate: true,
-          });
-          setScanOpen(false);
-        }}
+        onScan={handleDialogScan}
       />
     </>
   );

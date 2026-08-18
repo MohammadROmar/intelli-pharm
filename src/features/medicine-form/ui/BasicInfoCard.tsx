@@ -131,7 +131,7 @@ export function BasicInfoCard({ medicine, isPending }: Props) {
             />
             <FieldError errors={te(errors.price, 'price')} />
           </Field>
-          <MedicineBarcodeScanner />
+          <MedicineBarcodeScanner isPending={isPending} />
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
