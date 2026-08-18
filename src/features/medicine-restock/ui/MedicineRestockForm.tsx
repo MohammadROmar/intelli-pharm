@@ -2,12 +2,7 @@ import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Boxes, Plus } from 'lucide-react';
 
-import { StockRowCard } from './StockRowCard';
-import type {
-  MedicineRestockFormProps,
-  RestockFormValues,
-  StockRow,
-} from '../model/restockTypes';
+import type { StockEntry } from '@/entities/medicine';
 import {
   Button,
   Card,
@@ -18,7 +13,13 @@ import {
   FormActions,
 } from '@/shared/ui';
 
-const DEFAULT_ROW: StockRow = {
+import { StockRowCard } from './StockRowCard';
+import type {
+  RestockFormValues,
+  MedicineRestockFormProps,
+} from '../model/restockTypes';
+
+const DEFAULT_ROW: StockEntry = {
   warehouse_id: '',
   quantity: '',
   expiry_date: '',
@@ -28,11 +29,12 @@ export function MedicineRestockForm({
   isPending = false,
   onSubmit,
   onReset,
+  defaultValues,
 }: MedicineRestockFormProps) {
   const { t } = useTranslation('medicines', { keyPrefix: 'restock' });
 
   const methods = useForm<RestockFormValues>({
-    defaultValues: { stocks: [DEFAULT_ROW] },
+    defaultValues: { stocks: defaultValues ?? [DEFAULT_ROW] },
     mode: 'onTouched',
   });
 

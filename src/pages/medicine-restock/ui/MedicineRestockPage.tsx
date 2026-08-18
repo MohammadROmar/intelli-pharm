@@ -29,7 +29,7 @@ function MedicineRestockContent({ medicineId }: MedicineRestockContentProps) {
   return (
     <>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <MedicineRestock id={data.data!.id} />
+      <MedicineRestock medicine={data.data!} />
     </>
   );
 }

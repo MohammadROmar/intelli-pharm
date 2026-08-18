@@ -8,10 +8,5 @@ export type MedicineRestockFormProps = {
   isPending?: boolean;
   onSubmit: (payload: RestockPayload) => void;
   onReset: () => void;
-};
-
-export type StockRow = {
-  warehouse_id: string;
-  quantity: string;
-  expiry_date: string;
+  defaultValues?: StockEntry[];
 };
