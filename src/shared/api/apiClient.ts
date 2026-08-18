@@ -43,6 +43,7 @@ export class ApiError extends Error {
   public readonly status?: number;
   public readonly config?: RequestConfig;
   public readonly validationErrors?: ApiValidationErrors;
+  public readonly errors?: ApiErrors;
 
   constructor(
     i18nKey: string,
@@ -50,6 +51,7 @@ export class ApiError extends Error {
     message?: string,
     config?: RequestConfig,
     validationErrors?: ApiValidationErrors,
+    errors?: ApiErrors,
   ) {
     super(i18nKey);
 
@@ -59,6 +61,7 @@ export class ApiError extends Error {
     this.status = status;
     this.config = config;
     this.validationErrors = validationErrors;
+    this.errors = errors;
   }
 }
 
@@ -129,6 +132,7 @@ function assertSuccessfulResponse<T>(response: ApiResponse<T>): T {
       response.message,
       undefined,
       normalizeValidationErrors(response.errors),
+      response.errors ?? undefined,
     );
   }
 
@@ -185,7 +189,7 @@ interface ApiInstance extends Omit<
 
 type ApiErrorResponse = {
   message?: string;
-  errors?: unknown;
+  errors?: ApiErrors;
   statusCode?: number;
 };
 
@@ -212,6 +216,7 @@ apiClient.interceptors.response.use(
         getResponseErrorMessage(responseData),
         error.config,
         normalizeValidationErrors(responseData?.errors),
+        responseData?.errors,
       ),
     );
   },
