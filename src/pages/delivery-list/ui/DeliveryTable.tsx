@@ -61,8 +61,6 @@ export function DeliveriesTable({ data }: Props) {
           <TableHead>{t('list.distributorName')}</TableHead>
           <TableHead>{t('list.scheduledAt')}</TableHead>
           <TableHead>{t('list.status')}</TableHead>
-          <TableHead>{t('list.paymentStatus')}</TableHead>
-          <TableHead>{t('list.paymentAmount')}</TableHead>
           <TableHead>{t('list.totalItems')}</TableHead>
           <TableHead>{t('list.actions')}</TableHead>
         </>

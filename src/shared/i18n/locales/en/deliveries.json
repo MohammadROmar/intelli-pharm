@@ -5,11 +5,6 @@
     "completed": "Completed",
     "cancelled": "Cancelled"
   },
-  "paymentStatus": {
-    "pending": "Pending",
-    "paid": "Paid",
-    "partial": "Partial"
-  },
   "list": {
     "title": "Deliveries",
     "subtitle": "Manage delivery records using the table below.",
@@ -20,8 +15,6 @@
     "distributorName": "Distributor Name",
     "scheduledAt": "Delivery Time",
     "status": "Delivery Status",
-    "paymentStatus": "Payment Status",
-    "paymentAmount": "Amount",
     "totalItems": "Total Items",
     "actions": "Actions"
   },
@@ -30,7 +23,6 @@
     "title": "Update Delivery Status",
     "subtitle": "Record the delivery outcome, payment, and receiver details.",
     "currentStatus": "Current status",
-    "currentPaymentStatus": "Payment status",
     "cancel": "Cancel",
     "submit": "Save Update",
     "submitting": "Saving…",

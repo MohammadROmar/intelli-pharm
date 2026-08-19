@@ -47,11 +47,9 @@ type BaseDelivery = {
   order_id: number;
   pharmacy_id: number;
   status: DeliveryStatus;
-  payment_status: PaymentStatus;
   scheduled_at: string;
   completed_at: string | null;
   notes: string | null;
-  required_payment_amount: string;
   number_of_items: number;
   pharmacy_name: string;
   distributor_name: string;
@@ -84,15 +82,13 @@ export type AssignDeliveryPayload = {
 
 export type ChangeDeliveryStatusPayload = {
   status: DeliveryStatus;
-  payment_status: PaymentStatus;
-  check_notes: string | undefined;
-  payment_amount: number | undefined;
-  receiver_name: string;
+  check_notes: string | null;
+  payment_amount: number;
+  receiver_name: string | null;
 };
 
 export type ChangeDeliveryStatusValues = {
   status: DeliveryStatus | '';
-  payment_status: PaymentStatus | '';
   check_notes: string;
   payment_amount: string;
   receiver_name: string;

@@ -10,7 +10,8 @@
       "pharmacy": "الصيدلية المستلمة",
       "scheduledAt": "موعد التوصيل",
       "units": "عدد الوحدات",
-      "amountToCollect": "المبلغ المطلوب تحصيله"
+      "amountToCollect": "المبلغ المطلوب تحصيله",
+      "paidInFull": "تم السداد بالكامل"
     },
     "sections": {
       "items": "أصناف الطلب",
@@ -33,6 +34,8 @@
       "updatedAt": "آخر تحديث",
       "notes": "ملاحظات المناولة",
       "requiredPaymentAmount": "المبلغ المطلوب دفعه",
+      "noBalanceDue": "لا يوجد مبلغ مستحق",
+      "paidInFull": "تم السداد بالكامل",
       "orderSubtotal": "الإجمالي قبل الحسم",
       "orderDiscount": "الحسم",
       "orderDiscountWithPercentage": "الحسم ({{percentage}}٪)",

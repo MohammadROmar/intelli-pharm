@@ -35,12 +35,8 @@ export function toPayload(
 ): ChangeDeliveryStatusPayload {
   return {
     status: values.status as DeliveryStatus,
-    payment_status:
-      values.payment_status as ChangeDeliveryStatusPayload['payment_status'],
-    check_notes: values.check_notes.trim() || undefined,
-    payment_amount: values.payment_amount
-      ? Number(values.payment_amount)
-      : undefined,
-    receiver_name: values.receiver_name.trim(),
+    check_notes: values.check_notes.trim() || null,
+    payment_amount: values.payment_amount ? Number(values.payment_amount) : 0,
+    receiver_name: values.receiver_name.trim() || null,
   };
 }

@@ -10,7 +10,8 @@
       "pharmacy": "Destination pharmacy",
       "scheduledAt": "Scheduled for",
       "units": "Units in delivery",
-      "amountToCollect": "Required collection"
+      "amountToCollect": "Required collection",
+      "paidInFull": "Paid in Full"
     },
     "sections": {
       "items": "Order items",
@@ -33,6 +34,8 @@
       "updatedAt": "Last updated",
       "notes": "Handling notes",
       "requiredPaymentAmount": "Required payment amount",
+      "noBalanceDue": "No Balance Due",
+      "paidInFull": "Paid in Full",
       "orderSubtotal": "Order subtotal",
       "orderDiscount": "Discount",
       "orderDiscountWithPercentage": "Discount ({{percentage}}%)",

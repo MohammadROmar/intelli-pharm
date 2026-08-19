@@ -16,4 +16,3 @@ export type {
 } from './model/deliveryTypes';
 
 export { DeliveryStatusBadge } from './ui/DeliveryStatusBadge';
-export { DeliveryPaymentStatusBadge } from './ui/DeliveryPaymentStatusBadge';

@@ -10,7 +10,6 @@ import {
   useChangeDeliveryStatus,
 } from '@/features/delivery-change-status';
 import {
-  DeliveryPaymentStatusBadge,
   DeliveryStatusBadge,
   type ChangeDeliveryStatusValues,
   type DeliveryDetail,
@@ -51,10 +50,7 @@ export function DeliveryDetailHeader({ delivery, canUpdate }: Props) {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                <DeliveryStatusBadge status={delivery.status} />
-                <DeliveryPaymentStatusBadge status={delivery.payment_status} />
-              </div>
+              <DeliveryStatusBadge status={delivery.status} />
             </div>
           </div>
 
@@ -76,12 +72,11 @@ function ChangeDeliveryStatus({ delivery }: Props) {
   const defaultValues = useMemo<ChangeDeliveryStatusValues>(
     () => ({
       status: delivery.status,
-      payment_status: delivery.payment_status,
       check_notes: '',
-      payment_amount: '',
       receiver_name: '',
+      payment_amount: '',
     }),
-    [delivery.payment_status, delivery.status],
+    [delivery.status],
   );
 
   const handleReset = useCallback(() => {
@@ -108,7 +103,6 @@ function ChangeDeliveryStatus({ delivery }: Props) {
       open={open}
       setOpen={setOpen}
       currentStatus={delivery.status}
-      currentPaymentStatus={delivery.payment_status}
     >
       <ChangeDeliveryStatusForm
         key={formKey}

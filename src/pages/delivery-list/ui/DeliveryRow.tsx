@@ -5,10 +5,9 @@ import { RefreshCw } from 'lucide-react';
 
 import {
   DeliveryStatusBadge,
-  DeliveryPaymentStatusBadge,
   type DeliveryListItem,
 } from '@/entities/delivery';
-import { formatDate, formatPrice } from '@/shared/lib';
+import { formatDate } from '@/shared/lib';
 import {
   TableCell,
   TableActions,
@@ -44,12 +43,6 @@ export const DeliveryRow = memo(function DeliveryRow({
       </TableCell>
       <TableCell>
         <DeliveryStatusBadge status={delivery.status} />
-      </TableCell>
-      <TableCell>
-        <DeliveryPaymentStatusBadge status={delivery.payment_status} />
-      </TableCell>
-      <TableCell className="font-medium">
-        {formatPrice(delivery.required_payment_amount, i18n.language)}
       </TableCell>
       <TableCell className="text-muted-foreground">
         {delivery.number_of_items}

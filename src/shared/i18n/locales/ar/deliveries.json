@@ -5,11 +5,6 @@
     "completed": "مكتمل",
     "cancelled": "ملغى"
   },
-  "paymentStatus": {
-    "pending": "قيد الانتظار",
-    "paid": "مدفوع",
-    "partial": "جزئي"
-  },
   "list": {
     "title": "التوصيلات",
     "subtitle": "قم بإدارة سجلات التوصيلات من خلال الجدول أدناه.",
@@ -20,8 +15,6 @@
     "distributorName": "اسم الموزع",
     "scheduledAt": "موعد التوصيل",
     "status": "حالة التوصيل",
-    "paymentStatus": "حالة الدفع",
-    "paymentAmount": "المبلغ",
     "totalItems": "عدد العناصر",
     "actions": "الإجراءات"
   },
@@ -30,7 +23,6 @@
     "title": "تحديث حالة التسليم",
     "subtitle": "سجّل نتيجة التسليم وتفاصيل الدفع والمستلم.",
     "currentStatus": "الحالة الحالية",
-    "currentPaymentStatus": "حالة الدفع",
     "cancel": "إلغاء",
     "submit": "حفظ التحديث",
     "submitting": "جارٍ الحفظ…",

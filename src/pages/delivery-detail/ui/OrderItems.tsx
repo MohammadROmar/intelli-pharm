@@ -70,10 +70,7 @@ export function OrderItems({ delivery, actionAccess }: Props) {
               />
               <MobileTotal
                 label={t('table.orderValue')}
-                value={formatPrice(
-                  delivery.required_payment_amount,
-                  i18n.language,
-                )}
+                value={formatPrice(Number(order.total_amount), i18n.language)}
                 alignEnd
               />
             </div>
@@ -121,10 +118,7 @@ export function OrderItems({ delivery, actionAccess }: Props) {
                   <TableCell />
 
                   <TableCell className="font-bold tabular-nums">
-                    {formatPrice(
-                      delivery.required_payment_amount,
-                      i18n.language,
-                    )}
+                    {formatPrice(Number(order.total_amount), i18n.language)}
                   </TableCell>
 
                   {actionAccess.canViewMedicine && <TableCell />}

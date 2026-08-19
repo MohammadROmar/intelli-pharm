@@ -1,9 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { Banknote, Cross, CalendarClock, Package } from 'lucide-react';
+import {
+  Banknote,
+  CircleCheck,
+  Cross,
+  CalendarClock,
+  Package,
+} from 'lucide-react';
 
 import type { DeliveryDetail } from '@/entities/delivery';
 import { formatDate, formatPrice } from '@/shared/lib';
 import { DetailSummary, DetailSummaryItem } from '@/shared/ui';
+
+import { calculateRequiredPaymentAmount } from '../lib/calculateRequiredPaymentAmount';
 
 type Props = { delivery: DeliveryDetail };
 
@@ -11,6 +19,9 @@ export function DeliverySummaryStrip({ delivery }: Props) {
   const { t, i18n } = useTranslation('delivery-detail', {
     keyPrefix: 'detail.summary',
   });
+
+  const requiredPaymentAmount = calculateRequiredPaymentAmount(delivery.order);
+  const isSettled = requiredPaymentAmount <= 0;
 
   return (
     <DetailSummary ariaLabel={t('ariaLabel')}>
@@ -30,10 +41,19 @@ export function DeliverySummaryStrip({ delivery }: Props) {
         </span>
       </DetailSummaryItem>
 
-      <DetailSummaryItem icon={Banknote} label={t('amountToCollect')}>
-        <span className="text-primary font-bold tabular-nums">
-          {formatPrice(delivery.required_payment_amount, i18n.language)}
-        </span>
+      <DetailSummaryItem
+        icon={isSettled ? CircleCheck : Banknote}
+        label={t('amountToCollect')}
+      >
+        {isSettled ? (
+          <span className="text-muted-foreground font-semibold">
+            {t('paidInFull')}
+          </span>
+        ) : (
+          <span className="text-primary font-bold tabular-nums">
+            {formatPrice(requiredPaymentAmount, i18n.language)}
+          </span>
+        )}
       </DetailSummaryItem>
     </DetailSummary>
   );

@@ -2,12 +2,7 @@ import type { PropsWithChildren } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ClipboardCheck } from 'lucide-react';
 
-import {
-  DeliveryPaymentStatusBadge,
-  DeliveryStatusBadge,
-  type DeliveryStatus,
-  type PaymentStatus,
-} from '@/entities/delivery';
+import { DeliveryStatusBadge, type DeliveryStatus } from '@/entities/delivery';
 import {
   Button,
   CardSectionHeader,
@@ -23,14 +18,12 @@ type Props = PropsWithChildren<{
   open: boolean;
   setOpen: (open: boolean) => void;
   currentStatus: DeliveryStatus;
-  currentPaymentStatus: PaymentStatus;
 }>;
 
 export function ChangeDeliveryStatusSheet({
   open,
   setOpen,
   currentStatus,
-  currentPaymentStatus,
   children,
 }: Props) {
   const { t, i18n } = useTranslation('deliveries', {
@@ -70,19 +63,11 @@ export function ChangeDeliveryStatusSheet({
         </SheetHeader>
 
         <div className="thin-scrollbar min-h-0 flex-1 space-y-5 overflow-y-auto p-5">
-          <div className="bg-muted/40 grid grid-cols-2 gap-3 rounded-xl border p-3">
-            <div className="bg-background space-y-2 rounded-lg p-3">
-              <span className="text-muted-foreground text-xs">
-                {t('currentStatus')}
-              </span>
-              <DeliveryStatusBadge status={currentStatus} />
-            </div>
-            <div className="bg-background space-y-2 rounded-lg p-3">
-              <span className="text-muted-foreground text-xs">
-                {t('currentPaymentStatus')}
-              </span>
-              <DeliveryPaymentStatusBadge status={currentPaymentStatus} />
-            </div>
+          <div className="bg-muted/40 space-y-2 rounded-lg border p-3">
+            <span className="text-muted-foreground text-xs">
+              {t('currentStatus')}
+            </span>
+            <DeliveryStatusBadge status={currentStatus} />
           </div>
 
           <div>{children}</div>

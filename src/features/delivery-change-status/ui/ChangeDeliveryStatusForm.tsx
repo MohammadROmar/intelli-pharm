@@ -6,16 +6,10 @@ import {
   useWatch,
   type SubmitHandler,
 } from 'react-hook-form';
-import {
-  BadgeDollarSign,
-  ClipboardCheck,
-  StickyNote,
-  User,
-} from 'lucide-react';
+import { BadgeDollarSign, User } from 'lucide-react';
 
-import { DELIVERY_TRANSITIONS, PAYMENT_TRANSITIONS } from '../lib/utils';
 import type { ChangeDeliveryStatusValues } from '@/entities/delivery';
-import { required, positiveNumber } from '@/shared/form';
+import { required } from '@/shared/form';
 import {
   Field,
   FieldDescription,
@@ -27,6 +21,9 @@ import {
   Input,
   Textarea,
 } from '@/shared/ui';
+
+import { DELIVERY_TRANSITIONS } from '../lib/utils';
+import { nonNegativeNumber } from '../lib/nonNegativeNumber';
 
 type Props = {
   isPending?: boolean;
@@ -41,12 +38,9 @@ export function ChangeDeliveryStatusForm({
   onReset,
   defaultValues,
 }: Props) {
-  const { t } = useTranslation('deliveries', {
-    keyPrefix: 'changeStatus',
-  });
+  const { t } = useTranslation('deliveries', { keyPrefix: 'changeStatus' });
 
   const statusOptions = useMemo(() => DELIVERY_TRANSITIONS(t), [t]);
-  const paymentOptions = useMemo(() => PAYMENT_TRANSITIONS(t), [t]);
 
   const {
     register,
@@ -58,11 +52,7 @@ export function ChangeDeliveryStatusForm({
     mode: 'onTouched',
   });
 
-  const watchedPaymentStatus = useWatch({ control, name: 'payment_status' });
   const watchedStatus = useWatch({ control, name: 'status' });
-
-  const requiresAmount =
-    watchedPaymentStatus === 'paid' || watchedPaymentStatus === 'partial';
   const isCompleting = watchedStatus === 'completed';
 
   return (
@@ -78,10 +68,7 @@ export function ChangeDeliveryStatusForm({
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel asChild>
-                <p className="flex items-center gap-1.5">
-                  <ClipboardCheck className="text-muted-foreground size-3.5" />
-                  {t('labelStatus')}
-                </p>
+                <p>{t('labelStatus')}</p>
               </FieldLabel>
               <GenericSingleSelect
                 options={statusOptions}
@@ -101,70 +88,40 @@ export function ChangeDeliveryStatusForm({
           )}
         />
 
-        <Controller
-          name="payment_status"
-          control={control}
-          rules={{ validate: required() }}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel asChild>
-                <p>{t('labelPaymentStatus')}</p>
-              </FieldLabel>
-              <GenericSingleSelect
-                options={paymentOptions}
-                labelKey="label"
-                valueKey="value"
-                value={field.value}
-                onValueChange={field.onChange}
-                disabled={isPending}
-                invalid={fieldState.invalid}
-                placeholder={t('paymentStatusPlaceholder')}
-                hasMoreLabel={false}
-              />
-              {fieldState.error && (
-                <FieldError>{t(fieldState.error.message!)}</FieldError>
-              )}
-            </Field>
+        <Field data-invalid={!!errors.payment_amount}>
+          <FieldLabel htmlFor="payment_amount">
+            {t('labelPaymentAmount')}
+            <span className="text-muted-foreground text-xs font-normal">
+              ({t('optional')})
+            </span>
+          </FieldLabel>
+          <Input
+            id="payment_amount"
+            type="number"
+            inputMode="decimal"
+            min="0"
+            step="0.01"
+            icon={BadgeDollarSign}
+            placeholder="0.00"
+            aria-invalid={!!errors.payment_amount}
+            {...register('payment_amount', {
+              disabled: isPending,
+              validate: { positive: nonNegativeNumber() },
+            })}
+          />
+          {errors.payment_amount && (
+            <FieldError>{t(errors.payment_amount.message!)}</FieldError>
           )}
-        />
-
-        {requiresAmount && (
-          <Field data-invalid={!!errors.payment_amount}>
-            <FieldLabel htmlFor="payment_amount">
-              <span className="flex items-center gap-1.5">
-                <BadgeDollarSign className="text-muted-foreground size-3.5" />
-                {t('labelPaymentAmount')}
-              </span>
-            </FieldLabel>
-            <Input
-              id="payment_amount"
-              type="number"
-              inputMode="decimal"
-              min="0"
-              step="0.01"
-              icon={BadgeDollarSign}
-              placeholder="0.00"
-              aria-invalid={!!errors.payment_amount}
-              {...register('payment_amount', {
-                disabled: isPending,
-                validate: { required: required(), positive: positiveNumber() },
-              })}
-            />
-            {errors.payment_amount && (
-              <FieldError>{t(errors.payment_amount.message!)}</FieldError>
-            )}
-          </Field>
-        )}
+        </Field>
 
         <Field data-invalid={!!errors.receiver_name}>
           <FieldLabel htmlFor="receiver_name">
-            <span className="flex items-center gap-1.5">
-              <User className="text-muted-foreground size-3.5" />
-              {t('labelReceiverName')}
-              {isCompleting && (
-                <span className="text-destructive text-xs">*</span>
-              )}
-            </span>
+            {t('labelReceiverName')}
+            {!isCompleting && (
+              <span className="text-muted-foreground text-xs font-normal">
+                ({t('optional')})
+              </span>
+            )}
           </FieldLabel>
           <Input
             id="receiver_name"
@@ -190,12 +147,9 @@ export function ChangeDeliveryStatusForm({
 
         <Field>
           <FieldLabel htmlFor="check_notes">
-            <span className="flex items-center gap-1.5">
-              <StickyNote className="text-muted-foreground size-3.5" />
-              {t('labelCheckNotes')}
-              <span className="text-muted-foreground text-xs font-normal">
-                ({t('optional')})
-              </span>
+            {t('labelCheckNotes')}
+            <span className="text-muted-foreground text-xs font-normal">
+              ({t('optional')})
             </span>
           </FieldLabel>
           <Textarea
