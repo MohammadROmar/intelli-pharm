@@ -1,25 +1,16 @@
-import L, { type LatLngTuple } from 'leaflet';
+import type { LatLngTuple } from 'leaflet';
 import { Marker, Polyline, Popup } from 'react-leaflet';
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Clock, Route } from 'lucide-react';
 
-import { useFormatDistance, useFormatDuration } from '@/entities/plan';
 import type { PlanPath, PlanVisit } from '@/entities/plan';
-import { decodePolyline, MapView } from '@/shared/map';
-import { LabeledLink } from '@/shared/ui';
+import { MapView } from '@/shared/map';
 
-import { getStopIcon, START_ICON } from '../config/planIcons';
-import { getPathColor, isVisited } from '../lib/helpers';
 import { MapBoundsController } from './MapBoundsController';
-
-type PharmacyMarker = {
-  position: LatLngTuple;
-  visit: PlanVisit;
-  icon: L.DivIcon;
-  distanceLabel: string;
-  durationLabel: string;
-};
+import { PharmacyPopupContent } from './PharmacyPopupContent';
+import { START_ICON } from '../config/planIcons';
+import { getPathColor } from '../lib/helpers';
+import { useDecodedRoute, type PharmacyMarker } from '../model/useDecodedRoute';
 
 type RoutePolylinesProps = {
   paths: PlanPath[];
@@ -68,44 +59,21 @@ const PharmacyMarkers = memo(function PharmacyMarkers({
 }: PharmacyMarkersProps) {
   return (
     <>
-      {markers.map(
-        ({ position, visit, icon, distanceLabel, durationLabel }) => (
-          <Marker key={visit.id} position={position} icon={icon}>
-            <Popup className="font-cairo">
-              <div className="min-w-45 space-y-0.5!">
-                <div className="w-fit">
-                  <LabeledLink
-                    to={
-                      canViewPharmacy
-                        ? `/dashboard/pharmacies/${visit.pharmacy.id}`
-                        : undefined
-                    }
-                    label={visit.pharmacy.name}
-                    className="text-card-foreground! hover:text-primary! text-left! text-sm leading-snug font-semibold"
-                  />
-                </div>
-
-                <p className="text-muted-foreground text-xs">
-                  {visit.pharmacy.info}
-                </p>
-                <p className="text-muted-foreground mt-2! pt-1 text-xs leading-none">
-                  {stopLabel} #{visit.visit_order}
-                </p>
-                <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-xs">
-                  <span className="flex items-center gap-1">
-                    <Route className="size-3 shrink-0" />
-                    {distanceLabel}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Clock className="size-3 shrink-0" />
-                    {durationLabel}
-                  </span>
-                </div>
-              </div>
-            </Popup>
-          </Marker>
-        ),
-      )}
+      {markers.map((marker) => (
+        <Marker
+          key={marker.visit.id}
+          position={marker.position}
+          icon={marker.icon}
+        >
+          <Popup className="font-cairo">
+            <PharmacyPopupContent
+              marker={marker}
+              stopLabel={stopLabel}
+              canViewPharmacy={canViewPharmacy}
+            />
+          </Popup>
+        </Marker>
+      ))}
     </>
   );
 });
@@ -123,54 +91,20 @@ export default function PlanRouteMap({
 }: Props) {
   const { t } = useTranslation('plan', { keyPrefix: 'detail.map' });
 
-  const formatDistance = useFormatDistance();
-  const formatDuration = useFormatDuration();
-
-  const visitByOrder = useMemo(
-    () => new Map(visits.map((v) => [v.visit_order, v])),
-    [visits],
-  );
-
-  const decodedPaths = useMemo(
-    () => paths.map((p) => decodePolyline(p.geometry) as LatLngTuple[]),
-    [paths],
-  );
-
-  const allPoints = useMemo(() => decodedPaths.flat(), [decodedPaths]);
-
-  const startPoint = useMemo<LatLngTuple | undefined>(() => {
-    const firstPathIdx = paths.findIndex((p) => p.from_sequence === 0);
-    return decodedPaths[firstPathIdx]?.[0];
-  }, [paths, decodedPaths]);
-
-  const pharmacyMarkers = useMemo<PharmacyMarker[]>(
-    () =>
-      paths.flatMap((path, i) => {
-        if (path.to_sequence === 0) return [];
-        const decoded = decodedPaths[i];
-        const position = decoded?.[decoded.length - 1] as
-          | LatLngTuple
-          | undefined;
-        const visit = visitByOrder.get(path.to_sequence);
-        if (!position || !visit) return [];
-        return [
-          {
-            position,
-            visit,
-            icon: getStopIcon(visit.visit_order, isVisited(visit)),
-            distanceLabel: formatDistance(path.distance_m),
-            durationLabel: formatDuration(path.duration_sec),
-          },
-        ];
-      }),
-    [paths, decodedPaths, visitByOrder, formatDistance, formatDuration],
-  );
+  const {
+    paths: sortedPaths,
+    decodedPaths,
+    visitByOrder,
+    startPoint,
+    allPoints,
+    pharmacyMarkers,
+  } = useDecodedRoute(paths, visits);
 
   return (
     <div className="relative z-0 h-105 w-full overflow-hidden rounded-lg">
       <MapView center={[33.5138, 36.2765]} zoom={13} className="h-full w-full">
         <RoutePolylines
-          paths={paths}
+          paths={sortedPaths}
           decodedPaths={decodedPaths}
           visitByOrder={visitByOrder}
         />

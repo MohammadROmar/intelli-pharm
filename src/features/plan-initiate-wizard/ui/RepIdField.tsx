@@ -31,7 +31,7 @@ export const RepIdField = memo(function RepIdField({
   return (
     <Field data-invalid={invalid}>
       <FieldLabel asChild>
-        <p>{t('assignment.repLabel')}</p>
+        <p>{t(`assignment.${role ?? 'rep'}Label`)}</p>
       </FieldLabel>
       {canView ? (
         <EmployeeSelector

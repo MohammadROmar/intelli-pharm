@@ -64,6 +64,13 @@
         "start": "Starting point",
         "visited": "Visited",
         "notVisited": "Not visited"
+      },
+      "tabs": { "full": "Full route", "steps": "Step by step" },
+      "steps": {
+        "prev": "Previous",
+        "next": "Next",
+        "counter": "Step {{current}} of {{total}}",
+        "empty": "No route steps to show"
       }
     },
     "visits": {

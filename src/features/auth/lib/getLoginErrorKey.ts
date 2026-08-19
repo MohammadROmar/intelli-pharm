@@ -5,9 +5,6 @@ const MISSING_PERMISSIONS_KEY = 'missing permissions';
 const DASHBOARD_ACCESS_PERMISSION = 'dashboard.access';
 
 export function getLoginErrorKey(error: ApiError): string {
-  console.log(error.errors);
-  console.log(error.validationErrors);
-
   const isInvalidCredentials =
     (error.status === 400 || error.status === 401) &&
     error.message.trim().toLowerCase() === INVALID_CREDENTIALS_MESSAGE;

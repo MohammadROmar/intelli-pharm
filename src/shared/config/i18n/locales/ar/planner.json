@@ -60,6 +60,7 @@
     "cardTitle": "التعيين",
     "cardSubtitle": "عيّن مندوباً وحدد المنطقة المستهدفة.",
     "repLabel": "المندوب",
+    "distributorLabel": "الموزع",
     "regionLabel": "المنطقة",
     "errors": {
       "regionRequired": "المنطقة مطلوبة لإنشاء خطة.",

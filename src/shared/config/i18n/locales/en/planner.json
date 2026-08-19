@@ -60,6 +60,7 @@
     "cardTitle": "Assignment",
     "cardSubtitle": "Assign a representative and define the target region.",
     "repLabel": "Sales Representative",
+    "distributorLabel": "distributor",
     "regionLabel": "Region",
     "errors": {
       "regionRequired": "Region is required to generate a plan.",

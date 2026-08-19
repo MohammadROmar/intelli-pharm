@@ -78,23 +78,7 @@ function HistoryError({ isRetrying, onRetry }: HistoryErrorProps) {
     />
   );
 
-  if (state === 'collapsed') {
-    return (
-      <div
-        role="alert"
-        className="flex h-full items-center justify-center px-2 py-2"
-      >
-        <span className="sr-only">{t('historyErrorTitle')}</span>
-        <SidebarMenuButton
-          onClick={onRetry}
-          disabled={isRetrying}
-          tooltip={isRetrying ? t('retrying') : t('retry')}
-        >
-          {retryIcon}
-        </SidebarMenuButton>
-      </div>
-    );
-  }
+  if (state === 'collapsed') return null;
 
   return (
     <div
@@ -231,6 +215,10 @@ function HistoryList({
   onSelectConversation,
   onDelete,
 }: HistoryListProps) {
+  const { state } = useSidebarState();
+
+  if (state === 'collapsed') return null;
+
   return (
     <>
       {groups.map((group) => (
