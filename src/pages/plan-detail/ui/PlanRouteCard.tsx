@@ -32,24 +32,26 @@ export function PlanRouteCard({ t, plan, canViewPharmacy }: Props) {
       subtitle={t('map.subtitle')}
       icon={MapIcon}
     >
-      <div className="text-muted-foreground mb-3 flex flex-wrap items-center gap-4 text-xs">
-        {MAP_LEGEND_ITEMS.map(({ labelKey, color }) => (
-          <span key={labelKey} className="flex items-center gap-1.5">
-            <span
-              aria-hidden
-              className="inline-block size-3 rounded-full"
-              style={{ backgroundColor: color }}
-            />
-            {t(labelKey)}
-          </span>
-        ))}
-      </div>
-
       <Tabs defaultValue="full">
-        <TabsList className="mb-3 w-full sm:w-fit">
-          <TabsTrigger value="full">{t('map.tabs.full')}</TabsTrigger>
-          <TabsTrigger value="steps">{t('map.tabs.steps')}</TabsTrigger>
-        </TabsList>
+        <div className="flex flex-col flex-wrap gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="text-muted-foreground flex flex-wrap items-center gap-4 text-xs">
+            {MAP_LEGEND_ITEMS.map(({ labelKey, color }) => (
+              <span key={labelKey} className="flex items-center gap-1.5">
+                <span
+                  aria-hidden
+                  className="inline-block size-3 rounded-full"
+                  style={{ backgroundColor: color }}
+                />
+                {t(labelKey)}
+              </span>
+            ))}
+          </div>
+
+          <TabsList className="w-full md:w-fit">
+            <TabsTrigger value="full">{t('map.tabs.full')}</TabsTrigger>
+            <TabsTrigger value="steps">{t('map.tabs.steps')}</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="full">
           <ErrorBoundary FallbackComponent={SectionErrorFallback}>

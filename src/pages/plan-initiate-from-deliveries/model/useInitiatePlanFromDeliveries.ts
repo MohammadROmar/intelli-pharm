@@ -1,30 +1,25 @@
-import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
-import { useCreateEntity } from '@/shared/model';
-import { apiClient } from '@/shared/api';
+import { initiateDeliveryPlan } from '@/entities/plan';
+import { usePlanGenerationMutation } from '@/features/plan-generation';
 
 import type { toInitiatePlanFromDeliveriesPayload } from '../lib/utils';
-import { useTranslation } from 'react-i18next';
 
 type Payload = ReturnType<typeof toInitiatePlanFromDeliveriesPayload>;
 
-function initiatePlanFromDeliveries(payload: Payload) {
-  return apiClient.post('/planner/v1/plans/initiate-from-deliveries', payload);
-}
+const NO_DELIVERY_TASKS_MESSAGE = 'No delivery tasks found for today.';
 
 export function useInitiatePlanFromDeliveries() {
-  const { t } = useTranslation();
   const { t: tErrors } = useTranslation('errors');
 
-  return useCreateEntity<Payload>({
-    queryKey: 'plans',
-    mutationFn: initiatePlanFromDeliveries,
-    translationKey: 'plan',
-    navigatePath: '/dashboard/plans',
-    onError: ({ status, i18nKey }) => {
-      toast.error(t(`toasts.create.error`), {
-        description: tErrors(status === 400 ? 'noDeliveryTasks' : i18nKey),
-      });
-    },
+  return usePlanGenerationMutation<Payload>({
+    initiate: initiateDeliveryPlan,
+
+    mapGenerationError: (error) =>
+      tErrors(
+        error.message === NO_DELIVERY_TASKS_MESSAGE
+          ? 'noDeliveryTasks'
+          : 'unknown',
+      ),
   });
 }

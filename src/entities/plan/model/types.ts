@@ -81,3 +81,76 @@ export type PlanFilters = {
   date?: string;
   finished?: BooleanFilter;
 };
+
+export type PlanGenerationKind = 'rep' | 'delivery';
+
+export type PlanGenerationStatus =
+  | 'queued'
+  | 'processing'
+  | 'completed'
+  | 'failed';
+
+export type PlanProfile =
+  | 'all_factors'
+  | 'balanced'
+  | 'fastest'
+  | 'cheapest'
+  | 'vip_first'
+  | 'time_window_first'
+  | 'pedestrian_light';
+
+export type PlanTravelMode = 'driving' | 'walking';
+
+export type InitiateRepPlanPayload = {
+  current_longitude: number;
+  current_latitude: number;
+  reason: 'initiated';
+  reason_details: string;
+  rep_id: number | null;
+  region_id: number;
+  pharmacy_ids: number[];
+  profile: PlanProfile;
+  travel_mode: PlanTravelMode;
+};
+
+export type InitiateDeliveryPlanPayload = {
+  current_longitude: number;
+  current_latitude: number;
+  reason: 'initiated';
+  reason_details: string;
+  rep_id: number | null;
+  profile: PlanProfile;
+  travel_mode: PlanTravelMode;
+};
+
+export type PlanGenerationRequest = {
+  request_id: string;
+  status: PlanGenerationStatus;
+  type: PlanGenerationKind;
+  user_id: number;
+  requested_by: number;
+  plan_id: number | null;
+  channel: string;
+  ready_event: string;
+  failed_event: string;
+  error_message: string | null;
+  created_at: string;
+  started_at: string | null;
+  finished_at: string | null;
+  plan?: PlanDetail | null;
+};
+
+export type PlanReadyEventPayload = {
+  request_id: string;
+  status: 'completed';
+  type: PlanGenerationKind;
+  plan_id: number;
+  plan: PlanDetail;
+};
+
+export type PlanFailedEventPayload = {
+  request_id: string;
+  status: 'failed';
+  type: PlanGenerationKind;
+  message: string;
+};

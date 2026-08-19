@@ -3,7 +3,7 @@ import { Outlet, ScrollRestoration } from 'react-router';
 import { Toaster } from '@/shared/ui';
 import { getScrollRestorationKey } from '@/shared/lib';
 
-import '@/shared/config/i18n';
+import '@/shared/i18n';
 
 export default function RootLayout() {
   return (

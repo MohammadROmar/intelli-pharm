@@ -14,7 +14,7 @@ import {
   TableRow,
 } from '@/shared/ui';
 import { getLocalized } from '@/shared/lib';
-import i18n from '@/shared/config/i18n';
+import i18n from '@/shared/i18n';
 
 type Props = { category: CategoryDetail };
 
