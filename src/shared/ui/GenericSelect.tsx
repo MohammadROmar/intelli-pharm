@@ -35,6 +35,10 @@ const NEAR_BOTTOM_THRESHOLD_PX = 100;
 
 const OPTION_ROW_INTRINSIC_SIZE_PX = 52;
 
+export type GenericSingleSelectOptionState = {
+  isSelected: boolean;
+};
+
 export type GenericSingleSelectProps<T extends Record<string, unknown>> = {
   options: T[];
   valueKey: keyof T;
@@ -44,6 +48,10 @@ export type GenericSingleSelectProps<T extends Record<string, unknown>> = {
   onValueChange: (value: T[keyof T] | null) => void;
   onSearchChange?: (searchTerm: string) => void;
   onLoadMore?: () => void;
+  renderOption?: (
+    option: T,
+    state: GenericSingleSelectOptionState,
+  ) => ReactNode;
   displayClassName?: string;
   hasNextPage?: boolean;
   isFetchingNextPage?: boolean;
@@ -124,6 +132,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
   onValueChange,
   onSearchChange,
   onLoadMore,
+  renderOption,
   hasNextPage,
   isFetchingNextPage,
   placeholder,
@@ -240,6 +249,21 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
     setIsOpen(false);
   };
 
+  const renderRow = (option: T, isSelected: boolean) =>
+    renderOption ? (
+      renderOption(option, { isSelected })
+    ) : (
+      <>
+        <Check
+          className={cn(
+            'size-4 shrink-0',
+            isSelected ? 'opacity-100' : 'opacity-0',
+          )}
+        />
+        <span className="text-wrap">{String(option[labelKey])}</span>
+      </>
+    );
+
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
@@ -300,13 +324,7 @@ export function GenericSingleSelect<T extends Record<string, unknown>>({
                       value={String(opt[valueKey])}
                       onSelect={() => handleSelectOption(opt, isSelected)}
                     >
-                      <Check
-                        className={cn(
-                          'size-4 ltr:mr-2 rtl:ml-2',
-                          isSelected ? 'opacity-100' : 'opacity-0',
-                        )}
-                      />
-                      <span className="text-wrap">{String(opt[labelKey])}</span>
+                      {renderRow(opt, isSelected)}
                     </CommandItem>
                   );
                 })}

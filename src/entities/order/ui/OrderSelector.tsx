@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { User } from 'lucide-react';
 
-import { useInfiniteOrders } from '../model/useInfiniteOrders';
 import {
   GenericSingleSelect,
   type GenericSingleSelectProps,
 } from '@/shared/ui';
+
+import { OrderOptionRow } from './OrderOptionRow';
+import { useInfiniteOrders } from '../model/useInfiniteOrders';
 
 type Props = Partial<GenericSingleSelectProps<{ name: string; id: number }>>;
 type Option = string | number | null;
@@ -37,6 +39,9 @@ export function OrderSelector({
       hasNextPage={hasNextPage}
       isLoading={isFetching}
       isFetchingNextPage={isFetchingNextPage}
+      renderOption={(order, { isSelected }) => (
+        <OrderOptionRow order={order} selected={isSelected} />
+      )}
     />
   );
 }

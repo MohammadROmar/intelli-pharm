@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import { Cross } from 'lucide-react';
 
-import { useInfinitePharmacies } from '../model/useInfinitePharmacies';
 import {
   GenericSingleSelect,
   type GenericSingleSelectProps,
 } from '@/shared/ui';
 
-type Props = {
-  selected?: { id: number; name: string };
-} & Partial<GenericSingleSelectProps<{ id: number; name: string }>>;
+import { PharmacyOptionRow } from './PharmacyOptionRow';
+import type { Pharmacy } from '../model/pharmacyTypes';
+import { useInfinitePharmacies } from '../model/useInfinitePharmacies';
+
+type Props = {} & Partial<GenericSingleSelectProps<Pharmacy>>;
 
 export function PharmacySelector({
-  selected,
   value,
   onValueChange,
   invalid,
@@ -26,18 +26,11 @@ export function PharmacySelector({
   const { fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     queryResult;
 
-  const selectablePharmacies = selected
-    ? [
-        selected,
-        ...pharmacies.filter((pharmacy) => pharmacy.id !== selected.id),
-      ]
-    : pharmacies;
-
   return (
     <GenericSingleSelect
       disabled={isFetching || isLoading}
       invalid={invalid}
-      options={selectablePharmacies}
+      options={pharmacies}
       valueKey="id"
       labelKey="name"
       icon={Cross}
@@ -49,6 +42,9 @@ export function PharmacySelector({
       hasNextPage={hasNextPage}
       isLoading={isFetching}
       isFetchingNextPage={isFetchingNextPage}
+      renderOption={(pharmacy, { isSelected }) => (
+        <PharmacyOptionRow pharmacy={pharmacy} selected={isSelected} />
+      )}
     />
   );
 }

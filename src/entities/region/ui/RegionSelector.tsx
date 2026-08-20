@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { MapPin } from 'lucide-react';
 
-import { useInfiniteRegions } from '../model/useInfiniteRegions';
 import {
   GenericSingleSelect,
   type GenericSingleSelectProps,
 } from '@/shared/ui';
+
+import { RegionOptionRow } from './RegionOptionRowImpl';
+import { useInfiniteRegions } from '../model/useInfiniteRegions';
 
 type Props = {
   selected?: { id: number; name: string };
@@ -44,6 +46,9 @@ export function RegionSelector({
       hasNextPage={hasNextPage}
       isLoading={isFetching}
       isFetchingNextPage={isFetchingNextPage}
+      renderOption={(region, { isSelected }) => (
+        <RegionOptionRow region={region} selected={isSelected} />
+      )}
       {...props}
     />
   );

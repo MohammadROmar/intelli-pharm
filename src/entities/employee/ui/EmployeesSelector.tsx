@@ -6,6 +6,7 @@ import {
   type GenericSingleSelectProps,
 } from '@/shared/ui';
 
+import { EmployeeOptionRow } from './EmployeeOptionRow';
 import type { EmployeeRole } from '../model/employeeTypes';
 import { useInfiniteEmployees } from '../model/useInfiniteEmployees';
 
@@ -44,6 +45,9 @@ export function EmployeeSelector({
       hasNextPage={hasNextPage}
       isLoading={isFetching}
       isFetchingNextPage={isFetchingNextPage}
+      renderOption={(employee, { isSelected }) => (
+        <EmployeeOptionRow employee={employee} selected={isSelected} />
+      )}
     />
   );
 }

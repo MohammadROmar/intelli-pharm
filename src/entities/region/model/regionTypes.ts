@@ -10,7 +10,7 @@ export type RegionListItem = {
   city: City;
 };
 
-type City = { id: number; name: string };
+export type City = { id: number; name: string };
 
 export type RegionPharmacy = {
   id: number;

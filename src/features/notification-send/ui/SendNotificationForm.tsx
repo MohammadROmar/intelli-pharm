@@ -1,12 +1,8 @@
-import { Suspense } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { BellRing, MessageSquare } from 'lucide-react';
 
-import {
-  EmployeeMultiSelect,
-  EmployeeMultiSelectSkeleton,
-} from '@/entities/employee';
+import { EmployeeMultiSelect } from '@/entities/employee';
 import { Button, Field, FieldLabel, Input, Textarea } from '@/shared/ui';
 
 import { useSendNotification } from '../model/useSendNotification';
@@ -97,13 +93,11 @@ export function SendNotificationForm({ onSuccess }: SendNotificationFormProps) {
           name="user_ids"
           rules={{ validate: validateRecipients }}
           render={({ field }) => (
-            <Suspense fallback={<EmployeeMultiSelectSkeleton />}>
-              <EmployeeMultiSelect
-                value={field.value}
-                onChange={field.onChange}
-                invalid={Boolean(errors.user_ids)}
-              />
-            </Suspense>
+            <EmployeeMultiSelect
+              value={field.value}
+              onChange={field.onChange}
+              invalid={Boolean(errors.user_ids)}
+            />
           )}
         />
         {errors.user_ids?.message && (
