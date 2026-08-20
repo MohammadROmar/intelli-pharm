@@ -7,7 +7,7 @@
     "openUserMenuWithNotifications_many": "فتح قائمة المستخدم، {{count}} إشعاراً غير مقروءاً",
     "openUserMenuWithNotifications_other": "فتح قائمة المستخدم، {{count}} إشعار غير مقروء",
     "toggle": "تبديل حالة الشريط الجانبي",
-    "account": "الحساب",
+    "profile": "الملف الشخصي",
     "notifications": "الإشعارات",
     "sections": {
       "sales": "المبيعات",
@@ -54,7 +54,8 @@
       "roles": "الأدوار",
       "overview": "نظرة عامة",
       "debts": "الديون",
-      "editStock": "تعديل المخزون"
+      "editStock": "تعديل المخزون",
+      "profile": "الملف الشخصي"
     },
     "promotions": {
       "offers": "العروض",

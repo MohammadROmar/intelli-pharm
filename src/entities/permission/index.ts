@@ -11,4 +11,4 @@ export type {
 } from './model/permissionCatalogTypes';
 
 export { PermissionPicker } from './ui/PermissionPicker';
-export { PermissionsCard } from './ui/PermissionsCard';
+export { PermissionsCard, PermissionsContent } from './ui/PermissionsCard';

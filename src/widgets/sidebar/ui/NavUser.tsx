@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Link } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Bell, ChevronsUpDown, UserCircle } from 'lucide-react';
@@ -91,6 +91,11 @@ const NavUserMenuContent = memo(function NavUserMenuContent({
   const { t } = useTranslation('layout', { keyPrefix: 'sidebar' });
   const { isMobile, setOpenMobile } = useSidebar();
 
+  const closeMobileSidebar = useCallback(
+    () => setOpenMobile(false),
+    [setOpenMobile],
+  );
+
   return (
     <DropdownMenuContent
       className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
@@ -107,13 +112,15 @@ const NavUserMenuContent = memo(function NavUserMenuContent({
       <DropdownMenuSeparator />
 
       <DropdownMenuGroup>
-        <DropdownMenuItem>
-          <UserCircle />
-          {t('account')}
+        <DropdownMenuItem asChild className="cursor-pointer">
+          <Link to="profile" onClick={closeMobileSidebar}>
+            <UserCircle />
+            {t('profile')}
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild className="cursor-pointer">
-          <Link to="notifications" onClick={() => setOpenMobile(false)}>
+          <Link to="notifications" onClick={closeMobileSidebar}>
             <Bell />
             {t('notifications')}
             <NavUserNotificationsBadge />

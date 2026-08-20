@@ -2,7 +2,11 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import type { Permission } from '@/shared/api';
 
-export type SessionUser = { name: string; email: string };
+export type SessionUser = {
+  name: string;
+  email: string;
+  phone_number: string | null;
+};
 
 export type SessionCredentials = {
   accessToken: string;

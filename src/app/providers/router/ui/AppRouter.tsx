@@ -446,6 +446,10 @@ const router = createBrowserRouter([
                   },
 
                   {
+                    path: 'profile',
+                    lazy: () => import('@/pages/profile'),
+                  },
+                  {
                     path: 'notifications',
                     lazy: () => import('@/pages/notifications'),
                   },

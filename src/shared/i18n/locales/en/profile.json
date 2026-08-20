@@ -1,0 +1,30 @@
+{
+  "header": {
+    "eyebrow": "My profile",
+    "subtitle": "Review your account information, assigned roles, and system access."
+  },
+  "details": {
+    "title": "Personal information",
+    "subtitle": "The basic information associated with your account.",
+    "name": "Full name",
+    "email": "Email address",
+    "phoneNumber": "Phone number",
+    "notProvided": "Not provided"
+  },
+  "access": {
+    "title": "System access",
+    "subtitle": "Roles and permissions currently assigned to your account.",
+    "role": "Assigned role",
+    "noRole": "No role assigned",
+    "permissionCount": "Granted permissions"
+  },
+  "permissions": {
+    "title": "Permission details",
+    "description": "Expand to review the capabilities granted to your account.",
+    "countLabel": "{{count}} granted permissions"
+  },
+  "unavailable": {
+    "title": "Profile unavailable",
+    "description": "Your profile information is not available. Please sign in again if the problem continues."
+  }
+}

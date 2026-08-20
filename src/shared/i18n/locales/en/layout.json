@@ -4,7 +4,7 @@
     "openUserMenuWithNotifications_one": "Open user menu, {{count}} unread notification",
     "openUserMenuWithNotifications_other": "Open user menu, {{count}} unread notifications",
     "toggle": "Toggle sidebar",
-    "account": "Account",
+    "profile": "Profile",
     "notifications": "Notifications",
     "sections": {
       "sales": "Sales",
@@ -51,7 +51,8 @@
       "roles": "Roles",
       "overview": "Overview",
       "debts": "Debts",
-      "editStock": "Edit Stock"
+      "editStock": "Edit Stock",
+      "profile": "Profile"
     },
     "promotions": {
       "offers": "Offers",

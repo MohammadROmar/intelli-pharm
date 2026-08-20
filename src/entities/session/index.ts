@@ -18,6 +18,7 @@ export {
   incrementUnreadNotifications,
   decrementUnreadNotifications,
   default as sessionReducer,
+  type SessionUser,
 } from './model/slice';
 
 export {

@@ -7,6 +7,7 @@ export type LoginResponse = {
   token_type: string;
   expires_in: number;
   roles: string[];
+  phone_number: string | null;
   permissions: Permission[];
   unread_notifications_count: number;
 };
