@@ -82,24 +82,7 @@
       "stop": "محطة",
       "visited": "تمت الزيارة",
       "notVisited": "لم تُزَر",
-      "useful": "مفيدة",
-      "notUseful": "غير مفيدة",
-      "noNote": "لم تُسجَّل ملاحظة",
-      "noNotes": "لا توجد ملاحظات بعد",
-      "viewDetails": "عرض تفاصيل {{name}}",
-      "recentNotes": "الملاحظات الأخيرة",
-      "recentNotesSubtitle": "جميع ملاحظات هذه الزيارة",
-      "notesExpand": "عرض المزيد",
-      "notesCollapse": "عرض أقل",
-      "summary": {
-        "title": "ملخص سريع",
-        "subtitle": "آخر ملاحظة مسجلة"
-      },
-      "noteType": {
-        "general": "ملاحظة عامة",
-        "tip": "نصيحة",
-        "warning": "تحذير"
-      }
+      "viewDetails": "عرض تفاصيل {{name}}"
     }
   },
   "distance": {

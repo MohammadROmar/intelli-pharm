@@ -1,11 +1,11 @@
 import { Suspense, memo, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useGetVisitSuspense } from '@/entities/visit';
 import { QueryErrorBoundary, Sheet, SheetContent } from '@/shared/ui';
 
 import { VisitSheet } from './VisitSheet';
 import { VisitSheetSkeleton } from './VisitSheetSkeleton';
-import { useGetVisitSuspense } from '../model/useGetVisitSuspense';
 
 type Props = {
   id: number | null;
@@ -25,7 +25,7 @@ const VisitSheetContent = memo(function VisitSheetContent({
   return <VisitSheet visit={data.data!} canViewPharmacy={canViewPharmacy} />;
 });
 
-export default function VisitDetail({ id, onClose, canViewPharmacy }: Props) {
+export function VisitDetail({ id, onClose, canViewPharmacy }: Props) {
   const { i18n } = useTranslation();
 
   const isRtl = i18n.dir() === 'rtl';

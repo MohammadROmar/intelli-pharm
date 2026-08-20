@@ -3,10 +3,6 @@ export { Separator } from './Separator';
 export { WithSuspense } from './WithSuspense';
 export { Card, CardHeader, CardContent, CardFooter } from './Card';
 export {
-  SidebarContext,
-  type SidebarContextProps,
-} from '../../widgets/sidebar/model/SidebarContext';
-export {
   Skeleton,
   FormSkeleton,
   TableSkeleton,

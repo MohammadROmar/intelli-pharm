@@ -1,0 +1,37 @@
+{
+  "sheet": {
+    "useful": "Useful",
+    "notUseful": "Not Useful",
+    "notAvailable": "Not available",
+    "noNote": "No note recorded",
+    "noNotes": "No recent notes",
+    "recentNotes": "Recent Notes",
+    "recentNotesSubtitle": "Latest notes recorded for this pharmacy",
+    "notesExpand": "Show more",
+    "notesCollapse": "Show less",
+    "status": {
+      "pending": "Pending",
+      "completed": "Completed",
+      "skipped": "Skipped",
+      "failed": "Failed",
+      "blocked": "Blocked"
+    },
+    "details": {
+      "title": "Visit Details",
+      "subtitle": "Status, timing, and reported cause",
+      "startedAt": "Started at",
+      "endedAt": "Ended at",
+      "serviceTime": "Service time",
+      "reportedCause": "Reported cause"
+    },
+    "summary": {
+      "title": "Quick Summary",
+      "subtitle": "Last recorded note"
+    },
+    "noteType": {
+      "general": "General Note",
+      "tip": "Tip",
+      "warning": "Warning"
+    }
+  }
+}

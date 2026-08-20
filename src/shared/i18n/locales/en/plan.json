@@ -79,24 +79,7 @@
       "stop": "Stop",
       "visited": "Visited",
       "notVisited": "Not visited",
-      "useful": "Useful",
-      "notUseful": "Not Useful",
-      "noNote": "No note recorded",
-      "noNotes": "No notes yet",
-      "viewDetails": "View details for {{name}}",
-      "recentNotes": "Recent Notes",
-      "recentNotesSubtitle": "All notes from this visit",
-      "notesExpand": "Show more",
-      "notesCollapse": "Show less",
-      "summary": {
-        "title": "Quick Summary",
-        "subtitle": "Last recorded note"
-      },
-      "noteType": {
-        "general": "General Note",
-        "tip": "Tip",
-        "warning": "Warning"
-      }
+      "viewDetails": "View details for {{name}}"
     }
   },
   "distance": {

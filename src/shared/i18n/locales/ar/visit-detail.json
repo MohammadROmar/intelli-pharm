@@ -1,0 +1,37 @@
+{
+  "sheet": {
+    "useful": "مفيدة",
+    "notUseful": "غير مفيدة",
+    "notAvailable": "غير متوفر",
+    "noNote": "لم تُسجَّل ملاحظة",
+    "noNotes": "لا توجد ملاحظات حديثة",
+    "recentNotes": "الملاحظات الأخيرة",
+    "recentNotesSubtitle": "أحدث الملاحظات المسجلة لهذه الصيدلية",
+    "notesExpand": "عرض المزيد",
+    "notesCollapse": "عرض أقل",
+    "status": {
+      "pending": "قيد الانتظار",
+      "completed": "مكتملة",
+      "skipped": "تم تخطيها",
+      "failed": "فشلت",
+      "blocked": "محظورة"
+    },
+    "details": {
+      "title": "تفاصيل الزيارة",
+      "subtitle": "حالة الزيارة وتوقيتها والسبب المبلّغ عنه",
+      "startedAt": "وقت البدء",
+      "endedAt": "وقت الانتهاء",
+      "serviceTime": "مدة الخدمة",
+      "reportedCause": "السبب المبلّغ عنه"
+    },
+    "summary": {
+      "title": "ملخص سريع",
+      "subtitle": "آخر ملاحظة مسجلة"
+    },
+    "noteType": {
+      "general": "ملاحظة عامة",
+      "tip": "نصيحة",
+      "warning": "تحذير"
+    }
+  }
+}

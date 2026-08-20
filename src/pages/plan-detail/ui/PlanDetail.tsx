@@ -2,9 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Route } from 'lucide-react';
 
-import { PlanVisitItem } from './PlanVisitItem';
-
-import { VisitDetail } from '@/features/plan-visit-detail';
+import { VisitDetail, PlanVisitItem } from '@/features/plan-visit-detail';
 import { useFormatDistance, useFormatDuration } from '@/entities/plan';
 import type { PlanDetail } from '@/entities/plan';
 import { cn, formatDate } from '@/shared/lib';
@@ -36,11 +34,6 @@ export function PlanDetail({
   const visitedCount = useMemo(
     () => plan.visits.filter((visit) => visit.visited === 1).length,
     [plan.visits],
-  );
-
-  const pathByVisitOrder = useMemo(
-    () => new Map(plan.paths.map((path) => [path.to_sequence, path])),
-    [plan.paths],
   );
 
   const handleVisitSelect = useCallback((id: number) => {
@@ -137,7 +130,6 @@ export function PlanDetail({
             <PlanVisitItem
               key={visit.id}
               visit={visit}
-              path={pathByVisitOrder.get(visit.visit_order)}
               isLast={index === plan.visits.length - 1}
               onClick={handleVisitSelect}
               canViewPharmacy={canViewPharmacy}

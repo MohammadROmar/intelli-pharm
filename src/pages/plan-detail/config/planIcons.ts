@@ -1,6 +1,6 @@
 import L from 'leaflet';
 
-import { ROUTE_COLORS } from './colors';
+import { ROUTE_COLORS } from '@/entities/plan';
 
 const ICON_BASE_STYLE =
   'border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;';

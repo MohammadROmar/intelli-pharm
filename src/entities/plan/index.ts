@@ -1,3 +1,12 @@
+export {
+  initiateRepPlan,
+  initiateDeliveryPlan,
+  getPlanGenerationRequest,
+} from './api/planApi';
+export { awaitPlanGeneration } from './api/awaitPlanGeneration';
+
+export { ROUTE_COLORS } from './config/colors';
+
 export type {
   PlanPath,
   PlanVisit,
@@ -24,10 +33,3 @@ export {
 } from './model/errors';
 export { useFormatDuration } from './model/useFormatDuration';
 export { useFormatDistance } from './model/useFormatDistance';
-export { getNoteTypeStyle } from './lib/getNoteTypeStyle';
-export {
-  initiateRepPlan,
-  initiateDeliveryPlan,
-  getPlanGenerationRequest,
-} from './api/planApi';
-export { awaitPlanGeneration } from './api/awaitPlanGeneration';

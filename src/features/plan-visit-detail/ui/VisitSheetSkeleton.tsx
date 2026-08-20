@@ -29,6 +29,25 @@ export function VisitSheetSkeleton() {
           <Skeleton className="size-9 shrink-0 rounded-lg" />
           <div className="space-y-1.5 pt-0.5">
             <Skeleton className="h-4 w-28" />
+            <Skeleton className="h-3 w-44" />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <Skeleton className="h-16 w-full rounded-lg" />
+          <Skeleton className="h-16 w-full rounded-lg" />
+          <Skeleton className="h-16 w-full rounded-lg" />
+          <Skeleton className="h-16 w-full rounded-lg sm:col-span-2" />
+        </div>
+      </div>
+
+      <Separator />
+
+      <div className="flex flex-col gap-3 px-4 py-1">
+        <div className="flex items-start gap-3">
+          <Skeleton className="size-9 shrink-0 rounded-lg" />
+          <div className="space-y-1.5 pt-0.5">
+            <Skeleton className="h-4 w-28" />
             <Skeleton className="h-3 w-40" />
           </div>
         </div>

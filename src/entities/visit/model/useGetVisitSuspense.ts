@@ -1,4 +1,4 @@
-import type { VisitDetail } from '../model/visitTypes';
+import type { VisitDetail } from './visitTypes';
 import { useSuspenseGetEntityById } from '@/shared/model';
 
 export function useGetVisitSuspense(id: number) {

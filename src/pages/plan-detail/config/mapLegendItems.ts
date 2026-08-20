@@ -1,4 +1,4 @@
-import { ROUTE_COLORS } from './colors';
+import { ROUTE_COLORS } from '@/entities/plan';
 
 export const MAP_LEGEND_ITEMS = [
   {

@@ -32,27 +32,44 @@ export type PlanPharmacy = {
   info: string;
 };
 
-export type PlanVisit = {
+export type PlanVisitStatus =
+  | 'pending'
+  | 'completed'
+  | 'skipped'
+  | 'failed'
+  | 'blocked';
+
+export type PlanVisitNoteType = 'tip' | 'general' | 'warning';
+
+export type PlanRouteMetrics = {
+  duration_hours: number;
+  duration_sec: string;
+  distance_km: number;
+  distance_m: string;
+};
+
+export type PlanVisit = PlanRouteMetrics & {
   id: number;
   pharmacy: PlanPharmacy;
   plan_id: number;
   visit_order: number;
+  started_at: string | null;
+  ended_at: string | null;
+  service_time_sec: number | null;
+  driver_reported_cause: string | null;
   created_at: string;
   visited: 0 | 1;
   useful: 0 | 1;
-  notes: string;
-  note_type: string;
+  notes: string | null;
+  note_type: PlanVisitNoteType;
+  status: PlanVisitStatus;
 };
 
-export type PlanPath = {
+export type PlanPath = PlanRouteMetrics & {
   id: number;
   plan_id: number;
   from_sequence: number;
   to_sequence: number;
-  duration_hours: string;
-  duration_sec: number;
-  distance_km: string;
-  distance_m: number;
   geometry: string;
   created_at: string;
 };
@@ -63,11 +80,13 @@ export type PlanDetail = {
   user_name: string;
   region_id: number;
   region_name: string;
-  total_distance_km: string;
-  total_distance_m: number | null;
-  total_duration_sec: number | null;
-  total_duration_hours: string;
+  total_distance_m: string;
+  total_distance_km: number;
+  total_duration_sec: string;
+  total_duration_hours: number;
   created_at: string;
+  finished: boolean;
+  deleted_at: string | null;
   reason: PlanReason;
   reason_details: string;
   visits: PlanVisit[];

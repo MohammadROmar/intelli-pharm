@@ -1,6 +1,4 @@
-import type { PlanVisit } from '@/entities/plan';
-
-import { ROUTE_COLORS } from '../config/colors';
+import { ROUTE_COLORS, type PlanVisit } from '@/entities/plan';
 
 export function isVisited(visit: Pick<PlanVisit, 'visited'>): boolean {
   return visit.visited === 1;
