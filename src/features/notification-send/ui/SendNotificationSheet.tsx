@@ -32,7 +32,7 @@ export function SendNotificationSheet() {
 
       <SheetContent
         side={isRtl ? 'left' : 'right'}
-        className="flex flex-col gap-6 sm:max-w-md"
+        className="w-full sm:max-w-md"
       >
         <SheetHeader>
           <SheetTitle className="sr-only">{t('title')}</SheetTitle>

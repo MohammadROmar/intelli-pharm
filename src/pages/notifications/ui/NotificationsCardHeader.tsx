@@ -15,7 +15,9 @@ import {
 import { NotificationsDateFilter } from './NotificationsDateFilter';
 import { TAB_OPTIONS, useReadStatusFilter } from '../model/useReadStatusFilter';
 
-export function NotificationsCardHeader() {
+type Props = { canSendNotifications: boolean };
+
+export function NotificationsCardHeader({ canSendNotifications }: Props) {
   const { t } = useTranslation('notifications');
 
   const { activeTab, handleTabChange } = useReadStatusFilter();
@@ -49,9 +51,11 @@ export function NotificationsCardHeader() {
 
         <NotificationsDateFilter triggerLabel={t('filters.trigger')} />
 
-        <Suspense fallback={<Skeleton className="h-8 w-full md:max-w-28" />}>
-          <SendNotificationSheet />
-        </Suspense>
+        {canSendNotifications && (
+          <Suspense fallback={<Skeleton className="h-8 w-full md:max-w-28" />}>
+            <SendNotificationSheet />
+          </Suspense>
+        )}
       </div>
     </CardHeader>
   );

@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
 import { NotificationActivationBanner } from '@/features/notifications';
-import { useHasPermission } from '@/entities/session';
 import { Card, QueryErrorBoundary, Separator } from '@/shared/ui';
 
 import { NotificationsContent } from './NotificationsContent';
 import { NotificationsCardHeader } from './NotificationsCardHeader';
+import { useNotificationsAccess } from '../model/useNotificationsAccess';
 
 export default function NotificationsPage() {
   return (
@@ -18,9 +18,7 @@ export default function NotificationsPage() {
 export function NotificationsPageContent() {
   const { t } = useTranslation('notifications');
 
-  const canReceiveStockNotifications = useHasPermission(
-    'erp.stock.notifications.get',
-  );
+  const access = useNotificationsAccess();
 
   const pageTitle = `${t('page.title')} - IntelliPharma`;
 
@@ -30,12 +28,14 @@ export function NotificationsPageContent() {
 
       <div className="container mx-auto grid size-full max-w-3xl">
         <Card className="gap-4!">
-          <NotificationsCardHeader />
+          <NotificationsCardHeader
+            canSendNotifications={access.canSendNotifications}
+          />
 
           <NotificationActivationBanner
             detailed
             className="mx-6"
-            canReceiveStockNotifications={canReceiveStockNotifications}
+            canReceiveStockNotifications={access.canReceiveStockNotifications}
           />
 
           <Separator />
