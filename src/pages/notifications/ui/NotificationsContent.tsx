@@ -134,7 +134,7 @@ export function NotificationsContent() {
           <NotificationsEmptyState tab={readStatusParam ?? 'all'} />
         )}
 
-        <CardFooter className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+        <CardFooter className="flex flex-col flex-wrap items-center gap-4 sm:flex-row sm:justify-between">
           <DynamicPagination
             itemsPerPage={perPage}
             maxVisiblePages={MAX_VISIBLE_PAGES}

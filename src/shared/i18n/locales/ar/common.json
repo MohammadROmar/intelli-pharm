@@ -45,7 +45,14 @@
     "noMoreResults": "لا يوجد المزيد من النتائج",
     "search": "بحث…",
     "scrollToLoad": "قم بالتمرير لتحميل المزيد",
-    "loadingMore": "جارٍ التحميل…"
+    "loadingMore": "جارٍ التحميل…",
+    "selectedCount_zero": "لم يتم تحديد أي مستلم",
+    "selectedCount_one": "تم تحديد مستلم واحد",
+    "selectedCount_two": "تم تحديد مستلمَين",
+    "selectedCount_few": "تم تحديد {{count}} مستلمين",
+    "selectedCount_many": "تم تحديد {{count}} مستلمًا",
+    "selectedCount_other": "تم تحديد {{count}} مستلم",
+    "selectedGroupLabel": "المحددون"
   },
   "dragNDrop": {
     "dnd": "اسحب وأفلت الصور أو",

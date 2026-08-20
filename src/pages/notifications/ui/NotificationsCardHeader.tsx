@@ -1,9 +1,12 @@
+import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Bell } from 'lucide-react';
 
+import { SendNotificationSheet } from '@/features/notification-send';
 import {
   CardHeader,
   CardSectionHeader,
+  Skeleton,
   Tabs,
   TabsList,
   TabsTrigger,
@@ -18,25 +21,25 @@ export function NotificationsCardHeader() {
   const { activeTab, handleTabChange } = useReadStatusFilter();
 
   return (
-    <CardHeader className="flex! flex-col flex-wrap gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <CardHeader className="space-y-3">
       <CardSectionHeader
         title={t('page.title')}
         description={t('page.description')}
         icon={Bell}
       />
 
-      <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+      <div className="flex w-full shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
         <Tabs
           value={activeTab}
           onValueChange={handleTabChange}
-          className="w-full sm:w-auto"
+          className="w-full"
         >
-          <TabsList className="w-full sm:w-auto">
+          <TabsList className="w-full">
             {TAB_OPTIONS.map((tab) => (
               <TabsTrigger
                 key={tab}
                 value={tab}
-                className="w-full cursor-pointer sm:w-auto"
+                className="w-full cursor-pointer"
               >
                 {t(`tabs.${tab}`)}
               </TabsTrigger>
@@ -45,6 +48,10 @@ export function NotificationsCardHeader() {
         </Tabs>
 
         <NotificationsDateFilter triggerLabel={t('filters.trigger')} />
+
+        <Suspense fallback={<Skeleton className="h-8 w-full md:max-w-28" />}>
+          <SendNotificationSheet />
+        </Suspense>
       </div>
     </CardHeader>
   );

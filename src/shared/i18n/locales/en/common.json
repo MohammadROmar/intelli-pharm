@@ -45,7 +45,10 @@
     "noMoreResults": "No more results",
     "search": "Search…",
     "scrollToLoad": "Scroll to load more",
-    "loadingMore": "Loading more…"
+    "loadingMore": "Loading more…",
+    "selectedCount_one": "{{count}} selected",
+    "selectedCount_other": "{{count}} selected",
+    "selectedGroupLabel": "Selected"
   },
   "dragNDrop": {
     "dnd": "Drag & drop images or",

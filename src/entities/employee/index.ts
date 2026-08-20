@@ -13,3 +13,5 @@ export type {
 export { useGetEmployeeSuspense } from './model/useGetEmployeeSuspense';
 
 export { EmployeeSelector } from './ui/EmployeesSelector';
+export { EmployeeMultiSelect } from './ui/EmployeeMultiSelect';
+export { EmployeeMultiSelectSkeleton } from './ui/EmployeeMultiSelectSkeleton';

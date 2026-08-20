@@ -1,6 +1,7 @@
 {
   "vehicleCapacityPlaceholder": "أدخل سعة المركبة",
   "roles": {
+    "all": "الجميع",
     "admin": "مسؤول",
     "distributor": "موزع",
     "rep": "مندوب"

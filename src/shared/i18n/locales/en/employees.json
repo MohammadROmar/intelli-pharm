@@ -1,6 +1,7 @@
 {
   "vehicleCapacityPlaceholder": "Enter vehicle capacity",
   "roles": {
+    "all": "All",
     "admin": "Administrator",
     "distributor": "Distributor",
     "rep": "Representative"

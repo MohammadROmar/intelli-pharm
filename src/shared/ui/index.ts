@@ -105,7 +105,10 @@ export {
 } from './popover';
 export {
   GenericSingleSelect,
+  GenericMultiSelect,
+  type GenericMultiSelectProps,
   type GenericSingleSelectProps,
+  type GenericMultiSelectOptionState,
 } from './GenericSelect';
 export {
   Dialog,

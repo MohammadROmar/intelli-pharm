@@ -1,0 +1,34 @@
+{
+  "trigger": "Send Notification",
+  "title": "Send Notification",
+  "description": "Send a push notification to one or more employees.",
+  "fields": {
+    "title": {
+      "label": "Title"
+    },
+    "body": {
+      "label": "Message"
+    },
+    "recipients": {
+      "label": "Recipients"
+    }
+  },
+  "errors": {
+    "titleRequired": "Title is required",
+    "bodyRequired": "Message is required",
+    "recipientsRequired": "Select at least one recipient"
+  },
+  "actions": {
+    "send": "Send",
+    "sending": "Sending…"
+  },
+  "toast": {
+    "success": {
+      "title": "Notification sent successfully",
+      "subtitle": "The notification was sent to the selected recipients."
+    },
+    "error": {
+      "title": "Failed to send notification"
+    }
+  }
+}
