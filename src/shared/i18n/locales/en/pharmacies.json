@@ -114,6 +114,8 @@
     "labelClosingTime": "Closes At",
     "labelLatitude": "Latitude",
     "labelLongitude": "Longitude",
+    "historyNotesShowAll": "Show all notes",
+    "historyNotesShowLess": "Show fewer notes",
     "showOnMap": "Show on Map",
     "historyNotesTitle": "Visit Notes",
     "historyNotesSubtitle": "Notes recorded by sales representatives",
