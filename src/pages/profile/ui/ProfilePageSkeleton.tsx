@@ -8,8 +8,8 @@ function ProfileCardSkeleton() {
           <Skeleton className="size-10 rounded-xl" />
 
           <div className="space-y-2">
-            <Skeleton className="h-4 w-36" />
-            <Skeleton className="h-3 w-52 max-w-full" />
+            <Skeleton className="h-4 w-full max-w-36" />
+            <Skeleton className="h-3 w-full max-w-52" />
           </div>
         </div>
 
@@ -23,19 +23,16 @@ function ProfileCardSkeleton() {
 export function ProfilePageSkeleton() {
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 pb-8" aria-hidden>
-      <Card className="overflow-hidden">
-        <div className="bg-muted h-1.5" />
-
-        <CardContent className="flex items-center gap-5 p-5 sm:p-7">
-          <Skeleton className="size-20 shrink-0 rounded-2xl" />
-
-          <div className="min-w-0 flex-1 space-y-3">
-            <Skeleton className="h-4 w-28" />
-            <Skeleton className="h-8 w-56 max-w-full" />
-            <Skeleton className="h-4 w-96 max-w-full" />
+      <div className="bg-card space-y-5 rounded-2xl border p-5 sm:p-6">
+        <Skeleton className="h-5 w-full max-w-36" />
+        <div className="flex items-end justify-between gap-4">
+          <div className="space-y-3">
+            <Skeleton className="h-8 w-full max-w-52" />
+            <Skeleton className="h-5 w-full max-w-40" />
           </div>
-        </CardContent>
-      </Card>
+          <Skeleton className="h-10 w-full max-w-40" />
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ProfileCardSkeleton />
@@ -47,11 +44,11 @@ export function ProfilePageSkeleton() {
           <Skeleton className="size-10 rounded-xl" />
 
           <div className="flex-1 space-y-2">
-            <Skeleton className="h-4 w-44" />
-            <Skeleton className="h-3 w-72 max-w-full" />
+            <Skeleton className="h-4 w-full max-w-44" />
+            <Skeleton className="h-3 w-full max-w-72" />
           </div>
 
-          <Skeleton className="h-6 w-10 rounded-full" />
+          <Skeleton className="h-6 w-full max-w-10 rounded-full" />
         </CardContent>
       </Card>
     </div>
