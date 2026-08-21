@@ -48,5 +48,9 @@
     "retry_action": "Try again"
   },
 
+  "pharmacy": {
+    "hasRelatedRecords": "This pharmacy cannot be deleted because it has related orders, visits, coupons, or debts."
+  },
+
   "retry": "Try again"
 }
