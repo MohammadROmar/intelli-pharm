@@ -4,17 +4,24 @@ import type { PharmacyTier } from '@/entities/metrics';
 import { cn } from '@/shared/lib';
 
 const tierStyles: Record<PharmacyTier, string> = {
+  Platinum: [
+    'border-indigo-200/80 bg-indigo-50 text-indigo-700',
+    'dark:border-indigo-400/25 dark:bg-indigo-400/10 dark:text-indigo-300',
+  ].join(' '),
+
   Gold: [
-    'text-yellow-700 bg-yellow-50 border-yellow-200',
-    'dark:text-yellow-400 dark:bg-yellow-950 dark:border-yellow-800',
+    'border-amber-200/80 bg-amber-50 text-amber-700',
+    'dark:border-amber-400/25 dark:bg-amber-400/10 dark:text-amber-300',
   ].join(' '),
+
   Silver: [
-    'text-slate-600 bg-slate-50 border-slate-200',
-    'dark:text-slate-300 dark:bg-slate-900 dark:border-slate-700',
+    'border-slate-300/70 bg-slate-100/80 text-slate-600',
+    'dark:border-slate-300/20 dark:bg-slate-300/10 dark:text-slate-300',
   ].join(' '),
+
   Bronze: [
-    'text-orange-700 bg-orange-50 border-orange-200',
-    'dark:text-orange-400 dark:bg-orange-950 dark:border-orange-800',
+    'border-orange-200/70 bg-orange-50/80 text-orange-800',
+    'dark:border-orange-400/25 dark:bg-orange-400/10 dark:text-orange-300',
   ].join(' '),
 };
 

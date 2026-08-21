@@ -88,6 +88,7 @@
       "recencyScore": "Recency Score"
     },
     "tiers": {
+      "Platinum": "Platinum",
       "Gold": "Gold",
       "Silver": "Silver",
       "Bronze": "Bronze"

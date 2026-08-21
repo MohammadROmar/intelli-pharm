@@ -17,6 +17,7 @@ function getTypeOptions(t: TFunction) {
   return [
     { id: 'monthly', name: t('type.monthly') },
     { id: 'quarterly', name: t('type.quarterly') },
+    { id: 'yearly', name: t('type.yearly') },
   ];
 }
 

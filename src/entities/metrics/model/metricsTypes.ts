@@ -117,7 +117,7 @@ export type AreaFilters = {
   category_id?: number;
 };
 
-export type PharmacyTier = 'Gold' | 'Silver' | 'Bronze';
+export type PharmacyTier = 'Platinum' | 'Gold' | 'Silver' | 'Bronze';
 
 export type PharmacyMetric = {
   id: number;
