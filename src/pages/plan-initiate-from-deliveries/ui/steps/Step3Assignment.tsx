@@ -34,17 +34,12 @@ export function Step3Assignment({ onSubmit, isPending }: Props) {
 
   const canView = useHasPermission('erp.employees.view');
 
-  function onValidSubmit(values: AssignmentSlice) {
-    dispatch({ type: 'UPDATE_ASSIGNMENT', payload: values });
-    onSubmit();
+  function onValidChange(rep_id: number) {
+    dispatch({ type: 'UPDATE_ASSIGNMENT', payload: { rep_id } });
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onValidSubmit)}
-      noValidate
-      className="space-y-6"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
       <Card>
         <CardHeader>
           <CardSectionHeader
@@ -62,7 +57,10 @@ export function Step3Assignment({ onSubmit, isPending }: Props) {
               <RepIdField
                 role="distributor"
                 value={field.value}
-                onChange={field.onChange}
+                onChange={(v) => {
+                  onValidChange(v as number);
+                  field.onChange(v);
+                }}
                 invalid={fieldState.invalid}
                 canView={canView}
               />
