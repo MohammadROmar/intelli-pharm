@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { createDomainQueryKeys } from './queryKeys';
+
 import { apiClient, type ApiError, type ApiResponse } from '../api';
 import {
   getPage,
@@ -17,13 +18,20 @@ type Props = {
   queryKey: string;
   filters?: FilterParams;
   withDualLanguage?: boolean;
+  staleTime?: number;
+  refetchOnMount?: boolean;
 };
 
-export function useSuspenseGetEntities<T extends { data?: Y[] }, Y>({
+export function useSuspenseGetEntities<
+  TResponse extends { data?: TItem[] },
+  TItem,
+>({
   module = 'erp',
   queryKey,
   filters,
   withDualLanguage = false,
+  staleTime,
+  refetchOnMount,
 }: Props) {
   const [searchParams] = useSearchParams();
   const { i18n } = useTranslation();
@@ -33,10 +41,10 @@ export function useSuspenseGetEntities<T extends { data?: Y[] }, Y>({
   const per_page = getPerPage(searchParams);
 
   const params = normalizeApiParams(filters, page_number, per_page);
-  const queryKeys = createDomainQueryKeys(queryKey);
   const canonicalFilters = serializeFilters(filters);
+  const queryKeys = createDomainQueryKeys(queryKey);
 
-  return useSuspenseQuery<ApiResponse<T>, ApiError>({
+  return useSuspenseQuery<ApiResponse<TResponse>, ApiError>({
     queryKey: queryKeys.list({
       page_number,
       per_page,
@@ -54,7 +62,10 @@ export function useSuspenseGetEntities<T extends { data?: Y[] }, Y>({
         };
       }
 
-      return apiClient.get(`/${module}/v1/${queryKey}`, config);
+      return apiClient.get<TResponse>(`/${module}/v1/${queryKey}`, config);
     },
+
+    ...(staleTime !== undefined && { staleTime }),
+    ...(refetchOnMount !== undefined && { refetchOnMount }),
   });
 }

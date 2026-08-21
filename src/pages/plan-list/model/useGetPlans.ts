@@ -1,6 +1,9 @@
-import { usePlanFilters } from './usePlanFilters';
 import type { PlanListApiResponse, PlanSummary } from '@/entities/plan';
 import { useSuspenseGetEntities } from '@/shared/model';
+
+import { usePlanFilters } from './usePlanFilters';
+
+const PLAN_FRESHNESS_WINDOW_MS = 1_000;
 
 export function useGetPlans() {
   const { filters } = usePlanFilters();
@@ -9,5 +12,7 @@ export function useGetPlans() {
     queryKey: 'plans',
     module: 'planner',
     filters,
+    staleTime: PLAN_FRESHNESS_WINDOW_MS,
+    refetchOnMount: true,
   });
 }
