@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import type { Pharmacy } from '@/entities/pharmacy';
+import type { PharmacyFormValues } from '@/entities/pharmacy';
 import type { LatLng } from '@/shared/lib';
 
 type UseLocationPickerFormReturn = {
@@ -10,14 +10,14 @@ type UseLocationPickerFormReturn = {
 };
 
 export function useLocationPickerForm(): UseLocationPickerFormReturn {
-  const { setValue, control } = useFormContext<Pharmacy>();
+  const { setValue, control } = useFormContext<PharmacyFormValues>();
 
   const [lat, lng] = useWatch({
     control,
     name: ['latitude', 'longitude'],
   });
 
-  const position: LatLng = { lat: +lat, lng: +lng };
+  const position: LatLng = { lat: Number(lat), lng: Number(lng) };
 
   const setPosition = useCallback(
     (next: LatLng) => {

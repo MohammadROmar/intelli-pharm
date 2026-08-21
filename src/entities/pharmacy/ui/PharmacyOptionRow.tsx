@@ -3,9 +3,9 @@ import { Check } from 'lucide-react';
 
 import { cn } from '@/shared/lib';
 
-import type { Pharmacy } from '../model/pharmacyTypes';
+import type { PharmacyOption } from '../model/pharmacyTypes';
 
-type Props = { pharmacy: Pharmacy; selected: boolean };
+type Props = { pharmacy: PharmacyOption; selected: boolean };
 
 function PharmacyOptionRowImpl({ pharmacy, selected }: Props) {
   return (

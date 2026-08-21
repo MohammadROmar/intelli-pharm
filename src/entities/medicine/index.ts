@@ -12,6 +12,7 @@ export type {
   StockEntry,
   BooleanFilter,
   MedicineStock,
+  MedicineGift,
   MedicineDetail,
   MedicineFilters,
   MedicineCategory,
@@ -21,6 +22,7 @@ export type {
   FormValues as MedicineFormData,
 } from './model/medicineTypes';
 export { useGetMedicineSuspense } from './model/useGetMedicineSuspense';
+export { useInfiniteMedicines } from './model/useInfiniteMedicines';
 export { useMedicineImages } from './model/useMedicineImages';
 
 export { MedicineSelector } from './ui/MedicineSelector';

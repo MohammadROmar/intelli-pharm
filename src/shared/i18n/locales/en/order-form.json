@@ -1,0 +1,122 @@
+{
+  "create": {
+    "title": "Create order",
+    "subtitle": "Choose the pharmacy, build the medicine cart, and submit a recoverable order draft.",
+    "action": "Create order"
+  },
+  "update": {
+    "title": "Update order",
+    "subtitle": "Review quantities and replace the current order items.",
+    "action": "Update order"
+  },
+  "steps": {
+    "ariaLabel": "Order creation progress",
+    "mobile": "Step {{current}} of {{total}}",
+    "details": {
+      "title": "Order details",
+      "description": "Pharmacy and fulfillment"
+    },
+    "medicines": {
+      "title": "Medicines",
+      "description": "Catalog and cart"
+    }
+  },
+  "draft": {
+    "restoredTitle": "Your order draft was restored",
+    "restoredDescription": "The pharmacy, notes, medicines, and quantities were recovered from this device.",
+    "discard": "Discard this draft",
+    "dismiss": "Dismiss draft notice"
+  },
+  "details": {
+    "title": "Order details",
+    "subtitle": "Select the destination pharmacy and confirm the fulfillment context.",
+    "pharmacy": "Pharmacy",
+    "pharmacyPlaceholder": "Select a pharmacy",
+    "warehouse": "Warehouse",
+    "mainWarehouse": "Main Warehouse",
+    "warehouseHint": "This order will be fulfilled from the only available warehouse.",
+    "notes": "Notes (optional)",
+    "notesPlaceholder": "Add delivery instructions or other order context…",
+    "notesHint": "Notes are saved with the draft and sent with the order.",
+    "continue": "Continue to medicines",
+    "validation": {
+      "required": "This field is required."
+    }
+  },
+  "medicines": {
+    "title": "Build the order",
+    "pharmacy": "Pharmacy",
+    "warehouse": "Warehouse",
+    "mainWarehouse": "Main Warehouse",
+    "selectedPharmacy": "Selected pharmacy",
+    "editDetails": "Edit details",
+    "openCart": "Open cart",
+    "selectedSummary": "{{medicines}} medicines · {{units}} units",
+    "catalogTitle": "Medicine catalog",
+    "catalogSubtitle": "Search the catalog, add medicines, or inspect available alternatives.",
+    "searchLabel": "Search medicines by name",
+    "searchPlaceholder": "Search by medicine name…",
+    "clearSearch": "Clear medicine search",
+    "emptyTitle": "No medicines found",
+    "emptyDescription": "Try a different medicine name. Out-of-stock medicines remain visible so you can inspect their alternatives.",
+    "errorTitle": "Medicines could not be loaded",
+    "errorDescription": "Your cart is still safe. Retry loading the medicine catalog.",
+    "retry": "Try again",
+    "loadMore": "Load more medicines",
+    "loadingMore": "Loading medicines…",
+    "item": {
+      "available_zero": "No units available",
+      "available_one": "{{count}} unit available",
+      "available_two": "{{count}} units available",
+      "available_few": "{{count}} units available",
+      "available_many": "{{count}} units available",
+      "available_other": "{{count}} units available",
+      "unavailable": "Out of stock",
+      "gift": "Buy {{required}}, get {{gift}}",
+      "add": "Add to order",
+      "selected": "In cart",
+      "alternatives": "Show alternatives"
+    }
+  },
+  "alternatives": {
+    "title": "Medicine alternatives",
+    "subtitle": "Available substitutes related to {{medicine}}.",
+    "emptyTitle": "No alternatives available",
+    "emptyDescription": "This medicine does not currently have any linked alternatives.",
+    "item": {
+      "available_zero": "No units available",
+      "available_one": "{{count}} unit available",
+      "available_two": "{{count}} units available",
+      "available_few": "{{count}} units available",
+      "available_many": "{{count}} units available",
+      "available_other": "{{count}} units available",
+      "unavailable": "Unavailable",
+      "add": "Add alternative",
+      "selected": "In cart"
+    }
+  },
+  "cart": {
+    "title": "Order cart",
+    "description": "Review selected medicines and adjust their quantities.",
+    "summary": "{{medicines}} medicines · {{units}} units",
+    "emptyTitle": "The cart is empty",
+    "emptyDescription": "Add at least one available medicine before creating the order.",
+    "estimatedSubtotal": "Estimated subtotal",
+    "priceHint": "Offers, gifts, and the final discount are calculated by the server when the order is created.",
+    "submit": "Create order",
+    "submitting": "Creating order…",
+    "back": "Back to order details",
+    "item": {
+      "stock_zero": "Out of stock",
+      "stock_one": "{{count}} in stock",
+      "stock_two": "{{count}} in stock",
+      "stock_few": "{{count}} in stock",
+      "stock_many": "{{count}} in stock",
+      "stock_other": "{{count}} in stock",
+      "remove": "Remove {{medicine}} from the order",
+      "decrease": "Decrease {{medicine}} quantity",
+      "increase": "Increase {{medicine}} quantity",
+      "quantity": "Quantity for {{medicine}}"
+    }
+  }
+}

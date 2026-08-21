@@ -1,10 +1,30 @@
-import type { OrderListResponse, OrderStatus } from '../model/orderTypes';
+import type {
+  CreateOrderPayload,
+  OrderListResponse,
+  OrderMutationResult,
+  OrderStatus,
+  UpdateOrderPayload,
+} from '../model/orderTypes';
 import { apiClient, unwrapPaginatedApiResponse } from '@/shared/api';
 
 export async function getOrders(
   params: Record<string, string | number | null | undefined>,
 ) {
   return apiClient.get<OrderListResponse>('/erp/v1/orders', { params });
+}
+
+export function createOrder(payload: CreateOrderPayload) {
+  return apiClient.post<OrderMutationResult>('/erp/v1/orders', payload);
+}
+
+export function updateOrder({
+  id,
+  payload,
+}: {
+  id: number;
+  payload: UpdateOrderPayload;
+}) {
+  return apiClient.put<OrderMutationResult>(`/erp/v1/orders/${id}`, payload);
 }
 
 export async function changeOrderStatus({

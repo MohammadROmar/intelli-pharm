@@ -27,9 +27,12 @@ export async function getInfinitePharmacies(
   name?: string,
   params?: Record<string, unknown>,
 ) {
+  const requestParams = { ...params };
+  delete requestParams.queryLanguage;
+
   const response = await apiClient.get<PharmaciesResponse>(
     '/erp/v1/pharmacies',
-    { params: { page_number, name, ...params } },
+    { params: { page_number, name, ...requestParams } },
   );
 
   return unwrapPaginatedApiResponse(response);

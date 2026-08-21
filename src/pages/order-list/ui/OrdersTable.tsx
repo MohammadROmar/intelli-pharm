@@ -33,6 +33,14 @@ export function OrdersTable({ data }: Props) {
       data={data}
       title={t('all')}
       basePath="/dashboard/orders"
+      addButton={
+        actionAccess.canCreate
+          ? {
+              addHref: '/dashboard/orders/new',
+              addLabel: t('create'),
+            }
+          : undefined
+      }
       toolbar={
         <EntityFiltersToolbar
           filtersState={filtersState}

@@ -7,6 +7,7 @@
     "pharmacyName": "Pharmacy Name",
     "status": "Status",
     "totalAmount": "Total Amount",
+    "create": "Create",
     "totalQuantity": "Total Quantity",
     "created": "Created",
     "actions": "Actions",

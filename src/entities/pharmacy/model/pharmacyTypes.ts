@@ -24,7 +24,26 @@ type BasePharmacyDetail = BasePharmacy & {
   history_notes: HistoryNote[];
 };
 
-export type Pharmacy = BasePharmacyDetail & { name: string };
+export type Pharmacy = {
+  id: number;
+  name: string;
+  region_id: number;
+  region: string;
+  latitude: string;
+  longitude: string;
+  opening_time: string;
+  closing_time: string;
+  is_active: 0 | 1;
+  pharmacist_name: string;
+  pharmacist_phone: string;
+  pharmacist_alt_phone: string | null;
+  is_open: boolean;
+};
+
+export type PharmacyOption = Pick<
+  Pharmacy,
+  'id' | 'name' | 'region' | 'pharmacist_name'
+>;
 
 export type HistoryNote = {
   id: number;

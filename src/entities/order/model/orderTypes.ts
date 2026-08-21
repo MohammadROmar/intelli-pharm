@@ -1,5 +1,21 @@
 import type { PaginatedResponse } from '@/shared/api';
 
+export type OrderRequestItem = {
+  medicine_id: number;
+  quantity: number;
+};
+
+export type CreateOrderPayload = {
+  pharmacy_id: number;
+  warehouse_id: number;
+  items: OrderRequestItem[];
+  notes?: string;
+};
+
+export type UpdateOrderPayload = {
+  items: OrderRequestItem[];
+};
+
 export type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
 
 type OrderMedicine = { id: number; commercial_name: string };
@@ -42,6 +58,27 @@ export type OrderDetail = {
   items: OrderItem[];
   paid_amount?: string | null;
 } & OrderListItem;
+
+export type OrderMutationItem = Omit<OrderItem, 'medicine'>;
+
+export type OrderMutationResult = {
+  id: number;
+  created_by: number;
+  created_by_name?: string;
+  pharmacy_id: number;
+  warehouse_id: number;
+  status: OrderStatus | null;
+  total_amount: string | number;
+  percentage: string | null;
+  final_total: string | number;
+  paid_amount: string | number | null;
+  discount: string | number;
+  offer_id: number | null;
+  created_at: string;
+  updated_at: string;
+  notes: string | null;
+  items?: OrderMutationItem[];
+};
 
 export type OrderFilters = {
   status?: string | null;

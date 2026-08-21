@@ -44,39 +44,58 @@ export type MedicineStock = {
 export type AlternativeMedicine = {
   id: number;
   category_id: number | null;
-  commercial_name: { ar: string; en: string };
-  price: string;
-  is_imported: boolean;
-  is_active: boolean;
-  note: string;
-  images: string[];
-};
-
-type BaseMedicine = {
-  id: number;
-  category_id: number;
+  commercial_name: Localized;
   price: string;
   is_imported: boolean;
   is_active: boolean;
   available_quantity: number;
-  barcode?: string;
+  note: string | null;
+  images: string[];
+};
+
+export type MedicineGift = {
+  gift_quantity: number;
+  required_quantity: number;
+};
+
+export type Medicine = {
+  id: number;
+  category_id: number;
+  commercial_name: string;
+  scientific_name: string;
+  price: string;
+  available_quantity: number;
+  gift: MedicineGift;
+  is_imported: boolean;
+  is_active: boolean;
   in_stock: boolean;
+  barcode: string | null;
   created_at: string;
   updated_at: string;
   images: string[];
+};
+
+export type MedicineDetail = {
+  id: number;
+  category_id: number;
+  commercial_name: Localized;
   scientific_name: string;
-  note?: string;
+  price: string;
+  available_quantity: number;
+  gift: MedicineGift;
+  is_imported: boolean;
+  is_active: boolean;
+  in_stock: boolean;
+  barcode: string | null;
+  created_at: string;
+  updated_at: string;
+  images: string[];
+  note?: string | null;
   category: MedicineCategory;
   laboratory: { id: number; name: string };
   stocks: MedicineStock[];
   alternatives: AlternativeMedicine[];
   alternative_for: AlternativeMedicine[];
-};
-
-export type Medicine = BaseMedicine & { commercial_name: string };
-export type MedicineDetail = BaseMedicine & {
-  commercial_name: Localized;
-  gift: { gift_quantity: number; required_quantity: number };
 };
 
 export type MedicineResponse = PaginatedResponse<Medicine>;

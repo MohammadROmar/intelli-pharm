@@ -1,7 +1,18 @@
-export { cancelOrder, changeOrderStatus, getOrders } from './api';
+export {
+  cancelOrder,
+  changeOrderStatus,
+  createOrder,
+  getOrders,
+  updateOrder,
+} from './api';
 
 export type {
   OrderItem,
+  OrderMutationItem,
+  OrderRequestItem,
+  CreateOrderPayload,
+  UpdateOrderPayload,
+  OrderMutationResult,
   OrderStatus,
   OrderDetail,
   OrderFilters,

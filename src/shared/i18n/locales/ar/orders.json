@@ -6,6 +6,7 @@
     "id": "المعرف",
     "pharmacyName": "اسم الصيدلية",
     "status": "الحالة",
+    "create": "إنشاء",
     "totalAmount": "المبلغ الإجمالي",
     "totalQuantity": "الكمية الإجمالية",
     "created": "تاريخ الإنشاء",

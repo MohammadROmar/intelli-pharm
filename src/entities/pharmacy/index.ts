@@ -9,6 +9,7 @@ export { getWeekDays } from './lib/utils';
 
 export type {
   Pharmacy,
+  PharmacyOption,
   NoteType,
   HistoryNote,
   PharmacyDetail,

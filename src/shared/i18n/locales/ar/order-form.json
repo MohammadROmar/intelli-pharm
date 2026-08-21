@@ -1,0 +1,122 @@
+{
+  "create": {
+    "title": "إنشاء طلب",
+    "subtitle": "حدّد الصيدلية، وأضف الأدوية إلى السلة، ثم أرسل مسودة طلب قابلة للاستعادة.",
+    "action": "إنشاء طلب"
+  },
+  "update": {
+    "title": "تعديل الطلب",
+    "subtitle": "راجع الكميات واستبدل أصناف الطلب الحالية.",
+    "action": "تعديل الطلب"
+  },
+  "steps": {
+    "ariaLabel": "مراحل إنشاء الطلب",
+    "mobile": "الخطوة {{current}} من {{total}}",
+    "details": {
+      "title": "بيانات الطلب",
+      "description": "الصيدلية ومصدر التجهيز"
+    },
+    "medicines": {
+      "title": "الأدوية",
+      "description": "الكتالوج والسلة"
+    }
+  },
+  "draft": {
+    "restoredTitle": "تمت استعادة مسودة الطلب",
+    "restoredDescription": "تمت استعادة الصيدلية والملاحظات والأدوية والكميات المحفوظة على هذا الجهاز.",
+    "discard": "حذف هذه المسودة",
+    "dismiss": "إخفاء إشعار المسودة"
+  },
+  "details": {
+    "title": "بيانات الطلب",
+    "subtitle": "حدّد الصيدلية المستلمة وتأكد من بيانات تجهيز الطلب.",
+    "pharmacy": "الصيدلية",
+    "pharmacyPlaceholder": "اختر الصيدلية",
+    "warehouse": "المستودع",
+    "mainWarehouse": "المستودع الرئيسي",
+    "warehouseHint": "سيُجهّز هذا الطلب من المستودع الوحيد المتاح.",
+    "notes": "الملاحظات (اختيارية)",
+    "notesPlaceholder": "أضف تعليمات التوصيل أو أي معلومات أخرى عن الطلب…",
+    "notesHint": "تُحفظ الملاحظات ضمن المسودة وتُرسل مع الطلب.",
+    "continue": "المتابعة إلى الأدوية",
+    "validation": {
+      "required": "هذا الحقل مطلوب."
+    }
+  },
+  "medicines": {
+    "title": "تجهيز الطلب",
+    "pharmacy": "الصيدلية",
+    "warehouse": "المستودع",
+    "mainWarehouse": "المستودع الرئيسي",
+    "selectedPharmacy": "الصيدلية المحددة",
+    "editDetails": "تعديل البيانات",
+    "openCart": "فتح السلة",
+    "selectedSummary": "{{medicines}} أدوية · {{units}} وحدة",
+    "catalogTitle": "دليل الأدوية",
+    "catalogSubtitle": "ابحث عن الأدوية وأضفها إلى الطلب أو استعرض بدائلها المتاحة.",
+    "searchLabel": "البحث باسم الدواء",
+    "searchPlaceholder": "البحث باسم الدواء…",
+    "clearSearch": "مسح البحث عن الأدوية",
+    "emptyTitle": "لم يتم العثور على أدوية",
+    "emptyDescription": "جرّب اسماً مختلفاً. تبقى الأدوية غير المتوفرة ظاهرة لتتمكن من استعراض بدائلها.",
+    "errorTitle": "تعذر تحميل الأدوية",
+    "errorDescription": "ما تزال سلة الطلب محفوظة. حاول تحميل دليل الأدوية مجدداً.",
+    "retry": "إعادة المحاولة",
+    "loadMore": "تحميل المزيد من الأدوية",
+    "loadingMore": "جارٍ تحميل الأدوية…",
+    "item": {
+      "available_zero": "غير متوفر",
+      "available_one": "وحدة واحدة متوفرة",
+      "available_two": "وحدتان متوفرتان",
+      "available_few": "{{count}} وحدات متوفرة",
+      "available_many": "{{count}} وحدة متوفرة",
+      "available_other": "{{count}} وحدة متوفرة",
+      "unavailable": "غير متوفر في المخزون",
+      "gift": "اشترِ {{required}} واحصل على {{gift}}",
+      "add": "إضافة إلى الطلب",
+      "selected": "ضمن السلة",
+      "alternatives": "عرض البدائل"
+    }
+  },
+  "alternatives": {
+    "title": "بدائل الدواء",
+    "subtitle": "البدائل المتاحة والمرتبطة بالدواء {{medicine}}.",
+    "emptyTitle": "لا توجد بدائل متاحة",
+    "emptyDescription": "لا توجد بدائل مرتبطة بهذا الدواء حالياً.",
+    "item": {
+      "available_zero": "غير متوفر",
+      "available_one": "وحدة واحدة متوفرة",
+      "available_two": "وحدتان متوفرتان",
+      "available_few": "{{count}} وحدات متوفرة",
+      "available_many": "{{count}} وحدة متوفرة",
+      "available_other": "{{count}} وحدة متوفرة",
+      "unavailable": "غير متوفر",
+      "add": "إضافة البديل",
+      "selected": "ضمن السلة"
+    }
+  },
+  "cart": {
+    "title": "سلة الطلب",
+    "description": "راجع الأدوية المحددة وعدّل كمياتها.",
+    "summary": "{{medicines}} أدوية · {{units}} وحدة",
+    "emptyTitle": "سلة الطلب فارغة",
+    "emptyDescription": "أضف دواءً متوفراً واحداً على الأقل قبل إنشاء الطلب.",
+    "estimatedSubtotal": "الإجمالي التقديري",
+    "priceHint": "يحسب الخادم العروض والهدايا والحسم النهائي عند إنشاء الطلب.",
+    "submit": "إنشاء الطلب",
+    "submitting": "جارٍ إنشاء الطلب…",
+    "back": "العودة إلى بيانات الطلب",
+    "item": {
+      "stock_zero": "غير متوفر",
+      "stock_one": "وحدة واحدة في المخزون",
+      "stock_two": "وحدتان في المخزون",
+      "stock_few": "{{count}} وحدات في المخزون",
+      "stock_many": "{{count}} وحدة في المخزون",
+      "stock_other": "{{count}} وحدة في المخزون",
+      "remove": "إزالة {{medicine}} من الطلب",
+      "decrease": "إنقاص كمية {{medicine}}",
+      "increase": "زيادة كمية {{medicine}}",
+      "quantity": "كمية {{medicine}}"
+    }
+  }
+}

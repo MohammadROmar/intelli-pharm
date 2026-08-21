@@ -17,14 +17,18 @@ export function medicineToFromData(medicine: MedicineDetail): MedicineFormData {
 
   return {
     ...medicine,
-    name: { ar: medicine.commercial_name.ar, en: medicine.commercial_name.en },
+    name: {
+      ar: medicine.commercial_name.ar,
+      en: medicine.commercial_name.en,
+    },
     stocks,
+    barcode: medicine.barcode ?? undefined,
     is_alternative,
     note: medicine.note ?? '',
     imagesCount: 0,
     laboratory_id: medicine.laboratory.id,
     is_alternative_to_id: is_alternative
-      ? medicine.alternative_for[0].id
+      ? (medicine.alternative_for[0]?.id ?? null)
       : null,
   };
 }

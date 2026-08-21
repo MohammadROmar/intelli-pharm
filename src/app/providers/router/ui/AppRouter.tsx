@@ -73,6 +73,11 @@ const router = createBrowserRouter([
                         handle: withPermission('erp.orders.view'),
                       },
                       {
+                        path: 'new',
+                        lazy: () => import('@/pages/order-create'),
+                        handle: withPermission('erp.orders.create'),
+                      },
+                      {
                         path: ':id',
                         lazy: () => import('@/pages/order-detail'),
                         handle: withPermission('erp.orders.view'),
