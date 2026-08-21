@@ -28,9 +28,9 @@ export function PharmacyForm({
   const methods = useForm<PharmacyFormValues>({
     defaultValues: {
       is_active: true,
-      pharmacist_alt_phone: '',
       latitude: 33.5132,
       longitude: 36.2768,
+      holidays: [],
       ...defaultValues,
     },
     mode: 'onTouched',

@@ -47,10 +47,7 @@ export function PharmacistInformationCard({ isPending }: Props) {
             icon={User}
             placeholder={t('placeholderPharmacistName')}
             aria-invalid={!!errors.pharmacist_name}
-            {...register('pharmacist_name', {
-              required: true,
-              disabled: isPending,
-            })}
+            {...register('pharmacist_name', { disabled: isPending })}
           />
           {errors.pharmacist_name && (
             <FieldError>{t('errors.required')}</FieldError>

@@ -33,6 +33,7 @@ export function MedicineForm({
     defaultValues: medicine
       ? medicineToFromData(medicine)
       : {
+          is_active: true,
           stocks: [{ warehouse_id: '', expiry_date: '', quantity: '' }],
           imagesCount: 0,
         },
