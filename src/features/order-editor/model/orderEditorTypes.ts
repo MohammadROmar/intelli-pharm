@@ -2,9 +2,11 @@ import type { PharmacyOption } from '@/entities/pharmacy';
 
 export type OrderEditorStep = 'details' | 'medicines';
 
+export type OrderEditorPharmacy = Pick<PharmacyOption, 'id' | 'name'>;
+
 export type OrderEditorDetails = {
   pharmacyId: number | null;
-  pharmacy: PharmacyOption | null;
+  pharmacy: OrderEditorPharmacy | null;
   warehouseId: string;
   notes: string;
 };
@@ -14,7 +16,7 @@ export type OrderCartItem = {
   commercialName: string;
   scientificName: string | null;
   price: string;
-  availableQuantity: number;
+  availableQuantity: number | null;
   image: string | null;
   quantity: number;
 };
@@ -30,7 +32,7 @@ export type OrderEditorAction =
   | {
       type: 'SET_PHARMACY';
       pharmacyId: number | null;
-      pharmacy: PharmacyOption | null;
+      pharmacy: OrderEditorPharmacy | null;
     }
   | { type: 'SET_WAREHOUSE'; warehouseId: string }
   | { type: 'SET_NOTES'; notes: string }
@@ -40,4 +42,4 @@ export type OrderEditorAction =
   | { type: 'UPDATE_QUANTITY'; medicineId: number; quantity: number }
   | { type: 'REMOVE_ITEM'; medicineId: number }
   | { type: 'DISMISS_RESTORED' }
-  | { type: 'RESET' };
+  | { type: 'RESET'; state: OrderEditorState };

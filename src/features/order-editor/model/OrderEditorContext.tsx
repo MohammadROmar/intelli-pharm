@@ -6,7 +6,6 @@ import {
   useReducer,
 } from 'react';
 
-import type { PharmacyOption } from '@/entities/pharmacy';
 import { useRequiredUser } from '@/shared/model';
 
 import {
@@ -16,33 +15,77 @@ import {
   loadOrderDraft,
   saveOrderDraft,
 } from '../lib/orderDraftStorage';
-import { orderEditorReducer } from './orderEditorReducer';
+import {
+  createInitialOrderEditorState,
+  orderEditorReducer,
+} from './orderEditorReducer';
 import {
   OrderEditorActionsContext,
   OrderEditorStateContext,
   type OrderEditorActions,
 } from './orderEditorContextValue';
-import type { OrderCartItem, OrderEditorStep } from './orderEditorTypes';
+import type {
+  OrderCartItem,
+  OrderEditorPharmacy,
+  OrderEditorState,
+  OrderEditorStep,
+} from './orderEditorTypes';
 
-export function OrderEditorProvider({ children }: PropsWithChildren) {
+type Props = PropsWithChildren<{
+  draftScope?: string;
+  initialState?: OrderEditorState;
+  lockDetails?: boolean;
+}>;
+
+type ReducerInitializer = {
+  initialState: OrderEditorState;
+  lockDetails: boolean;
+  storageKey: string;
+};
+
+function initializeOrderEditor({
+  initialState,
+  lockDetails,
+  storageKey,
+}: ReducerInitializer): OrderEditorState {
+  return loadOrderDraft(storageKey, initialState, lockDetails);
+}
+
+export function OrderEditorProvider({
+  children,
+  draftScope,
+  initialState,
+  lockDetails = false,
+}: Props) {
   const user = useRequiredUser();
-  const storageKey = useMemo(() => getOrderDraftKey(user.email), [user.email]);
+  const fallbackState = useMemo(
+    () => initialState ?? createInitialOrderEditorState(),
+    [initialState],
+  );
+  const storageKey = useMemo(
+    () => getOrderDraftKey(user.email, draftScope),
+    [draftScope, user.email],
+  );
+  const reducerInitializer = useMemo<ReducerInitializer>(
+    () => ({ initialState: fallbackState, lockDetails, storageKey }),
+    [fallbackState, lockDetails, storageKey],
+  );
   const [state, dispatch] = useReducer(
     orderEditorReducer,
-    storageKey,
-    loadOrderDraft,
+    reducerInitializer,
+    initializeOrderEditor,
   );
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-      saveOrderDraft(storageKey, state);
+      saveOrderDraft(storageKey, state, fallbackState);
     }, DRAFT_SAVE_DELAY_MS);
 
     return () => window.clearTimeout(timeoutId);
-  }, [state, storageKey]);
+  }, [fallbackState, state, storageKey]);
 
   const setPharmacy = useCallback(
-    (pharmacyId: number | null, pharmacy: PharmacyOption | null) => {
+    (pharmacyId: number | null, pharmacy: OrderEditorPharmacy | null) => {
       dispatch({ type: 'SET_PHARMACY', pharmacyId, pharmacy });
     },
     [],
@@ -73,8 +116,8 @@ export function OrderEditorProvider({ children }: PropsWithChildren) {
   }, []);
   const discardDraft = useCallback(() => {
     clearOrderDraft(storageKey);
-    dispatch({ type: 'RESET' });
-  }, [storageKey]);
+    dispatch({ type: 'RESET', state: fallbackState });
+  }, [fallbackState, storageKey]);
   const completeDraft = useCallback(() => {
     clearOrderDraft(storageKey);
   }, [storageKey]);

@@ -1,5 +1,6 @@
-import type { OrderDetail } from '@/entities/order';
 import { useSuspenseGetEntityById } from '@/shared/model';
+
+import type { OrderDetail } from './orderTypes';
 
 export function useGetOrderSuspense(id: number) {
   return useSuspenseGetEntityById<OrderDetail>({

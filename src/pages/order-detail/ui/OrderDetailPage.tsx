@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 
+import { useGetOrderSuspense } from '@/entities/order';
 import { QueryDisabled, QueryErrorBoundary } from '@/shared/ui';
 
 import { OrderInfoCard } from './OrderInfoCard';
@@ -8,7 +9,6 @@ import { OrderDetailHeader } from './OrderDetailHeader';
 import { OrderItemsTable } from './OrderItemsTable';
 import { OrderSummaryStrip } from './OrderSummaryStrip';
 import { OrderFinancialSummary } from './OrderFinancialSummary';
-import { useGetOrderSuspense } from '../model/useGetOrderSuspense';
 import { useOrderDetailAccess } from '../model/useOrderDetailAccess';
 
 export default function OrderDetailPage() {

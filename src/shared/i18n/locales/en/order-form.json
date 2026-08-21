@@ -4,11 +4,6 @@
     "subtitle": "Choose the pharmacy, build the medicine cart, and submit a recoverable order draft.",
     "action": "Create order"
   },
-  "update": {
-    "title": "Update order",
-    "subtitle": "Review quantities and replace the current order items.",
-    "action": "Update order"
-  },
   "steps": {
     "ariaLabel": "Order creation progress",
     "mobile": "Step {{current}} of {{total}}",
@@ -130,6 +125,8 @@
       "stock_few": "{{count}} in stock",
       "stock_many": "{{count}} in stock",
       "stock_other": "{{count}} in stock",
+      "stockUnchecked": "Availability checked when saving",
+      "lineTotal": "Item total",
       "remove": "Remove {{medicine}} from the order",
       "decrease": "Decrease {{medicine}} quantity",
       "increase": "Increase {{medicine}} quantity",

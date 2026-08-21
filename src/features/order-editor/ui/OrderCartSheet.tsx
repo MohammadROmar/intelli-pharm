@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShoppingBasket } from 'lucide-react';
 
@@ -17,6 +18,11 @@ type Props = {
   open: boolean;
   items: OrderCartItem[];
   isPending: boolean;
+  labels?: {
+    back: string;
+    submit: string;
+    submitting: string;
+  };
   onOpenChange: (open: boolean) => void;
   onBack: () => void;
   onSubmit: () => void;
@@ -28,6 +34,7 @@ export function OrderCartSheet({
   open,
   items,
   isPending,
+  labels,
   onOpenChange,
   onBack,
   onSubmit,
@@ -36,6 +43,14 @@ export function OrderCartSheet({
 }: Props) {
   const { t, i18n } = useTranslation('order-form', { keyPrefix: 'cart' });
   const isRtl = i18n.dir() === 'rtl';
+  const summary = useMemo(
+    () => ({
+      medicines: items.length,
+      units: items.reduce((total, item) => total + item.quantity, 0),
+    }),
+    [items],
+  );
+  const summaryLabel = t('summary', summary);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -46,11 +61,11 @@ export function OrderCartSheet({
         <SheetHeader>
           <SheetTitle className="sr-only">{t('title')}</SheetTitle>
           <SheetDescription className="sr-only">
-            {t('description')}
+            {summaryLabel}
           </SheetDescription>
           <CardSectionHeader
             title={t('title')}
-            description={t('description')}
+            description={summaryLabel}
             icon={ShoppingBasket}
             aria-hidden
           />
@@ -60,6 +75,8 @@ export function OrderCartSheet({
           <OrderCart
             items={items}
             isPending={isPending}
+            showHeader={false}
+            labels={labels}
             onBack={onBack}
             onSubmit={onSubmit}
             onQuantityChange={onQuantityChange}

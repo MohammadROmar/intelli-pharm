@@ -111,7 +111,7 @@ function MedicineAlternativesContent({
 
   if (alternatives.length === 0) {
     return (
-      <div className="bg-muted/20 flex min-h-56 flex-col items-center justify-center rounded-xl border border-dashed p-6 text-center">
+      <div className="flex min-h-[50vh] flex-col items-center justify-center px-6 py-12 text-center">
         <span className="bg-muted flex size-11 items-center justify-center rounded-full">
           <PackageSearch
             className="text-muted-foreground size-5"

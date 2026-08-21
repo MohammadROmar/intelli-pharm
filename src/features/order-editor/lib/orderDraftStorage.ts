@@ -32,13 +32,15 @@ function isCartItem(value: unknown): value is OrderCartItem {
     (typeof value.scientificName === 'string' ||
       value.scientificName === null) &&
     typeof value.price === 'string' &&
-    typeof value.availableQuantity === 'number' &&
-    value.availableQuantity > 0 &&
+    ((typeof value.availableQuantity === 'number' &&
+      value.availableQuantity > 0) ||
+      value.availableQuantity === null) &&
     (typeof value.image === 'string' || value.image === null) &&
     typeof value.quantity === 'number' &&
     Number.isInteger(value.quantity) &&
     value.quantity > 0 &&
-    value.quantity <= value.availableQuantity
+    (value.availableQuantity === null ||
+      value.quantity <= value.availableQuantity)
   );
 }
 
@@ -50,9 +52,7 @@ function isStoredDraft(value: unknown): value is StoredOrderDraft {
     pharmacy === null ||
     (isRecord(pharmacy) &&
       typeof pharmacy.id === 'number' &&
-      typeof pharmacy.name === 'string' &&
-      typeof pharmacy.region === 'string' &&
-      typeof pharmacy.pharmacist_name === 'string');
+      typeof pharmacy.name === 'string');
 
   const items = value.items;
   const hasValidItems =
@@ -85,15 +85,19 @@ function hashIdentity(identity: string): string {
   return (hash >>> 0).toString(36);
 }
 
-export function getOrderDraftKey(email: string): string {
-  return `order_editor_draft_v${DRAFT_SCHEMA_VERSION}_${hashIdentity(
+export function getOrderDraftKey(email: string, scope?: string): string {
+  const baseKey = `order_editor_draft_v${DRAFT_SCHEMA_VERSION}_${hashIdentity(
     email.trim().toLowerCase(),
   )}`;
+
+  return scope ? `${baseKey}_${hashIdentity(scope)}` : baseKey;
 }
 
-export function loadOrderDraft(storageKey: string): OrderEditorState {
-  const initialState = createInitialOrderEditorState();
-
+export function loadOrderDraft(
+  storageKey: string,
+  initialState = createInitialOrderEditorState(),
+  lockDetails = false,
+): OrderEditorState {
   if (typeof window === 'undefined') return initialState;
 
   try {
@@ -107,20 +111,18 @@ export function loadOrderDraft(storageKey: string): OrderEditorState {
     }
 
     const updatedAt = Date.parse(draft.updatedAt);
-    if (
-      Number.isNaN(updatedAt) ||
-      Date.now() - updatedAt > DRAFT_MAX_AGE_MS
-    ) {
+    if (Number.isNaN(updatedAt) || Date.now() - updatedAt > DRAFT_MAX_AGE_MS) {
       window.localStorage.removeItem(storageKey);
       return initialState;
     }
 
     return {
-      step:
-        draft.step === 'medicines' && draft.details.pharmacyId !== null
+      step: lockDetails
+        ? initialState.step
+        : draft.step === 'medicines' && draft.details.pharmacyId !== null
           ? 'medicines'
           : 'details',
-      details: draft.details,
+      details: lockDetails ? initialState.details : draft.details,
       items: draft.items,
       restoredAt: draft.updatedAt,
     };
@@ -135,16 +137,29 @@ export function loadOrderDraft(storageKey: string): OrderEditorState {
 export function saveOrderDraft(
   storageKey: string,
   state: OrderEditorState,
+  baselineState: OrderEditorState,
 ): void {
   if (typeof window === 'undefined') return;
 
-  const isEmpty =
-    state.step === 'details' &&
-    state.details.pharmacyId === null &&
-    state.details.notes.trim() === '' &&
-    state.items.length === 0;
+  const hasItemChanges =
+    state.items.length !== baselineState.items.length ||
+    state.items.some((item, index) => {
+      const baselineItem = baselineState.items[index];
 
-  if (isEmpty) {
+      return (
+        !baselineItem ||
+        item.medicineId !== baselineItem.medicineId ||
+        item.quantity !== baselineItem.quantity
+      );
+    });
+  const hasChanges =
+    state.step !== baselineState.step ||
+    state.details.pharmacyId !== baselineState.details.pharmacyId ||
+    state.details.warehouseId !== baselineState.details.warehouseId ||
+    state.details.notes !== baselineState.details.notes ||
+    hasItemChanges;
+
+  if (!hasChanges) {
     clearOrderDraft(storageKey);
     return;
   }

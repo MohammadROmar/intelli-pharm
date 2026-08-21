@@ -9,10 +9,7 @@ import type { ApiResponse } from '@/shared/api';
 import { useCreateEntity, useEditEntity } from '@/shared/model';
 
 export function useCreateOrder() {
-  return useCreateEntity<
-    CreateOrderPayload,
-    ApiResponse<OrderMutationResult>
-  >({
+  return useCreateEntity<CreateOrderPayload, ApiResponse<OrderMutationResult>>({
     queryKey: 'orders',
     translationKey: 'order',
     mutationFn: createOrder,
@@ -20,11 +17,16 @@ export function useCreateOrder() {
   });
 }
 
-export function useUpdateOrder(orderId: number) {
+export function useUpdateOrder(orderId: number, onUpdated?: () => void) {
   return useEditEntity<UpdateOrderPayload, ApiResponse<OrderMutationResult>>({
     queryKey: 'orders',
     translationKey: 'order',
-    mutationFn: (payload) => updateOrder({ id: orderId, payload }),
+    mutationFn: async (payload) => {
+      const response = await updateOrder({ id: orderId, payload });
+      onUpdated?.();
+
+      return response;
+    },
     redirectTo: `/dashboard/orders/${orderId}`,
   });
 }

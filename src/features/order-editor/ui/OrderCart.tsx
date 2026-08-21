@@ -1,6 +1,11 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, LoaderCircle, PackageCheck, ShoppingBasket } from 'lucide-react';
+import {
+  ArrowLeft,
+  LoaderCircle,
+  PackageCheck,
+  ShoppingBasket,
+} from 'lucide-react';
 
 import { formatPrice } from '@/shared/lib';
 import { Button, Separator } from '@/shared/ui';
@@ -11,6 +16,12 @@ import { OrderCartItem } from './OrderCartItem';
 type Props = {
   items: CartItem[];
   isPending: boolean;
+  showHeader?: boolean;
+  labels?: {
+    back: string;
+    submit: string;
+    submitting: string;
+  };
   onBack: () => void;
   onSubmit: () => void;
   onQuantityChange: (medicineId: number, quantity: number) => void;
@@ -20,6 +31,8 @@ type Props = {
 export function OrderCart({
   items,
   isPending,
+  showHeader = true,
+  labels,
   onBack,
   onSubmit,
   onQuantityChange,
@@ -40,19 +53,26 @@ export function OrderCart({
 
   return (
     <div className="flex min-h-0 flex-col">
-      <div className="flex items-start gap-3">
-        <span className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-xl">
-          <ShoppingBasket className="size-5" aria-hidden="true" />
-        </span>
-        <div className="min-w-0">
-          <h2 className="text-base font-semibold">{t('title')}</h2>
-          <p className="text-muted-foreground text-xs">
-            {t('summary', { medicines: items.length, units: summary.units })}
-          </p>
-        </div>
-      </div>
+      {showHeader && (
+        <>
+          <div className="flex items-start gap-3">
+            <span className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-xl">
+              <ShoppingBasket className="size-5" aria-hidden="true" />
+            </span>
+            <div className="min-w-0">
+              <h2 className="text-base font-semibold">{t('title')}</h2>
+              <p className="text-muted-foreground text-xs">
+                {t('summary', {
+                  medicines: items.length,
+                  units: summary.units,
+                })}
+              </p>
+            </div>
+          </div>
 
-      <Separator className="my-4" />
+          <Separator className="my-4" />
+        </>
+      )}
 
       {items.length === 0 ? (
         <div className="bg-muted/20 flex min-h-48 flex-col items-center justify-center rounded-xl border border-dashed p-5 text-center">
@@ -97,14 +117,13 @@ export function OrderCart({
           onClick={onSubmit}
         >
           {isPending ? (
-            <LoaderCircle
-              className="size-4 animate-spin"
-              aria-hidden="true"
-            />
+            <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
           ) : (
             <PackageCheck className="size-4" aria-hidden="true" />
           )}
-          {isPending ? t('submitting') : t('submit')}
+          {isPending
+            ? (labels?.submitting ?? t('submitting'))
+            : (labels?.submit ?? t('submit'))}
         </Button>
 
         <Button
@@ -115,7 +134,7 @@ export function OrderCart({
           onClick={onBack}
         >
           <ArrowLeft className="size-4 rtl:rotate-180" aria-hidden="true" />
-          {t('back')}
+          {labels?.back ?? t('back')}
         </Button>
       </div>
     </div>

@@ -4,11 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui';
 
 type Props = {
+  labels?: {
+    description: string;
+    discard: string;
+    dismiss: string;
+    title: string;
+  };
   onDismiss: () => void;
   onDiscard: () => void;
 };
 
-export function OrderDraftRestored({ onDismiss, onDiscard }: Props) {
+export function OrderDraftRestored({ labels, onDismiss, onDiscard }: Props) {
   const { t } = useTranslation('order-form', { keyPrefix: 'draft' });
 
   return (
@@ -18,9 +24,11 @@ export function OrderDraftRestored({ onDismiss, onDiscard }: Props) {
       </span>
 
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold">{t('restoredTitle')}</p>
+        <p className="text-sm font-semibold">
+          {labels?.title ?? t('restoredTitle')}
+        </p>
         <p className="text-muted-foreground mt-0.5 text-xs">
-          {t('restoredDescription')}
+          {labels?.description ?? t('restoredDescription')}
         </p>
         <Button
           type="button"
@@ -29,7 +37,7 @@ export function OrderDraftRestored({ onDismiss, onDiscard }: Props) {
           className="mt-1 h-auto p-0 text-xs"
           onClick={onDiscard}
         >
-          {t('discard')}
+          {labels?.discard ?? t('discard')}
         </Button>
       </div>
 
@@ -39,7 +47,7 @@ export function OrderDraftRestored({ onDismiss, onDiscard }: Props) {
         size="icon"
         className="size-8 shrink-0"
         onClick={onDismiss}
-        aria-label={t('dismiss')}
+        aria-label={labels?.dismiss ?? t('dismiss')}
       >
         <X className="size-4" aria-hidden="true" />
       </Button>

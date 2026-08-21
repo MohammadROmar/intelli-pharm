@@ -21,6 +21,7 @@ function OrderCartItemImpl({
   onRemove,
 }: Props) {
   const { t, i18n } = useTranslation('order-form', { keyPrefix: 'cart.item' });
+  const availableQuantity = item.availableQuantity;
 
   return (
     <article className="rounded-xl border p-3">
@@ -35,10 +36,7 @@ function OrderCartItemImpl({
               className="size-full object-cover"
             />
           ) : (
-            <Pill
-              className="text-muted-foreground size-5"
-              aria-hidden="true"
-            />
+            <Pill className="text-muted-foreground size-5" aria-hidden="true" />
           )}
         </div>
 
@@ -50,7 +48,9 @@ function OrderCartItemImpl({
               </h3>
               <p className="text-muted-foreground mt-0.5 text-xs">
                 {formatPrice(item.price, i18n.language)} ·{' '}
-                {t('stock', { count: item.availableQuantity })}
+                {availableQuantity === null
+                  ? t('stockUnchecked')
+                  : t('stock', { count: availableQuantity })}
               </p>
             </div>
 
@@ -72,7 +72,7 @@ function OrderCartItemImpl({
               type="button"
               variant="outline"
               size="icon"
-              className="size-8"
+              className="size-8 shrink-0"
               disabled={disabled || item.quantity <= 1}
               onClick={() =>
                 onQuantityChange(item.medicineId, item.quantity - 1)
@@ -86,11 +86,11 @@ function OrderCartItemImpl({
               type="number"
               inputMode="numeric"
               min={1}
-              max={item.availableQuantity}
+              max={availableQuantity ?? undefined}
               step={1}
               value={item.quantity}
               disabled={disabled}
-              className="h-8 w-20 text-center tabular-nums"
+              className="h-9 min-w-0 flex-1 [appearance:textfield] text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               aria-label={t('quantity', { medicine: item.commercialName })}
               onChange={(event) =>
                 onQuantityChange(item.medicineId, Number(event.target.value))
@@ -101,8 +101,12 @@ function OrderCartItemImpl({
               type="button"
               variant="outline"
               size="icon"
-              className="size-8"
-              disabled={disabled || item.quantity >= item.availableQuantity}
+              className="size-8 shrink-0"
+              disabled={
+                disabled ||
+                (availableQuantity !== null &&
+                  item.quantity >= availableQuantity)
+              }
               onClick={() =>
                 onQuantityChange(item.medicineId, item.quantity + 1)
               }
@@ -110,12 +114,14 @@ function OrderCartItemImpl({
             >
               <Plus className="size-3.5" aria-hidden="true" />
             </Button>
+          </div>
 
-            <span className="ms-auto text-sm font-bold tabular-nums">
-              {formatPrice(
-                Number(item.price) * item.quantity,
-                i18n.language,
-              )}
+          <div className="mt-2 flex items-center justify-between gap-3 border-t pt-2">
+            <span className="text-muted-foreground text-xs">
+              {t('lineTotal')}
+            </span>
+            <span className="text-sm font-bold tabular-nums">
+              {formatPrice(Number(item.price) * item.quantity, i18n.language)}
             </span>
           </div>
         </div>

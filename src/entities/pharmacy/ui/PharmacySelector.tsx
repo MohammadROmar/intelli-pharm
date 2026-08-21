@@ -12,11 +12,13 @@ import { useDebouncedPharmacySearch } from '../model/useDebouncedPharmacySearch'
 import { useInfinitePharmacies } from '../model/useInfinitePharmacies';
 
 type OptionValue = string | number | null;
+type PharmacyDefaultValue = Pick<PharmacyOption, 'id' | 'name'> &
+  Partial<Pick<PharmacyOption, 'region' | 'pharmacist_name'>>;
 
 type Props = {
-  defaultValue?: PharmacyOption;
+  defaultValue?: PharmacyDefaultValue;
   onOptionChange?: (pharmacy: PharmacyOption | null) => void;
-} & Partial<GenericSingleSelectProps<PharmacyOption>>;
+} & Omit<Partial<GenericSingleSelectProps<PharmacyOption>>, 'defaultValue'>;
 
 export function PharmacySelector({
   value,
@@ -45,9 +47,28 @@ export function PharmacySelector({
 
     if (!defaultValue) return items;
 
+    const selectedIndex = items.findIndex(
+      (pharmacy) => pharmacy.id === defaultValue.id,
+    );
+
+    if (selectedIndex >= 0) {
+      const selected = items[selectedIndex];
+
+      return [
+        selected,
+        ...items.slice(0, selectedIndex),
+        ...items.slice(selectedIndex + 1),
+      ];
+    }
+
     return [
-      defaultValue,
-      ...items.filter((pharmacy) => pharmacy.id !== defaultValue.id),
+      {
+        id: defaultValue.id,
+        name: defaultValue.name,
+        region: defaultValue.region ?? '',
+        pharmacist_name: defaultValue.pharmacist_name ?? '',
+      },
+      ...items,
     ];
   }, [defaultValue, pharmacies]);
 

@@ -1,9 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import type { PharmacyOption } from '@/entities/pharmacy';
-
 import type {
   OrderCartItem,
+  OrderEditorPharmacy,
   OrderEditorState,
   OrderEditorStep,
 } from './orderEditorTypes';
@@ -11,7 +10,7 @@ import type {
 export type OrderEditorActions = {
   setPharmacy: (
     pharmacyId: number | null,
-    pharmacy: PharmacyOption | null,
+    pharmacy: OrderEditorPharmacy | null,
   ) => void;
   setWarehouse: (warehouseId: string) => void;
   setNotes: (notes: string) => void;

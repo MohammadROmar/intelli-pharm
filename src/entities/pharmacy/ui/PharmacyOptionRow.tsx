@@ -8,6 +8,11 @@ import type { PharmacyOption } from '../model/pharmacyTypes';
 type Props = { pharmacy: PharmacyOption; selected: boolean };
 
 function PharmacyOptionRowImpl({ pharmacy, selected }: Props) {
+  const metadata =
+    pharmacy.region && pharmacy.pharmacist_name
+      ? `${pharmacy.region} · ${pharmacy.pharmacist_name}`
+      : pharmacy.region || pharmacy.pharmacist_name;
+
   return (
     <div className="flex w-full min-w-0 items-center gap-2.5">
       <Check
@@ -20,9 +25,11 @@ function PharmacyOptionRowImpl({ pharmacy, selected }: Props) {
 
       <span className="flex min-w-0 flex-1 flex-col text-start">
         <span className="truncate text-sm font-medium">{pharmacy.name}</span>
-        <span className="text-muted-foreground truncate text-xs">
-          {pharmacy.region} · {pharmacy.pharmacist_name}
-        </span>
+        {metadata ? (
+          <span className="text-muted-foreground truncate text-xs">
+            {metadata}
+          </span>
+        ) : null}
       </span>
     </div>
   );

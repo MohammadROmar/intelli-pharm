@@ -1,0 +1,31 @@
+{
+  "page": {
+    "documentTitle": "Update {{order}}",
+    "title": "Update {{order}}",
+    "subtitle": "Adjust the medicines and quantities. Pharmacy, warehouse, and notes remain unchanged."
+  },
+  "context": {
+    "title": "Order context",
+    "subtitle": "These details belong to the original order and cannot be edited here.",
+    "pharmacy": "Pharmacy",
+    "warehouse": "Fulfillment warehouse",
+    "mainWarehouse": "Main Warehouse",
+    "warehouseRecord": "Warehouse #{{id}}",
+    "notes": "Order notes",
+    "noNotes": "No notes were added to this order."
+  },
+  "actions": {
+    "submit": "Save medicine changes",
+    "submitting": "Saving changes…",
+    "back": "Back to order"
+  },
+  "editor": {
+    "medicinesTitle": "Update order medicines"
+  },
+  "draft": {
+    "restoredTitle": "Your order update was restored",
+    "restoredDescription": "The medicine selection and quantities were recovered from this device.",
+    "discard": "Discard update draft",
+    "dismiss": "Dismiss draft notice"
+  }
+}

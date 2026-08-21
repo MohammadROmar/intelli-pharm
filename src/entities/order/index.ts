@@ -22,3 +22,4 @@ export type {
 
 export { OrderSelector } from './ui/OrderSelector';
 export { OrderStatusBadge } from './ui/OrderStatusBadge';
+export { useGetOrderSuspense } from './model/useGetOrderSuspense';

@@ -15,11 +15,26 @@ import { OrderCart } from './OrderCart';
 import { OrderCartSheet } from './OrderCartSheet';
 
 type Props = {
+  cartLabels?: {
+    back: string;
+    submit: string;
+    submitting: string;
+  };
+  heading?: string;
   isPending: boolean;
+  mode?: 'create' | 'update';
+  onBack?: () => void;
   onSubmit: () => void;
 };
 
-export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
+export function MedicineSelectionStep({
+  cartLabels,
+  heading,
+  isPending,
+  mode = 'create',
+  onBack,
+  onSubmit,
+}: Props) {
   const { t } = useTranslation('order-form', { keyPrefix: 'medicines' });
   const [cartOpen, setCartOpen] = useState(false);
   const state = useOrderEditorState();
@@ -35,48 +50,55 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
   );
   const handleBack = useCallback(() => {
     setCartOpen(false);
+    if (onBack) {
+      onBack();
+      return;
+    }
+
     actions.setStep('details');
-  }, [actions]);
+  }, [actions, onBack]);
 
   return (
     <div className="space-y-4">
-      <div className="bg-muted/30 flex flex-col gap-3 rounded-xl border p-3.5 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-          <span className="flex min-w-0 items-center gap-2">
-            <Cross
-              className="text-muted-foreground size-4 shrink-0"
-              aria-hidden="true"
-            />
-            <span className="text-muted-foreground">{t('pharmacy')}:</span>
-            <strong className="truncate">
-              {state.details.pharmacy?.name ?? t('selectedPharmacy')}
-            </strong>
-          </span>
-          <span className="flex items-center gap-2">
-            <Boxes
-              className="text-muted-foreground size-4"
-              aria-hidden="true"
-            />
-            <span className="text-muted-foreground">{t('warehouse')}:</span>
-            <strong>{t('mainWarehouse')}</strong>
-          </span>
-        </div>
+      {mode === 'create' ? (
+        <div className="bg-muted/30 flex flex-col gap-3 rounded-xl border p-3.5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+            <span className="flex min-w-0 items-center gap-2">
+              <Cross
+                className="text-muted-foreground size-4 shrink-0"
+                aria-hidden="true"
+              />
+              <span className="text-muted-foreground">{t('pharmacy')}:</span>
+              <strong className="truncate">
+                {state.details.pharmacy?.name ?? t('selectedPharmacy')}
+              </strong>
+            </span>
+            <span className="flex items-center gap-2">
+              <Boxes
+                className="text-muted-foreground size-4"
+                aria-hidden="true"
+              />
+              <span className="text-muted-foreground">{t('warehouse')}:</span>
+              <strong>{t('mainWarehouse')}</strong>
+            </span>
+          </div>
 
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          className="shrink-0"
-          disabled={interactionPending}
-          onClick={handleBack}
-        >
-          {t('editDetails')}
-        </Button>
-      </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="shrink-0"
+            disabled={interactionPending}
+            onClick={handleBack}
+          >
+            {t('editDetails')}
+          </Button>
+        </div>
+      ) : null}
 
       <div className="flex items-center justify-between gap-3 lg:hidden">
         <div>
-          <h2 className="text-base font-semibold">{t('title')}</h2>
+          <h2 className="text-base font-semibold">{heading ?? t('title')}</h2>
           <p className="text-muted-foreground text-xs">
             {t('selectedSummary', {
               medicines: state.items.length,
@@ -116,6 +138,7 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
             <OrderCart
               items={state.items}
               isPending={interactionPending}
+              labels={cartLabels}
               onBack={handleBack}
               onSubmit={onSubmit}
               onQuantityChange={actions.updateQuantity}
@@ -129,6 +152,7 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
         open={cartOpen}
         items={state.items}
         isPending={interactionPending}
+        labels={cartLabels}
         onOpenChange={setCartOpen}
         onBack={handleBack}
         onSubmit={onSubmit}

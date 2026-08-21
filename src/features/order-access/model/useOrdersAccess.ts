@@ -9,6 +9,7 @@ export function useOrdersAccess() {
     return {
       canCreate: hasPermission(grantedPermissions, 'erp.orders.create'),
       canCancel: hasPermission(grantedPermissions, 'erp.orders.cancel'),
+      canUpdate: hasPermission(grantedPermissions, 'erp.orders.update'),
       canChangeStatus: hasPermission(grantedPermissions, 'erp.orders.update'),
     };
   }, [grantedPermissions]);

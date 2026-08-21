@@ -15,6 +15,7 @@ import {
 export type OrderRowActionAccess = Readonly<{
   canCancel: boolean;
   canChangeStatus: boolean;
+  canUpdate: boolean;
 }>;
 
 type OrderRowProps = {
@@ -37,6 +38,7 @@ export const OrderRow = memo(function OrderRow({
   const canChangeStatus = actionAccess.canChangeStatus && !isTerminalStatus;
 
   const canCancel = actionAccess.canCancel && !isTerminalStatus;
+  const canUpdate = actionAccess.canUpdate && !isTerminalStatus;
 
   return (
     <TableRow>
@@ -88,6 +90,8 @@ export const OrderRow = memo(function OrderRow({
 
       <TableActions item={order} itemId={order.id} path="/dashboard/orders">
         <TableActions.Detail />
+
+        {canUpdate ? <TableActions.Update /> : null}
 
         {canChangeStatus ? (
           <ChangeStatusAction
