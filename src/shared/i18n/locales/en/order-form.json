@@ -64,6 +64,23 @@
     "retry": "Try again",
     "loadMore": "Load more medicines",
     "loadingMore": "Loading medicines…",
+    "barcode": {
+      "action": "Scan barcode",
+      "scanning": "Checking barcode…",
+      "usbHint": "A connected USB scanner works automatically on this step.",
+      "addedTitle": "Medicine added",
+      "addedDescription": "{{medicine}} was added to the order cart.",
+      "quantityUpdatedTitle": "Quantity increased",
+      "quantityUpdatedDescription": "{{medicine}} now has a quantity of {{quantity}}.",
+      "unavailableTitle": "Medicine unavailable",
+      "unavailableDescription": "{{medicine}} cannot be added. Review its available alternatives.",
+      "stockLimitTitle": "Available stock reached",
+      "stockLimitDescription": "Only {{count}} units of {{medicine}} are currently available.",
+      "notFoundTitle": "Barcode not found",
+      "notFoundDescription": "No medicine is registered with barcode {{barcode}}.",
+      "errorTitle": "Barcode lookup failed",
+      "errorDescription": "Try scanning again. Your order cart was not changed."
+    },
     "item": {
       "available_zero": "No units available",
       "available_one": "{{count}} unit available",

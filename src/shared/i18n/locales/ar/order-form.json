@@ -64,6 +64,23 @@
     "retry": "إعادة المحاولة",
     "loadMore": "تحميل المزيد من الأدوية",
     "loadingMore": "جارٍ تحميل الأدوية…",
+    "barcode": {
+      "action": "مسح الباركود",
+      "scanning": "جارٍ التحقق من الباركود…",
+      "usbHint": "يعمل ماسح USB المتصل تلقائياً ضمن هذه الخطوة.",
+      "addedTitle": "تمت إضافة الدواء",
+      "addedDescription": "تمت إضافة {{medicine}} إلى سلة الطلب.",
+      "quantityUpdatedTitle": "تمت زيادة الكمية",
+      "quantityUpdatedDescription": "أصبحت كمية {{medicine}} {{quantity}}.",
+      "unavailableTitle": "الدواء غير متوفر",
+      "unavailableDescription": "لا يمكن إضافة {{medicine}}. راجع بدائله المتاحة.",
+      "stockLimitTitle": "تم بلوغ الكمية المتاحة",
+      "stockLimitDescription": "لا يتوفر من {{medicine}} حالياً سوى {{count}} وحدة.",
+      "notFoundTitle": "الباركود غير مسجل",
+      "notFoundDescription": "لا يوجد دواء مسجل بالباركود {{barcode}}.",
+      "errorTitle": "تعذر التحقق من الباركود",
+      "errorDescription": "حاول المسح مرة أخرى. لم يطرأ أي تغيير على سلة الطلب."
+    },
     "item": {
       "available_zero": "غير متوفر",
       "available_one": "وحدة واحدة متوفرة",

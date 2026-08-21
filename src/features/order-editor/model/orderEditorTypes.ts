@@ -36,6 +36,7 @@ export type OrderEditorAction =
   | { type: 'SET_NOTES'; notes: string }
   | { type: 'SET_STEP'; step: OrderEditorStep }
   | { type: 'ADD_ITEM'; item: OrderCartItem }
+  | { type: 'SCAN_ITEM'; item: OrderCartItem }
   | { type: 'UPDATE_QUANTITY'; medicineId: number; quantity: number }
   | { type: 'REMOVE_ITEM'; medicineId: number }
   | { type: 'DISMISS_RESTORED' }

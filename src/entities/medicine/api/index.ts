@@ -28,7 +28,7 @@ export async function getMedicines(
 
 export async function getMedicineByBarcode(barcode: string) {
   return apiClient.get<BarcodeScanResult>(
-    `/erp/v1/medicines/barcode/${barcode}`,
+    `/erp/v1/medicines/barcode/${encodeURIComponent(barcode)}`,
   );
 }
 

@@ -59,6 +59,9 @@ export function OrderEditorProvider({ children }: PropsWithChildren) {
   const addItem = useCallback((item: OrderCartItem) => {
     dispatch({ type: 'ADD_ITEM', item });
   }, []);
+  const scanItem = useCallback((item: OrderCartItem) => {
+    dispatch({ type: 'SCAN_ITEM', item });
+  }, []);
   const updateQuantity = useCallback((medicineId: number, quantity: number) => {
     dispatch({ type: 'UPDATE_QUANTITY', medicineId, quantity });
   }, []);
@@ -83,6 +86,7 @@ export function OrderEditorProvider({ children }: PropsWithChildren) {
       setNotes,
       setStep,
       addItem,
+      scanItem,
       updateQuantity,
       removeItem,
       dismissRestored,
@@ -95,6 +99,7 @@ export function OrderEditorProvider({ children }: PropsWithChildren) {
       discardDraft,
       dismissRestored,
       removeItem,
+      scanItem,
       setNotes,
       setPharmacy,
       setStep,

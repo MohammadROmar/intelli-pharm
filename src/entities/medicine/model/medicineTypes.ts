@@ -116,16 +116,6 @@ export type MedicineFilters = {
   alternative_for?: string;
 };
 
-export type BarcodeScanResult = {
-  id: number;
-  category_id: number;
-  commercial_name: string;
-  price: string;
-  is_imported: boolean;
-  is_active: boolean;
-  available_quantity: number;
-  in_stock: boolean;
+export type BarcodeScanResult = Omit<Medicine, 'barcode'> & {
   barcode: string;
-  created_at: string;
-  updated_at: string;
 };

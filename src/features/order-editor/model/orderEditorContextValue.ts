@@ -17,6 +17,7 @@ export type OrderEditorActions = {
   setNotes: (notes: string) => void;
   setStep: (step: OrderEditorStep) => void;
   addItem: (item: OrderCartItem) => void;
+  scanItem: (item: OrderCartItem) => void;
   updateQuantity: (medicineId: number, quantity: number) => void;
   removeItem: (medicineId: number) => void;
   dismissRestored: () => void;
@@ -24,8 +25,9 @@ export type OrderEditorActions = {
   completeDraft: () => void;
 };
 
-export const OrderEditorStateContext =
-  createContext<OrderEditorState | null>(null);
+export const OrderEditorStateContext = createContext<OrderEditorState | null>(
+  null,
+);
 
 export const OrderEditorActionsContext =
   createContext<OrderEditorActions | null>(null);

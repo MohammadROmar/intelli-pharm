@@ -22,10 +22,7 @@ export function createInitialOrderEditorState(): OrderEditorState {
 function normalizeQuantity(quantity: number, item: OrderCartItem): number {
   if (!Number.isFinite(quantity)) return item.quantity;
 
-  return Math.min(
-    Math.max(Math.trunc(quantity), 1),
-    item.availableQuantity,
-  );
+  return Math.min(Math.max(Math.trunc(quantity), 1), item.availableQuantity);
 }
 
 export function orderEditorReducer(
@@ -61,14 +58,37 @@ export function orderEditorReducer(
     case 'ADD_ITEM': {
       if (
         action.item.availableQuantity < 1 ||
-        state.items.some(
-          (item) => item.medicineId === action.item.medicineId,
-        )
+        state.items.some((item) => item.medicineId === action.item.medicineId)
       ) {
         return state;
       }
 
       return { ...state, items: [...state.items, action.item] };
+    }
+
+    case 'SCAN_ITEM': {
+      if (action.item.availableQuantity < 1) return state;
+
+      const existingIndex = state.items.findIndex(
+        (item) => item.medicineId === action.item.medicineId,
+      );
+
+      if (existingIndex === -1) {
+        return { ...state, items: [...state.items, action.item] };
+      }
+
+      const existingItem = state.items[existingIndex];
+      const nextItems = [...state.items];
+
+      nextItems[existingIndex] = {
+        ...action.item,
+        quantity: Math.min(
+          existingItem.quantity + 1,
+          action.item.availableQuantity,
+        ),
+      };
+
+      return { ...state, items: nextItems };
     }
 
     case 'UPDATE_QUANTITY':

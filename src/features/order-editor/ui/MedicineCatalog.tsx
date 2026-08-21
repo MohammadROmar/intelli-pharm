@@ -1,8 +1,14 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LoaderCircle, PackageSearch, Search, X } from 'lucide-react';
+import {
+  LoaderCircle,
+  PackageSearch,
+  ScanBarcode,
+  Search,
+  X,
+} from 'lucide-react';
 
-import type { Medicine } from '@/entities/medicine';
+import type { BarcodeScanResult, Medicine } from '@/entities/medicine';
 import { useInfiniteMedicines } from '@/entities/medicine';
 import { Button, Input } from '@/shared/ui';
 
@@ -15,12 +21,17 @@ import { useDebouncedValue } from '../model/useDebouncedValue';
 import { MedicineAlternativesSheet } from './MedicineAlternativesSheet';
 import { MedicineCatalogItem } from './MedicineCatalogItem';
 import { MedicineCatalogSkeleton } from './MedicineCatalogSkeleton';
+import { OrderMedicineBarcodeScanner } from './OrderMedicineBarcodeScanner';
 
 const SEARCH_DELAY_MS = 300;
 
 type AlternativeTarget = Pick<Medicine, 'id' | 'commercial_name'>;
 
-export function MedicineCatalog() {
+type Props = {
+  disabled?: boolean;
+};
+
+export function MedicineCatalog({ disabled = false }: Props) {
   const { t } = useTranslation('order-form', { keyPrefix: 'medicines' });
   const [search, setSearch] = useState('');
   const [alternativeTarget, setAlternativeTarget] =
@@ -53,6 +64,12 @@ export function MedicineCatalog() {
       commercial_name: medicine.commercial_name,
     });
   }, []);
+  const handleUnavailableScan = useCallback((medicine: BarcodeScanResult) => {
+    setAlternativeTarget({
+      id: medicine.id,
+      commercial_name: medicine.commercial_name,
+    });
+  }, []);
   const handleSheetOpenChange = useCallback((open: boolean) => {
     if (!open) setAlternativeTarget(null);
   }, []);
@@ -65,37 +82,50 @@ export function MedicineCatalog() {
 
   return (
     <section className="min-w-0" aria-labelledby="medicine-catalog-title">
-      <div className="mb-4">
-        <h2 id="medicine-catalog-title" className="text-base font-semibold">
-          {t('catalogTitle')}
-        </h2>
-        <p className="text-muted-foreground mt-0.5 text-sm">
-          {t('catalogSubtitle')}
-        </p>
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0">
+          <h2 id="medicine-catalog-title" className="text-base font-semibold">
+            {t('catalogTitle')}
+          </h2>
+          <p className="text-muted-foreground mt-0.5 text-sm">
+            {t('catalogSubtitle')}
+          </p>
+        </div>
+
+        <OrderMedicineBarcodeScanner
+          disabled={disabled}
+          onUnavailableMedicine={handleUnavailableScan}
+        />
       </div>
 
-      <div className="relative mb-4">
-        <Input
-          type="search"
-          value={search}
-          icon={Search}
-          autoComplete="off"
-          placeholder={t('searchPlaceholder')}
-          aria-label={t('searchLabel')}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-        {search ? (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="absolute end-1 top-1/2 size-8 -translate-y-1/2"
-            onClick={() => setSearch('')}
-            aria-label={t('clearSearch')}
-          >
-            <X className="size-4" aria-hidden="true" />
-          </Button>
-        ) : null}
+      <div className="mb-4">
+        <div className="relative">
+          <Input
+            type="search"
+            value={search}
+            icon={Search}
+            autoComplete="off"
+            placeholder={t('searchPlaceholder')}
+            aria-label={t('searchLabel')}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {search ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              className="absolute end-1 top-1/2 size-8 -translate-y-1/2"
+              onClick={() => setSearch('')}
+              aria-label={t('clearSearch')}
+            >
+              <X className="size-4" aria-hidden="true" />
+            </Button>
+          ) : null}
+        </div>
+        <p className="text-muted-foreground mt-2 flex items-center gap-1.5 text-xs">
+          <ScanBarcode className="size-3.5 shrink-0" aria-hidden="true" />
+          {t('barcode.usbHint')}
+        </p>
       </div>
 
       {isPending ? <MedicineCatalogSkeleton /> : null}

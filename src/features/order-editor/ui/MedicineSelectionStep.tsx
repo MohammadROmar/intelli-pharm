@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useIsMutating } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Boxes, Cross, ShoppingBasket } from 'lucide-react';
 
@@ -8,6 +9,7 @@ import {
   useOrderEditorActions,
   useOrderEditorState,
 } from '../model/orderEditorContextValue';
+import { ORDER_MEDICINE_BARCODE_MUTATION_KEY } from '../model/useOrderMedicineBarcodeScan';
 import { MedicineCatalog } from './MedicineCatalog';
 import { OrderCart } from './OrderCart';
 import { OrderCartSheet } from './OrderCartSheet';
@@ -22,6 +24,11 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
   const [cartOpen, setCartOpen] = useState(false);
   const state = useOrderEditorState();
   const actions = useOrderEditorActions();
+  const barcodeLookupPending =
+    useIsMutating({
+      mutationKey: ORDER_MEDICINE_BARCODE_MUTATION_KEY,
+    }) > 0;
+  const interactionPending = isPending || barcodeLookupPending;
   const totalUnits = useMemo(
     () => state.items.reduce((total, item) => total + item.quantity, 0),
     [state.items],
@@ -60,7 +67,7 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
           variant="outline"
           size="sm"
           className="shrink-0"
-          disabled={isPending}
+          disabled={interactionPending}
           onClick={handleBack}
         >
           {t('editDetails')}
@@ -100,7 +107,7 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_23rem] lg:items-start">
         <Card className="min-w-0">
           <CardContent className="p-4 sm:p-5">
-            <MedicineCatalog />
+            <MedicineCatalog disabled={interactionPending} />
           </CardContent>
         </Card>
 
@@ -108,7 +115,7 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
           <CardContent className="p-4">
             <OrderCart
               items={state.items}
-              isPending={isPending}
+              isPending={interactionPending}
               onBack={handleBack}
               onSubmit={onSubmit}
               onQuantityChange={actions.updateQuantity}
@@ -121,7 +128,7 @@ export function MedicineSelectionStep({ isPending, onSubmit }: Props) {
       <OrderCartSheet
         open={cartOpen}
         items={state.items}
-        isPending={isPending}
+        isPending={interactionPending}
         onOpenChange={setCartOpen}
         onBack={handleBack}
         onSubmit={onSubmit}
