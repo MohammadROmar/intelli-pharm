@@ -1,3 +1,5 @@
+import type { LucideIcon } from 'lucide-react';
+
 export type NotificationType =
   | 'order_created'
   | 'order_updated'
@@ -82,3 +84,20 @@ export function parseNotificationData(value: unknown): FCMNotificationData {
     link: readOptionalString(data.link),
   };
 }
+
+export type ActivationStatus =
+  | 'permission-default'
+  | 'permission-denied'
+  | 'unsupported'
+  | 'device-unregistered'
+  | 'device-error';
+
+export type StatusPreset = {
+  icon: LucideIcon;
+  containerClassName: string;
+  iconWrapperClassName: string;
+  iconClassName: string;
+  titleKey: string;
+  descriptionKey: string;
+  actionKey: string;
+};

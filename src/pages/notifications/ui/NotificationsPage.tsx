@@ -32,11 +32,7 @@ export function NotificationsPageContent() {
             canSendNotifications={access.canSendNotifications}
           />
 
-          <NotificationActivationBanner
-            detailed
-            className="mx-6"
-            canReceiveStockNotifications={access.canReceiveStockNotifications}
-          />
+          <NotificationActivationBanner detailed className="mx-6" />
 
           <Separator />
 

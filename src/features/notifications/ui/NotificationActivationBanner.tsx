@@ -1,113 +1,25 @@
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  BellOff,
-  BellRing,
-  CircleAlert,
-  Info,
-  Loader2,
-  RefreshCw,
-  type LucideIcon,
-} from 'lucide-react';
+import { BellRing, Loader2, RefreshCw } from 'lucide-react';
 
 import { useDeviceRegistration } from '@/entities/device';
 import { useAppSelector } from '@/shared/config';
 import { cn } from '@/shared/lib';
-import {
-  useNotificationPermission,
-  type NotificationPermissionState,
-} from '@/shared/notifications';
+import { useNotificationPermission } from '@/shared/notifications';
 import { Button, Card, CardContent } from '@/shared/ui';
+
+import { DENIED_STEP_COUNT, STATUS_PRESETS } from '../config/constants';
+import type { ActivationStatus } from '../model/types';
+import {
+  isRetryableStatus,
+  resolveActivationStatus,
+} from '../lib/resolveActivationStatus';
 
 type Props = {
   className?: string;
   detailed?: boolean;
   hideUnsupported?: boolean;
-  canReceiveStockNotifications: boolean;
 };
-
-type ActivationStatus =
-  | 'permission-default'
-  | 'permission-denied'
-  | 'unsupported'
-  | 'device-unregistered'
-  | 'device-error';
-
-type StatusPreset = {
-  icon: LucideIcon;
-  containerClassName: string;
-  iconWrapperClassName: string;
-  iconClassName: string;
-  titleKey: string;
-  descriptionKey: string;
-  actionKey: string;
-};
-
-const DENIED_STEP_COUNT = 4;
-
-const STATUS_PRESETS: Record<ActivationStatus, StatusPreset> = {
-  'permission-default': {
-    icon: BellRing,
-    containerClassName: 'border-primary/25 bg-primary/5',
-    iconWrapperClassName: 'bg-primary/10',
-    iconClassName: 'text-primary',
-    titleKey: 'default.title',
-    descriptionKey: 'default.description',
-    actionKey: 'default.action',
-  },
-  'permission-denied': {
-    icon: BellOff,
-    containerClassName: 'border-destructive/25 bg-destructive/5',
-    iconWrapperClassName: 'bg-destructive/10',
-    iconClassName: 'text-destructive',
-    titleKey: 'denied.title',
-    descriptionKey: 'denied.description',
-    actionKey: 'denied.action',
-  },
-  unsupported: {
-    icon: Info,
-    containerClassName: 'border-border bg-muted/40',
-    iconWrapperClassName: 'bg-muted',
-    iconClassName: 'text-muted-foreground',
-    titleKey: 'unsupported.title',
-    descriptionKey: 'unsupported.description',
-    actionKey: '',
-  },
-  'device-unregistered': {
-    icon: CircleAlert,
-    containerClassName: 'border-primary/25 bg-primary/5',
-    iconWrapperClassName: 'bg-primary/10',
-    iconClassName: 'text-primary',
-    titleKey: 'unregistered.title',
-    descriptionKey: 'unregistered.description',
-    actionKey: 'unregistered.action',
-  },
-  'device-error': {
-    icon: CircleAlert,
-    containerClassName: 'border-destructive/25 bg-destructive/5',
-    iconWrapperClassName: 'bg-destructive/10',
-    iconClassName: 'text-destructive',
-    titleKey: 'error.title',
-    descriptionKey: 'error.description',
-    actionKey: 'error.action',
-  },
-};
-
-function resolveActivationStatus(
-  permission: NotificationPermissionState,
-  registrationState: ReturnType<typeof useDeviceRegistration>['state'],
-): ActivationStatus | null {
-  if (permission === 'default') return 'permission-default';
-  if (permission === 'denied') return 'permission-denied';
-  if (permission === 'unsupported') return 'unsupported';
-  if (registrationState === 'registered') return null;
-
-  return registrationState === 'error' ? 'device-error' : 'device-unregistered';
-}
-
-function isRetryableStatus(status: ActivationStatus): boolean {
-  return status === 'permission-denied' || status === 'device-error';
-}
 
 type ActivationActionProps = {
   status: ActivationStatus;
@@ -197,7 +109,7 @@ const DeniedStepsList = memo(function DeniedStepsList({
   );
 });
 
-function NotificationActivationBannerContent({
+export function NotificationActivationBanner({
   className,
   detailed = false,
   hideUnsupported = false,
@@ -290,11 +202,3 @@ function NotificationActivationBannerContent({
     </Card>
   );
 }
-
-export const NotificationActivationBanner = memo(
-  function NotificationActivationBanner(props: Props) {
-    if (!props.canReceiveStockNotifications) return null;
-
-    return <NotificationActivationBannerContent {...props} />;
-  },
-);

@@ -7,10 +7,6 @@ export function useOverviewAccess() {
 
   return useMemo(() => {
     return {
-      canReceiveStockNotifications: hasPermission(
-        grantedPermissions,
-        'erp.stock.notifications.get',
-      ),
       canViewOrders: hasPermission(grantedPermissions, 'erp.orders.view'),
       canViewLiveTracking: hasPermission(
         grantedPermissions,

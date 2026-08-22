@@ -80,9 +80,7 @@ export function OverviewPageContent() {
         />
       </div>
 
-      <OverviewNotificationsRow
-        canReceiveStockNotifications={access.canReceiveStockNotifications}
-      />
+      <OverviewNotificationsRow />
 
       <div
         className={cn(

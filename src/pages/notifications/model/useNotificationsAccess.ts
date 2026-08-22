@@ -11,10 +11,6 @@ export function useNotificationsAccess() {
         grantedPermissions,
         'auth.notifications.send',
       ),
-      canReceiveStockNotifications: hasPermission(
-        grantedPermissions,
-        'erp.stock.notifications.get',
-      ),
     };
   }, [grantedPermissions]);
 }
