@@ -4,6 +4,7 @@ export {
   createOrder,
   getOrders,
   updateOrder,
+  downloadOrderInvoice,
 } from './api';
 
 export type {

@@ -3,7 +3,19 @@
     "pageTitle": "تفاصيل الطلب",
     "header": {
       "recordLabel": "طلب شراء",
-      "pharmacyContext": "مُعدّ لصيدلية {{pharmacy}}"
+      "pharmacyContext": "مُعدّ لصيدلية {{pharmacy}}",
+      "actions": "الإجراءات",
+      "order": "الطلب",
+      "invoice": "الفاتورة",
+      "printInvoice": "طباعة الفاتورة",
+      "preparingInvoice": "جارٍ تجهيز الفاتورة…",
+      "printWindowBlocked": "يرجى السماح بالنوافذ المنبثقة لطباعة الفاتورة",
+      "invoicePrintError": "تعذرت طباعة الفاتورة",
+      "downloadInvoice": "تنزيل الفاتورة",
+      "downloadingInvoice": "جارٍ تنزيل الفاتورة…",
+      "invoiceDownloadSuccess": "تم تنزيل الفاتورة بنجاح",
+      "invoiceDownloadError": "تعذر تنزيل الفاتورة",
+      "noOrderActions": "لا توجد إجراءات متاحة لهذا الطلب"
     },
     "summary": {
       "ariaLabel": "ملخص الطلب",

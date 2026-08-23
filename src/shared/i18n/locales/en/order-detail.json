@@ -3,7 +3,19 @@
     "pageTitle": "Order details",
     "header": {
       "recordLabel": "Purchase order",
-      "pharmacyContext": "Prepared for {{pharmacy}}"
+      "pharmacyContext": "Prepared for {{pharmacy}}",
+      "actions": "Actions",
+      "order": "Order",
+      "invoice": "Invoice",
+      "printInvoice": "Print invoice",
+      "preparingInvoice": "Preparing invoice…",
+      "printWindowBlocked": "Allow pop-ups to print the invoice",
+      "invoicePrintError": "Could not print the invoice",
+      "downloadInvoice": "Download invoice",
+      "downloadingInvoice": "Downloading invoice…",
+      "invoiceDownloadSuccess": "Invoice downloaded successfully",
+      "invoiceDownloadError": "Could not download the invoice",
+      "noOrderActions": "No order actions are available"
     },
     "summary": {
       "ariaLabel": "Order summary",

@@ -46,3 +46,17 @@ export async function getInfiniteOrders(page_number: string, name?: string) {
 
   return unwrapPaginatedApiResponse(response);
 }
+
+export async function downloadOrderInvoice(orderId: number): Promise<Blob> {
+  const response = await apiClient.get<Blob>(`/erp/v1/orders/${orderId}/pdf`, {
+    responseType: 'blob',
+  });
+
+  const blob = response as unknown as Blob;
+
+  if (!(blob instanceof Blob)) {
+    throw new TypeError('The invoice response is not a valid file.');
+  }
+
+  return blob;
+}

@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Package } from 'lucide-react';
 
-import { CancelOrder } from '@/features/order-cancel';
-import { ChangeOrderStatus } from '@/features/order-change-status';
 import { OrderStatusBadge, type OrderDetail } from '@/entities/order';
+import { OrderActions } from './OrderActions';
 
 type Props = {
   order: OrderDetail;
@@ -19,13 +18,6 @@ export function OrderDetailHeader({
   const { t } = useTranslation('order-detail', { keyPrefix: 'detail.header' });
 
   const orderCode = `ORD-${String(order.id).padStart(6, '0')}`;
-
-  const isTerminalStatus =
-    order.status === 'completed' || order.status === 'cancelled';
-
-  const canChangeOrderStatus = canChangeStatus && !isTerminalStatus;
-  const canCancelOrder = canCancel && !isTerminalStatus;
-  const hasAvailableAction = canChangeOrderStatus || canCancelOrder;
 
   return (
     <header className="bg-card relative overflow-hidden rounded-2xl border p-5 shadow-sm sm:p-6">
@@ -61,15 +53,13 @@ export function OrderDetailHeader({
           </div>
         </div>
 
-        {hasAvailableAction ? (
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-            {canChangeOrderStatus ? <ChangeOrderStatus order={order} /> : null}
-
-            {canCancelOrder ? (
-              <CancelOrder orderId={order.id} currentStatus={order.status} />
-            ) : null}
-          </div>
-        ) : null}
+        <OrderActions
+          canCancel={canCancel}
+          canChangeStatus={canChangeStatus}
+          order={order}
+          orderCode={orderCode}
+          t={t}
+        />
       </div>
     </header>
   );
