@@ -1,7 +1,7 @@
 export { cn, getNextPageParam } from './utils';
 
 export { getLocalized } from './getLocalized';
-export type { Localized, SupportedLocales } from './getLocalized';
+export type { Localized } from './getLocalized';
 export { formatDate } from './formatDate';
 export { formatTime, formatTime12h } from './formatTime';
 export { formatPrice } from './formatPrice';
@@ -19,7 +19,6 @@ export { useIsMobile } from './hooks/useMobile';
 export { useFilters } from './hooks/useFilters';
 export { useDebounce } from './hooks/useDebounce';
 export {
-  DEFAULT_PER_PAGE,
   PER_PAGE_OPTIONS,
   usePerPage,
   type PerPageOption,
@@ -33,7 +32,6 @@ export { useIsClamped } from './hooks/useIsClamped';
 export {
   ErrorBoundary,
   type ErrorBoundaryFallbackProps,
-  type ErrorBoundaryProps,
 } from './ErrorBoundary';
 export { getBackoffDelay } from './getBackoffDelay';
 

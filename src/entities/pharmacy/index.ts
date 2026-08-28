@@ -1,9 +1,4 @@
-export {
-  editPharmacy,
-  createPharmacy,
-  createPharmacyNote,
-  getInfinitePharmacies,
-} from './api/index';
+export { editPharmacy, createPharmacy, createPharmacyNote } from './api/index';
 
 export { getWeekDays } from './lib/utils';
 

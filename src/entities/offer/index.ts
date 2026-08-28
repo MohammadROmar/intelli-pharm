@@ -4,8 +4,6 @@ export type {
   EditOfferDto,
   OfferResponse,
   Offer,
-  GiftsOffer,
-  PercentageOffer,
   CreateOfferDto,
   CreateGiftsOfferDto,
   CreatePercentageOfferDto,

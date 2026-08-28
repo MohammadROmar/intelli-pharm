@@ -1,4 +1,4 @@
-export { getLaboratories, createLaboratory, editLaboratory } from './api';
+export { createLaboratory, editLaboratory } from './api';
 
 export type {
   Laboratory,

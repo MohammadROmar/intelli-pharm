@@ -1,4 +1,4 @@
-export { editCategory, createCategory, getInfiniteCategories } from './api';
+export { editCategory, createCategory } from './api';
 
 export type {
   CategoryDto,

@@ -3,4 +3,4 @@ export {
   getConnectionState,
   subscribeConnectionState,
 } from './model/connectionStore';
-export type { ConnectionState, ChannelAuthResponse } from './model/types';
+export type { ConnectionState } from './model/types';

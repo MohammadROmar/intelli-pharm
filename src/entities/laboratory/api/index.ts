@@ -4,14 +4,6 @@ import type {
 } from '../model/laboratoryTypes';
 import { apiClient, ApiError, statusToI18nKey } from '@/shared/api';
 
-export async function getLaboratories(
-  params: Record<string, string | number | null | undefined>,
-) {
-  return apiClient.get<LaboratoriesResponse>('/erp/v1/laboratories', {
-    params,
-  });
-}
-
 export async function editLaboratory({
   id,
   name,

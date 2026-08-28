@@ -31,8 +31,6 @@ export const ROLE_ACCENT: Partial<Record<EmployeeRole, string>> = {
 
 export const DEFAULT_ROLE_ACCENT = '#059669';
 
-export const TASK_BADGE_COLOR = '#16a34a';
-
 const MARKER_SIZE = 36;
 
 export type MarkerIconKey = {

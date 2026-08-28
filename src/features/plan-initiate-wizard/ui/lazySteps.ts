@@ -9,5 +9,4 @@ const loadConfigStep = () =>
 export const LazyLocationStep = lazy(loadLocationStep);
 export const LazyConfigStep = lazy(loadConfigStep);
 
-export const preloadLocationStep = loadLocationStep;
 export const preloadConfigStep = loadConfigStep;

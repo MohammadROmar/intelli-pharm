@@ -1,7 +1,6 @@
 import type { TFunction } from 'i18next';
 
 import type {
-  PaymentStatus,
   DeliveryStatus,
   ChangeDeliveryStatusValues,
   ChangeDeliveryStatusPayload,
@@ -17,15 +16,6 @@ export function DELIVERY_TRANSITIONS(t: TFunction) {
 
   return statuses.map((status) => ({
     label: t(`status.${status}`),
-    value: status,
-  }));
-}
-
-export function PAYMENT_TRANSITIONS(t: TFunction) {
-  const statuses: PaymentStatus[] = ['pending', 'partial', 'paid'];
-
-  return statuses.map((status) => ({
-    label: t(`paymentStatus.${status}`),
     value: status,
   }));
 }

@@ -12,7 +12,6 @@ export { hasPermission } from './lib/hasPermission';
 export {
   logout,
   setLoading,
-  sessionSlice,
   setCredentials,
   setUnreadNotifications,
   incrementUnreadNotifications,

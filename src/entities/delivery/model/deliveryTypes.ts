@@ -6,8 +6,6 @@ export type DeliveryStatus =
   | 'completed'
   | 'cancelled';
 
-export type PaymentStatus = 'pending' | 'paid' | 'partial';
-
 export type DeliveryConfirmation = {
   id: number;
   delivery_id: number;

@@ -2,15 +2,12 @@ export {
   cancelOrder,
   changeOrderStatus,
   createOrder,
-  getOrders,
   updateOrder,
   downloadOrderInvoice,
 } from './api';
 
 export type {
   OrderItem,
-  OrderMutationItem,
-  OrderRequestItem,
   CreateOrderPayload,
   UpdateOrderPayload,
   OrderMutationResult,

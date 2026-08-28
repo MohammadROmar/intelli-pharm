@@ -6,13 +6,9 @@ export {
   Skeleton,
   FormSkeleton,
   TableSkeleton,
-  CardsSkeleton,
   DetailSkeleton,
   MetricsSkeleton,
-  DetailRowSkeleton,
   PaginationSkeleton,
-  DetailCellSkeleton,
-  DetailTableSkeleton,
   DetailHeaderSkeleton,
   InitiatePlanPageSkeleton,
 } from './skeleton';

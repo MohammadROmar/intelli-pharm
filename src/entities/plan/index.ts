@@ -1,8 +1,4 @@
-export {
-  initiateRepPlan,
-  initiateDeliveryPlan,
-  getPlanGenerationRequest,
-} from './api/planApi';
+export { initiateRepPlan, initiateDeliveryPlan } from './api/planApi';
 export { awaitPlanGeneration } from './api/awaitPlanGeneration';
 
 export { ROUTE_COLORS } from './config/colors';
@@ -14,18 +10,9 @@ export type {
   PlanReason,
   PlanSummary,
   PlanFilters,
-  PlanPharmacy,
-  PlanListParams,
   PlanListApiResponse,
-  PlanProfile,
-  PlanTravelMode,
-  PlanGenerationKind,
   PlanGenerationStatus,
   PlanGenerationRequest,
-  PlanReadyEventPayload,
-  PlanFailedEventPayload,
-  InitiateRepPlanPayload,
-  InitiateDeliveryPlanPayload,
 } from './model/types';
 export {
   PlanGenerationFailedError,

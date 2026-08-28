@@ -4,8 +4,6 @@ export type {
   RoleFilters,
   RoleItem,
   RolesListResponse,
-  CreateRolePayload,
-  EditRolePayload,
 } from './model/roleTypes';
 export { useCreateRole } from './model/useCreateRole';
 export { useEditRole } from './model/useEditRole';

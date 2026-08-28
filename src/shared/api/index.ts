@@ -8,7 +8,6 @@ export {
 export type {
   ApiResponse,
   RequestConfig,
-  PaginatedResult,
   PaginatedResponse,
 } from './apiClient';
 export { queryClient } from './queryClient';

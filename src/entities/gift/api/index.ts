@@ -8,7 +8,3 @@ export async function createGift(payload: GiftPayload) {
 export async function editGift(id: number, payload: GiftPayload) {
   return apiClient.put(`/erp/v1/gifts/${id}`, payload);
 }
-
-export async function deleteGift(id: number) {
-  return apiClient.delete(`/erp/v1/gifts/${id}`);
-}

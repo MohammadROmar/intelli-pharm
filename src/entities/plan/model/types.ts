@@ -19,13 +19,6 @@ export type PlanSummary = {
 
 export type PlanListApiResponse = PaginatedResponse<PlanSummary>;
 
-export type PlanListParams = {
-  page?: number;
-  per_page?: number;
-  reason?: PlanReason;
-  search?: string;
-};
-
 export type PlanPharmacy = {
   id: number;
   name: string;

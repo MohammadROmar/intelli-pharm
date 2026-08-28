@@ -1,4 +1,4 @@
-export { getEmployees, createEmployee, editEmployee } from './api';
+export { createEmployee, editEmployee } from './api';
 
 export type {
   Employee,

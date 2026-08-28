@@ -40,22 +40,20 @@ function scheduleObjectUrlRevocation(
   frameWindow: Window,
 ): () => void {
   let revoked = false;
-  let timeoutId: number | undefined;
 
   function revoke() {
     if (revoked) return;
 
     revoked = true;
 
-    if (timeoutId !== undefined) {
-      window.clearTimeout(timeoutId);
-    }
+    window.clearTimeout(timeoutId);
 
     frameWindow.removeEventListener('afterprint', revoke);
     URL.revokeObjectURL(invoiceUrl);
   }
 
-  timeoutId = window.setTimeout(revoke, OBJECT_URL_FALLBACK_TIMEOUT_MS);
+  const timeoutId = window.setTimeout(revoke, OBJECT_URL_FALLBACK_TIMEOUT_MS);
+
   frameWindow.addEventListener('afterprint', revoke, { once: true });
 
   return revoke;

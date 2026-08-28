@@ -2,10 +2,7 @@ export { editTarget, getTargetAchievemnets } from './api';
 
 export type {
   Target,
-  TargetType,
-  TypeFilters,
   TargetFilters,
-  BooleanFilter,
   EditTargetDto,
   TargetResponse,
   TargetAchievement,

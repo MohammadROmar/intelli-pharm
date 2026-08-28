@@ -1,6 +1,5 @@
-export { createCity, editCity, getInfiniteCities } from './api';
+export { createCity, editCity } from './api';
 
-export { useInfiniteCities } from './model/useInfiniteCities';
 export type { CitiesResponse, City, CityDetail } from './model/cityTypes';
 
 export { CityForm } from './ui/CityForm';

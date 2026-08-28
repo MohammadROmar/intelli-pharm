@@ -27,14 +27,6 @@ export function normalizeNotificationDate(value: unknown): string | undefined {
   ].join('-');
 }
 
-export function formatNotificationDateForApi(date: string): string {
-  const normalizedDate = normalizeNotificationDate(date);
-  if (!normalizedDate) return date;
-
-  const [year, month, day] = normalizedDate.split('-');
-  return `${year}-${Number(month)}-${Number(day)}`;
-}
-
 export function hasInvalidNotificationDateRange(
   fromDate?: string,
   toDate?: string,

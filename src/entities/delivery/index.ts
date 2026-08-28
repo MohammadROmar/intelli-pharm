@@ -2,7 +2,6 @@ export { assignDeliveryTask, changeDelieryStatus } from './api';
 
 export type {
   DeliveryOrder,
-  PaymentStatus,
   DeliveryStatus,
   DeliveryDetail,
   DeliveryListItem,
