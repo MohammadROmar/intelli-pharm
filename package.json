@@ -5,7 +5,7 @@
   "type": "module",
   "sideEffects": [
     "*.css",
-    "./src/shared/config/i18n.ts"
+    "./src/shared/i18n/index.ts"
   ],
   "scripts": {
     "dev": "vite",
