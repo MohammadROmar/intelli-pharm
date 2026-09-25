@@ -241,7 +241,7 @@ export function SectionErrorFallback({
 
   return (
     <div
-      className="flex w-full flex-col items-center justify-center py-12 text-center"
+      className="flex h-full w-full flex-col items-center justify-center py-12 text-center"
       dir={config.dir}
     >
       <div

@@ -1,10 +1,10 @@
-import { useCallback, useId } from 'react';
+import { Suspense, useCallback, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDirection } from '@radix-ui/react-direction';
 import { ArrowLeft, Search, SquarePen, X } from 'lucide-react';
 
-import { cn } from '@/shared/lib';
-import { Input } from '@/shared/ui';
+import { cn, ErrorBoundary } from '@/shared/lib';
+import { Input, SectionErrorFallback } from '@/shared/ui';
 import {
   Sidebar,
   SidebarContent,
@@ -19,7 +19,7 @@ import {
   useSidebarState,
 } from '@/widgets/sidebar';
 
-import { ChatHistoryContent } from './ChatHistoryContent';
+import { ChatHistoryContent, HistorySkeleton } from './ChatHistoryContent';
 import { ChatSidebarBrand } from './ChatSidebarBrand';
 import { useChatHistorySearch } from '../model/useChatHistorySearch';
 import type { ChatHistorySidebarProps } from '../model/chatHistoryTypes';
@@ -133,19 +133,23 @@ function ChatHistorySidebarBody({
       </SidebarHeader>
 
       <SidebarContent className="thin-scrollbar">
-        <ChatHistoryContent
-          conversations={conversations}
-          groups={groups}
-          activeConversationId={activeConversationId}
-          isLoading={isLoading}
-          isError={isError}
-          isRetrying={isRetrying}
-          isSearchPending={isSearchPending}
-          isChatBusy={isChatBusy}
-          onRetry={onRetry}
-          onSelectConversation={handleSelectConversation}
-          onConversationDeleted={onConversationDeleted}
-        />
+        <ErrorBoundary FallbackComponent={SectionErrorFallback}>
+          <Suspense fallback={<HistorySkeleton />}>
+            <ChatHistoryContent
+              conversations={conversations}
+              groups={groups}
+              activeConversationId={activeConversationId}
+              isLoading={isLoading}
+              isError={isError}
+              isRetrying={isRetrying}
+              isSearchPending={isSearchPending}
+              isChatBusy={isChatBusy}
+              onRetry={onRetry}
+              onSelectConversation={handleSelectConversation}
+              onConversationDeleted={onConversationDeleted}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </SidebarContent>
 
       <SidebarFooter>

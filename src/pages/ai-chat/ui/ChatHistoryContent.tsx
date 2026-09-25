@@ -28,7 +28,7 @@ import type { HistoryContentProps } from '../model/chatHistoryTypes';
 
 const HISTORY_SKELETON_ITEMS = [0, 1, 2, 3, 4, 5] as const;
 
-function HistorySkeleton() {
+export function HistorySkeleton() {
   const { t } = useTranslation('chat');
   const { state } = useSidebarState();
   const isCollapsed = state === 'collapsed';
