@@ -54,14 +54,14 @@ export function DeliveryDetailHeader({ delivery, canUpdate }: Props) {
             </div>
           </div>
 
-          <ChangeDeliveryStatus delivery={delivery} canUpdate={canUpdate} />
+          {canUpdate && <ChangeDeliveryStatus delivery={delivery} />}
         </div>
       </header>
     </>
   );
 }
 
-function ChangeDeliveryStatus({ delivery }: Props) {
+function ChangeDeliveryStatus({ delivery }: Omit<Props, 'canUpdate'>) {
   const [searchParams] = useSearchParams();
   const [formKey, setFormKey] = useState(0);
   const [open, setOpen] = useState(
