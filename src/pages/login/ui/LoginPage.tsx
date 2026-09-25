@@ -14,6 +14,8 @@ import {
   CardTitle,
 } from '@/shared/ui';
 
+import { DemoCredentialsCard } from './DemoCredentialsCard';
+
 export default function LoginPage() {
   const { t } = useTranslation('login');
 
@@ -29,7 +31,11 @@ export default function LoginPage() {
           <h1 className="text-xl font-bold">IntelliPharma</h1>
         </div>
 
-        <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-[both] flex flex-col gap-6 duration-700 [animation-delay:100ms] motion-reduce:animate-none">
+        <div className="animate-in fade-in slide-in-from-bottom-4 fill-mode-[both] duration-700 [animation-delay:100ms] motion-reduce:animate-none">
+          <DemoCredentialsCard />
+        </div>
+
+        <div className="animate-in fade-in slide-in-from-bottom-5 fill-mode-[both] flex flex-col gap-6 duration-700 [animation-delay:200ms] motion-reduce:animate-none">
           <Card>
             <CardHeader>
               <CardTitle>{t('title')}</CardTitle>

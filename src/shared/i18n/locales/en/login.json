@@ -11,5 +11,13 @@
       "minLength": "Must be at least {{min}} characters."
     },
     "submit": "Login"
+  },
+
+  "demoCredentials": {
+    "subtitle": "This is a view-only account - explore freely.",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "copy": "Copy",
+    "copied": "Copied"
   }
 }
