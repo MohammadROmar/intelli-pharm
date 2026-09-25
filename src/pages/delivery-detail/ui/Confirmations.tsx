@@ -155,6 +155,7 @@ function DeliveryProof({
         alt={t('proofAlt', { receiver: confirmation.receiver_name })}
         className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none"
         loading="lazy"
+        decoding="async"
       />
       <span className="bg-background/90 absolute inset-x-2 bottom-2 flex min-h-10 items-center justify-center gap-2 rounded-lg border px-3 text-xs font-semibold shadow-sm backdrop-blur-sm">
         <ExternalLink className="size-3.5" aria-hidden="true" />

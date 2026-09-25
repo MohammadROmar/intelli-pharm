@@ -24,6 +24,8 @@ export function MedicineImageGallery({ images }: Props) {
               key={activeIndex}
               src={images![activeIndex]}
               alt={`${t('imageAlt')} ${activeIndex + 1}`}
+              loading="lazy"
+              decoding="async"
               className="h-full w-full object-cover transition-opacity duration-200"
             />
           </>
@@ -53,6 +55,8 @@ export function MedicineImageGallery({ images }: Props) {
                 src={src}
                 alt={`${t('thumbnail')} ${i + 1}`}
                 className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             </button>
           ))}
